@@ -68,17 +68,17 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["workspace": workspace])
-                encoder.encode(["since": since])
-                encoder.encode(["until": until])
-                encoder.encode(["createdBy": createdBy])
-                encoder.encode(["updatedBy": updatedBy])
-                encoder.encode(["isPublic": isPublic])
-                encoder.encode(["name": name])
-                encoder.encode(["summary": summary])
-                encoder.encode(["description": description])
-                encoder.encode(["sort": sort])
-                encoder.encode(["direction": direction])
+                encoder.encode(workspace, forKey: "workspace")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(until, forKey: "until")
+                encoder.encode(createdBy, forKey: "createdBy")
+                encoder.encode(updatedBy, forKey: "updatedBy")
+                encoder.encode(isPublic, forKey: "isPublic")
+                encoder.encode(name, forKey: "name")
+                encoder.encode(summary, forKey: "summary")
+                encoder.encode(description, forKey: "description")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(direction, forKey: "direction")
                 return encoder.items
             }
         }
@@ -133,7 +133,7 @@ extension Paths {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
+            encoder.encode(workspace, forKey: "workspace")
             return encoder.items
         }
 
@@ -1730,7 +1730,7 @@ extension Paths.APIs.WithAPIID.Versions.WithAPIVersionID.Schemas.WithSchemaID {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
+            encoder.encode(workspace, forKey: "workspace")
             return encoder.items
         }
 
@@ -2084,7 +2084,7 @@ extension Paths.Collections.Fork {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
+            encoder.encode(workspace, forKey: "workspace")
             return encoder.items
         }
     }
@@ -4748,9 +4748,9 @@ extension Paths.Scim.V2 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startIndex": startIndex])
-                encoder.encode(["count": count])
-                encoder.encode(["filter": filter])
+                encoder.encode(startIndex, forKey: "startIndex")
+                encoder.encode(count, forKey: "count")
+                encoder.encode(filter, forKey: "filter")
                 return encoder.items
             }
         }
@@ -5229,7 +5229,7 @@ extension Paths {
 
         private func makePostQuery(_ workspace: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
+            encoder.encode(workspace, forKey: "workspace")
             return encoder.items
         }
 

@@ -61,7 +61,7 @@ extension Paths {
 
         private func makeGetQuery(_ list: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["list": list])
+            encoder.encode(list, forKey: "list")
             return encoder.items
         }
 
@@ -103,7 +103,7 @@ extension Paths {
 
         private func makeGetQuery(_ list: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["list": list])
+            encoder.encode(list, forKey: "list")
             return encoder.items
         }
     }

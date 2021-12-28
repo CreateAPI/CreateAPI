@@ -616,12 +616,12 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["portfolio": portfolio])
-                encoder.encode(["project": project])
-                encoder.encode(["is_workspace_level": isWorkspaceLevel])
-                encoder.encode(["team": team])
-                encoder.encode(["workspace": workspace])
-                encoder.encode(["time_periods": timePeriods])
+                encoder.encode(portfolio, forKey: "portfolio")
+                encoder.encode(project, forKey: "project")
+                encoder.encode(isWorkspaceLevel, forKey: "is_workspace_level")
+                encoder.encode(team, forKey: "team")
+                encoder.encode(workspace, forKey: "workspace")
+                encoder.encode(timePeriods, forKey: "time_periods")
                 return encoder.items
             }
         }
@@ -1150,10 +1150,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["workspace": workspace])
-                encoder.encode(["owner": owner])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(workspace, forKey: "workspace")
+                encoder.encode(owner, forKey: "owner")
                 return encoder.items
             }
         }
@@ -1594,10 +1594,10 @@ extension Paths.Projects.WithProjectGid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["opt_pretty": isOptPretty])
-                encoder.encode(["opt_fields": optFields], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
+                encoder.encode(isOptPretty, forKey: "opt_pretty")
+                encoder.encode(optFields, forKey: "opt_fields", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
                 return encoder.items
             }
         }
@@ -1662,11 +1662,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["workspace": workspace])
-                encoder.encode(["team": team])
-                encoder.encode(["archived": isArchived])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(workspace, forKey: "workspace")
+                encoder.encode(team, forKey: "team")
+                encoder.encode(isArchived, forKey: "archived")
                 return encoder.items
             }
         }
@@ -1855,9 +1855,9 @@ extension Paths.Teams.WithTeamGid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["archived": isArchived])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isArchived, forKey: "archived")
                 return encoder.items
             }
         }
@@ -1919,9 +1919,9 @@ extension Paths.Workspaces.WithWorkspaceGid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["archived": isArchived])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isArchived, forKey: "archived")
                 return encoder.items
             }
         }
@@ -2254,8 +2254,8 @@ extension Paths.Projects.WithProjectGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
 
@@ -2377,8 +2377,8 @@ extension Paths.Stories {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
 
@@ -2443,8 +2443,8 @@ extension Paths.Tasks.WithTaskGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
 
@@ -2506,9 +2506,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["workspace": workspace])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(workspace, forKey: "workspace")
                 return encoder.items
             }
         }
@@ -2656,8 +2656,8 @@ extension Paths.Workspaces.WithWorkspaceGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
 
@@ -2735,14 +2735,14 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["assignee": assignee])
-                encoder.encode(["project": project])
-                encoder.encode(["section": section])
-                encoder.encode(["workspace": workspace])
-                encoder.encode(["completed_since": completedSince])
-                encoder.encode(["modified_since": modifiedSince])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(assignee, forKey: "assignee")
+                encoder.encode(project, forKey: "project")
+                encoder.encode(section, forKey: "section")
+                encoder.encode(workspace, forKey: "workspace")
+                encoder.encode(completedSince, forKey: "completed_since")
+                encoder.encode(modifiedSince, forKey: "modified_since")
                 return encoder.items
             }
         }
@@ -3009,8 +3009,8 @@ extension Paths.Tasks.WithTaskGid {
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
 
@@ -3525,9 +3525,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["team": team])
-                encoder.encode(["user": user])
-                encoder.encode(["workspace": workspace])
+                encoder.encode(team, forKey: "team")
+                encoder.encode(user, forKey: "user")
+                encoder.encode(workspace, forKey: "workspace")
                 return encoder.items
             }
         }
@@ -3573,7 +3573,7 @@ extension Paths.Users.WithUserGid {
         ///
         /// Returns the compact team membership records for the user.
         public func get(workspace: String) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(workspace))
+            .get(path, query: [("workspace", workspace)])
         }
 
         public struct GetResponse: Decodable {
@@ -3582,12 +3582,6 @@ extension Paths.Users.WithUserGid {
             public init(data: [AsanaAPI.TeamMembershipCompact]? = nil) {
                 self.data = data
             }
-        }
-
-        private func makeGetQuery(_ workspace: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
-            return encoder.items
         }
     }
 }
@@ -3836,9 +3830,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["start_on": startOn])
-                encoder.encode(["end_on": endOn])
-                encoder.encode(["workspace": workspace])
+                encoder.encode(startOn, forKey: "start_on")
+                encoder.encode(endOn, forKey: "end_on")
+                encoder.encode(workspace, forKey: "workspace")
                 return encoder.items
             }
         }
@@ -4129,10 +4123,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["workspace": workspace])
-                encoder.encode(["resource": resource])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(workspace, forKey: "workspace")
+                encoder.encode(resource, forKey: "resource")
                 return encoder.items
             }
         }

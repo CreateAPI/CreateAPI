@@ -397,20 +397,26 @@ extension Generator {
                         containsParameterNamedPath = true
                     }
                 }
-                let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
-                let initName = "make\(makeNestedTypeName("Query"))"
-                let initalizer = "\(initName)(\(initArgs))"
-                call.append("query: \(initalizer)")
-                nested.append(AnyDeclaration(name: TypeName(initName), rawValue: templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations)))
-                nested += query.compactMap { $0.nested }
+                if query.count < 3, query.allSatisfy({ $0.type.isString && !$0.isOptional }) {
+                    let pairs = query.map { "(\"\($0.key)\", \($0.name))" }
+                    call.append("query: [\(pairs.joined(separator: ", "))]")
+                } else {
+                    let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
+                    let initName = "make\(makeNestedTypeName("Query"))"
+                    let initalizer = "\(initName)(\(initArgs))"
+                    call.append("query: \(initalizer)")
+                    nested.append(AnyDeclaration(name: TypeName(initName), rawValue: templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations)))
+                    nested += query.compactMap { $0.nested }
+                    setNeedsQuery()
+                }
             } else {
                 let isOptional = query.allSatisfy { $0.isOptional }
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
                 call.append("query: parameters\(isOptional ? "?" : "").asQuery")
                 // TODO: Use EntityDeclaration
                 nested.append(AnyDeclaration(name: type, rawValue: templates.entity(name: type, contents: contents, protocols: [])))
+                setNeedsQuery()
             }
-            setNeedsQuery()
         }
         
         // Request body
@@ -449,7 +455,11 @@ extension Generator {
                 } else {
                     parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
                     if let entity = (requestBody.nested as? EntityDeclaration), entity.isForm {
-                        call.append("body: body\(requestBody.isOptional ? "?" : "").asQuery.asPercentEncodedQuery")
+                        if requestBody.isOptional {
+                            call.append("body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery")
+                        } else {
+                            call.append("body: URLQueryEncoder.encode(body).percentEncodedQuery")
+                        }
                     } else {
                         call.append("body: body")
                     }
@@ -497,7 +507,6 @@ extension Generator {
             guard let property = try _makeQueryParameter(for: input, context: context) else {
                 return nil
             }
-            setNeedsQuery()
             return property
         } catch {
             if arguments.isStrict {
@@ -585,6 +594,13 @@ extension Generator {
             case .reference(let ref, _):
                 guard let name = ref.name.map(makeTypeName) else {
                     throw GeneratorError("Missing or invalid reference name")
+                }
+                // TODO: Refactor
+                var context = context
+                context.isInlinableTypeCheck = true
+                let decl = try _makeDeclaration(name: name, schema: schema, context: context)
+                if let alias = decl as? TypealiasDeclaration, alias.nested == nil {
+                    return QueryItemType(type: alias.type)
                 }
                 return QueryItemType(type: .userDefined(name: name))
             case .fragment:

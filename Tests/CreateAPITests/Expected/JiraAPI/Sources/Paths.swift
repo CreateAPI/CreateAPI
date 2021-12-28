@@ -71,7 +71,7 @@ extension Paths.API.__3.App.Field {
 
         private func makePostQuery(_ isGenerateChangelog: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["generateChangelog": isGenerateChangelog])
+            encoder.encode(isGenerateChangelog, forKey: "generateChangelog")
             return encoder.items
         }
     }
@@ -149,14 +149,14 @@ extension Paths.API.__3.App.Field.WithFieldIDOrKey.Context {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["id": id])
-                encoder.encode(["contextId": contextID])
-                encoder.encode(["fieldContextId": fieldContextID])
-                encoder.encode(["issueId": issueID])
-                encoder.encode(["projectKeyOrId": projectKeyOrID])
-                encoder.encode(["issueTypeId": issueTypeID])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(id, forKey: "id")
+                encoder.encode(contextID, forKey: "contextId")
+                encoder.encode(fieldContextID, forKey: "fieldContextId")
+                encoder.encode(issueID, forKey: "issueId")
+                encoder.encode(projectKeyOrID, forKey: "projectKeyOrId")
+                encoder.encode(issueTypeID, forKey: "issueTypeId")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -192,7 +192,7 @@ extension Paths.API.__3.App.Field.WithFieldIDOrKey {
 
         private func makePutQuery(_ isGenerateChangelog: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["generateChangelog": isGenerateChangelog])
+            encoder.encode(isGenerateChangelog, forKey: "generateChangelog")
             return encoder.items
         }
     }
@@ -231,9 +231,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["key": key])
-                encoder.encode(["permissionLevel": permissionLevel])
-                encoder.encode(["keyFilter": keyFilter])
+                encoder.encode(key, forKey: "key")
+                encoder.encode(permissionLevel, forKey: "permissionLevel")
+                encoder.encode(keyFilter, forKey: "keyFilter")
                 return encoder.items
             }
         }
@@ -419,7 +419,7 @@ extension Paths.API.__3.Attachment.Content {
 
         private func makeGetQuery(_ isRedirect: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["redirect": isRedirect])
+            encoder.encode(isRedirect, forKey: "redirect")
             return encoder.items
         }
     }
@@ -500,10 +500,10 @@ extension Paths.API.__3.Attachment.Thumbnail {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["redirect": isRedirect])
-                encoder.encode(["fallbackToDefault": isFallbackToDefault])
-                encoder.encode(["width": width])
-                encoder.encode(["height": height])
+                encoder.encode(isRedirect, forKey: "redirect")
+                encoder.encode(isFallbackToDefault, forKey: "fallbackToDefault")
+                encoder.encode(width, forKey: "width")
+                encoder.encode(height, forKey: "height")
                 return encoder.items
             }
         }
@@ -676,11 +676,11 @@ extension Paths.API.__3.Auditing {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["offset": offset])
-                encoder.encode(["limit": limit])
-                encoder.encode(["filter": filter])
-                encoder.encode(["from": from])
-                encoder.encode(["to": to])
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(from, forKey: "from")
+                encoder.encode(to, forKey: "to")
                 return encoder.items
             }
         }
@@ -768,7 +768,7 @@ extension Paths.API.__3.Comment {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -933,7 +933,7 @@ extension Paths.API.__3.Component {
 
         private func makeDeleteQuery(_ moveIssuesTo: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["moveIssuesTo": moveIssuesTo])
+            encoder.encode(moveIssuesTo, forKey: "moveIssuesTo")
             return encoder.items
         }
     }
@@ -1137,9 +1137,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -1227,15 +1227,15 @@ extension Paths.API.__3.Dashboard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["dashboardName": dashboardName])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["owner": owner])
-                encoder.encode(["groupname": groupname])
-                encoder.encode(["projectId": projectID])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["expand": expand])
+                encoder.encode(dashboardName, forKey: "dashboardName")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(owner, forKey: "owner")
+                encoder.encode(groupname, forKey: "groupname")
+                encoder.encode(projectID, forKey: "projectId")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -1478,7 +1478,7 @@ extension Paths.API.__3.Expression {
 
         private func makePostQuery(_ check: Check?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["check": check])
+            encoder.encode(check, forKey: "check")
             return encoder.items
         }
 
@@ -1536,7 +1536,7 @@ extension Paths.API.__3.Expression {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -1644,13 +1644,13 @@ extension Paths.API.__3.Field {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["type": type])
-                encoder.encode(["id": id])
-                encoder.encode(["query": self.query])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(type, forKey: "type")
+                encoder.encode(id, forKey: "id")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -1717,11 +1717,11 @@ extension Paths.API.__3.Field.WithFieldID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["isAnyIssueType": isAnyIssueType])
-                encoder.encode(["isGlobalContext": isGlobalContext])
-                encoder.encode(["contextId": contextID])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(isAnyIssueType, forKey: "isAnyIssueType")
+                encoder.encode(isGlobalContext, forKey: "isGlobalContext")
+                encoder.encode(contextID, forKey: "contextId")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -1790,9 +1790,9 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contextId": contextID])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(contextID, forKey: "contextId")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -1860,9 +1860,9 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contextId": contextID])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(contextID, forKey: "contextId")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -1895,8 +1895,8 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
         private func makePostQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -1933,9 +1933,9 @@ extension Paths.API.__3.Field.WithFieldID.Context {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contextId": contextID])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(contextID, forKey: "contextId")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -2052,10 +2052,10 @@ extension Paths.API.__3.Field.WithFieldID.Context.WithContextID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["optionId": optionID])
-                encoder.encode(["onlyOptions": isOnlyOptions])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(optionID, forKey: "optionId")
+                encoder.encode(isOnlyOptions, forKey: "onlyOptions")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -2201,8 +2201,8 @@ extension Paths.API.__3.Field.WithFieldID {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -2239,9 +2239,9 @@ extension Paths.API.__3.Field.WithFieldID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -2281,8 +2281,8 @@ extension Paths.API.__3.Field.WithFieldKey {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
 
@@ -2343,9 +2343,9 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["projectId": projectID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(projectID, forKey: "projectId")
                 return encoder.items
             }
         }
@@ -2385,9 +2385,9 @@ extension Paths.API.__3.Field.WithFieldKey.Option.Suggestions {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["projectId": projectID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(projectID, forKey: "projectId")
                 return encoder.items
             }
         }
@@ -2477,10 +2477,10 @@ extension Paths.API.__3.Field.WithFieldKey.Option.WithOptionID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["replaceWith": replaceWith])
-                encoder.encode(["jql": jql])
-                encoder.encode(["overrideScreenSecurity": isOverrideScreenSecurity])
-                encoder.encode(["overrideEditableFlag": isOverrideEditableFlag])
+                encoder.encode(replaceWith, forKey: "replaceWith")
+                encoder.encode(jql, forKey: "jql")
+                encoder.encode(isOverrideScreenSecurity, forKey: "overrideScreenSecurity")
+                encoder.encode(isOverrideEditableFlag, forKey: "overrideEditableFlag")
                 return encoder.items
             }
         }
@@ -2590,11 +2590,11 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["id": id])
-                encoder.encode(["isDefault": isDefault])
-                encoder.encode(["query": self.query])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(id, forKey: "id")
+                encoder.encode(isDefault, forKey: "isDefault")
+                encoder.encode(self.query, forKey: "query")
                 return encoder.items
             }
         }
@@ -2667,8 +2667,8 @@ extension Paths.API.__3.Fieldconfiguration.WithID {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
 
@@ -2720,9 +2720,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["id": id])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(id, forKey: "id")
                 return encoder.items
             }
         }
@@ -2773,9 +2773,9 @@ extension Paths.API.__3.Fieldconfigurationscheme {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["fieldConfigurationSchemeId": fieldConfigurationSchemeID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(fieldConfigurationSchemeID, forKey: "fieldConfigurationSchemeId")
                 return encoder.items
             }
         }
@@ -2817,9 +2817,9 @@ extension Paths.API.__3.Fieldconfigurationscheme {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["projectId": projectID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(projectID, forKey: "projectId")
                 return encoder.items
             }
         }
@@ -2943,7 +2943,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -2958,7 +2958,7 @@ extension Paths.API.__3 {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -3023,7 +3023,7 @@ extension Paths.API.__3.Filter {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -3057,8 +3057,8 @@ extension Paths.API.__3.Filter {
 
         private func makeGetQuery(_ expand: String?, _ isIncludeFavourites: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
-            encoder.encode(["includeFavourites": isIncludeFavourites])
+            encoder.encode(expand, forKey: "expand")
+            encoder.encode(isIncludeFavourites, forKey: "includeFavourites")
             return encoder.items
         }
     }
@@ -3144,16 +3144,16 @@ extension Paths.API.__3.Filter {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filterName": filterName])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["owner": owner])
-                encoder.encode(["groupname": groupname])
-                encoder.encode(["projectId": projectID])
-                encoder.encode(["id": id])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["expand": expand])
+                encoder.encode(filterName, forKey: "filterName")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(owner, forKey: "owner")
+                encoder.encode(groupname, forKey: "groupname")
+                encoder.encode(projectID, forKey: "projectId")
+                encoder.encode(id, forKey: "id")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -3188,7 +3188,7 @@ extension Paths.API.__3.Filter {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -3203,7 +3203,7 @@ extension Paths.API.__3.Filter {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -3306,7 +3306,7 @@ extension Paths.API.__3.Filter.WithID {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -3321,7 +3321,7 @@ extension Paths.API.__3.Filter.WithID {
 
         private func makeDeleteQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -3426,8 +3426,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ groupname: String, _ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["groupname": groupname])
-            encoder.encode(["expand": expand])
+            encoder.encode(groupname, forKey: "groupname")
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -3451,8 +3451,8 @@ extension Paths.API.__3 {
 
         private func makeDeleteQuery(_ groupname: String, _ swapGroup: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["groupname": groupname])
-            encoder.encode(["swapGroup": swapGroup])
+            encoder.encode(groupname, forKey: "groupname")
+            encoder.encode(swapGroup, forKey: "swapGroup")
             return encoder.items
         }
     }
@@ -3492,10 +3492,10 @@ extension Paths.API.__3.Group {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["groupId": groupID])
-                encoder.encode(["groupName": groupName])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(groupID, forKey: "groupId")
+                encoder.encode(groupName, forKey: "groupName")
                 return encoder.items
             }
         }
@@ -3537,10 +3537,10 @@ extension Paths.API.__3.Group {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["groupname": groupname])
-                encoder.encode(["includeInactiveUsers": isIncludeInactiveUsers])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(groupname, forKey: "groupname")
+                encoder.encode(isIncludeInactiveUsers, forKey: "includeInactiveUsers")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -3562,13 +3562,7 @@ extension Paths.API.__3.Group {
         /// 
         /// **[Permissions](#permissions) required:** Site administration (that is, member of the *site-admin* [group](https://confluence.atlassian.com/x/24xjL)).
         public func post(groupname: String, _ body: JiraAPI.UpdateUserToGroupBean) -> Request<JiraAPI.Group> {
-            .post(path, query: makePostQuery(groupname), body: body)
-        }
-
-        private func makePostQuery(_ groupname: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["groupname": groupname])
-            return encoder.items
+            .post(path, query: [("groupname", groupname)], body: body)
         }
 
         /// Remove user from group
@@ -3594,9 +3588,9 @@ extension Paths.API.__3.Group {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["groupname": groupname])
-                encoder.encode(["username": username])
-                encoder.encode(["accountId": accountID])
+                encoder.encode(groupname, forKey: "groupname")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(accountID, forKey: "accountId")
                 return encoder.items
             }
         }
@@ -3656,11 +3650,11 @@ extension Paths.API.__3.Groups {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["query": self.query])
-                encoder.encode(["exclude": exclude])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["userName": userName])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(exclude, forKey: "exclude")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(userName, forKey: "userName")
                 return encoder.items
             }
         }
@@ -3754,15 +3748,15 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["showAvatar": isShowAvatar])
-                encoder.encode(["fieldId": fieldID])
-                encoder.encode(["projectId": projectID])
-                encoder.encode(["issueTypeId": issueTypeID])
-                encoder.encode(["avatarSize": avatarSize])
-                encoder.encode(["caseInsensitive": isCaseInsensitive])
-                encoder.encode(["excludeConnectAddons": excludeConnectAddons])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(isShowAvatar, forKey: "showAvatar")
+                encoder.encode(fieldID, forKey: "fieldId")
+                encoder.encode(projectID, forKey: "projectId")
+                encoder.encode(issueTypeID, forKey: "issueTypeId")
+                encoder.encode(avatarSize, forKey: "avatarSize")
+                encoder.encode(isCaseInsensitive, forKey: "caseInsensitive")
+                encoder.encode(excludeConnectAddons, forKey: "excludeConnectAddons")
                 return encoder.items
             }
         }
@@ -3829,7 +3823,7 @@ extension Paths.API.__3 {
 
         private func makePostQuery(_ isUpdateHistory: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["updateHistory": isUpdateHistory])
+            encoder.encode(isUpdateHistory, forKey: "updateHistory")
             return encoder.items
         }
     }
@@ -3901,11 +3895,11 @@ extension Paths.API.__3.Issue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["projectIds": projectIDs])
-                encoder.encode(["projectKeys": projectKeys])
-                encoder.encode(["issuetypeIds": issuetypeIDs])
-                encoder.encode(["issuetypeNames": issuetypeNames])
-                encoder.encode(["expand": expand])
+                encoder.encode(projectIDs, forKey: "projectIds")
+                encoder.encode(projectKeys, forKey: "projectKeys")
+                encoder.encode(issuetypeIDs, forKey: "issuetypeIds")
+                encoder.encode(issuetypeNames, forKey: "issuetypeNames")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -3957,12 +3951,12 @@ extension Paths.API.__3.Issue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["currentJQL": currentJQL])
-                encoder.encode(["currentIssueKey": currentIssueKey])
-                encoder.encode(["currentProjectId": currentProjectID])
-                encoder.encode(["showSubTasks": isShowSubTasks])
-                encoder.encode(["showSubTaskParent": isShowSubTaskParent])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(currentJQL, forKey: "currentJQL")
+                encoder.encode(currentIssueKey, forKey: "currentIssueKey")
+                encoder.encode(currentProjectID, forKey: "currentProjectId")
+                encoder.encode(isShowSubTasks, forKey: "showSubTasks")
+                encoder.encode(isShowSubTaskParent, forKey: "showSubTaskParent")
                 return encoder.items
             }
         }
@@ -4171,11 +4165,11 @@ extension Paths.API.__3.Issue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["fieldsByKeys": isFieldsByKeys])
-                encoder.encode(["expand": expand])
-                encoder.encode(["properties": properties])
-                encoder.encode(["updateHistory": isUpdateHistory])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(isFieldsByKeys, forKey: "fieldsByKeys")
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(properties, forKey: "properties")
+                encoder.encode(isUpdateHistory, forKey: "updateHistory")
                 return encoder.items
             }
         }
@@ -4213,9 +4207,9 @@ extension Paths.API.__3.Issue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["notifyUsers": isNotifyUsers])
-                encoder.encode(["overrideScreenSecurity": isOverrideScreenSecurity])
-                encoder.encode(["overrideEditableFlag": isOverrideEditableFlag])
+                encoder.encode(isNotifyUsers, forKey: "notifyUsers")
+                encoder.encode(isOverrideScreenSecurity, forKey: "overrideScreenSecurity")
+                encoder.encode(isOverrideEditableFlag, forKey: "overrideEditableFlag")
                 return encoder.items
             }
         }
@@ -4238,7 +4232,7 @@ extension Paths.API.__3.Issue {
 
         private func makeDeleteQuery(_ deleteSubtasks: DeleteSubtasks?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["deleteSubtasks": deleteSubtasks])
+            encoder.encode(deleteSubtasks, forKey: "deleteSubtasks")
             return encoder.items
         }
 
@@ -4470,8 +4464,8 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -4547,10 +4541,10 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -4571,7 +4565,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -4603,7 +4597,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Comment {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -4625,7 +4619,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Comment {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -4677,8 +4671,8 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeGetQuery(_ isOverrideScreenSecurity: Bool?, _ isOverrideEditableFlag: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["overrideScreenSecurity": isOverrideScreenSecurity])
-            encoder.encode(["overrideEditableFlag": isOverrideEditableFlag])
+            encoder.encode(isOverrideScreenSecurity, forKey: "overrideScreenSecurity")
+            encoder.encode(isOverrideEditableFlag, forKey: "overrideEditableFlag")
             return encoder.items
         }
     }
@@ -4814,7 +4808,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeGetQuery(_ globalID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["globalId": globalID])
+            encoder.encode(globalID, forKey: "globalId")
             return encoder.items
         }
 
@@ -4849,13 +4843,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
         ///  *  *Browse projects* and *Link issues* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project that the issue is in.
         ///  *  If [issue-level security](https://confluence.atlassian.com/x/J4lKLg) is implemented, issue-level security permission to view the issue.
         public func delete(globalID: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(globalID))
-        }
-
-        private func makeDeleteQuery(_ globalID: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["globalId": globalID])
-            return encoder.items
+            .delete(path, query: [("globalId", globalID)])
         }
     }
 }
@@ -4965,11 +4953,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["expand": expand])
-                encoder.encode(["transitionId": transitionID])
-                encoder.encode(["skipRemoteOnlyCondition": isSkipRemoteOnlyCondition])
-                encoder.encode(["includeUnavailableTransitions": isIncludeUnavailableTransitions])
-                encoder.encode(["sortByOpsBarAndStatus": isSortByOpsBarAndStatus])
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(transitionID, forKey: "transitionId")
+                encoder.encode(isSkipRemoteOnlyCondition, forKey: "skipRemoteOnlyCondition")
+                encoder.encode(isIncludeUnavailableTransitions, forKey: "includeUnavailableTransitions")
+                encoder.encode(isSortByOpsBarAndStatus, forKey: "sortByOpsBarAndStatus")
                 return encoder.items
             }
         }
@@ -5107,8 +5095,8 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
         private func makeDeleteQuery(_ username: String?, _ accountID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["username": username])
-            encoder.encode(["accountId": accountID])
+            encoder.encode(username, forKey: "username")
+            encoder.encode(accountID, forKey: "accountId")
             return encoder.items
         }
     }
@@ -5157,11 +5145,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["startedAfter": startedAfter])
-                encoder.encode(["startedBefore": startedBefore])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(startedAfter, forKey: "startedAfter")
+                encoder.encode(startedBefore, forKey: "startedBefore")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -5208,12 +5196,12 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["notifyUsers": isNotifyUsers])
-                encoder.encode(["adjustEstimate": adjustEstimate])
-                encoder.encode(["newEstimate": newEstimate])
-                encoder.encode(["reduceBy": reduceBy])
-                encoder.encode(["expand": expand])
-                encoder.encode(["overrideEditableFlag": isOverrideEditableFlag])
+                encoder.encode(isNotifyUsers, forKey: "notifyUsers")
+                encoder.encode(adjustEstimate, forKey: "adjustEstimate")
+                encoder.encode(newEstimate, forKey: "newEstimate")
+                encoder.encode(reduceBy, forKey: "reduceBy")
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(isOverrideEditableFlag, forKey: "overrideEditableFlag")
                 return encoder.items
             }
         }
@@ -5248,7 +5236,7 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -5294,11 +5282,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["notifyUsers": isNotifyUsers])
-                encoder.encode(["adjustEstimate": adjustEstimate])
-                encoder.encode(["newEstimate": newEstimate])
-                encoder.encode(["expand": expand])
-                encoder.encode(["overrideEditableFlag": isOverrideEditableFlag])
+                encoder.encode(isNotifyUsers, forKey: "notifyUsers")
+                encoder.encode(adjustEstimate, forKey: "adjustEstimate")
+                encoder.encode(newEstimate, forKey: "newEstimate")
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(isOverrideEditableFlag, forKey: "overrideEditableFlag")
                 return encoder.items
             }
         }
@@ -5345,11 +5333,11 @@ extension Paths.API.__3.Issue.WithIssueIDOrKey.Worklog {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["notifyUsers": isNotifyUsers])
-                encoder.encode(["adjustEstimate": adjustEstimate])
-                encoder.encode(["newEstimate": newEstimate])
-                encoder.encode(["increaseBy": increaseBy])
-                encoder.encode(["overrideEditableFlag": isOverrideEditableFlag])
+                encoder.encode(isNotifyUsers, forKey: "notifyUsers")
+                encoder.encode(adjustEstimate, forKey: "adjustEstimate")
+                encoder.encode(newEstimate, forKey: "newEstimate")
+                encoder.encode(increaseBy, forKey: "increaseBy")
+                encoder.encode(isOverrideEditableFlag, forKey: "overrideEditableFlag")
                 return encoder.items
             }
         }
@@ -5693,10 +5681,10 @@ extension Paths.API.__3.Issuesecurityschemes.WithIssueSecuritySchemeID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["issueSecurityLevelId": issueSecurityLevelID])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(issueSecurityLevelID, forKey: "issueSecurityLevelId")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -5759,8 +5747,8 @@ extension Paths.API.__3.Issuetype {
 
         private func makeGetQuery(_ projectID: Int, _ level: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["projectId": projectID])
-            encoder.encode(["level": level])
+            encoder.encode(projectID, forKey: "projectId")
+            encoder.encode(level, forKey: "level")
             return encoder.items
         }
     }
@@ -5806,7 +5794,7 @@ extension Paths.API.__3.Issuetype {
 
         private func makeDeleteQuery(_ alternativeIssueTypeID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["alternativeIssueTypeId": alternativeIssueTypeID])
+            encoder.encode(alternativeIssueTypeID, forKey: "alternativeIssueTypeId")
             return encoder.items
         }
     }
@@ -5879,9 +5867,9 @@ extension Paths.API.__3.Issuetype.WithID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["x": x])
-                encoder.encode(["y": y])
-                encoder.encode(["size": size])
+                encoder.encode(x, forKey: "x")
+                encoder.encode(y, forKey: "y")
+                encoder.encode(size, forKey: "size")
                 return encoder.items
             }
         }
@@ -6002,9 +5990,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["id": id])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(id, forKey: "id")
                 return encoder.items
             }
         }
@@ -6053,9 +6041,9 @@ extension Paths.API.__3.Issuetypescheme {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["issueTypeSchemeId": issueTypeSchemeID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(issueTypeSchemeID, forKey: "issueTypeSchemeId")
                 return encoder.items
             }
         }
@@ -6095,9 +6083,9 @@ extension Paths.API.__3.Issuetypescheme {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["projectId": projectID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(projectID, forKey: "projectId")
                 return encoder.items
             }
         }
@@ -6259,9 +6247,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["id": id])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(id, forKey: "id")
                 return encoder.items
             }
         }
@@ -6310,9 +6298,9 @@ extension Paths.API.__3.Issuetypescreenscheme {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["issueTypeScreenSchemeId": issueTypeScreenSchemeID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(issueTypeScreenSchemeID, forKey: "issueTypeScreenSchemeId")
                 return encoder.items
             }
         }
@@ -6352,9 +6340,9 @@ extension Paths.API.__3.Issuetypescreenscheme {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["projectId": projectID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(projectID, forKey: "projectId")
                 return encoder.items
             }
         }
@@ -6483,8 +6471,8 @@ extension Paths.API.__3.Issuetypescreenscheme.WithIssueTypeScreenSchemeID {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -6581,10 +6569,10 @@ extension Paths.API.__3.Jql.Autocompletedata {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fieldName": fieldName])
-                encoder.encode(["fieldValue": fieldValue])
-                encoder.encode(["predicateName": predicateName])
-                encoder.encode(["predicateValue": predicateValue])
+                encoder.encode(fieldName, forKey: "fieldName")
+                encoder.encode(fieldValue, forKey: "fieldValue")
+                encoder.encode(predicateName, forKey: "predicateName")
+                encoder.encode(predicateValue, forKey: "predicateValue")
                 return encoder.items
             }
         }
@@ -6638,7 +6626,7 @@ extension Paths.API.__3.Jql {
 
         private func makePostQuery(_ validation: Validation?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["validation": validation])
+            encoder.encode(validation, forKey: "validation")
             return encoder.items
         }
 
@@ -6690,8 +6678,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -6749,13 +6737,13 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["projectKey": projectKey])
-                encoder.encode(["projectId": projectID])
-                encoder.encode(["issueKey": issueKey])
-                encoder.encode(["issueId": issueID])
-                encoder.encode(["permissions": permissions])
-                encoder.encode(["projectUuid": projectUUID])
-                encoder.encode(["projectConfigurationUuid": projectConfigurationUUID])
+                encoder.encode(projectKey, forKey: "projectKey")
+                encoder.encode(projectID, forKey: "projectId")
+                encoder.encode(issueKey, forKey: "issueKey")
+                encoder.encode(issueID, forKey: "issueId")
+                encoder.encode(permissions, forKey: "permissions")
+                encoder.encode(projectUUID, forKey: "projectUuid")
+                encoder.encode(projectConfigurationUUID, forKey: "projectConfigurationUuid")
                 return encoder.items
             }
         }
@@ -6784,13 +6772,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func get(key: String) -> Request<String> {
-            .get(path, query: makeGetQuery(key))
-        }
-
-        private func makeGetQuery(_ key: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            return encoder.items
+            .get(path, query: [("key", key)])
         }
 
         /// Set preference
@@ -6812,13 +6794,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func put(key: String, _ body: String) -> Request<AnyJSON> {
-            .put(path, query: makePutQuery(key), body: body)
-        }
-
-        private func makePutQuery(_ key: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            return encoder.items
+            .put(path, query: [("key", key)], body: body)
         }
 
         /// Delete preference
@@ -6834,13 +6810,7 @@ extension Paths.API.__3 {
         /// 
         /// **[Permissions](#permissions) required:** Permission to access Jira.
         public func delete(key: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key))
-        }
-
-        private func makeDeleteQuery(_ key: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            return encoder.items
+            .delete(path, query: [("key", key)])
         }
     }
 }
@@ -6913,7 +6883,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -6972,9 +6942,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -7001,7 +6971,7 @@ extension Paths.API.__3.Notificationscheme {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -7188,7 +7158,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -7203,7 +7173,7 @@ extension Paths.API.__3 {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -7229,7 +7199,7 @@ extension Paths.API.__3.Permissionscheme {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -7252,7 +7222,7 @@ extension Paths.API.__3.Permissionscheme {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -7287,7 +7257,7 @@ extension Paths.API.__3.Permissionscheme.WithSchemeID {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -7302,7 +7272,7 @@ extension Paths.API.__3.Permissionscheme.WithSchemeID {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -7328,7 +7298,7 @@ extension Paths.API.__3.Permissionscheme.WithSchemeID.Permission {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -7417,9 +7387,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["expand": expand])
-                encoder.encode(["recent": recent])
-                encoder.encode(["properties": properties])
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(recent, forKey: "recent")
+                encoder.encode(properties, forKey: "properties")
                 return encoder.items
             }
         }
@@ -7468,14 +7438,14 @@ extension Paths.API.__3.Project {
         ///  *  *Browse Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         ///  *  *Administer Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
-        public func get(expand: String? = nil, properties: [StringList]? = nil) -> Request<[JiraAPI.Project]> {
+        public func get(expand: String? = nil, properties: [Void]? = nil) -> Request<[JiraAPI.Project]> {
             .get(path, query: makeGetQuery(expand, properties))
         }
 
-        private func makeGetQuery(_ expand: String?, _ properties: [StringList]?) -> [(String, String?)] {
+        private func makeGetQuery(_ expand: String?, _ properties: [Void]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
-            encoder.encode(["properties": properties])
+            encoder.encode(expand, forKey: "expand")
+            encoder.encode(properties, forKey: "properties")
             return encoder.items
         }
     }
@@ -7517,7 +7487,7 @@ extension Paths.API.__3.Project {
             public var action: Action?
             public var expand: String?
             public var status: [Status]?
-            public var properties: [StringList]?
+            public var properties: [Void]?
             public var propertyQuery: String?
 
             public enum OrderBy: String, Codable, CaseIterable {
@@ -7559,7 +7529,7 @@ extension Paths.API.__3.Project {
                 case deleted
             }
 
-            public init(startAt: Int? = nil, maxResults: Int? = nil, orderBy: OrderBy? = nil, id: [Int]? = nil, keys: [String]? = nil, query: String? = nil, typeKey: String? = nil, categoryID: Int? = nil, action: Action? = nil, expand: String? = nil, status: [Status]? = nil, properties: [StringList]? = nil, propertyQuery: String? = nil) {
+            public init(startAt: Int? = nil, maxResults: Int? = nil, orderBy: OrderBy? = nil, id: [Int]? = nil, keys: [String]? = nil, query: String? = nil, typeKey: String? = nil, categoryID: Int? = nil, action: Action? = nil, expand: String? = nil, status: [Status]? = nil, properties: [Void]? = nil, propertyQuery: String? = nil) {
                 self.startAt = startAt
                 self.maxResults = maxResults
                 self.orderBy = orderBy
@@ -7577,19 +7547,19 @@ extension Paths.API.__3.Project {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["id": id])
-                encoder.encode(["keys": keys])
-                encoder.encode(["query": self.query])
-                encoder.encode(["typeKey": typeKey])
-                encoder.encode(["categoryId": categoryID])
-                encoder.encode(["action": action])
-                encoder.encode(["expand": expand])
-                encoder.encode(["status": status])
-                encoder.encode(["properties": properties])
-                encoder.encode(["propertyQuery": propertyQuery])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(id, forKey: "id")
+                encoder.encode(keys, forKey: "keys")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(typeKey, forKey: "typeKey")
+                encoder.encode(categoryID, forKey: "categoryId")
+                encoder.encode(action, forKey: "action")
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(status, forKey: "status")
+                encoder.encode(properties, forKey: "properties")
+                encoder.encode(propertyQuery, forKey: "propertyQuery")
                 return encoder.items
             }
         }
@@ -7700,8 +7670,8 @@ extension Paths.API.__3.Project {
 
         private func makeGetQuery(_ expand: String?, _ properties: [String]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
-            encoder.encode(["properties": properties])
+            encoder.encode(expand, forKey: "expand")
+            encoder.encode(properties, forKey: "properties")
             return encoder.items
         }
 
@@ -7718,7 +7688,7 @@ extension Paths.API.__3.Project {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -7735,7 +7705,7 @@ extension Paths.API.__3.Project {
 
         private func makeDeleteQuery(_ enableUndo: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["enableUndo": enableUndo])
+            encoder.encode(enableUndo, forKey: "enableUndo")
             return encoder.items
         }
     }
@@ -7858,9 +7828,9 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["x": x])
-                encoder.encode(["y": y])
-                encoder.encode(["size": size])
+                encoder.encode(x, forKey: "x")
+                encoder.encode(y, forKey: "y")
+                encoder.encode(size, forKey: "size")
                 return encoder.items
             }
         }
@@ -7939,10 +7909,10 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["query": self.query])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(self.query, forKey: "query")
                 return encoder.items
             }
         }
@@ -8205,8 +8175,8 @@ extension Paths.API.__3.Project.WithProjectIDOrKey.Role {
 
         private func makeDeleteQuery(_ user: String?, _ group: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["user": user])
-            encoder.encode(["group": group])
+            encoder.encode(user, forKey: "user")
+            encoder.encode(group, forKey: "group")
             return encoder.items
         }
     }
@@ -8234,8 +8204,8 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
         private func makeGetQuery(_ isCurrentMember: Bool?, _ excludeConnectAddons: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["currentMember": isCurrentMember])
-            encoder.encode(["excludeConnectAddons": excludeConnectAddons])
+            encoder.encode(isCurrentMember, forKey: "currentMember")
+            encoder.encode(excludeConnectAddons, forKey: "excludeConnectAddons")
             return encoder.items
         }
     }
@@ -8352,12 +8322,12 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["query": self.query])
-                encoder.encode(["status": status])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(status, forKey: "status")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -8386,7 +8356,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -8512,7 +8482,7 @@ extension Paths.API.__3.Project.WithProjectKeyOrID {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -8538,7 +8508,7 @@ extension Paths.API.__3.Project.WithProjectKeyOrID {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -8553,7 +8523,7 @@ extension Paths.API.__3.Project.WithProjectKeyOrID {
 
         private func makePutQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -8679,7 +8649,7 @@ extension Paths.API.__3.Projectvalidate {
 
         private func makeGetQuery(_ key: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
+            encoder.encode(key, forKey: "key")
             return encoder.items
         }
     }
@@ -8705,7 +8675,7 @@ extension Paths.API.__3.Projectvalidate {
 
         private func makeGetQuery(_ key: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
+            encoder.encode(key, forKey: "key")
             return encoder.items
         }
     }
@@ -8726,13 +8696,7 @@ extension Paths.API.__3.Projectvalidate {
         /// 
         /// **[Permissions](#permissions) required:** None.
         public func get(name: String) -> Request<String> {
-            .get(path, query: makeGetQuery(name))
-        }
-
-        private func makeGetQuery(_ name: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["name": name])
-            return encoder.items
+            .get(path, query: [("name", name)])
         }
     }
 }
@@ -8872,7 +8836,7 @@ extension Paths.API.__3.Role {
 
         private func makeDeleteQuery(_ swap: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["swap": swap])
+            encoder.encode(swap, forKey: "swap")
             return encoder.items
         }
     }
@@ -8920,8 +8884,8 @@ extension Paths.API.__3.Role.WithID {
 
         private func makeDeleteQuery(_ user: String?, _ group: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["user": user])
-            encoder.encode(["group": group])
+            encoder.encode(user, forKey: "user")
+            encoder.encode(group, forKey: "group")
             return encoder.items
         }
     }
@@ -8958,9 +8922,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["id": id])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(id, forKey: "id")
                 return encoder.items
             }
         }
@@ -9079,7 +9043,7 @@ extension Paths.API.__3.Screens.WithScreenID {
 
         private func makeGetQuery(_ projectKey: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["projectKey": projectKey])
+            encoder.encode(projectKey, forKey: "projectKey")
             return encoder.items
         }
 
@@ -9146,7 +9110,7 @@ extension Paths.API.__3.Screens.WithScreenID.Tabs.WithTabID {
 
         private func makeGetQuery(_ projectKey: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["projectKey": projectKey])
+            encoder.encode(projectKey, forKey: "projectKey")
             return encoder.items
         }
 
@@ -9267,9 +9231,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["id": id])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(id, forKey: "id")
                 return encoder.items
             }
         }
@@ -9373,14 +9337,14 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["jql": jql])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["validateQuery": validateQuery])
-                encoder.encode(["fields": fields])
-                encoder.encode(["expand": expand])
-                encoder.encode(["properties": properties])
-                encoder.encode(["fieldsByKeys": isFieldsByKeys])
+                encoder.encode(jql, forKey: "jql")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(validateQuery, forKey: "validateQuery")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(properties, forKey: "properties")
+                encoder.encode(isFieldsByKeys, forKey: "fieldsByKeys")
                 return encoder.items
             }
         }
@@ -9770,9 +9734,9 @@ extension Paths.API.__3.UniversalAvatar.`Type`.WithType.Owner {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["x": x])
-                encoder.encode(["y": y])
-                encoder.encode(["size": size])
+                encoder.encode(x, forKey: "x")
+                encoder.encode(y, forKey: "y")
+                encoder.encode(size, forKey: "size")
                 return encoder.items
             }
         }
@@ -9865,8 +9829,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type` {
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["size": size])
-            encoder.encode(["format": format])
+            encoder.encode(size, forKey: "size")
+            encoder.encode(format, forKey: "format")
             return encoder.items
         }
 
@@ -9922,8 +9886,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type`.WithType.Avatar {
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["size": size])
-            encoder.encode(["format": format])
+            encoder.encode(size, forKey: "size")
+            encoder.encode(format, forKey: "format")
             return encoder.items
         }
 
@@ -9979,8 +9943,8 @@ extension Paths.API.__3.UniversalAvatar.View.`Type`.WithType.Owner {
 
         private func makeGetQuery(_ size: Size?, _ format: Format?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["size": size])
-            encoder.encode(["format": format])
+            encoder.encode(size, forKey: "size")
+            encoder.encode(format, forKey: "format")
             return encoder.items
         }
 
@@ -10033,10 +9997,10 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["username": username])
-                encoder.encode(["key": key])
-                encoder.encode(["expand": expand])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -10075,9 +10039,9 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["username": username])
-                encoder.encode(["key": key])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(key, forKey: "key")
                 return encoder.items
             }
         }
@@ -10137,12 +10101,12 @@ extension Paths.API.__3.User.Assignable {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["username": username])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["projectKeys": projectKeys])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(projectKeys, forKey: "projectKeys")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -10203,16 +10167,16 @@ extension Paths.API.__3.User.Assignable {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["sessionId": sessionID])
-                encoder.encode(["username": username])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["project": project])
-                encoder.encode(["issueKey": issueKey])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["actionDescriptorId": actionDescriptorID])
-                encoder.encode(["recommend": isRecommend])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(sessionID, forKey: "sessionId")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(project, forKey: "project")
+                encoder.encode(issueKey, forKey: "issueKey")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(actionDescriptorID, forKey: "actionDescriptorId")
+                encoder.encode(isRecommend, forKey: "recommend")
                 return encoder.items
             }
         }
@@ -10255,11 +10219,11 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["username": username])
-                encoder.encode(["key": key])
-                encoder.encode(["accountId": accountID])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(accountID, forKey: "accountId")
                 return encoder.items
             }
         }
@@ -10299,10 +10263,10 @@ extension Paths.API.__3.User.Bulk {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["username": username])
-                encoder.encode(["key": key])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(key, forKey: "key")
                 return encoder.items
             }
         }
@@ -10332,8 +10296,8 @@ extension Paths.API.__3.User {
 
         private func makeGetQuery(_ accountID: String?, _ username: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["accountId": accountID])
-            encoder.encode(["username": username])
+            encoder.encode(accountID, forKey: "accountId")
+            encoder.encode(username, forKey: "username")
             return encoder.items
         }
 
@@ -10355,7 +10319,7 @@ extension Paths.API.__3.User {
 
         private func makePutQuery(_ accountID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["accountId": accountID])
+            encoder.encode(accountID, forKey: "accountId")
             return encoder.items
         }
 
@@ -10373,8 +10337,8 @@ extension Paths.API.__3.User {
 
         private func makeDeleteQuery(_ accountID: String?, _ username: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["accountId": accountID])
-            encoder.encode(["username": username])
+            encoder.encode(accountID, forKey: "accountId")
+            encoder.encode(username, forKey: "username")
             return encoder.items
         }
     }
@@ -10393,13 +10357,7 @@ extension Paths.API.__3.User {
         ///
         /// Returns a user's email address. This API is only available to apps approved by Atlassian, according to these [guidelines](https://community.developer.atlassian.com/t/guidelines-for-requesting-access-to-email-address/27603).
         public func get(accountID: String) -> Request<JiraAPI.UnrestrictedUserEmail> {
-            .get(path, query: makeGetQuery(accountID))
-        }
-
-        private func makeGetQuery(_ accountID: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["accountId": accountID])
-            return encoder.items
+            .get(path, query: [("accountId", accountID)])
         }
     }
 }
@@ -10422,7 +10380,7 @@ extension Paths.API.__3.User.Email {
 
         private func makeGetQuery(_ accountID: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["accountId": accountID])
+            encoder.encode(accountID, forKey: "accountId")
             return encoder.items
         }
     }
@@ -10460,9 +10418,9 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["username": username])
-                encoder.encode(["key": key])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(key, forKey: "key")
                 return encoder.items
             }
         }
@@ -10534,14 +10492,14 @@ extension Paths.API.__3.User.Permission {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["username": username])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["permissions": permissions])
-                encoder.encode(["issueKey": issueKey])
-                encoder.encode(["projectKey": projectKey])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(permissions, forKey: "permissions")
+                encoder.encode(issueKey, forKey: "issueKey")
+                encoder.encode(projectKey, forKey: "projectKey")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -10591,13 +10549,13 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["showAvatar": isShowAvatar])
-                encoder.encode(["exclude": exclude])
-                encoder.encode(["excludeAccountIds": excludeAccountIDs])
-                encoder.encode(["avatarSize": avatarSize])
-                encoder.encode(["excludeConnectUsers": excludeConnectUsers])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(isShowAvatar, forKey: "showAvatar")
+                encoder.encode(exclude, forKey: "exclude")
+                encoder.encode(excludeAccountIDs, forKey: "excludeAccountIds")
+                encoder.encode(avatarSize, forKey: "avatarSize")
+                encoder.encode(excludeConnectUsers, forKey: "excludeConnectUsers")
                 return encoder.items
             }
         }
@@ -10641,9 +10599,9 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["userKey": userKey])
-                encoder.encode(["username": username])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(userKey, forKey: "userKey")
+                encoder.encode(username, forKey: "username")
                 return encoder.items
             }
         }
@@ -10687,9 +10645,9 @@ extension Paths.API.__3.User.Properties {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["userKey": userKey])
-                encoder.encode(["username": username])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(userKey, forKey: "userKey")
+                encoder.encode(username, forKey: "username")
                 return encoder.items
             }
         }
@@ -10722,9 +10680,9 @@ extension Paths.API.__3.User.Properties {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["userKey": userKey])
-                encoder.encode(["username": username])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(userKey, forKey: "userKey")
+                encoder.encode(username, forKey: "username")
                 return encoder.items
             }
         }
@@ -10757,9 +10715,9 @@ extension Paths.API.__3.User.Properties {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["userKey": userKey])
-                encoder.encode(["username": username])
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(userKey, forKey: "userKey")
+                encoder.encode(username, forKey: "username")
                 return encoder.items
             }
         }
@@ -10808,12 +10766,12 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["username": username])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["property": property])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(property, forKey: "property")
                 return encoder.items
             }
         }
@@ -10868,9 +10826,9 @@ extension Paths.API.__3.User.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -10925,9 +10883,9 @@ extension Paths.API.__3.User.Search.Query {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -10997,13 +10955,13 @@ extension Paths.API.__3.User.Viewissue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["username": username])
-                encoder.encode(["accountId": accountID])
-                encoder.encode(["issueKey": issueKey])
-                encoder.encode(["projectKey": projectKey])
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(username, forKey: "username")
+                encoder.encode(accountID, forKey: "accountId")
+                encoder.encode(issueKey, forKey: "issueKey")
+                encoder.encode(projectKey, forKey: "projectKey")
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
             }
         }
@@ -11030,8 +10988,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -11057,8 +11015,8 @@ extension Paths.API.__3.Users {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
     }
@@ -11108,7 +11066,7 @@ extension Paths.API.__3.Version {
 
         private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
 
@@ -11141,8 +11099,8 @@ extension Paths.API.__3.Version {
 
         private func makeDeleteQuery(_ moveFixIssuesTo: String?, _ moveAffectedIssuesTo: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["moveFixIssuesTo": moveFixIssuesTo])
-            encoder.encode(["moveAffectedIssuesTo": moveAffectedIssuesTo])
+            encoder.encode(moveFixIssuesTo, forKey: "moveFixIssuesTo")
+            encoder.encode(moveAffectedIssuesTo, forKey: "moveAffectedIssuesTo")
             return encoder.items
         }
     }
@@ -11297,8 +11255,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
 
@@ -11348,8 +11306,8 @@ extension Paths.API.__3.Webhook {
 
         private func makeGetQuery(_ maxResults: Int?, _ after: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["maxResults": maxResults])
-            encoder.encode(["after": after])
+            encoder.encode(maxResults, forKey: "maxResults")
+            encoder.encode(after, forKey: "after")
             return encoder.items
         }
     }
@@ -11400,7 +11358,7 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ workflowName: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
+            encoder.encode(workflowName, forKey: "workflowName")
             return encoder.items
         }
 
@@ -12204,14 +12162,14 @@ extension Paths.API.__3.Workflow.Rule {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["types": types])
-                encoder.encode(["keys": keys])
-                encoder.encode(["workflowNames": workflowNames])
-                encoder.encode(["withTags": withTags])
-                encoder.encode(["draft": isDraft])
-                encoder.encode(["expand": expand])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(types, forKey: "types")
+                encoder.encode(keys, forKey: "keys")
+                encoder.encode(workflowNames, forKey: "workflowNames")
+                encoder.encode(withTags, forKey: "withTags")
+                encoder.encode(isDraft, forKey: "draft")
+                encoder.encode(expand, forKey: "expand")
                 return encoder.items
             }
         }
@@ -12319,13 +12277,13 @@ extension Paths.API.__3.Workflow {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["startAt": startAt])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["workflowName": workflowName])
-                encoder.encode(["expand": expand])
-                encoder.encode(["queryString": queryString])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["isActive": isActive])
+                encoder.encode(startAt, forKey: "startAt")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(workflowName, forKey: "workflowName")
+                encoder.encode(expand, forKey: "expand")
+                encoder.encode(queryString, forKey: "queryString")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(isActive, forKey: "isActive")
                 return encoder.items
             }
         }
@@ -12392,10 +12350,10 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["includeReservedKeys": isIncludeReservedKeys])
-                encoder.encode(["key": key])
-                encoder.encode(["workflowName": workflowName])
-                encoder.encode(["workflowMode": workflowMode])
+                encoder.encode(isIncludeReservedKeys, forKey: "includeReservedKeys")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(workflowName, forKey: "workflowName")
+                encoder.encode(workflowMode, forKey: "workflowMode")
                 return encoder.items
             }
         }
@@ -12427,9 +12385,9 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["key": key])
-                encoder.encode(["workflowName": workflowName])
-                encoder.encode(["workflowMode": workflowMode])
+                encoder.encode(key, forKey: "key")
+                encoder.encode(workflowName, forKey: "workflowName")
+                encoder.encode(workflowMode, forKey: "workflowMode")
                 return encoder.items
             }
         }
@@ -12461,9 +12419,9 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["key": key])
-                encoder.encode(["workflowName": workflowName])
-                encoder.encode(["workflowMode": workflowMode])
+                encoder.encode(key, forKey: "key")
+                encoder.encode(workflowName, forKey: "workflowName")
+                encoder.encode(workflowMode, forKey: "workflowMode")
                 return encoder.items
             }
         }
@@ -12495,9 +12453,9 @@ extension Paths.API.__3.Workflow.Transitions.WithTransitionID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["key": key])
-                encoder.encode(["workflowName": workflowName])
-                encoder.encode(["workflowMode": workflowMode])
+                encoder.encode(key, forKey: "key")
+                encoder.encode(workflowName, forKey: "workflowName")
+                encoder.encode(workflowMode, forKey: "workflowMode")
                 return encoder.items
             }
         }
@@ -12551,8 +12509,8 @@ extension Paths.API.__3 {
 
         private func makeGetQuery(_ startAt: Int?, _ maxResults: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["startAt": startAt])
-            encoder.encode(["maxResults": maxResults])
+            encoder.encode(startAt, forKey: "startAt")
+            encoder.encode(maxResults, forKey: "maxResults")
             return encoder.items
         }
 
@@ -12589,7 +12547,7 @@ extension Paths.API.__3.Workflowscheme {
 
         private func makeGetQuery(_ projectID: [Int]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["projectId": projectID])
+            encoder.encode(projectID, forKey: "projectId")
             return encoder.items
         }
 
@@ -12626,7 +12584,7 @@ extension Paths.API.__3.Workflowscheme {
 
         private func makeGetQuery(_ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["returnDraftIfExists": isReturnDraftIfExists])
+            encoder.encode(isReturnDraftIfExists, forKey: "returnDraftIfExists")
             return encoder.items
         }
 
@@ -12690,7 +12648,7 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeGetQuery(_ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["returnDraftIfExists": isReturnDraftIfExists])
+            encoder.encode(isReturnDraftIfExists, forKey: "returnDraftIfExists")
             return encoder.items
         }
 
@@ -12718,7 +12676,7 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeDeleteQuery(_ isUpdateDraftIfNeeded: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["updateDraftIfNeeded": isUpdateDraftIfNeeded])
+            encoder.encode(isUpdateDraftIfNeeded, forKey: "updateDraftIfNeeded")
             return encoder.items
         }
     }
@@ -12877,7 +12835,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
 
         private func makePostQuery(_ isValidateOnly: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["validateOnly": isValidateOnly])
+            encoder.encode(isValidateOnly, forKey: "validateOnly")
             return encoder.items
         }
     }
@@ -12903,7 +12861,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
 
         private func makeGetQuery(_ workflowName: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
+            encoder.encode(workflowName, forKey: "workflowName")
             return encoder.items
         }
 
@@ -12913,13 +12871,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func put(workflowName: String, _ body: JiraAPI.IssueTypesWorkflowMapping) -> Request<JiraAPI.WorkflowScheme> {
-            .put(path, query: makePutQuery(workflowName), body: body)
-        }
-
-        private func makePutQuery(_ workflowName: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
-            return encoder.items
+            .put(path, query: [("workflowName", workflowName)], body: body)
         }
 
         /// Delete issue types for workflow in draft workflow scheme
@@ -12928,13 +12880,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Draft {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func delete(workflowName: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(workflowName))
-        }
-
-        private func makeDeleteQuery(_ workflowName: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
-            return encoder.items
+            .delete(path, query: [("workflowName", workflowName)])
         }
     }
 }
@@ -12970,7 +12916,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Issuetype {
 
         private func makeGetQuery(_ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["returnDraftIfExists": isReturnDraftIfExists])
+            encoder.encode(isReturnDraftIfExists, forKey: "returnDraftIfExists")
             return encoder.items
         }
 
@@ -12998,7 +12944,7 @@ extension Paths.API.__3.Workflowscheme.WithID.Issuetype {
 
         private func makeDeleteQuery(_ isUpdateDraftIfNeeded: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["updateDraftIfNeeded": isUpdateDraftIfNeeded])
+            encoder.encode(isUpdateDraftIfNeeded, forKey: "updateDraftIfNeeded")
             return encoder.items
         }
     }
@@ -13024,8 +12970,8 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeGetQuery(_ workflowName: String?, _ isReturnDraftIfExists: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
-            encoder.encode(["returnDraftIfExists": isReturnDraftIfExists])
+            encoder.encode(workflowName, forKey: "workflowName")
+            encoder.encode(isReturnDraftIfExists, forKey: "returnDraftIfExists")
             return encoder.items
         }
 
@@ -13037,13 +12983,7 @@ extension Paths.API.__3.Workflowscheme.WithID {
         /// 
         /// **[Permissions](#permissions) required:** *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
         public func put(workflowName: String, _ body: JiraAPI.IssueTypesWorkflowMapping) -> Request<JiraAPI.WorkflowScheme> {
-            .put(path, query: makePutQuery(workflowName), body: body)
-        }
-
-        private func makePutQuery(_ workflowName: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
-            return encoder.items
+            .put(path, query: [("workflowName", workflowName)], body: body)
         }
 
         /// Delete issue types for workflow in workflow scheme
@@ -13059,8 +12999,8 @@ extension Paths.API.__3.Workflowscheme.WithID {
 
         private func makeDeleteQuery(_ workflowName: String, _ isUpdateDraftIfNeeded: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["workflowName": workflowName])
-            encoder.encode(["updateDraftIfNeeded": isUpdateDraftIfNeeded])
+            encoder.encode(workflowName, forKey: "workflowName")
+            encoder.encode(isUpdateDraftIfNeeded, forKey: "updateDraftIfNeeded")
             return encoder.items
         }
     }
@@ -13101,7 +13041,7 @@ extension Paths.API.__3.Worklog {
 
         private func makeGetQuery(_ since: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["since": since])
+            encoder.encode(since, forKey: "since")
             return encoder.items
         }
     }
@@ -13132,7 +13072,7 @@ extension Paths.API.__3.Worklog {
 
         private func makePostQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["expand": expand])
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -13165,8 +13105,8 @@ extension Paths.API.__3.Worklog {
 
         private func makeGetQuery(_ since: Int?, _ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["since": since])
-            encoder.encode(["expand": expand])
+            encoder.encode(since, forKey: "since")
+            encoder.encode(expand, forKey: "expand")
             return encoder.items
         }
     }
@@ -13336,7 +13276,7 @@ extension Paths.AtlassianConnect.__1.App.Module {
 
         private func makeDeleteQuery(_ moduleKey: [String]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["moduleKey": moduleKey])
+            encoder.encode(moduleKey, forKey: "moduleKey")
             return encoder.items
         }
     }

@@ -120,7 +120,7 @@ extension Paths {
 
         private func makeGetQuery(_ date: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["date": date])
+            encoder.encode(date, forKey: "date")
             return encoder.items
         }
     }
@@ -565,7 +565,7 @@ extension Paths {
 
         private func makeGetQuery(_ url: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["url": url])
+            encoder.encode(url, forKey: "url")
             return encoder.items
         }
     }
@@ -835,7 +835,7 @@ extension Paths {
 
         private func makeGetQuery(_ userID: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["userID": userID])
+            encoder.encode(userID, forKey: "userID")
             return encoder.items
         }
     }

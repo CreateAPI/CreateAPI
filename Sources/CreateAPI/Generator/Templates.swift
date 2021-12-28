@@ -106,39 +106,43 @@ final class Templates {
     func asQuery(properties: [Property]) -> String {
         """
         \(access)var asQuery: [(String, String?)] {
-        \(asQueryContents(properties.map(asQuery)).indented)
+        \(asQueryContents(properties).indented)
         }
         """
     }
-        
-    func asQueryContents(_ contents: [String]) -> String {
-        """
-        let encoder = URLQueryEncoder()
-        \(contents.joined(separator: "\n"))
+    
+    private func asQueryContents(_ properties: [Property]) -> String {
+        var encoderParameters: [String] = []
+        // Instead of passing `explode: false` too all individual calls,
+        // try to set it once on an URLQueryEncoder itself
+        if properties.filter({ !$0.explode }).count >= 2 &&
+            properties.allSatisfy({ !$0.explode || $0.type.isBuiltin }) {
+            encoderParameters.append("explode: false")
+        }
+        let statements = properties.map { asQuery($0, encoderParameters: encoderParameters) }
+        return """
+        let encoder = URLQueryEncoder(\(encoderParameters.joined(separator: ", ")))
+        \(statements.joined(separator: "\n"))
         return encoder.items
         """
     }
     
     private func asQuery(_ property: Property) -> String {
-        asQuery(property, keyed: true)
+        asQuery(property, encoderParameters: [])
     }
     
-    private func asQuery(_ property: Property, keyed: Bool) -> String {
+    private func asQuery(_ property: Property, encoderParameters: [String] = []) -> String {
         let getter = (property.name.rawValue == "query" ? "self." : "") + property.name.rawValue
         var parameters: [String] = []
-        if !property.explode { parameters.append("explode: false") }
+        if !property.explode && !encoderParameters.contains("explode: false") { parameters.append("explode: false") }
         switch property.style {
         case .pipeDelimited: parameters.append("delimiter: \"|\"")
         case .spaceDelimited: parameters.append("delimiter: \" \"")
         case .deepObject: parameters.append("isDeepObject: true")
         default: break // Do nothing
         }
-        let value = keyed ? "[\"\(property.key)\": \(getter)]" : getter
-        if parameters.isEmpty {
-            return "encoder.encode(\(value))"
-        } else {
-            return "encoder.encode(\(value), \(parameters.joined(separator: ", ")))"
-        }
+        parameters = [getter, "forKey: \"\(property.key)\""] + parameters
+        return "encoder.encode(\(parameters.joined(separator: ", ")))"
     }
     
     private func delimeter(for style: OpenAPI.Parameter.SchemaContext.Style?) -> String {
@@ -152,8 +156,9 @@ final class Templates {
     func enumAsQuery(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             var property = $0
+            property.key = "value"
             property.name = PropertyName("value")
-            return "case .\($0.name)(let value): \(asQuery(property, keyed: false))"
+            return "case .\($0.name)(let value): \(asQuery(property))"
         }
         let contents = """
         switch self {
@@ -162,7 +167,9 @@ final class Templates {
         """
         return """
         \(access)var asQuery: [(String, String?)] {
-        \(asQueryContents([contents]).indented)
+            let encoder = URLQueryEncoder()
+        \(contents.indented)
+            return encoder.items
         }
         """
     }
@@ -176,7 +183,7 @@ final class Templates {
         let arguments = properties.map { "_ \($0.name): \($0.type)\($0.isOptional ? "?" : "")" }.joined(separator: ", ")
         return """
         private \(isStatic ? "static " : "" )func \(name)(\(arguments)) -> [(String, String?)] {
-        \(asQueryContents(properties.map(asQuery)).indented)
+        \(asQueryContents(properties).indented)
         }
         """
     }

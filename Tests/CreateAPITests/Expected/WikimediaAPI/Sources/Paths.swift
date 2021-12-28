@@ -2733,7 +2733,7 @@ extension Paths.Transform.HTML.From.WithFromLang.To {
         /// 
         /// Stability: [unstable](https://www.mediawiki.org/wiki/API_versioning#Unstable)
         public func post(_ body: PostRequest) -> Request<WikimediaAPI.CxMt> {
-            .post(path, body: body.asQuery.asPercentEncodedQuery)
+            .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -2746,7 +2746,7 @@ extension Paths.Transform.HTML.From.WithFromLang.To {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["html": html])
+                encoder.encode(html, forKey: "html")
                 return encoder.items
             }
         }

@@ -30,6 +30,10 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
         return nil
     }
     
+    var isBuiltin: Bool {
+        builtinTypeName != nil
+    }
+    
     func asArray() -> TypeIdentifier {
         .array(element: self)
     }

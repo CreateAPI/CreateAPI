@@ -36,10 +36,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["sort": sort])
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
                 return encoder.items
             }
         }
@@ -78,7 +78,7 @@ extension Paths {
 
         private func makeGetQuery(_ filter: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["filter": filter])
+            encoder.encode(filter, forKey: "filter")
             return encoder.items
         }
     }
@@ -129,10 +129,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["sort": sort])
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
                 return encoder.items
             }
         }
@@ -155,7 +155,7 @@ extension Paths {
 
         private func makeGetQuery(_ filter: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["filter": filter])
+            encoder.encode(filter, forKey: "filter")
             return encoder.items
         }
     }

@@ -25,8 +25,8 @@ extension Paths {
 
         private func makeGetQuery(_ foo: String?, _ error: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["foo": foo])
-            encoder.encode(["error": error])
+            encoder.encode(foo, forKey: "foo")
+            encoder.encode(error, forKey: "error")
             return encoder.items
         }
     }
@@ -50,7 +50,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -85,9 +85,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["scopes": scopes])
-                encoder.encode(["token": token])
-                encoder.encode(["trigger_id": triggerID])
+                encoder.encode(scopes, forKey: "scopes")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(triggerID, forKey: "trigger_id")
                 return encoder.items
             }
         }
@@ -123,9 +123,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -150,7 +150,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -174,8 +174,8 @@ extension Paths {
 
         private func makeGetQuery(_ isTest: Bool?, _ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["test": isTest])
-            encoder.encode(["token": token])
+            encoder.encode(isTest, forKey: "test")
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -217,8 +217,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ bot: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["bot": bot])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(bot, forKey: "bot")
             return encoder.items
         }
     }
@@ -314,13 +314,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["unreads": isUnreads])
-                encoder.encode(["inclusive": isInclusive])
-                encoder.encode(["token": token])
-                encoder.encode(["oldest": oldest])
-                encoder.encode(["channel": channel])
-                encoder.encode(["latest": latest])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(isUnreads, forKey: "unreads")
+                encoder.encode(isInclusive, forKey: "inclusive")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(oldest, forKey: "oldest")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(latest, forKey: "latest")
                 return encoder.items
             }
         }
@@ -356,9 +356,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["include_locale": isIncludeLocale])
-                encoder.encode(["channel": channel])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isIncludeLocale, forKey: "include_locale")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -511,11 +511,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["exclude_members": excludeMembers])
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["exclude_archived": excludeArchived])
+                encoder.encode(excludeMembers, forKey: "exclude_members")
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(excludeArchived, forKey: "exclude_archived")
                 return encoder.items
             }
         }
@@ -620,9 +620,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["thread_ts": threadTs])
-                encoder.encode(["token": token])
-                encoder.encode(["channel": channel])
+                encoder.encode(threadTs, forKey: "thread_ts")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -775,9 +775,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["message_ts": messageTs])
-                encoder.encode(["channel": channel])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(messageTs, forKey: "message_ts")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -1166,13 +1166,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["inclusive": isInclusive])
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["oldest": oldest])
-                encoder.encode(["channel": channel])
-                encoder.encode(["latest": latest])
+                encoder.encode(isInclusive, forKey: "inclusive")
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(oldest, forKey: "oldest")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(latest, forKey: "latest")
                 return encoder.items
             }
         }
@@ -1208,9 +1208,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["channel": channel])
-                encoder.encode(["include_locale": isIncludeLocale])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(isIncludeLocale, forKey: "include_locale")
                 return encoder.items
             }
         }
@@ -1346,11 +1346,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["exclude_archived": excludeArchived])
-                encoder.encode(["types": types])
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(excludeArchived, forKey: "exclude_archived")
+                encoder.encode(types, forKey: "types")
                 return encoder.items
             }
         }
@@ -1388,10 +1388,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["channel": channel])
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -1506,14 +1506,14 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["inclusive": isInclusive])
-                encoder.encode(["ts": ts])
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["oldest": oldest])
-                encoder.encode(["channel": channel])
-                encoder.encode(["latest": latest])
+                encoder.encode(isInclusive, forKey: "inclusive")
+                encoder.encode(ts, forKey: "ts")
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(oldest, forKey: "oldest")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(latest, forKey: "latest")
                 return encoder.items
             }
         }
@@ -1616,8 +1616,8 @@ extension Paths {
 
         private func makeGetQuery(_ dialog: String?, _ triggerID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["dialog": dialog])
-            encoder.encode(["trigger_id": triggerID])
+            encoder.encode(dialog, forKey: "dialog")
+            encoder.encode(triggerID, forKey: "trigger_id")
             return encoder.items
         }
     }
@@ -1677,8 +1677,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["user": user])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(user, forKey: "user")
             return encoder.items
         }
     }
@@ -1697,7 +1697,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/dnd.setSnooze)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -1713,8 +1713,8 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["num_minutes": numMinutes])
-                encoder.encode(["token": token])
+                encoder.encode(numMinutes, forKey: "num_minutes")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1739,8 +1739,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ users: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["users": users])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(users, forKey: "users")
             return encoder.items
         }
     }
@@ -1764,7 +1764,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -1912,10 +1912,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["file": file])
-                encoder.encode(["page": page])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(file, forKey: "file")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -1961,14 +1961,14 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["channel": channel])
-                encoder.encode(["ts_to": tsTo])
-                encoder.encode(["ts_from": tsFrom])
-                encoder.encode(["token": token])
-                encoder.encode(["user": user])
-                encoder.encode(["page": page])
-                encoder.encode(["types": types])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(tsTo, forKey: "ts_to")
+                encoder.encode(tsFrom, forKey: "ts_from")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(user, forKey: "user")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(types, forKey: "types")
                 return encoder.items
             }
         }
@@ -2024,7 +2024,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/files.upload)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -2058,14 +2058,14 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["channels": channels])
-                encoder.encode(["title": title])
-                encoder.encode(["initial_comment": initialComment])
-                encoder.encode(["filetype": filetype])
-                encoder.encode(["filename": filename])
-                encoder.encode(["content": content])
-                encoder.encode(["token": token])
-                encoder.encode(["file": file])
+                encoder.encode(channels, forKey: "channels")
+                encoder.encode(title, forKey: "title")
+                encoder.encode(initialComment, forKey: "initial_comment")
+                encoder.encode(filetype, forKey: "filetype")
+                encoder.encode(filename, forKey: "filename")
+                encoder.encode(content, forKey: "content")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(file, forKey: "file")
                 return encoder.items
             }
         }
@@ -2138,7 +2138,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/groups.createChild)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -2154,8 +2154,8 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["channel": channel])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -2199,13 +2199,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["unreads": isUnreads])
-                encoder.encode(["inclusive": isInclusive])
-                encoder.encode(["token": token])
-                encoder.encode(["oldest": oldest])
-                encoder.encode(["channel": channel])
-                encoder.encode(["latest": latest])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(isUnreads, forKey: "unreads")
+                encoder.encode(isInclusive, forKey: "inclusive")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(oldest, forKey: "oldest")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(latest, forKey: "latest")
                 return encoder.items
             }
         }
@@ -2241,9 +2241,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["include_locale": isIncludeLocale])
-                encoder.encode(["channel": channel])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isIncludeLocale, forKey: "include_locale")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -2357,9 +2357,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["exclude_members": excludeMembers])
-                encoder.encode(["token": token])
-                encoder.encode(["exclude_archived": excludeArchived])
+                encoder.encode(excludeMembers, forKey: "exclude_members")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(excludeArchived, forKey: "exclude_archived")
                 return encoder.items
             }
         }
@@ -2482,9 +2482,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["thread_ts": threadTs])
-                encoder.encode(["token": token])
-                encoder.encode(["channel": channel])
+                encoder.encode(threadTs, forKey: "thread_ts")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -2624,13 +2624,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["unreads": isUnreads])
-                encoder.encode(["inclusive": isInclusive])
-                encoder.encode(["token": token])
-                encoder.encode(["oldest": oldest])
-                encoder.encode(["channel": channel])
-                encoder.encode(["latest": latest])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(isUnreads, forKey: "unreads")
+                encoder.encode(isInclusive, forKey: "inclusive")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(oldest, forKey: "oldest")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(latest, forKey: "latest")
                 return encoder.items
             }
         }
@@ -2666,9 +2666,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -2773,9 +2773,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["thread_ts": threadTs])
-                encoder.encode(["token": token])
-                encoder.encode(["channel": channel])
+                encoder.encode(threadTs, forKey: "thread_ts")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -2811,9 +2811,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["to_old": isToOld])
-                encoder.encode(["users": users])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isToOld, forKey: "to_old")
+                encoder.encode(users, forKey: "users")
                 return encoder.items
             }
         }
@@ -2875,13 +2875,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["unreads": isUnreads])
-                encoder.encode(["inclusive": isInclusive])
-                encoder.encode(["token": token])
-                encoder.encode(["oldest": oldest])
-                encoder.encode(["channel": channel])
-                encoder.encode(["latest": latest])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(isUnreads, forKey: "unreads")
+                encoder.encode(isInclusive, forKey: "inclusive")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(oldest, forKey: "oldest")
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(latest, forKey: "latest")
                 return encoder.items
             }
         }
@@ -2906,7 +2906,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -2989,9 +2989,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["thread_ts": threadTs])
-                encoder.encode(["token": token])
-                encoder.encode(["channel": channel])
+                encoder.encode(threadTs, forKey: "thread_ts")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -3031,11 +3031,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["client_secret": clientSecret])
-                encoder.encode(["code": code])
-                encoder.encode(["single_channel": isSingleChannel])
-                encoder.encode(["client_id": clientID])
-                encoder.encode(["redirect_uri": redirectUri])
+                encoder.encode(clientSecret, forKey: "client_secret")
+                encoder.encode(code, forKey: "code")
+                encoder.encode(isSingleChannel, forKey: "single_channel")
+                encoder.encode(clientID, forKey: "client_id")
+                encoder.encode(redirectUri, forKey: "redirect_uri")
                 return encoder.items
             }
         }
@@ -3075,11 +3075,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["client_secret": clientSecret])
-                encoder.encode(["code": code])
-                encoder.encode(["single_channel": isSingleChannel])
-                encoder.encode(["client_id": clientID])
-                encoder.encode(["redirect_uri": redirectUri])
+                encoder.encode(clientSecret, forKey: "client_secret")
+                encoder.encode(code, forKey: "code")
+                encoder.encode(isSingleChannel, forKey: "single_channel")
+                encoder.encode(clientID, forKey: "client_id")
+                encoder.encode(redirectUri, forKey: "redirect_uri")
                 return encoder.items
             }
         }
@@ -3147,8 +3147,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ channel: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["channel": channel])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(channel, forKey: "channel")
             return encoder.items
         }
     }
@@ -3279,12 +3279,12 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["full": isFull])
-                encoder.encode(["file_comment": fileComment])
-                encoder.encode(["timestamp": timestamp])
-                encoder.encode(["token": token])
-                encoder.encode(["file": file])
-                encoder.encode(["channel": channel])
+                encoder.encode(isFull, forKey: "full")
+                encoder.encode(fileComment, forKey: "file_comment")
+                encoder.encode(timestamp, forKey: "timestamp")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(file, forKey: "file")
+                encoder.encode(channel, forKey: "channel")
                 return encoder.items
             }
         }
@@ -3324,11 +3324,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["full": isFull])
-                encoder.encode(["user": user])
-                encoder.encode(["page": page])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isFull, forKey: "full")
+                encoder.encode(user, forKey: "user")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -3469,8 +3469,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ reminder: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["reminder": reminder])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(reminder, forKey: "reminder")
             return encoder.items
         }
     }
@@ -3494,7 +3494,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -3529,9 +3529,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["presence_sub": isPresenceSub])
-                encoder.encode(["token": token])
-                encoder.encode(["batch_presence_aware": isBatchPresenceAware])
+                encoder.encode(isPresenceSub, forKey: "presence_sub")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isBatchPresenceAware, forKey: "batch_presence_aware")
                 return encoder.items
             }
         }
@@ -3575,13 +3575,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["sort_dir": sortDir])
-                encoder.encode(["query": self.query])
-                encoder.encode(["sort": sort])
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["highlight": isHighlight])
-                encoder.encode(["page": page])
+                encoder.encode(sortDir, forKey: "sort_dir")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isHighlight, forKey: "highlight")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -3625,13 +3625,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["sort_dir": sortDir])
-                encoder.encode(["query": self.query])
-                encoder.encode(["sort": sort])
-                encoder.encode(["highlight": isHighlight])
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["page": page])
+                encoder.encode(sortDir, forKey: "sort_dir")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(isHighlight, forKey: "highlight")
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -3675,13 +3675,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["sort_dir": sortDir])
-                encoder.encode(["query": self.query])
-                encoder.encode(["sort": sort])
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["highlight": isHighlight])
-                encoder.encode(["page": page])
+                encoder.encode(sortDir, forKey: "sort_dir")
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isHighlight, forKey: "highlight")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -3760,9 +3760,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["page": page])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -3843,10 +3843,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["token": token])
-                encoder.encode(["page": page])
-                encoder.encode(["before": before])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(before, forKey: "before")
                 return encoder.items
             }
         }
@@ -3871,8 +3871,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["user": user])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(user, forKey: "user")
             return encoder.items
         }
     }
@@ -3896,7 +3896,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -3939,13 +3939,13 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["change_type": changeType])
-                encoder.encode(["app_id": appID])
-                encoder.encode(["token": token])
-                encoder.encode(["user": user])
-                encoder.encode(["service_id": serviceID])
-                encoder.encode(["page": page])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(changeType, forKey: "change_type")
+                encoder.encode(appID, forKey: "app_id")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(user, forKey: "user")
+                encoder.encode(serviceID, forKey: "service_id")
+                encoder.encode(page, forKey: "page")
                 return encoder.items
             }
         }
@@ -3970,8 +3970,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ visibility: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["visibility": visibility])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(visibility, forKey: "visibility")
             return encoder.items
         }
     }
@@ -4125,10 +4125,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["include_users": isIncludeUsers])
-                encoder.encode(["token": token])
-                encoder.encode(["include_count": isIncludeCount])
-                encoder.encode(["include_disabled": isIncludeDisabled])
+                encoder.encode(isIncludeUsers, forKey: "include_users")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isIncludeCount, forKey: "include_count")
+                encoder.encode(isIncludeDisabled, forKey: "include_disabled")
                 return encoder.items
             }
         }
@@ -4215,9 +4215,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["include_disabled": isIncludeDisabled])
-                encoder.encode(["usergroup": usergroup])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isIncludeDisabled, forKey: "include_disabled")
+                encoder.encode(usergroup, forKey: "usergroup")
                 return encoder.items
             }
         }
@@ -4298,12 +4298,12 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["user": user])
-                encoder.encode(["exclude_archived": excludeArchived])
-                encoder.encode(["types": types])
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(user, forKey: "user")
+                encoder.encode(excludeArchived, forKey: "exclude_archived")
+                encoder.encode(types, forKey: "types")
                 return encoder.items
             }
         }
@@ -4323,7 +4323,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.deletePhoto)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -4336,7 +4336,7 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -4361,8 +4361,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["user": user])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(user, forKey: "user")
             return encoder.items
         }
     }
@@ -4386,7 +4386,7 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
+            encoder.encode(token, forKey: "token")
             return encoder.items
         }
     }
@@ -4421,9 +4421,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["include_locale": isIncludeLocale])
-                encoder.encode(["token": token])
-                encoder.encode(["user": user])
+                encoder.encode(isIncludeLocale, forKey: "include_locale")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(user, forKey: "user")
                 return encoder.items
             }
         }
@@ -4463,11 +4463,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["presence": isPresence])
-                encoder.encode(["cursor": cursor])
-                encoder.encode(["token": token])
-                encoder.encode(["limit": limit])
-                encoder.encode(["include_locale": isIncludeLocale])
+                encoder.encode(isPresence, forKey: "presence")
+                encoder.encode(cursor, forKey: "cursor")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(isIncludeLocale, forKey: "include_locale")
                 return encoder.items
             }
         }
@@ -4492,8 +4492,8 @@ extension Paths {
 
         private func makeGetQuery(_ token: String?, _ email: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["token": token])
-            encoder.encode(["email": email])
+            encoder.encode(token, forKey: "token")
+            encoder.encode(email, forKey: "email")
             return encoder.items
         }
     }
@@ -4528,9 +4528,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["token": token])
-                encoder.encode(["include_labels": isIncludeLabels])
-                encoder.encode(["user": user])
+                encoder.encode(token, forKey: "token")
+                encoder.encode(isIncludeLabels, forKey: "include_labels")
+                encoder.encode(user, forKey: "user")
                 return encoder.items
             }
         }
@@ -4604,7 +4604,7 @@ extension Paths {
         ///
         /// [API method documentation](https://api.slack.com/methods/users.setPhoto)
         public func post(_ body: PostRequest? = nil) -> Request<[String: [String: AnyJSON]]> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -4629,11 +4629,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["image": image])
-                encoder.encode(["crop_w": cropW])
-                encoder.encode(["token": token])
-                encoder.encode(["crop_y": cropY])
-                encoder.encode(["crop_x": cropX])
+                encoder.encode(image, forKey: "image")
+                encoder.encode(cropW, forKey: "crop_w")
+                encoder.encode(token, forKey: "token")
+                encoder.encode(cropY, forKey: "crop_y")
+                encoder.encode(cropX, forKey: "crop_x")
                 return encoder.items
             }
         }

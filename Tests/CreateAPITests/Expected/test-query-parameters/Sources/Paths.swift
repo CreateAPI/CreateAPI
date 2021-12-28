@@ -45,22 +45,16 @@ extension Paths.Form {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["id": id])
-                encoder.encode(["id2": id2])
-                encoder.encode(["id3": id3])
+                encoder.encode(id, forKey: "id")
+                encoder.encode(id2, forKey: "id2")
+                encoder.encode(id3, forKey: "id3")
                 return encoder.items
             }
         }
 
         /// Inlining simple queries
         public func post(name: String) -> Request<Void> {
-            .post(path, query: makePostQuery(name))
-        }
-
-        private func makePostQuery(_ name: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["name": name])
-            return encoder.items
+            .post(path, query: [("name", name)])
         }
 
         /// Inlining more complex queries (with an enum)
@@ -70,7 +64,7 @@ extension Paths.Form {
 
         private func makePatchQuery(_ type: `Type`) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type])
+            encoder.encode(type, forKey: "type")
             return encoder.items
         }
 
@@ -97,7 +91,7 @@ extension Paths.Form {
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type])
+            encoder.encode(type, forKey: "type")
             return encoder.items
         }
 
@@ -108,7 +102,7 @@ extension Paths.Form {
 
         private func makePostQuery(_ type: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], explode: false)
+            encoder.encode(type, forKey: "type", explode: false)
             return encoder.items
         }
     }
@@ -130,7 +124,7 @@ extension Paths.Form {
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type])
+            encoder.encode(type, forKey: "type")
             return encoder.items
         }
 
@@ -145,8 +139,8 @@ extension Paths.Form {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["id": id])
-                encoder.encode(["name": name])
+                encoder.encode(id, forKey: "id")
+                encoder.encode(name, forKey: "name")
                 return encoder.items
             }
         }
@@ -158,7 +152,7 @@ extension Paths.Form {
 
         private func makePostQuery(_ type: `Type`) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], explode: false)
+            encoder.encode(type, forKey: "type", explode: false)
             return encoder.items
         }
     }
@@ -191,7 +185,7 @@ extension Paths.Delimeters {
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], explode: false, delimiter: " ")
+            encoder.encode(type, forKey: "type", explode: false, delimiter: " ")
             return encoder.items
         }
 
@@ -202,7 +196,7 @@ extension Paths.Delimeters {
 
         private func makePostQuery(_ type: [String]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], explode: false, delimiter: "|")
+            encoder.encode(type, forKey: "type", explode: false, delimiter: "|")
             return encoder.items
         }
 
@@ -213,7 +207,7 @@ extension Paths.Delimeters {
 
         private func makePutQuery(_ type: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], delimiter: " ")
+            encoder.encode(type, forKey: "type", delimiter: " ")
             return encoder.items
         }
 
@@ -224,7 +218,7 @@ extension Paths.Delimeters {
 
         private func makePatchQuery(_ type: [String]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], delimiter: "|")
+            encoder.encode(type, forKey: "type", delimiter: "|")
             return encoder.items
         }
     }
@@ -246,7 +240,7 @@ extension Paths {
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["type": type], explode: false, isDeepObject: true)
+            encoder.encode(type, forKey: "type", explode: false, isDeepObject: true)
             return encoder.items
         }
 
@@ -261,8 +255,8 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["id": id])
-                encoder.encode(["name": name])
+                encoder.encode(id, forKey: "id")
+                encoder.encode(name, forKey: "name")
                 return encoder.items
             }
         }

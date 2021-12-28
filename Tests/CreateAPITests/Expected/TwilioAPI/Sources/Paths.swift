@@ -78,16 +78,16 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["Status": status])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(status, forKey: "Status")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         /// Create a new Twilio Subaccount from the account making the request
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010Account> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateAccountRequest
@@ -101,7 +101,7 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -195,16 +195,16 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CustomerName": customerName])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IsoCountry": isoCountry])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(customerName, forKey: "CustomerName")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(isoCountry, forKey: "IsoCountry")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountAddress> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateAddressRequest
@@ -242,15 +242,15 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AutoCorrectAddress": isAutoCorrectAddress])
-                encoder.encode(["City": city])
-                encoder.encode(["CustomerName": customerName])
-                encoder.encode(["EmergencyEnabled": isEmergencyEnabled])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IsoCountry": isoCountry])
-                encoder.encode(["PostalCode": postalCode])
-                encoder.encode(["Region": region])
-                encoder.encode(["Street": street])
+                encoder.encode(isAutoCorrectAddress, forKey: "AutoCorrectAddress")
+                encoder.encode(city, forKey: "City")
+                encoder.encode(customerName, forKey: "CustomerName")
+                encoder.encode(isEmergencyEnabled, forKey: "EmergencyEnabled")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(isoCountry, forKey: "IsoCountry")
+                encoder.encode(postalCode, forKey: "PostalCode")
+                encoder.encode(region, forKey: "Region")
+                encoder.encode(street, forKey: "Street")
                 return encoder.items
             }
         }
@@ -331,7 +331,7 @@ extension Paths.Accounts.WithAccountSid.Addresses.WithAddressSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -351,7 +351,7 @@ extension Paths.Accounts.WithAccountSid.Addresses {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountAddress> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateAddressRequest
@@ -386,14 +386,14 @@ extension Paths.Accounts.WithAccountSid.Addresses {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AutoCorrectAddress": isAutoCorrectAddress])
-                encoder.encode(["City": city])
-                encoder.encode(["CustomerName": customerName])
-                encoder.encode(["EmergencyEnabled": isEmergencyEnabled])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PostalCode": postalCode])
-                encoder.encode(["Region": region])
-                encoder.encode(["Street": street])
+                encoder.encode(isAutoCorrectAddress, forKey: "AutoCorrectAddress")
+                encoder.encode(city, forKey: "City")
+                encoder.encode(customerName, forKey: "CustomerName")
+                encoder.encode(isEmergencyEnabled, forKey: "EmergencyEnabled")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(postalCode, forKey: "PostalCode")
+                encoder.encode(region, forKey: "Region")
+                encoder.encode(street, forKey: "Street")
                 return encoder.items
             }
         }
@@ -457,14 +457,14 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ friendlyName: String?, _ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["FriendlyName": friendlyName])
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(friendlyName, forKey: "FriendlyName")
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new application within your account
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountApplication> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateApplicationRequest
@@ -570,21 +570,21 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["MessageStatusCallback": messageStatusCallback])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsStatusCallback": smsStatusCallback])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(messageStatusCallback, forKey: "MessageStatusCallback")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsStatusCallback, forKey: "SmsStatusCallback")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -618,7 +618,7 @@ extension Paths.Accounts.WithAccountSid.Applications {
 
         /// Updates the application's properties
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountApplication> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateApplicationRequest
@@ -724,21 +724,21 @@ extension Paths.Accounts.WithAccountSid.Applications {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["MessageStatusCallback": messageStatusCallback])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsStatusCallback": smsStatusCallback])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(messageStatusCallback, forKey: "MessageStatusCallback")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsStatusCallback, forKey: "SmsStatusCallback")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -803,7 +803,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -888,7 +888,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -1026,25 +1026,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1146,25 +1146,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1266,25 +1266,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1386,25 +1386,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1506,25 +1506,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1626,25 +1626,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1746,25 +1746,25 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["Contains": contains])
-                encoder.encode(["SmsEnabled": isSmsEnabled])
-                encoder.encode(["MmsEnabled": isMmsEnabled])
-                encoder.encode(["VoiceEnabled": isVoiceEnabled])
-                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
-                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
-                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["NearNumber": nearNumber])
-                encoder.encode(["NearLatLong": nearLatLong])
-                encoder.encode(["Distance": distance])
-                encoder.encode(["InPostalCode": inPostalCode])
-                encoder.encode(["InRegion": inRegion])
-                encoder.encode(["InRateCenter": inRateCenter])
-                encoder.encode(["InLata": inLata])
-                encoder.encode(["InLocality": inLocality])
-                encoder.encode(["FaxEnabled": isFaxEnabled])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(contains, forKey: "Contains")
+                encoder.encode(isSmsEnabled, forKey: "SmsEnabled")
+                encoder.encode(isMmsEnabled, forKey: "MmsEnabled")
+                encoder.encode(isVoiceEnabled, forKey: "VoiceEnabled")
+                encoder.encode(excludeAllAddressRequired, forKey: "ExcludeAllAddressRequired")
+                encoder.encode(excludeLocalAddressRequired, forKey: "ExcludeLocalAddressRequired")
+                encoder.encode(excludeForeignAddressRequired, forKey: "ExcludeForeignAddressRequired")
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(nearNumber, forKey: "NearNumber")
+                encoder.encode(nearLatLong, forKey: "NearLatLong")
+                encoder.encode(distance, forKey: "Distance")
+                encoder.encode(inPostalCode, forKey: "InPostalCode")
+                encoder.encode(inRegion, forKey: "InRegion")
+                encoder.encode(inRateCenter, forKey: "InRateCenter")
+                encoder.encode(inLata, forKey: "InLata")
+                encoder.encode(inLocality, forKey: "InLocality")
+                encoder.encode(isFaxEnabled, forKey: "FaxEnabled")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -1878,24 +1878,24 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["To": to])
-                encoder.encode(["From": from])
-                encoder.encode(["ParentCallSid": parentCallSid])
-                encoder.encode(["Status": status])
-                encoder.encode(["StartTime": startTime])
-                encoder.encode(["StartTime<": startTimeLessThan])
-                encoder.encode(["StartTime>": startTimeGreaterThan])
-                encoder.encode(["EndTime": endTime])
-                encoder.encode(["EndTime<": endTimeLessThan])
-                encoder.encode(["EndTime>": endTimeGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(to, forKey: "To")
+                encoder.encode(from, forKey: "From")
+                encoder.encode(parentCallSid, forKey: "ParentCallSid")
+                encoder.encode(status, forKey: "Status")
+                encoder.encode(startTime, forKey: "StartTime")
+                encoder.encode(startTimeLessThan, forKey: "StartTime<")
+                encoder.encode(startTimeGreaterThan, forKey: "StartTime>")
+                encoder.encode(endTime, forKey: "EndTime")
+                encoder.encode(endTimeLessThan, forKey: "EndTime<")
+                encoder.encode(endTimeGreaterThan, forKey: "EndTime>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         /// Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCall> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateCallRequest
@@ -2061,41 +2061,41 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ApplicationSid": applicationSid])
-                encoder.encode(["AsyncAmd": asyncAmd])
-                encoder.encode(["AsyncAmdStatusCallback": asyncAmdStatusCallback])
-                encoder.encode(["AsyncAmdStatusCallbackMethod": asyncAmdStatusCallbackMethod])
-                encoder.encode(["Byoc": byoc])
-                encoder.encode(["CallReason": callReason])
-                encoder.encode(["CallToken": callToken])
-                encoder.encode(["CallerId": callerID])
-                encoder.encode(["FallbackMethod": fallbackMethod])
-                encoder.encode(["FallbackUrl": fallbackURL])
-                encoder.encode(["From": from])
-                encoder.encode(["MachineDetection": machineDetection])
-                encoder.encode(["MachineDetectionSilenceTimeout": machineDetectionSilenceTimeout])
-                encoder.encode(["MachineDetectionSpeechEndThreshold": machineDetectionSpeechEndThreshold])
-                encoder.encode(["MachineDetectionSpeechThreshold": machineDetectionSpeechThreshold])
-                encoder.encode(["MachineDetectionTimeout": machineDetectionTimeout])
-                encoder.encode(["Method": method])
-                encoder.encode(["Record": isRecord])
-                encoder.encode(["RecordingChannels": recordingChannels])
-                encoder.encode(["RecordingStatusCallback": recordingStatusCallback])
-                encoder.encode(["RecordingStatusCallbackEvent": recordingStatusCallbackEvent])
-                encoder.encode(["RecordingStatusCallbackMethod": recordingStatusCallbackMethod])
-                encoder.encode(["RecordingTrack": recordingTrack])
-                encoder.encode(["SendDigits": sendDigits])
-                encoder.encode(["SipAuthPassword": sipAuthPassword])
-                encoder.encode(["SipAuthUsername": sipAuthUsername])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackEvent": statusCallbackEvent])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TimeLimit": timeLimit])
-                encoder.encode(["Timeout": timeout])
-                encoder.encode(["To": to])
-                encoder.encode(["Trim": trim])
-                encoder.encode(["Twiml": twiml])
-                encoder.encode(["Url": url])
+                encoder.encode(applicationSid, forKey: "ApplicationSid")
+                encoder.encode(asyncAmd, forKey: "AsyncAmd")
+                encoder.encode(asyncAmdStatusCallback, forKey: "AsyncAmdStatusCallback")
+                encoder.encode(asyncAmdStatusCallbackMethod, forKey: "AsyncAmdStatusCallbackMethod")
+                encoder.encode(byoc, forKey: "Byoc")
+                encoder.encode(callReason, forKey: "CallReason")
+                encoder.encode(callToken, forKey: "CallToken")
+                encoder.encode(callerID, forKey: "CallerId")
+                encoder.encode(fallbackMethod, forKey: "FallbackMethod")
+                encoder.encode(fallbackURL, forKey: "FallbackUrl")
+                encoder.encode(from, forKey: "From")
+                encoder.encode(machineDetection, forKey: "MachineDetection")
+                encoder.encode(machineDetectionSilenceTimeout, forKey: "MachineDetectionSilenceTimeout")
+                encoder.encode(machineDetectionSpeechEndThreshold, forKey: "MachineDetectionSpeechEndThreshold")
+                encoder.encode(machineDetectionSpeechThreshold, forKey: "MachineDetectionSpeechThreshold")
+                encoder.encode(machineDetectionTimeout, forKey: "MachineDetectionTimeout")
+                encoder.encode(method, forKey: "Method")
+                encoder.encode(isRecord, forKey: "Record")
+                encoder.encode(recordingChannels, forKey: "RecordingChannels")
+                encoder.encode(recordingStatusCallback, forKey: "RecordingStatusCallback")
+                encoder.encode(recordingStatusCallbackEvent, forKey: "RecordingStatusCallbackEvent")
+                encoder.encode(recordingStatusCallbackMethod, forKey: "RecordingStatusCallbackMethod")
+                encoder.encode(recordingTrack, forKey: "RecordingTrack")
+                encoder.encode(sendDigits, forKey: "SendDigits")
+                encoder.encode(sipAuthPassword, forKey: "SipAuthPassword")
+                encoder.encode(sipAuthUsername, forKey: "SipAuthUsername")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackEvent, forKey: "StatusCallbackEvent")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(timeLimit, forKey: "TimeLimit")
+                encoder.encode(timeout, forKey: "Timeout")
+                encoder.encode(to, forKey: "To")
+                encoder.encode(trim, forKey: "Trim")
+                encoder.encode(twiml, forKey: "Twiml")
+                encoder.encode(url, forKey: "Url")
                 return encoder.items
             }
         }
@@ -2124,7 +2124,7 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
         /// Create a FeedbackSummary resource for a call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallFeedbackSummary> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateCallFeedbackSummaryRequest
@@ -2160,11 +2160,11 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
                 return encoder.items
             }
         }
@@ -2267,7 +2267,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -2289,7 +2289,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Update a Feedback resource for a call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallFeedback> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateCallFeedbackRequest
@@ -2317,8 +2317,8 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Issue": issue])
-                encoder.encode(["QualityScore": qualityScore])
+                encoder.encode(issue, forKey: "Issue")
+                encoder.encode(qualityScore, forKey: "QualityScore")
                 return encoder.items
             }
         }
@@ -2392,11 +2392,11 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Log": log])
-                encoder.encode(["MessageDate": messageDate])
-                encoder.encode(["MessageDate<": messageDateLessThan])
-                encoder.encode(["MessageDate>": messageDateGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(log, forKey: "Log")
+                encoder.encode(messageDate, forKey: "MessageDate")
+                encoder.encode(messageDateLessThan, forKey: "MessageDate<")
+                encoder.encode(messageDateGreaterThan, forKey: "MessageDate>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -2440,7 +2440,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Create an instance of payments. This will start a new payments session
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallPayments> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreatePaymentsRequest
@@ -2518,22 +2518,22 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["BankAccountType": bankAccountType])
-                encoder.encode(["ChargeAmount": chargeAmount])
-                encoder.encode(["Currency": currency])
-                encoder.encode(["Description": description])
-                encoder.encode(["IdempotencyKey": idempotencyKey])
-                encoder.encode(["Input": input])
-                encoder.encode(["MinPostalCodeLength": minPostalCodeLength])
-                encoder.encode(["Parameter": parameter])
-                encoder.encode(["PaymentConnector": paymentConnector])
-                encoder.encode(["PaymentMethod": paymentMethod])
-                encoder.encode(["PostalCode": isPostalCode])
-                encoder.encode(["SecurityCode": isSecurityCode])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["Timeout": timeout])
-                encoder.encode(["TokenType": tokenType])
-                encoder.encode(["ValidCardTypes": validCardTypes])
+                encoder.encode(bankAccountType, forKey: "BankAccountType")
+                encoder.encode(chargeAmount, forKey: "ChargeAmount")
+                encoder.encode(currency, forKey: "Currency")
+                encoder.encode(description, forKey: "Description")
+                encoder.encode(idempotencyKey, forKey: "IdempotencyKey")
+                encoder.encode(input, forKey: "Input")
+                encoder.encode(minPostalCodeLength, forKey: "MinPostalCodeLength")
+                encoder.encode(parameter, forKey: "Parameter")
+                encoder.encode(paymentConnector, forKey: "PaymentConnector")
+                encoder.encode(paymentMethod, forKey: "PaymentMethod")
+                encoder.encode(isPostalCode, forKey: "PostalCode")
+                encoder.encode(isSecurityCode, forKey: "SecurityCode")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(timeout, forKey: "Timeout")
+                encoder.encode(tokenType, forKey: "TokenType")
+                encoder.encode(validCardTypes, forKey: "ValidCardTypes")
                 return encoder.items
             }
         }
@@ -2562,7 +2562,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Payments {
 
         /// Update an instance of payments with different phases of payment flows.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallPayments> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdatePaymentsRequest
@@ -2601,10 +2601,10 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Payments {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Capture": capture])
-                encoder.encode(["IdempotencyKey": idempotencyKey])
-                encoder.encode(["Status": status])
-                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(capture, forKey: "Capture")
+                encoder.encode(idempotencyKey, forKey: "IdempotencyKey")
+                encoder.encode(status, forKey: "Status")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
                 return encoder.items
             }
         }
@@ -2677,17 +2677,17 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["DateCreated": dateCreated])
-                encoder.encode(["DateCreated<": dateCreatedLessThan])
-                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(dateCreated, forKey: "DateCreated")
+                encoder.encode(dateCreatedLessThan, forKey: "DateCreated<")
+                encoder.encode(dateCreatedGreaterThan, forKey: "DateCreated>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         /// Create a recording for the call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallRecording> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateCallRecordingRequest
@@ -2726,12 +2726,12 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["RecordingChannels": recordingChannels])
-                encoder.encode(["RecordingStatusCallback": recordingStatusCallback])
-                encoder.encode(["RecordingStatusCallbackEvent": recordingStatusCallbackEvent])
-                encoder.encode(["RecordingStatusCallbackMethod": recordingStatusCallbackMethod])
-                encoder.encode(["RecordingTrack": recordingTrack])
-                encoder.encode(["Trim": trim])
+                encoder.encode(recordingChannels, forKey: "RecordingChannels")
+                encoder.encode(recordingStatusCallback, forKey: "RecordingStatusCallback")
+                encoder.encode(recordingStatusCallbackEvent, forKey: "RecordingStatusCallbackEvent")
+                encoder.encode(recordingStatusCallbackMethod, forKey: "RecordingStatusCallbackMethod")
+                encoder.encode(recordingTrack, forKey: "RecordingTrack")
+                encoder.encode(trim, forKey: "Trim")
                 return encoder.items
             }
         }
@@ -2765,7 +2765,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Recordings {
 
         /// Changes the status of the recording to paused, stopped, or in-progress. Note: Pass `Twilio.CURRENT` instead of recording sid to reference current active recording.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallCallRecording> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateCallRecordingRequest
@@ -2792,8 +2792,8 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Recordings {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["PauseBehavior": pauseBehavior])
-                encoder.encode(["Status": status])
+                encoder.encode(pauseBehavior, forKey: "PauseBehavior")
+                encoder.encode(status, forKey: "Status")
                 return encoder.items
             }
         }
@@ -2816,7 +2816,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
         /// Create a Siprec
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallSiprec> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSiprecRequest
@@ -3453,209 +3453,209 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ConnectorName": connectorName])
-                encoder.encode(["Name": name])
-                encoder.encode(["Parameter1.Name": parameter1Name])
-                encoder.encode(["Parameter1.Value": parameter1Value])
-                encoder.encode(["Parameter10.Name": parameter10Name])
-                encoder.encode(["Parameter10.Value": parameter10Value])
-                encoder.encode(["Parameter11.Name": parameter11Name])
-                encoder.encode(["Parameter11.Value": parameter11Value])
-                encoder.encode(["Parameter12.Name": parameter12Name])
-                encoder.encode(["Parameter12.Value": parameter12Value])
-                encoder.encode(["Parameter13.Name": parameter13Name])
-                encoder.encode(["Parameter13.Value": parameter13Value])
-                encoder.encode(["Parameter14.Name": parameter14Name])
-                encoder.encode(["Parameter14.Value": parameter14Value])
-                encoder.encode(["Parameter15.Name": parameter15Name])
-                encoder.encode(["Parameter15.Value": parameter15Value])
-                encoder.encode(["Parameter16.Name": parameter16Name])
-                encoder.encode(["Parameter16.Value": parameter16Value])
-                encoder.encode(["Parameter17.Name": parameter17Name])
-                encoder.encode(["Parameter17.Value": parameter17Value])
-                encoder.encode(["Parameter18.Name": parameter18Name])
-                encoder.encode(["Parameter18.Value": parameter18Value])
-                encoder.encode(["Parameter19.Name": parameter19Name])
-                encoder.encode(["Parameter19.Value": parameter19Value])
-                encoder.encode(["Parameter2.Name": parameter2Name])
-                encoder.encode(["Parameter2.Value": parameter2Value])
-                encoder.encode(["Parameter20.Name": parameter20Name])
-                encoder.encode(["Parameter20.Value": parameter20Value])
-                encoder.encode(["Parameter21.Name": parameter21Name])
-                encoder.encode(["Parameter21.Value": parameter21Value])
-                encoder.encode(["Parameter22.Name": parameter22Name])
-                encoder.encode(["Parameter22.Value": parameter22Value])
-                encoder.encode(["Parameter23.Name": parameter23Name])
-                encoder.encode(["Parameter23.Value": parameter23Value])
-                encoder.encode(["Parameter24.Name": parameter24Name])
-                encoder.encode(["Parameter24.Value": parameter24Value])
-                encoder.encode(["Parameter25.Name": parameter25Name])
-                encoder.encode(["Parameter25.Value": parameter25Value])
-                encoder.encode(["Parameter26.Name": parameter26Name])
-                encoder.encode(["Parameter26.Value": parameter26Value])
-                encoder.encode(["Parameter27.Name": parameter27Name])
-                encoder.encode(["Parameter27.Value": parameter27Value])
-                encoder.encode(["Parameter28.Name": parameter28Name])
-                encoder.encode(["Parameter28.Value": parameter28Value])
-                encoder.encode(["Parameter29.Name": parameter29Name])
-                encoder.encode(["Parameter29.Value": parameter29Value])
-                encoder.encode(["Parameter3.Name": parameter3Name])
-                encoder.encode(["Parameter3.Value": parameter3Value])
-                encoder.encode(["Parameter30.Name": parameter30Name])
-                encoder.encode(["Parameter30.Value": parameter30Value])
-                encoder.encode(["Parameter31.Name": parameter31Name])
-                encoder.encode(["Parameter31.Value": parameter31Value])
-                encoder.encode(["Parameter32.Name": parameter32Name])
-                encoder.encode(["Parameter32.Value": parameter32Value])
-                encoder.encode(["Parameter33.Name": parameter33Name])
-                encoder.encode(["Parameter33.Value": parameter33Value])
-                encoder.encode(["Parameter34.Name": parameter34Name])
-                encoder.encode(["Parameter34.Value": parameter34Value])
-                encoder.encode(["Parameter35.Name": parameter35Name])
-                encoder.encode(["Parameter35.Value": parameter35Value])
-                encoder.encode(["Parameter36.Name": parameter36Name])
-                encoder.encode(["Parameter36.Value": parameter36Value])
-                encoder.encode(["Parameter37.Name": parameter37Name])
-                encoder.encode(["Parameter37.Value": parameter37Value])
-                encoder.encode(["Parameter38.Name": parameter38Name])
-                encoder.encode(["Parameter38.Value": parameter38Value])
-                encoder.encode(["Parameter39.Name": parameter39Name])
-                encoder.encode(["Parameter39.Value": parameter39Value])
-                encoder.encode(["Parameter4.Name": parameter4Name])
-                encoder.encode(["Parameter4.Value": parameter4Value])
-                encoder.encode(["Parameter40.Name": parameter40Name])
-                encoder.encode(["Parameter40.Value": parameter40Value])
-                encoder.encode(["Parameter41.Name": parameter41Name])
-                encoder.encode(["Parameter41.Value": parameter41Value])
-                encoder.encode(["Parameter42.Name": parameter42Name])
-                encoder.encode(["Parameter42.Value": parameter42Value])
-                encoder.encode(["Parameter43.Name": parameter43Name])
-                encoder.encode(["Parameter43.Value": parameter43Value])
-                encoder.encode(["Parameter44.Name": parameter44Name])
-                encoder.encode(["Parameter44.Value": parameter44Value])
-                encoder.encode(["Parameter45.Name": parameter45Name])
-                encoder.encode(["Parameter45.Value": parameter45Value])
-                encoder.encode(["Parameter46.Name": parameter46Name])
-                encoder.encode(["Parameter46.Value": parameter46Value])
-                encoder.encode(["Parameter47.Name": parameter47Name])
-                encoder.encode(["Parameter47.Value": parameter47Value])
-                encoder.encode(["Parameter48.Name": parameter48Name])
-                encoder.encode(["Parameter48.Value": parameter48Value])
-                encoder.encode(["Parameter49.Name": parameter49Name])
-                encoder.encode(["Parameter49.Value": parameter49Value])
-                encoder.encode(["Parameter5.Name": parameter5Name])
-                encoder.encode(["Parameter5.Value": parameter5Value])
-                encoder.encode(["Parameter50.Name": parameter50Name])
-                encoder.encode(["Parameter50.Value": parameter50Value])
-                encoder.encode(["Parameter51.Name": parameter51Name])
-                encoder.encode(["Parameter51.Value": parameter51Value])
-                encoder.encode(["Parameter52.Name": parameter52Name])
-                encoder.encode(["Parameter52.Value": parameter52Value])
-                encoder.encode(["Parameter53.Name": parameter53Name])
-                encoder.encode(["Parameter53.Value": parameter53Value])
-                encoder.encode(["Parameter54.Name": parameter54Name])
-                encoder.encode(["Parameter54.Value": parameter54Value])
-                encoder.encode(["Parameter55.Name": parameter55Name])
-                encoder.encode(["Parameter55.Value": parameter55Value])
-                encoder.encode(["Parameter56.Name": parameter56Name])
-                encoder.encode(["Parameter56.Value": parameter56Value])
-                encoder.encode(["Parameter57.Name": parameter57Name])
-                encoder.encode(["Parameter57.Value": parameter57Value])
-                encoder.encode(["Parameter58.Name": parameter58Name])
-                encoder.encode(["Parameter58.Value": parameter58Value])
-                encoder.encode(["Parameter59.Name": parameter59Name])
-                encoder.encode(["Parameter59.Value": parameter59Value])
-                encoder.encode(["Parameter6.Name": parameter6Name])
-                encoder.encode(["Parameter6.Value": parameter6Value])
-                encoder.encode(["Parameter60.Name": parameter60Name])
-                encoder.encode(["Parameter60.Value": parameter60Value])
-                encoder.encode(["Parameter61.Name": parameter61Name])
-                encoder.encode(["Parameter61.Value": parameter61Value])
-                encoder.encode(["Parameter62.Name": parameter62Name])
-                encoder.encode(["Parameter62.Value": parameter62Value])
-                encoder.encode(["Parameter63.Name": parameter63Name])
-                encoder.encode(["Parameter63.Value": parameter63Value])
-                encoder.encode(["Parameter64.Name": parameter64Name])
-                encoder.encode(["Parameter64.Value": parameter64Value])
-                encoder.encode(["Parameter65.Name": parameter65Name])
-                encoder.encode(["Parameter65.Value": parameter65Value])
-                encoder.encode(["Parameter66.Name": parameter66Name])
-                encoder.encode(["Parameter66.Value": parameter66Value])
-                encoder.encode(["Parameter67.Name": parameter67Name])
-                encoder.encode(["Parameter67.Value": parameter67Value])
-                encoder.encode(["Parameter68.Name": parameter68Name])
-                encoder.encode(["Parameter68.Value": parameter68Value])
-                encoder.encode(["Parameter69.Name": parameter69Name])
-                encoder.encode(["Parameter69.Value": parameter69Value])
-                encoder.encode(["Parameter7.Name": parameter7Name])
-                encoder.encode(["Parameter7.Value": parameter7Value])
-                encoder.encode(["Parameter70.Name": parameter70Name])
-                encoder.encode(["Parameter70.Value": parameter70Value])
-                encoder.encode(["Parameter71.Name": parameter71Name])
-                encoder.encode(["Parameter71.Value": parameter71Value])
-                encoder.encode(["Parameter72.Name": parameter72Name])
-                encoder.encode(["Parameter72.Value": parameter72Value])
-                encoder.encode(["Parameter73.Name": parameter73Name])
-                encoder.encode(["Parameter73.Value": parameter73Value])
-                encoder.encode(["Parameter74.Name": parameter74Name])
-                encoder.encode(["Parameter74.Value": parameter74Value])
-                encoder.encode(["Parameter75.Name": parameter75Name])
-                encoder.encode(["Parameter75.Value": parameter75Value])
-                encoder.encode(["Parameter76.Name": parameter76Name])
-                encoder.encode(["Parameter76.Value": parameter76Value])
-                encoder.encode(["Parameter77.Name": parameter77Name])
-                encoder.encode(["Parameter77.Value": parameter77Value])
-                encoder.encode(["Parameter78.Name": parameter78Name])
-                encoder.encode(["Parameter78.Value": parameter78Value])
-                encoder.encode(["Parameter79.Name": parameter79Name])
-                encoder.encode(["Parameter79.Value": parameter79Value])
-                encoder.encode(["Parameter8.Name": parameter8Name])
-                encoder.encode(["Parameter8.Value": parameter8Value])
-                encoder.encode(["Parameter80.Name": parameter80Name])
-                encoder.encode(["Parameter80.Value": parameter80Value])
-                encoder.encode(["Parameter81.Name": parameter81Name])
-                encoder.encode(["Parameter81.Value": parameter81Value])
-                encoder.encode(["Parameter82.Name": parameter82Name])
-                encoder.encode(["Parameter82.Value": parameter82Value])
-                encoder.encode(["Parameter83.Name": parameter83Name])
-                encoder.encode(["Parameter83.Value": parameter83Value])
-                encoder.encode(["Parameter84.Name": parameter84Name])
-                encoder.encode(["Parameter84.Value": parameter84Value])
-                encoder.encode(["Parameter85.Name": parameter85Name])
-                encoder.encode(["Parameter85.Value": parameter85Value])
-                encoder.encode(["Parameter86.Name": parameter86Name])
-                encoder.encode(["Parameter86.Value": parameter86Value])
-                encoder.encode(["Parameter87.Name": parameter87Name])
-                encoder.encode(["Parameter87.Value": parameter87Value])
-                encoder.encode(["Parameter88.Name": parameter88Name])
-                encoder.encode(["Parameter88.Value": parameter88Value])
-                encoder.encode(["Parameter89.Name": parameter89Name])
-                encoder.encode(["Parameter89.Value": parameter89Value])
-                encoder.encode(["Parameter9.Name": parameter9Name])
-                encoder.encode(["Parameter9.Value": parameter9Value])
-                encoder.encode(["Parameter90.Name": parameter90Name])
-                encoder.encode(["Parameter90.Value": parameter90Value])
-                encoder.encode(["Parameter91.Name": parameter91Name])
-                encoder.encode(["Parameter91.Value": parameter91Value])
-                encoder.encode(["Parameter92.Name": parameter92Name])
-                encoder.encode(["Parameter92.Value": parameter92Value])
-                encoder.encode(["Parameter93.Name": parameter93Name])
-                encoder.encode(["Parameter93.Value": parameter93Value])
-                encoder.encode(["Parameter94.Name": parameter94Name])
-                encoder.encode(["Parameter94.Value": parameter94Value])
-                encoder.encode(["Parameter95.Name": parameter95Name])
-                encoder.encode(["Parameter95.Value": parameter95Value])
-                encoder.encode(["Parameter96.Name": parameter96Name])
-                encoder.encode(["Parameter96.Value": parameter96Value])
-                encoder.encode(["Parameter97.Name": parameter97Name])
-                encoder.encode(["Parameter97.Value": parameter97Value])
-                encoder.encode(["Parameter98.Name": parameter98Name])
-                encoder.encode(["Parameter98.Value": parameter98Value])
-                encoder.encode(["Parameter99.Name": parameter99Name])
-                encoder.encode(["Parameter99.Value": parameter99Value])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["Track": track])
+                encoder.encode(connectorName, forKey: "ConnectorName")
+                encoder.encode(name, forKey: "Name")
+                encoder.encode(parameter1Name, forKey: "Parameter1.Name")
+                encoder.encode(parameter1Value, forKey: "Parameter1.Value")
+                encoder.encode(parameter10Name, forKey: "Parameter10.Name")
+                encoder.encode(parameter10Value, forKey: "Parameter10.Value")
+                encoder.encode(parameter11Name, forKey: "Parameter11.Name")
+                encoder.encode(parameter11Value, forKey: "Parameter11.Value")
+                encoder.encode(parameter12Name, forKey: "Parameter12.Name")
+                encoder.encode(parameter12Value, forKey: "Parameter12.Value")
+                encoder.encode(parameter13Name, forKey: "Parameter13.Name")
+                encoder.encode(parameter13Value, forKey: "Parameter13.Value")
+                encoder.encode(parameter14Name, forKey: "Parameter14.Name")
+                encoder.encode(parameter14Value, forKey: "Parameter14.Value")
+                encoder.encode(parameter15Name, forKey: "Parameter15.Name")
+                encoder.encode(parameter15Value, forKey: "Parameter15.Value")
+                encoder.encode(parameter16Name, forKey: "Parameter16.Name")
+                encoder.encode(parameter16Value, forKey: "Parameter16.Value")
+                encoder.encode(parameter17Name, forKey: "Parameter17.Name")
+                encoder.encode(parameter17Value, forKey: "Parameter17.Value")
+                encoder.encode(parameter18Name, forKey: "Parameter18.Name")
+                encoder.encode(parameter18Value, forKey: "Parameter18.Value")
+                encoder.encode(parameter19Name, forKey: "Parameter19.Name")
+                encoder.encode(parameter19Value, forKey: "Parameter19.Value")
+                encoder.encode(parameter2Name, forKey: "Parameter2.Name")
+                encoder.encode(parameter2Value, forKey: "Parameter2.Value")
+                encoder.encode(parameter20Name, forKey: "Parameter20.Name")
+                encoder.encode(parameter20Value, forKey: "Parameter20.Value")
+                encoder.encode(parameter21Name, forKey: "Parameter21.Name")
+                encoder.encode(parameter21Value, forKey: "Parameter21.Value")
+                encoder.encode(parameter22Name, forKey: "Parameter22.Name")
+                encoder.encode(parameter22Value, forKey: "Parameter22.Value")
+                encoder.encode(parameter23Name, forKey: "Parameter23.Name")
+                encoder.encode(parameter23Value, forKey: "Parameter23.Value")
+                encoder.encode(parameter24Name, forKey: "Parameter24.Name")
+                encoder.encode(parameter24Value, forKey: "Parameter24.Value")
+                encoder.encode(parameter25Name, forKey: "Parameter25.Name")
+                encoder.encode(parameter25Value, forKey: "Parameter25.Value")
+                encoder.encode(parameter26Name, forKey: "Parameter26.Name")
+                encoder.encode(parameter26Value, forKey: "Parameter26.Value")
+                encoder.encode(parameter27Name, forKey: "Parameter27.Name")
+                encoder.encode(parameter27Value, forKey: "Parameter27.Value")
+                encoder.encode(parameter28Name, forKey: "Parameter28.Name")
+                encoder.encode(parameter28Value, forKey: "Parameter28.Value")
+                encoder.encode(parameter29Name, forKey: "Parameter29.Name")
+                encoder.encode(parameter29Value, forKey: "Parameter29.Value")
+                encoder.encode(parameter3Name, forKey: "Parameter3.Name")
+                encoder.encode(parameter3Value, forKey: "Parameter3.Value")
+                encoder.encode(parameter30Name, forKey: "Parameter30.Name")
+                encoder.encode(parameter30Value, forKey: "Parameter30.Value")
+                encoder.encode(parameter31Name, forKey: "Parameter31.Name")
+                encoder.encode(parameter31Value, forKey: "Parameter31.Value")
+                encoder.encode(parameter32Name, forKey: "Parameter32.Name")
+                encoder.encode(parameter32Value, forKey: "Parameter32.Value")
+                encoder.encode(parameter33Name, forKey: "Parameter33.Name")
+                encoder.encode(parameter33Value, forKey: "Parameter33.Value")
+                encoder.encode(parameter34Name, forKey: "Parameter34.Name")
+                encoder.encode(parameter34Value, forKey: "Parameter34.Value")
+                encoder.encode(parameter35Name, forKey: "Parameter35.Name")
+                encoder.encode(parameter35Value, forKey: "Parameter35.Value")
+                encoder.encode(parameter36Name, forKey: "Parameter36.Name")
+                encoder.encode(parameter36Value, forKey: "Parameter36.Value")
+                encoder.encode(parameter37Name, forKey: "Parameter37.Name")
+                encoder.encode(parameter37Value, forKey: "Parameter37.Value")
+                encoder.encode(parameter38Name, forKey: "Parameter38.Name")
+                encoder.encode(parameter38Value, forKey: "Parameter38.Value")
+                encoder.encode(parameter39Name, forKey: "Parameter39.Name")
+                encoder.encode(parameter39Value, forKey: "Parameter39.Value")
+                encoder.encode(parameter4Name, forKey: "Parameter4.Name")
+                encoder.encode(parameter4Value, forKey: "Parameter4.Value")
+                encoder.encode(parameter40Name, forKey: "Parameter40.Name")
+                encoder.encode(parameter40Value, forKey: "Parameter40.Value")
+                encoder.encode(parameter41Name, forKey: "Parameter41.Name")
+                encoder.encode(parameter41Value, forKey: "Parameter41.Value")
+                encoder.encode(parameter42Name, forKey: "Parameter42.Name")
+                encoder.encode(parameter42Value, forKey: "Parameter42.Value")
+                encoder.encode(parameter43Name, forKey: "Parameter43.Name")
+                encoder.encode(parameter43Value, forKey: "Parameter43.Value")
+                encoder.encode(parameter44Name, forKey: "Parameter44.Name")
+                encoder.encode(parameter44Value, forKey: "Parameter44.Value")
+                encoder.encode(parameter45Name, forKey: "Parameter45.Name")
+                encoder.encode(parameter45Value, forKey: "Parameter45.Value")
+                encoder.encode(parameter46Name, forKey: "Parameter46.Name")
+                encoder.encode(parameter46Value, forKey: "Parameter46.Value")
+                encoder.encode(parameter47Name, forKey: "Parameter47.Name")
+                encoder.encode(parameter47Value, forKey: "Parameter47.Value")
+                encoder.encode(parameter48Name, forKey: "Parameter48.Name")
+                encoder.encode(parameter48Value, forKey: "Parameter48.Value")
+                encoder.encode(parameter49Name, forKey: "Parameter49.Name")
+                encoder.encode(parameter49Value, forKey: "Parameter49.Value")
+                encoder.encode(parameter5Name, forKey: "Parameter5.Name")
+                encoder.encode(parameter5Value, forKey: "Parameter5.Value")
+                encoder.encode(parameter50Name, forKey: "Parameter50.Name")
+                encoder.encode(parameter50Value, forKey: "Parameter50.Value")
+                encoder.encode(parameter51Name, forKey: "Parameter51.Name")
+                encoder.encode(parameter51Value, forKey: "Parameter51.Value")
+                encoder.encode(parameter52Name, forKey: "Parameter52.Name")
+                encoder.encode(parameter52Value, forKey: "Parameter52.Value")
+                encoder.encode(parameter53Name, forKey: "Parameter53.Name")
+                encoder.encode(parameter53Value, forKey: "Parameter53.Value")
+                encoder.encode(parameter54Name, forKey: "Parameter54.Name")
+                encoder.encode(parameter54Value, forKey: "Parameter54.Value")
+                encoder.encode(parameter55Name, forKey: "Parameter55.Name")
+                encoder.encode(parameter55Value, forKey: "Parameter55.Value")
+                encoder.encode(parameter56Name, forKey: "Parameter56.Name")
+                encoder.encode(parameter56Value, forKey: "Parameter56.Value")
+                encoder.encode(parameter57Name, forKey: "Parameter57.Name")
+                encoder.encode(parameter57Value, forKey: "Parameter57.Value")
+                encoder.encode(parameter58Name, forKey: "Parameter58.Name")
+                encoder.encode(parameter58Value, forKey: "Parameter58.Value")
+                encoder.encode(parameter59Name, forKey: "Parameter59.Name")
+                encoder.encode(parameter59Value, forKey: "Parameter59.Value")
+                encoder.encode(parameter6Name, forKey: "Parameter6.Name")
+                encoder.encode(parameter6Value, forKey: "Parameter6.Value")
+                encoder.encode(parameter60Name, forKey: "Parameter60.Name")
+                encoder.encode(parameter60Value, forKey: "Parameter60.Value")
+                encoder.encode(parameter61Name, forKey: "Parameter61.Name")
+                encoder.encode(parameter61Value, forKey: "Parameter61.Value")
+                encoder.encode(parameter62Name, forKey: "Parameter62.Name")
+                encoder.encode(parameter62Value, forKey: "Parameter62.Value")
+                encoder.encode(parameter63Name, forKey: "Parameter63.Name")
+                encoder.encode(parameter63Value, forKey: "Parameter63.Value")
+                encoder.encode(parameter64Name, forKey: "Parameter64.Name")
+                encoder.encode(parameter64Value, forKey: "Parameter64.Value")
+                encoder.encode(parameter65Name, forKey: "Parameter65.Name")
+                encoder.encode(parameter65Value, forKey: "Parameter65.Value")
+                encoder.encode(parameter66Name, forKey: "Parameter66.Name")
+                encoder.encode(parameter66Value, forKey: "Parameter66.Value")
+                encoder.encode(parameter67Name, forKey: "Parameter67.Name")
+                encoder.encode(parameter67Value, forKey: "Parameter67.Value")
+                encoder.encode(parameter68Name, forKey: "Parameter68.Name")
+                encoder.encode(parameter68Value, forKey: "Parameter68.Value")
+                encoder.encode(parameter69Name, forKey: "Parameter69.Name")
+                encoder.encode(parameter69Value, forKey: "Parameter69.Value")
+                encoder.encode(parameter7Name, forKey: "Parameter7.Name")
+                encoder.encode(parameter7Value, forKey: "Parameter7.Value")
+                encoder.encode(parameter70Name, forKey: "Parameter70.Name")
+                encoder.encode(parameter70Value, forKey: "Parameter70.Value")
+                encoder.encode(parameter71Name, forKey: "Parameter71.Name")
+                encoder.encode(parameter71Value, forKey: "Parameter71.Value")
+                encoder.encode(parameter72Name, forKey: "Parameter72.Name")
+                encoder.encode(parameter72Value, forKey: "Parameter72.Value")
+                encoder.encode(parameter73Name, forKey: "Parameter73.Name")
+                encoder.encode(parameter73Value, forKey: "Parameter73.Value")
+                encoder.encode(parameter74Name, forKey: "Parameter74.Name")
+                encoder.encode(parameter74Value, forKey: "Parameter74.Value")
+                encoder.encode(parameter75Name, forKey: "Parameter75.Name")
+                encoder.encode(parameter75Value, forKey: "Parameter75.Value")
+                encoder.encode(parameter76Name, forKey: "Parameter76.Name")
+                encoder.encode(parameter76Value, forKey: "Parameter76.Value")
+                encoder.encode(parameter77Name, forKey: "Parameter77.Name")
+                encoder.encode(parameter77Value, forKey: "Parameter77.Value")
+                encoder.encode(parameter78Name, forKey: "Parameter78.Name")
+                encoder.encode(parameter78Value, forKey: "Parameter78.Value")
+                encoder.encode(parameter79Name, forKey: "Parameter79.Name")
+                encoder.encode(parameter79Value, forKey: "Parameter79.Value")
+                encoder.encode(parameter8Name, forKey: "Parameter8.Name")
+                encoder.encode(parameter8Value, forKey: "Parameter8.Value")
+                encoder.encode(parameter80Name, forKey: "Parameter80.Name")
+                encoder.encode(parameter80Value, forKey: "Parameter80.Value")
+                encoder.encode(parameter81Name, forKey: "Parameter81.Name")
+                encoder.encode(parameter81Value, forKey: "Parameter81.Value")
+                encoder.encode(parameter82Name, forKey: "Parameter82.Name")
+                encoder.encode(parameter82Value, forKey: "Parameter82.Value")
+                encoder.encode(parameter83Name, forKey: "Parameter83.Name")
+                encoder.encode(parameter83Value, forKey: "Parameter83.Value")
+                encoder.encode(parameter84Name, forKey: "Parameter84.Name")
+                encoder.encode(parameter84Value, forKey: "Parameter84.Value")
+                encoder.encode(parameter85Name, forKey: "Parameter85.Name")
+                encoder.encode(parameter85Value, forKey: "Parameter85.Value")
+                encoder.encode(parameter86Name, forKey: "Parameter86.Name")
+                encoder.encode(parameter86Value, forKey: "Parameter86.Value")
+                encoder.encode(parameter87Name, forKey: "Parameter87.Name")
+                encoder.encode(parameter87Value, forKey: "Parameter87.Value")
+                encoder.encode(parameter88Name, forKey: "Parameter88.Name")
+                encoder.encode(parameter88Value, forKey: "Parameter88.Value")
+                encoder.encode(parameter89Name, forKey: "Parameter89.Name")
+                encoder.encode(parameter89Value, forKey: "Parameter89.Value")
+                encoder.encode(parameter9Name, forKey: "Parameter9.Name")
+                encoder.encode(parameter9Value, forKey: "Parameter9.Value")
+                encoder.encode(parameter90Name, forKey: "Parameter90.Name")
+                encoder.encode(parameter90Value, forKey: "Parameter90.Value")
+                encoder.encode(parameter91Name, forKey: "Parameter91.Name")
+                encoder.encode(parameter91Value, forKey: "Parameter91.Value")
+                encoder.encode(parameter92Name, forKey: "Parameter92.Name")
+                encoder.encode(parameter92Value, forKey: "Parameter92.Value")
+                encoder.encode(parameter93Name, forKey: "Parameter93.Name")
+                encoder.encode(parameter93Value, forKey: "Parameter93.Value")
+                encoder.encode(parameter94Name, forKey: "Parameter94.Name")
+                encoder.encode(parameter94Value, forKey: "Parameter94.Value")
+                encoder.encode(parameter95Name, forKey: "Parameter95.Name")
+                encoder.encode(parameter95Value, forKey: "Parameter95.Value")
+                encoder.encode(parameter96Name, forKey: "Parameter96.Name")
+                encoder.encode(parameter96Value, forKey: "Parameter96.Value")
+                encoder.encode(parameter97Name, forKey: "Parameter97.Name")
+                encoder.encode(parameter97Value, forKey: "Parameter97.Value")
+                encoder.encode(parameter98Name, forKey: "Parameter98.Name")
+                encoder.encode(parameter98Value, forKey: "Parameter98.Value")
+                encoder.encode(parameter99Name, forKey: "Parameter99.Name")
+                encoder.encode(parameter99Value, forKey: "Parameter99.Value")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(track, forKey: "Track")
                 return encoder.items
             }
         }
@@ -3684,7 +3684,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Siprec {
 
         /// Stop a Siprec using either the SID of the Siprec resource or the `name` used when creating the resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCallSiprec> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSiprecRequest
@@ -3703,7 +3703,7 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Siprec {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Status": status])
+                encoder.encode(status, forKey: "Status")
                 return encoder.items
             }
         }
@@ -3726,7 +3726,7 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
         /// Initiates a call redirect or terminates a call
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountCall> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateCallRequest
@@ -3800,15 +3800,15 @@ extension Paths.Accounts.WithAccountSid.Calls {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FallbackMethod": fallbackMethod])
-                encoder.encode(["FallbackUrl": fallbackURL])
-                encoder.encode(["Method": method])
-                encoder.encode(["Status": status])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TimeLimit": timeLimit])
-                encoder.encode(["Twiml": twiml])
-                encoder.encode(["Url": url])
+                encoder.encode(fallbackMethod, forKey: "FallbackMethod")
+                encoder.encode(fallbackURL, forKey: "FallbackUrl")
+                encoder.encode(method, forKey: "Method")
+                encoder.encode(status, forKey: "Status")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(timeLimit, forKey: "TimeLimit")
+                encoder.encode(twiml, forKey: "Twiml")
+                encoder.encode(url, forKey: "Url")
                 return encoder.items
             }
         }
@@ -3902,15 +3902,15 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["DateCreated": dateCreated])
-                encoder.encode(["DateCreated<": dateCreatedLessThan])
-                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
-                encoder.encode(["DateUpdated": dateUpdated])
-                encoder.encode(["DateUpdated<": dateUpdatedLessThan])
-                encoder.encode(["DateUpdated>": dateUpdatedGreaterThan])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["Status": status])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(dateCreated, forKey: "DateCreated")
+                encoder.encode(dateCreatedLessThan, forKey: "DateCreated<")
+                encoder.encode(dateCreatedGreaterThan, forKey: "DateCreated>")
+                encoder.encode(dateUpdated, forKey: "DateUpdated")
+                encoder.encode(dateUpdatedLessThan, forKey: "DateUpdated<")
+                encoder.encode(dateUpdatedGreaterThan, forKey: "DateUpdated>")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(status, forKey: "Status")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -4005,16 +4005,16 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Muted": isMuted])
-                encoder.encode(["Hold": isHold])
-                encoder.encode(["Coaching": isCoaching])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(isMuted, forKey: "Muted")
+                encoder.encode(isHold, forKey: "Hold")
+                encoder.encode(isCoaching, forKey: "Coaching")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConferenceParticipant> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateParticipantRequest
@@ -4192,45 +4192,45 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Beep": beep])
-                encoder.encode(["Byoc": byoc])
-                encoder.encode(["CallReason": callReason])
-                encoder.encode(["CallSidToCoach": callSidToCoach])
-                encoder.encode(["CallerId": callerID])
-                encoder.encode(["Coaching": isCoaching])
-                encoder.encode(["ConferenceRecord": conferenceRecord])
-                encoder.encode(["ConferenceRecordingStatusCallback": conferenceRecordingStatusCallback])
-                encoder.encode(["ConferenceRecordingStatusCallbackEvent": conferenceRecordingStatusCallbackEvent])
-                encoder.encode(["ConferenceRecordingStatusCallbackMethod": conferenceRecordingStatusCallbackMethod])
-                encoder.encode(["ConferenceStatusCallback": conferenceStatusCallback])
-                encoder.encode(["ConferenceStatusCallbackEvent": conferenceStatusCallbackEvent])
-                encoder.encode(["ConferenceStatusCallbackMethod": conferenceStatusCallbackMethod])
-                encoder.encode(["ConferenceTrim": conferenceTrim])
-                encoder.encode(["EarlyMedia": isEarlyMedia])
-                encoder.encode(["EndConferenceOnExit": isEndConferenceOnExit])
-                encoder.encode(["From": from])
-                encoder.encode(["JitterBufferSize": jitterBufferSize])
-                encoder.encode(["Label": label])
-                encoder.encode(["MaxParticipants": maxParticipants])
-                encoder.encode(["Muted": isMuted])
-                encoder.encode(["Record": isRecord])
-                encoder.encode(["RecordingChannels": recordingChannels])
-                encoder.encode(["RecordingStatusCallback": recordingStatusCallback])
-                encoder.encode(["RecordingStatusCallbackEvent": recordingStatusCallbackEvent])
-                encoder.encode(["RecordingStatusCallbackMethod": recordingStatusCallbackMethod])
-                encoder.encode(["RecordingTrack": recordingTrack])
-                encoder.encode(["Region": region])
-                encoder.encode(["SipAuthPassword": sipAuthPassword])
-                encoder.encode(["SipAuthUsername": sipAuthUsername])
-                encoder.encode(["StartConferenceOnEnter": isStartConferenceOnEnter])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackEvent": statusCallbackEvent])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TimeLimit": timeLimit])
-                encoder.encode(["Timeout": timeout])
-                encoder.encode(["To": to])
-                encoder.encode(["WaitMethod": waitMethod])
-                encoder.encode(["WaitUrl": waitURL])
+                encoder.encode(beep, forKey: "Beep")
+                encoder.encode(byoc, forKey: "Byoc")
+                encoder.encode(callReason, forKey: "CallReason")
+                encoder.encode(callSidToCoach, forKey: "CallSidToCoach")
+                encoder.encode(callerID, forKey: "CallerId")
+                encoder.encode(isCoaching, forKey: "Coaching")
+                encoder.encode(conferenceRecord, forKey: "ConferenceRecord")
+                encoder.encode(conferenceRecordingStatusCallback, forKey: "ConferenceRecordingStatusCallback")
+                encoder.encode(conferenceRecordingStatusCallbackEvent, forKey: "ConferenceRecordingStatusCallbackEvent")
+                encoder.encode(conferenceRecordingStatusCallbackMethod, forKey: "ConferenceRecordingStatusCallbackMethod")
+                encoder.encode(conferenceStatusCallback, forKey: "ConferenceStatusCallback")
+                encoder.encode(conferenceStatusCallbackEvent, forKey: "ConferenceStatusCallbackEvent")
+                encoder.encode(conferenceStatusCallbackMethod, forKey: "ConferenceStatusCallbackMethod")
+                encoder.encode(conferenceTrim, forKey: "ConferenceTrim")
+                encoder.encode(isEarlyMedia, forKey: "EarlyMedia")
+                encoder.encode(isEndConferenceOnExit, forKey: "EndConferenceOnExit")
+                encoder.encode(from, forKey: "From")
+                encoder.encode(jitterBufferSize, forKey: "JitterBufferSize")
+                encoder.encode(label, forKey: "Label")
+                encoder.encode(maxParticipants, forKey: "MaxParticipants")
+                encoder.encode(isMuted, forKey: "Muted")
+                encoder.encode(isRecord, forKey: "Record")
+                encoder.encode(recordingChannels, forKey: "RecordingChannels")
+                encoder.encode(recordingStatusCallback, forKey: "RecordingStatusCallback")
+                encoder.encode(recordingStatusCallbackEvent, forKey: "RecordingStatusCallbackEvent")
+                encoder.encode(recordingStatusCallbackMethod, forKey: "RecordingStatusCallbackMethod")
+                encoder.encode(recordingTrack, forKey: "RecordingTrack")
+                encoder.encode(region, forKey: "Region")
+                encoder.encode(sipAuthPassword, forKey: "SipAuthPassword")
+                encoder.encode(sipAuthUsername, forKey: "SipAuthUsername")
+                encoder.encode(isStartConferenceOnEnter, forKey: "StartConferenceOnEnter")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackEvent, forKey: "StatusCallbackEvent")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(timeLimit, forKey: "TimeLimit")
+                encoder.encode(timeout, forKey: "Timeout")
+                encoder.encode(to, forKey: "To")
+                encoder.encode(waitMethod, forKey: "WaitMethod")
+                encoder.encode(waitURL, forKey: "WaitUrl")
                 return encoder.items
             }
         }
@@ -4264,7 +4264,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
 
         /// Update the properties of the participant
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConferenceParticipant> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateParticipantRequest
@@ -4341,18 +4341,18 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AnnounceMethod": announceMethod])
-                encoder.encode(["AnnounceUrl": announceURL])
-                encoder.encode(["BeepOnExit": isBeepOnExit])
-                encoder.encode(["CallSidToCoach": callSidToCoach])
-                encoder.encode(["Coaching": isCoaching])
-                encoder.encode(["EndConferenceOnExit": isEndConferenceOnExit])
-                encoder.encode(["Hold": isHold])
-                encoder.encode(["HoldMethod": holdMethod])
-                encoder.encode(["HoldUrl": holdURL])
-                encoder.encode(["Muted": isMuted])
-                encoder.encode(["WaitMethod": waitMethod])
-                encoder.encode(["WaitUrl": waitURL])
+                encoder.encode(announceMethod, forKey: "AnnounceMethod")
+                encoder.encode(announceURL, forKey: "AnnounceUrl")
+                encoder.encode(isBeepOnExit, forKey: "BeepOnExit")
+                encoder.encode(callSidToCoach, forKey: "CallSidToCoach")
+                encoder.encode(isCoaching, forKey: "Coaching")
+                encoder.encode(isEndConferenceOnExit, forKey: "EndConferenceOnExit")
+                encoder.encode(isHold, forKey: "Hold")
+                encoder.encode(holdMethod, forKey: "HoldMethod")
+                encoder.encode(holdURL, forKey: "HoldUrl")
+                encoder.encode(isMuted, forKey: "Muted")
+                encoder.encode(waitMethod, forKey: "WaitMethod")
+                encoder.encode(waitURL, forKey: "WaitUrl")
                 return encoder.items
             }
         }
@@ -4430,10 +4430,10 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["DateCreated": dateCreated])
-                encoder.encode(["DateCreated<": dateCreatedLessThan])
-                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(dateCreated, forKey: "DateCreated")
+                encoder.encode(dateCreatedLessThan, forKey: "DateCreated<")
+                encoder.encode(dateCreatedGreaterThan, forKey: "DateCreated>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -4467,7 +4467,7 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Recordings
 
         /// Changes the status of the recording to paused, stopped, or in-progress. Note: To use `Twilio.CURRENT`, pass it as recording sid.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConferenceConferenceRecording> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateConferenceRecordingRequest
@@ -4494,8 +4494,8 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Recordings
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["PauseBehavior": pauseBehavior])
-                encoder.encode(["Status": status])
+                encoder.encode(pauseBehavior, forKey: "PauseBehavior")
+                encoder.encode(status, forKey: "Status")
                 return encoder.items
             }
         }
@@ -4522,7 +4522,7 @@ extension Paths.Accounts.WithAccountSid.Conferences {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConference> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateConferenceRequest
@@ -4557,9 +4557,9 @@ extension Paths.Accounts.WithAccountSid.Conferences {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AnnounceMethod": announceMethod])
-                encoder.encode(["AnnounceUrl": announceURL])
-                encoder.encode(["Status": status])
+                encoder.encode(announceMethod, forKey: "AnnounceMethod")
+                encoder.encode(announceURL, forKey: "AnnounceUrl")
+                encoder.encode(status, forKey: "Status")
                 return encoder.items
             }
         }
@@ -4619,7 +4619,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -4652,7 +4652,7 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
 
         /// Update a connect-app with the specified parameters
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountConnectApp> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateConnectAppRequest
@@ -4702,14 +4702,14 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AuthorizeRedirectUrl": authorizeRedirectURL])
-                encoder.encode(["CompanyName": companyName])
-                encoder.encode(["DeauthorizeCallbackMethod": deauthorizeCallbackMethod])
-                encoder.encode(["DeauthorizeCallbackUrl": deauthorizeCallbackURL])
-                encoder.encode(["Description": description])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["HomepageUrl": homepageURL])
-                encoder.encode(["Permissions": permissions])
+                encoder.encode(authorizeRedirectURL, forKey: "AuthorizeRedirectUrl")
+                encoder.encode(companyName, forKey: "CompanyName")
+                encoder.encode(deauthorizeCallbackMethod, forKey: "DeauthorizeCallbackMethod")
+                encoder.encode(deauthorizeCallbackURL, forKey: "DeauthorizeCallbackUrl")
+                encoder.encode(description, forKey: "Description")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(homepageURL, forKey: "HomepageUrl")
+                encoder.encode(permissions, forKey: "Permissions")
                 return encoder.items
             }
         }
@@ -4789,18 +4789,18 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["Origin": origin])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(origin, forKey: "Origin")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         /// Purchase a phone-number for the account.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumber> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberRequest
@@ -4945,30 +4945,30 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AddressSid": addressSid])
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["AreaCode": areaCode])
-                encoder.encode(["BundleSid": bundleSid])
-                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
-                encoder.encode(["EmergencyStatus": emergencyStatus])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IdentitySid": identitySid])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["SmsApplicationSid": smsApplicationSid])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TrunkSid": trunkSid])
-                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(addressSid, forKey: "AddressSid")
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(areaCode, forKey: "AreaCode")
+                encoder.encode(bundleSid, forKey: "BundleSid")
+                encoder.encode(emergencyAddressSid, forKey: "EmergencyAddressSid")
+                encoder.encode(emergencyStatus, forKey: "EmergencyStatus")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(identitySid, forKey: "IdentitySid")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(smsApplicationSid, forKey: "SmsApplicationSid")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(trunkSid, forKey: "TrunkSid")
+                encoder.encode(voiceApplicationSid, forKey: "VoiceApplicationSid")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceReceiveMode, forKey: "VoiceReceiveMode")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -5053,17 +5053,17 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["Origin": origin])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(origin, forKey: "Origin")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberLocalRequest
@@ -5205,29 +5205,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AddressSid": addressSid])
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["BundleSid": bundleSid])
-                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
-                encoder.encode(["EmergencyStatus": emergencyStatus])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IdentitySid": identitySid])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["SmsApplicationSid": smsApplicationSid])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TrunkSid": trunkSid])
-                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(addressSid, forKey: "AddressSid")
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(bundleSid, forKey: "BundleSid")
+                encoder.encode(emergencyAddressSid, forKey: "EmergencyAddressSid")
+                encoder.encode(emergencyStatus, forKey: "EmergencyStatus")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(identitySid, forKey: "IdentitySid")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(smsApplicationSid, forKey: "SmsApplicationSid")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(trunkSid, forKey: "TrunkSid")
+                encoder.encode(voiceApplicationSid, forKey: "VoiceApplicationSid")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceReceiveMode, forKey: "VoiceReceiveMode")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -5301,17 +5301,17 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["Origin": origin])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(origin, forKey: "Origin")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberMobileRequest
@@ -5453,29 +5453,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AddressSid": addressSid])
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["BundleSid": bundleSid])
-                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
-                encoder.encode(["EmergencyStatus": emergencyStatus])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IdentitySid": identitySid])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["SmsApplicationSid": smsApplicationSid])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TrunkSid": trunkSid])
-                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(addressSid, forKey: "AddressSid")
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(bundleSid, forKey: "BundleSid")
+                encoder.encode(emergencyAddressSid, forKey: "EmergencyAddressSid")
+                encoder.encode(emergencyStatus, forKey: "EmergencyStatus")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(identitySid, forKey: "IdentitySid")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(smsApplicationSid, forKey: "SmsApplicationSid")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(trunkSid, forKey: "TrunkSid")
+                encoder.encode(voiceApplicationSid, forKey: "VoiceApplicationSid")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceReceiveMode, forKey: "VoiceReceiveMode")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -5549,17 +5549,17 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Beta": isBeta])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["Origin": origin])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(isBeta, forKey: "Beta")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(origin, forKey: "Origin")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberTollFreeRequest
@@ -5701,29 +5701,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AddressSid": addressSid])
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["BundleSid": bundleSid])
-                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
-                encoder.encode(["EmergencyStatus": emergencyStatus])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IdentitySid": identitySid])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["SmsApplicationSid": smsApplicationSid])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TrunkSid": trunkSid])
-                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(addressSid, forKey: "AddressSid")
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(bundleSid, forKey: "BundleSid")
+                encoder.encode(emergencyAddressSid, forKey: "EmergencyAddressSid")
+                encoder.encode(emergencyStatus, forKey: "EmergencyStatus")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(identitySid, forKey: "IdentitySid")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(smsApplicationSid, forKey: "SmsApplicationSid")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(trunkSid, forKey: "TrunkSid")
+                encoder.encode(voiceApplicationSid, forKey: "VoiceApplicationSid")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceReceiveMode, forKey: "VoiceReceiveMode")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -5794,13 +5794,13 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Assign an Add-on installation to the Number specified.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateIncomingPhoneNumberAssignedAddOnRequest
@@ -5814,7 +5814,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["InstalledAddOnSid": installedAddOnSid])
+                encoder.encode(installedAddOnSid, forKey: "InstalledAddOnSid")
                 return encoder.items
             }
         }
@@ -5896,7 +5896,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid.Ass
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -5966,7 +5966,7 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
         /// Update an incoming-phone-number instance.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountIncomingPhoneNumber> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateIncomingPhoneNumberRequest
@@ -6108,29 +6108,29 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AccountSid": accountSid])
-                encoder.encode(["AddressSid": addressSid])
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["BundleSid": bundleSid])
-                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
-                encoder.encode(["EmergencyStatus": emergencyStatus])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IdentitySid": identitySid])
-                encoder.encode(["SmsApplicationSid": smsApplicationSid])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsUrl": smsURL])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
-                encoder.encode(["TrunkSid": trunkSid])
-                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
-                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(accountSid, forKey: "AccountSid")
+                encoder.encode(addressSid, forKey: "AddressSid")
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(bundleSid, forKey: "BundleSid")
+                encoder.encode(emergencyAddressSid, forKey: "EmergencyAddressSid")
+                encoder.encode(emergencyStatus, forKey: "EmergencyStatus")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(identitySid, forKey: "IdentitySid")
+                encoder.encode(smsApplicationSid, forKey: "SmsApplicationSid")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsURL, forKey: "SmsUrl")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
+                encoder.encode(trunkSid, forKey: "TrunkSid")
+                encoder.encode(voiceApplicationSid, forKey: "VoiceApplicationSid")
+                encoder.encode(isVoiceCallerIDLookup, forKey: "VoiceCallerIdLookup")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceReceiveMode, forKey: "VoiceReceiveMode")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -6194,12 +6194,12 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountNewKey> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateNewKeyRequest
@@ -6213,7 +6213,7 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -6245,7 +6245,7 @@ extension Paths.Accounts.WithAccountSid.Keys {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountKey> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateKeyRequest
@@ -6259,7 +6259,7 @@ extension Paths.Accounts.WithAccountSid.Keys {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -6340,19 +6340,19 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["To": to])
-                encoder.encode(["From": from])
-                encoder.encode(["DateSent": dateSent])
-                encoder.encode(["DateSent<": dateSentLessThan])
-                encoder.encode(["DateSent>": dateSentGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(to, forKey: "To")
+                encoder.encode(from, forKey: "From")
+                encoder.encode(dateSent, forKey: "DateSent")
+                encoder.encode(dateSentLessThan, forKey: "DateSent<")
+                encoder.encode(dateSentGreaterThan, forKey: "DateSent>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         /// Send a message from the account used to make the request
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountMessage> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateMessageRequest
@@ -6424,23 +6424,23 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["AddressRetention": addressRetention])
-                encoder.encode(["ApplicationSid": applicationSid])
-                encoder.encode(["Attempt": attempt])
-                encoder.encode(["Body": body])
-                encoder.encode(["ContentRetention": contentRetention])
-                encoder.encode(["ForceDelivery": isForceDelivery])
-                encoder.encode(["From": from])
-                encoder.encode(["MaxPrice": maxPrice])
-                encoder.encode(["MediaUrl": mediaURL])
-                encoder.encode(["MessagingServiceSid": messagingServiceSid])
-                encoder.encode(["PersistentAction": persistentAction])
-                encoder.encode(["ProvideFeedback": isProvideFeedback])
-                encoder.encode(["SendAsMms": isSendAsMms])
-                encoder.encode(["SmartEncoded": isSmartEncoded])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["To": to])
-                encoder.encode(["ValidityPeriod": validityPeriod])
+                encoder.encode(addressRetention, forKey: "AddressRetention")
+                encoder.encode(applicationSid, forKey: "ApplicationSid")
+                encoder.encode(attempt, forKey: "Attempt")
+                encoder.encode(body, forKey: "Body")
+                encoder.encode(contentRetention, forKey: "ContentRetention")
+                encoder.encode(isForceDelivery, forKey: "ForceDelivery")
+                encoder.encode(from, forKey: "From")
+                encoder.encode(maxPrice, forKey: "MaxPrice")
+                encoder.encode(mediaURL, forKey: "MediaUrl")
+                encoder.encode(messagingServiceSid, forKey: "MessagingServiceSid")
+                encoder.encode(persistentAction, forKey: "PersistentAction")
+                encoder.encode(isProvideFeedback, forKey: "ProvideFeedback")
+                encoder.encode(isSendAsMms, forKey: "SendAsMms")
+                encoder.encode(isSmartEncoded, forKey: "SmartEncoded")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(to, forKey: "To")
+                encoder.encode(validityPeriod, forKey: "ValidityPeriod")
                 return encoder.items
             }
         }
@@ -6479,7 +6479,7 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
         public let path: String
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountMessageMessageFeedback> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateMessageFeedbackRequest
@@ -6499,7 +6499,7 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Outcome": outcome])
+                encoder.encode(outcome, forKey: "Outcome")
                 return encoder.items
             }
         }
@@ -6572,10 +6572,10 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["DateCreated": dateCreated])
-                encoder.encode(["DateCreated<": dateCreatedLessThan])
-                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(dateCreated, forKey: "DateCreated")
+                encoder.encode(dateCreatedLessThan, forKey: "DateCreated<")
+                encoder.encode(dateCreatedGreaterThan, forKey: "DateCreated>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -6630,7 +6630,7 @@ extension Paths.Accounts.WithAccountSid.Messages {
 
         /// To redact a message-body from a post-flight message record, post to the message instance resource with an empty body
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountMessage> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateMessageRequest
@@ -6644,7 +6644,7 @@ extension Paths.Accounts.WithAccountSid.Messages {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Body": body])
+                encoder.encode(body, forKey: "Body")
                 return encoder.items
             }
         }
@@ -6724,11 +6724,11 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Log": log])
-                encoder.encode(["MessageDate": messageDate])
-                encoder.encode(["MessageDate<": messageDateLessThan])
-                encoder.encode(["MessageDate>": messageDateGreaterThan])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(log, forKey: "Log")
+                encoder.encode(messageDate, forKey: "MessageDate")
+                encoder.encode(messageDateLessThan, forKey: "MessageDate<")
+                encoder.encode(messageDateGreaterThan, forKey: "MessageDate>")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -6826,15 +6826,15 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountValidationRequest> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateValidationRequestRequest
@@ -6873,12 +6873,12 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CallDelay": callDelay])
-                encoder.encode(["Extension": `extension`])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["PhoneNumber": phoneNumber])
-                encoder.encode(["StatusCallback": statusCallback])
-                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(callDelay, forKey: "CallDelay")
+                encoder.encode(`extension`, forKey: "Extension")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(phoneNumber, forKey: "PhoneNumber")
+                encoder.encode(statusCallback, forKey: "StatusCallback")
+                encoder.encode(statusCallbackMethod, forKey: "StatusCallbackMethod")
                 return encoder.items
             }
         }
@@ -6912,7 +6912,7 @@ extension Paths.Accounts.WithAccountSid.OutgoingCallerIDs {
 
         /// Updates the caller-id
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountOutgoingCallerID> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateOutgoingCallerIdRequest
@@ -6926,7 +6926,7 @@ extension Paths.Accounts.WithAccountSid.OutgoingCallerIDs {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -6991,13 +6991,13 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a queue
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountQueue> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateQueueRequest
@@ -7014,8 +7014,8 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["MaxSize": maxSize])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(maxSize, forKey: "MaxSize")
                 return encoder.items
             }
         }
@@ -7097,7 +7097,7 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -7130,7 +7130,7 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid.Members {
 
         /// Dequeue a member from a queue and have the member's call begin executing the TwiML document at that URL
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountQueueMember> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateMemberRequest
@@ -7157,8 +7157,8 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid.Members {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Method": method])
-                encoder.encode(["Url": url])
+                encoder.encode(method, forKey: "Method")
+                encoder.encode(url, forKey: "Url")
                 return encoder.items
             }
         }
@@ -7181,7 +7181,7 @@ extension Paths.Accounts.WithAccountSid.Queues {
 
         /// Update the queue with the new parameters
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountQueue> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateQueueRequest
@@ -7198,8 +7198,8 @@ extension Paths.Accounts.WithAccountSid.Queues {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["MaxSize": maxSize])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(maxSize, forKey: "MaxSize")
                 return encoder.items
             }
         }
@@ -7281,12 +7281,12 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["DateCreated": dateCreated])
-                encoder.encode(["DateCreated<": dateCreatedLessThan])
-                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
-                encoder.encode(["CallSid": callSid])
-                encoder.encode(["ConferenceSid": conferenceSid])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(dateCreated, forKey: "DateCreated")
+                encoder.encode(dateCreatedLessThan, forKey: "DateCreated<")
+                encoder.encode(dateCreatedGreaterThan, forKey: "DateCreated>")
+                encoder.encode(callSid, forKey: "CallSid")
+                encoder.encode(conferenceSid, forKey: "ConferenceSid")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -7367,7 +7367,7 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithRecordingSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -7467,7 +7467,7 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithReferenceSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -7548,7 +7548,7 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithReferenceSid.AddOnResults
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -7692,13 +7692,13 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a Credential List
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialList> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipCredentialListRequest
@@ -7712,7 +7712,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -7794,13 +7794,13 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new credential resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialListSipCredential> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipCredentialRequest
@@ -7817,8 +7817,8 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Password": password])
-                encoder.encode(["Username": username])
+                encoder.encode(password, forKey: "Password")
+                encoder.encode(username, forKey: "Username")
                 return encoder.items
             }
         }
@@ -7852,7 +7852,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
         /// Update a credential resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialListSipCredential> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSipCredentialRequest
@@ -7866,7 +7866,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Password": password])
+                encoder.encode(password, forKey: "Password")
                 return encoder.items
             }
         }
@@ -7894,7 +7894,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists {
 
         /// Update a Credential List
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipCredentialList> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSipCredentialListRequest
@@ -7908,7 +7908,7 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -7973,13 +7973,13 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new Domain
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomain> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipDomainRequest
@@ -8059,19 +8059,19 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ByocTrunkSid": byocTrunkSid])
-                encoder.encode(["DomainName": domainName])
-                encoder.encode(["EmergencyCallerSid": emergencyCallerSid])
-                encoder.encode(["EmergencyCallingEnabled": isEmergencyCallingEnabled])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["Secure": isSecure])
-                encoder.encode(["SipRegistration": isSipRegistration])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceStatusCallbackMethod": voiceStatusCallbackMethod])
-                encoder.encode(["VoiceStatusCallbackUrl": voiceStatusCallbackURL])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(byocTrunkSid, forKey: "ByocTrunkSid")
+                encoder.encode(domainName, forKey: "DomainName")
+                encoder.encode(emergencyCallerSid, forKey: "EmergencyCallerSid")
+                encoder.encode(isEmergencyCallingEnabled, forKey: "EmergencyCallingEnabled")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(isSecure, forKey: "Secure")
+                encoder.encode(isSipRegistration, forKey: "SipRegistration")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceStatusCallbackMethod, forKey: "VoiceStatusCallbackMethod")
+                encoder.encode(voiceStatusCallbackURL, forKey: "VoiceStatusCallbackUrl")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -8175,13 +8175,13 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new credential list mapping resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipAuthCallsCredentialListMappingRequest
@@ -8195,7 +8195,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CredentialListSid": credentialListSid])
+                encoder.encode(credentialListSid, forKey: "CredentialListSid")
                 return encoder.items
             }
         }
@@ -8287,13 +8287,13 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new IP Access Control List mapping
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipAuthCallsIpAccessControlListMappingRequest
@@ -8307,7 +8307,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["IpAccessControlListSid": ipAccessControlListSid])
+                encoder.encode(ipAccessControlListSid, forKey: "IpAccessControlListSid")
                 return encoder.items
             }
         }
@@ -8410,13 +8410,13 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new credential list mapping resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipAuthRegistrationsCredentialListMappingRequest
@@ -8430,7 +8430,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CredentialListSid": credentialListSid])
+                encoder.encode(credentialListSid, forKey: "CredentialListSid")
                 return encoder.items
             }
         }
@@ -8522,13 +8522,13 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a CredentialListMapping resource for an account.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipCredentialListMapping> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipCredentialListMappingRequest
@@ -8542,7 +8542,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CredentialListSid": credentialListSid])
+                encoder.encode(credentialListSid, forKey: "CredentialListSid")
                 return encoder.items
             }
         }
@@ -8634,13 +8634,13 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new IpAccessControlListMapping resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomainSipIpAccessControlListMapping> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipIpAccessControlListMappingRequest
@@ -8654,7 +8654,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["IpAccessControlListSid": ipAccessControlListSid])
+                encoder.encode(ipAccessControlListSid, forKey: "IpAccessControlListSid")
                 return encoder.items
             }
         }
@@ -8709,7 +8709,7 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
 
         /// Update the attributes of a domain
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipDomain> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSipDomainRequest
@@ -8789,19 +8789,19 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ByocTrunkSid": byocTrunkSid])
-                encoder.encode(["DomainName": domainName])
-                encoder.encode(["EmergencyCallerSid": emergencyCallerSid])
-                encoder.encode(["EmergencyCallingEnabled": isEmergencyCallingEnabled])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["Secure": isSecure])
-                encoder.encode(["SipRegistration": isSipRegistration])
-                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
-                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
-                encoder.encode(["VoiceMethod": voiceMethod])
-                encoder.encode(["VoiceStatusCallbackMethod": voiceStatusCallbackMethod])
-                encoder.encode(["VoiceStatusCallbackUrl": voiceStatusCallbackURL])
-                encoder.encode(["VoiceUrl": voiceURL])
+                encoder.encode(byocTrunkSid, forKey: "ByocTrunkSid")
+                encoder.encode(domainName, forKey: "DomainName")
+                encoder.encode(emergencyCallerSid, forKey: "EmergencyCallerSid")
+                encoder.encode(isEmergencyCallingEnabled, forKey: "EmergencyCallingEnabled")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(isSecure, forKey: "Secure")
+                encoder.encode(isSipRegistration, forKey: "SipRegistration")
+                encoder.encode(voiceFallbackMethod, forKey: "VoiceFallbackMethod")
+                encoder.encode(voiceFallbackURL, forKey: "VoiceFallbackUrl")
+                encoder.encode(voiceMethod, forKey: "VoiceMethod")
+                encoder.encode(voiceStatusCallbackMethod, forKey: "VoiceStatusCallbackMethod")
+                encoder.encode(voiceStatusCallbackURL, forKey: "VoiceStatusCallbackUrl")
+                encoder.encode(voiceURL, forKey: "VoiceUrl")
                 return encoder.items
             }
         }
@@ -8866,13 +8866,13 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new IpAccessControlList resource
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlList> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipIpAccessControlListRequest
@@ -8886,7 +8886,7 @@ extension Paths.Accounts.WithAccountSid.Sip {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -8968,13 +8968,13 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new IpAddress resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlListSipIpAddress> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateSipIpAddressRequest
@@ -8994,9 +8994,9 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CidrPrefixLength": cidrPrefixLength])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IpAddress": ipAddress])
+                encoder.encode(cidrPrefixLength, forKey: "CidrPrefixLength")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(ipAddress, forKey: "IpAddress")
                 return encoder.items
             }
         }
@@ -9030,7 +9030,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
         /// Update an IpAddress resource.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlListSipIpAddress> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSipIpAddressRequest
@@ -9050,9 +9050,9 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CidrPrefixLength": cidrPrefixLength])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["IpAddress": ipAddress])
+                encoder.encode(cidrPrefixLength, forKey: "CidrPrefixLength")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(ipAddress, forKey: "IpAddress")
                 return encoder.items
             }
         }
@@ -9080,7 +9080,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists {
 
         /// Rename an IpAccessControlList
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSipSipIpAccessControlList> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSipIpAccessControlListRequest
@@ -9094,7 +9094,7 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -9181,9 +9181,9 @@ extension Paths.Accounts.WithAccountSid.Sms {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["ShortCode": shortCode])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(shortCode, forKey: "ShortCode")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -9217,7 +9217,7 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
 
         /// Update a short code with the following parameters
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountShortCode> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateShortCodeRequest
@@ -9266,12 +9266,12 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["ApiVersion": apiVersion])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
-                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
-                encoder.encode(["SmsMethod": smsMethod])
-                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(apiVersion, forKey: "ApiVersion")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(smsFallbackMethod, forKey: "SmsFallbackMethod")
+                encoder.encode(smsFallbackURL, forKey: "SmsFallbackUrl")
+                encoder.encode(smsMethod, forKey: "SmsMethod")
+                encoder.encode(smsURL, forKey: "SmsUrl")
                 return encoder.items
             }
         }
@@ -9330,13 +9330,13 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
 
         /// Create a new Signing Key for the account making the request.
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountNewSigningKey> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateNewSigningKeyRequest
@@ -9350,7 +9350,7 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -9382,7 +9382,7 @@ extension Paths.Accounts.WithAccountSid.SigningKeys {
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountSigningKey> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateSigningKeyRequest
@@ -9395,7 +9395,7 @@ extension Paths.Accounts.WithAccountSid.SigningKeys {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -9417,7 +9417,7 @@ extension Paths.Accounts.WithAccountSid {
 
         /// Create a new token for ICE servers
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountToken> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateTokenRequest
@@ -9431,7 +9431,7 @@ extension Paths.Accounts.WithAccountSid {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Ttl": ttl])
+                encoder.encode(ttl, forKey: "Ttl")
                 return encoder.items
             }
         }
@@ -9491,7 +9491,7 @@ extension Paths.Accounts.WithAccountSid {
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["PageSize": pageSize])
+            encoder.encode(pageSize, forKey: "PageSize")
             return encoder.items
         }
     }
@@ -9851,11 +9851,11 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -10183,11 +10183,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -10504,11 +10504,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -10825,11 +10825,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -11146,11 +11146,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -11467,11 +11467,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -11788,11 +11788,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -12109,11 +12109,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -12430,11 +12430,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Category": category])
-                encoder.encode(["StartDate": startDate])
-                encoder.encode(["EndDate": endDate])
-                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(category, forKey: "Category")
+                encoder.encode(startDate, forKey: "StartDate")
+                encoder.encode(endDate, forKey: "EndDate")
+                encoder.encode(isIncludeSubaccounts, forKey: "IncludeSubaccounts")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
@@ -12763,17 +12763,17 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["Recurring": recurring])
-                encoder.encode(["TriggerBy": triggerBy])
-                encoder.encode(["UsageCategory": usageCategory])
-                encoder.encode(["PageSize": pageSize])
+                encoder.encode(recurring, forKey: "Recurring")
+                encoder.encode(triggerBy, forKey: "TriggerBy")
+                encoder.encode(usageCategory, forKey: "UsageCategory")
+                encoder.encode(pageSize, forKey: "PageSize")
                 return encoder.items
             }
         }
 
         /// Create a new UsageTrigger
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountUsageUsageTrigger> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// CreateUsageTriggerRequest
@@ -13074,13 +13074,13 @@ extension Paths.Accounts.WithAccountSid.Usage {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CallbackMethod": callbackMethod])
-                encoder.encode(["CallbackUrl": callbackURL])
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["Recurring": recurring])
-                encoder.encode(["TriggerBy": triggerBy])
-                encoder.encode(["TriggerValue": triggerValue])
-                encoder.encode(["UsageCategory": usageCategory])
+                encoder.encode(callbackMethod, forKey: "CallbackMethod")
+                encoder.encode(callbackURL, forKey: "CallbackUrl")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(recurring, forKey: "Recurring")
+                encoder.encode(triggerBy, forKey: "TriggerBy")
+                encoder.encode(triggerValue, forKey: "TriggerValue")
+                encoder.encode(usageCategory, forKey: "UsageCategory")
                 return encoder.items
             }
         }
@@ -13114,7 +13114,7 @@ extension Paths.Accounts.WithAccountSid.Usage.Triggers {
 
         /// Update an instance of a usage trigger
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountUsageUsageTrigger> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateUsageTriggerRequest
@@ -13144,9 +13144,9 @@ extension Paths.Accounts.WithAccountSid.Usage.Triggers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["CallbackMethod": callbackMethod])
-                encoder.encode(["CallbackUrl": callbackURL])
-                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(callbackMethod, forKey: "CallbackMethod")
+                encoder.encode(callbackURL, forKey: "CallbackUrl")
+                encoder.encode(friendlyName, forKey: "FriendlyName")
                 return encoder.items
             }
         }
@@ -13173,7 +13173,7 @@ extension Paths.Accounts {
 
         /// Modify the properties of a given Account
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010Account> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         /// UpdateAccountRequest
@@ -13197,8 +13197,8 @@ extension Paths.Accounts {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["FriendlyName": friendlyName])
-                encoder.encode(["Status": status])
+                encoder.encode(friendlyName, forKey: "FriendlyName")
+                encoder.encode(status, forKey: "Status")
                 return encoder.items
             }
         }

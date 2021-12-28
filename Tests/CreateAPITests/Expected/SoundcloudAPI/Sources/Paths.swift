@@ -48,11 +48,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["client_id": clientID])
-                encoder.encode(["redirect_uri": redirectUri])
-                encoder.encode(["response_type": responseType])
-                encoder.encode(["scope": scope])
-                encoder.encode(["state": state])
+                encoder.encode(clientID, forKey: "client_id")
+                encoder.encode(redirectUri, forKey: "redirect_uri")
+                encoder.encode(responseType, forKey: "response_type")
+                encoder.encode(scope, forKey: "scope")
+                encoder.encode(state, forKey: "state")
                 return encoder.items
             }
         }
@@ -81,7 +81,7 @@ extension Paths.Oauth2 {
 
         /// This endpoint accepts POST requests and is used to provision access tokens once a user has authorized your application.
         public func post(_ body: PostRequest? = nil) -> Request<String> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public enum PostRequest: Encodable {
@@ -92,9 +92,9 @@ extension Paths.Oauth2 {
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
                 switch self {
-                case .authorizationCode(let value): encoder.encode(value)
-                case .refreshToken(let value): encoder.encode(value)
-                case .password(let value): encoder.encode(value)
+                case .authorizationCode(let value): encoder.encode(value, forKey: "value")
+                case .refreshToken(let value): encoder.encode(value, forKey: "value")
+                case .password(let value): encoder.encode(value, forKey: "value")
                 }
                 return encoder.items
             }
@@ -134,8 +134,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ access: [Access]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["access": access], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(access, forKey: "access", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -174,8 +174,8 @@ extension Paths.Me.Activities.All {
 
         private func makeGetQuery(_ access: [Access]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["access": access], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(access, forKey: "access", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -203,8 +203,8 @@ extension Paths.Me.Activities {
 
         private func makeGetQuery(_ access: [Access]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["access": access], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(access, forKey: "access", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -232,8 +232,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
     }
@@ -298,8 +298,8 @@ extension Paths.Me.Likes {
 
         private func makeGetQuery(_ limit: Int?, _ isLinkedPartitioning: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["linked_partitioning": isLinkedPartitioning])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
             return encoder.items
         }
     }
@@ -333,7 +333,7 @@ extension Paths.Me.Favorites {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -371,8 +371,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
     }
@@ -411,9 +411,9 @@ extension Paths.Me.Followings {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
                 return encoder.items
             }
         }
@@ -479,7 +479,7 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -520,7 +520,7 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -575,8 +575,8 @@ extension Paths.Me {
 
         private func makeGetQuery(_ limit: Int?, _ isLinkedPartitioning: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["linked_partitioning": isLinkedPartitioning])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
             return encoder.items
         }
     }
@@ -659,8 +659,8 @@ extension Paths {
 
                 public var asQuery: [(String, String?)] {
                     let encoder = URLQueryEncoder()
-                    encoder.encode(["from": from])
-                    encoder.encode(["to": to])
+                    encoder.encode(from, forKey: "from")
+                    encoder.encode(to, forKey: "to")
                     return encoder.items
                 }
             }
@@ -682,8 +682,8 @@ extension Paths {
 
                 public var asQuery: [(String, String?)] {
                     let encoder = URLQueryEncoder()
-                    encoder.encode(["from": from])
-                    encoder.encode(["to": to])
+                    encoder.encode(from, forKey: "from")
+                    encoder.encode(to, forKey: "to")
                     return encoder.items
                 }
             }
@@ -705,8 +705,8 @@ extension Paths {
 
                 public var asQuery: [(String, String?)] {
                     let encoder = URLQueryEncoder()
-                    encoder.encode(["from": from])
-                    encoder.encode(["to": to])
+                    encoder.encode(from, forKey: "from")
+                    encoder.encode(to, forKey: "to")
                     return encoder.items
                 }
             }
@@ -732,18 +732,18 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["q": q])
-                encoder.encode(["ids": ids])
-                encoder.encode(["genres": genres])
-                encoder.encode(["tags": tags])
-                encoder.encode(["bpm": bpm], explode: false, isDeepObject: true)
-                encoder.encode(["duration": duration], explode: false, isDeepObject: true)
-                encoder.encode(["created_at": createdAt], explode: false, isDeepObject: true)
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(q, forKey: "q")
+                encoder.encode(ids, forKey: "ids")
+                encoder.encode(genres, forKey: "genres")
+                encoder.encode(tags, forKey: "tags")
+                encoder.encode(bpm, forKey: "bpm", isDeepObject: true)
+                encoder.encode(duration, forKey: "duration", isDeepObject: true)
+                encoder.encode(createdAt, forKey: "created_at", isDeepObject: true)
+                encoder.encode(access, forKey: "access")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -808,11 +808,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["q": q])
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(q, forKey: "q")
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -1169,11 +1169,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["q": q])
-                encoder.encode(["ids": ids])
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(q, forKey: "q")
+                encoder.encode(ids, forKey: "ids")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -1196,8 +1196,8 @@ extension Paths.Playlists {
 
         private func makeGetQuery(_ secretToken: String?, _ access: [Access]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["secret_token": secretToken])
-            encoder.encode(["access": access], explode: false)
+            encoder.encode(secretToken, forKey: "secret_token")
+            encoder.encode(access, forKey: "access", explode: false)
             return encoder.items
         }
 
@@ -1566,9 +1566,9 @@ extension Paths.Playlists.WithPlaylistID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["secret_token": secretToken])
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(secretToken, forKey: "secret_token")
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -1591,7 +1591,7 @@ extension Paths.Playlists.WithPlaylistID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -1613,7 +1613,7 @@ extension Paths.Tracks {
 
         private func makeGetQuery(_ secretToken: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["secret_token": secretToken])
+            encoder.encode(secretToken, forKey: "secret_token")
             return encoder.items
         }
 
@@ -1645,7 +1645,7 @@ extension Paths.Tracks.WithTrackID {
 
         private func makeGetQuery(_ secretToken: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["secret_token": secretToken])
+            encoder.encode(secretToken, forKey: "secret_token")
             return encoder.items
         }
     }
@@ -1694,9 +1694,9 @@ extension Paths.Tracks.WithTrackID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -1760,8 +1760,8 @@ extension Paths.Tracks.WithTrackID {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
     }
@@ -1783,7 +1783,7 @@ extension Paths.Tracks.WithTrackID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -1840,10 +1840,10 @@ extension Paths.Tracks.WithTrackID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -1861,13 +1861,7 @@ extension Paths {
 
         /// Resolves soundcloud.com URLs to Resource URLs to use with the API.
         public func get(url: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(url))
-        }
-
-        private func makeGetQuery(_ url: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["url": url])
-            return encoder.items
+            .get(path, query: [("url", url)])
         }
     }
 }
@@ -1904,8 +1898,8 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
     }
@@ -1944,8 +1938,8 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ limit: Int?, _ isLinkedPartitioning: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["linked_partitioning": isLinkedPartitioning])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
             return encoder.items
         }
     }
@@ -1985,7 +1979,7 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -2025,7 +2019,7 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -2099,9 +2093,9 @@ extension Paths.Users.WithUserID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -2157,9 +2151,9 @@ extension Paths.Users.WithUserID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }
@@ -2182,7 +2176,7 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -2248,9 +2242,9 @@ extension Paths.Users.WithUserID.Likes {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["access": access], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                encoder.encode(access, forKey: "access", explode: false)
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(isLinkedPartitioning, forKey: "linked_partitioning")
                 return encoder.items
             }
         }

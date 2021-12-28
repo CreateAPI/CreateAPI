@@ -68,9 +68,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["email": email])
-                encoder.encode(["phone": phone])
-                encoder.encode(["code": code])
+                encoder.encode(email, forKey: "email")
+                encoder.encode(phone, forKey: "phone")
+                encoder.encode(code, forKey: "code")
                 return encoder.items
             }
         }
@@ -148,7 +148,7 @@ extension Paths.Key {
 
         /// Revoke an Identity (Key) with a revocation secret
         public func delete(secret: String) -> Request<DeleteResponse> {
-            .delete(path, query: makeDeleteQuery(secret))
+            .delete(path, query: [("secret", secret)])
         }
 
         public struct DeleteResponse: Decodable {
@@ -158,12 +158,6 @@ extension Paths.Key {
             public init(status: String? = nil) {
                 self.status = status
             }
-        }
-
-        private func makeDeleteQuery(_ secret: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["secret": secret])
-            return encoder.items
         }
 
         /// HEAD info on Authentiq ID
@@ -185,7 +179,7 @@ extension Paths {
         /// Push sign-in request
         /// See: https://github.com/skion/authentiq/wiki/JWT-Examples
         public func post(callback: String, _ body: String) -> Request<PostResponse> {
-            .post(path, query: makePostQuery(callback), body: body)
+            .post(path, query: [("callback", callback)], body: body)
         }
 
         public struct PostResponse: Decodable {
@@ -195,12 +189,6 @@ extension Paths {
             public init(status: String? = nil) {
                 self.status = status
             }
-        }
-
-        private func makePostQuery(_ callback: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["callback": callback])
-            return encoder.items
         }
     }
 }
@@ -234,7 +222,7 @@ extension Paths {
 
         private func makePostQuery(_ test: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["test": test])
+            encoder.encode(test, forKey: "test")
             return encoder.items
         }
     }

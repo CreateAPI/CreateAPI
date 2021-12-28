@@ -29,8 +29,8 @@ extension Paths {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
     }
@@ -52,7 +52,7 @@ extension Paths {
 
         private func makeGetQuery(_ filter: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["filter": filter])
+            encoder.encode(filter, forKey: "filter")
             return encoder.items
         }
     }
@@ -90,7 +90,7 @@ extension Paths.Vaults.WithVaultUUID {
 
         private func makeGetQuery(_ filter: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["filter": filter])
+            encoder.encode(filter, forKey: "filter")
             return encoder.items
         }
 
@@ -152,7 +152,7 @@ extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID {
 
         private func makeGetQuery(_ isInlineFiles: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["inline_files": isInlineFiles])
+            encoder.encode(isInlineFiles, forKey: "inline_files")
             return encoder.items
         }
     }
@@ -174,7 +174,7 @@ extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID.Files {
 
         private func makeGetQuery(_ isInlineFiles: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["inline_files": isInlineFiles])
+            encoder.encode(isInlineFiles, forKey: "inline_files")
             return encoder.items
         }
     }

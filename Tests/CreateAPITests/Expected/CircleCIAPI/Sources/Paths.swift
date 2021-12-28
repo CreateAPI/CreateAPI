@@ -80,9 +80,9 @@ extension Paths.Project.WithUsername {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["offset": offset])
-                encoder.encode(["filter": filter])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(filter, forKey: "filter")
                 return encoder.items
             }
         }
@@ -467,8 +467,8 @@ extension Paths {
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
-            encoder.encode(["offset": offset])
+            encoder.encode(limit, forKey: "limit")
+            encoder.encode(offset, forKey: "offset")
             return encoder.items
         }
     }

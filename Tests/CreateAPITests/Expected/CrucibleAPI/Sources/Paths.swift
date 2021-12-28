@@ -52,10 +52,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["limit": limit])
-                encoder.encode(["sort_field": sortField])
-                encoder.encode(["sort_dir": sortDir])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(sortField, forKey: "sort_field")
+                encoder.encode(sortDir, forKey: "sort_dir")
                 return encoder.items
             }
         }
@@ -217,9 +217,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["examiner_tag": examinerTag])
-                encoder.encode(["start_date": startDate])
-                encoder.encode(["end_date": endDate])
+                encoder.encode(examinerTag, forKey: "examiner_tag")
+                encoder.encode(startDate, forKey: "start_date")
+                encoder.encode(endDate, forKey: "end_date")
                 return encoder.items
             }
         }

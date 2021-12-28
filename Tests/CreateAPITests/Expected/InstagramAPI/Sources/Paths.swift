@@ -67,8 +67,8 @@ extension Paths.Geographies.WithGeoID.Media {
 
         private func makeGetQuery(_ count: Int?, _ minID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["count": count])
-            encoder.encode(["min_id": minID])
+            encoder.encode(count, forKey: "count")
+            encoder.encode(minID, forKey: "min_id")
             return encoder.items
         }
     }
@@ -118,12 +118,12 @@ extension Paths.Locations {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["distance": distance])
-                encoder.encode(["facebook_places_id": facebookPlacesID])
-                encoder.encode(["foursquare_id": foursquareID])
-                encoder.encode(["lat": lat])
-                encoder.encode(["lng": lng])
-                encoder.encode(["foursquare_v2_id": foursquareV2ID])
+                encoder.encode(distance, forKey: "distance")
+                encoder.encode(facebookPlacesID, forKey: "facebook_places_id")
+                encoder.encode(foursquareID, forKey: "foursquare_id")
+                encoder.encode(lat, forKey: "lat")
+                encoder.encode(lng, forKey: "lng")
+                encoder.encode(foursquareV2ID, forKey: "foursquare_v2_id")
                 return encoder.items
             }
         }
@@ -186,10 +186,10 @@ extension Paths.Locations.WithLocationID.Media {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["min_timestamp": minTimestamp])
-                encoder.encode(["max_timestamp": maxTimestamp])
-                encoder.encode(["min_id": minID])
-                encoder.encode(["max_id": maxID])
+                encoder.encode(minTimestamp, forKey: "min_timestamp")
+                encoder.encode(maxTimestamp, forKey: "max_timestamp")
+                encoder.encode(minID, forKey: "min_id")
+                encoder.encode(maxID, forKey: "max_id")
                 return encoder.items
             }
         }
@@ -262,11 +262,11 @@ extension Paths.Media {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["lat": lat])
-                encoder.encode(["lng": lng])
-                encoder.encode(["min_timestamp": minTimestamp])
-                encoder.encode(["max_timestamp": maxTimestamp])
-                encoder.encode(["distance": distance])
+                encoder.encode(lat, forKey: "lat")
+                encoder.encode(lng, forKey: "lng")
+                encoder.encode(minTimestamp, forKey: "min_timestamp")
+                encoder.encode(maxTimestamp, forKey: "max_timestamp")
+                encoder.encode(distance, forKey: "distance")
                 return encoder.items
             }
         }
@@ -350,13 +350,7 @@ extension Paths.Media.WithMediaID {
         ///   * The comment cannot contain more than 1 URL.
         ///   * The comment cannot consist of all capital letters.
         public func post(text: String) -> Request<InstagramAPI.StatusResponse> {
-            .post(path, query: makePostQuery(text))
-        }
-
-        private func makePostQuery(_ text: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["text": text])
-            return encoder.items
+            .post(path, query: [("text", text)])
         }
     }
 }
@@ -431,13 +425,7 @@ extension Paths.Tags {
 
         /// Search for tags by name.
         public func get(q: String) -> Request<InstagramAPI.TagSearchResponse> {
-            .get(path, query: makeGetQuery(q))
-        }
-
-        private func makeGetQuery(_ q: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            return encoder.items
+            .get(path, query: [("q", q)])
         }
     }
 }
@@ -499,9 +487,9 @@ extension Paths.Tags.WithTagName.Media {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["min_tag_id": minTagID])
-                encoder.encode(["max_tag_id": maxTagID])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(minTagID, forKey: "min_tag_id")
+                encoder.encode(maxTagID, forKey: "max_tag_id")
                 return encoder.items
             }
         }
@@ -535,8 +523,8 @@ extension Paths.Users {
 
         private func makeGetQuery(_ q: String, _ count: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["count": count])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(count, forKey: "count")
             return encoder.items
         }
     }
@@ -585,9 +573,9 @@ extension Paths.Users.`Self` {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["min_id": minID])
-                encoder.encode(["max_id": maxID])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(minID, forKey: "min_id")
+                encoder.encode(maxID, forKey: "max_id")
                 return encoder.items
             }
         }
@@ -625,8 +613,8 @@ extension Paths.Users.`Self`.Media {
 
         private func makeGetQuery(_ count: Int?, _ maxLikeID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["count": count])
-            encoder.encode(["max_like_id": maxLikeID])
+            encoder.encode(count, forKey: "count")
+            encoder.encode(maxLikeID, forKey: "max_like_id")
             return encoder.items
         }
     }
@@ -754,11 +742,11 @@ extension Paths.Users.WithUserID.Media {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["count": count])
-                encoder.encode(["max_timestamp": maxTimestamp])
-                encoder.encode(["min_timestamp": minTimestamp])
-                encoder.encode(["min_id": minID])
-                encoder.encode(["max_id": maxID])
+                encoder.encode(count, forKey: "count")
+                encoder.encode(maxTimestamp, forKey: "max_timestamp")
+                encoder.encode(minTimestamp, forKey: "min_timestamp")
+                encoder.encode(minID, forKey: "min_id")
+                encoder.encode(maxID, forKey: "max_id")
                 return encoder.items
             }
         }
@@ -786,7 +774,7 @@ extension Paths.Users.WithUserID {
 
         private func makePostQuery(_ action: Action) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["action": action])
+            encoder.encode(action, forKey: "action")
             return encoder.items
         }
 

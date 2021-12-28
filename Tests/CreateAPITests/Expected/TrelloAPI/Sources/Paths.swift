@@ -57,41 +57,27 @@ extension Paths.Actions {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["display": display])
-                encoder.encode(["entities": entities])
-                encoder.encode(["fields": fields])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(display, forKey: "display")
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateActionsByIdAction()
         public func put(key: String, token: String, _ body: TrelloAPI.Actions) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteActionsByIdAction()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -123,9 +109,9 @@ extension Paths.Actions.WithIDAction {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -143,14 +129,7 @@ extension Paths.Actions.WithIDAction.Board {
 
         /// GetActionsBoardByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -182,9 +161,9 @@ extension Paths.Actions.WithIDAction {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -202,14 +181,7 @@ extension Paths.Actions.WithIDAction.Card {
 
         /// GetActionsCardByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -225,14 +197,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsDisplayByIdAction()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -248,14 +213,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsEntitiesByIdAction()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -287,9 +245,9 @@ extension Paths.Actions.WithIDAction {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -307,14 +265,7 @@ extension Paths.Actions.WithIDAction.List {
 
         /// GetActionsListByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -346,9 +297,9 @@ extension Paths.Actions.WithIDAction {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -366,14 +317,7 @@ extension Paths.Actions.WithIDAction.Member {
 
         /// GetActionsMemberByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -405,9 +349,9 @@ extension Paths.Actions.WithIDAction {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -425,14 +369,7 @@ extension Paths.Actions.WithIDAction.MemberCreator {
 
         /// GetActionsMemberCreatorByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -464,9 +401,9 @@ extension Paths.Actions.WithIDAction {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -484,14 +421,7 @@ extension Paths.Actions.WithIDAction.Organization {
 
         /// GetActionsOrganizationByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -507,14 +437,7 @@ extension Paths.Actions.WithIDAction {
 
         /// UpdateActionsTextByIdAction()
         public func put(key: String, token: String, _ body: TrelloAPI.ActionsText) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -530,14 +453,7 @@ extension Paths.Actions.WithIDAction {
 
         /// GetActionsByIdActionByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -569,9 +485,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["urls": urls])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(urls, forKey: "urls")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -589,14 +505,7 @@ extension Paths {
 
         /// AddBoards()
         public func post(key: String, token: String, _ body: TrelloAPI.Boards) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -700,59 +609,52 @@ extension Paths.Boards {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_display": actionsDisplay])
-                encoder.encode(["actions_format": actionsFormat])
-                encoder.encode(["actions_since": actionsSince])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["action_member": actionMember])
-                encoder.encode(["action_member_fields": actionMemberFields])
-                encoder.encode(["action_memberCreator": actionMemberCreator])
-                encoder.encode(["action_memberCreator_fields": actionMemberCreatorFields])
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["card_attachments": cardAttachments])
-                encoder.encode(["card_attachment_fields": cardAttachmentFields])
-                encoder.encode(["card_checklists": cardChecklists])
-                encoder.encode(["card_stickers": cardStickers])
-                encoder.encode(["boardStars": boardStars])
-                encoder.encode(["labels": labels])
-                encoder.encode(["label_fields": labelFields])
-                encoder.encode(["labels_limit": labelsLimit])
-                encoder.encode(["lists": lists])
-                encoder.encode(["list_fields": listFields])
-                encoder.encode(["memberships": memberships])
-                encoder.encode(["memberships_member": membershipsMember])
-                encoder.encode(["memberships_member_fields": membershipsMemberFields])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["membersInvited": membersInvited])
-                encoder.encode(["membersInvited_fields": membersInvitedFields])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["checklist_fields": checklistFields])
-                encoder.encode(["organization": organization])
-                encoder.encode(["organization_fields": organizationFields])
-                encoder.encode(["organization_memberships": organizationMemberships])
-                encoder.encode(["myPrefs": myPrefs])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsDisplay, forKey: "actions_display")
+                encoder.encode(actionsFormat, forKey: "actions_format")
+                encoder.encode(actionsSince, forKey: "actions_since")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(actionMember, forKey: "action_member")
+                encoder.encode(actionMemberFields, forKey: "action_member_fields")
+                encoder.encode(actionMemberCreator, forKey: "action_memberCreator")
+                encoder.encode(actionMemberCreatorFields, forKey: "action_memberCreator_fields")
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(cardAttachments, forKey: "card_attachments")
+                encoder.encode(cardAttachmentFields, forKey: "card_attachment_fields")
+                encoder.encode(cardChecklists, forKey: "card_checklists")
+                encoder.encode(cardStickers, forKey: "card_stickers")
+                encoder.encode(boardStars, forKey: "boardStars")
+                encoder.encode(labels, forKey: "labels")
+                encoder.encode(labelFields, forKey: "label_fields")
+                encoder.encode(labelsLimit, forKey: "labels_limit")
+                encoder.encode(lists, forKey: "lists")
+                encoder.encode(listFields, forKey: "list_fields")
+                encoder.encode(memberships, forKey: "memberships")
+                encoder.encode(membershipsMember, forKey: "memberships_member")
+                encoder.encode(membershipsMemberFields, forKey: "memberships_member_fields")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(membersInvited, forKey: "membersInvited")
+                encoder.encode(membersInvitedFields, forKey: "membersInvited_fields")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(checklistFields, forKey: "checklist_fields")
+                encoder.encode(organization, forKey: "organization")
+                encoder.encode(organizationFields, forKey: "organization_fields")
+                encoder.encode(organizationMemberships, forKey: "organization_memberships")
+                encoder.encode(myPrefs, forKey: "myPrefs")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateBoardsByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.Boards) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -810,22 +712,22 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["entities": entities])
-                encoder.encode(["display": display])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["format": format])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["page": page])
-                encoder.encode(["idModels": idModels])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(display, forKey: "display")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(format, forKey: "format")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(idModels, forKey: "idModels")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -859,9 +761,9 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -890,14 +792,7 @@ extension Paths.Boards.WithIDBoard.CalendarKey {
 
         /// AddBoardsCalendarKeyGenerateByIdBoard()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -953,21 +848,21 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["stickers": stickers])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["limit": limit])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(stickers, forKey: "stickers")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -985,14 +880,7 @@ extension Paths.Boards.WithIDBoard.Cards {
 
         /// GetBoardsCardsByIdBoardByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1054,24 +942,24 @@ extension Paths.Boards.WithIDBoard.Cards {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_display": actionsDisplay])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["action_memberCreator_fields": actionMemberCreatorFields])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checkItemState_fields": checkItemStateFields])
-                encoder.encode(["labels": labels])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["checklist_fields": checklistFields])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsDisplay, forKey: "actions_display")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(actionMemberCreatorFields, forKey: "action_memberCreator_fields")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checkItemStateFields, forKey: "checkItemState_fields")
+                encoder.encode(labels, forKey: "labels")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(checklistFields, forKey: "checklist_fields")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1115,28 +1003,21 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["checkItems": checkItems])
-                encoder.encode(["checkItem_fields": checkItemFields])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(checkItems, forKey: "checkItems")
+                encoder.encode(checkItemFields, forKey: "checkItem_fields")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddBoardsChecklistsByIdBoard()
         public func post(key: String, token: String, _ body: TrelloAPI.BoardsChecklists) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1152,14 +1033,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// UpdateBoardsClosedByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsClosed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1193,10 +1067,10 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["tags": tags])
-                encoder.encode(["ixLastUpdate": ixLastUpdate])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(tags, forKey: "tags")
+                encoder.encode(ixLastUpdate, forKey: "ixLastUpdate")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1214,14 +1088,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// UpdateBoardsDescByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsDesc) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1248,14 +1115,7 @@ extension Paths.Boards.WithIDBoard.EmailKey {
 
         /// AddBoardsEmailKeyGenerateByIdBoard()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1271,14 +1131,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// UpdateBoardsIdOrganizationByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsIDOrganization) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1305,14 +1158,7 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         /// UpdateBoardsLabelNamesBlueByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelNamesBlue) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1328,14 +1174,7 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         /// UpdateBoardsLabelNamesGreenByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelNamesGreen) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1351,14 +1190,7 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         /// UpdateBoardsLabelNamesOrangeByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelNamesOrange) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1374,14 +1206,7 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         /// UpdateBoardsLabelNamesPurpleByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelNamesPurple) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1397,14 +1222,7 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         /// UpdateBoardsLabelNamesRedByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelNamesRed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1420,14 +1238,7 @@ extension Paths.Boards.WithIDBoard.LabelNames {
 
         /// UpdateBoardsLabelNamesYellowByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelNamesYellow) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1461,24 +1272,17 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddBoardsLabelsByIdBoard()
         public func post(key: String, token: String, _ body: TrelloAPI.BoardsLabels) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1510,9 +1314,9 @@ extension Paths.Boards.WithIDBoard.Labels {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1552,26 +1356,19 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddBoardsListsByIdBoard()
         public func post(key: String, token: String, _ body: TrelloAPI.BoardsLists) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1587,14 +1384,7 @@ extension Paths.Boards.WithIDBoard.Lists {
 
         /// GetBoardsListsByIdBoardByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1610,14 +1400,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// AddBoardsMarkAsViewedByIdBoard()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1653,25 +1436,18 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["activity": activity])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(activity, forKey: "activity")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateBoardsMembersByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsMembers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1687,14 +1463,7 @@ extension Paths.Boards.WithIDBoard.Members {
 
         /// GetBoardsMembersByIdBoardByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1710,26 +1479,12 @@ extension Paths.Boards.WithIDBoard.Members {
 
         /// UpdateBoardsMembersByIdBoardByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsMembers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteBoardsMembersByIdBoardByIdMember()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1785,21 +1540,21 @@ extension Paths.Boards.WithIDBoard.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["board": board])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["list": list])
-                encoder.encode(["list_fields": listFields])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(board, forKey: "board")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(list, forKey: "list")
+                encoder.encode(listFields, forKey: "list_fields")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1833,9 +1588,9 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1853,14 +1608,7 @@ extension Paths.Boards.WithIDBoard.MembersInvited {
 
         /// GetBoardsMembersInvitedByIdBoardByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1896,11 +1644,11 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -1936,24 +1684,17 @@ extension Paths.Boards.WithIDBoard.Memberships {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateBoardsMembershipsByIdBoardByIdMembership()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsMemberships) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -1969,14 +1710,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsMyPrefsByIdBoard()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -1992,14 +1726,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsEmailPositionByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsEmailPosition) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2015,14 +1742,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsIdEmailListByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsIDEmailList) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2038,14 +1758,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsShowListGuideByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsShowListGuide) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2061,14 +1774,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsShowSidebarByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsShowSidebar) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2084,14 +1790,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsShowSidebarActivityByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsShowSidebarActivity) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2107,14 +1806,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsShowSidebarBoardActionsByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsShowSidebarBoardActions) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2130,14 +1822,7 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
 
         /// UpdateBoardsMyPrefsShowSidebarMembersByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.MyPrefsShowSidebarMembers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2153,14 +1838,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// UpdateBoardsNameByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2192,9 +1870,9 @@ extension Paths.Boards.WithIDBoard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -2212,14 +1890,7 @@ extension Paths.Boards.WithIDBoard.Organization {
 
         /// GetBoardsOrganizationByIdBoardByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -2235,14 +1906,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// AddBoardsPowerUpsByIdBoard()
         public func post(key: String, token: String, _ body: TrelloAPI.BoardsPowerUps) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2258,14 +1922,7 @@ extension Paths.Boards.WithIDBoard.PowerUps {
 
         /// DeleteBoardsPowerUpsByIdBoardByPowerUp()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -2292,14 +1949,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsBackgroundByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsBackground) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2315,14 +1965,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsCalendarFeedEnabledByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsCalendarFeedEnabled) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2338,14 +1981,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsCardAgingByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsCardAging) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2361,14 +1997,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsCardCoversByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsCardCovers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2384,14 +2013,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsCommentsByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsComments) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2407,14 +2029,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsInvitationsByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsInvitations) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2430,14 +2045,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsPermissionLevelByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsPermissionLevel) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2453,14 +2061,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsSelfJoinByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsSelfJoin) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2476,14 +2077,7 @@ extension Paths.Boards.WithIDBoard.Prefs {
 
         /// UpdateBoardsPrefsVotingByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsVoting) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2499,14 +2093,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// UpdateBoardsSubscribedByIdBoard()
         public func put(key: String, token: String, _ body: TrelloAPI.BoardsSubscribed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2522,14 +2109,7 @@ extension Paths.Boards.WithIDBoard {
 
         /// GetBoardsByIdBoardByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -2545,14 +2125,7 @@ extension Paths {
 
         /// AddCards()
         public func post(key: String, token: String, _ body: TrelloAPI.Cards) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2628,57 +2201,43 @@ extension Paths.Cards {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_display": actionsDisplay])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["action_memberCreator_fields": actionMemberCreatorFields])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["membersVoted": membersVoted])
-                encoder.encode(["memberVoted_fields": memberVotedFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checkItemState_fields": checkItemStateFields])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["checklist_fields": checklistFields])
-                encoder.encode(["board": board])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["list": list])
-                encoder.encode(["list_fields": listFields])
-                encoder.encode(["stickers": stickers])
-                encoder.encode(["sticker_fields": stickerFields])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsDisplay, forKey: "actions_display")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(actionMemberCreatorFields, forKey: "action_memberCreator_fields")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(membersVoted, forKey: "membersVoted")
+                encoder.encode(memberVotedFields, forKey: "memberVoted_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checkItemStateFields, forKey: "checkItemState_fields")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(checklistFields, forKey: "checklist_fields")
+                encoder.encode(board, forKey: "board")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(list, forKey: "list")
+                encoder.encode(listFields, forKey: "list_fields")
+                encoder.encode(stickers, forKey: "stickers")
+                encoder.encode(stickerFields, forKey: "sticker_fields")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateCardsByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.Cards) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteCardsByIdCard()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -2736,22 +2295,22 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["entities": entities])
-                encoder.encode(["display": display])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["format": format])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["page": page])
-                encoder.encode(["idModels": idModels])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(display, forKey: "display")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(format, forKey: "format")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(idModels, forKey: "idModels")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -2769,14 +2328,7 @@ extension Paths.Cards.WithIDCard.Actions {
 
         /// AddCardsActionsCommentsByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.ActionsComments) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2805,28 +2357,14 @@ extension Paths.Cards.WithIDCard.Actions.WithIDAction {
         ///
         /// This can only be done by the original author of the comment.
         public func put(key: String, token: String, _ body: TrelloAPI.CardsActionsComments) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteCardsActionsCommentsByIdCardByIdAction()
         ///
         /// This can only be done by the original author of the comment, or someone with higher permissions than the original author.
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -2860,24 +2398,17 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddCardsAttachmentsByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsAttachments) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -2909,23 +2440,16 @@ extension Paths.Cards.WithIDCard.Attachments {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// DeleteCardsAttachmentsByIdCardByIdAttachment()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -2957,9 +2481,9 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -2977,14 +2501,7 @@ extension Paths.Cards.WithIDCard.Board {
 
         /// GetCardsBoardByIdCardByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3016,9 +2533,9 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -3069,14 +2586,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklistCurrent.CheckItem {
 
         /// UpdateCardsChecklistCheckItemByIdCardByIdChecklistCurrentByIdCheckItem()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsChecklistIDChecklistCurrentCheckItem) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3103,14 +2613,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist {
 
         /// AddCardsChecklistCheckItemByIdCardByIdChecklist()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsChecklistCheckItem) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3126,14 +2629,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem {
 
         /// DeleteCardsChecklistCheckItemByIdCardByIdChecklistByIdCheckItem()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3149,14 +2645,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         /// AddCardsChecklistCheckItemConvertToCardByIdCardByIdChecklistByIdCheckItem()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3172,14 +2661,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         /// UpdateCardsChecklistCheckItemNameByIdCardByIdChecklistByIdCheckItem()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsChecklistCheckItemName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3195,14 +2677,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         /// UpdateCardsChecklistCheckItemPosByIdCardByIdChecklistByIdCheckItem()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsChecklistCheckItemPos) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3218,14 +2693,7 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
 
         /// UpdateCardsChecklistCheckItemStateByIdCardByIdChecklistByIdCheckItem()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsChecklistCheckItemState) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3267,28 +2735,21 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["checkItems": checkItems])
-                encoder.encode(["checkItem_fields": checkItemFields])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(checkItems, forKey: "checkItems")
+                encoder.encode(checkItemFields, forKey: "checkItem_fields")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddCardsChecklistsByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsChecklists) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3304,14 +2765,7 @@ extension Paths.Cards.WithIDCard.Checklists {
 
         /// DeleteCardsChecklistsByIdCardByIdChecklist()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3327,14 +2781,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsClosedByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsClosed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3350,14 +2797,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsDescByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsDesc) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3373,14 +2813,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsDueByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsDue) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3396,14 +2829,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsIdAttachmentCoverByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsIDAttachmentCover) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3419,14 +2845,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsIdBoardByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsIDBoard) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3442,14 +2861,7 @@ extension Paths.Cards.WithIDCard {
 
         /// AddCardsIdLabelsByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsIDLabels) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3465,14 +2877,7 @@ extension Paths.Cards.WithIDCard.IDLabels {
 
         /// DeleteCardsIdLabelsByIdCardByIdLabel()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3488,14 +2893,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsIdListByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsIDList) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3511,26 +2909,12 @@ extension Paths.Cards.WithIDCard {
 
         /// AddCardsIdMembersByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsIDMembers) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// UpdateCardsIdMembersByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsIDMembers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3546,14 +2930,7 @@ extension Paths.Cards.WithIDCard.IDMembers {
 
         /// DeleteCardsIdMembersByIdCardByIdMember()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3569,26 +2946,12 @@ extension Paths.Cards.WithIDCard {
 
         /// AddCardsLabelsByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsLabels) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// UpdateCardsLabelsByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsLabels) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3604,14 +2967,7 @@ extension Paths.Cards.WithIDCard.Labels {
 
         /// DeleteCardsLabelsByIdCardByColor()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3643,9 +2999,9 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -3663,14 +3019,7 @@ extension Paths.Cards.WithIDCard.List {
 
         /// GetCardsListByIdCardByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3686,14 +3035,7 @@ extension Paths.Cards.WithIDCard {
 
         /// AddCardsMarkAssociatedNotificationsReadByIdCard()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3725,9 +3067,9 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -3761,23 +3103,16 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddCardsMembersVotedByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsMembersVoted) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3793,14 +3128,7 @@ extension Paths.Cards.WithIDCard.MembersVoted {
 
         /// DeleteCardsMembersVotedByIdCardByIdMember()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3816,14 +3144,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsNameByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3839,14 +3160,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsPosByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsPos) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3878,23 +3192,16 @@ extension Paths.Cards.WithIDCard {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddCardsStickersByIdCard()
         public func post(key: String, token: String, _ body: TrelloAPI.CardsStickers) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3926,35 +3233,21 @@ extension Paths.Cards.WithIDCard.Stickers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateCardsStickersByIdCardByIdSticker()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsStickers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteCardsStickersByIdCardByIdSticker()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -3970,14 +3263,7 @@ extension Paths.Cards.WithIDCard {
 
         /// UpdateCardsSubscribedByIdCard()
         public func put(key: String, token: String, _ body: TrelloAPI.CardsSubscribed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -3993,14 +3279,7 @@ extension Paths.Cards.WithIDCard {
 
         /// GetCardsByIdCardByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4016,14 +3295,7 @@ extension Paths {
 
         /// AddChecklists()
         public func post(key: String, token: String, _ body: TrelloAPI.Checklists) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4063,39 +3335,25 @@ extension Paths.Checklists {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["checkItems": checkItems])
-                encoder.encode(["checkItem_fields": checkItemFields])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(checkItems, forKey: "checkItems")
+                encoder.encode(checkItemFields, forKey: "checkItem_fields")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateChecklistsByIdChecklist()
         public func put(key: String, token: String, _ body: TrelloAPI.Checklists) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteChecklistsByIdChecklist()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4127,9 +3385,9 @@ extension Paths.Checklists.WithIDChecklist {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -4147,14 +3405,7 @@ extension Paths.Checklists.WithIDChecklist.Board {
 
         /// GetChecklistsBoardByIdChecklistByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4210,21 +3461,21 @@ extension Paths.Checklists.WithIDChecklist {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["stickers": stickers])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["limit": limit])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(stickers, forKey: "stickers")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -4242,14 +3493,7 @@ extension Paths.Checklists.WithIDChecklist.Cards {
 
         /// GetChecklistsCardsByIdChecklistByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4283,24 +3527,17 @@ extension Paths.Checklists.WithIDChecklist {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddChecklistsCheckItemsByIdChecklist()
         public func post(key: String, token: String, _ body: TrelloAPI.ChecklistsCheckItems) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4332,23 +3569,16 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// DeleteChecklistsCheckItemsByIdChecklistByIdCheckItem()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4364,14 +3594,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// UpdateChecklistsIdCardByIdChecklist()
         public func put(key: String, token: String, _ body: TrelloAPI.ChecklistsIDCard) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4387,14 +3610,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// UpdateChecklistsNameByIdChecklist()
         public func put(key: String, token: String, _ body: TrelloAPI.ChecklistsName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4410,14 +3626,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// UpdateChecklistsPosByIdChecklist()
         public func put(key: String, token: String, _ body: TrelloAPI.ChecklistsPos) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4433,14 +3642,7 @@ extension Paths.Checklists.WithIDChecklist {
 
         /// GetChecklistsByIdChecklistByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4456,14 +3658,7 @@ extension Paths {
 
         /// AddLabels()
         public func post(key: String, token: String, _ body: TrelloAPI.Labels) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4495,35 +3690,21 @@ extension Paths.Labels {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateLabelsByIdLabel()
         public func put(key: String, token: String, _ body: TrelloAPI.Labels) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteLabelsByIdLabel()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4555,9 +3736,9 @@ extension Paths.Labels.WithIDLabel {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -4575,14 +3756,7 @@ extension Paths.Labels.WithIDLabel.Board {
 
         /// GetLabelsBoardByIdLabelByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4598,14 +3772,7 @@ extension Paths.Labels.WithIDLabel {
 
         /// UpdateLabelsColorByIdLabel()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelsColor) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4621,14 +3788,7 @@ extension Paths.Labels.WithIDLabel {
 
         /// UpdateLabelsNameByIdLabel()
         public func put(key: String, token: String, _ body: TrelloAPI.LabelsName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4644,14 +3804,7 @@ extension Paths {
 
         /// AddLists()
         public func post(key: String, token: String, _ body: TrelloAPI.Lists) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4691,27 +3844,20 @@ extension Paths.Lists {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["board": board])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(board, forKey: "board")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateListsByIdList()
         public func put(key: String, token: String, _ body: TrelloAPI.Lists) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4769,22 +3915,22 @@ extension Paths.Lists.WithIDList {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["entities": entities])
-                encoder.encode(["display": display])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["format": format])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["page": page])
-                encoder.encode(["idModels": idModels])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(display, forKey: "display")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(format, forKey: "format")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(idModels, forKey: "idModels")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -4802,14 +3948,7 @@ extension Paths.Lists.WithIDList {
 
         /// AddListsArchiveAllCardsByIdList()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4841,9 +3980,9 @@ extension Paths.Lists.WithIDList {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -4861,14 +4000,7 @@ extension Paths.Lists.WithIDList.Board {
 
         /// GetListsBoardByIdListByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4924,35 +4056,28 @@ extension Paths.Lists.WithIDList {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["stickers": stickers])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["limit": limit])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(stickers, forKey: "stickers")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddListsCardsByIdList()
         public func post(key: String, token: String, _ body: TrelloAPI.ListsCards) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -4968,14 +4093,7 @@ extension Paths.Lists.WithIDList.Cards {
 
         /// GetListsCardsByIdListByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -4991,14 +4109,7 @@ extension Paths.Lists.WithIDList {
 
         /// UpdateListsClosedByIdList()
         public func put(key: String, token: String, _ body: TrelloAPI.ListsClosed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5014,14 +4125,7 @@ extension Paths.Lists.WithIDList {
 
         /// UpdateListsIdBoardByIdList()
         public func put(key: String, token: String, _ body: TrelloAPI.ListsIDBoard) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5037,14 +4141,7 @@ extension Paths.Lists.WithIDList {
 
         /// AddListsMoveAllCardsByIdList()
         public func post(key: String, token: String, _ body: TrelloAPI.ListsMoveAllCards) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5060,14 +4157,7 @@ extension Paths.Lists.WithIDList {
 
         /// UpdateListsNameByIdList()
         public func put(key: String, token: String, _ body: TrelloAPI.ListsName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5083,14 +4173,7 @@ extension Paths.Lists.WithIDList {
 
         /// UpdateListsPosByIdList()
         public func put(key: String, token: String, _ body: TrelloAPI.ListsPos) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5106,14 +4189,7 @@ extension Paths.Lists.WithIDList {
 
         /// UpdateListsSubscribedByIdList()
         public func put(key: String, token: String, _ body: TrelloAPI.ListsSubscribed) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5129,14 +4205,7 @@ extension Paths.Lists.WithIDList {
 
         /// GetListsByIdListByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -5283,74 +4352,67 @@ extension Paths.Members {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_display": actionsDisplay])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["action_since": actionSince])
-                encoder.encode(["action_before": actionBefore])
-                encoder.encode(["cards": cards])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["card_members": cardMembers])
-                encoder.encode(["card_member_fields": cardMemberFields])
-                encoder.encode(["card_attachments": cardAttachments])
-                encoder.encode(["card_attachment_fields": cardAttachmentFields])
-                encoder.encode(["card_stickers": cardStickers])
-                encoder.encode(["boards": boards])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["board_actions": boardActions])
-                encoder.encode(["board_actions_entities": boardActionsEntities])
-                encoder.encode(["board_actions_display": boardActionsDisplay])
-                encoder.encode(["board_actions_format": boardActionsFormat])
-                encoder.encode(["board_actions_since": boardActionsSince])
-                encoder.encode(["board_actions_limit": boardActionsLimit])
-                encoder.encode(["board_action_fields": boardActionFields])
-                encoder.encode(["board_lists": boardLists])
-                encoder.encode(["board_memberships": boardMemberships])
-                encoder.encode(["board_organization": boardOrganization])
-                encoder.encode(["board_organization_fields": boardOrganizationFields])
-                encoder.encode(["boardsInvited": boardsInvited])
-                encoder.encode(["boardsInvited_fields": boardsInvitedFields])
-                encoder.encode(["boardStars": boardStars])
-                encoder.encode(["savedSearches": savedSearches])
-                encoder.encode(["organizations": organizations])
-                encoder.encode(["organization_fields": organizationFields])
-                encoder.encode(["organization_paid_account": organizationPaidAccount])
-                encoder.encode(["organizationsInvited": organizationsInvited])
-                encoder.encode(["organizationsInvited_fields": organizationsInvitedFields])
-                encoder.encode(["notifications": notifications])
-                encoder.encode(["notifications_entities": notificationsEntities])
-                encoder.encode(["notifications_display": notificationsDisplay])
-                encoder.encode(["notifications_limit": notificationsLimit])
-                encoder.encode(["notification_fields": notificationFields])
-                encoder.encode(["notification_memberCreator": notificationMemberCreator])
-                encoder.encode(["notification_memberCreator_fields": notificationMemberCreatorFields])
-                encoder.encode(["notification_before": notificationBefore])
-                encoder.encode(["notification_since": notificationSince])
-                encoder.encode(["tokens": tokens])
-                encoder.encode(["paid_account": paidAccount])
-                encoder.encode(["boardBackgrounds": boardBackgrounds])
-                encoder.encode(["customBoardBackgrounds": customBoardBackgrounds])
-                encoder.encode(["customStickers": customStickers])
-                encoder.encode(["customEmoji": customEmoji])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsDisplay, forKey: "actions_display")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(actionSince, forKey: "action_since")
+                encoder.encode(actionBefore, forKey: "action_before")
+                encoder.encode(cards, forKey: "cards")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(cardMembers, forKey: "card_members")
+                encoder.encode(cardMemberFields, forKey: "card_member_fields")
+                encoder.encode(cardAttachments, forKey: "card_attachments")
+                encoder.encode(cardAttachmentFields, forKey: "card_attachment_fields")
+                encoder.encode(cardStickers, forKey: "card_stickers")
+                encoder.encode(boards, forKey: "boards")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(boardActions, forKey: "board_actions")
+                encoder.encode(boardActionsEntities, forKey: "board_actions_entities")
+                encoder.encode(boardActionsDisplay, forKey: "board_actions_display")
+                encoder.encode(boardActionsFormat, forKey: "board_actions_format")
+                encoder.encode(boardActionsSince, forKey: "board_actions_since")
+                encoder.encode(boardActionsLimit, forKey: "board_actions_limit")
+                encoder.encode(boardActionFields, forKey: "board_action_fields")
+                encoder.encode(boardLists, forKey: "board_lists")
+                encoder.encode(boardMemberships, forKey: "board_memberships")
+                encoder.encode(boardOrganization, forKey: "board_organization")
+                encoder.encode(boardOrganizationFields, forKey: "board_organization_fields")
+                encoder.encode(boardsInvited, forKey: "boardsInvited")
+                encoder.encode(boardsInvitedFields, forKey: "boardsInvited_fields")
+                encoder.encode(boardStars, forKey: "boardStars")
+                encoder.encode(savedSearches, forKey: "savedSearches")
+                encoder.encode(organizations, forKey: "organizations")
+                encoder.encode(organizationFields, forKey: "organization_fields")
+                encoder.encode(organizationPaidAccount, forKey: "organization_paid_account")
+                encoder.encode(organizationsInvited, forKey: "organizationsInvited")
+                encoder.encode(organizationsInvitedFields, forKey: "organizationsInvited_fields")
+                encoder.encode(notifications, forKey: "notifications")
+                encoder.encode(notificationsEntities, forKey: "notifications_entities")
+                encoder.encode(notificationsDisplay, forKey: "notifications_display")
+                encoder.encode(notificationsLimit, forKey: "notifications_limit")
+                encoder.encode(notificationFields, forKey: "notification_fields")
+                encoder.encode(notificationMemberCreator, forKey: "notification_memberCreator")
+                encoder.encode(notificationMemberCreatorFields, forKey: "notification_memberCreator_fields")
+                encoder.encode(notificationBefore, forKey: "notification_before")
+                encoder.encode(notificationSince, forKey: "notification_since")
+                encoder.encode(tokens, forKey: "tokens")
+                encoder.encode(paidAccount, forKey: "paid_account")
+                encoder.encode(boardBackgrounds, forKey: "boardBackgrounds")
+                encoder.encode(customBoardBackgrounds, forKey: "customBoardBackgrounds")
+                encoder.encode(customStickers, forKey: "customStickers")
+                encoder.encode(customEmoji, forKey: "customEmoji")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateMembersByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.Members) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5408,22 +4470,22 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["entities": entities])
-                encoder.encode(["display": display])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["format": format])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["page": page])
-                encoder.encode(["idModels": idModels])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(display, forKey: "display")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(format, forKey: "format")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(idModels, forKey: "idModels")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -5441,14 +4503,7 @@ extension Paths.Members.WithIDMember {
 
         /// AddMembersAvatarByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersAvatar) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5464,14 +4519,7 @@ extension Paths.Members.WithIDMember {
 
         /// UpdateMembersAvatarSourceByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersAvatarSource) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5487,14 +4535,7 @@ extension Paths.Members.WithIDMember {
 
         /// UpdateMembersBioByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersBio) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5526,23 +4567,16 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddMembersBoardBackgroundsByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersBoardBackgrounds) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5574,35 +4608,21 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateMembersBoardBackgroundsByIdMemberByIdBoardBackground()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersBoardBackgrounds) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -5618,26 +4638,12 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersBoardStarsByIdMember()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// AddMembersBoardStarsByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersBoardStars) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5653,38 +4659,17 @@ extension Paths.Members.WithIDMember.BoardStars {
 
         /// GetMembersBoardStarsByIdMemberByIdBoardStar()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// UpdateMembersBoardStarsByIdMemberByIdBoardStar()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersBoardStars) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteMembersBoardStarsByIdMemberByIdBoardStar()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -5700,14 +4685,7 @@ extension Paths.Members.WithIDMember.BoardStars.WithIDBoardStar {
 
         /// UpdateMembersBoardStarsIdBoardByIdMemberByIdBoardStar()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersBoardStarsIDBoard) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5723,14 +4701,7 @@ extension Paths.Members.WithIDMember.BoardStars.WithIDBoardStar {
 
         /// UpdateMembersBoardStarsPosByIdMemberByIdBoardStar()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersBoardStarsPos) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -5784,20 +4755,20 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["actions_format": actionsFormat])
-                encoder.encode(["actions_since": actionsSince])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["memberships": memberships])
-                encoder.encode(["organization": organization])
-                encoder.encode(["organization_fields": organizationFields])
-                encoder.encode(["lists": lists])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionsFormat, forKey: "actions_format")
+                encoder.encode(actionsSince, forKey: "actions_since")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(memberships, forKey: "memberships")
+                encoder.encode(organization, forKey: "organization")
+                encoder.encode(organizationFields, forKey: "organization_fields")
+                encoder.encode(lists, forKey: "lists")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -5815,14 +4786,7 @@ extension Paths.Members.WithIDMember.Boards {
 
         /// GetMembersBoardsByIdMemberByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -5854,9 +4818,9 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -5874,14 +4838,7 @@ extension Paths.Members.WithIDMember.BoardsInvited {
 
         /// GetMembersBoardsInvitedByIdMemberByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -5937,21 +4894,21 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["stickers": stickers])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["limit": limit])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(stickers, forKey: "stickers")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -5969,14 +4926,7 @@ extension Paths.Members.WithIDMember.Cards {
 
         /// GetMembersCardsByIdMemberByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6008,23 +4958,16 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddMembersCustomBoardBackgroundsByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersCustomBoardBackgrounds) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6056,35 +4999,21 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersCustomBoardBackgrounds) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6118,23 +5047,16 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddMembersCustomEmojiByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersCustomEmoji) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6166,9 +5088,9 @@ extension Paths.Members.WithIDMember.CustomEmoji {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -6204,23 +5126,16 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// AddMembersCustomStickersByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersCustomStickers) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6252,23 +5167,16 @@ extension Paths.Members.WithIDMember.CustomStickers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// DeleteMembersCustomStickersByIdMemberByIdCustomSticker()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6302,10 +5210,10 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["tags": tags])
-                encoder.encode(["ixLastUpdate": ixLastUpdate])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(tags, forKey: "tags")
+                encoder.encode(ixLastUpdate, forKey: "ixLastUpdate")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -6323,14 +5231,7 @@ extension Paths.Members.WithIDMember {
 
         /// UpdateMembersFullNameByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersFullName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6346,14 +5247,7 @@ extension Paths.Members.WithIDMember {
 
         /// UpdateMembersInitialsByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersInitials) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6407,19 +5301,19 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["entities": entities])
-                encoder.encode(["display": display])
-                encoder.encode(["filter": filter])
-                encoder.encode(["read_filter": readFilter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["page": page])
-                encoder.encode(["before": before])
-                encoder.encode(["since": since])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(display, forKey: "display")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(readFilter, forKey: "read_filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -6437,14 +5331,7 @@ extension Paths.Members.WithIDMember.Notifications {
 
         /// GetMembersNotificationsByIdMemberByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6460,14 +5347,7 @@ extension Paths.Members.WithIDMember {
 
         /// AddMembersOneTimeMessagesDismissedByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersOneTimeMessagesDismissed) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6503,11 +5383,11 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["paid_account": paidAccount])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(paidAccount, forKey: "paid_account")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -6525,14 +5405,7 @@ extension Paths.Members.WithIDMember.Organizations {
 
         /// GetMembersOrganizationsByIdMemberByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6564,9 +5437,9 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -6584,14 +5457,7 @@ extension Paths.Members.WithIDMember.OrganizationsInvited {
 
         /// GetMembersOrganizationsInvitedByIdMemberByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6618,14 +5484,7 @@ extension Paths.Members.WithIDMember.Prefs {
 
         /// UpdateMembersPrefsColorBlindByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsColorBlind) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6641,14 +5500,7 @@ extension Paths.Members.WithIDMember.Prefs {
 
         /// UpdateMembersPrefsLocaleByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsLocale) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6664,14 +5516,7 @@ extension Paths.Members.WithIDMember.Prefs {
 
         /// UpdateMembersPrefsMinutesBetweenSummariesByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsMinutesBetweenSummaries) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6687,26 +5532,12 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersSavedSearchesByIdMember()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// AddMembersSavedSearchesByIdMember()
         public func post(key: String, token: String, _ body: TrelloAPI.MembersSavedSearches) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6722,38 +5553,17 @@ extension Paths.Members.WithIDMember.SavedSearches {
 
         /// GetMembersSavedSearchesByIdMemberByIdSavedSearch()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// UpdateMembersSavedSearchesByIdMemberByIdSavedSearch()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersSavedSearches) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteMembersSavedSearchesByIdMemberByIdSavedSearch()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6769,14 +5579,7 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
 
         /// UpdateMembersSavedSearchesNameByIdMemberByIdSavedSearch()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersSavedSearchesName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6792,14 +5595,7 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
 
         /// UpdateMembersSavedSearchesPosByIdMemberByIdSavedSearch()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersSavedSearchesPos) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6815,14 +5611,7 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
 
         /// UpdateMembersSavedSearchesQueryByIdMemberByIdSavedSearch()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersSavedSearchesQuery) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6854,9 +5643,9 @@ extension Paths.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -6874,14 +5663,7 @@ extension Paths.Members.WithIDMember {
 
         /// UpdateMembersUsernameByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.MembersUsername) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -6897,14 +5679,7 @@ extension Paths.Members.WithIDMember {
 
         /// GetMembersByIdMemberByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -6942,14 +5717,7 @@ extension Paths.Notifications.All {
 
         /// AddNotificationsAllRead()
         public func post(key: String, token: String) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token))
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7007,36 +5775,29 @@ extension Paths.Notifications {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["display": display])
-                encoder.encode(["entities": entities])
-                encoder.encode(["fields": fields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["board": board])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["list": list])
-                encoder.encode(["card": card])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["organization": organization])
-                encoder.encode(["organization_fields": organizationFields])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(display, forKey: "display")
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(board, forKey: "board")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(list, forKey: "list")
+                encoder.encode(card, forKey: "card")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(organization, forKey: "organization")
+                encoder.encode(organizationFields, forKey: "organization_fields")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateNotificationsByIdNotification()
         public func put(key: String, token: String, _ body: TrelloAPI.Notifications) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -7068,9 +5829,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7088,14 +5849,7 @@ extension Paths.Notifications.WithIDNotification.Board {
 
         /// GetNotificationsBoardByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7127,9 +5881,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7147,14 +5901,7 @@ extension Paths.Notifications.WithIDNotification.Card {
 
         /// GetNotificationsCardByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7170,14 +5917,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsDisplayByIdNotification()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7193,14 +5933,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsEntitiesByIdNotification()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7232,9 +5965,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7252,14 +5985,7 @@ extension Paths.Notifications.WithIDNotification.List {
 
         /// GetNotificationsListByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7291,9 +6017,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7311,14 +6037,7 @@ extension Paths.Notifications.WithIDNotification.Member {
 
         /// GetNotificationsMemberByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7350,9 +6069,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7370,14 +6089,7 @@ extension Paths.Notifications.WithIDNotification.MemberCreator {
 
         /// GetNotificationsMemberCreatorByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7409,9 +6121,9 @@ extension Paths.Notifications.WithIDNotification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7429,14 +6141,7 @@ extension Paths.Notifications.WithIDNotification.Organization {
 
         /// GetNotificationsOrganizationByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7452,14 +6157,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// UpdateNotificationsUnreadByIdNotification()
         public func put(key: String, token: String, _ body: TrelloAPI.NotificationsUnread) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -7475,14 +6173,7 @@ extension Paths.Notifications.WithIDNotification {
 
         /// GetNotificationsByIdNotificationByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7498,14 +6189,7 @@ extension Paths {
 
         /// AddOrganizations()
         public func post(key: String, token: String, _ body: TrelloAPI.Organizations) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -7585,59 +6269,45 @@ extension Paths.Organizations {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_display": actionsDisplay])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["memberships": memberships])
-                encoder.encode(["memberships_member": membershipsMember])
-                encoder.encode(["memberships_member_fields": membershipsMemberFields])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["member_activity": memberActivity])
-                encoder.encode(["membersInvited": membersInvited])
-                encoder.encode(["membersInvited_fields": membersInvitedFields])
-                encoder.encode(["boards": boards])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["board_actions": boardActions])
-                encoder.encode(["board_actions_entities": boardActionsEntities])
-                encoder.encode(["board_actions_display": boardActionsDisplay])
-                encoder.encode(["board_actions_format": boardActionsFormat])
-                encoder.encode(["board_actions_since": boardActionsSince])
-                encoder.encode(["board_actions_limit": boardActionsLimit])
-                encoder.encode(["board_action_fields": boardActionFields])
-                encoder.encode(["board_lists": boardLists])
-                encoder.encode(["paid_account": paidAccount])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsDisplay, forKey: "actions_display")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(memberships, forKey: "memberships")
+                encoder.encode(membershipsMember, forKey: "memberships_member")
+                encoder.encode(membershipsMemberFields, forKey: "memberships_member_fields")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberActivity, forKey: "member_activity")
+                encoder.encode(membersInvited, forKey: "membersInvited")
+                encoder.encode(membersInvitedFields, forKey: "membersInvited_fields")
+                encoder.encode(boards, forKey: "boards")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(boardActions, forKey: "board_actions")
+                encoder.encode(boardActionsEntities, forKey: "board_actions_entities")
+                encoder.encode(boardActionsDisplay, forKey: "board_actions_display")
+                encoder.encode(boardActionsFormat, forKey: "board_actions_format")
+                encoder.encode(boardActionsSince, forKey: "board_actions_since")
+                encoder.encode(boardActionsLimit, forKey: "board_actions_limit")
+                encoder.encode(boardActionFields, forKey: "board_action_fields")
+                encoder.encode(boardLists, forKey: "board_lists")
+                encoder.encode(paidAccount, forKey: "paid_account")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateOrganizationsByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.Organizations) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteOrganizationsByIdOrg()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7695,22 +6365,22 @@ extension Paths.Organizations.WithIDOrg {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["entities": entities])
-                encoder.encode(["display": display])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["limit": limit])
-                encoder.encode(["format": format])
-                encoder.encode(["since": since])
-                encoder.encode(["before": before])
-                encoder.encode(["page": page])
-                encoder.encode(["idModels": idModels])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["memberCreator": memberCreator])
-                encoder.encode(["memberCreator_fields": memberCreatorFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(entities, forKey: "entities")
+                encoder.encode(display, forKey: "display")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(format, forKey: "format")
+                encoder.encode(since, forKey: "since")
+                encoder.encode(before, forKey: "before")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(idModels, forKey: "idModels")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(memberCreator, forKey: "memberCreator")
+                encoder.encode(memberCreatorFields, forKey: "memberCreator_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7766,20 +6436,20 @@ extension Paths.Organizations.WithIDOrg {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["actions": actions])
-                encoder.encode(["actions_entities": actionsEntities])
-                encoder.encode(["actions_limit": actionsLimit])
-                encoder.encode(["actions_format": actionsFormat])
-                encoder.encode(["actions_since": actionsSince])
-                encoder.encode(["action_fields": actionFields])
-                encoder.encode(["memberships": memberships])
-                encoder.encode(["organization": organization])
-                encoder.encode(["organization_fields": organizationFields])
-                encoder.encode(["lists": lists])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(actionsEntities, forKey: "actions_entities")
+                encoder.encode(actionsLimit, forKey: "actions_limit")
+                encoder.encode(actionsFormat, forKey: "actions_format")
+                encoder.encode(actionsSince, forKey: "actions_since")
+                encoder.encode(actionFields, forKey: "action_fields")
+                encoder.encode(memberships, forKey: "memberships")
+                encoder.encode(organization, forKey: "organization")
+                encoder.encode(organizationFields, forKey: "organization_fields")
+                encoder.encode(lists, forKey: "lists")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7797,14 +6467,7 @@ extension Paths.Organizations.WithIDOrg.Boards {
 
         /// GetOrganizationsBoardsByIdOrgByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7838,10 +6501,10 @@ extension Paths.Organizations.WithIDOrg {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["tags": tags])
-                encoder.encode(["ixLastUpdate": ixLastUpdate])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(tags, forKey: "tags")
+                encoder.encode(ixLastUpdate, forKey: "ixLastUpdate")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -7859,14 +6522,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// UpdateOrganizationsDescByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsDesc) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -7882,14 +6538,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// UpdateOrganizationsDisplayNameByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsDisplayName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -7905,26 +6554,12 @@ extension Paths.Organizations.WithIDOrg {
 
         /// AddOrganizationsLogoByIdOrg()
         public func post(key: String, token: String, _ body: TrelloAPI.OrganizationsLogo) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteOrganizationsLogoByIdOrg()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -7960,25 +6595,18 @@ extension Paths.Organizations.WithIDOrg {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["activity": activity])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(activity, forKey: "activity")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateOrganizationsMembersByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsMembers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -7994,14 +6622,7 @@ extension Paths.Organizations.WithIDOrg.Members {
 
         /// GetOrganizationsMembersByIdOrgByFilter()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8017,26 +6638,12 @@ extension Paths.Organizations.WithIDOrg.Members {
 
         /// UpdateOrganizationsMembersByIdOrgByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsMembers) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteOrganizationsMembersByIdOrgByIdMember()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8052,14 +6659,7 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
         /// DeleteOrganizationsMembersAllByIdOrgByIdMember()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8115,21 +6715,21 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["actions": actions])
-                encoder.encode(["attachments": attachments])
-                encoder.encode(["attachment_fields": attachmentFields])
-                encoder.encode(["members": members])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["checkItemStates": checkItemStates])
-                encoder.encode(["checklists": checklists])
-                encoder.encode(["board": board])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["list": list])
-                encoder.encode(["list_fields": listFields])
-                encoder.encode(["filter": filter])
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(actions, forKey: "actions")
+                encoder.encode(attachments, forKey: "attachments")
+                encoder.encode(attachmentFields, forKey: "attachment_fields")
+                encoder.encode(members, forKey: "members")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(checkItemStates, forKey: "checkItemStates")
+                encoder.encode(checklists, forKey: "checklists")
+                encoder.encode(board, forKey: "board")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(list, forKey: "list")
+                encoder.encode(listFields, forKey: "list_fields")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8147,14 +6747,7 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
 
         /// UpdateOrganizationsMembersDeactivatedByIdOrgByIdMember()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsMembersDeactivated) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8186,9 +6779,9 @@ extension Paths.Organizations.WithIDOrg {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8206,14 +6799,7 @@ extension Paths.Organizations.WithIDOrg.MembersInvited {
 
         /// GetOrganizationsMembersInvitedByIdOrgByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8249,11 +6835,11 @@ extension Paths.Organizations.WithIDOrg {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["filter": filter])
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8289,24 +6875,17 @@ extension Paths.Organizations.WithIDOrg.Memberships {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["member": member])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(member, forKey: "member")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// UpdateOrganizationsMembershipsByIdOrgByIdMembership()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsMemberships) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8322,14 +6901,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// UpdateOrganizationsNameByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsName) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8356,26 +6928,12 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         /// UpdateOrganizationsPrefsAssociatedDomainByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsAssociatedDomain) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteOrganizationsPrefsAssociatedDomainByIdOrg()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8402,14 +6960,7 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
 
         /// UpdateOrganizationsPrefsBoardVisibilityRestrictOrgByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsBoardVisibilityRestrict) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8425,14 +6976,7 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
 
         /// UpdateOrganizationsPrefsBoardVisibilityRestrictPrivateByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsBoardVisibilityRestrict) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8448,14 +6992,7 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
 
         /// UpdateOrganizationsPrefsBoardVisibilityRestrictPublicByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsBoardVisibilityRestrict) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8471,14 +7008,7 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         /// UpdateOrganizationsPrefsExternalMembersDisabledByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsExternalMembersDisabled) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8494,14 +7024,7 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         /// UpdateOrganizationsPrefsGoogleAppsVersionByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsGoogleAppsVersion) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8517,14 +7040,7 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         /// UpdateOrganizationsPrefsOrgInviteRestrictByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsOrgInviteRestrict) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteOrganizationsPrefsOrgInviteRestrictByIdOrg()
@@ -8545,9 +7061,9 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["value": value])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(value, forKey: "value")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8565,14 +7081,7 @@ extension Paths.Organizations.WithIDOrg.Prefs {
 
         /// UpdateOrganizationsPrefsPermissionLevelByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.PrefsPermissionLevel) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8588,14 +7097,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// UpdateOrganizationsWebsiteByIdOrg()
         public func put(key: String, token: String, _ body: TrelloAPI.OrganizationsWebsite) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8611,14 +7113,7 @@ extension Paths.Organizations.WithIDOrg {
 
         /// GetOrganizationsByIdOrgByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8688,28 +7183,28 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["idBoards": idBoards])
-                encoder.encode(["idOrganizations": idOrganizations])
-                encoder.encode(["idCards": idCards])
-                encoder.encode(["modelTypes": modelTypes])
-                encoder.encode(["board_fields": boardFields])
-                encoder.encode(["boards_limit": boardsLimit])
-                encoder.encode(["card_fields": cardFields])
-                encoder.encode(["cards_limit": cardsLimit])
-                encoder.encode(["cards_page": cardsPage])
-                encoder.encode(["card_board": cardBoard])
-                encoder.encode(["card_list": cardList])
-                encoder.encode(["card_members": cardMembers])
-                encoder.encode(["card_stickers": cardStickers])
-                encoder.encode(["card_attachments": cardAttachments])
-                encoder.encode(["organization_fields": organizationFields])
-                encoder.encode(["organizations_limit": organizationsLimit])
-                encoder.encode(["member_fields": memberFields])
-                encoder.encode(["members_limit": membersLimit])
-                encoder.encode(["partial": partial])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(idBoards, forKey: "idBoards")
+                encoder.encode(idOrganizations, forKey: "idOrganizations")
+                encoder.encode(idCards, forKey: "idCards")
+                encoder.encode(modelTypes, forKey: "modelTypes")
+                encoder.encode(boardFields, forKey: "board_fields")
+                encoder.encode(boardsLimit, forKey: "boards_limit")
+                encoder.encode(cardFields, forKey: "card_fields")
+                encoder.encode(cardsLimit, forKey: "cards_limit")
+                encoder.encode(cardsPage, forKey: "cards_page")
+                encoder.encode(cardBoard, forKey: "card_board")
+                encoder.encode(cardList, forKey: "card_list")
+                encoder.encode(cardMembers, forKey: "card_members")
+                encoder.encode(cardStickers, forKey: "card_stickers")
+                encoder.encode(cardAttachments, forKey: "card_attachments")
+                encoder.encode(organizationFields, forKey: "organization_fields")
+                encoder.encode(organizationsLimit, forKey: "organizations_limit")
+                encoder.encode(memberFields, forKey: "member_fields")
+                encoder.encode(membersLimit, forKey: "members_limit")
+                encoder.encode(partial, forKey: "partial")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8751,13 +7246,13 @@ extension Paths.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["query": self.query])
-                encoder.encode(["limit": limit])
-                encoder.encode(["idBoard": idBoard])
-                encoder.encode(["idOrganization": idOrganization])
-                encoder.encode(["onlyOrgMembers": onlyOrgMembers])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(self.query, forKey: "query")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(idBoard, forKey: "idBoard")
+                encoder.encode(idOrganization, forKey: "idOrganization")
+                encoder.encode(onlyOrgMembers, forKey: "onlyOrgMembers")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8775,14 +7270,7 @@ extension Paths {
 
         /// AddSessions()
         public func post(key: String, token: String, _ body: TrelloAPI.Sessions) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8800,14 +7288,7 @@ extension Paths.Sessions {
         ///
         /// This is the route for WebSocket requests.  See the socket API reference for a description of WebSocket usage.
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8823,14 +7304,7 @@ extension Paths.Sessions {
 
         /// UpdateSessionsByIdSession()
         public func put(key: String, token: String, _ body: TrelloAPI.Sessions) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8846,14 +7320,7 @@ extension Paths.Sessions.WithIDSession {
 
         /// UpdateSessionsStatusByIdSession()
         public func put(key: String, token: String, _ body: TrelloAPI.SessionsStatus) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -8898,24 +7365,17 @@ extension Paths.Tokens {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["webhooks": webhooks])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(webhooks, forKey: "webhooks")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
 
         /// DeleteTokensByToken()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8947,9 +7407,9 @@ extension Paths.Tokens.WithToken {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["fields": fields])
-                encoder.encode(["key": key])
-                encoder.encode(["token": token])
+                encoder.encode(fields, forKey: "fields")
+                encoder.encode(key, forKey: "key")
+                encoder.encode(token, forKey: "token")
                 return encoder.items
             }
         }
@@ -8967,14 +7427,7 @@ extension Paths.Tokens.WithToken.Member {
 
         /// GetTokensMemberByTokenByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -8990,38 +7443,17 @@ extension Paths.Tokens.WithToken {
 
         /// GetTokensWebhooksByToken()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// AddTokensWebhooksByToken()
         public func post(key: String, token: String, _ body: TrelloAPI.TokensWebhooks) -> Request<Void> {
-            .post(path, query: makePostQuery(key, token), body: body)
-        }
-
-        private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .post(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// UpdateTokensWebhooksByToken()
         public func put(key: String, token: String, _ body: TrelloAPI.TokensWebhooks) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -9037,26 +7469,12 @@ extension Paths.Tokens.WithToken.Webhooks {
 
         /// GetTokensWebhooksByTokenByIdWebhook()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// DeleteTokensWebhooksByTokenByIdWebhook()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -9072,14 +7490,7 @@ extension Paths.Tokens.WithToken {
 
         /// GetTokensByTokenByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -9106,14 +7517,7 @@ extension Paths.Types {
 
         /// GetTypesById()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -9129,14 +7533,7 @@ extension Paths {
 
         /// UpdateWebhooks()
         public func put(key: String, token: String, _ body: TrelloAPI.Webhooks) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -9152,38 +7549,17 @@ extension Paths.Webhooks {
 
         /// GetWebhooksByIdWebhook()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
 
         /// UpdateWebhooksByIdWebhook()
         public func put(key: String, token: String, _ body: TrelloAPI.Webhooks) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
 
         /// DeleteWebhooksByIdWebhook()
         public func delete(key: String, token: String) -> Request<Void> {
-            .delete(path, query: makeDeleteQuery(key, token))
-        }
-
-        private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .delete(path, query: [("key", key), ("token", token)])
         }
     }
 }
@@ -9199,14 +7575,7 @@ extension Paths.Webhooks.WithIDWebhook {
 
         /// UpdateWebhooksActiveByIdWebhook()
         public func put(key: String, token: String, _ body: TrelloAPI.WebhooksActive) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -9222,14 +7591,7 @@ extension Paths.Webhooks.WithIDWebhook {
 
         /// UpdateWebhooksCallbackURLByIdWebhook()
         public func put(key: String, token: String, _ body: TrelloAPI.WebhooksCallbackURL) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -9245,14 +7607,7 @@ extension Paths.Webhooks.WithIDWebhook {
 
         /// UpdateWebhooksDescriptionByIdWebhook()
         public func put(key: String, token: String, _ body: TrelloAPI.WebhooksDescription) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -9268,14 +7623,7 @@ extension Paths.Webhooks.WithIDWebhook {
 
         /// UpdateWebhooksIdModelByIdWebhook()
         public func put(key: String, token: String, _ body: TrelloAPI.WebhooksIDModel) -> Request<Void> {
-            .put(path, query: makePutQuery(key, token), body: body)
-        }
-
-        private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .put(path, query: [("key", key), ("token", token)], body: body)
         }
     }
 }
@@ -9291,14 +7639,7 @@ extension Paths.Webhooks.WithIDWebhook {
 
         /// GetWebhooksByIdWebhookByField()
         public func get(key: String, token: String) -> Request<Void> {
-            .get(path, query: makeGetQuery(key, token))
-        }
-
-        private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["key": key])
-            encoder.encode(["token": token])
-            return encoder.items
+            .get(path, query: [("key", key), ("token", token)])
         }
     }
 }

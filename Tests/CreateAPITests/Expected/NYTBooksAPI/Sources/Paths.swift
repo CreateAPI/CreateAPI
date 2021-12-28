@@ -197,13 +197,13 @@ extension Paths.Lists.BestSellers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["age-group": ageGroup])
-                encoder.encode(["author": author])
-                encoder.encode(["contributor": contributor])
-                encoder.encode(["isbn": isbn])
-                encoder.encode(["price": price])
-                encoder.encode(["publisher": publisher])
-                encoder.encode(["title": title])
+                encoder.encode(ageGroup, forKey: "age-group")
+                encoder.encode(author, forKey: "author")
+                encoder.encode(contributor, forKey: "contributor")
+                encoder.encode(isbn, forKey: "isbn")
+                encoder.encode(price, forKey: "price")
+                encoder.encode(publisher, forKey: "publisher")
+                encoder.encode(title, forKey: "title")
                 return encoder.items
             }
         }
@@ -398,16 +398,16 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["list": list])
-                encoder.encode(["weeks-on-list": weeksOnList])
-                encoder.encode(["bestsellers-date": bestsellersDate])
-                encoder.encode(["date": date])
-                encoder.encode(["isbn": isbn])
-                encoder.encode(["published-date": publishedDate])
-                encoder.encode(["rank": rank])
-                encoder.encode(["rank-last-week": rankLastWeek])
-                encoder.encode(["offset": offset])
-                encoder.encode(["sort-order": sortOrder])
+                encoder.encode(list, forKey: "list")
+                encoder.encode(weeksOnList, forKey: "weeks-on-list")
+                encoder.encode(bestsellersDate, forKey: "bestsellers-date")
+                encoder.encode(date, forKey: "date")
+                encoder.encode(isbn, forKey: "isbn")
+                encoder.encode(publishedDate, forKey: "published-date")
+                encoder.encode(rank, forKey: "rank")
+                encoder.encode(rankLastWeek, forKey: "rank-last-week")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(sortOrder, forKey: "sort-order")
                 return encoder.items
             }
         }
@@ -611,15 +611,15 @@ extension Paths.Lists.WithDate {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["isbn": isbn])
-                encoder.encode(["list-name": listName])
-                encoder.encode(["published-date": publishedDate])
-                encoder.encode(["bestsellers-date": bestsellersDate])
-                encoder.encode(["weeks-on-list": weeksOnList])
-                encoder.encode(["rank": rank])
-                encoder.encode(["rank-last-week": rankLastWeek])
-                encoder.encode(["offset": offset])
-                encoder.encode(["sort-order": sortOrder])
+                encoder.encode(isbn, forKey: "isbn")
+                encoder.encode(listName, forKey: "list-name")
+                encoder.encode(publishedDate, forKey: "published-date")
+                encoder.encode(bestsellersDate, forKey: "bestsellers-date")
+                encoder.encode(weeksOnList, forKey: "weeks-on-list")
+                encoder.encode(rank, forKey: "rank")
+                encoder.encode(rankLastWeek, forKey: "rank-last-week")
+                encoder.encode(offset, forKey: "offset")
+                encoder.encode(sortOrder, forKey: "sort-order")
                 return encoder.items
             }
         }
@@ -756,8 +756,8 @@ extension Paths.Lists {
 
         private func makeGetQuery(_ publishedDate: String?, _ apiKey: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["published_date": publishedDate])
-            encoder.encode(["api-key": apiKey])
+            encoder.encode(publishedDate, forKey: "published_date")
+            encoder.encode(apiKey, forKey: "api-key")
             return encoder.items
         }
     }
@@ -827,7 +827,7 @@ extension Paths.Lists {
 
         private func makeGetQuery(_ apiKey: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["api-key": apiKey])
+            encoder.encode(apiKey, forKey: "api-key")
             return encoder.items
         }
     }
@@ -913,10 +913,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["isbn": isbn])
-                encoder.encode(["title": title])
-                encoder.encode(["author": author])
-                encoder.encode(["api-key": apiKey])
+                encoder.encode(isbn, forKey: "isbn")
+                encoder.encode(title, forKey: "title")
+                encoder.encode(author, forKey: "author")
+                encoder.encode(apiKey, forKey: "api-key")
                 return encoder.items
             }
         }

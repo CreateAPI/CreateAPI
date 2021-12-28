@@ -61,9 +61,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["limit": limit])
-                encoder.encode(["prefix": prefix])
-                encoder.encode(["by": by])
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(prefix, forKey: "prefix")
+                encoder.encode(by, forKey: "by")
                 return encoder.items
             }
         }
@@ -132,10 +132,10 @@ extension Paths.Channels.WithChannelID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["start": start])
-                encoder.encode(["limit": limit])
-                encoder.encode(["end": end])
-                encoder.encode(["direction": direction])
+                encoder.encode(start, forKey: "start")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(end, forKey: "end")
+                encoder.encode(direction, forKey: "direction")
                 return encoder.items
             }
         }
@@ -205,9 +205,9 @@ extension Paths.Channels.WithChannelID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["clientId": clientID])
-                encoder.encode(["connectionId": connectionID])
-                encoder.encode(["limit": limit])
+                encoder.encode(clientID, forKey: "clientId")
+                encoder.encode(connectionID, forKey: "connectionId")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -255,10 +255,10 @@ extension Paths.Channels.WithChannelID.Presence {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["start": start])
-                encoder.encode(["limit": limit])
-                encoder.encode(["end": end])
-                encoder.encode(["direction": direction])
+                encoder.encode(start, forKey: "start")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(end, forKey: "end")
+                encoder.encode(direction, forKey: "direction")
                 return encoder.items
             }
         }
@@ -360,10 +360,10 @@ extension Paths.Push {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["channel": channel])
-                encoder.encode(["deviceId": deviceID])
-                encoder.encode(["clientId": clientID])
-                encoder.encode(["limit": limit])
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(deviceID, forKey: "deviceId")
+                encoder.encode(clientID, forKey: "clientId")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -442,9 +442,9 @@ extension Paths.Push {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["channel": channel])
-                encoder.encode(["deviceId": deviceID])
-                encoder.encode(["clientId": clientID])
+                encoder.encode(channel, forKey: "channel")
+                encoder.encode(deviceID, forKey: "deviceId")
+                encoder.encode(clientID, forKey: "clientId")
                 return encoder.items
             }
         }
@@ -498,9 +498,9 @@ extension Paths.Push {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["deviceId": deviceID])
-                encoder.encode(["clientId": clientID])
-                encoder.encode(["limit": limit])
+                encoder.encode(deviceID, forKey: "deviceId")
+                encoder.encode(clientID, forKey: "clientId")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -521,8 +521,8 @@ extension Paths.Push {
 
         private func makeDeleteQuery(_ deviceID: String?, _ clientID: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["deviceId": deviceID])
-            encoder.encode(["clientId": clientID])
+            encoder.encode(deviceID, forKey: "deviceId")
+            encoder.encode(clientID, forKey: "clientId")
             return encoder.items
         }
     }
@@ -659,11 +659,11 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["start": start])
-                encoder.encode(["limit": limit])
-                encoder.encode(["end": end])
-                encoder.encode(["direction": direction])
-                encoder.encode(["unit": unit])
+                encoder.encode(start, forKey: "start")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(end, forKey: "end")
+                encoder.encode(direction, forKey: "direction")
+                encoder.encode(unit, forKey: "unit")
                 return encoder.items
             }
         }

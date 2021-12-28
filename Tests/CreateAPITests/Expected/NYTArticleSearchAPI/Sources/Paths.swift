@@ -85,16 +85,16 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["q": q])
-                encoder.encode(["fq": fq])
-                encoder.encode(["begin_date": beginDate])
-                encoder.encode(["end_date": endDate])
-                encoder.encode(["sort": sort])
-                encoder.encode(["fl": fl])
-                encoder.encode(["hl": isHl])
-                encoder.encode(["page": page])
-                encoder.encode(["facet_field": facetField])
-                encoder.encode(["facet_filter": isFacetFilter])
+                encoder.encode(q, forKey: "q")
+                encoder.encode(fq, forKey: "fq")
+                encoder.encode(beginDate, forKey: "begin_date")
+                encoder.encode(endDate, forKey: "end_date")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fl, forKey: "fl")
+                encoder.encode(isHl, forKey: "hl")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(facetField, forKey: "facet_field")
+                encoder.encode(isFacetFilter, forKey: "facet_filter")
                 return encoder.items
             }
         }

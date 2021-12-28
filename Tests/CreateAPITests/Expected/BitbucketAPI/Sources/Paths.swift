@@ -327,7 +327,7 @@ extension Paths.Pullrequests {
 
         private func makeGetQuery(_ state: State?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["state": state])
+            encoder.encode(state, forKey: "state")
             return encoder.items
         }
 
@@ -379,10 +379,10 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["after": after])
-                encoder.encode(["role": role])
-                encoder.encode(["q": q])
-                encoder.encode(["sort": sort])
+                encoder.encode(after, forKey: "after")
+                encoder.encode(role, forKey: "role")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(sort, forKey: "sort")
                 return encoder.items
             }
         }
@@ -433,9 +433,9 @@ extension Paths.Repositories {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["role": role])
-                encoder.encode(["q": q])
-                encoder.encode(["sort": sort])
+                encoder.encode(role, forKey: "role")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(sort, forKey: "sort")
                 return encoder.items
             }
         }
@@ -527,7 +527,7 @@ extension Paths.Repositories.WithWorkspace {
 
         private func makeDeleteQuery(_ redirectTo: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["redirect_to": redirectTo])
+            encoder.encode(redirectTo, forKey: "redirect_to")
             return encoder.items
         }
     }
@@ -550,8 +550,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
 
         private func makeGetQuery(_ kind: String?, _ pattern: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["kind": kind])
-            encoder.encode(["pattern": pattern])
+            encoder.encode(kind, forKey: "kind")
+            encoder.encode(pattern, forKey: "pattern")
             return encoder.items
         }
 
@@ -1053,8 +1053,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Commit.WithCommit {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
 
@@ -1160,8 +1160,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Commit.WithCommit {
 
         private func makeGetQuery(_ page: Int?, _ pagelen: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["page": page])
-            encoder.encode(["pagelen": pagelen])
+            encoder.encode(page, forKey: "page")
+            encoder.encode(pagelen, forKey: "pagelen")
             return encoder.items
         }
     }
@@ -1379,8 +1379,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Commit.WithCommit {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -1947,18 +1947,12 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.DeploymentsConfig.Enviro
 
         /// Create a deployment environment level variable.
         public func post(variableUUID: String, _ body: BitbucketAPI.DeploymentVariable) -> Request<BitbucketAPI.DeploymentVariable> {
-            .post(path, query: makePostQuery(variableUUID), body: body)
+            .post(path, query: [("variable_uuid", variableUUID)], body: body)
         }
 
         public enum PostResponseHeaders {
             /// The URL of the newly created variable.
             public static let location = HTTPHeader<String>(field: "Location")
-        }
-
-        private func makePostQuery(_ variableUUID: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["variable_uuid": variableUUID])
-            return encoder.items
         }
     }
 }
@@ -2067,12 +2061,12 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Diff {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["context": context])
-                encoder.encode(["path": path])
-                encoder.encode(["ignore_whitespace": isIgnoreWhitespace])
-                encoder.encode(["binary": isBinary])
-                encoder.encode(["renames": isRenames])
-                encoder.encode(["merge": isMerge])
+                encoder.encode(context, forKey: "context")
+                encoder.encode(path, forKey: "path")
+                encoder.encode(isIgnoreWhitespace, forKey: "ignore_whitespace")
+                encoder.encode(isBinary, forKey: "binary")
+                encoder.encode(isRenames, forKey: "renames")
+                encoder.encode(isMerge, forKey: "merge")
                 return encoder.items
             }
         }
@@ -2390,9 +2384,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Filehistory.WithCommit {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["renames": renames])
-                encoder.encode(["q": q])
-                encoder.encode(["sort": sort])
+                encoder.encode(renames, forKey: "renames")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(sort, forKey: "sort")
                 return encoder.items
             }
         }
@@ -2434,9 +2428,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["role": role])
-                encoder.encode(["q": q])
-                encoder.encode(["sort": sort])
+                encoder.encode(role, forKey: "role")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(sort, forKey: "sort")
                 return encoder.items
             }
         }
@@ -3020,8 +3014,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Issues.WithIssueID {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
 
@@ -3116,7 +3110,7 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Issues.WithIssueID {
 
         private func makeGetQuery(_ q: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
+            encoder.encode(q, forKey: "q")
             return encoder.items
         }
 
@@ -4076,7 +4070,7 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
 
         private func makeGetQuery(_ state: State?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["state": state])
+            encoder.encode(state, forKey: "state")
             return encoder.items
         }
 
@@ -4960,7 +4954,7 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Pullrequests.WithPullReq
 
         private func makePostQuery(_ isAsync: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["async": isAsync])
+            encoder.encode(isAsync, forKey: "async")
             return encoder.items
         }
     }
@@ -5092,8 +5086,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Pullrequests.WithPullReq
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -5185,8 +5179,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -5343,8 +5337,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Refs {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
 
@@ -5551,8 +5545,8 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Refs {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
 
@@ -5754,7 +5748,7 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
 
         private func makeGetQuery(_ format: Format?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["format": format])
+            encoder.encode(format, forKey: "format")
             return encoder.items
         }
 
@@ -5904,11 +5898,11 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["message": message])
-                encoder.encode(["author": author])
-                encoder.encode(["parents": parents])
-                encoder.encode(["files": files])
-                encoder.encode(["branch": branch])
+                encoder.encode(message, forKey: "message")
+                encoder.encode(author, forKey: "author")
+                encoder.encode(parents, forKey: "parents")
+                encoder.encode(files, forKey: "files")
+                encoder.encode(branch, forKey: "branch")
                 return encoder.items
             }
         }
@@ -6162,10 +6156,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Src.WithCommit {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["format": format])
-                encoder.encode(["q": q])
-                encoder.encode(["sort": sort])
-                encoder.encode(["max_depth": maxDepth])
+                encoder.encode(format, forKey: "format")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(maxDepth, forKey: "max_depth")
                 return encoder.items
             }
         }
@@ -6261,7 +6255,7 @@ extension Paths {
 
         private func makeGetQuery(_ role: Role?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["role": role])
+            encoder.encode(role, forKey: "role")
             return encoder.items
         }
 
@@ -6448,7 +6442,7 @@ extension Paths.Snippets {
 
         private func makeGetQuery(_ role: Role?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["role": role])
+            encoder.encode(role, forKey: "role")
             return encoder.items
         }
 
@@ -7197,7 +7191,7 @@ extension Paths.Snippets.WithWorkspace.WithEncodedID.WithRevision {
 
         private func makeGetQuery(_ path: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["path": path])
+            encoder.encode(path, forKey: "path")
             return encoder.items
         }
     }
@@ -7260,7 +7254,7 @@ extension Paths {
 
         private func makeGetQuery(_ role: Role?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["role": role])
+            encoder.encode(role, forKey: "role")
             return encoder.items
         }
 
@@ -7535,8 +7529,8 @@ extension Paths.Teams.WithUsername {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -7635,8 +7629,8 @@ extension Paths.Teams.WithUsername.Permissions {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -7733,8 +7727,8 @@ extension Paths.Teams.WithUsername.Permissions.Repositories {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -7764,31 +7758,19 @@ extension Paths.Teams.WithUsername.PipelinesConfig {
         /// This endpoint has been deprecated, and you should use the new workspaces endpoint. For more information, see [the announcement](https://developer.atlassian.com/cloud/bitbucket/bitbucket-api-teams-deprecation/).
         @available(*, deprecated, message: "Deprecated")
         public func get(workspace: String) -> Request<BitbucketAPI.PaginatedPipelineVariables> {
-            .get(path, query: makeGetQuery(workspace))
-        }
-
-        private func makeGetQuery(_ workspace: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
-            return encoder.items
+            .get(path, query: [("workspace", workspace)])
         }
 
         /// Create an account level variable.
         /// This endpoint has been deprecated, and you should use the new workspaces endpoint. For more information, see [the announcement](https://developer.atlassian.com/cloud/bitbucket/bitbucket-api-teams-deprecation/).
         @available(*, deprecated, message: "Deprecated")
         public func post(workspace: String, _ body: BitbucketAPI.PipelineVariable) -> Request<BitbucketAPI.PipelineVariable> {
-            .post(path, query: makePostQuery(workspace), body: body)
+            .post(path, query: [("workspace", workspace)], body: body)
         }
 
         public enum PostResponseHeaders {
             /// The URL of the newly created pipeline variable.
             public static let location = HTTPHeader<String>(field: "Location")
-        }
-
-        private func makePostQuery(_ workspace: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["workspace": workspace])
-            return encoder.items
         }
     }
 }
@@ -8164,9 +8146,9 @@ extension Paths.Teams.WithUsername.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["search_query": searchQuery])
-                encoder.encode(["page": page])
-                encoder.encode(["pagelen": pagelen])
+                encoder.encode(searchQuery, forKey: "search_query")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(pagelen, forKey: "pagelen")
                 return encoder.items
             }
         }
@@ -8336,8 +8318,8 @@ extension Paths.User.Permissions {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -8409,8 +8391,8 @@ extension Paths.User.Permissions {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -8482,8 +8464,8 @@ extension Paths.User.Permissions {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -8943,9 +8925,9 @@ extension Paths.Users.WithSelectedUser.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["search_query": searchQuery])
-                encoder.encode(["page": page])
-                encoder.encode(["pagelen": pagelen])
+                encoder.encode(searchQuery, forKey: "search_query")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(pagelen, forKey: "pagelen")
                 return encoder.items
             }
         }
@@ -9318,9 +9300,9 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["role": role])
-                encoder.encode(["q": q])
-                encoder.encode(["sort": sort])
+                encoder.encode(role, forKey: "role")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(sort, forKey: "sort")
                 return encoder.items
             }
         }
@@ -9513,7 +9495,7 @@ extension Paths.Workspaces.WithWorkspace {
 
         private func makeGetQuery(_ q: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
+            encoder.encode(q, forKey: "q")
             return encoder.items
         }
     }
@@ -9617,8 +9599,8 @@ extension Paths.Workspaces.WithWorkspace.Permissions {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -9706,8 +9688,8 @@ extension Paths.Workspaces.WithWorkspace.Permissions.Repositories {
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["q": q])
-            encoder.encode(["sort": sort])
+            encoder.encode(q, forKey: "q")
+            encoder.encode(sort, forKey: "sort")
             return encoder.items
         }
     }
@@ -10168,9 +10150,9 @@ extension Paths.Workspaces.WithWorkspace.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["search_query": searchQuery])
-                encoder.encode(["page": page])
-                encoder.encode(["pagelen": pagelen])
+                encoder.encode(searchQuery, forKey: "search_query")
+                encoder.encode(page, forKey: "page")
+                encoder.encode(pagelen, forKey: "pagelen")
                 return encoder.items
             }
         }

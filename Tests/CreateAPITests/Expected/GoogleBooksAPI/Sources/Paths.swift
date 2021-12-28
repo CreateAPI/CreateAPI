@@ -47,10 +47,10 @@ extension Paths.Cloudloading {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["drive_document_id": driveDocumentID])
-                encoder.encode(["mime_type": mimeType])
-                encoder.encode(["name": name])
-                encoder.encode(["upload_client_token": uploadClientToken])
+                encoder.encode(driveDocumentID, forKey: "drive_document_id")
+                encoder.encode(mimeType, forKey: "mime_type")
+                encoder.encode(name, forKey: "name")
+                encoder.encode(uploadClientToken, forKey: "upload_client_token")
                 return encoder.items
             }
         }
@@ -68,13 +68,7 @@ extension Paths.Cloudloading {
 
         /// Remove the book and its contents
         public func post(volumeID: String) -> Request<[String: AnyJSON]> {
-            .post(path, query: makePostQuery(volumeID))
-        }
-
-        private func makePostQuery(_ volumeID: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["volumeId": volumeID])
-            return encoder.items
+            .post(path, query: [("volumeId", volumeID)])
         }
     }
 }
@@ -117,13 +111,7 @@ extension Paths.Dictionary {
 
         /// Returns a list of offline dictionary metadata available
         public func get(cpksver: String) -> Request<GoogleBooksAPI.Metadata> {
-            .get(path, query: makeGetQuery(cpksver))
-        }
-
-        private func makeGetQuery(_ cpksver: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["cpksver": cpksver])
-            return encoder.items
+            .get(path, query: [("cpksver", cpksver)])
         }
     }
 }
@@ -155,7 +143,7 @@ extension Paths.Familysharing {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -188,9 +176,9 @@ extension Paths.Familysharing {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["docId": docID])
-                encoder.encode(["source": source])
-                encoder.encode(["volumeId": volumeID])
+                encoder.encode(docID, forKey: "docId")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(volumeID, forKey: "volumeId")
                 return encoder.items
             }
         }
@@ -224,9 +212,9 @@ extension Paths.Familysharing {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["docId": docID])
-                encoder.encode(["source": source])
-                encoder.encode(["volumeId": volumeID])
+                encoder.encode(docID, forKey: "docId")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(volumeID, forKey: "volumeId")
                 return encoder.items
             }
         }
@@ -260,7 +248,7 @@ extension Paths.Myconfig {
 
         private func makeGetQuery(_ country: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["country": country])
+            encoder.encode(country, forKey: "country")
             return encoder.items
         }
     }
@@ -295,10 +283,10 @@ extension Paths.Myconfig {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cpksver": cpksver])
-                encoder.encode(["volumeIds": volumeIDs])
-                encoder.encode(["locale": locale])
-                encoder.encode(["source": source])
+                encoder.encode(cpksver, forKey: "cpksver")
+                encoder.encode(volumeIDs, forKey: "volumeIds")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -345,12 +333,12 @@ extension Paths.Myconfig {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cpksver": cpksver])
-                encoder.encode(["nonce": nonce])
-                encoder.encode(["source": source])
-                encoder.encode(["volumeId": volumeID])
-                encoder.encode(["licenseTypes": licenseTypes])
-                encoder.encode(["locale": locale])
+                encoder.encode(cpksver, forKey: "cpksver")
+                encoder.encode(nonce, forKey: "nonce")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(volumeID, forKey: "volumeId")
+                encoder.encode(licenseTypes, forKey: "licenseTypes")
+                encoder.encode(locale, forKey: "locale")
                 return encoder.items
             }
         }
@@ -399,14 +387,14 @@ extension Paths.Myconfig {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["cpksver": cpksver])
-                encoder.encode(["nonce": nonce])
-                encoder.encode(["source": source])
-                encoder.encode(["features": features])
-                encoder.encode(["includeNonComicsSeries": isIncludeNonComicsSeries])
-                encoder.encode(["locale": locale])
-                encoder.encode(["showPreorders": isShowPreorders])
-                encoder.encode(["volumeIds": volumeIDs])
+                encoder.encode(cpksver, forKey: "cpksver")
+                encoder.encode(nonce, forKey: "nonce")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(features, forKey: "features")
+                encoder.encode(isIncludeNonComicsSeries, forKey: "includeNonComicsSeries")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(isShowPreorders, forKey: "showPreorders")
+                encoder.encode(volumeIDs, forKey: "volumeIds")
                 return encoder.items
             }
         }
@@ -481,16 +469,16 @@ extension Paths.Mylibrary {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contentVersion": contentVersion])
-                encoder.encode(["layerId": layerID])
-                encoder.encode(["layerIds": layerIDs])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["pageToken": pageToken])
-                encoder.encode(["showDeleted": isShowDeleted])
-                encoder.encode(["source": source])
-                encoder.encode(["updatedMax": updatedMax])
-                encoder.encode(["updatedMin": updatedMin])
-                encoder.encode(["volumeId": volumeID])
+                encoder.encode(contentVersion, forKey: "contentVersion")
+                encoder.encode(layerID, forKey: "layerId")
+                encoder.encode(layerIDs, forKey: "layerIds")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(pageToken, forKey: "pageToken")
+                encoder.encode(isShowDeleted, forKey: "showDeleted")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(updatedMax, forKey: "updatedMax")
+                encoder.encode(updatedMin, forKey: "updatedMin")
+                encoder.encode(volumeID, forKey: "volumeId")
                 return encoder.items
             }
         }
@@ -515,10 +503,10 @@ extension Paths.Mylibrary {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["annotationId": annotationID])
-                encoder.encode(["country": country])
-                encoder.encode(["showOnlySummaryInResponse": isShowOnlySummaryInResponse])
-                encoder.encode(["source": source])
+                encoder.encode(annotationID, forKey: "annotationId")
+                encoder.encode(country, forKey: "country")
+                encoder.encode(isShowOnlySummaryInResponse, forKey: "showOnlySummaryInResponse")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -541,8 +529,8 @@ extension Paths.Mylibrary.Annotations {
 
         private func makePostQuery(_ layerIDs: [String], _ volumeID: String) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["layerIds": layerIDs])
-            encoder.encode(["volumeId": volumeID])
+            encoder.encode(layerIDs, forKey: "layerIds")
+            encoder.encode(volumeID, forKey: "volumeId")
             return encoder.items
         }
     }
@@ -564,7 +552,7 @@ extension Paths.Mylibrary.Annotations {
 
         private func makePutQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
 
@@ -575,7 +563,7 @@ extension Paths.Mylibrary.Annotations {
 
         private func makeDeleteQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -597,7 +585,7 @@ extension Paths.Mylibrary {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -619,7 +607,7 @@ extension Paths.Mylibrary.Bookshelves {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -659,9 +647,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["volumeId": volumeID])
-                encoder.encode(["reason": reason])
-                encoder.encode(["source": source])
+                encoder.encode(volumeID, forKey: "volumeId")
+                encoder.encode(reason, forKey: "reason")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -684,7 +672,7 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
         private func makePostQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -717,9 +705,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["volumeId": volumeID])
-                encoder.encode(["volumePosition": volumePosition])
-                encoder.encode(["source": source])
+                encoder.encode(volumeID, forKey: "volumeId")
+                encoder.encode(volumePosition, forKey: "volumePosition")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -758,9 +746,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["volumeId": volumeID])
-                encoder.encode(["reason": reason])
-                encoder.encode(["source": source])
+                encoder.encode(volumeID, forKey: "volumeId")
+                encoder.encode(reason, forKey: "reason")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -808,13 +796,13 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["country": country])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["projection": projection])
-                encoder.encode(["q": q])
-                encoder.encode(["showPreorders": isShowPreorders])
-                encoder.encode(["source": source])
-                encoder.encode(["startIndex": startIndex])
+                encoder.encode(country, forKey: "country")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(projection, forKey: "projection")
+                encoder.encode(q, forKey: "q")
+                encoder.encode(isShowPreorders, forKey: "showPreorders")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(startIndex, forKey: "startIndex")
                 return encoder.items
             }
         }
@@ -848,8 +836,8 @@ extension Paths.Mylibrary.Readingpositions {
 
         private func makeGetQuery(_ contentVersion: String?, _ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["contentVersion": contentVersion])
-            encoder.encode(["source": source])
+            encoder.encode(contentVersion, forKey: "contentVersion")
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -898,12 +886,12 @@ extension Paths.Mylibrary.Readingpositions.WithVolumeID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["position": position])
-                encoder.encode(["timestamp": timestamp])
-                encoder.encode(["action": action])
-                encoder.encode(["contentVersion": contentVersion])
-                encoder.encode(["deviceCookie": deviceCookie])
-                encoder.encode(["source": source])
+                encoder.encode(position, forKey: "position")
+                encoder.encode(timestamp, forKey: "timestamp")
+                encoder.encode(action, forKey: "action")
+                encoder.encode(contentVersion, forKey: "contentVersion")
+                encoder.encode(deviceCookie, forKey: "deviceCookie")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -948,9 +936,9 @@ extension Paths.Notification {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["notification_id": notificationID])
-                encoder.encode(["locale": locale])
-                encoder.encode(["source": source])
+                encoder.encode(notificationID, forKey: "notification_id")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -984,7 +972,7 @@ extension Paths.Onboarding {
 
         private func makeGetQuery(_ locale: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["locale": locale])
+            encoder.encode(locale, forKey: "locale")
             return encoder.items
         }
     }
@@ -1027,11 +1015,11 @@ extension Paths.Onboarding {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["categoryId": categoryID])
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
-                encoder.encode(["pageSize": pageSize])
-                encoder.encode(["pageToken": pageToken])
+                encoder.encode(categoryID, forKey: "categoryId")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxAllowedMaturityRating, forKey: "maxAllowedMaturityRating")
+                encoder.encode(pageSize, forKey: "pageSize")
+                encoder.encode(pageToken, forKey: "pageToken")
                 return encoder.items
             }
         }
@@ -1082,9 +1070,9 @@ extension Paths.Personalizedstream {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
-                encoder.encode(["source": source])
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxAllowedMaturityRating, forKey: "maxAllowedMaturityRating")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -1139,14 +1127,14 @@ extension Paths.Promooffer {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["androidId": androidID])
-                encoder.encode(["device": device])
-                encoder.encode(["manufacturer": manufacturer])
-                encoder.encode(["model": model])
-                encoder.encode(["offerId": offerID])
-                encoder.encode(["product": product])
-                encoder.encode(["serial": serial])
-                encoder.encode(["volumeId": volumeID])
+                encoder.encode(androidID, forKey: "androidId")
+                encoder.encode(device, forKey: "device")
+                encoder.encode(manufacturer, forKey: "manufacturer")
+                encoder.encode(model, forKey: "model")
+                encoder.encode(offerID, forKey: "offerId")
+                encoder.encode(product, forKey: "product")
+                encoder.encode(serial, forKey: "serial")
+                encoder.encode(volumeID, forKey: "volumeId")
                 return encoder.items
             }
         }
@@ -1188,13 +1176,13 @@ extension Paths.Promooffer {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["androidId": androidID])
-                encoder.encode(["device": device])
-                encoder.encode(["manufacturer": manufacturer])
-                encoder.encode(["model": model])
-                encoder.encode(["offerId": offerID])
-                encoder.encode(["product": product])
-                encoder.encode(["serial": serial])
+                encoder.encode(androidID, forKey: "androidId")
+                encoder.encode(device, forKey: "device")
+                encoder.encode(manufacturer, forKey: "manufacturer")
+                encoder.encode(model, forKey: "model")
+                encoder.encode(offerID, forKey: "offerId")
+                encoder.encode(product, forKey: "product")
+                encoder.encode(serial, forKey: "serial")
                 return encoder.items
             }
         }
@@ -1234,12 +1222,12 @@ extension Paths.Promooffer {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["androidId": androidID])
-                encoder.encode(["device": device])
-                encoder.encode(["manufacturer": manufacturer])
-                encoder.encode(["model": model])
-                encoder.encode(["product": product])
-                encoder.encode(["serial": serial])
+                encoder.encode(androidID, forKey: "androidId")
+                encoder.encode(device, forKey: "device")
+                encoder.encode(manufacturer, forKey: "manufacturer")
+                encoder.encode(model, forKey: "model")
+                encoder.encode(product, forKey: "product")
+                encoder.encode(serial, forKey: "serial")
                 return encoder.items
             }
         }
@@ -1273,7 +1261,7 @@ extension Paths.Series {
 
         private func makeGetQuery(_ seriesID: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["series_id": seriesID])
+            encoder.encode(seriesID, forKey: "series_id")
             return encoder.items
         }
     }
@@ -1317,9 +1305,9 @@ extension Paths.Series.Membership {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["series_id": seriesID])
-                encoder.encode(["page_size": pageSize])
-                encoder.encode(["page_token": pageToken])
+                encoder.encode(seriesID, forKey: "series_id")
+                encoder.encode(pageSize, forKey: "page_size")
+                encoder.encode(pageToken, forKey: "page_token")
                 return encoder.items
             }
         }
@@ -1364,7 +1352,7 @@ extension Paths.Users.WithUserID {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -1386,7 +1374,7 @@ extension Paths.Users.WithUserID.Bookshelves {
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["source": source])
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -1421,10 +1409,10 @@ extension Paths.Users.WithUserID.Bookshelves.WithShelf {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["showPreorders": isShowPreorders])
-                encoder.encode(["source": source])
-                encoder.encode(["startIndex": startIndex])
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(isShowPreorders, forKey: "showPreorders")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(startIndex, forKey: "startIndex")
                 return encoder.items
             }
         }
@@ -1525,20 +1513,20 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["q": q])
-                encoder.encode(["download": download])
-                encoder.encode(["filter": filter])
-                encoder.encode(["langRestrict": langRestrict])
-                encoder.encode(["libraryRestrict": libraryRestrict])
-                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["orderBy": orderBy])
-                encoder.encode(["partner": partner])
-                encoder.encode(["printType": printType])
-                encoder.encode(["projection": projection])
-                encoder.encode(["showPreorders": isShowPreorders])
-                encoder.encode(["source": source])
-                encoder.encode(["startIndex": startIndex])
+                encoder.encode(q, forKey: "q")
+                encoder.encode(download, forKey: "download")
+                encoder.encode(filter, forKey: "filter")
+                encoder.encode(langRestrict, forKey: "langRestrict")
+                encoder.encode(libraryRestrict, forKey: "libraryRestrict")
+                encoder.encode(maxAllowedMaturityRating, forKey: "maxAllowedMaturityRating")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(orderBy, forKey: "orderBy")
+                encoder.encode(partner, forKey: "partner")
+                encoder.encode(printType, forKey: "printType")
+                encoder.encode(projection, forKey: "projection")
+                encoder.encode(isShowPreorders, forKey: "showPreorders")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(startIndex, forKey: "startIndex")
                 return encoder.items
             }
         }
@@ -1599,13 +1587,13 @@ extension Paths.Volumes {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["acquireMethod": acquireMethod])
-                encoder.encode(["country": country])
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["processingState": processingState])
-                encoder.encode(["source": source])
-                encoder.encode(["startIndex": startIndex])
+                encoder.encode(acquireMethod, forKey: "acquireMethod")
+                encoder.encode(country, forKey: "country")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(processingState, forKey: "processingState")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(startIndex, forKey: "startIndex")
                 return encoder.items
             }
         }
@@ -1645,9 +1633,9 @@ extension Paths.Volumes {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
-                encoder.encode(["source": source])
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxAllowedMaturityRating, forKey: "maxAllowedMaturityRating")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -1689,10 +1677,10 @@ extension Paths.Volumes.Recommended {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["rating": rating])
-                encoder.encode(["volumeId": volumeID])
-                encoder.encode(["locale": locale])
-                encoder.encode(["source": source])
+                encoder.encode(rating, forKey: "rating")
+                encoder.encode(volumeID, forKey: "volumeId")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -1739,12 +1727,12 @@ extension Paths.Volumes {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["processingState": processingState])
-                encoder.encode(["source": source])
-                encoder.encode(["startIndex": startIndex])
-                encoder.encode(["volumeId": volumeID])
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(processingState, forKey: "processingState")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(startIndex, forKey: "startIndex")
+                encoder.encode(volumeID, forKey: "volumeId")
                 return encoder.items
             }
         }
@@ -1790,12 +1778,12 @@ extension Paths.Volumes {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["country": country])
-                encoder.encode(["includeNonComicsSeries": isIncludeNonComicsSeries])
-                encoder.encode(["partner": partner])
-                encoder.encode(["projection": projection])
-                encoder.encode(["source": source])
-                encoder.encode(["user_library_consistent_read": isUserLibraryConsistentRead])
+                encoder.encode(country, forKey: "country")
+                encoder.encode(isIncludeNonComicsSeries, forKey: "includeNonComicsSeries")
+                encoder.encode(partner, forKey: "partner")
+                encoder.encode(projection, forKey: "projection")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(isUserLibraryConsistentRead, forKey: "user_library_consistent_read")
                 return encoder.items
             }
         }
@@ -1844,10 +1832,10 @@ extension Paths.Volumes.WithVolumeID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["association": association])
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
-                encoder.encode(["source": source])
+                encoder.encode(association, forKey: "association")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxAllowedMaturityRating, forKey: "maxAllowedMaturityRating")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -1912,19 +1900,19 @@ extension Paths.Volumes.WithVolumeID.Layers {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contentVersion": contentVersion])
-                encoder.encode(["endOffset": endOffset])
-                encoder.encode(["endPosition": endPosition])
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["pageToken": pageToken])
-                encoder.encode(["showDeleted": isShowDeleted])
-                encoder.encode(["source": source])
-                encoder.encode(["startOffset": startOffset])
-                encoder.encode(["startPosition": startPosition])
-                encoder.encode(["updatedMax": updatedMax])
-                encoder.encode(["updatedMin": updatedMin])
-                encoder.encode(["volumeAnnotationsVersion": volumeAnnotationsVersion])
+                encoder.encode(contentVersion, forKey: "contentVersion")
+                encoder.encode(endOffset, forKey: "endOffset")
+                encoder.encode(endPosition, forKey: "endPosition")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(pageToken, forKey: "pageToken")
+                encoder.encode(isShowDeleted, forKey: "showDeleted")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(startOffset, forKey: "startOffset")
+                encoder.encode(startPosition, forKey: "startPosition")
+                encoder.encode(updatedMax, forKey: "updatedMax")
+                encoder.encode(updatedMin, forKey: "updatedMin")
+                encoder.encode(volumeAnnotationsVersion, forKey: "volumeAnnotationsVersion")
                 return encoder.items
             }
         }
@@ -1958,8 +1946,8 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
 
         private func makeGetQuery(_ locale: String?, _ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["locale": locale])
-            encoder.encode(["source": source])
+            encoder.encode(locale, forKey: "locale")
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }
@@ -2008,17 +1996,17 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contentVersion": contentVersion])
-                encoder.encode(["annotationDataId": annotationDataID])
-                encoder.encode(["h": h])
-                encoder.encode(["locale": locale])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["pageToken": pageToken])
-                encoder.encode(["scale": scale])
-                encoder.encode(["source": source])
-                encoder.encode(["updatedMax": updatedMax])
-                encoder.encode(["updatedMin": updatedMin])
-                encoder.encode(["w": w])
+                encoder.encode(contentVersion, forKey: "contentVersion")
+                encoder.encode(annotationDataID, forKey: "annotationDataId")
+                encoder.encode(h, forKey: "h")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(pageToken, forKey: "pageToken")
+                encoder.encode(scale, forKey: "scale")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(updatedMax, forKey: "updatedMax")
+                encoder.encode(updatedMin, forKey: "updatedMin")
+                encoder.encode(w, forKey: "w")
                 return encoder.items
             }
         }
@@ -2060,13 +2048,13 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Data {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contentVersion": contentVersion])
-                encoder.encode(["allowWebDefinitions": allowWebDefinitions])
-                encoder.encode(["h": h])
-                encoder.encode(["locale": locale])
-                encoder.encode(["scale": scale])
-                encoder.encode(["source": source])
-                encoder.encode(["w": w])
+                encoder.encode(contentVersion, forKey: "contentVersion")
+                encoder.encode(allowWebDefinitions, forKey: "allowWebDefinitions")
+                encoder.encode(h, forKey: "h")
+                encoder.encode(locale, forKey: "locale")
+                encoder.encode(scale, forKey: "scale")
+                encoder.encode(source, forKey: "source")
+                encoder.encode(w, forKey: "w")
                 return encoder.items
             }
         }
@@ -2102,10 +2090,10 @@ extension Paths.Volumes.WithVolumeID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["contentVersion": contentVersion])
-                encoder.encode(["maxResults": maxResults])
-                encoder.encode(["pageToken": pageToken])
-                encoder.encode(["source": source])
+                encoder.encode(contentVersion, forKey: "contentVersion")
+                encoder.encode(maxResults, forKey: "maxResults")
+                encoder.encode(pageToken, forKey: "pageToken")
+                encoder.encode(source, forKey: "source")
                 return encoder.items
             }
         }
@@ -2128,8 +2116,8 @@ extension Paths.Volumes.WithVolumeID.Layersummary {
 
         private func makeGetQuery(_ contentVersion: String?, _ source: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["contentVersion": contentVersion])
-            encoder.encode(["source": source])
+            encoder.encode(contentVersion, forKey: "contentVersion")
+            encoder.encode(source, forKey: "source")
             return encoder.items
         }
     }

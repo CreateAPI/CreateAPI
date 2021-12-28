@@ -81,13 +81,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[platforms]": filterPlatforms], explode: false)
-                encoder.encode(["exists[parent]": existsParent], explode: false)
-                encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["limit[subcategories]": limitSubcategories])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterPlatforms, forKey: "filter[platforms]")
+                encoder.encode(existsParent, forKey: "exists[parent]")
+                encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(limitSubcategories, forKey: "limit[subcategories]")
                 return encoder.items
             }
         }
@@ -130,10 +130,10 @@ extension Paths.AppCategories {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["limit[subcategories]": limitSubcategories])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(limitSubcategories, forKey: "limit[subcategories]")
                 return encoder.items
             }
         }
@@ -170,7 +170,7 @@ extension Paths.AppClipAdvancedExperienceImages {
 
         private func makeGetQuery(_ fieldsAppClipAdvancedExperienceImages: [FieldsAppClipAdvancedExperienceImages]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipAdvancedExperienceImages]": fieldsAppClipAdvancedExperienceImages], explode: false)
+            encoder.encode(fieldsAppClipAdvancedExperienceImages, forKey: "fields[appClipAdvancedExperienceImages]", explode: false)
             return encoder.items
         }
 
@@ -252,10 +252,10 @@ extension Paths.AppClipAdvancedExperiences {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appClipAdvancedExperiences]": fieldsAppClipAdvancedExperiences], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["limit[localizations]": limitLocalizations])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppClipAdvancedExperiences, forKey: "fields[appClipAdvancedExperiences]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(limitLocalizations, forKey: "limit[localizations]")
                 return encoder.items
             }
         }
@@ -295,9 +295,9 @@ extension Paths.AppClipAppStoreReviewDetails {
         }
 
         private func makeGetQuery(_ fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipAppStoreReviewDetails]": fieldsAppClipAppStoreReviewDetails], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppClipAppStoreReviewDetails, forKey: "fields[appClipAppStoreReviewDetails]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -379,10 +379,10 @@ extension Paths.AppClipDefaultExperienceLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appClipHeaderImages]": fieldsAppClipHeaderImages], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppClipDefaultExperienceLocalizations, forKey: "fields[appClipDefaultExperienceLocalizations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppClipHeaderImages, forKey: "fields[appClipHeaderImages]")
                 return encoder.items
             }
         }
@@ -493,13 +493,13 @@ extension Paths.AppClipDefaultExperiences {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appClipAppStoreReviewDetails]": fieldsAppClipAppStoreReviewDetails], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
-                encoder.encode(["limit[appClipDefaultExperienceLocalizations]": limitAppClipDefaultExperienceLocalizations])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppClipDefaultExperiences, forKey: "fields[appClipDefaultExperiences]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppClipAppStoreReviewDetails, forKey: "fields[appClipAppStoreReviewDetails]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsAppClipDefaultExperienceLocalizations, forKey: "fields[appClipDefaultExperienceLocalizations]")
+                encoder.encode(limitAppClipDefaultExperienceLocalizations, forKey: "limit[appClipDefaultExperienceLocalizations]")
                 return encoder.items
             }
         }
@@ -543,9 +543,9 @@ extension Paths.AppClipHeaderImages {
         }
 
         private func makeGetQuery(_ fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipHeaderImages]": fieldsAppClipHeaderImages], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppClipHeaderImages, forKey: "fields[appClipHeaderImages]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -651,12 +651,12 @@ extension Paths.AppClips {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appClipAdvancedExperiences]": fieldsAppClipAdvancedExperiences], explode: false)
-                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
-                encoder.encode(["limit[appClipDefaultExperiences]": limitAppClipDefaultExperiences])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppClips, forKey: "fields[appClips]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppClipAdvancedExperiences, forKey: "fields[appClipAdvancedExperiences]")
+                encoder.encode(fieldsAppClipDefaultExperiences, forKey: "fields[appClipDefaultExperiences]")
+                encoder.encode(limitAppClipDefaultExperiences, forKey: "limit[appClipDefaultExperiences]")
                 return encoder.items
             }
         }
@@ -751,14 +751,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["filter[builds]": filterBuilds], explode: false)
-                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(filterBuilds, forKey: "filter[builds]")
+                encoder.encode(fieldsAppEncryptionDeclarations, forKey: "fields[appEncryptionDeclarations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -839,10 +839,10 @@ extension Paths.AppEncryptionDeclarations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppEncryptionDeclarations, forKey: "fields[appEncryptionDeclarations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -878,9 +878,9 @@ extension Paths.AppInfoLocalizations {
         }
 
         private func makeGetQuery(_ fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppInfoLocalizations, forKey: "fields[appInfoLocalizations]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -1014,13 +1014,13 @@ extension Paths.AppInfos {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
-                encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
-                encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
-                encoder.encode(["limit[appInfoLocalizations]": limitAppInfoLocalizations])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppInfos, forKey: "fields[appInfos]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAgeRatingDeclarations, forKey: "fields[ageRatingDeclarations]")
+                encoder.encode(fieldsAppInfoLocalizations, forKey: "fields[appInfoLocalizations]")
+                encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]")
+                encoder.encode(limitAppInfoLocalizations, forKey: "limit[appInfoLocalizations]")
                 return encoder.items
             }
         }
@@ -1060,9 +1060,9 @@ extension Paths.AppPreOrders {
         }
 
         private func makeGetQuery(_ fieldsAppPreOrders: [FieldsAppPreOrders]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppPreOrders, forKey: "fields[appPreOrders]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -1153,11 +1153,11 @@ extension Paths.AppPreviewSets {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appPreviewSets]": fieldsAppPreviewSets], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
-                encoder.encode(["limit[appPreviews]": limitAppPreviews])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppPreviewSets, forKey: "fields[appPreviewSets]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppPreviews, forKey: "fields[appPreviews]")
+                encoder.encode(limitAppPreviews, forKey: "limit[appPreviews]")
                 return encoder.items
             }
         }
@@ -1197,9 +1197,9 @@ extension Paths.AppPreviews {
         }
 
         private func makeGetQuery(_ fieldsAppPreviews: [FieldsAppPreviews]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppPreviews, forKey: "fields[appPreviews]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -1278,13 +1278,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[priceTier]": filterPriceTier], explode: false)
-                encoder.encode(["filter[territory]": filterTerritory], explode: false)
-                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterPriceTier, forKey: "filter[priceTier]")
+                encoder.encode(filterTerritory, forKey: "filter[territory]")
+                encoder.encode(fieldsAppPricePoints, forKey: "fields[appPricePoints]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsTerritories, forKey: "fields[territories]")
                 return encoder.items
             }
         }
@@ -1332,10 +1332,10 @@ extension Paths.AppPricePoints {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppPricePoints, forKey: "fields[appPricePoints]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsTerritories, forKey: "fields[territories]")
                 return encoder.items
             }
         }
@@ -1388,13 +1388,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[appPriceTiers]": fieldsAppPriceTiers], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
-                encoder.encode(["limit[pricePoints]": limitPricePoints])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsAppPriceTiers, forKey: "fields[appPriceTiers]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppPricePoints, forKey: "fields[appPricePoints]")
+                encoder.encode(limitPricePoints, forKey: "limit[pricePoints]")
                 return encoder.items
             }
         }
@@ -1443,11 +1443,11 @@ extension Paths.AppPriceTiers {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appPriceTiers]": fieldsAppPriceTiers], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
-                encoder.encode(["limit[pricePoints]": limitPricePoints])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppPriceTiers, forKey: "fields[appPriceTiers]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppPricePoints, forKey: "fields[appPricePoints]")
+                encoder.encode(limitPricePoints, forKey: "limit[pricePoints]")
                 return encoder.items
             }
         }
@@ -1479,9 +1479,9 @@ extension Paths.AppPrices {
         }
 
         private func makeGetQuery(_ fieldsAppPrices: [FieldsAppPrices]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppPrices, forKey: "fields[appPrices]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -1563,11 +1563,11 @@ extension Paths.AppScreenshotSets {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appScreenshotSets]": fieldsAppScreenshotSets], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
-                encoder.encode(["limit[appScreenshots]": limitAppScreenshots])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppScreenshotSets, forKey: "fields[appScreenshotSets]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppScreenshots, forKey: "fields[appScreenshots]")
+                encoder.encode(limitAppScreenshots, forKey: "limit[appScreenshots]")
                 return encoder.items
             }
         }
@@ -1607,9 +1607,9 @@ extension Paths.AppScreenshots {
         }
 
         private func makeGetQuery(_ fieldsAppScreenshots: [FieldsAppScreenshots]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppScreenshots, forKey: "fields[appScreenshots]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -1669,9 +1669,9 @@ extension Paths.AppStoreReviewAttachments {
         }
 
         private func makeGetQuery(_ fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsAppStoreReviewAttachments, forKey: "fields[appStoreReviewAttachments]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -1769,11 +1769,11 @@ extension Paths.AppStoreReviewDetails {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appStoreReviewDetails]": fieldsAppStoreReviewDetails], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
-                encoder.encode(["limit[appStoreReviewAttachments]": limitAppStoreReviewAttachments])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppStoreReviewDetails, forKey: "fields[appStoreReviewDetails]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppStoreReviewAttachments, forKey: "fields[appStoreReviewAttachments]")
+                encoder.encode(limitAppStoreReviewAttachments, forKey: "limit[appStoreReviewAttachments]")
                 return encoder.items
             }
         }
@@ -1861,13 +1861,13 @@ extension Paths.AppStoreVersionLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appScreenshotSets]": fieldsAppScreenshotSets], explode: false)
-                encoder.encode(["fields[appPreviewSets]": fieldsAppPreviewSets], explode: false)
-                encoder.encode(["limit[appPreviewSets]": limitAppPreviewSets])
-                encoder.encode(["limit[appScreenshotSets]": limitAppScreenshotSets])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppStoreVersionLocalizations, forKey: "fields[appStoreVersionLocalizations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppScreenshotSets, forKey: "fields[appScreenshotSets]")
+                encoder.encode(fieldsAppPreviewSets, forKey: "fields[appPreviewSets]")
+                encoder.encode(limitAppPreviewSets, forKey: "limit[appPreviewSets]")
+                encoder.encode(limitAppScreenshotSets, forKey: "limit[appScreenshotSets]")
                 return encoder.items
             }
         }
@@ -2166,19 +2166,19 @@ extension Paths.AppStoreVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[appStoreVersionSubmissions]": fieldsAppStoreVersionSubmissions], explode: false)
-                encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
-                encoder.encode(["fields[appStoreReviewDetails]": fieldsAppStoreReviewDetails], explode: false)
-                encoder.encode(["fields[idfaDeclarations]": fieldsIdfaDeclarations], explode: false)
-                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
-                encoder.encode(["fields[routingAppCoverages]": fieldsRoutingAppCoverages], explode: false)
-                encoder.encode(["fields[appStoreVersionPhasedReleases]": fieldsAppStoreVersionPhasedReleases], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
-                encoder.encode(["limit[appStoreVersionLocalizations]": limitAppStoreVersionLocalizations])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsAppStoreVersionSubmissions, forKey: "fields[appStoreVersionSubmissions]")
+                encoder.encode(fieldsAgeRatingDeclarations, forKey: "fields[ageRatingDeclarations]")
+                encoder.encode(fieldsAppStoreReviewDetails, forKey: "fields[appStoreReviewDetails]")
+                encoder.encode(fieldsIdfaDeclarations, forKey: "fields[idfaDeclarations]")
+                encoder.encode(fieldsAppClipDefaultExperiences, forKey: "fields[appClipDefaultExperiences]")
+                encoder.encode(fieldsRoutingAppCoverages, forKey: "fields[routingAppCoverages]")
+                encoder.encode(fieldsAppStoreVersionPhasedReleases, forKey: "fields[appStoreVersionPhasedReleases]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(fieldsAppStoreVersionLocalizations, forKey: "fields[appStoreVersionLocalizations]")
+                encoder.encode(limitAppStoreVersionLocalizations, forKey: "limit[appStoreVersionLocalizations]")
                 return encoder.items
             }
         }
@@ -2552,47 +2552,47 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[appStoreVersions.appStoreState]": filterAppStoreVersionsAppStoreState], explode: false)
-                encoder.encode(["filter[appStoreVersions.platform]": filterAppStoreVersionsPlatform], explode: false)
-                encoder.encode(["filter[bundleId]": filterBundleID], explode: false)
-                encoder.encode(["filter[name]": filterName], explode: false)
-                encoder.encode(["filter[sku]": filterSku], explode: false)
-                encoder.encode(["filter[appStoreVersions]": filterAppStoreVersions], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["exists[gameCenterEnabledVersions]": existsGameCenterEnabledVersions], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
-                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
-                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
-                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
-                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
-                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
-                encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
-                encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
-                encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[appClips]": limitAppClips])
-                encoder.encode(["limit[appInfos]": limitAppInfos])
-                encoder.encode(["limit[appStoreVersions]": limitAppStoreVersions])
-                encoder.encode(["limit[availableTerritories]": limitAvailableTerritories])
-                encoder.encode(["limit[betaAppLocalizations]": limitBetaAppLocalizations])
-                encoder.encode(["limit[betaGroups]": limitBetaGroups])
-                encoder.encode(["limit[builds]": limitBuilds])
-                encoder.encode(["limit[gameCenterEnabledVersions]": limitGameCenterEnabledVersions])
-                encoder.encode(["limit[inAppPurchases]": limitInAppPurchases])
-                encoder.encode(["limit[preReleaseVersions]": limitPreReleaseVersions])
-                encoder.encode(["limit[prices]": limitPrices])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterAppStoreVersionsAppStoreState, forKey: "filter[appStoreVersions.appStoreState]")
+                encoder.encode(filterAppStoreVersionsPlatform, forKey: "filter[appStoreVersions.platform]")
+                encoder.encode(filterBundleID, forKey: "filter[bundleId]")
+                encoder.encode(filterName, forKey: "filter[name]")
+                encoder.encode(filterSku, forKey: "filter[sku]")
+                encoder.encode(filterAppStoreVersions, forKey: "filter[appStoreVersions]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(existsGameCenterEnabledVersions, forKey: "exists[gameCenterEnabledVersions]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBetaLicenseAgreements, forKey: "fields[betaLicenseAgreements]")
+                encoder.encode(fieldsBetaAppReviewDetails, forKey: "fields[betaAppReviewDetails]")
+                encoder.encode(fieldsAppClips, forKey: "fields[appClips]")
+                encoder.encode(fieldsAppInfos, forKey: "fields[appInfos]")
+                encoder.encode(fieldsBetaAppLocalizations, forKey: "fields[betaAppLocalizations]")
+                encoder.encode(fieldsInAppPurchases, forKey: "fields[inAppPurchases]")
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(fieldsCiProducts, forKey: "fields[ciProducts]")
+                encoder.encode(fieldsAppPrices, forKey: "fields[appPrices]")
+                encoder.encode(fieldsAppPreOrders, forKey: "fields[appPreOrders]")
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(fieldsGameCenterEnabledVersions, forKey: "fields[gameCenterEnabledVersions]")
+                encoder.encode(fieldsEndUserLicenseAgreements, forKey: "fields[endUserLicenseAgreements]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsTerritories, forKey: "fields[territories]")
+                encoder.encode(fieldsPerfPowerMetrics, forKey: "fields[perfPowerMetrics]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitAppClips, forKey: "limit[appClips]")
+                encoder.encode(limitAppInfos, forKey: "limit[appInfos]")
+                encoder.encode(limitAppStoreVersions, forKey: "limit[appStoreVersions]")
+                encoder.encode(limitAvailableTerritories, forKey: "limit[availableTerritories]")
+                encoder.encode(limitBetaAppLocalizations, forKey: "limit[betaAppLocalizations]")
+                encoder.encode(limitBetaGroups, forKey: "limit[betaGroups]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
+                encoder.encode(limitGameCenterEnabledVersions, forKey: "limit[gameCenterEnabledVersions]")
+                encoder.encode(limitInAppPurchases, forKey: "limit[inAppPurchases]")
+                encoder.encode(limitPreReleaseVersions, forKey: "limit[preReleaseVersions]")
+                encoder.encode(limitPrices, forKey: "limit[prices]")
                 return encoder.items
             }
         }
@@ -2903,37 +2903,37 @@ extension Paths.Apps {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
-                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
-                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
-                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
-                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
-                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
-                encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
-                encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
-                encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[appClips]": limitAppClips])
-                encoder.encode(["limit[appInfos]": limitAppInfos])
-                encoder.encode(["limit[appStoreVersions]": limitAppStoreVersions])
-                encoder.encode(["limit[availableTerritories]": limitAvailableTerritories])
-                encoder.encode(["limit[betaAppLocalizations]": limitBetaAppLocalizations])
-                encoder.encode(["limit[betaGroups]": limitBetaGroups])
-                encoder.encode(["limit[builds]": limitBuilds])
-                encoder.encode(["limit[gameCenterEnabledVersions]": limitGameCenterEnabledVersions])
-                encoder.encode(["limit[inAppPurchases]": limitInAppPurchases])
-                encoder.encode(["limit[preReleaseVersions]": limitPreReleaseVersions])
-                encoder.encode(["limit[prices]": limitPrices])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBetaLicenseAgreements, forKey: "fields[betaLicenseAgreements]")
+                encoder.encode(fieldsBetaAppReviewDetails, forKey: "fields[betaAppReviewDetails]")
+                encoder.encode(fieldsAppClips, forKey: "fields[appClips]")
+                encoder.encode(fieldsAppInfos, forKey: "fields[appInfos]")
+                encoder.encode(fieldsBetaAppLocalizations, forKey: "fields[betaAppLocalizations]")
+                encoder.encode(fieldsInAppPurchases, forKey: "fields[inAppPurchases]")
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(fieldsCiProducts, forKey: "fields[ciProducts]")
+                encoder.encode(fieldsAppPrices, forKey: "fields[appPrices]")
+                encoder.encode(fieldsAppPreOrders, forKey: "fields[appPreOrders]")
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(fieldsGameCenterEnabledVersions, forKey: "fields[gameCenterEnabledVersions]")
+                encoder.encode(fieldsEndUserLicenseAgreements, forKey: "fields[endUserLicenseAgreements]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsTerritories, forKey: "fields[territories]")
+                encoder.encode(fieldsPerfPowerMetrics, forKey: "fields[perfPowerMetrics]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitAppClips, forKey: "limit[appClips]")
+                encoder.encode(limitAppInfos, forKey: "limit[appInfos]")
+                encoder.encode(limitAppStoreVersions, forKey: "limit[appStoreVersions]")
+                encoder.encode(limitAvailableTerritories, forKey: "limit[availableTerritories]")
+                encoder.encode(limitBetaAppLocalizations, forKey: "limit[betaAppLocalizations]")
+                encoder.encode(limitBetaGroups, forKey: "limit[betaGroups]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
+                encoder.encode(limitGameCenterEnabledVersions, forKey: "limit[gameCenterEnabledVersions]")
+                encoder.encode(limitInAppPurchases, forKey: "limit[inAppPurchases]")
+                encoder.encode(limitPreReleaseVersions, forKey: "limit[preReleaseVersions]")
+                encoder.encode(limitPrices, forKey: "limit[prices]")
                 return encoder.items
             }
         }
@@ -3028,10 +3028,10 @@ extension Paths.BetaAppClipInvocations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaAppClipInvocations]": fieldsBetaAppClipInvocations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["limit[betaAppClipInvocationLocalizations]": limitBetaAppClipInvocationLocalizations])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaAppClipInvocations, forKey: "fields[betaAppClipInvocations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(limitBetaAppClipInvocationLocalizations, forKey: "limit[betaAppClipInvocationLocalizations]")
                 return encoder.items
             }
         }
@@ -3119,13 +3119,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[locale]": filterLocale], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterLocale, forKey: "filter[locale]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(fieldsBetaAppLocalizations, forKey: "fields[betaAppLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -3203,10 +3203,10 @@ extension Paths.BetaAppLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaAppLocalizations, forKey: "fields[betaAppLocalizations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -3294,12 +3294,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(fieldsBetaAppReviewDetails, forKey: "fields[betaAppReviewDetails]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -3375,10 +3375,10 @@ extension Paths.BetaAppReviewDetails {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaAppReviewDetails, forKey: "fields[betaAppReviewDetails]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -3464,13 +3464,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[betaReviewState]": filterBetaReviewState], explode: false)
-                encoder.encode(["filter[build]": filterBuild], explode: false)
-                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBetaReviewState, forKey: "filter[betaReviewState]")
+                encoder.encode(filterBuild, forKey: "filter[build]")
+                encoder.encode(fieldsBetaAppReviewSubmissions, forKey: "fields[betaAppReviewSubmissions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
                 return encoder.items
             }
         }
@@ -3543,10 +3543,10 @@ extension Paths.BetaAppReviewSubmissions {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaAppReviewSubmissions, forKey: "fields[betaAppReviewSubmissions]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
                 return encoder.items
             }
         }
@@ -3621,13 +3621,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[locale]": filterLocale], explode: false)
-                encoder.encode(["filter[build]": filterBuild], explode: false)
-                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterLocale, forKey: "filter[locale]")
+                encoder.encode(filterBuild, forKey: "filter[build]")
+                encoder.encode(fieldsBetaBuildLocalizations, forKey: "fields[betaBuildLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
                 return encoder.items
             }
         }
@@ -3700,10 +3700,10 @@ extension Paths.BetaBuildLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaBuildLocalizations, forKey: "fields[betaBuildLocalizations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
                 return encoder.items
             }
         }
@@ -3870,24 +3870,24 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[isInternalGroup]": filterIsInternalGroup], explode: false)
-                encoder.encode(["filter[name]": filterName], explode: false)
-                encoder.encode(["filter[publicLink]": filterPublicLink], explode: false)
-                encoder.encode(["filter[publicLinkEnabled]": filterPublicLinkEnabled], explode: false)
-                encoder.encode(["filter[publicLinkLimitEnabled]": filterPublicLinkLimitEnabled], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["filter[builds]": filterBuilds], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[betaTesters]": limitBetaTesters])
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterIsInternalGroup, forKey: "filter[isInternalGroup]")
+                encoder.encode(filterName, forKey: "filter[name]")
+                encoder.encode(filterPublicLink, forKey: "filter[publicLink]")
+                encoder.encode(filterPublicLinkEnabled, forKey: "filter[publicLinkEnabled]")
+                encoder.encode(filterPublicLinkLimitEnabled, forKey: "filter[publicLinkLimitEnabled]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(filterBuilds, forKey: "filter[builds]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitBetaTesters, forKey: "limit[betaTesters]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -4019,14 +4019,14 @@ extension Paths.BetaGroups {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[betaTesters]": limitBetaTesters])
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitBetaTesters, forKey: "limit[betaTesters]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -4107,12 +4107,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(fieldsBetaLicenseAgreements, forKey: "fields[betaLicenseAgreements]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -4181,10 +4181,10 @@ extension Paths.BetaLicenseAgreements {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaLicenseAgreements, forKey: "fields[betaLicenseAgreements]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
                 return encoder.items
             }
         }
@@ -4369,25 +4369,25 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[email]": filterEmail], explode: false)
-                encoder.encode(["filter[firstName]": filterFirstName], explode: false)
-                encoder.encode(["filter[inviteType]": filterInviteType], explode: false)
-                encoder.encode(["filter[lastName]": filterLastName], explode: false)
-                encoder.encode(["filter[apps]": filterApps], explode: false)
-                encoder.encode(["filter[betaGroups]": filterBetaGroups], explode: false)
-                encoder.encode(["filter[builds]": filterBuilds], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["limit[apps]": limitApps])
-                encoder.encode(["limit[betaGroups]": limitBetaGroups])
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterEmail, forKey: "filter[email]")
+                encoder.encode(filterFirstName, forKey: "filter[firstName]")
+                encoder.encode(filterInviteType, forKey: "filter[inviteType]")
+                encoder.encode(filterLastName, forKey: "filter[lastName]")
+                encoder.encode(filterApps, forKey: "filter[apps]")
+                encoder.encode(filterBetaGroups, forKey: "filter[betaGroups]")
+                encoder.encode(filterBuilds, forKey: "filter[builds]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(limitApps, forKey: "limit[apps]")
+                encoder.encode(limitBetaGroups, forKey: "limit[betaGroups]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -4521,15 +4521,15 @@ extension Paths.BetaTesters {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["limit[apps]": limitApps])
-                encoder.encode(["limit[betaGroups]": limitBetaGroups])
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(limitApps, forKey: "limit[apps]")
+                encoder.encode(limitBetaGroups, forKey: "limit[betaGroups]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -4609,13 +4609,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[build]": filterBuild], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBuild, forKey: "filter[build]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsBuildBetaDetails, forKey: "fields[buildBetaDetails]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
                 return encoder.items
             }
         }
@@ -4685,10 +4685,10 @@ extension Paths.BuildBetaDetails {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBuildBetaDetails, forKey: "fields[buildBetaDetails]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
                 return encoder.items
             }
         }
@@ -4992,39 +4992,39 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[betaAppReviewSubmission.betaReviewState]": filterBetaAppReviewSubmissionBetaReviewState], explode: false)
-                encoder.encode(["filter[buildAudienceType]": filterBuildAudienceType], explode: false)
-                encoder.encode(["filter[expired]": filterExpired], explode: false)
-                encoder.encode(["filter[preReleaseVersion.platform]": filterPreReleaseVersionPlatform], explode: false)
-                encoder.encode(["filter[preReleaseVersion.version]": filterPreReleaseVersionVersion], explode: false)
-                encoder.encode(["filter[processingState]": filterProcessingState], explode: false)
-                encoder.encode(["filter[usesNonExemptEncryption]": filterUsesNonExemptEncryption], explode: false)
-                encoder.encode(["filter[version]": filterVersion], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["filter[appStoreVersion]": filterAppStoreVersion], explode: false)
-                encoder.encode(["filter[betaGroups]": filterBetaGroups], explode: false)
-                encoder.encode(["filter[preReleaseVersion]": filterPreReleaseVersion], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[diagnosticSignatures]": fieldsDiagnosticSignatures], explode: false)
-                encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
-                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
-                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
-                encoder.encode(["limit[betaBuildLocalizations]": limitBetaBuildLocalizations])
-                encoder.encode(["limit[buildBundles]": limitBuildBundles])
-                encoder.encode(["limit[icons]": limitIcons])
-                encoder.encode(["limit[individualTesters]": limitIndividualTesters])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBetaAppReviewSubmissionBetaReviewState, forKey: "filter[betaAppReviewSubmission.betaReviewState]")
+                encoder.encode(filterBuildAudienceType, forKey: "filter[buildAudienceType]")
+                encoder.encode(filterExpired, forKey: "filter[expired]")
+                encoder.encode(filterPreReleaseVersionPlatform, forKey: "filter[preReleaseVersion.platform]")
+                encoder.encode(filterPreReleaseVersionVersion, forKey: "filter[preReleaseVersion.version]")
+                encoder.encode(filterProcessingState, forKey: "filter[processingState]")
+                encoder.encode(filterUsesNonExemptEncryption, forKey: "filter[usesNonExemptEncryption]")
+                encoder.encode(filterVersion, forKey: "filter[version]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(filterAppStoreVersion, forKey: "filter[appStoreVersion]")
+                encoder.encode(filterBetaGroups, forKey: "filter[betaGroups]")
+                encoder.encode(filterPreReleaseVersion, forKey: "filter[preReleaseVersion]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsDiagnosticSignatures, forKey: "fields[diagnosticSignatures]")
+                encoder.encode(fieldsBuildIcons, forKey: "fields[buildIcons]")
+                encoder.encode(fieldsBuildBetaDetails, forKey: "fields[buildBetaDetails]")
+                encoder.encode(fieldsBetaAppReviewSubmissions, forKey: "fields[betaAppReviewSubmissions]")
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsBetaBuildLocalizations, forKey: "fields[betaBuildLocalizations]")
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(fieldsAppEncryptionDeclarations, forKey: "fields[appEncryptionDeclarations]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsPerfPowerMetrics, forKey: "fields[perfPowerMetrics]")
+                encoder.encode(limitBetaBuildLocalizations, forKey: "limit[betaBuildLocalizations]")
+                encoder.encode(limitBuildBundles, forKey: "limit[buildBundles]")
+                encoder.encode(limitIcons, forKey: "limit[icons]")
+                encoder.encode(limitIndividualTesters, forKey: "limit[individualTesters]")
                 return encoder.items
             }
         }
@@ -5245,24 +5245,24 @@ extension Paths.Builds {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[diagnosticSignatures]": fieldsDiagnosticSignatures], explode: false)
-                encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
-                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
-                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
-                encoder.encode(["limit[betaBuildLocalizations]": limitBetaBuildLocalizations])
-                encoder.encode(["limit[buildBundles]": limitBuildBundles])
-                encoder.encode(["limit[icons]": limitIcons])
-                encoder.encode(["limit[individualTesters]": limitIndividualTesters])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsDiagnosticSignatures, forKey: "fields[diagnosticSignatures]")
+                encoder.encode(fieldsBuildIcons, forKey: "fields[buildIcons]")
+                encoder.encode(fieldsBuildBetaDetails, forKey: "fields[buildBetaDetails]")
+                encoder.encode(fieldsBetaAppReviewSubmissions, forKey: "fields[betaAppReviewSubmissions]")
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsBetaBuildLocalizations, forKey: "fields[betaBuildLocalizations]")
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(fieldsAppEncryptionDeclarations, forKey: "fields[appEncryptionDeclarations]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsPerfPowerMetrics, forKey: "fields[perfPowerMetrics]")
+                encoder.encode(limitBetaBuildLocalizations, forKey: "limit[betaBuildLocalizations]")
+                encoder.encode(limitBuildBundles, forKey: "limit[buildBundles]")
+                encoder.encode(limitIcons, forKey: "limit[icons]")
+                encoder.encode(limitIndividualTesters, forKey: "limit[individualTesters]")
                 return encoder.items
             }
         }
@@ -5436,21 +5436,21 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[identifier]": filterIdentifier], explode: false)
-                encoder.encode(["filter[name]": filterName], explode: false)
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[seedId]": filterSeedID], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[bundleIdCapabilities]": fieldsBundleIDCapabilities], explode: false)
-                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit[bundleIdCapabilities]": limitBundleIDCapabilities])
-                encoder.encode(["limit[profiles]": limitProfiles])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterIdentifier, forKey: "filter[identifier]")
+                encoder.encode(filterName, forKey: "filter[name]")
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterSeedID, forKey: "filter[seedId]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsBundleIDs, forKey: "fields[bundleIds]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBundleIDCapabilities, forKey: "fields[bundleIdCapabilities]")
+                encoder.encode(fieldsProfiles, forKey: "fields[profiles]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limitBundleIDCapabilities, forKey: "limit[bundleIdCapabilities]")
+                encoder.encode(limitProfiles, forKey: "limit[profiles]")
                 return encoder.items
             }
         }
@@ -5558,14 +5558,14 @@ extension Paths.BundleIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[bundleIdCapabilities]": fieldsBundleIDCapabilities], explode: false)
-                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit[bundleIdCapabilities]": limitBundleIDCapabilities])
-                encoder.encode(["limit[profiles]": limitProfiles])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBundleIDs, forKey: "fields[bundleIds]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsBundleIDCapabilities, forKey: "fields[bundleIdCapabilities]")
+                encoder.encode(fieldsProfiles, forKey: "fields[profiles]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limitBundleIDCapabilities, forKey: "limit[bundleIdCapabilities]")
+                encoder.encode(limitProfiles, forKey: "limit[profiles]")
                 return encoder.items
             }
         }
@@ -5649,14 +5649,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[certificateType]": filterCertificateType], explode: false)
-                encoder.encode(["filter[displayName]": filterDisplayName], explode: false)
-                encoder.encode(["filter[serialNumber]": filterSerialNumber], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterCertificateType, forKey: "filter[certificateType]")
+                encoder.encode(filterDisplayName, forKey: "filter[displayName]")
+                encoder.encode(filterSerialNumber, forKey: "filter[serialNumber]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsCertificates, forKey: "fields[certificates]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -5682,7 +5682,7 @@ extension Paths.Certificates {
 
         private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
+            encoder.encode(fieldsCertificates, forKey: "fields[certificates]", explode: false)
             return encoder.items
         }
 
@@ -5729,7 +5729,7 @@ extension Paths.CiArtifacts {
 
         private func makeGetQuery(_ fieldsCiArtifacts: [FieldsCiArtifacts]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciArtifacts]": fieldsCiArtifacts], explode: false)
+            encoder.encode(fieldsCiArtifacts, forKey: "fields[ciArtifacts]", explode: false)
             return encoder.items
         }
 
@@ -5850,13 +5850,13 @@ extension Paths.CiBuildActions {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciBuildActions]": fieldsCiBuildActions], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciIssues]": fieldsCiIssues], explode: false)
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[ciTestResults]": fieldsCiTestResults], explode: false)
-                encoder.encode(["fields[ciArtifacts]": fieldsCiArtifacts], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiBuildActions, forKey: "fields[ciBuildActions]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiIssues, forKey: "fields[ciIssues]")
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsCiTestResults, forKey: "fields[ciTestResults]")
+                encoder.encode(fieldsCiArtifacts, forKey: "fields[ciArtifacts]")
                 return encoder.items
             }
         }
@@ -5982,12 +5982,12 @@ extension Paths.CiBuildRuns {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciBuildActions]": fieldsCiBuildActions], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiBuildActions, forKey: "fields[ciBuildActions]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -6020,7 +6020,7 @@ extension Paths.CiIssues {
 
         private func makeGetQuery(_ fieldsCiIssues: [FieldsCiIssues]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciIssues]": fieldsCiIssues], explode: false)
+            encoder.encode(fieldsCiIssues, forKey: "fields[ciIssues]", explode: false)
             return encoder.items
         }
 
@@ -6079,12 +6079,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
-                encoder.encode(["limit[xcodeVersions]": limitXcodeVersions])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiMacOsVersions, forKey: "fields[ciMacOsVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiXcodeVersions, forKey: "fields[ciXcodeVersions]")
+                encoder.encode(limitXcodeVersions, forKey: "limit[xcodeVersions]")
                 return encoder.items
             }
         }
@@ -6135,11 +6135,11 @@ extension Paths.CiMacOsVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
-                encoder.encode(["limit[xcodeVersions]": limitXcodeVersions])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiMacOsVersions, forKey: "fields[ciMacOsVersions]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiXcodeVersions, forKey: "fields[ciXcodeVersions]")
+                encoder.encode(limitXcodeVersions, forKey: "limit[xcodeVersions]")
                 return encoder.items
             }
         }
@@ -6292,17 +6292,17 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[productType]": filterProductType], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit[primaryRepositories]": limitPrimaryRepositories])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterProductType, forKey: "filter[productType]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(fieldsCiProducts, forKey: "fields[ciProducts]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsCiWorkflows, forKey: "fields[ciWorkflows]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limitPrimaryRepositories, forKey: "limit[primaryRepositories]")
                 return encoder.items
             }
         }
@@ -6444,14 +6444,14 @@ extension Paths.CiProducts {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit[primaryRepositories]": limitPrimaryRepositories])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiProducts, forKey: "fields[ciProducts]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsCiWorkflows, forKey: "fields[ciWorkflows]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limitPrimaryRepositories, forKey: "limit[primaryRepositories]")
                 return encoder.items
             }
         }
@@ -6488,7 +6488,7 @@ extension Paths.CiTestResults {
 
         private func makeGetQuery(_ fieldsCiTestResults: [FieldsCiTestResults]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciTestResults]": fieldsCiTestResults], explode: false)
+            encoder.encode(fieldsCiTestResults, forKey: "fields[ciTestResults]", explode: false)
             return encoder.items
         }
 
@@ -6608,11 +6608,11 @@ extension Paths.CiWorkflows {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiWorkflows, forKey: "fields[ciWorkflows]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
                 return encoder.items
             }
         }
@@ -6673,12 +6673,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
-                encoder.encode(["limit[macOsVersions]": limitMacOsVersions])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiXcodeVersions, forKey: "fields[ciXcodeVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiMacOsVersions, forKey: "fields[ciMacOsVersions]")
+                encoder.encode(limitMacOsVersions, forKey: "limit[macOsVersions]")
                 return encoder.items
             }
         }
@@ -6729,11 +6729,11 @@ extension Paths.CiXcodeVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
-                encoder.encode(["limit[macOsVersions]": limitMacOsVersions])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiXcodeVersions, forKey: "fields[ciXcodeVersions]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCiMacOsVersions, forKey: "fields[ciMacOsVersions]")
+                encoder.encode(limitMacOsVersions, forKey: "limit[macOsVersions]")
                 return encoder.items
             }
         }
@@ -6808,15 +6808,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[name]": filterName], explode: false)
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[status]": filterStatus], explode: false)
-                encoder.encode(["filter[udid]": filterUdid], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[devices]": fieldsDevices], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterName, forKey: "filter[name]")
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterStatus, forKey: "filter[status]")
+                encoder.encode(filterUdid, forKey: "filter[udid]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsDevices, forKey: "fields[devices]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -6842,7 +6842,7 @@ extension Paths.Devices {
 
         private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[devices]": fieldsDevices], explode: false)
+            encoder.encode(fieldsDevices, forKey: "fields[devices]", explode: false)
             return encoder.items
         }
 
@@ -6919,11 +6919,11 @@ extension Paths.EndUserLicenseAgreements {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-                encoder.encode(["limit[territories]": limitTerritories])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsEndUserLicenseAgreements, forKey: "fields[endUserLicenseAgreements]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsTerritories, forKey: "fields[territories]")
+                encoder.encode(limitTerritories, forKey: "limit[territories]")
                 return encoder.items
             }
         }
@@ -6970,11 +6970,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[regionCode]": filterRegionCode], explode: false)
-                encoder.encode(["filter[reportDate]": filterReportDate], explode: false)
-                encoder.encode(["filter[reportType]": filterReportType], explode: false)
-                encoder.encode(["filter[vendorNumber]": filterVendorNumber], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterRegionCode, forKey: "filter[regionCode]")
+                encoder.encode(filterReportDate, forKey: "filter[reportDate]")
+                encoder.encode(filterReportType, forKey: "filter[reportType]")
+                encoder.encode(filterVendorNumber, forKey: "filter[vendorNumber]")
                 return encoder.items
             }
         }
@@ -7066,10 +7066,10 @@ extension Paths.InAppPurchases {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["limit[apps]": limitApps])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsInAppPurchases, forKey: "fields[inAppPurchases]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(limitApps, forKey: "limit[apps]")
                 return encoder.items
             }
         }
@@ -7208,21 +7208,21 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[builds.expired]": filterBuildsExpired], explode: false)
-                encoder.encode(["filter[builds.processingState]": filterBuildsProcessingState], explode: false)
-                encoder.encode(["filter[builds.version]": filterBuildsVersion], explode: false)
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[version]": filterVersion], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["filter[builds]": filterBuilds], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBuildsExpired, forKey: "filter[builds.expired]")
+                encoder.encode(filterBuildsProcessingState, forKey: "filter[builds.processingState]")
+                encoder.encode(filterBuildsVersion, forKey: "filter[builds.version]")
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterVersion, forKey: "filter[version]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(filterBuilds, forKey: "filter[builds]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -7325,12 +7325,12 @@ extension Paths.PreReleaseVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[builds]": limitBuilds])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
                 return encoder.items
             }
         }
@@ -7466,20 +7466,20 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[name]": filterName], explode: false)
-                encoder.encode(["filter[profileState]": filterProfileState], explode: false)
-                encoder.encode(["filter[profileType]": filterProfileType], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
-                encoder.encode(["fields[devices]": fieldsDevices], explode: false)
-                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
-                encoder.encode(["limit[certificates]": limitCertificates])
-                encoder.encode(["limit[devices]": limitDevices])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterName, forKey: "filter[name]")
+                encoder.encode(filterProfileState, forKey: "filter[profileState]")
+                encoder.encode(filterProfileType, forKey: "filter[profileType]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsProfiles, forKey: "fields[profiles]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCertificates, forKey: "fields[certificates]")
+                encoder.encode(fieldsDevices, forKey: "fields[devices]")
+                encoder.encode(fieldsBundleIDs, forKey: "fields[bundleIds]")
+                encoder.encode(limitCertificates, forKey: "limit[certificates]")
+                encoder.encode(limitDevices, forKey: "limit[devices]")
                 return encoder.items
             }
         }
@@ -7574,14 +7574,14 @@ extension Paths.Profiles {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
-                encoder.encode(["fields[devices]": fieldsDevices], explode: false)
-                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
-                encoder.encode(["limit[certificates]": limitCertificates])
-                encoder.encode(["limit[devices]": limitDevices])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsProfiles, forKey: "fields[profiles]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsCertificates, forKey: "fields[certificates]")
+                encoder.encode(fieldsDevices, forKey: "fields[devices]")
+                encoder.encode(fieldsBundleIDs, forKey: "fields[bundleIds]")
+                encoder.encode(limitCertificates, forKey: "limit[certificates]")
+                encoder.encode(limitDevices, forKey: "limit[devices]")
                 return encoder.items
             }
         }
@@ -7621,9 +7621,9 @@ extension Paths.RoutingAppCoverages {
         }
 
         private func makeGetQuery(_ fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[routingAppCoverages]": fieldsRoutingAppCoverages], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsRoutingAppCoverages, forKey: "fields[routingAppCoverages]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -7703,13 +7703,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[frequency]": filterFrequency], explode: false)
-                encoder.encode(["filter[reportDate]": filterReportDate], explode: false)
-                encoder.encode(["filter[reportSubType]": filterReportSubType], explode: false)
-                encoder.encode(["filter[reportType]": filterReportType], explode: false)
-                encoder.encode(["filter[vendorNumber]": filterVendorNumber], explode: false)
-                encoder.encode(["filter[version]": filterVersion], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterFrequency, forKey: "filter[frequency]")
+                encoder.encode(filterReportDate, forKey: "filter[reportDate]")
+                encoder.encode(filterReportSubType, forKey: "filter[reportSubType]")
+                encoder.encode(filterReportType, forKey: "filter[reportType]")
+                encoder.encode(filterVendorNumber, forKey: "filter[vendorNumber]")
+                encoder.encode(filterVersion, forKey: "filter[version]")
                 return encoder.items
             }
         }
@@ -7741,9 +7741,9 @@ extension Paths.ScmGitReferences {
         }
 
         private func makeGetQuery(_ fieldsScmGitReferences: [FieldsScmGitReferences]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsScmGitReferences, forKey: "fields[scmGitReferences]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -7804,10 +7804,10 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[scmProviders]": fieldsScmProviders], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsScmProviders, forKey: "fields[scmProviders]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
                 return encoder.items
             }
         }
@@ -7828,9 +7828,9 @@ extension Paths.ScmProviders {
         }
 
         private func makeGetQuery(_ fieldsScmProviders: [FieldsScmProviders]?, _ fieldsScmRepositories: [FieldsScmRepositories]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[scmProviders]": fieldsScmProviders], explode: false)
-            encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsScmProviders, forKey: "fields[scmProviders]")
+            encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
             return encoder.items
         }
 
@@ -7879,9 +7879,9 @@ extension Paths.ScmPullRequests {
         }
 
         private func makeGetQuery(_ fieldsScmPullRequests: [FieldsScmPullRequests]?, _ include: [Include]?) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
-            encoder.encode(["include": include], explode: false)
+            let encoder = URLQueryEncoder(explode: false)
+            encoder.encode(fieldsScmPullRequests, forKey: "fields[scmPullRequests]")
+            encoder.encode(include, forKey: "include")
             return encoder.items
         }
 
@@ -7977,13 +7977,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
-                encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsScmGitReferences, forKey: "fields[scmGitReferences]")
+                encoder.encode(fieldsScmPullRequests, forKey: "fields[scmPullRequests]")
                 return encoder.items
             }
         }
@@ -8057,11 +8057,11 @@ extension Paths.ScmRepositories {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
-                encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsScmGitReferences, forKey: "fields[scmGitReferences]")
+                encoder.encode(fieldsScmPullRequests, forKey: "fields[scmPullRequests]")
                 return encoder.items
             }
         }
@@ -8083,8 +8083,8 @@ extension Paths {
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsTerritories, forKey: "fields[territories]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -8197,16 +8197,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[email]": filterEmail], explode: false)
-                encoder.encode(["filter[roles]": filterRoles], explode: false)
-                encoder.encode(["filter[visibleApps]": filterVisibleApps], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[userInvitations]": fieldsUserInvitations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterEmail, forKey: "filter[email]")
+                encoder.encode(filterRoles, forKey: "filter[roles]")
+                encoder.encode(filterVisibleApps, forKey: "filter[visibleApps]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsUserInvitations, forKey: "fields[userInvitations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limitVisibleApps, forKey: "limit[visibleApps]")
                 return encoder.items
             }
         }
@@ -8287,11 +8287,11 @@ extension Paths.UserInvitations {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[userInvitations]": fieldsUserInvitations], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsUserInvitations, forKey: "fields[userInvitations]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limitVisibleApps, forKey: "limit[visibleApps]")
                 return encoder.items
             }
         }
@@ -8404,16 +8404,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[roles]": filterRoles], explode: false)
-                encoder.encode(["filter[username]": filterUsername], explode: false)
-                encoder.encode(["filter[visibleApps]": filterVisibleApps], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[users]": fieldsUsers], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterRoles, forKey: "filter[roles]")
+                encoder.encode(filterUsername, forKey: "filter[username]")
+                encoder.encode(filterVisibleApps, forKey: "filter[visibleApps]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsUsers, forKey: "fields[users]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limitVisibleApps, forKey: "limit[visibleApps]")
                 return encoder.items
             }
         }
@@ -8489,11 +8489,11 @@ extension Paths.Users {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[users]": fieldsUsers], explode: false)
-                encoder.encode(["include": include], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsUsers, forKey: "fields[users]")
+                encoder.encode(include, forKey: "include")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limitVisibleApps, forKey: "limit[visibleApps]")
                 return encoder.items
             }
         }
@@ -8545,7 +8545,7 @@ extension Paths.AppCategories.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -8583,8 +8583,8 @@ extension Paths.AppCategories.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -8633,7 +8633,7 @@ extension Paths.AppClipDefaultExperienceLocalizations.WithID {
 
         private func makeGetQuery(_ fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipHeaderImages]": fieldsAppClipHeaderImages], explode: false)
+            encoder.encode(fieldsAppClipHeaderImages, forKey: "fields[appClipHeaderImages]", explode: false)
             return encoder.items
         }
 
@@ -8687,7 +8687,7 @@ extension Paths.AppClipDefaultExperiences.WithID {
 
         private func makeGetQuery(_ fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipAppStoreReviewDetails]": fieldsAppClipAppStoreReviewDetails], explode: false)
+            encoder.encode(fieldsAppClipAppStoreReviewDetails, forKey: "fields[appClipAppStoreReviewDetails]", explode: false)
             return encoder.items
         }
 
@@ -8741,10 +8741,10 @@ extension Paths.AppClipDefaultExperiences.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[locale]": filterLocale], explode: false)
-                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterLocale, forKey: "filter[locale]")
+                encoder.encode(fieldsAppClipDefaultExperienceLocalizations, forKey: "fields[appClipDefaultExperienceLocalizations]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -8836,11 +8836,11 @@ extension Paths.AppClipDefaultExperiences.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
-                encoder.encode(["limit[appStoreVersionLocalizations]": limitAppStoreVersionLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsAppStoreVersionLocalizations, forKey: "fields[appStoreVersionLocalizations]")
+                encoder.encode(limitAppStoreVersionLocalizations, forKey: "limit[appStoreVersionLocalizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -8948,15 +8948,15 @@ extension Paths.AppClips.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[action]": filterAction], explode: false)
-                encoder.encode(["filter[placeStatus]": filterPlaceStatus], explode: false)
-                encoder.encode(["filter[status]": filterStatus], explode: false)
-                encoder.encode(["fields[appClipAdvancedExperiences]": fieldsAppClipAdvancedExperiences], explode: false)
-                encoder.encode(["fields[appClipAdvancedExperienceLocalizations]": fieldsAppClipAdvancedExperienceLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[localizations]": limitLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterAction, forKey: "filter[action]")
+                encoder.encode(filterPlaceStatus, forKey: "filter[placeStatus]")
+                encoder.encode(filterStatus, forKey: "filter[status]")
+                encoder.encode(fieldsAppClipAdvancedExperiences, forKey: "fields[appClipAdvancedExperiences]")
+                encoder.encode(fieldsAppClipAdvancedExperienceLocalizations, forKey: "fields[appClipAdvancedExperienceLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitLocalizations, forKey: "limit[localizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -9025,13 +9025,13 @@ extension Paths.AppClips.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["exists[releaseWithAppStoreVersion]": existsReleaseWithAppStoreVersion], explode: false)
-                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
-                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[appClipDefaultExperienceLocalizations]": limitAppClipDefaultExperienceLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(existsReleaseWithAppStoreVersion, forKey: "exists[releaseWithAppStoreVersion]")
+                encoder.encode(fieldsAppClipDefaultExperiences, forKey: "fields[appClipDefaultExperiences]")
+                encoder.encode(fieldsAppClipDefaultExperienceLocalizations, forKey: "fields[appClipDefaultExperienceLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitAppClipDefaultExperienceLocalizations, forKey: "limit[appClipDefaultExperienceLocalizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -9075,7 +9075,7 @@ extension Paths.AppEncryptionDeclarations.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -9161,7 +9161,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
+            encoder.encode(fieldsAgeRatingDeclarations, forKey: "fields[ageRatingDeclarations]", explode: false)
             return encoder.items
         }
 
@@ -9233,10 +9233,10 @@ extension Paths.AppInfos.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[locale]": filterLocale], explode: false)
-                encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterLocale, forKey: "filter[locale]")
+                encoder.encode(fieldsAppInfoLocalizations, forKey: "fields[appInfoLocalizations]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -9269,7 +9269,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -9307,7 +9307,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -9345,7 +9345,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -9383,7 +9383,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -9421,7 +9421,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -9459,7 +9459,7 @@ extension Paths.AppInfos.WithID {
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(fieldsAppCategories, forKey: "fields[appCategories]", explode: false)
             return encoder.items
         }
 
@@ -9497,7 +9497,7 @@ extension Paths.AppPreviewSets.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -9522,8 +9522,8 @@ extension Paths.AppPreviewSets.WithID {
 
         private func makeGetQuery(_ fieldsAppPreviews: [FieldsAppPreviews]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppPreviews, forKey: "fields[appPreviews]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -9580,7 +9580,7 @@ extension Paths.AppPricePoints.WithID {
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+            encoder.encode(fieldsTerritories, forKey: "fields[territories]", explode: false)
             return encoder.items
         }
 
@@ -9627,8 +9627,8 @@ extension Paths.AppPriceTiers.WithID {
 
         private func makeGetQuery(_ fieldsAppPricePoints: [FieldsAppPricePoints]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppPricePoints, forKey: "fields[appPricePoints]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -9667,7 +9667,7 @@ extension Paths.AppScreenshotSets.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -9692,8 +9692,8 @@ extension Paths.AppScreenshotSets.WithID {
 
         private func makeGetQuery(_ fieldsAppScreenshots: [FieldsAppScreenshots]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppScreenshots, forKey: "fields[appScreenshots]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -9749,8 +9749,8 @@ extension Paths.AppStoreReviewDetails.WithID {
 
         private func makeGetQuery(_ fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppStoreReviewAttachments, forKey: "fields[appStoreReviewAttachments]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -9861,13 +9861,13 @@ extension Paths.AppStoreVersionLocalizations.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[previewType]": filterPreviewType], explode: false)
-                encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
-                encoder.encode(["fields[appPreviewSets]": fieldsAppPreviewSets], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[appPreviews]": limitAppPreviews])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterPreviewType, forKey: "filter[previewType]")
+                encoder.encode(fieldsAppPreviews, forKey: "fields[appPreviews]")
+                encoder.encode(fieldsAppPreviewSets, forKey: "fields[appPreviewSets]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitAppPreviews, forKey: "limit[appPreviews]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -9968,13 +9968,13 @@ extension Paths.AppStoreVersionLocalizations.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[screenshotDisplayType]": filterScreenshotDisplayType], explode: false)
-                encoder.encode(["fields[appScreenshotSets]": fieldsAppScreenshotSets], explode: false)
-                encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[appScreenshots]": limitAppScreenshots])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterScreenshotDisplayType, forKey: "filter[screenshotDisplayType]")
+                encoder.encode(fieldsAppScreenshotSets, forKey: "fields[appScreenshotSets]")
+                encoder.encode(fieldsAppScreenshots, forKey: "fields[appScreenshots]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitAppScreenshots, forKey: "limit[appScreenshots]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -10019,7 +10019,7 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
+            encoder.encode(fieldsAgeRatingDeclarations, forKey: "fields[ageRatingDeclarations]", explode: false)
             return encoder.items
         }
 
@@ -10111,11 +10111,11 @@ extension Paths.AppStoreVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
-                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
-                encoder.encode(["limit[appClipDefaultExperienceLocalizations]": limitAppClipDefaultExperienceLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppClipDefaultExperiences, forKey: "fields[appClipDefaultExperiences]")
+                encoder.encode(fieldsAppClipDefaultExperienceLocalizations, forKey: "fields[appClipDefaultExperienceLocalizations]")
+                encoder.encode(limitAppClipDefaultExperienceLocalizations, forKey: "limit[appClipDefaultExperienceLocalizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -10187,11 +10187,11 @@ extension Paths.AppStoreVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appStoreReviewDetails]": fieldsAppStoreReviewDetails], explode: false)
-                encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
-                encoder.encode(["limit[appStoreReviewAttachments]": limitAppStoreReviewAttachments])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppStoreReviewDetails, forKey: "fields[appStoreReviewDetails]")
+                encoder.encode(fieldsAppStoreReviewAttachments, forKey: "fields[appStoreReviewAttachments]")
+                encoder.encode(limitAppStoreReviewAttachments, forKey: "limit[appStoreReviewAttachments]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -10224,8 +10224,8 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppStoreVersionLocalizations, forKey: "fields[appStoreVersionLocalizations]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -10270,7 +10270,7 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appStoreVersionPhasedReleases]": fieldsAppStoreVersionPhasedReleases], explode: false)
+            encoder.encode(fieldsAppStoreVersionPhasedReleases, forKey: "fields[appStoreVersionPhasedReleases]", explode: false)
             return encoder.items
         }
 
@@ -10310,7 +10310,7 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appStoreVersionSubmissions]": fieldsAppStoreVersionSubmissions], explode: false)
+            encoder.encode(fieldsAppStoreVersionSubmissions, forKey: "fields[appStoreVersionSubmissions]", explode: false)
             return encoder.items
         }
 
@@ -10354,7 +10354,7 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
             return encoder.items
         }
 
@@ -10414,7 +10414,7 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[idfaDeclarations]": fieldsIdfaDeclarations], explode: false)
+            encoder.encode(fieldsIdfaDeclarations, forKey: "fields[idfaDeclarations]", explode: false)
             return encoder.items
         }
 
@@ -10454,7 +10454,7 @@ extension Paths.AppStoreVersions.WithID {
 
         private func makeGetQuery(_ fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[routingAppCoverages]": fieldsRoutingAppCoverages], explode: false)
+            encoder.encode(fieldsRoutingAppCoverages, forKey: "fields[routingAppCoverages]", explode: false)
             return encoder.items
         }
 
@@ -10543,13 +10543,13 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[bundleId]": filterBundleID], explode: false)
-                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
-                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[appClipDefaultExperiences]": limitAppClipDefaultExperiences])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBundleID, forKey: "filter[bundleId]")
+                encoder.encode(fieldsAppClips, forKey: "fields[appClips]")
+                encoder.encode(fieldsAppClipDefaultExperiences, forKey: "fields[appClipDefaultExperiences]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitAppClipDefaultExperiences, forKey: "limit[appClipDefaultExperiences]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -10626,12 +10626,12 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
-                encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[appInfoLocalizations]": limitAppInfoLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsAppInfos, forKey: "fields[appInfos]")
+                encoder.encode(fieldsAppInfoLocalizations, forKey: "fields[appInfoLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitAppInfoLocalizations, forKey: "limit[appInfoLocalizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -10751,16 +10751,16 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[appStoreState]": filterAppStoreState], explode: false)
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[versionString]": filterVersionString], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[appStoreVersionLocalizations]": limitAppStoreVersionLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterAppStoreState, forKey: "filter[appStoreState]")
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterVersionString, forKey: "filter[versionString]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsAppStoreVersionLocalizations, forKey: "fields[appStoreVersionLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitAppStoreVersionLocalizations, forKey: "limit[appStoreVersionLocalizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -10793,8 +10793,8 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsTerritories, forKey: "fields[territories]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -10830,8 +10830,8 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBetaAppLocalizations, forKey: "fields[betaAppLocalizations]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -10873,7 +10873,7 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
+            encoder.encode(fieldsBetaAppReviewDetails, forKey: "fields[betaAppReviewDetails]", explode: false)
             return encoder.items
         }
 
@@ -10917,8 +10917,8 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -10967,7 +10967,7 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
+            encoder.encode(fieldsBetaLicenseAgreements, forKey: "fields[betaLicenseAgreements]", explode: false)
             return encoder.items
         }
 
@@ -11019,8 +11019,8 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -11119,11 +11119,11 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit[primaryRepositories]": limitPrimaryRepositories])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiProducts, forKey: "fields[ciProducts]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limitPrimaryRepositories, forKey: "limit[primaryRepositories]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -11156,7 +11156,7 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
+            encoder.encode(fieldsEndUserLicenseAgreements, forKey: "fields[endUserLicenseAgreements]", explode: false)
             return encoder.items
         }
 
@@ -11237,15 +11237,15 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[versionString]": filterVersionString], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[compatibleVersions]": limitCompatibleVersions])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterVersionString, forKey: "filter[versionString]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsGameCenterEnabledVersions, forKey: "fields[gameCenterEnabledVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitCompatibleVersions, forKey: "limit[compatibleVersions]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -11355,15 +11355,15 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[inAppPurchaseType]": filterInAppPurchaseType], explode: false)
-                encoder.encode(["filter[canBeSubmitted]": filterCanBeSubmitted], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[apps]": limitApps])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterInAppPurchaseType, forKey: "filter[inAppPurchaseType]")
+                encoder.encode(filterCanBeSubmitted, forKey: "filter[canBeSubmitted]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsInAppPurchases, forKey: "fields[inAppPurchases]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitApps, forKey: "limit[apps]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -11420,10 +11420,10 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[deviceType]": filterDeviceType], explode: false)
-                encoder.encode(["filter[metricType]": filterMetricType], explode: false)
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterDeviceType, forKey: "filter[deviceType]")
+                encoder.encode(filterMetricType, forKey: "filter[metricType]")
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
                 return encoder.items
             }
         }
@@ -11456,7 +11456,7 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsAppPreOrders: [FieldsAppPreOrders]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
+            encoder.encode(fieldsAppPreOrders, forKey: "fields[appPreOrders]", explode: false)
             return encoder.items
         }
 
@@ -11494,8 +11494,8 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -11534,8 +11534,8 @@ extension Paths.Apps.WithID {
 
         private func makeGetQuery(_ fieldsAppPrices: [FieldsAppPrices]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsAppPrices, forKey: "fields[appPrices]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -11583,7 +11583,7 @@ extension Paths.BetaAppLocalizations.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -11654,7 +11654,7 @@ extension Paths.BetaAppReviewDetails.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -11725,7 +11725,7 @@ extension Paths.BetaAppReviewSubmissions.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
             return encoder.items
         }
 
@@ -11795,7 +11795,7 @@ extension Paths.BetaBuildLocalizations.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
             return encoder.items
         }
 
@@ -11865,7 +11865,7 @@ extension Paths.BetaGroups.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -11914,7 +11914,7 @@ extension Paths.BetaGroups.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -11943,8 +11943,8 @@ extension Paths.BetaGroups.WithID {
 
         private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -11975,7 +11975,7 @@ extension Paths.BetaGroups.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12004,8 +12004,8 @@ extension Paths.BetaGroups.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12075,7 +12075,7 @@ extension Paths.BetaLicenseAgreements.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -12135,7 +12135,7 @@ extension Paths.BetaTesters.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12160,8 +12160,8 @@ extension Paths.BetaTesters.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12210,7 +12210,7 @@ extension Paths.BetaTesters.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12239,8 +12239,8 @@ extension Paths.BetaTesters.WithID {
 
         private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12278,7 +12278,7 @@ extension Paths.BetaTesters.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12307,8 +12307,8 @@ extension Paths.BetaTesters.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12378,7 +12378,7 @@ extension Paths.BuildBetaDetails.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
             return encoder.items
         }
 
@@ -12470,7 +12470,7 @@ extension Paths.BuildBundles.WithID {
 
         private func makeGetQuery(_ fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipDomainStatuses]": fieldsAppClipDomainStatuses], explode: false)
+            encoder.encode(fieldsAppClipDomainStatuses, forKey: "fields[appClipDomainStatuses]", explode: false)
             return encoder.items
         }
 
@@ -12507,7 +12507,7 @@ extension Paths.BuildBundles.WithID {
 
         private func makeGetQuery(_ fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appClipDomainStatuses]": fieldsAppClipDomainStatuses], explode: false)
+            encoder.encode(fieldsAppClipDomainStatuses, forKey: "fields[appClipDomainStatuses]", explode: false)
             return encoder.items
         }
 
@@ -12574,12 +12574,12 @@ extension Paths.BuildBundles.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[betaAppClipInvocations]": fieldsBetaAppClipInvocations], explode: false)
-                encoder.encode(["fields[betaAppClipInvocationLocalizations]": fieldsBetaAppClipInvocationLocalizations], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[betaAppClipInvocationLocalizations]": limitBetaAppClipInvocationLocalizations])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsBetaAppClipInvocations, forKey: "fields[betaAppClipInvocations]")
+                encoder.encode(fieldsBetaAppClipInvocationLocalizations, forKey: "fields[betaAppClipInvocationLocalizations]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitBetaAppClipInvocationLocalizations, forKey: "limit[betaAppClipInvocationLocalizations]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -12612,8 +12612,8 @@ extension Paths.BuildBundles.WithID {
 
         private func makeGetQuery(_ fieldsBuildBundleFileSizes: [FieldsBuildBundleFileSizes]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[buildBundleFileSizes]": fieldsBuildBundleFileSizes], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBuildBundleFileSizes, forKey: "fields[buildBundleFileSizes]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12663,7 +12663,7 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -12731,7 +12731,7 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
+            encoder.encode(fieldsAppEncryptionDeclarations, forKey: "fields[appEncryptionDeclarations]", explode: false)
             return encoder.items
         }
 
@@ -12780,7 +12780,7 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsAppStoreVersions: [FieldsAppStoreVersions]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+            encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]", explode: false)
             return encoder.items
         }
 
@@ -12834,7 +12834,7 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
+            encoder.encode(fieldsBetaAppReviewSubmissions, forKey: "fields[betaAppReviewSubmissions]", explode: false)
             return encoder.items
         }
 
@@ -12872,8 +12872,8 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBetaBuildLocalizations, forKey: "fields[betaBuildLocalizations]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -12930,7 +12930,7 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
+            encoder.encode(fieldsBuildBetaDetails, forKey: "fields[buildBetaDetails]", explode: false)
             return encoder.items
         }
 
@@ -12990,10 +12990,10 @@ extension Paths.Builds.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[diagnosticType]": filterDiagnosticType], explode: false)
-                encoder.encode(["fields[diagnosticSignatures]": fieldsDiagnosticSignatures], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterDiagnosticType, forKey: "filter[diagnosticType]")
+                encoder.encode(fieldsDiagnosticSignatures, forKey: "fields[diagnosticSignatures]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -13026,8 +13026,8 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsBuildIcons: [FieldsBuildIcons]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBuildIcons, forKey: "fields[buildIcons]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13053,7 +13053,7 @@ extension Paths.Builds.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13082,8 +13082,8 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13149,10 +13149,10 @@ extension Paths.Builds.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[deviceType]": filterDeviceType], explode: false)
-                encoder.encode(["filter[metricType]": filterMetricType], explode: false)
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterDeviceType, forKey: "filter[deviceType]")
+                encoder.encode(filterMetricType, forKey: "filter[metricType]")
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
                 return encoder.items
             }
         }
@@ -13185,7 +13185,7 @@ extension Paths.Builds.WithID {
 
         private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+            encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]", explode: false)
             return encoder.items
         }
 
@@ -13235,7 +13235,7 @@ extension Paths.BundleIDs.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -13295,8 +13295,8 @@ extension Paths.BundleIDs.WithID {
 
         private func makeGetQuery(_ fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[bundleIdCapabilities]": fieldsBundleIDCapabilities], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBundleIDCapabilities, forKey: "fields[bundleIdCapabilities]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13334,8 +13334,8 @@ extension Paths.BundleIDs.WithID {
 
         private func makeGetQuery(_ fieldsProfiles: [FieldsProfiles]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsProfiles, forKey: "fields[profiles]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13392,8 +13392,8 @@ extension Paths.CiBuildActions.WithID {
 
         private func makeGetQuery(_ fieldsCiArtifacts: [FieldsCiArtifacts]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciArtifacts]": fieldsCiArtifacts], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsCiArtifacts, forKey: "fields[ciArtifacts]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13499,11 +13499,11 @@ extension Paths.CiBuildActions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit[builds]": limitBuilds])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -13536,8 +13536,8 @@ extension Paths.CiBuildActions.WithID {
 
         private func makeGetQuery(_ fieldsCiIssues: [FieldsCiIssues]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciIssues]": fieldsCiIssues], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsCiIssues, forKey: "fields[ciIssues]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13576,8 +13576,8 @@ extension Paths.CiBuildActions.WithID {
 
         private func makeGetQuery(_ fieldsCiTestResults: [FieldsCiTestResults]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciTestResults]": fieldsCiTestResults], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsCiTestResults, forKey: "fields[ciTestResults]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13629,8 +13629,8 @@ extension Paths.CiBuildRuns.WithID {
 
         private func makeGetQuery(_ fieldsCiBuildActions: [FieldsCiBuildActions]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciBuildActions]": fieldsCiBuildActions], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsCiBuildActions, forKey: "fields[ciBuildActions]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -13844,32 +13844,32 @@ extension Paths.CiBuildRuns.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[betaAppReviewSubmission.betaReviewState]": filterBetaAppReviewSubmissionBetaReviewState], explode: false)
-                encoder.encode(["filter[buildAudienceType]": filterBuildAudienceType], explode: false)
-                encoder.encode(["filter[expired]": filterExpired], explode: false)
-                encoder.encode(["filter[preReleaseVersion.platform]": filterPreReleaseVersionPlatform], explode: false)
-                encoder.encode(["filter[preReleaseVersion.version]": filterPreReleaseVersionVersion], explode: false)
-                encoder.encode(["filter[processingState]": filterProcessingState], explode: false)
-                encoder.encode(["filter[usesNonExemptEncryption]": filterUsesNonExemptEncryption], explode: false)
-                encoder.encode(["filter[version]": filterVersion], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["filter[appStoreVersion]": filterAppStoreVersion], explode: false)
-                encoder.encode(["filter[betaGroups]": filterBetaGroups], explode: false)
-                encoder.encode(["filter[preReleaseVersion]": filterPreReleaseVersion], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[buildBundles]": fieldsBuildBundles], explode: false)
-                encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
-                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
-                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[individualTesters]": limitIndividualTesters])
-                encoder.encode(["limit[betaBuildLocalizations]": limitBetaBuildLocalizations])
-                encoder.encode(["limit[icons]": limitIcons])
-                encoder.encode(["limit[buildBundles]": limitBuildBundles])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBetaAppReviewSubmissionBetaReviewState, forKey: "filter[betaAppReviewSubmission.betaReviewState]")
+                encoder.encode(filterBuildAudienceType, forKey: "filter[buildAudienceType]")
+                encoder.encode(filterExpired, forKey: "filter[expired]")
+                encoder.encode(filterPreReleaseVersionPlatform, forKey: "filter[preReleaseVersion.platform]")
+                encoder.encode(filterPreReleaseVersionVersion, forKey: "filter[preReleaseVersion.version]")
+                encoder.encode(filterProcessingState, forKey: "filter[processingState]")
+                encoder.encode(filterUsesNonExemptEncryption, forKey: "filter[usesNonExemptEncryption]")
+                encoder.encode(filterVersion, forKey: "filter[version]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(filterAppStoreVersion, forKey: "filter[appStoreVersion]")
+                encoder.encode(filterBetaGroups, forKey: "filter[betaGroups]")
+                encoder.encode(filterPreReleaseVersion, forKey: "filter[preReleaseVersion]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsBuildBundles, forKey: "fields[buildBundles]")
+                encoder.encode(fieldsBuildIcons, forKey: "fields[buildIcons]")
+                encoder.encode(fieldsBetaTesters, forKey: "fields[betaTesters]")
+                encoder.encode(fieldsBetaBuildLocalizations, forKey: "fields[betaBuildLocalizations]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitIndividualTesters, forKey: "limit[individualTesters]")
+                encoder.encode(limitBetaBuildLocalizations, forKey: "limit[betaBuildLocalizations]")
+                encoder.encode(limitIcons, forKey: "limit[icons]")
+                encoder.encode(limitBuildBundles, forKey: "limit[buildBundles]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -13944,12 +13944,12 @@ extension Paths.CiMacOsVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
-                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[macOsVersions]": limitMacOsVersions])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiXcodeVersions, forKey: "fields[ciXcodeVersions]")
+                encoder.encode(fieldsCiMacOsVersions, forKey: "fields[ciMacOsVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitMacOsVersions, forKey: "limit[macOsVersions]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -14015,10 +14015,10 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -14276,31 +14276,31 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
-                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
-                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
-                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
-                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
-                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
-                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
-                encoder.encode(["fields[apps]": fieldsApps], explode: false)
-                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
-                encoder.encode(["limit[betaGroups]": limitBetaGroups])
-                encoder.encode(["limit[appStoreVersions]": limitAppStoreVersions])
-                encoder.encode(["limit[preReleaseVersions]": limitPreReleaseVersions])
-                encoder.encode(["limit[betaAppLocalizations]": limitBetaAppLocalizations])
-                encoder.encode(["limit[builds]": limitBuilds])
-                encoder.encode(["limit[appInfos]": limitAppInfos])
-                encoder.encode(["limit[appClips]": limitAppClips])
-                encoder.encode(["limit[prices]": limitPrices])
-                encoder.encode(["limit[availableTerritories]": limitAvailableTerritories])
-                encoder.encode(["limit[inAppPurchases]": limitInAppPurchases])
-                encoder.encode(["limit[gameCenterEnabledVersions]": limitGameCenterEnabledVersions])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsGameCenterEnabledVersions, forKey: "fields[gameCenterEnabledVersions]")
+                encoder.encode(fieldsAppClips, forKey: "fields[appClips]")
+                encoder.encode(fieldsBetaAppLocalizations, forKey: "fields[betaAppLocalizations]")
+                encoder.encode(fieldsAppInfos, forKey: "fields[appInfos]")
+                encoder.encode(fieldsAppStoreVersions, forKey: "fields[appStoreVersions]")
+                encoder.encode(fieldsPreReleaseVersions, forKey: "fields[preReleaseVersions]")
+                encoder.encode(fieldsInAppPurchases, forKey: "fields[inAppPurchases]")
+                encoder.encode(fieldsApps, forKey: "fields[apps]")
+                encoder.encode(fieldsTerritories, forKey: "fields[territories]")
+                encoder.encode(fieldsBetaGroups, forKey: "fields[betaGroups]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(fieldsAppPrices, forKey: "fields[appPrices]")
+                encoder.encode(limitBetaGroups, forKey: "limit[betaGroups]")
+                encoder.encode(limitAppStoreVersions, forKey: "limit[appStoreVersions]")
+                encoder.encode(limitPreReleaseVersions, forKey: "limit[preReleaseVersions]")
+                encoder.encode(limitBetaAppLocalizations, forKey: "limit[betaAppLocalizations]")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
+                encoder.encode(limitAppInfos, forKey: "limit[appInfos]")
+                encoder.encode(limitAppClips, forKey: "limit[appClips]")
+                encoder.encode(limitPrices, forKey: "limit[prices]")
+                encoder.encode(limitAvailableTerritories, forKey: "limit[availableTerritories]")
+                encoder.encode(limitInAppPurchases, forKey: "limit[inAppPurchases]")
+                encoder.encode(limitGameCenterEnabledVersions, forKey: "limit[gameCenterEnabledVersions]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -14404,13 +14404,13 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[builds]": filterBuilds], explode: false)
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[builds]": limitBuilds])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBuilds, forKey: "filter[builds]")
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -14465,10 +14465,10 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -14501,8 +14501,8 @@ extension Paths.CiProducts.WithID {
 
         private func makeGetQuery(_ fieldsCiWorkflows: [FieldsCiWorkflows]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsCiWorkflows, forKey: "fields[ciWorkflows]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -14636,13 +14636,13 @@ extension Paths.CiWorkflows.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[builds]": filterBuilds], explode: false)
-                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
-                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[builds]": limitBuilds])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterBuilds, forKey: "filter[builds]")
+                encoder.encode(fieldsCiBuildRuns, forKey: "fields[ciBuildRuns]")
+                encoder.encode(fieldsBuilds, forKey: "fields[builds]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitBuilds, forKey: "limit[builds]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -14675,7 +14675,7 @@ extension Paths.CiWorkflows.WithID {
 
         private func makeGetQuery(_ fieldsScmRepositories: [FieldsScmRepositories]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+            encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]", explode: false)
             return encoder.items
         }
 
@@ -14761,12 +14761,12 @@ extension Paths.CiXcodeVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
-                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[xcodeVersions]": limitXcodeVersions])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(fieldsCiXcodeVersions, forKey: "fields[ciXcodeVersions]")
+                encoder.encode(fieldsCiMacOsVersions, forKey: "fields[ciMacOsVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitXcodeVersions, forKey: "limit[xcodeVersions]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -14832,7 +14832,7 @@ extension Paths.DiagnosticSignatures.WithID {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
     }
@@ -14875,8 +14875,8 @@ extension Paths.EndUserLicenseAgreements.WithID {
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsTerritories, forKey: "fields[territories]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -14934,7 +14934,7 @@ extension Paths.GameCenterEnabledVersions.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15012,16 +15012,16 @@ extension Paths.GameCenterEnabledVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[platform]": filterPlatform], explode: false)
-                encoder.encode(["filter[versionString]": filterVersionString], explode: false)
-                encoder.encode(["filter[app]": filterApp], explode: false)
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["sort": sort], explode: false)
-                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
-                encoder.encode(["limit": limit])
-                encoder.encode(["limit[compatibleVersions]": limitCompatibleVersions])
-                encoder.encode(["include": include], explode: false)
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterPlatform, forKey: "filter[platform]")
+                encoder.encode(filterVersionString, forKey: "filter[versionString]")
+                encoder.encode(filterApp, forKey: "filter[app]")
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(sort, forKey: "sort")
+                encoder.encode(fieldsGameCenterEnabledVersions, forKey: "fields[gameCenterEnabledVersions]")
+                encoder.encode(limit, forKey: "limit")
+                encoder.encode(limitCompatibleVersions, forKey: "limit[compatibleVersions]")
+                encoder.encode(include, forKey: "include")
                 return encoder.items
             }
         }
@@ -15065,7 +15065,7 @@ extension Paths.PreReleaseVersions.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
             return encoder.items
         }
 
@@ -15125,8 +15125,8 @@ extension Paths.PreReleaseVersions.WithID {
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsBuilds, forKey: "fields[builds]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15196,7 +15196,7 @@ extension Paths.Profiles.WithID {
 
         private func makeGetQuery(_ fieldsBundleIDs: [FieldsBundleIDs]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
+            encoder.encode(fieldsBundleIDs, forKey: "fields[bundleIds]", explode: false)
             return encoder.items
         }
 
@@ -15238,8 +15238,8 @@ extension Paths.Profiles.WithID {
 
         private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsCertificates, forKey: "fields[certificates]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15282,8 +15282,8 @@ extension Paths.Profiles.WithID {
 
         private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[devices]": fieldsDevices], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsDevices, forKey: "fields[devices]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15358,10 +15358,10 @@ extension Paths.ScmProviders.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                let encoder = URLQueryEncoder()
-                encoder.encode(["filter[id]": filterID], explode: false)
-                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
-                encoder.encode(["limit": limit])
+                let encoder = URLQueryEncoder(explode: false)
+                encoder.encode(filterID, forKey: "filter[id]")
+                encoder.encode(fieldsScmRepositories, forKey: "fields[scmRepositories]")
+                encoder.encode(limit, forKey: "limit")
                 return encoder.items
             }
         }
@@ -15405,8 +15405,8 @@ extension Paths.ScmRepositories.WithID {
 
         private func makeGetQuery(_ fieldsScmGitReferences: [FieldsScmGitReferences]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsScmGitReferences, forKey: "fields[scmGitReferences]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15446,8 +15446,8 @@ extension Paths.ScmRepositories.WithID {
 
         private func makeGetQuery(_ fieldsScmPullRequests: [FieldsScmPullRequests]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsScmPullRequests, forKey: "fields[scmPullRequests]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15505,8 +15505,8 @@ extension Paths.UserInvitations.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15566,7 +15566,7 @@ extension Paths.Users.WithID.Relationships {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
@@ -15599,8 +15599,8 @@ extension Paths.Users.WithID {
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["fields[apps]": fieldsApps], explode: false)
-            encoder.encode(["limit": limit])
+            encoder.encode(fieldsApps, forKey: "fields[apps]", explode: false)
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 

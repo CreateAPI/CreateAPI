@@ -110,7 +110,7 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "instagram", package: "InstagramAPI")
     }
     
-    func testNYTArchiveS() throws {
+    func testNYTArchives() throws {
         try testSpec(name: "nyt-archive", package: "NYTArchiveAPI")
     }
     

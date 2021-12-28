@@ -575,7 +575,7 @@ extension Paths.V1 {
 
         private func makeGetQuery(_ isWithBalance: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["withBalance": isWithBalance])
+            encoder.encode(isWithBalance, forKey: "withBalance")
             return encoder.items
         }
     }
@@ -625,7 +625,7 @@ extension Paths.V1.Accounts {
 
         private func makeGetQuery(_ isWithBalance: Bool?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["withBalance": isWithBalance])
+            encoder.encode(isWithBalance, forKey: "withBalance")
             return encoder.items
         }
     }
@@ -701,12 +701,12 @@ extension Paths.V1.Accounts.WithAccountID {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["dateFrom": dateFrom])
-                encoder.encode(["dateTo": dateTo])
-                encoder.encode(["entryReferenceFrom": entryReferenceFrom])
-                encoder.encode(["bookingStatus": bookingStatus])
-                encoder.encode(["deltaList": isDeltaList])
-                encoder.encode(["withBalance": isWithBalance])
+                encoder.encode(dateFrom, forKey: "dateFrom")
+                encoder.encode(dateTo, forKey: "dateTo")
+                encoder.encode(entryReferenceFrom, forKey: "entryReferenceFrom")
+                encoder.encode(bookingStatus, forKey: "bookingStatus")
+                encoder.encode(isDeltaList, forKey: "deltaList")
+                encoder.encode(isWithBalance, forKey: "withBalance")
                 return encoder.items
             }
         }

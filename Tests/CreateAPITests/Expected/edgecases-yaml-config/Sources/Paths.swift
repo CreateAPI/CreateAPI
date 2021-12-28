@@ -48,7 +48,7 @@ extension Paths.Pet {
 
         private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["status": status], explode: false)
+            encoder.encode(status, forKey: "status", explode: false)
             return encoder.items
         }
 
@@ -78,7 +78,7 @@ extension Paths.Pet {
 
         private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["status": status])
+            encoder.encode(status, forKey: "status")
             return encoder.items
         }
 
@@ -108,7 +108,7 @@ extension Paths.Pet {
 
         private func makeGetQuery(_ tags: [String]) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["tags": tags], explode: false)
+            encoder.encode(tags, forKey: "tags", explode: false)
             return encoder.items
         }
     }
@@ -132,7 +132,7 @@ extension Paths.Pet {
 
         /// Updates a pet in the store with form data
         public func post(_ body: PostRequest? = nil) -> Request<Void> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -148,8 +148,8 @@ extension Paths.Pet {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["name": name])
-                encoder.encode(["status": status])
+                encoder.encode(name, forKey: "name")
+                encoder.encode(status, forKey: "status")
                 return encoder.items
             }
         }
@@ -308,7 +308,7 @@ extension Paths.User {
 
         /// Logs user into the system
         public func get(username: String, password: String) -> Request<String> {
-            .get(path, query: makeGetQuery(username, password))
+            .get(path, query: [("username", username), ("password", password)])
         }
 
         public enum GetResponseHeaders {
@@ -317,13 +317,6 @@ extension Paths.User {
             public static let rateLimit = HTTPHeader<Int>(field: "X-Rate-Limit")
             /// Date in UTC when toekn expires
             public static let expiresAfter = HTTPHeader<Date>(field: "X-Expires-After")
-        }
-
-        private func makeGetQuery(_ username: String, _ password: String) -> [(String, String?)] {
-            let encoder = URLQueryEncoder()
-            encoder.encode(["username": username])
-            encoder.encode(["password": password])
-            return encoder.items
         }
     }
 }
@@ -412,16 +405,16 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["enum_query_string_array": enumQueryStringArray])
-                encoder.encode(["enum_query_string": enumQueryString])
-                encoder.encode(["enum_query_integer": enumQueryInteger])
+                encoder.encode(enumQueryStringArray, forKey: "enum_query_string_array")
+                encoder.encode(enumQueryString, forKey: "enum_query_string")
+                encoder.encode(enumQueryInteger, forKey: "enum_query_integer")
                 return encoder.items
             }
         }
 
         /// Fake endpoint for testing various parameters
         public func post(_ body: PostRequest? = nil) -> Request<Void> {
-            .post(path, body: body?.asQuery.asPercentEncodedQuery)
+            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         public struct PostRequest: Encodable {
@@ -473,20 +466,20 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(["integer": integer])
-                encoder.encode(["int32": int32])
-                encoder.encode(["int64": int64])
-                encoder.encode(["number": number])
-                encoder.encode(["float": float])
-                encoder.encode(["double": double])
-                encoder.encode(["string": string])
-                encoder.encode(["pattern_without_delimiter": patternWithoutDelimiter])
-                encoder.encode(["byte": byte])
-                encoder.encode(["binary": binary])
-                encoder.encode(["date": date])
-                encoder.encode(["dateTime": dateTime])
-                encoder.encode(["password": password])
-                encoder.encode(["callback": callback])
+                encoder.encode(integer, forKey: "integer")
+                encoder.encode(int32, forKey: "int32")
+                encoder.encode(int64, forKey: "int64")
+                encoder.encode(number, forKey: "number")
+                encoder.encode(float, forKey: "float")
+                encoder.encode(double, forKey: "double")
+                encoder.encode(string, forKey: "string")
+                encoder.encode(patternWithoutDelimiter, forKey: "pattern_without_delimiter")
+                encoder.encode(byte, forKey: "byte")
+                encoder.encode(binary, forKey: "binary")
+                encoder.encode(date, forKey: "date")
+                encoder.encode(dateTime, forKey: "dateTime")
+                encoder.encode(password, forKey: "password")
+                encoder.encode(callback, forKey: "callback")
                 return encoder.items
             }
         }

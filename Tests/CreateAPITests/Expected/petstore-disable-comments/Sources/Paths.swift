@@ -27,7 +27,7 @@ extension Paths {
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
-            encoder.encode(["limit": limit])
+            encoder.encode(limit, forKey: "limit")
             return encoder.items
         }
 
