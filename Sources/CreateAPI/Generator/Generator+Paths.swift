@@ -595,15 +595,8 @@ extension Generator {
                 guard let name = ref.name.map(makeTypeName) else {
                     throw GeneratorError("Missing or invalid reference name")
                 }
-                // TODO: Refactor
-                var context = context
-                context.isInlinableTypeCheck = true
-                let decl = try _makeDeclaration(name: name, schema: schema, context: context)
-                if let alias = decl as? TypealiasDeclaration, alias.nested == nil {
-                    if alias.type.isVoid {
-                        return nil
-                    }
-                    return QueryItemType(type: alias.type)
+                if let type = try getTypeIdentifier(for: name, schema: schema, context: context) {
+                    return type.isVoid ? nil : QueryItemType(type: type)
                 }
                 return QueryItemType(type: .userDefined(name: name))
             case .fragment:

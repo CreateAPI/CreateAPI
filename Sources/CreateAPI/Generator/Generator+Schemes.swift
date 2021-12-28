@@ -176,6 +176,13 @@ extension Generator {
         }
     }
     
+    func getTypeIdentifier(for name: TypeName, schema: JSONSchema, context: Context) throws -> TypeIdentifier? {
+        var context = context
+        context.isInlinableTypeCheck = true
+        let decl = try _makeDeclaration(name: name, schema: schema, context: context)
+        return (decl as? TypealiasDeclaration)?.type
+    }
+    
     private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>) -> TypeIdentifier {
         guard options.isUsingIntegersWithPredefinedCapacity else {
             return .builtin("Int")
@@ -222,12 +229,10 @@ extension Generator {
                 // Check if the schema can be expanded into a type identifier
                 var context = context.adding(type)
                 context.checkedReferences.insert(type)
-                context.isInlinableTypeCheck = true
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key] {
-                    let decl = try _makeDeclaration(name: type, schema: schema, context: context)
-                    if let alias = decl as? TypealiasDeclaration {
-                        return alias.type
+                    if let type = try getTypeIdentifier(for: type, schema: schema, context: context) {
+                        return type
                     }
                 }
             }
@@ -435,12 +440,7 @@ extension Generator {
         
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
-            var context = context
-            context.isInlinableTypeCheck = true
-            if let decl = try? _makeDeclaration(name: TypeName("placeholder"), schema: schema, context: context),
-               let alias = decl as? TypealiasDeclaration {
-                types[index] = alias.type.name
-            }
+            types[index] = (try? getTypeIdentifier(for: TypeName("placeholder"), schema: schema, context: context))?.name
         }
         
         // Generate names for anonymous nested objects
@@ -591,16 +591,8 @@ extension Generator {
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
             let info = (try? reference.dereferenced(in: spec.components))?.coreContext
-            var context = context
-            // TODO: This should be done automatically
-            context.isInlinableTypeCheck = true
-            let decl = try _makeDeclaration(name: makeTypeName(key), schema: schema, context: context)
-            switch decl {
-            case let alias as TypealiasDeclaration:
-                return property(type: alias.type, info: info, nested: alias.nested)
-            default:
-                return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
-            }
+            let type = try getTypeIdentifier(for: makeTypeName(key), schema: schema, context: context)
+            return property(type: type ?? .userDefined(name: TypeName(reference.name ?? "")), info: info, nested: nil)
         }
         
         switch schema.value {
