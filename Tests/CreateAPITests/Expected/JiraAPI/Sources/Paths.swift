@@ -7438,14 +7438,13 @@ extension Paths.API.__3.Project {
         ///  *  *Browse Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         ///  *  *Administer Projects* [project permission](https://confluence.atlassian.com/x/yodKLg) for the project.
         ///  *  *Administer Jira* [global permission](https://confluence.atlassian.com/x/x4dKLg).
-        public func get(expand: String? = nil, properties: [Void]? = nil) -> Request<[JiraAPI.Project]> {
-            .get(path, query: makeGetQuery(expand, properties))
+        public func get(expand: String? = nil) -> Request<[JiraAPI.Project]> {
+            .get(path, query: makeGetQuery(expand))
         }
 
-        private func makeGetQuery(_ expand: String?, _ properties: [Void]?) -> [(String, String?)] {
+        private func makeGetQuery(_ expand: String?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(expand, forKey: "expand")
-            encoder.encode(properties, forKey: "properties")
             return encoder.items
         }
     }
@@ -7487,7 +7486,6 @@ extension Paths.API.__3.Project {
             public var action: Action?
             public var expand: String?
             public var status: [Status]?
-            public var properties: [Void]?
             public var propertyQuery: String?
 
             public enum OrderBy: String, Codable, CaseIterable {
@@ -7529,7 +7527,7 @@ extension Paths.API.__3.Project {
                 case deleted
             }
 
-            public init(startAt: Int? = nil, maxResults: Int? = nil, orderBy: OrderBy? = nil, id: [Int]? = nil, keys: [String]? = nil, query: String? = nil, typeKey: String? = nil, categoryID: Int? = nil, action: Action? = nil, expand: String? = nil, status: [Status]? = nil, properties: [Void]? = nil, propertyQuery: String? = nil) {
+            public init(startAt: Int? = nil, maxResults: Int? = nil, orderBy: OrderBy? = nil, id: [Int]? = nil, keys: [String]? = nil, query: String? = nil, typeKey: String? = nil, categoryID: Int? = nil, action: Action? = nil, expand: String? = nil, status: [Status]? = nil, propertyQuery: String? = nil) {
                 self.startAt = startAt
                 self.maxResults = maxResults
                 self.orderBy = orderBy
@@ -7541,7 +7539,6 @@ extension Paths.API.__3.Project {
                 self.action = action
                 self.expand = expand
                 self.status = status
-                self.properties = properties
                 self.propertyQuery = propertyQuery
             }
 
@@ -7558,7 +7555,6 @@ extension Paths.API.__3.Project {
                 encoder.encode(action, forKey: "action")
                 encoder.encode(expand, forKey: "expand")
                 encoder.encode(status, forKey: "status")
-                encoder.encode(properties, forKey: "properties")
                 encoder.encode(propertyQuery, forKey: "propertyQuery")
                 return encoder.items
             }

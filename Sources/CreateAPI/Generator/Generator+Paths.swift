@@ -600,6 +600,9 @@ extension Generator {
                 context.isInlinableTypeCheck = true
                 let decl = try _makeDeclaration(name: name, schema: schema, context: context)
                 if let alias = decl as? TypealiasDeclaration, alias.nested == nil {
+                    if alias.type.isVoid {
+                        return nil
+                    }
                     return QueryItemType(type: alias.type)
                 }
                 return QueryItemType(type: .userDefined(name: name))
