@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var mobile: Mobile {
@@ -251,17 +252,17 @@ extension Paths.V1.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("begin_updated_at", beginUpdatedAt)
-                query.addQueryItem("end_updated_at", endUpdatedAt)
-                query.addQueryItem("begin_created_at", beginCreatedAt)
-                query.addQueryItem("end_created_at", endCreatedAt)
-                query.addQueryItem("status", status)
-                query.addQueryItem("external_id", externalID)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("batch_token", batchToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["begin_updated_at": beginUpdatedAt])
+                encoder.encode(["end_updated_at": endUpdatedAt])
+                encoder.encode(["begin_created_at": beginCreatedAt])
+                encoder.encode(["end_created_at": endCreatedAt])
+                encoder.encode(["status": status])
+                encoder.encode(["external_id": externalID])
+                encoder.encode(["limit": limit])
+                encoder.encode(["batch_token": batchToken])
+                return encoder.items
             }
         }
 
@@ -332,11 +333,11 @@ extension Paths.V1.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("batch_token", batchToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["limit": limit])
+                encoder.encode(["batch_token": batchToken])
+                return encoder.items
             }
         }
 
@@ -425,11 +426,11 @@ extension Paths.V1.WithLocationID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("batch_token", batchToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["limit": limit])
+                encoder.encode(["batch_token": batchToken])
+                return encoder.items
             }
         }
     }
@@ -504,14 +505,14 @@ extension Paths.V1.WithLocationID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("batch_token", batchToken)
-                query.addQueryItem("include_partial", isIncludePartial)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["limit": limit])
+                encoder.encode(["batch_token": batchToken])
+                encoder.encode(["include_partial": isIncludePartial])
+                return encoder.items
             }
         }
     }
@@ -567,13 +568,13 @@ extension Paths.V1.WithLocationID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("batch_token", batchToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["limit": limit])
+                encoder.encode(["batch_token": batchToken])
+                return encoder.items
             }
         }
 
@@ -636,14 +637,14 @@ extension Paths.V1.WithLocationID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("status", status)
-                query.addQueryItem("batch_token", batchToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["limit": limit])
+                encoder.encode(["status": status])
+                encoder.encode(["batch_token": batchToken])
+                return encoder.items
             }
         }
     }
@@ -759,11 +760,11 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("location_id", locationID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["limit": limit])
+                encoder.encode(["location_id": locationID])
+                return encoder.items
             }
         }
     }
@@ -912,12 +913,12 @@ extension Paths.V2.Bookings {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("bookable_only", isBookableOnly)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("location_id", locationID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["bookable_only": isBookableOnly])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["location_id": locationID])
+                return encoder.items
             }
         }
     }
@@ -1017,13 +1018,13 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("customer_id", customerID)
-                query.addQueryItem("include_disabled", isIncludeDisabled)
-                query.addQueryItem("reference_id", referenceID)
-                query.addQueryItem("sort_order", sortOrder)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["customer_id": customerID])
+                encoder.encode(["include_disabled": isIncludeDisabled])
+                encoder.encode(["reference_id": referenceID])
+                encoder.encode(["sort_order": sortOrder])
+                return encoder.items
             }
         }
 
@@ -1119,14 +1120,14 @@ extension Paths.V2.CashDrawers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("sort_order", sortOrder)
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["sort_order": sortOrder])
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
     }
@@ -1150,9 +1151,9 @@ extension Paths.V2.CashDrawers.Shifts {
         }
 
         private func makeGetQuery(_ locationID: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("location_id", locationID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["location_id": locationID])
+            return encoder.items
         }
     }
 }
@@ -1185,11 +1186,11 @@ extension Paths.V2.CashDrawers.Shifts.WithShiftID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
     }
@@ -1337,11 +1338,11 @@ extension Paths.V2.Catalog {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("types", types)
-                query.addQueryItem("catalog_version", catalogVersion)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["types": types])
+                encoder.encode(["catalog_version": catalogVersion])
+                return encoder.items
             }
         }
     }
@@ -1388,10 +1389,10 @@ extension Paths.V2.Catalog.Object {
         }
 
         private func makeGetQuery(_ isIncludeRelatedObjects: Bool?, _ catalogVersion: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("include_related_objects", isIncludeRelatedObjects)
-            query.addQueryItem("catalog_version", catalogVersion)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["include_related_objects": isIncludeRelatedObjects])
+            encoder.encode(["catalog_version": catalogVersion])
+            return encoder.items
         }
 
         /// DeleteCatalogObject
@@ -1536,12 +1537,12 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("sort_field", sortField)
-                query.addQueryItem("sort_order", sortOrder)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["limit": limit])
+                encoder.encode(["sort_field": sortField])
+                encoder.encode(["sort_order": sortOrder])
+                return encoder.items
             }
         }
 
@@ -1580,10 +1581,10 @@ extension Paths.V2.Customers {
         }
 
         private func makeGetQuery(_ cursor: String?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor)
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["cursor": cursor])
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         /// CreateCustomerGroup
@@ -1672,10 +1673,10 @@ extension Paths.V2.Customers {
         }
 
         private func makeGetQuery(_ cursor: String?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor)
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["cursor": cursor])
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -1739,9 +1740,9 @@ extension Paths.V2.Customers {
         }
 
         private func makeDeleteQuery(_ version: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("version", version)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["version": version])
+            return encoder.items
         }
     }
 }
@@ -1869,12 +1870,12 @@ extension Paths.V2.Devices {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("product_type", productType)
-                query.addQueryItem("status", status)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["product_type": productType])
+                encoder.encode(["status": status])
+                return encoder.items
             }
         }
 
@@ -1934,11 +1935,11 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("states", states)
-                query.addQueryItem("location_id", locationID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["states": states])
+                encoder.encode(["location_id": locationID])
+                return encoder.items
             }
         }
     }
@@ -2001,9 +2002,9 @@ extension Paths.V2.Disputes.WithDisputeID {
         }
 
         private func makeGetQuery(_ cursor: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["cursor": cursor])
+            return encoder.items
         }
     }
 }
@@ -2108,12 +2109,12 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("status", status)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["status": status])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
     }
@@ -2168,13 +2169,13 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("type", type)
-                query.addQueryItem("state", state)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("customer_id", customerID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["type": type])
+                encoder.encode(["state": state])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["customer_id": customerID])
+                return encoder.items
             }
         }
 
@@ -2230,16 +2231,16 @@ extension Paths.V2.GiftCards {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("gift_card_id", giftCardID)
-                query.addQueryItem("type", type)
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("sort_order", sortOrder)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["gift_card_id": giftCardID])
+                encoder.encode(["type": type])
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["sort_order": sortOrder])
+                return encoder.items
             }
         }
 
@@ -2690,10 +2691,10 @@ extension Paths.V2.Inventory {
         }
 
         private func makeGetQuery(_ locationIDs: String?, _ cursor: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("location_ids", locationIDs)
-            query.addQueryItem("cursor", cursor)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["location_ids": locationIDs])
+            encoder.encode(["cursor": cursor])
+            return encoder.items
         }
     }
 }
@@ -2727,10 +2728,10 @@ extension Paths.V2.Inventory.WithCatalogObjectID {
         }
 
         private func makeGetQuery(_ locationIDs: String?, _ cursor: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("location_ids", locationIDs)
-            query.addQueryItem("cursor", cursor)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["location_ids": locationIDs])
+            encoder.encode(["cursor": cursor])
+            return encoder.items
         }
     }
 }
@@ -2765,11 +2766,11 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
 
@@ -2846,9 +2847,9 @@ extension Paths.V2.Invoices {
         }
 
         private func makeDeleteQuery(_ version: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("version", version)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["version": version])
+            return encoder.items
         }
     }
 }
@@ -2941,11 +2942,11 @@ extension Paths.V2.Labor {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
 
@@ -3033,11 +3034,11 @@ extension Paths.V2.Labor {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("employee_id", employeeID)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["employee_id": employeeID])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
     }
@@ -3193,11 +3194,11 @@ extension Paths.V2.Labor {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("team_member_id", teamMemberID)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["team_member_id": teamMemberID])
+                encoder.encode(["limit": limit])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
     }
@@ -3238,10 +3239,10 @@ extension Paths.V2.Labor {
         }
 
         private func makeGetQuery(_ limit: Int?, _ cursor: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("cursor", cursor)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["cursor": cursor])
+            return encoder.items
         }
     }
 }
@@ -3379,12 +3380,12 @@ extension Paths.V2.Locations.WithLocationID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("sort_order", sortOrder)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["sort_order": sortOrder])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
     }
@@ -3425,12 +3426,12 @@ extension Paths.V2.Locations.WithLocationID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("sort_order", sortOrder)
-                query.addQueryItem("cursor", cursor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["sort_order": sortOrder])
+                encoder.encode(["cursor": cursor])
+                return encoder.items
             }
         }
 
@@ -3914,9 +3915,9 @@ extension Paths.V2 {
         }
 
         private func makeGetQuery(_ cursor: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["cursor": cursor])
+            return encoder.items
         }
     }
 }
@@ -4150,17 +4151,17 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("sort_order", sortOrder)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("total", total)
-                query.addQueryItem("last_4", last4)
-                query.addQueryItem("card_brand", cardBrand)
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["sort_order": sortOrder])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["total": total])
+                encoder.encode(["last_4": last4])
+                encoder.encode(["card_brand": cardBrand])
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
 
@@ -4317,16 +4318,16 @@ extension Paths.V2 {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("begin_time", beginTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("sort_order", sortOrder)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("location_id", locationID)
-                query.addQueryItem("status", status)
-                query.addQueryItem("source_type", sourceType)
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["begin_time": beginTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["sort_order": sortOrder])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["location_id": locationID])
+                encoder.encode(["status": status])
+                encoder.encode(["source_type": sourceType])
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
 
@@ -4559,10 +4560,10 @@ extension Paths.V2.Subscriptions.WithSubscriptionID {
         }
 
         private func makeGetQuery(_ cursor: String?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("cursor", cursor)
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["cursor": cursor])
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -4889,89 +4890,3 @@ extension Paths.V2.Terminals.Refunds.WithTerminalRefundID {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

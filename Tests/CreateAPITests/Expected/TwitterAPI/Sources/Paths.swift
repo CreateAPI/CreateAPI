@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var users: Users {
@@ -18,11 +19,12 @@ extension Paths {
         /// User lookup by IDs
         ///
         /// This endpoint returns information about users. Specify users by their ID.
-        public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiUserLookupResponse> {
-            .get(path, query: parameters?.asQuery)
+        public func get(parameters: GetParameters) -> Request<TwitterAPI.MultiUserLookupResponse> {
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
+            public var ids: [UserID]
             /// The list of fields you can expand for a [User](#User) object. If the field has an ID, it can be expanded into a full object.
             ///
             /// Example: ["pinned_tweet_id"]
@@ -80,18 +82,20 @@ extension Paths {
                 case publicMetrics = "public_metrics"
             }
 
-            public init(expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil) {
+            public init(ids: [UserID], expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil) {
+                self.ids = ids
                 self.expansions = expansions
                 self.tweetFields = tweetFields
                 self.userFields = userFields
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ids": ids], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -178,11 +182,11 @@ extension Paths.Users {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -200,11 +204,12 @@ extension Paths.Users {
         /// User lookup by usernames
         ///
         /// This endpoint returns information about users. Specify users by their username.
-        public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiUserLookupResponse> {
-            .get(path, query: parameters?.asQuery)
+        public func get(parameters: GetParameters) -> Request<TwitterAPI.MultiUserLookupResponse> {
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
+            public var usernames: [UserName]
             /// The list of fields you can expand for a [User](#User) object. If the field has an ID, it can be expanded into a full object.
             ///
             /// Example: ["pinned_tweet_id"]
@@ -262,18 +267,20 @@ extension Paths.Users {
                 case publicMetrics = "public_metrics"
             }
 
-            public init(expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil) {
+            public init(usernames: [UserName], expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil) {
+                self.usernames = usernames
                 self.expansions = expansions
                 self.tweetFields = tweetFields
                 self.userFields = userFields
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["usernames": usernames], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -360,11 +367,11 @@ extension Paths.Users {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -462,11 +469,11 @@ extension Paths.Users.By.Username {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -489,10 +496,10 @@ extension Paths.Users.WithID {
         }
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults)
-            query.addQueryItem("pagination_token", paginationToken)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["max_results": maxResults])
+            encoder.encode(["pagination_token": paginationToken])
+            return encoder.items
         }
 
         /// Block User by User ID
@@ -590,10 +597,10 @@ extension Paths.Users.WithID {
         }
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults)
-            query.addQueryItem("pagination_token", paginationToken)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["max_results": maxResults])
+            encoder.encode(["pagination_token": paginationToken])
+            return encoder.items
         }
 
         /// Mute User by User ID
@@ -622,10 +629,10 @@ extension Paths.Users.WithID {
         }
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults)
-            query.addQueryItem("pagination_token", paginationToken)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["max_results": maxResults])
+            encoder.encode(["pagination_token": paginationToken])
+            return encoder.items
         }
     }
 }
@@ -647,10 +654,10 @@ extension Paths.Users.WithID {
         }
 
         private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults)
-            query.addQueryItem("pagination_token", paginationToken)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["max_results": maxResults])
+            encoder.encode(["pagination_token": paginationToken])
+            return encoder.items
         }
 
         /// Follow User
@@ -764,13 +771,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["list.fields": listFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
 
@@ -874,13 +881,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["list.fields": listFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -959,13 +966,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["list.fields": listFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -1040,11 +1047,11 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["list.fields": listFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
 
@@ -1087,11 +1094,12 @@ extension Paths {
         /// Tweet lookup by Tweet IDs
         ///
         /// Returns a variety of information about the Tweet specified by the requested ID.
-        public func get(parameters: GetParameters? = nil) -> Request<TwitterAPI.MultiTweetLookupResponse> {
-            .get(path, query: parameters?.asQuery)
+        public func get(parameters: GetParameters) -> Request<TwitterAPI.MultiTweetLookupResponse> {
+            .get(path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
+            public var ids: [TweetID]
             /// The list of fields you can expand for a [Tweet](#Tweet) object. If the field has an ID, it can be expanded into a full object.
             ///
             /// Example: ["author_id", "referenced_tweets.id", "in_reply_to_user_id", "geo.place_id", "attachments.media_keys", "attachments.poll_ids", "entities.mentions.username", "referenced_tweets.id.author_id"]
@@ -1202,7 +1210,8 @@ extension Paths {
                 case durationMinutes = "duration_minutes"
             }
 
-            public init(expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+            public init(ids: [TweetID], expansions: [Expansions]? = nil, tweetFields: [TweetFields]? = nil, userFields: [UserFields]? = nil, mediaFields: [MediaFields]? = nil, placeFields: [PlaceFields]? = nil, pollFields: [PollFields]? = nil) {
+                self.ids = ids
                 self.expansions = expansions
                 self.tweetFields = tweetFields
                 self.userFields = userFields
@@ -1212,14 +1221,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ids": ids], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
 
@@ -1492,14 +1502,14 @@ extension Paths.Tweets {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
 
@@ -1719,21 +1729,21 @@ extension Paths.Tweets.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("start_time", startTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("since_id", sinceID)
-                query.addQueryItem("until_id", untilID)
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("next_token", nextToken)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["start_time": startTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["since_id": sinceID])
+                encoder.encode(["until_id": untilID])
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["next_token": nextToken])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -1897,21 +1907,21 @@ extension Paths.Tweets.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("start_time", startTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("since_id", sinceID)
-                query.addQueryItem("until_id", untilID)
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("next_token", nextToken)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["start_time": startTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["since_id": sinceID])
+                encoder.encode(["until_id": untilID])
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["next_token": nextToken])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -2056,15 +2066,15 @@ extension Paths.Tweets.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("backfill_minutes", backfillMinutes)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                encoder.encode(["backfill_minutes": backfillMinutes])
+                return encoder.items
             }
         }
     }
@@ -2082,8 +2092,8 @@ extension Paths.Tweets.Search.Stream {
         /// Rules lookup
         ///
         /// Returns rules from a user's active rule set. Users can fetch all of their rules or a subset, specified by the provided rule ids.
-        public func get(maxResults: Int? = nil, paginationToken: String? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(maxResults, paginationToken))
+        public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
+            .get(path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -2096,11 +2106,24 @@ extension Paths.Tweets.Search.Stream {
             }
         }
 
-        private func makeGetQuery(_ maxResults: Int?, _ paginationToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("max_results", maxResults)
-            query.addQueryItem("pagination_token", paginationToken)
-            return query
+        public struct GetParameters {
+            public var ids: [RuleID]?
+            public var maxResults: Int?
+            public var paginationToken: String?
+
+            public init(ids: [RuleID]? = nil, maxResults: Int? = nil, paginationToken: String? = nil) {
+                self.ids = ids
+                self.maxResults = maxResults
+                self.paginationToken = paginationToken
+            }
+
+            public var asQuery: [(String, String?)] {
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ids": ids])
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                return encoder.items
+            }
         }
 
         /// Add/Delete rules
@@ -2111,9 +2134,9 @@ extension Paths.Tweets.Search.Stream {
         }
 
         private func makePostQuery(_ isDryRun: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("dry_run", isDryRun)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["dry_run": isDryRun])
+            return encoder.items
         }
     }
 }
@@ -2268,15 +2291,15 @@ extension Paths.Tweets.Sample {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("backfill_minutes", backfillMinutes)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                encoder.encode(["backfill_minutes": backfillMinutes])
+                return encoder.items
             }
         }
     }
@@ -2465,21 +2488,21 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("since_id", sinceID)
-                query.addQueryItem("until_id", untilID)
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("exclude", exclude?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("start_time", startTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["since_id": sinceID])
+                encoder.encode(["until_id": untilID])
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["exclude": exclude], explode: false)
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["start_time": startTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -2640,20 +2663,20 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("since_id", sinceID)
-                query.addQueryItem("until_id", untilID)
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("start_time", startTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["since_id": sinceID])
+                encoder.encode(["until_id": untilID])
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["start_time": startTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -2871,16 +2894,16 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -3018,15 +3041,15 @@ extension Paths.Tweets.Counts {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("start_time", startTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("since_id", sinceID)
-                query.addQueryItem("until_id", untilID)
-                query.addQueryItem("next_token", nextToken)
-                query.addQueryItem("granularity", granularity)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["start_time": startTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["since_id": sinceID])
+                encoder.encode(["until_id": untilID])
+                encoder.encode(["next_token": nextToken])
+                encoder.encode(["granularity": granularity])
+                return encoder.items
             }
         }
     }
@@ -3081,15 +3104,15 @@ extension Paths.Tweets.Counts {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("start_time", startTime)
-                query.addQueryItem("end_time", endTime)
-                query.addQueryItem("since_id", sinceID)
-                query.addQueryItem("until_id", untilID)
-                query.addQueryItem("next_token", nextToken)
-                query.addQueryItem("granularity", granularity)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["start_time": startTime])
+                encoder.encode(["end_time": endTime])
+                encoder.encode(["since_id": sinceID])
+                encoder.encode(["until_id": untilID])
+                encoder.encode(["next_token": nextToken])
+                encoder.encode(["granularity": granularity])
+                return encoder.items
             }
         }
     }
@@ -3123,10 +3146,10 @@ extension Paths.Compliance {
         }
 
         private func makeGetQuery(_ type: `Type`, _ status: Status?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type)
-            query.addQueryItem("status", status)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            encoder.encode(["status": status])
+            return encoder.items
         }
 
         /// Type of compliance job to list.
@@ -3281,11 +3304,11 @@ extension Paths.Lists {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("list.fields", listFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["list.fields": listFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
 
@@ -3390,13 +3413,13 @@ extension Paths.Lists.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -3487,13 +3510,13 @@ extension Paths.Lists.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                return encoder.items
             }
         }
 
@@ -3700,16 +3723,16 @@ extension Paths.Lists.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("pagination_token", paginationToken)
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("tweet.fields", tweetFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("media.fields", mediaFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("place.fields", placeFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("poll.fields", pollFields?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["pagination_token": paginationToken])
+                encoder.encode(["expansions": expansions], explode: false)
+                encoder.encode(["tweet.fields": tweetFields], explode: false)
+                encoder.encode(["user.fields": userFields], explode: false)
+                encoder.encode(["media.fields": mediaFields], explode: false)
+                encoder.encode(["place.fields": placeFields], explode: false)
+                encoder.encode(["poll.fields": pollFields], explode: false)
+                return encoder.items
             }
         }
     }
@@ -3732,10 +3755,10 @@ extension Paths.Spaces {
         }
 
         private func makeGetQuery(_ spaceFields: [SpaceFields]?, _ expansions: [Expansions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("space.fields", spaceFields?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["space.fields": spaceFields], explode: false)
+            encoder.encode(["expansions": expansions], explode: false)
+            return encoder.items
         }
 
         public enum SpaceFields: String, Codable, CaseIterable {
@@ -3774,37 +3797,56 @@ extension Paths {
         /// Space lookup up Space IDs
         ///
         /// Returns a variety of information about the Spaces specified by the requested IDs
-        public func get(spaceFields: [SpaceFields]? = nil, expansions: [Expansions]? = nil) -> Request<TwitterAPI.MultiSpaceLookupResponse> {
-            .get(path, query: makeGetQuery(spaceFields, expansions))
+        public func get(parameters: GetParameters) -> Request<TwitterAPI.MultiSpaceLookupResponse> {
+            .get(path, query: parameters.asQuery)
         }
 
-        private func makeGetQuery(_ spaceFields: [SpaceFields]?, _ expansions: [Expansions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("space.fields", spaceFields?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
+        public struct GetParameters {
+            public var ids: [SpaceID]
+            /// The fields available for a Space object.
+            ///
+            /// Example: ["created_at", "creator_id", "host_ids", "invited_user_ids", "is_ticketed", "lang", "participant_count", "scheduled_start", "speaker_ids", "started_at", "title", "updated_at"]
+            public var spaceFields: [SpaceFields]?
+            /// The list of fields you can expand for a [Space](#Space) object. If the field has an ID, it can be expanded into a full object.
+            ///
+            /// Example: ["creator_id", "host_ids", "invited_user_ids", "speaker_ids"]
+            public var expansions: [Expansions]?
 
-        public enum SpaceFields: String, Codable, CaseIterable {
-            case createdAt = "created_at"
-            case creatorID = "creator_id"
-            case hostIDs = "host_ids"
-            case invitedUserIDs = "invited_user_ids"
-            case isTicketed = "is_ticketed"
-            case lang
-            case participantCount = "participant_count"
-            case scheduledStart = "scheduled_start"
-            case speakerIDs = "speaker_ids"
-            case startedAt = "started_at"
-            case title
-            case updatedAt = "updated_at"
-        }
+            public enum SpaceFields: String, Codable, CaseIterable {
+                case createdAt = "created_at"
+                case creatorID = "creator_id"
+                case hostIDs = "host_ids"
+                case invitedUserIDs = "invited_user_ids"
+                case isTicketed = "is_ticketed"
+                case lang
+                case participantCount = "participant_count"
+                case scheduledStart = "scheduled_start"
+                case speakerIDs = "speaker_ids"
+                case startedAt = "started_at"
+                case title
+                case updatedAt = "updated_at"
+            }
 
-        public enum Expansions: String, Codable, CaseIterable {
-            case creatorID = "creator_id"
-            case hostIDs = "host_ids"
-            case invitedUserIDs = "invited_user_ids"
-            case speakerIDs = "speaker_ids"
+            public enum Expansions: String, Codable, CaseIterable {
+                case creatorID = "creator_id"
+                case hostIDs = "host_ids"
+                case invitedUserIDs = "invited_user_ids"
+                case speakerIDs = "speaker_ids"
+            }
+
+            public init(ids: [SpaceID], spaceFields: [SpaceFields]? = nil, expansions: [Expansions]? = nil) {
+                self.ids = ids
+                self.spaceFields = spaceFields
+                self.expansions = expansions
+            }
+
+            public var asQuery: [(String, String?)] {
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ids": ids])
+                encoder.encode(["space.fields": spaceFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                return encoder.items
+            }
         }
     }
 }
@@ -3832,37 +3874,56 @@ extension Paths.Spaces.By {
         /// Space lookup by their creators
         ///
         /// Returns a variety of information about the Spaces created by the provided User IDs
-        public func get(spaceFields: [SpaceFields]? = nil, expansions: [Expansions]? = nil) -> Request<TwitterAPI.MultiSpaceLookupResponse> {
-            .get(path, query: makeGetQuery(spaceFields, expansions))
+        public func get(parameters: GetParameters) -> Request<TwitterAPI.MultiSpaceLookupResponse> {
+            .get(path, query: parameters.asQuery)
         }
 
-        private func makeGetQuery(_ spaceFields: [SpaceFields]?, _ expansions: [Expansions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("space.fields", spaceFields?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-            return query
-        }
+        public struct GetParameters {
+            public var userIDs: [UserID]
+            /// The fields available for a Space object.
+            ///
+            /// Example: ["created_at", "creator_id", "host_ids", "invited_user_ids", "is_ticketed", "lang", "participant_count", "scheduled_start", "speaker_ids", "started_at", "title", "updated_at"]
+            public var spaceFields: [SpaceFields]?
+            /// The list of fields you can expand for a [Space](#Space) object. If the field has an ID, it can be expanded into a full object.
+            ///
+            /// Example: ["creator_id", "host_ids", "invited_user_ids", "speaker_ids"]
+            public var expansions: [Expansions]?
 
-        public enum SpaceFields: String, Codable, CaseIterable {
-            case createdAt = "created_at"
-            case creatorID = "creator_id"
-            case hostIDs = "host_ids"
-            case invitedUserIDs = "invited_user_ids"
-            case isTicketed = "is_ticketed"
-            case lang
-            case participantCount = "participant_count"
-            case scheduledStart = "scheduled_start"
-            case speakerIDs = "speaker_ids"
-            case startedAt = "started_at"
-            case title
-            case updatedAt = "updated_at"
-        }
+            public enum SpaceFields: String, Codable, CaseIterable {
+                case createdAt = "created_at"
+                case creatorID = "creator_id"
+                case hostIDs = "host_ids"
+                case invitedUserIDs = "invited_user_ids"
+                case isTicketed = "is_ticketed"
+                case lang
+                case participantCount = "participant_count"
+                case scheduledStart = "scheduled_start"
+                case speakerIDs = "speaker_ids"
+                case startedAt = "started_at"
+                case title
+                case updatedAt = "updated_at"
+            }
 
-        public enum Expansions: String, Codable, CaseIterable {
-            case creatorID = "creator_id"
-            case hostIDs = "host_ids"
-            case invitedUserIDs = "invited_user_ids"
-            case speakerIDs = "speaker_ids"
+            public enum Expansions: String, Codable, CaseIterable {
+                case creatorID = "creator_id"
+                case hostIDs = "host_ids"
+                case invitedUserIDs = "invited_user_ids"
+                case speakerIDs = "speaker_ids"
+            }
+
+            public init(userIDs: [UserID], spaceFields: [SpaceFields]? = nil, expansions: [Expansions]? = nil) {
+                self.userIDs = userIDs
+                self.spaceFields = spaceFields
+                self.expansions = expansions
+            }
+
+            public var asQuery: [(String, String?)] {
+                let encoder = URLQueryEncoder()
+                encoder.encode(["user_ids": userIDs])
+                encoder.encode(["space.fields": spaceFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                return encoder.items
+            }
         }
     }
 }
@@ -3945,13 +4006,13 @@ extension Paths.Spaces {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("state", state)
-                query.addQueryItem("max_results", maxResults)
-                query.addQueryItem("space.fields", spaceFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("expansions", expansions?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["state": state])
+                encoder.encode(["max_results": maxResults])
+                encoder.encode(["space.fields": spaceFields], explode: false)
+                encoder.encode(["expansions": expansions], explode: false)
+                return encoder.items
             }
         }
     }
@@ -3974,9 +4035,9 @@ extension Paths.Spaces.WithID {
         }
 
         private func makeGetQuery(_ userFields: [UserFields]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("user.fields", userFields?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["user.fields": userFields], explode: false)
+            return encoder.items
         }
 
         public enum UserFields: String, Codable, CaseIterable {
@@ -3999,89 +4060,3 @@ extension Paths.Spaces.WithID {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

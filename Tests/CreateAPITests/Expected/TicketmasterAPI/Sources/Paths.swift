@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var attractions: Attractions {
@@ -75,20 +76,20 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort)
-                classificationName?.forEach { query.addQueryItem("classificationName", $0) }
-                classificationID?.forEach { query.addQueryItem("classificationId", $0) }
-                query.addQueryItem("keyword", keyword)
-                query.addQueryItem("id", id)
-                query.addQueryItem("source", source)
-                query.addQueryItem("includeTest", includeTest)
-                query.addQueryItem("page", page)
-                query.addQueryItem("size", size)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort": sort])
+                encoder.encode(["classificationName": classificationName])
+                encoder.encode(["classificationId": classificationID])
+                encoder.encode(["keyword": keyword])
+                encoder.encode(["id": id])
+                encoder.encode(["source": source])
+                encoder.encode(["includeTest": includeTest])
+                encoder.encode(["page": page])
+                encoder.encode(["size": size])
+                encoder.encode(["locale": locale])
+                encoder.encode(["includeLicensedContent": includeLicensedContent])
+                encoder.encode(["includeSpellcheck": includeSpellcheck])
+                return encoder.items
             }
         }
     }
@@ -111,10 +112,10 @@ extension Paths.Attractions {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -189,18 +190,18 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("keyword", keyword)
-                query.addQueryItem("id", id)
-                query.addQueryItem("source", source)
-                query.addQueryItem("includeTest", includeTest)
-                query.addQueryItem("page", page)
-                query.addQueryItem("size", size)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort": sort])
+                encoder.encode(["keyword": keyword])
+                encoder.encode(["id": id])
+                encoder.encode(["source": source])
+                encoder.encode(["includeTest": includeTest])
+                encoder.encode(["page": page])
+                encoder.encode(["size": size])
+                encoder.encode(["locale": locale])
+                encoder.encode(["includeLicensedContent": includeLicensedContent])
+                encoder.encode(["includeSpellcheck": includeSpellcheck])
+                return encoder.items
             }
         }
     }
@@ -234,10 +235,10 @@ extension Paths.Classifications.Genres {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -275,10 +276,10 @@ extension Paths.Classifications.Segments {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -316,10 +317,10 @@ extension Paths.Classifications.Subgenres {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -346,10 +347,10 @@ extension Paths.Classifications {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -493,44 +494,44 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("startDateTime", startDateTime)
-                query.addQueryItem("endDateTime", endDateTime)
-                query.addQueryItem("onsaleStartDateTime", onsaleStartDateTime)
-                query.addQueryItem("onsaleOnStartDate", onsaleOnStartDate)
-                query.addQueryItem("onsaleOnAfterStartDate", onsaleOnAfterStartDate)
-                query.addQueryItem("onsaleEndDateTime", onsaleEndDateTime)
-                query.addQueryItem("city", city)
-                query.addQueryItem("countryCode", countryCode)
-                query.addQueryItem("stateCode", stateCode)
-                query.addQueryItem("postalCode", postalCode)
-                query.addQueryItem("venueId", venueID)
-                query.addQueryItem("attractionId", attractionID)
-                query.addQueryItem("segmentId", segmentID)
-                query.addQueryItem("segmentName", segmentName)
-                classificationName?.forEach { query.addQueryItem("classificationName", $0) }
-                classificationID?.forEach { query.addQueryItem("classificationId", $0) }
-                query.addQueryItem("marketId", marketID)
-                query.addQueryItem("promoterId", promoterID)
-                query.addQueryItem("dmaId", dmaID)
-                query.addQueryItem("includeTBA", includeTBA)
-                query.addQueryItem("includeTBD", includeTBD)
-                query.addQueryItem("clientVisibility", clientVisibility)
-                query.addQueryItem("latlong", latlong)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("unit", unit)
-                query.addQueryItem("geoPoint", geoPoint)
-                query.addQueryItem("keyword", keyword)
-                query.addQueryItem("id", id)
-                query.addQueryItem("source", source)
-                query.addQueryItem("includeTest", includeTest)
-                query.addQueryItem("page", page)
-                query.addQueryItem("size", size)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort": sort])
+                encoder.encode(["startDateTime": startDateTime])
+                encoder.encode(["endDateTime": endDateTime])
+                encoder.encode(["onsaleStartDateTime": onsaleStartDateTime])
+                encoder.encode(["onsaleOnStartDate": onsaleOnStartDate])
+                encoder.encode(["onsaleOnAfterStartDate": onsaleOnAfterStartDate])
+                encoder.encode(["onsaleEndDateTime": onsaleEndDateTime])
+                encoder.encode(["city": city])
+                encoder.encode(["countryCode": countryCode])
+                encoder.encode(["stateCode": stateCode])
+                encoder.encode(["postalCode": postalCode])
+                encoder.encode(["venueId": venueID])
+                encoder.encode(["attractionId": attractionID])
+                encoder.encode(["segmentId": segmentID])
+                encoder.encode(["segmentName": segmentName])
+                encoder.encode(["classificationName": classificationName])
+                encoder.encode(["classificationId": classificationID])
+                encoder.encode(["marketId": marketID])
+                encoder.encode(["promoterId": promoterID])
+                encoder.encode(["dmaId": dmaID])
+                encoder.encode(["includeTBA": includeTBA])
+                encoder.encode(["includeTBD": includeTBD])
+                encoder.encode(["clientVisibility": clientVisibility])
+                encoder.encode(["latlong": latlong])
+                encoder.encode(["radius": radius])
+                encoder.encode(["unit": unit])
+                encoder.encode(["geoPoint": geoPoint])
+                encoder.encode(["keyword": keyword])
+                encoder.encode(["id": id])
+                encoder.encode(["source": source])
+                encoder.encode(["includeTest": includeTest])
+                encoder.encode(["page": page])
+                encoder.encode(["size": size])
+                encoder.encode(["locale": locale])
+                encoder.encode(["includeLicensedContent": includeLicensedContent])
+                encoder.encode(["includeSpellcheck": includeSpellcheck])
+                return encoder.items
             }
         }
     }
@@ -553,10 +554,10 @@ extension Paths.Events {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -583,10 +584,10 @@ extension Paths.Events.WithID {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -689,24 +690,24 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("keyword", keyword)
-                query.addQueryItem("source", source)
-                query.addQueryItem("latlong", latlong)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("unit", unit)
-                query.addQueryItem("size", size)
-                query.addQueryItem("includeFuzzy", includeFuzzy)
-                query.addQueryItem("clientVisibility", clientVisibility)
-                query.addQueryItem("countryCode", countryCode)
-                query.addQueryItem("includeTBA", includeTBA)
-                query.addQueryItem("includeTBD", includeTBD)
-                query.addQueryItem("segmentId", segmentID)
-                query.addQueryItem("geoPoint", geoPoint)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["keyword": keyword])
+                encoder.encode(["source": source])
+                encoder.encode(["latlong": latlong])
+                encoder.encode(["radius": radius])
+                encoder.encode(["unit": unit])
+                encoder.encode(["size": size])
+                encoder.encode(["includeFuzzy": includeFuzzy])
+                encoder.encode(["clientVisibility": clientVisibility])
+                encoder.encode(["countryCode": countryCode])
+                encoder.encode(["includeTBA": includeTBA])
+                encoder.encode(["includeTBD": includeTBD])
+                encoder.encode(["segmentId": segmentID])
+                encoder.encode(["geoPoint": geoPoint])
+                encoder.encode(["locale": locale])
+                encoder.encode(["includeLicensedContent": includeLicensedContent])
+                encoder.encode(["includeSpellcheck": includeSpellcheck])
+                return encoder.items
             }
         }
     }
@@ -794,24 +795,24 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("stateCode", stateCode)
-                query.addQueryItem("countryCode", countryCode)
-                query.addQueryItem("latlong", latlong)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("unit", unit)
-                query.addQueryItem("geoPoint", geoPoint)
-                query.addQueryItem("keyword", keyword)
-                query.addQueryItem("id", id)
-                query.addQueryItem("source", source)
-                query.addQueryItem("includeTest", includeTest)
-                query.addQueryItem("page", page)
-                query.addQueryItem("size", size)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("includeLicensedContent", includeLicensedContent)
-                query.addQueryItem("includeSpellcheck", includeSpellcheck)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort": sort])
+                encoder.encode(["stateCode": stateCode])
+                encoder.encode(["countryCode": countryCode])
+                encoder.encode(["latlong": latlong])
+                encoder.encode(["radius": radius])
+                encoder.encode(["unit": unit])
+                encoder.encode(["geoPoint": geoPoint])
+                encoder.encode(["keyword": keyword])
+                encoder.encode(["id": id])
+                encoder.encode(["source": source])
+                encoder.encode(["includeTest": includeTest])
+                encoder.encode(["page": page])
+                encoder.encode(["size": size])
+                encoder.encode(["locale": locale])
+                encoder.encode(["includeLicensedContent": includeLicensedContent])
+                encoder.encode(["includeSpellcheck": includeSpellcheck])
+                return encoder.items
             }
         }
     }
@@ -834,10 +835,10 @@ extension Paths.Venues {
         }
 
         private func makeGetQuery(_ locale: String?, _ includeLicensedContent: IncludeLicensedContent?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("includeLicensedContent", includeLicensedContent)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["includeLicensedContent": includeLicensedContent])
+            return encoder.items
         }
 
         public enum IncludeLicensedContent: String, Codable, CaseIterable {
@@ -848,89 +849,3 @@ extension Paths.Venues {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

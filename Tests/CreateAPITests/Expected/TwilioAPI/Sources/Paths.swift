@@ -6,6 +6,7 @@
 import Foundation
 import NaiveDate
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var accountsJSON: AccountsJSON {
@@ -76,11 +77,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("Status", status)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["Status": status])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -99,9 +100,9 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
     }
@@ -193,12 +194,12 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CustomerName", customerName)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IsoCountry", isoCountry)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CustomerName": customerName])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IsoCountry": isoCountry])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -240,17 +241,17 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress)
-                query.addQueryItem("City", city)
-                query.addQueryItem("CustomerName", customerName)
-                query.addQueryItem("EmergencyEnabled", isEmergencyEnabled)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IsoCountry", isoCountry)
-                query.addQueryItem("PostalCode", postalCode)
-                query.addQueryItem("Region", region)
-                query.addQueryItem("Street", street)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AutoCorrectAddress": isAutoCorrectAddress])
+                encoder.encode(["City": city])
+                encoder.encode(["CustomerName": customerName])
+                encoder.encode(["EmergencyEnabled": isEmergencyEnabled])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IsoCountry": isoCountry])
+                encoder.encode(["PostalCode": postalCode])
+                encoder.encode(["Region": region])
+                encoder.encode(["Street": street])
+                return encoder.items
             }
         }
     }
@@ -329,9 +330,9 @@ extension Paths.Accounts.WithAccountSid.Addresses.WithAddressSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -384,16 +385,16 @@ extension Paths.Accounts.WithAccountSid.Addresses {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AutoCorrectAddress", isAutoCorrectAddress)
-                query.addQueryItem("City", city)
-                query.addQueryItem("CustomerName", customerName)
-                query.addQueryItem("EmergencyEnabled", isEmergencyEnabled)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PostalCode", postalCode)
-                query.addQueryItem("Region", region)
-                query.addQueryItem("Street", street)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AutoCorrectAddress": isAutoCorrectAddress])
+                encoder.encode(["City": city])
+                encoder.encode(["CustomerName": customerName])
+                encoder.encode(["EmergencyEnabled": isEmergencyEnabled])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PostalCode": postalCode])
+                encoder.encode(["Region": region])
+                encoder.encode(["Street": street])
+                return encoder.items
             }
         }
 
@@ -455,10 +456,10 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ friendlyName: String?, _ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("FriendlyName", friendlyName)
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["FriendlyName": friendlyName])
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new application within your account
@@ -568,23 +569,23 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("MessageStatusCallback", messageStatusCallback)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsStatusCallback", smsStatusCallback)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["MessageStatusCallback": messageStatusCallback])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsStatusCallback": smsStatusCallback])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
     }
@@ -722,23 +723,23 @@ extension Paths.Accounts.WithAccountSid.Applications {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("MessageStatusCallback", messageStatusCallback)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsStatusCallback", smsStatusCallback)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["MessageStatusCallback": messageStatusCallback])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsStatusCallback": smsStatusCallback])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
 
@@ -801,9 +802,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -886,9 +887,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -1024,27 +1025,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1144,27 +1145,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1264,27 +1265,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1384,27 +1385,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1504,27 +1505,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1624,27 +1625,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1744,27 +1745,27 @@ extension Paths.Accounts.WithAccountSid.AvailablePhoneNumbers.WithCountryCode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("Contains", contains)
-                query.addQueryItem("SmsEnabled", isSmsEnabled)
-                query.addQueryItem("MmsEnabled", isMmsEnabled)
-                query.addQueryItem("VoiceEnabled", isVoiceEnabled)
-                query.addQueryItem("ExcludeAllAddressRequired", excludeAllAddressRequired)
-                query.addQueryItem("ExcludeLocalAddressRequired", excludeLocalAddressRequired)
-                query.addQueryItem("ExcludeForeignAddressRequired", excludeForeignAddressRequired)
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("NearNumber", nearNumber)
-                query.addQueryItem("NearLatLong", nearLatLong)
-                query.addQueryItem("Distance", distance)
-                query.addQueryItem("InPostalCode", inPostalCode)
-                query.addQueryItem("InRegion", inRegion)
-                query.addQueryItem("InRateCenter", inRateCenter)
-                query.addQueryItem("InLata", inLata)
-                query.addQueryItem("InLocality", inLocality)
-                query.addQueryItem("FaxEnabled", isFaxEnabled)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["Contains": contains])
+                encoder.encode(["SmsEnabled": isSmsEnabled])
+                encoder.encode(["MmsEnabled": isMmsEnabled])
+                encoder.encode(["VoiceEnabled": isVoiceEnabled])
+                encoder.encode(["ExcludeAllAddressRequired": excludeAllAddressRequired])
+                encoder.encode(["ExcludeLocalAddressRequired": excludeLocalAddressRequired])
+                encoder.encode(["ExcludeForeignAddressRequired": excludeForeignAddressRequired])
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["NearNumber": nearNumber])
+                encoder.encode(["NearLatLong": nearLatLong])
+                encoder.encode(["Distance": distance])
+                encoder.encode(["InPostalCode": inPostalCode])
+                encoder.encode(["InRegion": inRegion])
+                encoder.encode(["InRateCenter": inRateCenter])
+                encoder.encode(["InLata": inLata])
+                encoder.encode(["InLocality": inLocality])
+                encoder.encode(["FaxEnabled": isFaxEnabled])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -1876,19 +1877,19 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("To", to)
-                query.addQueryItem("From", from)
-                query.addQueryItem("ParentCallSid", parentCallSid)
-                query.addQueryItem("Status", status)
-                query.addQueryItem("StartTime", startTime)
-                query.addQueryItem("StartTime<", startTimeLessThan)
-                query.addQueryItem("StartTime>", startTimeGreaterThan)
-                query.addQueryItem("EndTime", endTime)
-                query.addQueryItem("EndTime<", endTimeLessThan)
-                query.addQueryItem("EndTime>", endTimeGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["To": to])
+                encoder.encode(["From": from])
+                encoder.encode(["ParentCallSid": parentCallSid])
+                encoder.encode(["Status": status])
+                encoder.encode(["StartTime": startTime])
+                encoder.encode(["StartTime<": startTimeLessThan])
+                encoder.encode(["StartTime>": startTimeGreaterThan])
+                encoder.encode(["EndTime": endTime])
+                encoder.encode(["EndTime<": endTimeLessThan])
+                encoder.encode(["EndTime>": endTimeGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -2059,43 +2060,43 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ApplicationSid", applicationSid)
-                query.addQueryItem("AsyncAmd", asyncAmd)
-                query.addQueryItem("AsyncAmdStatusCallback", asyncAmdStatusCallback)
-                query.addQueryItem("AsyncAmdStatusCallbackMethod", asyncAmdStatusCallbackMethod)
-                query.addQueryItem("Byoc", byoc)
-                query.addQueryItem("CallReason", callReason)
-                query.addQueryItem("CallToken", callToken)
-                query.addQueryItem("CallerId", callerID)
-                query.addQueryItem("FallbackMethod", fallbackMethod)
-                query.addQueryItem("FallbackUrl", fallbackURL)
-                query.addQueryItem("From", from)
-                query.addQueryItem("MachineDetection", machineDetection)
-                query.addQueryItem("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout)
-                query.addQueryItem("MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold)
-                query.addQueryItem("MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold)
-                query.addQueryItem("MachineDetectionTimeout", machineDetectionTimeout)
-                query.addQueryItem("Method", method)
-                query.addQueryItem("Record", isRecord)
-                query.addQueryItem("RecordingChannels", recordingChannels)
-                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
-                recordingStatusCallbackEvent?.forEach { query.addQueryItem("RecordingStatusCallbackEvent", $0) }
-                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
-                query.addQueryItem("RecordingTrack", recordingTrack)
-                query.addQueryItem("SendDigits", sendDigits)
-                query.addQueryItem("SipAuthPassword", sipAuthPassword)
-                query.addQueryItem("SipAuthUsername", sipAuthUsername)
-                query.addQueryItem("StatusCallback", statusCallback)
-                statusCallbackEvent?.forEach { query.addQueryItem("StatusCallbackEvent", $0) }
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TimeLimit", timeLimit)
-                query.addQueryItem("Timeout", timeout)
-                query.addQueryItem("To", to)
-                query.addQueryItem("Trim", trim)
-                query.addQueryItem("Twiml", twiml)
-                query.addQueryItem("Url", url)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ApplicationSid": applicationSid])
+                encoder.encode(["AsyncAmd": asyncAmd])
+                encoder.encode(["AsyncAmdStatusCallback": asyncAmdStatusCallback])
+                encoder.encode(["AsyncAmdStatusCallbackMethod": asyncAmdStatusCallbackMethod])
+                encoder.encode(["Byoc": byoc])
+                encoder.encode(["CallReason": callReason])
+                encoder.encode(["CallToken": callToken])
+                encoder.encode(["CallerId": callerID])
+                encoder.encode(["FallbackMethod": fallbackMethod])
+                encoder.encode(["FallbackUrl": fallbackURL])
+                encoder.encode(["From": from])
+                encoder.encode(["MachineDetection": machineDetection])
+                encoder.encode(["MachineDetectionSilenceTimeout": machineDetectionSilenceTimeout])
+                encoder.encode(["MachineDetectionSpeechEndThreshold": machineDetectionSpeechEndThreshold])
+                encoder.encode(["MachineDetectionSpeechThreshold": machineDetectionSpeechThreshold])
+                encoder.encode(["MachineDetectionTimeout": machineDetectionTimeout])
+                encoder.encode(["Method": method])
+                encoder.encode(["Record": isRecord])
+                encoder.encode(["RecordingChannels": recordingChannels])
+                encoder.encode(["RecordingStatusCallback": recordingStatusCallback])
+                encoder.encode(["RecordingStatusCallbackEvent": recordingStatusCallbackEvent])
+                encoder.encode(["RecordingStatusCallbackMethod": recordingStatusCallbackMethod])
+                encoder.encode(["RecordingTrack": recordingTrack])
+                encoder.encode(["SendDigits": sendDigits])
+                encoder.encode(["SipAuthPassword": sipAuthPassword])
+                encoder.encode(["SipAuthUsername": sipAuthUsername])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackEvent": statusCallbackEvent])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TimeLimit": timeLimit])
+                encoder.encode(["Timeout": timeout])
+                encoder.encode(["To": to])
+                encoder.encode(["Trim": trim])
+                encoder.encode(["Twiml": twiml])
+                encoder.encode(["Url": url])
+                return encoder.items
             }
         }
     }
@@ -2158,13 +2159,13 @@ extension Paths.Accounts.WithAccountSid.Calls {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                return encoder.items
             }
         }
     }
@@ -2265,9 +2266,9 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -2315,10 +2316,10 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                issue?.forEach { query.addQueryItem("Issue", $0) }
-                query.addQueryItem("QualityScore", qualityScore)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Issue": issue])
+                encoder.encode(["QualityScore": qualityScore])
+                return encoder.items
             }
         }
     }
@@ -2390,13 +2391,13 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Log", log)
-                query.addQueryItem("MessageDate", messageDate)
-                query.addQueryItem("MessageDate<", messageDateLessThan)
-                query.addQueryItem("MessageDate>", messageDateGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Log": log])
+                encoder.encode(["MessageDate": messageDate])
+                encoder.encode(["MessageDate<": messageDateLessThan])
+                encoder.encode(["MessageDate>": messageDateGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -2516,24 +2517,24 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("BankAccountType", bankAccountType)
-                query.addQueryItem("ChargeAmount", chargeAmount)
-                query.addQueryItem("Currency", currency)
-                query.addQueryItem("Description", description)
-                query.addQueryItem("IdempotencyKey", idempotencyKey)
-                query.addQueryItem("Input", input)
-                query.addQueryItem("MinPostalCodeLength", minPostalCodeLength)
-                query.addQueryItem("Parameter", parameter)
-                query.addQueryItem("PaymentConnector", paymentConnector)
-                query.addQueryItem("PaymentMethod", paymentMethod)
-                query.addQueryItem("PostalCode", isPostalCode)
-                query.addQueryItem("SecurityCode", isSecurityCode)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("Timeout", timeout)
-                query.addQueryItem("TokenType", tokenType)
-                query.addQueryItem("ValidCardTypes", validCardTypes)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["BankAccountType": bankAccountType])
+                encoder.encode(["ChargeAmount": chargeAmount])
+                encoder.encode(["Currency": currency])
+                encoder.encode(["Description": description])
+                encoder.encode(["IdempotencyKey": idempotencyKey])
+                encoder.encode(["Input": input])
+                encoder.encode(["MinPostalCodeLength": minPostalCodeLength])
+                encoder.encode(["Parameter": parameter])
+                encoder.encode(["PaymentConnector": paymentConnector])
+                encoder.encode(["PaymentMethod": paymentMethod])
+                encoder.encode(["PostalCode": isPostalCode])
+                encoder.encode(["SecurityCode": isSecurityCode])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["Timeout": timeout])
+                encoder.encode(["TokenType": tokenType])
+                encoder.encode(["ValidCardTypes": validCardTypes])
+                return encoder.items
             }
         }
     }
@@ -2599,12 +2600,12 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Payments {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Capture", capture)
-                query.addQueryItem("IdempotencyKey", idempotencyKey)
-                query.addQueryItem("Status", status)
-                query.addQueryItem("StatusCallback", statusCallback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Capture": capture])
+                encoder.encode(["IdempotencyKey": idempotencyKey])
+                encoder.encode(["Status": status])
+                encoder.encode(["StatusCallback": statusCallback])
+                return encoder.items
             }
         }
     }
@@ -2675,12 +2676,12 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["DateCreated": dateCreated])
+                encoder.encode(["DateCreated<": dateCreatedLessThan])
+                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -2724,14 +2725,14 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("RecordingChannels", recordingChannels)
-                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
-                recordingStatusCallbackEvent?.forEach { query.addQueryItem("RecordingStatusCallbackEvent", $0) }
-                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
-                query.addQueryItem("RecordingTrack", recordingTrack)
-                query.addQueryItem("Trim", trim)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["RecordingChannels": recordingChannels])
+                encoder.encode(["RecordingStatusCallback": recordingStatusCallback])
+                encoder.encode(["RecordingStatusCallbackEvent": recordingStatusCallbackEvent])
+                encoder.encode(["RecordingStatusCallbackMethod": recordingStatusCallbackMethod])
+                encoder.encode(["RecordingTrack": recordingTrack])
+                encoder.encode(["Trim": trim])
+                return encoder.items
             }
         }
     }
@@ -2790,10 +2791,10 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Recordings {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("PauseBehavior", pauseBehavior)
-                query.addQueryItem("Status", status)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["PauseBehavior": pauseBehavior])
+                encoder.encode(["Status": status])
+                return encoder.items
             }
         }
 
@@ -3451,211 +3452,211 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ConnectorName", connectorName)
-                query.addQueryItem("Name", name)
-                query.addQueryItem("Parameter1.Name", parameter1Name)
-                query.addQueryItem("Parameter1.Value", parameter1Value)
-                query.addQueryItem("Parameter10.Name", parameter10Name)
-                query.addQueryItem("Parameter10.Value", parameter10Value)
-                query.addQueryItem("Parameter11.Name", parameter11Name)
-                query.addQueryItem("Parameter11.Value", parameter11Value)
-                query.addQueryItem("Parameter12.Name", parameter12Name)
-                query.addQueryItem("Parameter12.Value", parameter12Value)
-                query.addQueryItem("Parameter13.Name", parameter13Name)
-                query.addQueryItem("Parameter13.Value", parameter13Value)
-                query.addQueryItem("Parameter14.Name", parameter14Name)
-                query.addQueryItem("Parameter14.Value", parameter14Value)
-                query.addQueryItem("Parameter15.Name", parameter15Name)
-                query.addQueryItem("Parameter15.Value", parameter15Value)
-                query.addQueryItem("Parameter16.Name", parameter16Name)
-                query.addQueryItem("Parameter16.Value", parameter16Value)
-                query.addQueryItem("Parameter17.Name", parameter17Name)
-                query.addQueryItem("Parameter17.Value", parameter17Value)
-                query.addQueryItem("Parameter18.Name", parameter18Name)
-                query.addQueryItem("Parameter18.Value", parameter18Value)
-                query.addQueryItem("Parameter19.Name", parameter19Name)
-                query.addQueryItem("Parameter19.Value", parameter19Value)
-                query.addQueryItem("Parameter2.Name", parameter2Name)
-                query.addQueryItem("Parameter2.Value", parameter2Value)
-                query.addQueryItem("Parameter20.Name", parameter20Name)
-                query.addQueryItem("Parameter20.Value", parameter20Value)
-                query.addQueryItem("Parameter21.Name", parameter21Name)
-                query.addQueryItem("Parameter21.Value", parameter21Value)
-                query.addQueryItem("Parameter22.Name", parameter22Name)
-                query.addQueryItem("Parameter22.Value", parameter22Value)
-                query.addQueryItem("Parameter23.Name", parameter23Name)
-                query.addQueryItem("Parameter23.Value", parameter23Value)
-                query.addQueryItem("Parameter24.Name", parameter24Name)
-                query.addQueryItem("Parameter24.Value", parameter24Value)
-                query.addQueryItem("Parameter25.Name", parameter25Name)
-                query.addQueryItem("Parameter25.Value", parameter25Value)
-                query.addQueryItem("Parameter26.Name", parameter26Name)
-                query.addQueryItem("Parameter26.Value", parameter26Value)
-                query.addQueryItem("Parameter27.Name", parameter27Name)
-                query.addQueryItem("Parameter27.Value", parameter27Value)
-                query.addQueryItem("Parameter28.Name", parameter28Name)
-                query.addQueryItem("Parameter28.Value", parameter28Value)
-                query.addQueryItem("Parameter29.Name", parameter29Name)
-                query.addQueryItem("Parameter29.Value", parameter29Value)
-                query.addQueryItem("Parameter3.Name", parameter3Name)
-                query.addQueryItem("Parameter3.Value", parameter3Value)
-                query.addQueryItem("Parameter30.Name", parameter30Name)
-                query.addQueryItem("Parameter30.Value", parameter30Value)
-                query.addQueryItem("Parameter31.Name", parameter31Name)
-                query.addQueryItem("Parameter31.Value", parameter31Value)
-                query.addQueryItem("Parameter32.Name", parameter32Name)
-                query.addQueryItem("Parameter32.Value", parameter32Value)
-                query.addQueryItem("Parameter33.Name", parameter33Name)
-                query.addQueryItem("Parameter33.Value", parameter33Value)
-                query.addQueryItem("Parameter34.Name", parameter34Name)
-                query.addQueryItem("Parameter34.Value", parameter34Value)
-                query.addQueryItem("Parameter35.Name", parameter35Name)
-                query.addQueryItem("Parameter35.Value", parameter35Value)
-                query.addQueryItem("Parameter36.Name", parameter36Name)
-                query.addQueryItem("Parameter36.Value", parameter36Value)
-                query.addQueryItem("Parameter37.Name", parameter37Name)
-                query.addQueryItem("Parameter37.Value", parameter37Value)
-                query.addQueryItem("Parameter38.Name", parameter38Name)
-                query.addQueryItem("Parameter38.Value", parameter38Value)
-                query.addQueryItem("Parameter39.Name", parameter39Name)
-                query.addQueryItem("Parameter39.Value", parameter39Value)
-                query.addQueryItem("Parameter4.Name", parameter4Name)
-                query.addQueryItem("Parameter4.Value", parameter4Value)
-                query.addQueryItem("Parameter40.Name", parameter40Name)
-                query.addQueryItem("Parameter40.Value", parameter40Value)
-                query.addQueryItem("Parameter41.Name", parameter41Name)
-                query.addQueryItem("Parameter41.Value", parameter41Value)
-                query.addQueryItem("Parameter42.Name", parameter42Name)
-                query.addQueryItem("Parameter42.Value", parameter42Value)
-                query.addQueryItem("Parameter43.Name", parameter43Name)
-                query.addQueryItem("Parameter43.Value", parameter43Value)
-                query.addQueryItem("Parameter44.Name", parameter44Name)
-                query.addQueryItem("Parameter44.Value", parameter44Value)
-                query.addQueryItem("Parameter45.Name", parameter45Name)
-                query.addQueryItem("Parameter45.Value", parameter45Value)
-                query.addQueryItem("Parameter46.Name", parameter46Name)
-                query.addQueryItem("Parameter46.Value", parameter46Value)
-                query.addQueryItem("Parameter47.Name", parameter47Name)
-                query.addQueryItem("Parameter47.Value", parameter47Value)
-                query.addQueryItem("Parameter48.Name", parameter48Name)
-                query.addQueryItem("Parameter48.Value", parameter48Value)
-                query.addQueryItem("Parameter49.Name", parameter49Name)
-                query.addQueryItem("Parameter49.Value", parameter49Value)
-                query.addQueryItem("Parameter5.Name", parameter5Name)
-                query.addQueryItem("Parameter5.Value", parameter5Value)
-                query.addQueryItem("Parameter50.Name", parameter50Name)
-                query.addQueryItem("Parameter50.Value", parameter50Value)
-                query.addQueryItem("Parameter51.Name", parameter51Name)
-                query.addQueryItem("Parameter51.Value", parameter51Value)
-                query.addQueryItem("Parameter52.Name", parameter52Name)
-                query.addQueryItem("Parameter52.Value", parameter52Value)
-                query.addQueryItem("Parameter53.Name", parameter53Name)
-                query.addQueryItem("Parameter53.Value", parameter53Value)
-                query.addQueryItem("Parameter54.Name", parameter54Name)
-                query.addQueryItem("Parameter54.Value", parameter54Value)
-                query.addQueryItem("Parameter55.Name", parameter55Name)
-                query.addQueryItem("Parameter55.Value", parameter55Value)
-                query.addQueryItem("Parameter56.Name", parameter56Name)
-                query.addQueryItem("Parameter56.Value", parameter56Value)
-                query.addQueryItem("Parameter57.Name", parameter57Name)
-                query.addQueryItem("Parameter57.Value", parameter57Value)
-                query.addQueryItem("Parameter58.Name", parameter58Name)
-                query.addQueryItem("Parameter58.Value", parameter58Value)
-                query.addQueryItem("Parameter59.Name", parameter59Name)
-                query.addQueryItem("Parameter59.Value", parameter59Value)
-                query.addQueryItem("Parameter6.Name", parameter6Name)
-                query.addQueryItem("Parameter6.Value", parameter6Value)
-                query.addQueryItem("Parameter60.Name", parameter60Name)
-                query.addQueryItem("Parameter60.Value", parameter60Value)
-                query.addQueryItem("Parameter61.Name", parameter61Name)
-                query.addQueryItem("Parameter61.Value", parameter61Value)
-                query.addQueryItem("Parameter62.Name", parameter62Name)
-                query.addQueryItem("Parameter62.Value", parameter62Value)
-                query.addQueryItem("Parameter63.Name", parameter63Name)
-                query.addQueryItem("Parameter63.Value", parameter63Value)
-                query.addQueryItem("Parameter64.Name", parameter64Name)
-                query.addQueryItem("Parameter64.Value", parameter64Value)
-                query.addQueryItem("Parameter65.Name", parameter65Name)
-                query.addQueryItem("Parameter65.Value", parameter65Value)
-                query.addQueryItem("Parameter66.Name", parameter66Name)
-                query.addQueryItem("Parameter66.Value", parameter66Value)
-                query.addQueryItem("Parameter67.Name", parameter67Name)
-                query.addQueryItem("Parameter67.Value", parameter67Value)
-                query.addQueryItem("Parameter68.Name", parameter68Name)
-                query.addQueryItem("Parameter68.Value", parameter68Value)
-                query.addQueryItem("Parameter69.Name", parameter69Name)
-                query.addQueryItem("Parameter69.Value", parameter69Value)
-                query.addQueryItem("Parameter7.Name", parameter7Name)
-                query.addQueryItem("Parameter7.Value", parameter7Value)
-                query.addQueryItem("Parameter70.Name", parameter70Name)
-                query.addQueryItem("Parameter70.Value", parameter70Value)
-                query.addQueryItem("Parameter71.Name", parameter71Name)
-                query.addQueryItem("Parameter71.Value", parameter71Value)
-                query.addQueryItem("Parameter72.Name", parameter72Name)
-                query.addQueryItem("Parameter72.Value", parameter72Value)
-                query.addQueryItem("Parameter73.Name", parameter73Name)
-                query.addQueryItem("Parameter73.Value", parameter73Value)
-                query.addQueryItem("Parameter74.Name", parameter74Name)
-                query.addQueryItem("Parameter74.Value", parameter74Value)
-                query.addQueryItem("Parameter75.Name", parameter75Name)
-                query.addQueryItem("Parameter75.Value", parameter75Value)
-                query.addQueryItem("Parameter76.Name", parameter76Name)
-                query.addQueryItem("Parameter76.Value", parameter76Value)
-                query.addQueryItem("Parameter77.Name", parameter77Name)
-                query.addQueryItem("Parameter77.Value", parameter77Value)
-                query.addQueryItem("Parameter78.Name", parameter78Name)
-                query.addQueryItem("Parameter78.Value", parameter78Value)
-                query.addQueryItem("Parameter79.Name", parameter79Name)
-                query.addQueryItem("Parameter79.Value", parameter79Value)
-                query.addQueryItem("Parameter8.Name", parameter8Name)
-                query.addQueryItem("Parameter8.Value", parameter8Value)
-                query.addQueryItem("Parameter80.Name", parameter80Name)
-                query.addQueryItem("Parameter80.Value", parameter80Value)
-                query.addQueryItem("Parameter81.Name", parameter81Name)
-                query.addQueryItem("Parameter81.Value", parameter81Value)
-                query.addQueryItem("Parameter82.Name", parameter82Name)
-                query.addQueryItem("Parameter82.Value", parameter82Value)
-                query.addQueryItem("Parameter83.Name", parameter83Name)
-                query.addQueryItem("Parameter83.Value", parameter83Value)
-                query.addQueryItem("Parameter84.Name", parameter84Name)
-                query.addQueryItem("Parameter84.Value", parameter84Value)
-                query.addQueryItem("Parameter85.Name", parameter85Name)
-                query.addQueryItem("Parameter85.Value", parameter85Value)
-                query.addQueryItem("Parameter86.Name", parameter86Name)
-                query.addQueryItem("Parameter86.Value", parameter86Value)
-                query.addQueryItem("Parameter87.Name", parameter87Name)
-                query.addQueryItem("Parameter87.Value", parameter87Value)
-                query.addQueryItem("Parameter88.Name", parameter88Name)
-                query.addQueryItem("Parameter88.Value", parameter88Value)
-                query.addQueryItem("Parameter89.Name", parameter89Name)
-                query.addQueryItem("Parameter89.Value", parameter89Value)
-                query.addQueryItem("Parameter9.Name", parameter9Name)
-                query.addQueryItem("Parameter9.Value", parameter9Value)
-                query.addQueryItem("Parameter90.Name", parameter90Name)
-                query.addQueryItem("Parameter90.Value", parameter90Value)
-                query.addQueryItem("Parameter91.Name", parameter91Name)
-                query.addQueryItem("Parameter91.Value", parameter91Value)
-                query.addQueryItem("Parameter92.Name", parameter92Name)
-                query.addQueryItem("Parameter92.Value", parameter92Value)
-                query.addQueryItem("Parameter93.Name", parameter93Name)
-                query.addQueryItem("Parameter93.Value", parameter93Value)
-                query.addQueryItem("Parameter94.Name", parameter94Name)
-                query.addQueryItem("Parameter94.Value", parameter94Value)
-                query.addQueryItem("Parameter95.Name", parameter95Name)
-                query.addQueryItem("Parameter95.Value", parameter95Value)
-                query.addQueryItem("Parameter96.Name", parameter96Name)
-                query.addQueryItem("Parameter96.Value", parameter96Value)
-                query.addQueryItem("Parameter97.Name", parameter97Name)
-                query.addQueryItem("Parameter97.Value", parameter97Value)
-                query.addQueryItem("Parameter98.Name", parameter98Name)
-                query.addQueryItem("Parameter98.Value", parameter98Value)
-                query.addQueryItem("Parameter99.Name", parameter99Name)
-                query.addQueryItem("Parameter99.Value", parameter99Value)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("Track", track)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ConnectorName": connectorName])
+                encoder.encode(["Name": name])
+                encoder.encode(["Parameter1.Name": parameter1Name])
+                encoder.encode(["Parameter1.Value": parameter1Value])
+                encoder.encode(["Parameter10.Name": parameter10Name])
+                encoder.encode(["Parameter10.Value": parameter10Value])
+                encoder.encode(["Parameter11.Name": parameter11Name])
+                encoder.encode(["Parameter11.Value": parameter11Value])
+                encoder.encode(["Parameter12.Name": parameter12Name])
+                encoder.encode(["Parameter12.Value": parameter12Value])
+                encoder.encode(["Parameter13.Name": parameter13Name])
+                encoder.encode(["Parameter13.Value": parameter13Value])
+                encoder.encode(["Parameter14.Name": parameter14Name])
+                encoder.encode(["Parameter14.Value": parameter14Value])
+                encoder.encode(["Parameter15.Name": parameter15Name])
+                encoder.encode(["Parameter15.Value": parameter15Value])
+                encoder.encode(["Parameter16.Name": parameter16Name])
+                encoder.encode(["Parameter16.Value": parameter16Value])
+                encoder.encode(["Parameter17.Name": parameter17Name])
+                encoder.encode(["Parameter17.Value": parameter17Value])
+                encoder.encode(["Parameter18.Name": parameter18Name])
+                encoder.encode(["Parameter18.Value": parameter18Value])
+                encoder.encode(["Parameter19.Name": parameter19Name])
+                encoder.encode(["Parameter19.Value": parameter19Value])
+                encoder.encode(["Parameter2.Name": parameter2Name])
+                encoder.encode(["Parameter2.Value": parameter2Value])
+                encoder.encode(["Parameter20.Name": parameter20Name])
+                encoder.encode(["Parameter20.Value": parameter20Value])
+                encoder.encode(["Parameter21.Name": parameter21Name])
+                encoder.encode(["Parameter21.Value": parameter21Value])
+                encoder.encode(["Parameter22.Name": parameter22Name])
+                encoder.encode(["Parameter22.Value": parameter22Value])
+                encoder.encode(["Parameter23.Name": parameter23Name])
+                encoder.encode(["Parameter23.Value": parameter23Value])
+                encoder.encode(["Parameter24.Name": parameter24Name])
+                encoder.encode(["Parameter24.Value": parameter24Value])
+                encoder.encode(["Parameter25.Name": parameter25Name])
+                encoder.encode(["Parameter25.Value": parameter25Value])
+                encoder.encode(["Parameter26.Name": parameter26Name])
+                encoder.encode(["Parameter26.Value": parameter26Value])
+                encoder.encode(["Parameter27.Name": parameter27Name])
+                encoder.encode(["Parameter27.Value": parameter27Value])
+                encoder.encode(["Parameter28.Name": parameter28Name])
+                encoder.encode(["Parameter28.Value": parameter28Value])
+                encoder.encode(["Parameter29.Name": parameter29Name])
+                encoder.encode(["Parameter29.Value": parameter29Value])
+                encoder.encode(["Parameter3.Name": parameter3Name])
+                encoder.encode(["Parameter3.Value": parameter3Value])
+                encoder.encode(["Parameter30.Name": parameter30Name])
+                encoder.encode(["Parameter30.Value": parameter30Value])
+                encoder.encode(["Parameter31.Name": parameter31Name])
+                encoder.encode(["Parameter31.Value": parameter31Value])
+                encoder.encode(["Parameter32.Name": parameter32Name])
+                encoder.encode(["Parameter32.Value": parameter32Value])
+                encoder.encode(["Parameter33.Name": parameter33Name])
+                encoder.encode(["Parameter33.Value": parameter33Value])
+                encoder.encode(["Parameter34.Name": parameter34Name])
+                encoder.encode(["Parameter34.Value": parameter34Value])
+                encoder.encode(["Parameter35.Name": parameter35Name])
+                encoder.encode(["Parameter35.Value": parameter35Value])
+                encoder.encode(["Parameter36.Name": parameter36Name])
+                encoder.encode(["Parameter36.Value": parameter36Value])
+                encoder.encode(["Parameter37.Name": parameter37Name])
+                encoder.encode(["Parameter37.Value": parameter37Value])
+                encoder.encode(["Parameter38.Name": parameter38Name])
+                encoder.encode(["Parameter38.Value": parameter38Value])
+                encoder.encode(["Parameter39.Name": parameter39Name])
+                encoder.encode(["Parameter39.Value": parameter39Value])
+                encoder.encode(["Parameter4.Name": parameter4Name])
+                encoder.encode(["Parameter4.Value": parameter4Value])
+                encoder.encode(["Parameter40.Name": parameter40Name])
+                encoder.encode(["Parameter40.Value": parameter40Value])
+                encoder.encode(["Parameter41.Name": parameter41Name])
+                encoder.encode(["Parameter41.Value": parameter41Value])
+                encoder.encode(["Parameter42.Name": parameter42Name])
+                encoder.encode(["Parameter42.Value": parameter42Value])
+                encoder.encode(["Parameter43.Name": parameter43Name])
+                encoder.encode(["Parameter43.Value": parameter43Value])
+                encoder.encode(["Parameter44.Name": parameter44Name])
+                encoder.encode(["Parameter44.Value": parameter44Value])
+                encoder.encode(["Parameter45.Name": parameter45Name])
+                encoder.encode(["Parameter45.Value": parameter45Value])
+                encoder.encode(["Parameter46.Name": parameter46Name])
+                encoder.encode(["Parameter46.Value": parameter46Value])
+                encoder.encode(["Parameter47.Name": parameter47Name])
+                encoder.encode(["Parameter47.Value": parameter47Value])
+                encoder.encode(["Parameter48.Name": parameter48Name])
+                encoder.encode(["Parameter48.Value": parameter48Value])
+                encoder.encode(["Parameter49.Name": parameter49Name])
+                encoder.encode(["Parameter49.Value": parameter49Value])
+                encoder.encode(["Parameter5.Name": parameter5Name])
+                encoder.encode(["Parameter5.Value": parameter5Value])
+                encoder.encode(["Parameter50.Name": parameter50Name])
+                encoder.encode(["Parameter50.Value": parameter50Value])
+                encoder.encode(["Parameter51.Name": parameter51Name])
+                encoder.encode(["Parameter51.Value": parameter51Value])
+                encoder.encode(["Parameter52.Name": parameter52Name])
+                encoder.encode(["Parameter52.Value": parameter52Value])
+                encoder.encode(["Parameter53.Name": parameter53Name])
+                encoder.encode(["Parameter53.Value": parameter53Value])
+                encoder.encode(["Parameter54.Name": parameter54Name])
+                encoder.encode(["Parameter54.Value": parameter54Value])
+                encoder.encode(["Parameter55.Name": parameter55Name])
+                encoder.encode(["Parameter55.Value": parameter55Value])
+                encoder.encode(["Parameter56.Name": parameter56Name])
+                encoder.encode(["Parameter56.Value": parameter56Value])
+                encoder.encode(["Parameter57.Name": parameter57Name])
+                encoder.encode(["Parameter57.Value": parameter57Value])
+                encoder.encode(["Parameter58.Name": parameter58Name])
+                encoder.encode(["Parameter58.Value": parameter58Value])
+                encoder.encode(["Parameter59.Name": parameter59Name])
+                encoder.encode(["Parameter59.Value": parameter59Value])
+                encoder.encode(["Parameter6.Name": parameter6Name])
+                encoder.encode(["Parameter6.Value": parameter6Value])
+                encoder.encode(["Parameter60.Name": parameter60Name])
+                encoder.encode(["Parameter60.Value": parameter60Value])
+                encoder.encode(["Parameter61.Name": parameter61Name])
+                encoder.encode(["Parameter61.Value": parameter61Value])
+                encoder.encode(["Parameter62.Name": parameter62Name])
+                encoder.encode(["Parameter62.Value": parameter62Value])
+                encoder.encode(["Parameter63.Name": parameter63Name])
+                encoder.encode(["Parameter63.Value": parameter63Value])
+                encoder.encode(["Parameter64.Name": parameter64Name])
+                encoder.encode(["Parameter64.Value": parameter64Value])
+                encoder.encode(["Parameter65.Name": parameter65Name])
+                encoder.encode(["Parameter65.Value": parameter65Value])
+                encoder.encode(["Parameter66.Name": parameter66Name])
+                encoder.encode(["Parameter66.Value": parameter66Value])
+                encoder.encode(["Parameter67.Name": parameter67Name])
+                encoder.encode(["Parameter67.Value": parameter67Value])
+                encoder.encode(["Parameter68.Name": parameter68Name])
+                encoder.encode(["Parameter68.Value": parameter68Value])
+                encoder.encode(["Parameter69.Name": parameter69Name])
+                encoder.encode(["Parameter69.Value": parameter69Value])
+                encoder.encode(["Parameter7.Name": parameter7Name])
+                encoder.encode(["Parameter7.Value": parameter7Value])
+                encoder.encode(["Parameter70.Name": parameter70Name])
+                encoder.encode(["Parameter70.Value": parameter70Value])
+                encoder.encode(["Parameter71.Name": parameter71Name])
+                encoder.encode(["Parameter71.Value": parameter71Value])
+                encoder.encode(["Parameter72.Name": parameter72Name])
+                encoder.encode(["Parameter72.Value": parameter72Value])
+                encoder.encode(["Parameter73.Name": parameter73Name])
+                encoder.encode(["Parameter73.Value": parameter73Value])
+                encoder.encode(["Parameter74.Name": parameter74Name])
+                encoder.encode(["Parameter74.Value": parameter74Value])
+                encoder.encode(["Parameter75.Name": parameter75Name])
+                encoder.encode(["Parameter75.Value": parameter75Value])
+                encoder.encode(["Parameter76.Name": parameter76Name])
+                encoder.encode(["Parameter76.Value": parameter76Value])
+                encoder.encode(["Parameter77.Name": parameter77Name])
+                encoder.encode(["Parameter77.Value": parameter77Value])
+                encoder.encode(["Parameter78.Name": parameter78Name])
+                encoder.encode(["Parameter78.Value": parameter78Value])
+                encoder.encode(["Parameter79.Name": parameter79Name])
+                encoder.encode(["Parameter79.Value": parameter79Value])
+                encoder.encode(["Parameter8.Name": parameter8Name])
+                encoder.encode(["Parameter8.Value": parameter8Value])
+                encoder.encode(["Parameter80.Name": parameter80Name])
+                encoder.encode(["Parameter80.Value": parameter80Value])
+                encoder.encode(["Parameter81.Name": parameter81Name])
+                encoder.encode(["Parameter81.Value": parameter81Value])
+                encoder.encode(["Parameter82.Name": parameter82Name])
+                encoder.encode(["Parameter82.Value": parameter82Value])
+                encoder.encode(["Parameter83.Name": parameter83Name])
+                encoder.encode(["Parameter83.Value": parameter83Value])
+                encoder.encode(["Parameter84.Name": parameter84Name])
+                encoder.encode(["Parameter84.Value": parameter84Value])
+                encoder.encode(["Parameter85.Name": parameter85Name])
+                encoder.encode(["Parameter85.Value": parameter85Value])
+                encoder.encode(["Parameter86.Name": parameter86Name])
+                encoder.encode(["Parameter86.Value": parameter86Value])
+                encoder.encode(["Parameter87.Name": parameter87Name])
+                encoder.encode(["Parameter87.Value": parameter87Value])
+                encoder.encode(["Parameter88.Name": parameter88Name])
+                encoder.encode(["Parameter88.Value": parameter88Value])
+                encoder.encode(["Parameter89.Name": parameter89Name])
+                encoder.encode(["Parameter89.Value": parameter89Value])
+                encoder.encode(["Parameter9.Name": parameter9Name])
+                encoder.encode(["Parameter9.Value": parameter9Value])
+                encoder.encode(["Parameter90.Name": parameter90Name])
+                encoder.encode(["Parameter90.Value": parameter90Value])
+                encoder.encode(["Parameter91.Name": parameter91Name])
+                encoder.encode(["Parameter91.Value": parameter91Value])
+                encoder.encode(["Parameter92.Name": parameter92Name])
+                encoder.encode(["Parameter92.Value": parameter92Value])
+                encoder.encode(["Parameter93.Name": parameter93Name])
+                encoder.encode(["Parameter93.Value": parameter93Value])
+                encoder.encode(["Parameter94.Name": parameter94Name])
+                encoder.encode(["Parameter94.Value": parameter94Value])
+                encoder.encode(["Parameter95.Name": parameter95Name])
+                encoder.encode(["Parameter95.Value": parameter95Value])
+                encoder.encode(["Parameter96.Name": parameter96Name])
+                encoder.encode(["Parameter96.Value": parameter96Value])
+                encoder.encode(["Parameter97.Name": parameter97Name])
+                encoder.encode(["Parameter97.Value": parameter97Value])
+                encoder.encode(["Parameter98.Name": parameter98Name])
+                encoder.encode(["Parameter98.Value": parameter98Value])
+                encoder.encode(["Parameter99.Name": parameter99Name])
+                encoder.encode(["Parameter99.Value": parameter99Value])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["Track": track])
+                return encoder.items
             }
         }
     }
@@ -3701,9 +3702,9 @@ extension Paths.Accounts.WithAccountSid.Calls.WithCallSid.Siprec {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Status", status)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Status": status])
+                return encoder.items
             }
         }
     }
@@ -3798,17 +3799,17 @@ extension Paths.Accounts.WithAccountSid.Calls {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FallbackMethod", fallbackMethod)
-                query.addQueryItem("FallbackUrl", fallbackURL)
-                query.addQueryItem("Method", method)
-                query.addQueryItem("Status", status)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TimeLimit", timeLimit)
-                query.addQueryItem("Twiml", twiml)
-                query.addQueryItem("Url", url)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FallbackMethod": fallbackMethod])
+                encoder.encode(["FallbackUrl": fallbackURL])
+                encoder.encode(["Method": method])
+                encoder.encode(["Status": status])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TimeLimit": timeLimit])
+                encoder.encode(["Twiml": twiml])
+                encoder.encode(["Url": url])
+                return encoder.items
             }
         }
 
@@ -3900,17 +3901,17 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
-                query.addQueryItem("DateUpdated", dateUpdated)
-                query.addQueryItem("DateUpdated<", dateUpdatedLessThan)
-                query.addQueryItem("DateUpdated>", dateUpdatedGreaterThan)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("Status", status)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["DateCreated": dateCreated])
+                encoder.encode(["DateCreated<": dateCreatedLessThan])
+                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
+                encoder.encode(["DateUpdated": dateUpdated])
+                encoder.encode(["DateUpdated<": dateUpdatedLessThan])
+                encoder.encode(["DateUpdated>": dateUpdatedGreaterThan])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["Status": status])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -4003,12 +4004,12 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Muted", isMuted)
-                query.addQueryItem("Hold", isHold)
-                query.addQueryItem("Coaching", isCoaching)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Muted": isMuted])
+                encoder.encode(["Hold": isHold])
+                encoder.encode(["Coaching": isCoaching])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -4190,47 +4191,47 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Beep", beep)
-                query.addQueryItem("Byoc", byoc)
-                query.addQueryItem("CallReason", callReason)
-                query.addQueryItem("CallSidToCoach", callSidToCoach)
-                query.addQueryItem("CallerId", callerID)
-                query.addQueryItem("Coaching", isCoaching)
-                query.addQueryItem("ConferenceRecord", conferenceRecord)
-                query.addQueryItem("ConferenceRecordingStatusCallback", conferenceRecordingStatusCallback)
-                conferenceRecordingStatusCallbackEvent?.forEach { query.addQueryItem("ConferenceRecordingStatusCallbackEvent", $0) }
-                query.addQueryItem("ConferenceRecordingStatusCallbackMethod", conferenceRecordingStatusCallbackMethod)
-                query.addQueryItem("ConferenceStatusCallback", conferenceStatusCallback)
-                conferenceStatusCallbackEvent?.forEach { query.addQueryItem("ConferenceStatusCallbackEvent", $0) }
-                query.addQueryItem("ConferenceStatusCallbackMethod", conferenceStatusCallbackMethod)
-                query.addQueryItem("ConferenceTrim", conferenceTrim)
-                query.addQueryItem("EarlyMedia", isEarlyMedia)
-                query.addQueryItem("EndConferenceOnExit", isEndConferenceOnExit)
-                query.addQueryItem("From", from)
-                query.addQueryItem("JitterBufferSize", jitterBufferSize)
-                query.addQueryItem("Label", label)
-                query.addQueryItem("MaxParticipants", maxParticipants)
-                query.addQueryItem("Muted", isMuted)
-                query.addQueryItem("Record", isRecord)
-                query.addQueryItem("RecordingChannels", recordingChannels)
-                query.addQueryItem("RecordingStatusCallback", recordingStatusCallback)
-                recordingStatusCallbackEvent?.forEach { query.addQueryItem("RecordingStatusCallbackEvent", $0) }
-                query.addQueryItem("RecordingStatusCallbackMethod", recordingStatusCallbackMethod)
-                query.addQueryItem("RecordingTrack", recordingTrack)
-                query.addQueryItem("Region", region)
-                query.addQueryItem("SipAuthPassword", sipAuthPassword)
-                query.addQueryItem("SipAuthUsername", sipAuthUsername)
-                query.addQueryItem("StartConferenceOnEnter", isStartConferenceOnEnter)
-                query.addQueryItem("StatusCallback", statusCallback)
-                statusCallbackEvent?.forEach { query.addQueryItem("StatusCallbackEvent", $0) }
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TimeLimit", timeLimit)
-                query.addQueryItem("Timeout", timeout)
-                query.addQueryItem("To", to)
-                query.addQueryItem("WaitMethod", waitMethod)
-                query.addQueryItem("WaitUrl", waitURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Beep": beep])
+                encoder.encode(["Byoc": byoc])
+                encoder.encode(["CallReason": callReason])
+                encoder.encode(["CallSidToCoach": callSidToCoach])
+                encoder.encode(["CallerId": callerID])
+                encoder.encode(["Coaching": isCoaching])
+                encoder.encode(["ConferenceRecord": conferenceRecord])
+                encoder.encode(["ConferenceRecordingStatusCallback": conferenceRecordingStatusCallback])
+                encoder.encode(["ConferenceRecordingStatusCallbackEvent": conferenceRecordingStatusCallbackEvent])
+                encoder.encode(["ConferenceRecordingStatusCallbackMethod": conferenceRecordingStatusCallbackMethod])
+                encoder.encode(["ConferenceStatusCallback": conferenceStatusCallback])
+                encoder.encode(["ConferenceStatusCallbackEvent": conferenceStatusCallbackEvent])
+                encoder.encode(["ConferenceStatusCallbackMethod": conferenceStatusCallbackMethod])
+                encoder.encode(["ConferenceTrim": conferenceTrim])
+                encoder.encode(["EarlyMedia": isEarlyMedia])
+                encoder.encode(["EndConferenceOnExit": isEndConferenceOnExit])
+                encoder.encode(["From": from])
+                encoder.encode(["JitterBufferSize": jitterBufferSize])
+                encoder.encode(["Label": label])
+                encoder.encode(["MaxParticipants": maxParticipants])
+                encoder.encode(["Muted": isMuted])
+                encoder.encode(["Record": isRecord])
+                encoder.encode(["RecordingChannels": recordingChannels])
+                encoder.encode(["RecordingStatusCallback": recordingStatusCallback])
+                encoder.encode(["RecordingStatusCallbackEvent": recordingStatusCallbackEvent])
+                encoder.encode(["RecordingStatusCallbackMethod": recordingStatusCallbackMethod])
+                encoder.encode(["RecordingTrack": recordingTrack])
+                encoder.encode(["Region": region])
+                encoder.encode(["SipAuthPassword": sipAuthPassword])
+                encoder.encode(["SipAuthUsername": sipAuthUsername])
+                encoder.encode(["StartConferenceOnEnter": isStartConferenceOnEnter])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackEvent": statusCallbackEvent])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TimeLimit": timeLimit])
+                encoder.encode(["Timeout": timeout])
+                encoder.encode(["To": to])
+                encoder.encode(["WaitMethod": waitMethod])
+                encoder.encode(["WaitUrl": waitURL])
+                return encoder.items
             }
         }
     }
@@ -4339,20 +4340,20 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Participan
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AnnounceMethod", announceMethod)
-                query.addQueryItem("AnnounceUrl", announceURL)
-                query.addQueryItem("BeepOnExit", isBeepOnExit)
-                query.addQueryItem("CallSidToCoach", callSidToCoach)
-                query.addQueryItem("Coaching", isCoaching)
-                query.addQueryItem("EndConferenceOnExit", isEndConferenceOnExit)
-                query.addQueryItem("Hold", isHold)
-                query.addQueryItem("HoldMethod", holdMethod)
-                query.addQueryItem("HoldUrl", holdURL)
-                query.addQueryItem("Muted", isMuted)
-                query.addQueryItem("WaitMethod", waitMethod)
-                query.addQueryItem("WaitUrl", waitURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AnnounceMethod": announceMethod])
+                encoder.encode(["AnnounceUrl": announceURL])
+                encoder.encode(["BeepOnExit": isBeepOnExit])
+                encoder.encode(["CallSidToCoach": callSidToCoach])
+                encoder.encode(["Coaching": isCoaching])
+                encoder.encode(["EndConferenceOnExit": isEndConferenceOnExit])
+                encoder.encode(["Hold": isHold])
+                encoder.encode(["HoldMethod": holdMethod])
+                encoder.encode(["HoldUrl": holdURL])
+                encoder.encode(["Muted": isMuted])
+                encoder.encode(["WaitMethod": waitMethod])
+                encoder.encode(["WaitUrl": waitURL])
+                return encoder.items
             }
         }
 
@@ -4428,12 +4429,12 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["DateCreated": dateCreated])
+                encoder.encode(["DateCreated<": dateCreatedLessThan])
+                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -4492,10 +4493,10 @@ extension Paths.Accounts.WithAccountSid.Conferences.WithConferenceSid.Recordings
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("PauseBehavior", pauseBehavior)
-                query.addQueryItem("Status", status)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["PauseBehavior": pauseBehavior])
+                encoder.encode(["Status": status])
+                return encoder.items
             }
         }
 
@@ -4555,11 +4556,11 @@ extension Paths.Accounts.WithAccountSid.Conferences {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AnnounceMethod", announceMethod)
-                query.addQueryItem("AnnounceUrl", announceURL)
-                query.addQueryItem("Status", status)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AnnounceMethod": announceMethod])
+                encoder.encode(["AnnounceUrl": announceURL])
+                encoder.encode(["Status": status])
+                return encoder.items
             }
         }
     }
@@ -4617,9 +4618,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -4700,16 +4701,16 @@ extension Paths.Accounts.WithAccountSid.ConnectApps {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AuthorizeRedirectUrl", authorizeRedirectURL)
-                query.addQueryItem("CompanyName", companyName)
-                query.addQueryItem("DeauthorizeCallbackMethod", deauthorizeCallbackMethod)
-                query.addQueryItem("DeauthorizeCallbackUrl", deauthorizeCallbackURL)
-                query.addQueryItem("Description", description)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("HomepageUrl", homepageURL)
-                permissions?.forEach { query.addQueryItem("Permissions", $0) }
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AuthorizeRedirectUrl": authorizeRedirectURL])
+                encoder.encode(["CompanyName": companyName])
+                encoder.encode(["DeauthorizeCallbackMethod": deauthorizeCallbackMethod])
+                encoder.encode(["DeauthorizeCallbackUrl": deauthorizeCallbackURL])
+                encoder.encode(["Description": description])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["HomepageUrl": homepageURL])
+                encoder.encode(["Permissions": permissions])
+                return encoder.items
             }
         }
 
@@ -4787,13 +4788,13 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("Origin", origin)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["Origin": origin])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -4943,32 +4944,32 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid)
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("AreaCode", areaCode)
-                query.addQueryItem("BundleSid", bundleSid)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
-                query.addQueryItem("EmergencyStatus", emergencyStatus)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IdentitySid", identitySid)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TrunkSid", trunkSid)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AddressSid": addressSid])
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["AreaCode": areaCode])
+                encoder.encode(["BundleSid": bundleSid])
+                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
+                encoder.encode(["EmergencyStatus": emergencyStatus])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IdentitySid": identitySid])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["SmsApplicationSid": smsApplicationSid])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TrunkSid": trunkSid])
+                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
     }
@@ -5051,13 +5052,13 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("Origin", origin)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["Origin": origin])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -5203,31 +5204,31 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid)
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("BundleSid", bundleSid)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
-                query.addQueryItem("EmergencyStatus", emergencyStatus)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IdentitySid", identitySid)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TrunkSid", trunkSid)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AddressSid": addressSid])
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["BundleSid": bundleSid])
+                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
+                encoder.encode(["EmergencyStatus": emergencyStatus])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IdentitySid": identitySid])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["SmsApplicationSid": smsApplicationSid])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TrunkSid": trunkSid])
+                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
     }
@@ -5299,13 +5300,13 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("Origin", origin)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["Origin": origin])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -5451,31 +5452,31 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid)
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("BundleSid", bundleSid)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
-                query.addQueryItem("EmergencyStatus", emergencyStatus)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IdentitySid", identitySid)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TrunkSid", trunkSid)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AddressSid": addressSid])
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["BundleSid": bundleSid])
+                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
+                encoder.encode(["EmergencyStatus": emergencyStatus])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IdentitySid": identitySid])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["SmsApplicationSid": smsApplicationSid])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TrunkSid": trunkSid])
+                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
     }
@@ -5547,13 +5548,13 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Beta", isBeta)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("Origin", origin)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Beta": isBeta])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["Origin": origin])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -5699,31 +5700,31 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AddressSid", addressSid)
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("BundleSid", bundleSid)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
-                query.addQueryItem("EmergencyStatus", emergencyStatus)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IdentitySid", identitySid)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TrunkSid", trunkSid)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AddressSid": addressSid])
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["BundleSid": bundleSid])
+                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
+                encoder.encode(["EmergencyStatus": emergencyStatus])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IdentitySid": identitySid])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["SmsApplicationSid": smsApplicationSid])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TrunkSid": trunkSid])
+                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
     }
@@ -5792,9 +5793,9 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Assign an Add-on installation to the Number specified.
@@ -5812,9 +5813,9 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("InstalledAddOnSid", installedAddOnSid)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["InstalledAddOnSid": installedAddOnSid])
+                return encoder.items
             }
         }
     }
@@ -5894,9 +5895,9 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers.WithResourceSid.Ass
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -6106,31 +6107,31 @@ extension Paths.Accounts.WithAccountSid.IncomingPhoneNumbers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AccountSid", accountSid)
-                query.addQueryItem("AddressSid", addressSid)
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("BundleSid", bundleSid)
-                query.addQueryItem("EmergencyAddressSid", emergencyAddressSid)
-                query.addQueryItem("EmergencyStatus", emergencyStatus)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IdentitySid", identitySid)
-                query.addQueryItem("SmsApplicationSid", smsApplicationSid)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsUrl", smsURL)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                query.addQueryItem("TrunkSid", trunkSid)
-                query.addQueryItem("VoiceApplicationSid", voiceApplicationSid)
-                query.addQueryItem("VoiceCallerIdLookup", isVoiceCallerIDLookup)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceReceiveMode", voiceReceiveMode)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AccountSid": accountSid])
+                encoder.encode(["AddressSid": addressSid])
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["BundleSid": bundleSid])
+                encoder.encode(["EmergencyAddressSid": emergencyAddressSid])
+                encoder.encode(["EmergencyStatus": emergencyStatus])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IdentitySid": identitySid])
+                encoder.encode(["SmsApplicationSid": smsApplicationSid])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsUrl": smsURL])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                encoder.encode(["TrunkSid": trunkSid])
+                encoder.encode(["VoiceApplicationSid": voiceApplicationSid])
+                encoder.encode(["VoiceCallerIdLookup": isVoiceCallerIDLookup])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceReceiveMode": voiceReceiveMode])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
 
@@ -6192,9 +6193,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         public func post(_ body: PostRequest? = nil) -> Request<TwilioAPI.APIV2010AccountNewKey> {
@@ -6211,9 +6212,9 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
     }
@@ -6257,9 +6258,9 @@ extension Paths.Accounts.WithAccountSid.Keys {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
 
@@ -6338,14 +6339,14 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("To", to)
-                query.addQueryItem("From", from)
-                query.addQueryItem("DateSent", dateSent)
-                query.addQueryItem("DateSent<", dateSentLessThan)
-                query.addQueryItem("DateSent>", dateSentGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["To": to])
+                encoder.encode(["From": from])
+                encoder.encode(["DateSent": dateSent])
+                encoder.encode(["DateSent<": dateSentLessThan])
+                encoder.encode(["DateSent>": dateSentGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -6422,25 +6423,25 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("AddressRetention", addressRetention)
-                query.addQueryItem("ApplicationSid", applicationSid)
-                query.addQueryItem("Attempt", attempt)
-                query.addQueryItem("Body", body)
-                query.addQueryItem("ContentRetention", contentRetention)
-                query.addQueryItem("ForceDelivery", isForceDelivery)
-                query.addQueryItem("From", from)
-                query.addQueryItem("MaxPrice", maxPrice)
-                mediaURL?.forEach { query.addQueryItem("MediaUrl", $0) }
-                query.addQueryItem("MessagingServiceSid", messagingServiceSid)
-                persistentAction?.forEach { query.addQueryItem("PersistentAction", $0) }
-                query.addQueryItem("ProvideFeedback", isProvideFeedback)
-                query.addQueryItem("SendAsMms", isSendAsMms)
-                query.addQueryItem("SmartEncoded", isSmartEncoded)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("To", to)
-                query.addQueryItem("ValidityPeriod", validityPeriod)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["AddressRetention": addressRetention])
+                encoder.encode(["ApplicationSid": applicationSid])
+                encoder.encode(["Attempt": attempt])
+                encoder.encode(["Body": body])
+                encoder.encode(["ContentRetention": contentRetention])
+                encoder.encode(["ForceDelivery": isForceDelivery])
+                encoder.encode(["From": from])
+                encoder.encode(["MaxPrice": maxPrice])
+                encoder.encode(["MediaUrl": mediaURL])
+                encoder.encode(["MessagingServiceSid": messagingServiceSid])
+                encoder.encode(["PersistentAction": persistentAction])
+                encoder.encode(["ProvideFeedback": isProvideFeedback])
+                encoder.encode(["SendAsMms": isSendAsMms])
+                encoder.encode(["SmartEncoded": isSmartEncoded])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["To": to])
+                encoder.encode(["ValidityPeriod": validityPeriod])
+                return encoder.items
             }
         }
     }
@@ -6497,9 +6498,9 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Outcome", outcome)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Outcome": outcome])
+                return encoder.items
             }
         }
     }
@@ -6570,12 +6571,12 @@ extension Paths.Accounts.WithAccountSid.Messages.WithMessageSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["DateCreated": dateCreated])
+                encoder.encode(["DateCreated<": dateCreatedLessThan])
+                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -6642,9 +6643,9 @@ extension Paths.Accounts.WithAccountSid.Messages {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Body", body)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Body": body])
+                return encoder.items
             }
         }
 
@@ -6722,13 +6723,13 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Log", log)
-                query.addQueryItem("MessageDate", messageDate)
-                query.addQueryItem("MessageDate<", messageDateLessThan)
-                query.addQueryItem("MessageDate>", messageDateGreaterThan)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Log": log])
+                encoder.encode(["MessageDate": messageDate])
+                encoder.encode(["MessageDate<": messageDateLessThan])
+                encoder.encode(["MessageDate>": messageDateGreaterThan])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -6824,11 +6825,11 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -6871,14 +6872,14 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CallDelay", callDelay)
-                query.addQueryItem("Extension", `extension`)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("PhoneNumber", phoneNumber)
-                query.addQueryItem("StatusCallback", statusCallback)
-                query.addQueryItem("StatusCallbackMethod", statusCallbackMethod)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CallDelay": callDelay])
+                encoder.encode(["Extension": `extension`])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["PhoneNumber": phoneNumber])
+                encoder.encode(["StatusCallback": statusCallback])
+                encoder.encode(["StatusCallbackMethod": statusCallbackMethod])
+                return encoder.items
             }
         }
     }
@@ -6924,9 +6925,9 @@ extension Paths.Accounts.WithAccountSid.OutgoingCallerIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
 
@@ -6989,9 +6990,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a queue
@@ -7012,10 +7013,10 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("MaxSize", maxSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["MaxSize": maxSize])
+                return encoder.items
             }
         }
     }
@@ -7095,9 +7096,9 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -7155,10 +7156,10 @@ extension Paths.Accounts.WithAccountSid.Queues.WithQueueSid.Members {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Method", method)
-                query.addQueryItem("Url", url)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Method": method])
+                encoder.encode(["Url": url])
+                return encoder.items
             }
         }
     }
@@ -7196,10 +7197,10 @@ extension Paths.Accounts.WithAccountSid.Queues {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("MaxSize", maxSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["MaxSize": maxSize])
+                return encoder.items
             }
         }
 
@@ -7279,14 +7280,14 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("DateCreated", dateCreated)
-                query.addQueryItem("DateCreated<", dateCreatedLessThan)
-                query.addQueryItem("DateCreated>", dateCreatedGreaterThan)
-                query.addQueryItem("CallSid", callSid)
-                query.addQueryItem("ConferenceSid", conferenceSid)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["DateCreated": dateCreated])
+                encoder.encode(["DateCreated<": dateCreatedLessThan])
+                encoder.encode(["DateCreated>": dateCreatedGreaterThan])
+                encoder.encode(["CallSid": callSid])
+                encoder.encode(["ConferenceSid": conferenceSid])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -7365,9 +7366,9 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithRecordingSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -7465,9 +7466,9 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithReferenceSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -7546,9 +7547,9 @@ extension Paths.Accounts.WithAccountSid.Recordings.WithReferenceSid.AddOnResults
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -7690,9 +7691,9 @@ extension Paths.Accounts.WithAccountSid.Sip {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a Credential List
@@ -7710,9 +7711,9 @@ extension Paths.Accounts.WithAccountSid.Sip {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
     }
@@ -7792,9 +7793,9 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new credential resource.
@@ -7815,10 +7816,10 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Password", password)
-                query.addQueryItem("Username", username)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Password": password])
+                encoder.encode(["Username": username])
+                return encoder.items
             }
         }
     }
@@ -7864,9 +7865,9 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists.WithCredentialListSi
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Password", password)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Password": password])
+                return encoder.items
             }
         }
 
@@ -7906,9 +7907,9 @@ extension Paths.Accounts.WithAccountSid.Sip.CredentialLists {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
 
@@ -7971,9 +7972,9 @@ extension Paths.Accounts.WithAccountSid.Sip {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new Domain
@@ -8057,21 +8058,21 @@ extension Paths.Accounts.WithAccountSid.Sip {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ByocTrunkSid", byocTrunkSid)
-                query.addQueryItem("DomainName", domainName)
-                query.addQueryItem("EmergencyCallerSid", emergencyCallerSid)
-                query.addQueryItem("EmergencyCallingEnabled", isEmergencyCallingEnabled)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("Secure", isSecure)
-                query.addQueryItem("SipRegistration", isSipRegistration)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod)
-                query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ByocTrunkSid": byocTrunkSid])
+                encoder.encode(["DomainName": domainName])
+                encoder.encode(["EmergencyCallerSid": emergencyCallerSid])
+                encoder.encode(["EmergencyCallingEnabled": isEmergencyCallingEnabled])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["Secure": isSecure])
+                encoder.encode(["SipRegistration": isSipRegistration])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceStatusCallbackMethod": voiceStatusCallbackMethod])
+                encoder.encode(["VoiceStatusCallbackUrl": voiceStatusCallbackURL])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
     }
@@ -8173,9 +8174,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new credential list mapping resource
@@ -8193,9 +8194,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CredentialListSid", credentialListSid)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CredentialListSid": credentialListSid])
+                return encoder.items
             }
         }
     }
@@ -8285,9 +8286,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new IP Access Control List mapping
@@ -8305,9 +8306,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Calls {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["IpAccessControlListSid": ipAccessControlListSid])
+                return encoder.items
             }
         }
     }
@@ -8408,9 +8409,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new credential list mapping resource
@@ -8428,9 +8429,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid.Auth.Registrat
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CredentialListSid", credentialListSid)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CredentialListSid": credentialListSid])
+                return encoder.items
             }
         }
     }
@@ -8520,9 +8521,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a CredentialListMapping resource for an account.
@@ -8540,9 +8541,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CredentialListSid", credentialListSid)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CredentialListSid": credentialListSid])
+                return encoder.items
             }
         }
     }
@@ -8632,9 +8633,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new IpAccessControlListMapping resource.
@@ -8652,9 +8653,9 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains.WithDomainSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("IpAccessControlListSid", ipAccessControlListSid)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["IpAccessControlListSid": ipAccessControlListSid])
+                return encoder.items
             }
         }
     }
@@ -8787,21 +8788,21 @@ extension Paths.Accounts.WithAccountSid.Sip.Domains {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ByocTrunkSid", byocTrunkSid)
-                query.addQueryItem("DomainName", domainName)
-                query.addQueryItem("EmergencyCallerSid", emergencyCallerSid)
-                query.addQueryItem("EmergencyCallingEnabled", isEmergencyCallingEnabled)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("Secure", isSecure)
-                query.addQueryItem("SipRegistration", isSipRegistration)
-                query.addQueryItem("VoiceFallbackMethod", voiceFallbackMethod)
-                query.addQueryItem("VoiceFallbackUrl", voiceFallbackURL)
-                query.addQueryItem("VoiceMethod", voiceMethod)
-                query.addQueryItem("VoiceStatusCallbackMethod", voiceStatusCallbackMethod)
-                query.addQueryItem("VoiceStatusCallbackUrl", voiceStatusCallbackURL)
-                query.addQueryItem("VoiceUrl", voiceURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ByocTrunkSid": byocTrunkSid])
+                encoder.encode(["DomainName": domainName])
+                encoder.encode(["EmergencyCallerSid": emergencyCallerSid])
+                encoder.encode(["EmergencyCallingEnabled": isEmergencyCallingEnabled])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["Secure": isSecure])
+                encoder.encode(["SipRegistration": isSipRegistration])
+                encoder.encode(["VoiceFallbackMethod": voiceFallbackMethod])
+                encoder.encode(["VoiceFallbackUrl": voiceFallbackURL])
+                encoder.encode(["VoiceMethod": voiceMethod])
+                encoder.encode(["VoiceStatusCallbackMethod": voiceStatusCallbackMethod])
+                encoder.encode(["VoiceStatusCallbackUrl": voiceStatusCallbackURL])
+                encoder.encode(["VoiceUrl": voiceURL])
+                return encoder.items
             }
         }
 
@@ -8864,9 +8865,9 @@ extension Paths.Accounts.WithAccountSid.Sip {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new IpAccessControlList resource
@@ -8884,9 +8885,9 @@ extension Paths.Accounts.WithAccountSid.Sip {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
     }
@@ -8966,9 +8967,9 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new IpAddress resource.
@@ -8992,11 +8993,11 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CidrPrefixLength", cidrPrefixLength)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IpAddress", ipAddress)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CidrPrefixLength": cidrPrefixLength])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IpAddress": ipAddress])
+                return encoder.items
             }
         }
     }
@@ -9048,11 +9049,11 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists.WithIpAccessCon
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CidrPrefixLength", cidrPrefixLength)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("IpAddress", ipAddress)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CidrPrefixLength": cidrPrefixLength])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["IpAddress": ipAddress])
+                return encoder.items
             }
         }
 
@@ -9092,9 +9093,9 @@ extension Paths.Accounts.WithAccountSid.Sip.IpAccessControlLists {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
 
@@ -9179,11 +9180,11 @@ extension Paths.Accounts.WithAccountSid.Sms {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("ShortCode", shortCode)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["ShortCode": shortCode])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -9264,14 +9265,14 @@ extension Paths.Accounts.WithAccountSid.Sms.ShortCodes {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("ApiVersion", apiVersion)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("SmsFallbackMethod", smsFallbackMethod)
-                query.addQueryItem("SmsFallbackUrl", smsFallbackURL)
-                query.addQueryItem("SmsMethod", smsMethod)
-                query.addQueryItem("SmsUrl", smsURL)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["ApiVersion": apiVersion])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["SmsFallbackMethod": smsFallbackMethod])
+                encoder.encode(["SmsFallbackUrl": smsFallbackURL])
+                encoder.encode(["SmsMethod": smsMethod])
+                encoder.encode(["SmsUrl": smsURL])
+                return encoder.items
             }
         }
     }
@@ -9328,9 +9329,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
 
         /// Create a new Signing Key for the account making the request.
@@ -9348,9 +9349,9 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
     }
@@ -9393,9 +9394,9 @@ extension Paths.Accounts.WithAccountSid.SigningKeys {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
 
@@ -9429,9 +9430,9 @@ extension Paths.Accounts.WithAccountSid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Ttl", ttl)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Ttl": ttl])
+                return encoder.items
             }
         }
     }
@@ -9489,9 +9490,9 @@ extension Paths.Accounts.WithAccountSid {
         }
 
         private func makeGetQuery(_ pageSize: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("PageSize", pageSize)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["PageSize": pageSize])
+            return encoder.items
         }
     }
 }
@@ -9849,13 +9850,13 @@ extension Paths.Accounts.WithAccountSid.Usage {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -10181,13 +10182,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -10502,13 +10503,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -10823,13 +10824,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -11144,13 +11145,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -11465,13 +11466,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -11786,13 +11787,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -12107,13 +12108,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -12428,13 +12429,13 @@ extension Paths.Accounts.WithAccountSid.Usage.Records {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Category", category)
-                query.addQueryItem("StartDate", startDate)
-                query.addQueryItem("EndDate", endDate)
-                query.addQueryItem("IncludeSubaccounts", isIncludeSubaccounts)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Category": category])
+                encoder.encode(["StartDate": startDate])
+                encoder.encode(["EndDate": endDate])
+                encoder.encode(["IncludeSubaccounts": isIncludeSubaccounts])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
     }
@@ -12761,12 +12762,12 @@ extension Paths.Accounts.WithAccountSid.Usage {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("Recurring", recurring)
-                query.addQueryItem("TriggerBy", triggerBy)
-                query.addQueryItem("UsageCategory", usageCategory)
-                query.addQueryItem("PageSize", pageSize)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["Recurring": recurring])
+                encoder.encode(["TriggerBy": triggerBy])
+                encoder.encode(["UsageCategory": usageCategory])
+                encoder.encode(["PageSize": pageSize])
+                return encoder.items
             }
         }
 
@@ -13072,15 +13073,15 @@ extension Paths.Accounts.WithAccountSid.Usage {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CallbackMethod", callbackMethod)
-                query.addQueryItem("CallbackUrl", callbackURL)
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("Recurring", recurring)
-                query.addQueryItem("TriggerBy", triggerBy)
-                query.addQueryItem("TriggerValue", triggerValue)
-                query.addQueryItem("UsageCategory", usageCategory)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CallbackMethod": callbackMethod])
+                encoder.encode(["CallbackUrl": callbackURL])
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["Recurring": recurring])
+                encoder.encode(["TriggerBy": triggerBy])
+                encoder.encode(["TriggerValue": triggerValue])
+                encoder.encode(["UsageCategory": usageCategory])
+                return encoder.items
             }
         }
     }
@@ -13142,11 +13143,11 @@ extension Paths.Accounts.WithAccountSid.Usage.Triggers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("CallbackMethod", callbackMethod)
-                query.addQueryItem("CallbackUrl", callbackURL)
-                query.addQueryItem("FriendlyName", friendlyName)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["CallbackMethod": callbackMethod])
+                encoder.encode(["CallbackUrl": callbackURL])
+                encoder.encode(["FriendlyName": friendlyName])
+                return encoder.items
             }
         }
 
@@ -13195,105 +13196,13 @@ extension Paths.Accounts {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("FriendlyName", friendlyName)
-                query.addQueryItem("Status", status)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["FriendlyName": friendlyName])
+                encoder.encode(["Status": status])
+                return encoder.items
             }
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension NaiveDate: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

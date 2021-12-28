@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths.Albums {
     public func id(_ id: String) -> WithID {
@@ -25,9 +26,9 @@ extension Paths.Albums {
         }
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -91,11 +92,11 @@ extension Paths.Albums.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("market", market)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["market": market])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -120,10 +121,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ ids: String, _ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -208,12 +209,12 @@ extension Paths.Artists.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("include_groups", includeGroups)
-                query.addQueryItem("market", market)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["include_groups": includeGroups])
+                encoder.encode(["market": market])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -258,9 +259,9 @@ extension Paths.Artists.WithID {
         }
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -284,9 +285,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -332,11 +333,11 @@ extension Paths.Browse.Categories.WithCategoryID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("country", country)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["country": country])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -361,10 +362,10 @@ extension Paths.Browse.Categories {
         }
 
         private func makeGetQuery(_ country: String?, _ locale: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("country", country)
-            query.addQueryItem("locale", locale)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["country": country])
+            encoder.encode(["locale": locale])
+            return encoder.items
         }
     }
 }
@@ -401,12 +402,12 @@ extension Paths.Browse {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("country", country)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["country": country])
+                encoder.encode(["locale": locale])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -446,13 +447,13 @@ extension Paths.Browse {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("country", country)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("timestamp", timestamp)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["country": country])
+                encoder.encode(["locale": locale])
+                encoder.encode(["timestamp": timestamp])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -488,11 +489,11 @@ extension Paths.Browse {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("country", country)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["country": country])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -636,55 +637,55 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("market", market)
-                query.addQueryItem("seed_artists", seedArtists)
-                query.addQueryItem("seed_genres", seedGenres)
-                query.addQueryItem("seed_tracks", seedTracks)
-                query.addQueryItem("min_acousticness", minAcousticness)
-                query.addQueryItem("max_acousticness", maxAcousticness)
-                query.addQueryItem("target_acousticness", targetAcousticness)
-                query.addQueryItem("min_danceability", minDanceability)
-                query.addQueryItem("max_danceability", maxDanceability)
-                query.addQueryItem("target_danceability", targetDanceability)
-                query.addQueryItem("min_duration_ms", minDurationMs)
-                query.addQueryItem("max_duration_ms", maxDurationMs)
-                query.addQueryItem("target_duration_ms", targetDurationMs)
-                query.addQueryItem("min_energy", minEnergy)
-                query.addQueryItem("max_energy", maxEnergy)
-                query.addQueryItem("target_energy", targetEnergy)
-                query.addQueryItem("min_instrumentalness", minInstrumentalness)
-                query.addQueryItem("max_instrumentalness", maxInstrumentalness)
-                query.addQueryItem("target_instrumentalness", targetInstrumentalness)
-                query.addQueryItem("min_key", minKey)
-                query.addQueryItem("max_key", maxKey)
-                query.addQueryItem("target_key", targetKey)
-                query.addQueryItem("min_liveness", minLiveness)
-                query.addQueryItem("max_liveness", maxLiveness)
-                query.addQueryItem("target_liveness", targetLiveness)
-                query.addQueryItem("min_loudness", minLoudness)
-                query.addQueryItem("max_loudness", maxLoudness)
-                query.addQueryItem("target_loudness", targetLoudness)
-                query.addQueryItem("min_mode", minMode)
-                query.addQueryItem("max_mode", maxMode)
-                query.addQueryItem("target_mode", targetMode)
-                query.addQueryItem("min_popularity", minPopularity)
-                query.addQueryItem("max_popularity", maxPopularity)
-                query.addQueryItem("target_popularity", targetPopularity)
-                query.addQueryItem("min_speechiness", minSpeechiness)
-                query.addQueryItem("max_speechiness", maxSpeechiness)
-                query.addQueryItem("target_speechiness", targetSpeechiness)
-                query.addQueryItem("min_tempo", minTempo)
-                query.addQueryItem("max_tempo", maxTempo)
-                query.addQueryItem("target_tempo", targetTempo)
-                query.addQueryItem("min_time_signature", minTimeSignature)
-                query.addQueryItem("max_time_signature", maxTimeSignature)
-                query.addQueryItem("target_time_signature", targetTimeSignature)
-                query.addQueryItem("min_valence", minValence)
-                query.addQueryItem("max_valence", maxValence)
-                query.addQueryItem("target_valence", targetValence)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["market": market])
+                encoder.encode(["seed_artists": seedArtists])
+                encoder.encode(["seed_genres": seedGenres])
+                encoder.encode(["seed_tracks": seedTracks])
+                encoder.encode(["min_acousticness": minAcousticness])
+                encoder.encode(["max_acousticness": maxAcousticness])
+                encoder.encode(["target_acousticness": targetAcousticness])
+                encoder.encode(["min_danceability": minDanceability])
+                encoder.encode(["max_danceability": maxDanceability])
+                encoder.encode(["target_danceability": targetDanceability])
+                encoder.encode(["min_duration_ms": minDurationMs])
+                encoder.encode(["max_duration_ms": maxDurationMs])
+                encoder.encode(["target_duration_ms": targetDurationMs])
+                encoder.encode(["min_energy": minEnergy])
+                encoder.encode(["max_energy": maxEnergy])
+                encoder.encode(["target_energy": targetEnergy])
+                encoder.encode(["min_instrumentalness": minInstrumentalness])
+                encoder.encode(["max_instrumentalness": maxInstrumentalness])
+                encoder.encode(["target_instrumentalness": targetInstrumentalness])
+                encoder.encode(["min_key": minKey])
+                encoder.encode(["max_key": maxKey])
+                encoder.encode(["target_key": targetKey])
+                encoder.encode(["min_liveness": minLiveness])
+                encoder.encode(["max_liveness": maxLiveness])
+                encoder.encode(["target_liveness": targetLiveness])
+                encoder.encode(["min_loudness": minLoudness])
+                encoder.encode(["max_loudness": maxLoudness])
+                encoder.encode(["target_loudness": targetLoudness])
+                encoder.encode(["min_mode": minMode])
+                encoder.encode(["max_mode": maxMode])
+                encoder.encode(["target_mode": targetMode])
+                encoder.encode(["min_popularity": minPopularity])
+                encoder.encode(["max_popularity": maxPopularity])
+                encoder.encode(["target_popularity": targetPopularity])
+                encoder.encode(["min_speechiness": minSpeechiness])
+                encoder.encode(["max_speechiness": maxSpeechiness])
+                encoder.encode(["target_speechiness": targetSpeechiness])
+                encoder.encode(["min_tempo": minTempo])
+                encoder.encode(["max_tempo": maxTempo])
+                encoder.encode(["target_tempo": targetTempo])
+                encoder.encode(["min_time_signature": minTimeSignature])
+                encoder.encode(["max_time_signature": maxTimeSignature])
+                encoder.encode(["target_time_signature": targetTimeSignature])
+                encoder.encode(["min_valence": minValence])
+                encoder.encode(["max_valence": maxValence])
+                encoder.encode(["target_valence": targetValence])
+                return encoder.items
             }
         }
     }
@@ -710,9 +711,9 @@ extension Paths.Episodes {
         }
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -736,10 +737,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ ids: String, _ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -763,10 +764,10 @@ extension Paths.Me.Following {
         }
 
         private func makeGetQuery(_ type: String, _ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type)
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -801,9 +802,9 @@ extension Paths.Playlists.WithPlaylistID.Followers {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -838,11 +839,11 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("type", type)
-                query.addQueryItem("after", after)
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["type": type])
+                encoder.encode(["after": after])
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
 
@@ -856,10 +857,10 @@ extension Paths.Me {
         }
 
         private func makePutQuery(_ type: String, _ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type)
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -881,10 +882,10 @@ extension Paths.Me {
         }
 
         private func makeDeleteQuery(_ type: String, _ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type)
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct DeleteRequest: Encodable {
@@ -946,9 +947,9 @@ extension Paths.Me.Albums {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -974,9 +975,9 @@ extension Paths.Me.Episodes {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -1000,9 +1001,9 @@ extension Paths.Me.Shows {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -1026,9 +1027,9 @@ extension Paths.Me.Tracks {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -1091,11 +1092,11 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("market", market)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["market": market])
+                return encoder.items
             }
         }
 
@@ -1109,9 +1110,9 @@ extension Paths.Me {
         }
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -1134,9 +1135,9 @@ extension Paths.Me {
         }
 
         private func makeDeleteQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct DeleteRequest: Encodable {
@@ -1211,11 +1212,11 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("market", market)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["market": market])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
 
@@ -1231,9 +1232,9 @@ extension Paths.Me {
         }
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -1258,9 +1259,9 @@ extension Paths.Me {
         }
 
         private func makeDeleteQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct DeleteRequest: Encodable {
@@ -1322,10 +1323,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Save Shows for Current User
@@ -1338,9 +1339,9 @@ extension Paths.Me {
         }
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -1363,10 +1364,10 @@ extension Paths.Me {
         }
 
         private func makeDeleteQuery(_ ids: String, _ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            encoder.encode(["market": market])
+            return encoder.items
         }
 
         public struct DeleteRequest: Encodable {
@@ -1439,11 +1440,11 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("market", market)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["market": market])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
 
@@ -1457,9 +1458,9 @@ extension Paths.Me {
         }
 
         private func makePutQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -1482,9 +1483,9 @@ extension Paths.Me {
         }
 
         private func makeDeleteQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
 
         public struct DeleteRequest: Encodable {
@@ -1604,11 +1605,11 @@ extension Paths.Me.Top {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("time_range", timeRange)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["time_range": timeRange])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -1633,10 +1634,10 @@ extension Paths.Me.Player {
         }
 
         private func makePostQuery(_ uri: String, _ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("uri", uri)
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["uri": uri])
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1680,10 +1681,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ market: String?, _ additionalTypes: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            query.addQueryItem("additional_types", additionalTypes)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            encoder.encode(["additional_types": additionalTypes])
+            return encoder.items
         }
 
         /// Transfer a User's Playback
@@ -1773,11 +1774,11 @@ extension Paths.Me.Player {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("after", after)
-                query.addQueryItem("before", before)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["after": after])
+                encoder.encode(["before": before])
+                return encoder.items
             }
         }
     }
@@ -1802,10 +1803,10 @@ extension Paths.Me.Player {
         }
 
         private func makeGetQuery(_ market: String?, _ additionalTypes: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            query.addQueryItem("additional_types", additionalTypes)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            encoder.encode(["additional_types": additionalTypes])
+            return encoder.items
         }
     }
 }
@@ -1829,9 +1830,9 @@ extension Paths.Me.Player {
         }
 
         private func makePutQuery(_ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1855,10 +1856,10 @@ extension Paths.Me.Player {
         }
 
         private func makePutQuery(_ positionMs: Int, _ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("position_ms", positionMs)
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["position_ms": positionMs])
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1883,10 +1884,10 @@ extension Paths.Me.Player {
         }
 
         private func makePutQuery(_ state: String, _ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("state", state)
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["state": state])
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1910,10 +1911,10 @@ extension Paths.Me.Player {
         }
 
         private func makePutQuery(_ volumePercent: Int, _ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("volume_percent", volumePercent)
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["volume_percent": volumePercent])
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1937,9 +1938,9 @@ extension Paths.Me.Player {
         }
 
         private func makePostQuery(_ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1963,9 +1964,9 @@ extension Paths.Me.Player {
         }
 
         private func makePostQuery(_ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -1989,9 +1990,9 @@ extension Paths.Me.Player {
         }
 
         private func makePutQuery(_ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -2040,10 +2041,10 @@ extension Paths.Me.Player {
         }
 
         private func makePutQuery(_ isState: Bool, _ deviceID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("state", isState)
-            query.addQueryItem("device_id", deviceID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["state": isState])
+            encoder.encode(["device_id": deviceID])
+            return encoder.items
         }
     }
 }
@@ -2110,13 +2111,13 @@ extension Paths.Playlists.WithPlaylistID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("market", market)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("additional_types", additionalTypes)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["market": market])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["additional_types": additionalTypes])
+                return encoder.items
             }
         }
 
@@ -2130,10 +2131,10 @@ extension Paths.Playlists.WithPlaylistID {
         }
 
         private func makePostQuery(_ position: Int?, _ uris: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("position", position)
-            query.addQueryItem("uris", uris)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["position": position])
+            encoder.encode(["uris": uris])
+            return encoder.items
         }
 
         public struct PostRequest: Encodable {
@@ -2166,9 +2167,9 @@ extension Paths.Playlists.WithPlaylistID {
         }
 
         private func makePutQuery(_ uris: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("uris", uris)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["uris": uris])
+            return encoder.items
         }
 
         public struct PutRequest: Encodable {
@@ -2266,11 +2267,11 @@ extension Paths.Playlists {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("market", market)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("additional_types", additionalTypes)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["market": market])
+                encoder.encode(["fields": fields])
+                encoder.encode(["additional_types": additionalTypes])
+                return encoder.items
             }
         }
 
@@ -2370,10 +2371,10 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Create a Playlist
@@ -2461,10 +2462,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
     }
 }
@@ -2535,14 +2536,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("q", q)
-                query.addQueryItem("type", type)
-                query.addQueryItem("market", market)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("include_external", includeExternal)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["q": q])
+                encoder.encode(["type": type])
+                encoder.encode(["market": market])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["include_external": includeExternal])
+                return encoder.items
             }
         }
     }
@@ -2568,9 +2569,9 @@ extension Paths.Shows {
         }
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -2633,11 +2634,11 @@ extension Paths.Shows.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("market", market)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["market": market])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -2662,10 +2663,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ market: String?, _ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -2742,9 +2743,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -2768,10 +2769,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ market: String?, _ ids: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            query.addQueryItem("ids", ids)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            encoder.encode(["ids": ids])
+            return encoder.items
         }
     }
 }
@@ -2796,9 +2797,9 @@ extension Paths.Tracks {
         }
 
         private func makeGetQuery(_ market: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("market", market)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["market": market])
+            return encoder.items
         }
     }
 }
@@ -2845,89 +2846,3 @@ extension Paths.Users {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

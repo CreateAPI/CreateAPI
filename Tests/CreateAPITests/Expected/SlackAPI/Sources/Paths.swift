@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var apiTest: APITest {
@@ -23,10 +24,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ foo: String?, _ error: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("foo", foo)
-            query.addQueryItem("error", error)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["foo": foo])
+            encoder.encode(["error": error])
+            return encoder.items
         }
     }
 }
@@ -48,9 +49,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -83,11 +84,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("scopes", scopes)
-                query.addQueryItem("token", token)
-                query.addQueryItem("trigger_id", triggerID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["scopes": scopes])
+                encoder.encode(["token": token])
+                encoder.encode(["trigger_id": triggerID])
+                return encoder.items
             }
         }
     }
@@ -121,11 +122,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -148,9 +149,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -172,10 +173,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ isTest: Bool?, _ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("test", isTest)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["test": isTest])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -215,10 +216,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ bot: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("bot", bot)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["bot": bot])
+            return encoder.items
         }
     }
 }
@@ -312,15 +313,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("unreads", isUnreads)
-                query.addQueryItem("inclusive", isInclusive)
-                query.addQueryItem("token", token)
-                query.addQueryItem("oldest", oldest)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("latest", latest)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["unreads": isUnreads])
+                encoder.encode(["inclusive": isInclusive])
+                encoder.encode(["token": token])
+                encoder.encode(["oldest": oldest])
+                encoder.encode(["channel": channel])
+                encoder.encode(["latest": latest])
+                return encoder.items
             }
         }
     }
@@ -354,11 +355,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("include_locale", isIncludeLocale)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["include_locale": isIncludeLocale])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -509,13 +510,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("exclude_members", excludeMembers)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("exclude_archived", excludeArchived)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["exclude_members": excludeMembers])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["exclude_archived": excludeArchived])
+                return encoder.items
             }
         }
     }
@@ -618,11 +619,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs)
-                query.addQueryItem("token", token)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["thread_ts": threadTs])
+                encoder.encode(["token": token])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -773,11 +774,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("message_ts", messageTs)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["message_ts": messageTs])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -1164,15 +1165,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inclusive", isInclusive)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("oldest", oldest)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("latest", latest)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inclusive": isInclusive])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["oldest": oldest])
+                encoder.encode(["channel": channel])
+                encoder.encode(["latest": latest])
+                return encoder.items
             }
         }
     }
@@ -1206,11 +1207,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("include_locale", isIncludeLocale)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["channel": channel])
+                encoder.encode(["include_locale": isIncludeLocale])
+                return encoder.items
             }
         }
     }
@@ -1344,13 +1345,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("exclude_archived", excludeArchived)
-                query.addQueryItem("types", types)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["exclude_archived": excludeArchived])
+                encoder.encode(["types": types])
+                return encoder.items
             }
         }
     }
@@ -1386,12 +1387,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -1504,16 +1505,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inclusive", isInclusive)
-                query.addQueryItem("ts", ts)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("oldest", oldest)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("latest", latest)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inclusive": isInclusive])
+                encoder.encode(["ts": ts])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["oldest": oldest])
+                encoder.encode(["channel": channel])
+                encoder.encode(["latest": latest])
+                return encoder.items
             }
         }
     }
@@ -1614,10 +1615,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ dialog: String?, _ triggerID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("dialog", dialog)
-            query.addQueryItem("trigger_id", triggerID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["dialog": dialog])
+            encoder.encode(["trigger_id": triggerID])
+            return encoder.items
         }
     }
 }
@@ -1675,10 +1676,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("user", user)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["user": user])
+            return encoder.items
         }
     }
 }
@@ -1711,10 +1712,10 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("num_minutes", numMinutes)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["num_minutes": numMinutes])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1737,10 +1738,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ users: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("users", users)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["users": users])
+            return encoder.items
         }
     }
 }
@@ -1762,9 +1763,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1910,12 +1911,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("file", file)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["file": file])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -1959,16 +1960,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("ts_to", tsTo)
-                query.addQueryItem("ts_from", tsFrom)
-                query.addQueryItem("token", token)
-                query.addQueryItem("user", user)
-                query.addQueryItem("page", page)
-                query.addQueryItem("types", types)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["channel": channel])
+                encoder.encode(["ts_to": tsTo])
+                encoder.encode(["ts_from": tsFrom])
+                encoder.encode(["token": token])
+                encoder.encode(["user": user])
+                encoder.encode(["page": page])
+                encoder.encode(["types": types])
+                return encoder.items
             }
         }
     }
@@ -2056,16 +2057,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("channels", channels)
-                query.addQueryItem("title", title)
-                query.addQueryItem("initial_comment", initialComment)
-                query.addQueryItem("filetype", filetype)
-                query.addQueryItem("filename", filename)
-                query.addQueryItem("content", content)
-                query.addQueryItem("token", token)
-                query.addQueryItem("file", file)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["channels": channels])
+                encoder.encode(["title": title])
+                encoder.encode(["initial_comment": initialComment])
+                encoder.encode(["filetype": filetype])
+                encoder.encode(["filename": filename])
+                encoder.encode(["content": content])
+                encoder.encode(["token": token])
+                encoder.encode(["file": file])
+                return encoder.items
             }
         }
     }
@@ -2152,10 +2153,10 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -2197,15 +2198,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("unreads", isUnreads)
-                query.addQueryItem("inclusive", isInclusive)
-                query.addQueryItem("token", token)
-                query.addQueryItem("oldest", oldest)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("latest", latest)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["unreads": isUnreads])
+                encoder.encode(["inclusive": isInclusive])
+                encoder.encode(["token": token])
+                encoder.encode(["oldest": oldest])
+                encoder.encode(["channel": channel])
+                encoder.encode(["latest": latest])
+                return encoder.items
             }
         }
     }
@@ -2239,11 +2240,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("include_locale", isIncludeLocale)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["include_locale": isIncludeLocale])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -2355,11 +2356,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("exclude_members", excludeMembers)
-                query.addQueryItem("token", token)
-                query.addQueryItem("exclude_archived", excludeArchived)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["exclude_members": excludeMembers])
+                encoder.encode(["token": token])
+                encoder.encode(["exclude_archived": excludeArchived])
+                return encoder.items
             }
         }
     }
@@ -2480,11 +2481,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs)
-                query.addQueryItem("token", token)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["thread_ts": threadTs])
+                encoder.encode(["token": token])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -2622,15 +2623,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("unreads", isUnreads)
-                query.addQueryItem("inclusive", isInclusive)
-                query.addQueryItem("token", token)
-                query.addQueryItem("oldest", oldest)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("latest", latest)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["unreads": isUnreads])
+                encoder.encode(["inclusive": isInclusive])
+                encoder.encode(["token": token])
+                encoder.encode(["oldest": oldest])
+                encoder.encode(["channel": channel])
+                encoder.encode(["latest": latest])
+                return encoder.items
             }
         }
     }
@@ -2664,11 +2665,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -2771,11 +2772,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs)
-                query.addQueryItem("token", token)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["thread_ts": threadTs])
+                encoder.encode(["token": token])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -2809,11 +2810,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("to_old", isToOld)
-                query.addQueryItem("users", users)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["to_old": isToOld])
+                encoder.encode(["users": users])
+                return encoder.items
             }
         }
     }
@@ -2873,15 +2874,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("unreads", isUnreads)
-                query.addQueryItem("inclusive", isInclusive)
-                query.addQueryItem("token", token)
-                query.addQueryItem("oldest", oldest)
-                query.addQueryItem("channel", channel)
-                query.addQueryItem("latest", latest)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["unreads": isUnreads])
+                encoder.encode(["inclusive": isInclusive])
+                encoder.encode(["token": token])
+                encoder.encode(["oldest": oldest])
+                encoder.encode(["channel": channel])
+                encoder.encode(["latest": latest])
+                return encoder.items
             }
         }
     }
@@ -2904,9 +2905,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2987,11 +2988,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("thread_ts", threadTs)
-                query.addQueryItem("token", token)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["thread_ts": threadTs])
+                encoder.encode(["token": token])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -3029,13 +3030,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("client_secret", clientSecret)
-                query.addQueryItem("code", code)
-                query.addQueryItem("single_channel", isSingleChannel)
-                query.addQueryItem("client_id", clientID)
-                query.addQueryItem("redirect_uri", redirectUri)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["client_secret": clientSecret])
+                encoder.encode(["code": code])
+                encoder.encode(["single_channel": isSingleChannel])
+                encoder.encode(["client_id": clientID])
+                encoder.encode(["redirect_uri": redirectUri])
+                return encoder.items
             }
         }
     }
@@ -3073,13 +3074,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("client_secret", clientSecret)
-                query.addQueryItem("code", code)
-                query.addQueryItem("single_channel", isSingleChannel)
-                query.addQueryItem("client_id", clientID)
-                query.addQueryItem("redirect_uri", redirectUri)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["client_secret": clientSecret])
+                encoder.encode(["code": code])
+                encoder.encode(["single_channel": isSingleChannel])
+                encoder.encode(["client_id": clientID])
+                encoder.encode(["redirect_uri": redirectUri])
+                return encoder.items
             }
         }
     }
@@ -3145,10 +3146,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ channel: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("channel", channel)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["channel": channel])
+            return encoder.items
         }
     }
 }
@@ -3277,14 +3278,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("full", isFull)
-                query.addQueryItem("file_comment", fileComment)
-                query.addQueryItem("timestamp", timestamp)
-                query.addQueryItem("token", token)
-                query.addQueryItem("file", file)
-                query.addQueryItem("channel", channel)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["full": isFull])
+                encoder.encode(["file_comment": fileComment])
+                encoder.encode(["timestamp": timestamp])
+                encoder.encode(["token": token])
+                encoder.encode(["file": file])
+                encoder.encode(["channel": channel])
+                return encoder.items
             }
         }
     }
@@ -3322,13 +3323,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("full", isFull)
-                query.addQueryItem("user", user)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["full": isFull])
+                encoder.encode(["user": user])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -3467,10 +3468,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ reminder: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("reminder", reminder)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["reminder": reminder])
+            return encoder.items
         }
     }
 }
@@ -3492,9 +3493,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3527,11 +3528,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("presence_sub", isPresenceSub)
-                query.addQueryItem("token", token)
-                query.addQueryItem("batch_presence_aware", isBatchPresenceAware)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["presence_sub": isPresenceSub])
+                encoder.encode(["token": token])
+                encoder.encode(["batch_presence_aware": isBatchPresenceAware])
+                return encoder.items
             }
         }
     }
@@ -3573,15 +3574,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort_dir", sortDir)
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("highlight", isHighlight)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort_dir": sortDir])
+                encoder.encode(["query": self.query])
+                encoder.encode(["sort": sort])
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["highlight": isHighlight])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -3623,15 +3624,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort_dir", sortDir)
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("highlight", isHighlight)
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort_dir": sortDir])
+                encoder.encode(["query": self.query])
+                encoder.encode(["sort": sort])
+                encoder.encode(["highlight": isHighlight])
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -3673,15 +3674,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("sort_dir", sortDir)
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("highlight", isHighlight)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["sort_dir": sortDir])
+                encoder.encode(["query": self.query])
+                encoder.encode(["sort": sort])
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["highlight": isHighlight])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -3758,11 +3759,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -3841,12 +3842,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("token", token)
-                query.addQueryItem("page", page)
-                query.addQueryItem("before", before)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["token": token])
+                encoder.encode(["page": page])
+                encoder.encode(["before": before])
+                return encoder.items
             }
         }
     }
@@ -3869,10 +3870,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("user", user)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["user": user])
+            return encoder.items
         }
     }
 }
@@ -3894,9 +3895,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3937,15 +3938,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("change_type", changeType)
-                query.addQueryItem("app_id", appID)
-                query.addQueryItem("token", token)
-                query.addQueryItem("user", user)
-                query.addQueryItem("service_id", serviceID)
-                query.addQueryItem("page", page)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["change_type": changeType])
+                encoder.encode(["app_id": appID])
+                encoder.encode(["token": token])
+                encoder.encode(["user": user])
+                encoder.encode(["service_id": serviceID])
+                encoder.encode(["page": page])
+                return encoder.items
             }
         }
     }
@@ -3968,10 +3969,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ visibility: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("visibility", visibility)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["visibility": visibility])
+            return encoder.items
         }
     }
 }
@@ -4123,12 +4124,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("include_users", isIncludeUsers)
-                query.addQueryItem("token", token)
-                query.addQueryItem("include_count", isIncludeCount)
-                query.addQueryItem("include_disabled", isIncludeDisabled)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["include_users": isIncludeUsers])
+                encoder.encode(["token": token])
+                encoder.encode(["include_count": isIncludeCount])
+                encoder.encode(["include_disabled": isIncludeDisabled])
+                return encoder.items
             }
         }
     }
@@ -4213,11 +4214,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("include_disabled", isIncludeDisabled)
-                query.addQueryItem("usergroup", usergroup)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["include_disabled": isIncludeDisabled])
+                encoder.encode(["usergroup": usergroup])
+                return encoder.items
             }
         }
     }
@@ -4296,14 +4297,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("user", user)
-                query.addQueryItem("exclude_archived", excludeArchived)
-                query.addQueryItem("types", types)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["user": user])
+                encoder.encode(["exclude_archived": excludeArchived])
+                encoder.encode(["types": types])
+                return encoder.items
             }
         }
     }
@@ -4334,9 +4335,9 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -4359,10 +4360,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ user: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("user", user)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["user": user])
+            return encoder.items
         }
     }
 }
@@ -4384,9 +4385,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4419,11 +4420,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("include_locale", isIncludeLocale)
-                query.addQueryItem("token", token)
-                query.addQueryItem("user", user)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["include_locale": isIncludeLocale])
+                encoder.encode(["token": token])
+                encoder.encode(["user": user])
+                return encoder.items
             }
         }
     }
@@ -4461,13 +4462,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("presence", isPresence)
-                query.addQueryItem("cursor", cursor)
-                query.addQueryItem("token", token)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include_locale", isIncludeLocale)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["presence": isPresence])
+                encoder.encode(["cursor": cursor])
+                encoder.encode(["token": token])
+                encoder.encode(["limit": limit])
+                encoder.encode(["include_locale": isIncludeLocale])
+                return encoder.items
             }
         }
     }
@@ -4490,10 +4491,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ token: String?, _ email: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("token", token)
-            query.addQueryItem("email", email)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["token": token])
+            encoder.encode(["email": email])
+            return encoder.items
         }
     }
 }
@@ -4526,11 +4527,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("token", token)
-                query.addQueryItem("include_labels", isIncludeLabels)
-                query.addQueryItem("user", user)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["token": token])
+                encoder.encode(["include_labels": isIncludeLabels])
+                encoder.encode(["user": user])
+                return encoder.items
             }
         }
     }
@@ -4627,13 +4628,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("image", image)
-                query.addQueryItem("crop_w", cropW)
-                query.addQueryItem("token", token)
-                query.addQueryItem("crop_y", cropY)
-                query.addQueryItem("crop_x", cropX)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["image": image])
+                encoder.encode(["crop_w": cropW])
+                encoder.encode(["token": token])
+                encoder.encode(["crop_y": cropY])
+                encoder.encode(["crop_x": cropX])
+                return encoder.items
             }
         }
     }
@@ -4658,89 +4659,3 @@ extension Paths {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

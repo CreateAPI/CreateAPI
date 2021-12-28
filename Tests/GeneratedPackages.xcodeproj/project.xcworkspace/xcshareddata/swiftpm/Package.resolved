@@ -27,6 +27,15 @@
           "revision": "e0810b3364ad3ac040bcf3ac7e5a21fec6a9d615",
           "version": null
         }
+      },
+      {
+        "package": "URLQueryEncoder",
+        "repositoryURL": "https://github.com/kean/URLQueryEncoder",
+        "state": {
+          "branch": "main",
+          "revision": "f15c9181086bab199337918c5dabb9b3b9c38a20",
+          "version": null
+        }
       }
     ]
   },

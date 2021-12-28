@@ -6,6 +6,7 @@
 import Foundation
 import Get
 import HTTPHeaders
+import URLQueryEncoder
 
 extension Paths {
     public static var activity: Activity {
@@ -27,10 +28,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
     }
 }
@@ -50,9 +51,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ filter: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("filter", filter)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["filter": filter])
+            return encoder.items
         }
     }
 }
@@ -88,9 +89,9 @@ extension Paths.Vaults.WithVaultUUID {
         }
 
         private func makeGetQuery(_ filter: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("filter", filter)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["filter": filter])
+            return encoder.items
         }
 
         /// Create a new Item
@@ -150,9 +151,9 @@ extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID {
         }
 
         private func makeGetQuery(_ isInlineFiles: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("inline_files", isInlineFiles)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["inline_files": isInlineFiles])
+            return encoder.items
         }
     }
 }
@@ -172,9 +173,9 @@ extension Paths.Vaults.WithVaultUUID.Items.WithItemUUID.Files {
         }
 
         private func makeGetQuery(_ isInlineFiles: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("inline_files", isInlineFiles)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["inline_files": isInlineFiles])
+            return encoder.items
         }
     }
 }
@@ -264,89 +265,3 @@ extension Paths {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

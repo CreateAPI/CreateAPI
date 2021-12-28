@@ -126,9 +126,6 @@ paths:
   imports: ["Get"]
   # Example, "- empty: Void"
   overrideResponses: {}
-  # Overrides the query parameter encoders, example:
-  #   - Date: "ISO8601DateFormatter().string(from: self)"
-  queryParameterEncoders: null
   # Inline simple requests, like the ones with a single parameter 
   isInliningSimpleRequests: true
   # Inline simple parametesr with few arguments.

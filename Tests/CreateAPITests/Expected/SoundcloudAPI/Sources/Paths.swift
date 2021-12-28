@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var connect: Connect {
@@ -46,13 +47,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("client_id", clientID)
-                query.addQueryItem("redirect_uri", redirectUri)
-                query.addQueryItem("response_type", responseType)
-                query.addQueryItem("scope", scope)
-                query.addQueryItem("state", state)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["client_id": clientID])
+                encoder.encode(["redirect_uri": redirectUri])
+                encoder.encode(["response_type": responseType])
+                encoder.encode(["scope": scope])
+                encoder.encode(["state": state])
+                return encoder.items
             }
         }
     }
@@ -89,16 +90,13 @@ extension Paths.Oauth2 {
             case password(SoundcloudAPI.Password)
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
+                let encoder = URLQueryEncoder()
                 switch self {
-                case .authorizationCode(let value):
-                    query.addQueryItem("authorizationCode", value)
-                case .refreshToken(let value):
-                    query.addQueryItem("refreshToken", value)
-                case .password(let value):
-                    query.addQueryItem("password", value)
+                case .authorizationCode(let value): encoder.encode(value)
+                case .refreshToken(let value): encoder.encode(value)
+                case .password(let value): encoder.encode(value)
                 }
-                return query
+                return encoder.items
             }
         }
     }
@@ -135,10 +133,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ access: [Access]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["access": access], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum Access: String, Codable, CaseIterable {
@@ -175,10 +173,10 @@ extension Paths.Me.Activities.All {
         }
 
         private func makeGetQuery(_ access: [Access]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["access": access], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum Access: String, Codable, CaseIterable {
@@ -204,10 +202,10 @@ extension Paths.Me.Activities {
         }
 
         private func makeGetQuery(_ access: [Access]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["access": access], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum Access: String, Codable, CaseIterable {
@@ -233,10 +231,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
     }
 }
@@ -299,10 +297,10 @@ extension Paths.Me.Likes {
         }
 
         private func makeGetQuery(_ limit: Int?, _ isLinkedPartitioning: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["linked_partitioning": isLinkedPartitioning])
+            return encoder.items
         }
     }
 }
@@ -334,9 +332,9 @@ extension Paths.Me.Favorites {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -372,10 +370,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
     }
 }
@@ -412,11 +410,11 @@ extension Paths.Me.Followings {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
     }
@@ -480,9 +478,9 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -521,9 +519,9 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -576,10 +574,10 @@ extension Paths.Me {
         }
 
         private func makeGetQuery(_ limit: Int?, _ isLinkedPartitioning: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["linked_partitioning": isLinkedPartitioning])
+            return encoder.items
         }
     }
 }
@@ -660,10 +658,10 @@ extension Paths {
                 }
 
                 public var asQuery: [(String, String?)] {
-                    var query: [(String, String?)] = []
-                    query.addQueryItem("from", from)
-                    query.addQueryItem("to", to)
-                    return query
+                    let encoder = URLQueryEncoder()
+                    encoder.encode(["from": from])
+                    encoder.encode(["to": to])
+                    return encoder.items
                 }
             }
 
@@ -683,10 +681,10 @@ extension Paths {
                 }
 
                 public var asQuery: [(String, String?)] {
-                    var query: [(String, String?)] = []
-                    query.addQueryItem("from", from)
-                    query.addQueryItem("to", to)
-                    return query
+                    let encoder = URLQueryEncoder()
+                    encoder.encode(["from": from])
+                    encoder.encode(["to": to])
+                    return encoder.items
                 }
             }
 
@@ -706,10 +704,10 @@ extension Paths {
                 }
 
                 public var asQuery: [(String, String?)] {
-                    var query: [(String, String?)] = []
-                    query.addQueryItem("from", from)
-                    query.addQueryItem("to", to)
-                    return query
+                    let encoder = URLQueryEncoder()
+                    encoder.encode(["from": from])
+                    encoder.encode(["to": to])
+                    return encoder.items
                 }
             }
 
@@ -734,19 +732,19 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("q", q)
-                query.addQueryItem("ids", ids)
-                query.addQueryItem("genres", genres)
-                query.addQueryItem("tags", tags)
-                query.addDeepObject("bpm", bpm?.asQuery)
-                query.addDeepObject("duration", duration?.asQuery)
-                query.addDeepObject("created_at", createdAt?.asQuery)
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["q": q])
+                encoder.encode(["ids": ids])
+                encoder.encode(["genres": genres])
+                encoder.encode(["tags": tags])
+                encoder.encode(["bpm": bpm], explode: false, isDeepObject: true)
+                encoder.encode(["duration": duration], explode: false, isDeepObject: true)
+                encoder.encode(["created_at": createdAt], explode: false, isDeepObject: true)
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
 
@@ -809,13 +807,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("q", q)
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["q": q])
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
 
@@ -1170,13 +1168,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("q", q)
-                query.addQueryItem("ids", ids)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["q": q])
+                encoder.encode(["ids": ids])
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
     }
@@ -1197,10 +1195,10 @@ extension Paths.Playlists {
         }
 
         private func makeGetQuery(_ secretToken: String?, _ access: [Access]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("secret_token", secretToken)
-            query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["secret_token": secretToken])
+            encoder.encode(["access": access], explode: false)
+            return encoder.items
         }
 
         public enum Access: String, Codable, CaseIterable {
@@ -1567,11 +1565,11 @@ extension Paths.Playlists.WithPlaylistID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("secret_token", secretToken)
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["secret_token": secretToken])
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
     }
@@ -1592,9 +1590,9 @@ extension Paths.Playlists.WithPlaylistID {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -1614,9 +1612,9 @@ extension Paths.Tracks {
         }
 
         private func makeGetQuery(_ secretToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("secret_token", secretToken)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["secret_token": secretToken])
+            return encoder.items
         }
 
         /// Updates a track's information.
@@ -1646,9 +1644,9 @@ extension Paths.Tracks.WithTrackID {
         }
 
         private func makeGetQuery(_ secretToken: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("secret_token", secretToken)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["secret_token": secretToken])
+            return encoder.items
         }
     }
 }
@@ -1695,11 +1693,11 @@ extension Paths.Tracks.WithTrackID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
 
@@ -1761,10 +1759,10 @@ extension Paths.Tracks.WithTrackID {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
     }
 }
@@ -1784,9 +1782,9 @@ extension Paths.Tracks.WithTrackID {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -1841,12 +1839,12 @@ extension Paths.Tracks.WithTrackID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
     }
@@ -1867,9 +1865,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ url: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("url", url)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["url": url])
+            return encoder.items
         }
     }
 }
@@ -1905,10 +1903,10 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
     }
 }
@@ -1945,10 +1943,10 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ limit: Int?, _ isLinkedPartitioning: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["linked_partitioning": isLinkedPartitioning])
+            return encoder.items
         }
     }
 }
@@ -1986,9 +1984,9 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -2026,9 +2024,9 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -2100,11 +2098,11 @@ extension Paths.Users.WithUserID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
     }
@@ -2158,11 +2156,11 @@ extension Paths.Users.WithUserID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
     }
@@ -2183,9 +2181,9 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -2249,11 +2247,11 @@ extension Paths.Users.WithUserID.Likes {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("access", access?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("linked_partitioning", isLinkedPartitioning)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["access": access], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["linked_partitioning": isLinkedPartitioning])
+                return encoder.items
             }
         }
     }
@@ -2410,89 +2408,3 @@ extension Paths.Reposts.Playlists {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

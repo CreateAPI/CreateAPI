@@ -6,6 +6,7 @@
 import Foundation
 import Get
 import HTTPHeaders
+import URLQueryEncoder
 
 extension Paths {
     /// Get all APIs
@@ -58,19 +59,19 @@ extension Paths {
         }
 
         public var asQuery: [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace)
-            query.addQueryItem("since", since)
-            query.addQueryItem("until", until)
-            query.addQueryItem("createdBy", createdBy)
-            query.addQueryItem("updatedBy", updatedBy)
-            query.addQueryItem("isPublic", isPublic)
-            query.addQueryItem("name", name)
-            query.addQueryItem("summary", summary)
-            query.addQueryItem("description", description)
-            query.addQueryItem("sort", sort)
-            query.addQueryItem("direction", direction)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["workspace": workspace])
+            encoder.encode(["since": since])
+            encoder.encode(["until": until])
+            encoder.encode(["createdBy": createdBy])
+            encoder.encode(["updatedBy": updatedBy])
+            encoder.encode(["isPublic": isPublic])
+            encoder.encode(["name": name])
+            encoder.encode(["summary": summary])
+            encoder.encode(["description": description])
+            encoder.encode(["sort": sort])
+            encoder.encode(["direction": direction])
+            return encoder.items
         }
     }
 }
@@ -125,9 +126,9 @@ extension Paths {
     }
 
     private static func makeCreateAPIQuery(_ workspace: String?) -> [(String, String?)] {
-        var query: [(String, String?)] = []
-        query.addQueryItem("workspace", workspace)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["workspace": workspace])
+        return encoder.items
     }
 
     public struct CreateAPIRequest: Encodable {
@@ -1628,9 +1629,9 @@ extension Paths {
     }
 
     private static func makeCreateCollectionFromSchemaQuery(_ workspace: String?) -> [(String, String?)] {
-        var query: [(String, String?)] = []
-        query.addQueryItem("workspace", workspace)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["workspace": workspace])
+        return encoder.items
     }
 
     public struct CreateCollectionFromSchemaRequest: Encodable {
@@ -1915,9 +1916,9 @@ extension Paths {
     }
 
     private static func makeCreateAForkQuery(_ workspace: String?) -> [(String, String?)] {
-        var query: [(String, String?)] = []
-        query.addQueryItem("workspace", workspace)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["workspace": workspace])
+        return encoder.items
     }
 }
 
@@ -4415,11 +4416,11 @@ extension Paths {
         }
 
         public var asQuery: [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("startIndex", startIndex)
-            query.addQueryItem("count", count)
-            query.addQueryItem("filter", filter)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["startIndex": startIndex])
+            encoder.encode(["count": count])
+            encoder.encode(["filter": filter])
+            return encoder.items
         }
     }
 }
@@ -4864,9 +4865,9 @@ extension Paths {
     }
 
     private static func makeCreateWebhookQuery(_ workspace: String?) -> [(String, String?)] {
-        var query: [(String, String?)] = []
-        query.addQueryItem("workspace", workspace)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["workspace": workspace])
+        return encoder.items
     }
 
     public struct CreateWebhookRequest: Encodable {
@@ -5253,89 +5254,3 @@ extension Paths {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

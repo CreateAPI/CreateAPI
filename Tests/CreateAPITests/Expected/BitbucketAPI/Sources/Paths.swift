@@ -6,6 +6,7 @@
 import Foundation
 import Get
 import HTTPHeaders
+import URLQueryEncoder
 
 extension Paths {
     public static var addon: Addon {
@@ -325,9 +326,9 @@ extension Paths.Pullrequests {
         }
 
         private func makeGetQuery(_ state: State?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("state", state)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["state": state])
+            return encoder.items
         }
 
         public enum State: String, Codable, CaseIterable {
@@ -377,12 +378,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("after", after)
-                query.addQueryItem("role", role)
-                query.addQueryItem("q", q)
-                query.addQueryItem("sort", sort)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["after": after])
+                encoder.encode(["role": role])
+                encoder.encode(["q": q])
+                encoder.encode(["sort": sort])
+                return encoder.items
             }
         }
     }
@@ -431,11 +432,11 @@ extension Paths.Repositories {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("role", role)
-                query.addQueryItem("q", q)
-                query.addQueryItem("sort", sort)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["role": role])
+                encoder.encode(["q": q])
+                encoder.encode(["sort": sort])
+                return encoder.items
             }
         }
     }
@@ -525,9 +526,9 @@ extension Paths.Repositories.WithWorkspace {
         }
 
         private func makeDeleteQuery(_ redirectTo: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("redirect_to", redirectTo)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["redirect_to": redirectTo])
+            return encoder.items
         }
     }
 }
@@ -548,10 +549,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
         }
 
         private func makeGetQuery(_ kind: String?, _ pattern: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("kind", kind)
-            query.addQueryItem("pattern", pattern)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["kind": kind])
+            encoder.encode(["pattern": pattern])
+            return encoder.items
         }
 
         /// Creates a new branch restriction rule for a repository.
@@ -1051,10 +1052,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Commit.WithCommit {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
 
         /// Creates new comment on the specified commit.
@@ -1158,10 +1159,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Commit.WithCommit {
         }
 
         private func makeGetQuery(_ page: Int?, _ pagelen: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("page", page)
-            query.addQueryItem("pagelen", pagelen)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["page": page])
+            encoder.encode(["pagelen": pagelen])
+            return encoder.items
         }
     }
 }
@@ -1377,10 +1378,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Commit.WithCommit {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -1955,9 +1956,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.DeploymentsConfig.Enviro
         }
 
         private func makePostQuery(_ variableUUID: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("variable_uuid", variableUUID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["variable_uuid": variableUUID])
+            return encoder.items
         }
     }
 }
@@ -2065,14 +2066,14 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Diff {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("context", context)
-                query.addQueryItem("path", path)
-                query.addQueryItem("ignore_whitespace", isIgnoreWhitespace)
-                query.addQueryItem("binary", isBinary)
-                query.addQueryItem("renames", isRenames)
-                query.addQueryItem("merge", isMerge)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["context": context])
+                encoder.encode(["path": path])
+                encoder.encode(["ignore_whitespace": isIgnoreWhitespace])
+                encoder.encode(["binary": isBinary])
+                encoder.encode(["renames": isRenames])
+                encoder.encode(["merge": isMerge])
+                return encoder.items
             }
         }
     }
@@ -2388,11 +2389,11 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Filehistory.WithCommit {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("renames", renames)
-                query.addQueryItem("q", q)
-                query.addQueryItem("sort", sort)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["renames": renames])
+                encoder.encode(["q": q])
+                encoder.encode(["sort": sort])
+                return encoder.items
             }
         }
     }
@@ -2432,11 +2433,11 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("role", role)
-                query.addQueryItem("q", q)
-                query.addQueryItem("sort", sort)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["role": role])
+                encoder.encode(["q": q])
+                encoder.encode(["sort": sort])
+                return encoder.items
             }
         }
 
@@ -3018,10 +3019,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Issues.WithIssueID {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
 
         /// Makes a change to the specified issue.
@@ -3114,9 +3115,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Issues.WithIssueID {
         }
 
         private func makeGetQuery(_ q: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            return encoder.items
         }
 
         /// Creates a new issue comment.
@@ -4074,9 +4075,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
         }
 
         private func makeGetQuery(_ state: State?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("state", state)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["state": state])
+            return encoder.items
         }
 
         public enum State: String, Codable, CaseIterable {
@@ -4958,9 +4959,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Pullrequests.WithPullReq
         }
 
         private func makePostQuery(_ isAsync: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("async", isAsync)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["async": isAsync])
+            return encoder.items
         }
     }
 }
@@ -5090,10 +5091,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Pullrequests.WithPullReq
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -5183,10 +5184,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -5341,10 +5342,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Refs {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
 
         /// Creates a new branch in the specified repository.
@@ -5549,10 +5550,10 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Refs {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
 
         /// Creates a new tag in the specified repository.
@@ -5752,9 +5753,9 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
         }
 
         private func makeGetQuery(_ format: Format?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("format", format)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["format": format])
+            return encoder.items
         }
 
         public enum Format: String, Codable, CaseIterable {
@@ -5902,13 +5903,13 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("message", message)
-                query.addQueryItem("author", author)
-                query.addQueryItem("parents", parents)
-                query.addQueryItem("files", files)
-                query.addQueryItem("branch", branch)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["message": message])
+                encoder.encode(["author": author])
+                encoder.encode(["parents": parents])
+                encoder.encode(["files": files])
+                encoder.encode(["branch": branch])
+                return encoder.items
             }
         }
     }
@@ -6160,12 +6161,12 @@ extension Paths.Repositories.WithWorkspace.WithRepoSlug.Src.WithCommit {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("format", format)
-                query.addQueryItem("q", q)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("max_depth", maxDepth)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["format": format])
+                encoder.encode(["q": q])
+                encoder.encode(["sort": sort])
+                encoder.encode(["max_depth": maxDepth])
+                return encoder.items
             }
         }
     }
@@ -6259,9 +6260,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ role: Role?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("role", role)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["role": role])
+            return encoder.items
         }
 
         public enum Role: String, Codable, CaseIterable {
@@ -6446,9 +6447,9 @@ extension Paths.Snippets {
         }
 
         private func makeGetQuery(_ role: Role?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("role", role)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["role": role])
+            return encoder.items
         }
 
         public enum Role: String, Codable, CaseIterable {
@@ -7195,9 +7196,9 @@ extension Paths.Snippets.WithWorkspace.WithEncodedID.WithRevision {
         }
 
         private func makeGetQuery(_ path: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("path", path)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["path": path])
+            return encoder.items
         }
     }
 }
@@ -7258,9 +7259,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ role: Role?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("role", role)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["role": role])
+            return encoder.items
         }
 
         public enum Role: String, Codable, CaseIterable {
@@ -7533,10 +7534,10 @@ extension Paths.Teams.WithUsername {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -7633,10 +7634,10 @@ extension Paths.Teams.WithUsername.Permissions {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -7731,10 +7732,10 @@ extension Paths.Teams.WithUsername.Permissions.Repositories {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -7767,9 +7768,9 @@ extension Paths.Teams.WithUsername.PipelinesConfig {
         }
 
         private func makeGetQuery(_ workspace: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["workspace": workspace])
+            return encoder.items
         }
 
         /// Create an account level variable.
@@ -7785,9 +7786,9 @@ extension Paths.Teams.WithUsername.PipelinesConfig {
         }
 
         private func makePostQuery(_ workspace: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["workspace": workspace])
+            return encoder.items
         }
     }
 }
@@ -8162,11 +8163,11 @@ extension Paths.Teams.WithUsername.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("search_query", searchQuery)
-                query.addQueryItem("page", page)
-                query.addQueryItem("pagelen", pagelen)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["search_query": searchQuery])
+                encoder.encode(["page": page])
+                encoder.encode(["pagelen": pagelen])
+                return encoder.items
             }
         }
     }
@@ -8334,10 +8335,10 @@ extension Paths.User.Permissions {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -8407,10 +8408,10 @@ extension Paths.User.Permissions {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -8480,10 +8481,10 @@ extension Paths.User.Permissions {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -8941,11 +8942,11 @@ extension Paths.Users.WithSelectedUser.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("search_query", searchQuery)
-                query.addQueryItem("page", page)
-                query.addQueryItem("pagelen", pagelen)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["search_query": searchQuery])
+                encoder.encode(["page": page])
+                encoder.encode(["pagelen": pagelen])
+                return encoder.items
             }
         }
     }
@@ -9316,11 +9317,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("role", role)
-                query.addQueryItem("q", q)
-                query.addQueryItem("sort", sort)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["role": role])
+                encoder.encode(["q": q])
+                encoder.encode(["sort": sort])
+                return encoder.items
             }
         }
     }
@@ -9511,9 +9512,9 @@ extension Paths.Workspaces.WithWorkspace {
         }
 
         private func makeGetQuery(_ q: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            return encoder.items
         }
     }
 }
@@ -9615,10 +9616,10 @@ extension Paths.Workspaces.WithWorkspace.Permissions {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -9704,10 +9705,10 @@ extension Paths.Workspaces.WithWorkspace.Permissions.Repositories {
         }
 
         private func makeGetQuery(_ q: String?, _ sort: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("sort", sort)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["sort": sort])
+            return encoder.items
         }
     }
 }
@@ -10166,100 +10167,14 @@ extension Paths.Workspaces.WithWorkspace.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("search_query", searchQuery)
-                query.addQueryItem("page", page)
-                query.addQueryItem("pagelen", pagelen)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["search_query": searchQuery])
+                encoder.encode(["page": page])
+                encoder.encode(["pagelen": pagelen])
+                return encoder.items
             }
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

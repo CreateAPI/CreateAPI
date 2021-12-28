@@ -200,6 +200,9 @@ extension Generator {
         if isHTTPHeadersDependencyNeeded {
             imports.insert("HTTPHeaders")
         }
+        if isQueryEncoderNeeded {
+            imports.insert("URLQueryEncoder")
+        }
         return imports.sorted()
     }
     
@@ -208,10 +211,6 @@ extension Generator {
         contents.append(templates.namespace(options.paths.namespace))
         if isRequestOperationIdExtensionNeeded {
             contents.append(templates.requestOperationIdExtension)
-        }
-        if isQueryNeeded {
-            let skipped = !isNaiveDateNeeded ? Set(["NaiveDate"]) : Set()
-            contents.append(templates.queryParameterEncoders(options.paths.queryParameterEncoders, skipped: skipped))
         }
         return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
     }
@@ -510,6 +509,8 @@ extension Generator {
         }
     }
     
+    // TODO: Improve inlining, e.g. "query: [("page": "2")]"
+    // TODO: Remove asQuery if default parameters are used
     private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         let parameter = try input.unwrapped(in: spec)
         guard parameter.context.inQuery else {
@@ -532,7 +533,6 @@ extension Generator {
             }
         }
         
-        let supportedTypes = Set(options.paths.queryParameterEncoders.keys)
         var isObject = false
         
         func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
@@ -583,9 +583,8 @@ extension Generator {
             case .all, .one, .any, .not:
                 throw GeneratorError("Unsupported query parameter type: \(parameter)")
             case .reference(let ref, _):
-                // TODO: This should generate a makeQuery method somewhere
-                guard let name = ref.name.map(makeTypeName), supportedTypes.contains(name.rawValue) else {
-                    return nil
+                guard let name = ref.name.map(makeTypeName) else {
+                    throw GeneratorError("Missing or invalid reference name")
                 }
                 return QueryItemType(type: .userDefined(name: name))
             case .fragment:

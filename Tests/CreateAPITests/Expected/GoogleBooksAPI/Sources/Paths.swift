@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var cloudloading: Cloudloading {
@@ -45,12 +46,12 @@ extension Paths.Cloudloading {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("drive_document_id", driveDocumentID)
-                query.addQueryItem("mime_type", mimeType)
-                query.addQueryItem("name", name)
-                query.addQueryItem("upload_client_token", uploadClientToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["drive_document_id": driveDocumentID])
+                encoder.encode(["mime_type": mimeType])
+                encoder.encode(["name": name])
+                encoder.encode(["upload_client_token": uploadClientToken])
+                return encoder.items
             }
         }
     }
@@ -71,9 +72,9 @@ extension Paths.Cloudloading {
         }
 
         private func makePostQuery(_ volumeID: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("volumeId", volumeID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["volumeId": volumeID])
+            return encoder.items
         }
     }
 }
@@ -120,9 +121,9 @@ extension Paths.Dictionary {
         }
 
         private func makeGetQuery(_ cpksver: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("cpksver", cpksver)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["cpksver": cpksver])
+            return encoder.items
         }
     }
 }
@@ -153,9 +154,9 @@ extension Paths.Familysharing {
         }
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -186,11 +187,11 @@ extension Paths.Familysharing {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("docId", docID)
-                query.addQueryItem("source", source)
-                query.addQueryItem("volumeId", volumeID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["docId": docID])
+                encoder.encode(["source": source])
+                encoder.encode(["volumeId": volumeID])
+                return encoder.items
             }
         }
     }
@@ -222,11 +223,11 @@ extension Paths.Familysharing {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("docId", docID)
-                query.addQueryItem("source", source)
-                query.addQueryItem("volumeId", volumeID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["docId": docID])
+                encoder.encode(["source": source])
+                encoder.encode(["volumeId": volumeID])
+                return encoder.items
             }
         }
     }
@@ -258,9 +259,9 @@ extension Paths.Myconfig {
         }
 
         private func makeGetQuery(_ country: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("country", country)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["country": country])
+            return encoder.items
         }
     }
 }
@@ -293,12 +294,12 @@ extension Paths.Myconfig {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cpksver", cpksver)
-                volumeIDs.forEach { query.addQueryItem("volumeIds", $0) }
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cpksver": cpksver])
+                encoder.encode(["volumeIds": volumeIDs])
+                encoder.encode(["locale": locale])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -343,14 +344,14 @@ extension Paths.Myconfig {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cpksver", cpksver)
-                query.addQueryItem("nonce", nonce)
-                query.addQueryItem("source", source)
-                query.addQueryItem("volumeId", volumeID)
-                query.addQueryItem("licenseTypes", licenseTypes)
-                query.addQueryItem("locale", locale)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cpksver": cpksver])
+                encoder.encode(["nonce": nonce])
+                encoder.encode(["source": source])
+                encoder.encode(["volumeId": volumeID])
+                encoder.encode(["licenseTypes": licenseTypes])
+                encoder.encode(["locale": locale])
+                return encoder.items
             }
         }
     }
@@ -397,16 +398,16 @@ extension Paths.Myconfig {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cpksver", cpksver)
-                query.addQueryItem("nonce", nonce)
-                query.addQueryItem("source", source)
-                features?.forEach { query.addQueryItem("features", $0) }
-                query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("showPreorders", isShowPreorders)
-                volumeIDs?.forEach { query.addQueryItem("volumeIds", $0) }
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cpksver": cpksver])
+                encoder.encode(["nonce": nonce])
+                encoder.encode(["source": source])
+                encoder.encode(["features": features])
+                encoder.encode(["includeNonComicsSeries": isIncludeNonComicsSeries])
+                encoder.encode(["locale": locale])
+                encoder.encode(["showPreorders": isShowPreorders])
+                encoder.encode(["volumeIds": volumeIDs])
+                return encoder.items
             }
         }
     }
@@ -479,18 +480,18 @@ extension Paths.Mylibrary {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion)
-                query.addQueryItem("layerId", layerID)
-                layerIDs?.forEach { query.addQueryItem("layerIds", $0) }
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("pageToken", pageToken)
-                query.addQueryItem("showDeleted", isShowDeleted)
-                query.addQueryItem("source", source)
-                query.addQueryItem("updatedMax", updatedMax)
-                query.addQueryItem("updatedMin", updatedMin)
-                query.addQueryItem("volumeId", volumeID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["contentVersion": contentVersion])
+                encoder.encode(["layerId": layerID])
+                encoder.encode(["layerIds": layerIDs])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["pageToken": pageToken])
+                encoder.encode(["showDeleted": isShowDeleted])
+                encoder.encode(["source": source])
+                encoder.encode(["updatedMax": updatedMax])
+                encoder.encode(["updatedMin": updatedMin])
+                encoder.encode(["volumeId": volumeID])
+                return encoder.items
             }
         }
 
@@ -513,12 +514,12 @@ extension Paths.Mylibrary {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("annotationId", annotationID)
-                query.addQueryItem("country", country)
-                query.addQueryItem("showOnlySummaryInResponse", isShowOnlySummaryInResponse)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["annotationId": annotationID])
+                encoder.encode(["country": country])
+                encoder.encode(["showOnlySummaryInResponse": isShowOnlySummaryInResponse])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -539,10 +540,10 @@ extension Paths.Mylibrary.Annotations {
         }
 
         private func makePostQuery(_ layerIDs: [String], _ volumeID: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            layerIDs.forEach { query.addQueryItem("layerIds", $0) }
-            query.addQueryItem("volumeId", volumeID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["layerIds": layerIDs])
+            encoder.encode(["volumeId": volumeID])
+            return encoder.items
         }
     }
 }
@@ -562,9 +563,9 @@ extension Paths.Mylibrary.Annotations {
         }
 
         private func makePutQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
 
         /// Deletes an annotation.
@@ -573,9 +574,9 @@ extension Paths.Mylibrary.Annotations {
         }
 
         private func makeDeleteQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -595,9 +596,9 @@ extension Paths.Mylibrary {
         }
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -617,9 +618,9 @@ extension Paths.Mylibrary.Bookshelves {
         }
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -657,11 +658,11 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("volumeId", volumeID)
-                query.addQueryItem("reason", reason)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["volumeId": volumeID])
+                encoder.encode(["reason": reason])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -682,9 +683,9 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
         }
 
         private func makePostQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -715,11 +716,11 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("volumeId", volumeID)
-                query.addQueryItem("volumePosition", volumePosition)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["volumeId": volumeID])
+                encoder.encode(["volumePosition": volumePosition])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -756,11 +757,11 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("volumeId", volumeID)
-                query.addQueryItem("reason", reason)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["volumeId": volumeID])
+                encoder.encode(["reason": reason])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -806,15 +807,15 @@ extension Paths.Mylibrary.Bookshelves.WithShelf {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("country", country)
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("projection", projection)
-                query.addQueryItem("q", q)
-                query.addQueryItem("showPreorders", isShowPreorders)
-                query.addQueryItem("source", source)
-                query.addQueryItem("startIndex", startIndex)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["country": country])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["projection": projection])
+                encoder.encode(["q": q])
+                encoder.encode(["showPreorders": isShowPreorders])
+                encoder.encode(["source": source])
+                encoder.encode(["startIndex": startIndex])
+                return encoder.items
             }
         }
     }
@@ -846,10 +847,10 @@ extension Paths.Mylibrary.Readingpositions {
         }
 
         private func makeGetQuery(_ contentVersion: String?, _ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("contentVersion", contentVersion)
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["contentVersion": contentVersion])
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -896,14 +897,14 @@ extension Paths.Mylibrary.Readingpositions.WithVolumeID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("position", position)
-                query.addQueryItem("timestamp", timestamp)
-                query.addQueryItem("action", action)
-                query.addQueryItem("contentVersion", contentVersion)
-                query.addQueryItem("deviceCookie", deviceCookie)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["position": position])
+                encoder.encode(["timestamp": timestamp])
+                encoder.encode(["action": action])
+                encoder.encode(["contentVersion": contentVersion])
+                encoder.encode(["deviceCookie": deviceCookie])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -946,11 +947,11 @@ extension Paths.Notification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("notification_id", notificationID)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["notification_id": notificationID])
+                encoder.encode(["locale": locale])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -982,9 +983,9 @@ extension Paths.Onboarding {
         }
 
         private func makeGetQuery(_ locale: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            return encoder.items
         }
     }
 }
@@ -1025,13 +1026,13 @@ extension Paths.Onboarding {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                categoryID?.forEach { query.addQueryItem("categoryId", $0) }
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
-                query.addQueryItem("pageSize", pageSize)
-                query.addQueryItem("pageToken", pageToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["categoryId": categoryID])
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
+                encoder.encode(["pageSize": pageSize])
+                encoder.encode(["pageToken": pageToken])
+                return encoder.items
             }
         }
     }
@@ -1080,11 +1081,11 @@ extension Paths.Personalizedstream {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -1137,16 +1138,16 @@ extension Paths.Promooffer {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("androidId", androidID)
-                query.addQueryItem("device", device)
-                query.addQueryItem("manufacturer", manufacturer)
-                query.addQueryItem("model", model)
-                query.addQueryItem("offerId", offerID)
-                query.addQueryItem("product", product)
-                query.addQueryItem("serial", serial)
-                query.addQueryItem("volumeId", volumeID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["androidId": androidID])
+                encoder.encode(["device": device])
+                encoder.encode(["manufacturer": manufacturer])
+                encoder.encode(["model": model])
+                encoder.encode(["offerId": offerID])
+                encoder.encode(["product": product])
+                encoder.encode(["serial": serial])
+                encoder.encode(["volumeId": volumeID])
+                return encoder.items
             }
         }
     }
@@ -1186,15 +1187,15 @@ extension Paths.Promooffer {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("androidId", androidID)
-                query.addQueryItem("device", device)
-                query.addQueryItem("manufacturer", manufacturer)
-                query.addQueryItem("model", model)
-                query.addQueryItem("offerId", offerID)
-                query.addQueryItem("product", product)
-                query.addQueryItem("serial", serial)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["androidId": androidID])
+                encoder.encode(["device": device])
+                encoder.encode(["manufacturer": manufacturer])
+                encoder.encode(["model": model])
+                encoder.encode(["offerId": offerID])
+                encoder.encode(["product": product])
+                encoder.encode(["serial": serial])
+                return encoder.items
             }
         }
     }
@@ -1232,14 +1233,14 @@ extension Paths.Promooffer {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("androidId", androidID)
-                query.addQueryItem("device", device)
-                query.addQueryItem("manufacturer", manufacturer)
-                query.addQueryItem("model", model)
-                query.addQueryItem("product", product)
-                query.addQueryItem("serial", serial)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["androidId": androidID])
+                encoder.encode(["device": device])
+                encoder.encode(["manufacturer": manufacturer])
+                encoder.encode(["model": model])
+                encoder.encode(["product": product])
+                encoder.encode(["serial": serial])
+                return encoder.items
             }
         }
     }
@@ -1271,9 +1272,9 @@ extension Paths.Series {
         }
 
         private func makeGetQuery(_ seriesID: [String]) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            seriesID.forEach { query.addQueryItem("series_id", $0) }
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["series_id": seriesID])
+            return encoder.items
         }
     }
 }
@@ -1315,11 +1316,11 @@ extension Paths.Series.Membership {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("series_id", seriesID)
-                query.addQueryItem("page_size", pageSize)
-                query.addQueryItem("page_token", pageToken)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["series_id": seriesID])
+                encoder.encode(["page_size": pageSize])
+                encoder.encode(["page_token": pageToken])
+                return encoder.items
             }
         }
     }
@@ -1362,9 +1363,9 @@ extension Paths.Users.WithUserID {
         }
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -1384,9 +1385,9 @@ extension Paths.Users.WithUserID.Bookshelves {
         }
 
         private func makeGetQuery(_ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -1419,12 +1420,12 @@ extension Paths.Users.WithUserID.Bookshelves.WithShelf {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("showPreorders", isShowPreorders)
-                query.addQueryItem("source", source)
-                query.addQueryItem("startIndex", startIndex)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["showPreorders": isShowPreorders])
+                encoder.encode(["source": source])
+                encoder.encode(["startIndex": startIndex])
+                return encoder.items
             }
         }
     }
@@ -1523,22 +1524,22 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("q", q)
-                query.addQueryItem("download", download)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("langRestrict", langRestrict)
-                query.addQueryItem("libraryRestrict", libraryRestrict)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("orderBy", orderBy)
-                query.addQueryItem("partner", partner)
-                query.addQueryItem("printType", printType)
-                query.addQueryItem("projection", projection)
-                query.addQueryItem("showPreorders", isShowPreorders)
-                query.addQueryItem("source", source)
-                query.addQueryItem("startIndex", startIndex)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["q": q])
+                encoder.encode(["download": download])
+                encoder.encode(["filter": filter])
+                encoder.encode(["langRestrict": langRestrict])
+                encoder.encode(["libraryRestrict": libraryRestrict])
+                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["orderBy": orderBy])
+                encoder.encode(["partner": partner])
+                encoder.encode(["printType": printType])
+                encoder.encode(["projection": projection])
+                encoder.encode(["showPreorders": isShowPreorders])
+                encoder.encode(["source": source])
+                encoder.encode(["startIndex": startIndex])
+                return encoder.items
             }
         }
     }
@@ -1597,15 +1598,15 @@ extension Paths.Volumes {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                acquireMethod?.forEach { query.addQueryItem("acquireMethod", $0) }
-                query.addQueryItem("country", country)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxResults", maxResults)
-                processingState?.forEach { query.addQueryItem("processingState", $0) }
-                query.addQueryItem("source", source)
-                query.addQueryItem("startIndex", startIndex)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["acquireMethod": acquireMethod])
+                encoder.encode(["country": country])
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["processingState": processingState])
+                encoder.encode(["source": source])
+                encoder.encode(["startIndex": startIndex])
+                return encoder.items
             }
         }
     }
@@ -1643,11 +1644,11 @@ extension Paths.Volumes {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -1687,12 +1688,12 @@ extension Paths.Volumes.Recommended {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("rating", rating)
-                query.addQueryItem("volumeId", volumeID)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["rating": rating])
+                encoder.encode(["volumeId": volumeID])
+                encoder.encode(["locale": locale])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -1737,14 +1738,14 @@ extension Paths.Volumes {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxResults", maxResults)
-                processingState?.forEach { query.addQueryItem("processingState", $0) }
-                query.addQueryItem("source", source)
-                query.addQueryItem("startIndex", startIndex)
-                volumeID?.forEach { query.addQueryItem("volumeId", $0) }
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["processingState": processingState])
+                encoder.encode(["source": source])
+                encoder.encode(["startIndex": startIndex])
+                encoder.encode(["volumeId": volumeID])
+                return encoder.items
             }
         }
     }
@@ -1788,14 +1789,14 @@ extension Paths.Volumes {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("country", country)
-                query.addQueryItem("includeNonComicsSeries", isIncludeNonComicsSeries)
-                query.addQueryItem("partner", partner)
-                query.addQueryItem("projection", projection)
-                query.addQueryItem("source", source)
-                query.addQueryItem("user_library_consistent_read", isUserLibraryConsistentRead)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["country": country])
+                encoder.encode(["includeNonComicsSeries": isIncludeNonComicsSeries])
+                encoder.encode(["partner": partner])
+                encoder.encode(["projection": projection])
+                encoder.encode(["source": source])
+                encoder.encode(["user_library_consistent_read": isUserLibraryConsistentRead])
+                return encoder.items
             }
         }
     }
@@ -1842,12 +1843,12 @@ extension Paths.Volumes.WithVolumeID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("association", association)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxAllowedMaturityRating", maxAllowedMaturityRating)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["association": association])
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxAllowedMaturityRating": maxAllowedMaturityRating])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -1910,21 +1911,21 @@ extension Paths.Volumes.WithVolumeID.Layers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion)
-                query.addQueryItem("endOffset", endOffset)
-                query.addQueryItem("endPosition", endPosition)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("pageToken", pageToken)
-                query.addQueryItem("showDeleted", isShowDeleted)
-                query.addQueryItem("source", source)
-                query.addQueryItem("startOffset", startOffset)
-                query.addQueryItem("startPosition", startPosition)
-                query.addQueryItem("updatedMax", updatedMax)
-                query.addQueryItem("updatedMin", updatedMin)
-                query.addQueryItem("volumeAnnotationsVersion", volumeAnnotationsVersion)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["contentVersion": contentVersion])
+                encoder.encode(["endOffset": endOffset])
+                encoder.encode(["endPosition": endPosition])
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["pageToken": pageToken])
+                encoder.encode(["showDeleted": isShowDeleted])
+                encoder.encode(["source": source])
+                encoder.encode(["startOffset": startOffset])
+                encoder.encode(["startPosition": startPosition])
+                encoder.encode(["updatedMax": updatedMax])
+                encoder.encode(["updatedMin": updatedMin])
+                encoder.encode(["volumeAnnotationsVersion": volumeAnnotationsVersion])
+                return encoder.items
             }
         }
     }
@@ -1956,10 +1957,10 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Annotations {
         }
 
         private func makeGetQuery(_ locale: String?, _ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("locale", locale)
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["locale": locale])
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
@@ -2006,19 +2007,19 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion)
-                annotationDataID?.forEach { query.addQueryItem("annotationDataId", $0) }
-                query.addQueryItem("h", h)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("pageToken", pageToken)
-                query.addQueryItem("scale", scale)
-                query.addQueryItem("source", source)
-                query.addQueryItem("updatedMax", updatedMax)
-                query.addQueryItem("updatedMin", updatedMin)
-                query.addQueryItem("w", w)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["contentVersion": contentVersion])
+                encoder.encode(["annotationDataId": annotationDataID])
+                encoder.encode(["h": h])
+                encoder.encode(["locale": locale])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["pageToken": pageToken])
+                encoder.encode(["scale": scale])
+                encoder.encode(["source": source])
+                encoder.encode(["updatedMax": updatedMax])
+                encoder.encode(["updatedMin": updatedMin])
+                encoder.encode(["w": w])
+                return encoder.items
             }
         }
     }
@@ -2058,15 +2059,15 @@ extension Paths.Volumes.WithVolumeID.Layers.WithLayerID.Data {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion)
-                query.addQueryItem("allowWebDefinitions", allowWebDefinitions)
-                query.addQueryItem("h", h)
-                query.addQueryItem("locale", locale)
-                query.addQueryItem("scale", scale)
-                query.addQueryItem("source", source)
-                query.addQueryItem("w", w)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["contentVersion": contentVersion])
+                encoder.encode(["allowWebDefinitions": allowWebDefinitions])
+                encoder.encode(["h": h])
+                encoder.encode(["locale": locale])
+                encoder.encode(["scale": scale])
+                encoder.encode(["source": source])
+                encoder.encode(["w": w])
+                return encoder.items
             }
         }
     }
@@ -2100,12 +2101,12 @@ extension Paths.Volumes.WithVolumeID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("contentVersion", contentVersion)
-                query.addQueryItem("maxResults", maxResults)
-                query.addQueryItem("pageToken", pageToken)
-                query.addQueryItem("source", source)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["contentVersion": contentVersion])
+                encoder.encode(["maxResults": maxResults])
+                encoder.encode(["pageToken": pageToken])
+                encoder.encode(["source": source])
+                return encoder.items
             }
         }
     }
@@ -2126,98 +2127,12 @@ extension Paths.Volumes.WithVolumeID.Layersummary {
         }
 
         private func makeGetQuery(_ contentVersion: String?, _ source: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("contentVersion", contentVersion)
-            query.addQueryItem("source", source)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["contentVersion": contentVersion])
+            encoder.encode(["source": source])
+            return encoder.items
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

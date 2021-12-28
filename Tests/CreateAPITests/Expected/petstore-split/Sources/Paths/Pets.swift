@@ -6,6 +6,7 @@
 import Foundation
 import Get
 import HTTPHeaders
+import URLQueryEncoder
 
 extension Paths {
     public static var pets: Pets {
@@ -27,9 +28,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         /// Create a pet

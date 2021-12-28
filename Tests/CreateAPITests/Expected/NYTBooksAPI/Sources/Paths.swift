@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var lists: Lists {
@@ -195,15 +196,15 @@ extension Paths.Lists.BestSellers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("age-group", ageGroup)
-                query.addQueryItem("author", author)
-                query.addQueryItem("contributor", contributor)
-                query.addQueryItem("isbn", isbn)
-                query.addQueryItem("price", price)
-                query.addQueryItem("publisher", publisher)
-                query.addQueryItem("title", title)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["age-group": ageGroup])
+                encoder.encode(["author": author])
+                encoder.encode(["contributor": contributor])
+                encoder.encode(["isbn": isbn])
+                encoder.encode(["price": price])
+                encoder.encode(["publisher": publisher])
+                encoder.encode(["title": title])
+                return encoder.items
             }
         }
     }
@@ -396,18 +397,18 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("list", list)
-                query.addQueryItem("weeks-on-list", weeksOnList)
-                query.addQueryItem("bestsellers-date", bestsellersDate)
-                query.addQueryItem("date", date)
-                query.addQueryItem("isbn", isbn)
-                query.addQueryItem("published-date", publishedDate)
-                query.addQueryItem("rank", rank)
-                query.addQueryItem("rank-last-week", rankLastWeek)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("sort-order", sortOrder)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["list": list])
+                encoder.encode(["weeks-on-list": weeksOnList])
+                encoder.encode(["bestsellers-date": bestsellersDate])
+                encoder.encode(["date": date])
+                encoder.encode(["isbn": isbn])
+                encoder.encode(["published-date": publishedDate])
+                encoder.encode(["rank": rank])
+                encoder.encode(["rank-last-week": rankLastWeek])
+                encoder.encode(["offset": offset])
+                encoder.encode(["sort-order": sortOrder])
+                return encoder.items
             }
         }
     }
@@ -609,17 +610,17 @@ extension Paths.Lists.WithDate {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("isbn", isbn)
-                query.addQueryItem("list-name", listName)
-                query.addQueryItem("published-date", publishedDate)
-                query.addQueryItem("bestsellers-date", bestsellersDate)
-                query.addQueryItem("weeks-on-list", weeksOnList)
-                query.addQueryItem("rank", rank)
-                query.addQueryItem("rank-last-week", rankLastWeek)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("sort-order", sortOrder)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["isbn": isbn])
+                encoder.encode(["list-name": listName])
+                encoder.encode(["published-date": publishedDate])
+                encoder.encode(["bestsellers-date": bestsellersDate])
+                encoder.encode(["weeks-on-list": weeksOnList])
+                encoder.encode(["rank": rank])
+                encoder.encode(["rank-last-week": rankLastWeek])
+                encoder.encode(["offset": offset])
+                encoder.encode(["sort-order": sortOrder])
+                return encoder.items
             }
         }
     }
@@ -754,10 +755,10 @@ extension Paths.Lists {
         }
 
         private func makeGetQuery(_ publishedDate: String?, _ apiKey: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("published_date", publishedDate)
-            query.addQueryItem("api-key", apiKey)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["published_date": publishedDate])
+            encoder.encode(["api-key": apiKey])
+            return encoder.items
         }
     }
 }
@@ -825,9 +826,9 @@ extension Paths.Lists {
         }
 
         private func makeGetQuery(_ apiKey: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("api-key", apiKey)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["api-key": apiKey])
+            return encoder.items
         }
     }
 }
@@ -911,101 +912,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("isbn", isbn)
-                query.addQueryItem("title", title)
-                query.addQueryItem("author", author)
-                query.addQueryItem("api-key", apiKey)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["isbn": isbn])
+                encoder.encode(["title": title])
+                encoder.encode(["author": author])
+                encoder.encode(["api-key": apiKey])
+                return encoder.items
             }
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

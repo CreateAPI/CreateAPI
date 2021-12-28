@@ -11,12 +11,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kean/Get", branch: "main"), 
-        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main")
+        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main"), 
+        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")
     ],
     targets: [
         .target(name: "petstore-base-class", dependencies: [
             .product(name: "Get", package: "Get"), 
-            .product(name: "HTTPHeaders", package: "HTTPHeaders")
+            .product(name: "HTTPHeaders", package: "HTTPHeaders"), 
+            .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
         ], path: "Sources")
     ]
 )

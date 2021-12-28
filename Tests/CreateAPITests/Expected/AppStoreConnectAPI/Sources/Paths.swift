@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var ageRatingDeclarations: AgeRatingDeclarations {
@@ -80,14 +81,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[platforms]", filterPlatforms?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("exists[parent]", existsParent?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[subcategories]", limitSubcategories)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[platforms]": filterPlatforms], explode: false)
+                encoder.encode(["exists[parent]": existsParent], explode: false)
+                encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["limit[subcategories]": limitSubcategories])
+                return encoder.items
             }
         }
     }
@@ -129,11 +130,11 @@ extension Paths.AppCategories {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[subcategories]", limitSubcategories)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["limit[subcategories]": limitSubcategories])
+                return encoder.items
             }
         }
     }
@@ -168,9 +169,9 @@ extension Paths.AppClipAdvancedExperienceImages {
         }
 
         private func makeGetQuery(_ fieldsAppClipAdvancedExperienceImages: [FieldsAppClipAdvancedExperienceImages]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipAdvancedExperienceImages]", fieldsAppClipAdvancedExperienceImages?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipAdvancedExperienceImages]": fieldsAppClipAdvancedExperienceImages], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipAdvancedExperienceImages: String, Codable, CaseIterable {
@@ -251,11 +252,11 @@ extension Paths.AppClipAdvancedExperiences {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appClipAdvancedExperiences]", fieldsAppClipAdvancedExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[localizations]", limitLocalizations)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appClipAdvancedExperiences]": fieldsAppClipAdvancedExperiences], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["limit[localizations]": limitLocalizations])
+                return encoder.items
             }
         }
 
@@ -294,10 +295,10 @@ extension Paths.AppClipAppStoreReviewDetails {
         }
 
         private func makeGetQuery(_ fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipAppStoreReviewDetails]", fieldsAppClipAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipAppStoreReviewDetails]": fieldsAppClipAppStoreReviewDetails], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipAppStoreReviewDetails: String, Codable, CaseIterable {
@@ -378,11 +379,11 @@ extension Paths.AppClipDefaultExperienceLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipHeaderImages]", fieldsAppClipHeaderImages?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appClipHeaderImages]": fieldsAppClipHeaderImages], explode: false)
+                return encoder.items
             }
         }
 
@@ -492,14 +493,14 @@ extension Paths.AppClipDefaultExperiences {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipAppStoreReviewDetails]", fieldsAppClipAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appClipDefaultExperienceLocalizations]", limitAppClipDefaultExperienceLocalizations)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appClipAppStoreReviewDetails]": fieldsAppClipAppStoreReviewDetails], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
+                encoder.encode(["limit[appClipDefaultExperienceLocalizations]": limitAppClipDefaultExperienceLocalizations])
+                return encoder.items
             }
         }
 
@@ -542,10 +543,10 @@ extension Paths.AppClipHeaderImages {
         }
 
         private func makeGetQuery(_ fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipHeaderImages]", fieldsAppClipHeaderImages?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipHeaderImages]": fieldsAppClipHeaderImages], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipHeaderImages: String, Codable, CaseIterable {
@@ -650,13 +651,13 @@ extension Paths.AppClips {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipAdvancedExperiences]", fieldsAppClipAdvancedExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appClipDefaultExperiences]", limitAppClipDefaultExperiences)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appClipAdvancedExperiences]": fieldsAppClipAdvancedExperiences], explode: false)
+                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
+                encoder.encode(["limit[appClipDefaultExperiences]": limitAppClipDefaultExperiences])
+                return encoder.items
             }
         }
     }
@@ -750,15 +751,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["filter[builds]": filterBuilds], explode: false)
+                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
     }
@@ -838,11 +839,11 @@ extension Paths.AppEncryptionDeclarations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
     }
@@ -877,10 +878,10 @@ extension Paths.AppInfoLocalizations {
         }
 
         private func makeGetQuery(_ fieldsAppInfoLocalizations: [FieldsAppInfoLocalizations]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppInfoLocalizations: String, Codable, CaseIterable {
@@ -1013,14 +1014,14 @@ extension Paths.AppInfos {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appInfoLocalizations]", limitAppInfoLocalizations)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
+                encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
+                encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+                encoder.encode(["limit[appInfoLocalizations]": limitAppInfoLocalizations])
+                return encoder.items
             }
         }
 
@@ -1059,10 +1060,10 @@ extension Paths.AppPreOrders {
         }
 
         private func makeGetQuery(_ fieldsAppPreOrders: [FieldsAppPreOrders]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppPreOrders: String, Codable, CaseIterable {
@@ -1152,12 +1153,12 @@ extension Paths.AppPreviewSets {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appPreviews]", limitAppPreviews)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appPreviewSets]": fieldsAppPreviewSets], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
+                encoder.encode(["limit[appPreviews]": limitAppPreviews])
+                return encoder.items
             }
         }
 
@@ -1196,10 +1197,10 @@ extension Paths.AppPreviews {
         }
 
         private func makeGetQuery(_ fieldsAppPreviews: [FieldsAppPreviews]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppPreviews: String, Codable, CaseIterable {
@@ -1277,14 +1278,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[priceTier]", filterPriceTier?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[territory]", filterTerritory?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[priceTier]": filterPriceTier], explode: false)
+                encoder.encode(["filter[territory]": filterTerritory], explode: false)
+                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                return encoder.items
             }
         }
     }
@@ -1331,11 +1332,11 @@ extension Paths.AppPricePoints {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                return encoder.items
             }
         }
     }
@@ -1387,14 +1388,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[pricePoints]", limitPricePoints)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[appPriceTiers]": fieldsAppPriceTiers], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
+                encoder.encode(["limit[pricePoints]": limitPricePoints])
+                return encoder.items
             }
         }
     }
@@ -1442,12 +1443,12 @@ extension Paths.AppPriceTiers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appPriceTiers]", fieldsAppPriceTiers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[pricePoints]", limitPricePoints)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appPriceTiers]": fieldsAppPriceTiers], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
+                encoder.encode(["limit[pricePoints]": limitPricePoints])
+                return encoder.items
             }
         }
     }
@@ -1478,10 +1479,10 @@ extension Paths.AppPrices {
         }
 
         private func makeGetQuery(_ fieldsAppPrices: [FieldsAppPrices]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppPrices: String, Codable, CaseIterable {
@@ -1562,12 +1563,12 @@ extension Paths.AppScreenshotSets {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appScreenshots]", limitAppScreenshots)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appScreenshotSets]": fieldsAppScreenshotSets], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
+                encoder.encode(["limit[appScreenshots]": limitAppScreenshots])
+                return encoder.items
             }
         }
 
@@ -1606,10 +1607,10 @@ extension Paths.AppScreenshots {
         }
 
         private func makeGetQuery(_ fieldsAppScreenshots: [FieldsAppScreenshots]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppScreenshots: String, Codable, CaseIterable {
@@ -1668,10 +1669,10 @@ extension Paths.AppStoreReviewAttachments {
         }
 
         private func makeGetQuery(_ fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppStoreReviewAttachments: String, Codable, CaseIterable {
@@ -1768,12 +1769,12 @@ extension Paths.AppStoreReviewDetails {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appStoreReviewAttachments]", limitAppStoreReviewAttachments)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appStoreReviewDetails]": fieldsAppStoreReviewDetails], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
+                encoder.encode(["limit[appStoreReviewAttachments]": limitAppStoreReviewAttachments])
+                return encoder.items
             }
         }
 
@@ -1860,14 +1861,14 @@ extension Paths.AppStoreVersionLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appPreviewSets]", limitAppPreviewSets)
-                query.addQueryItem("limit[appScreenshotSets]", limitAppScreenshotSets)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appScreenshotSets]": fieldsAppScreenshotSets], explode: false)
+                encoder.encode(["fields[appPreviewSets]": fieldsAppPreviewSets], explode: false)
+                encoder.encode(["limit[appPreviewSets]": limitAppPreviewSets])
+                encoder.encode(["limit[appScreenshotSets]": limitAppScreenshotSets])
+                return encoder.items
             }
         }
 
@@ -2165,20 +2166,20 @@ extension Paths.AppStoreVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[appStoreVersionSubmissions]": fieldsAppStoreVersionSubmissions], explode: false)
+                encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
+                encoder.encode(["fields[appStoreReviewDetails]": fieldsAppStoreReviewDetails], explode: false)
+                encoder.encode(["fields[idfaDeclarations]": fieldsIdfaDeclarations], explode: false)
+                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
+                encoder.encode(["fields[routingAppCoverages]": fieldsRoutingAppCoverages], explode: false)
+                encoder.encode(["fields[appStoreVersionPhasedReleases]": fieldsAppStoreVersionPhasedReleases], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
+                encoder.encode(["limit[appStoreVersionLocalizations]": limitAppStoreVersionLocalizations])
+                return encoder.items
             }
         }
 
@@ -2551,48 +2552,48 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[appStoreVersions.appStoreState]", filterAppStoreVersionsAppStoreState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[appStoreVersions.platform]", filterAppStoreVersionsPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[bundleId]", filterBundleID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[sku]", filterSku?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[appStoreVersions]", filterAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("exists[gameCenterEnabledVersions]", existsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appClips]", limitAppClips)
-                query.addQueryItem("limit[appInfos]", limitAppInfos)
-                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
-                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
-                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions)
-                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases)
-                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions)
-                query.addQueryItem("limit[prices]", limitPrices)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[appStoreVersions.appStoreState]": filterAppStoreVersionsAppStoreState], explode: false)
+                encoder.encode(["filter[appStoreVersions.platform]": filterAppStoreVersionsPlatform], explode: false)
+                encoder.encode(["filter[bundleId]": filterBundleID], explode: false)
+                encoder.encode(["filter[name]": filterName], explode: false)
+                encoder.encode(["filter[sku]": filterSku], explode: false)
+                encoder.encode(["filter[appStoreVersions]": filterAppStoreVersions], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["exists[gameCenterEnabledVersions]": existsGameCenterEnabledVersions], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
+                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
+                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
+                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
+                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
+                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
+                encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
+                encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
+                encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[appClips]": limitAppClips])
+                encoder.encode(["limit[appInfos]": limitAppInfos])
+                encoder.encode(["limit[appStoreVersions]": limitAppStoreVersions])
+                encoder.encode(["limit[availableTerritories]": limitAvailableTerritories])
+                encoder.encode(["limit[betaAppLocalizations]": limitBetaAppLocalizations])
+                encoder.encode(["limit[betaGroups]": limitBetaGroups])
+                encoder.encode(["limit[builds]": limitBuilds])
+                encoder.encode(["limit[gameCenterEnabledVersions]": limitGameCenterEnabledVersions])
+                encoder.encode(["limit[inAppPurchases]": limitInAppPurchases])
+                encoder.encode(["limit[preReleaseVersions]": limitPreReleaseVersions])
+                encoder.encode(["limit[prices]": limitPrices])
+                return encoder.items
             }
         }
     }
@@ -2902,38 +2903,38 @@ extension Paths.Apps {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appClips]", limitAppClips)
-                query.addQueryItem("limit[appInfos]", limitAppInfos)
-                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
-                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
-                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions)
-                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases)
-                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions)
-                query.addQueryItem("limit[prices]", limitPrices)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
+                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
+                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
+                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
+                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
+                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
+                encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
+                encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
+                encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[appClips]": limitAppClips])
+                encoder.encode(["limit[appInfos]": limitAppInfos])
+                encoder.encode(["limit[appStoreVersions]": limitAppStoreVersions])
+                encoder.encode(["limit[availableTerritories]": limitAvailableTerritories])
+                encoder.encode(["limit[betaAppLocalizations]": limitBetaAppLocalizations])
+                encoder.encode(["limit[betaGroups]": limitBetaGroups])
+                encoder.encode(["limit[builds]": limitBuilds])
+                encoder.encode(["limit[gameCenterEnabledVersions]": limitGameCenterEnabledVersions])
+                encoder.encode(["limit[inAppPurchases]": limitInAppPurchases])
+                encoder.encode(["limit[preReleaseVersions]": limitPreReleaseVersions])
+                encoder.encode(["limit[prices]": limitPrices])
+                return encoder.items
             }
         }
 
@@ -3027,11 +3028,11 @@ extension Paths.BetaAppClipInvocations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaAppClipInvocations]", fieldsBetaAppClipInvocations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaAppClipInvocationLocalizations]", limitBetaAppClipInvocationLocalizations)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaAppClipInvocations]": fieldsBetaAppClipInvocations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["limit[betaAppClipInvocationLocalizations]": limitBetaAppClipInvocationLocalizations])
+                return encoder.items
             }
         }
 
@@ -3118,14 +3119,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[locale]": filterLocale], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
 
@@ -3202,11 +3203,11 @@ extension Paths.BetaAppLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
 
@@ -3293,13 +3294,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[app]", filterApp.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
     }
@@ -3374,11 +3375,11 @@ extension Paths.BetaAppReviewDetails {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
 
@@ -3463,14 +3464,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[betaReviewState]", filterBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[build]", filterBuild.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[betaReviewState]": filterBetaReviewState], explode: false)
+                encoder.encode(["filter[build]": filterBuild], explode: false)
+                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                return encoder.items
             }
         }
 
@@ -3542,11 +3543,11 @@ extension Paths.BetaAppReviewSubmissions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                return encoder.items
             }
         }
     }
@@ -3620,14 +3621,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[build]", filterBuild?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[locale]": filterLocale], explode: false)
+                encoder.encode(["filter[build]": filterBuild], explode: false)
+                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                return encoder.items
             }
         }
 
@@ -3699,11 +3700,11 @@ extension Paths.BetaBuildLocalizations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                return encoder.items
             }
         }
 
@@ -3869,25 +3870,25 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[isInternalGroup]", filterIsInternalGroup?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[publicLink]", filterPublicLink?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[publicLinkEnabled]", filterPublicLinkEnabled?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[publicLinkLimitEnabled]", filterPublicLinkLimitEnabled?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaTesters]", limitBetaTesters)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[isInternalGroup]": filterIsInternalGroup], explode: false)
+                encoder.encode(["filter[name]": filterName], explode: false)
+                encoder.encode(["filter[publicLink]": filterPublicLink], explode: false)
+                encoder.encode(["filter[publicLinkEnabled]": filterPublicLinkEnabled], explode: false)
+                encoder.encode(["filter[publicLinkLimitEnabled]": filterPublicLinkLimitEnabled], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["filter[builds]": filterBuilds], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[betaTesters]": limitBetaTesters])
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
 
@@ -4018,15 +4019,15 @@ extension Paths.BetaGroups {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaTesters]", limitBetaTesters)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[betaTesters]": limitBetaTesters])
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
 
@@ -4106,13 +4107,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
     }
@@ -4180,11 +4181,11 @@ extension Paths.BetaLicenseAgreements {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                return encoder.items
             }
         }
 
@@ -4368,26 +4369,26 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[email]", filterEmail?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[firstName]", filterFirstName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[inviteType]", filterInviteType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[lastName]", filterLastName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[apps]", filterApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[betaGroups]", filterBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[apps]", limitApps)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[email]": filterEmail], explode: false)
+                encoder.encode(["filter[firstName]": filterFirstName], explode: false)
+                encoder.encode(["filter[inviteType]": filterInviteType], explode: false)
+                encoder.encode(["filter[lastName]": filterLastName], explode: false)
+                encoder.encode(["filter[apps]": filterApps], explode: false)
+                encoder.encode(["filter[betaGroups]": filterBetaGroups], explode: false)
+                encoder.encode(["filter[builds]": filterBuilds], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["limit[apps]": limitApps])
+                encoder.encode(["limit[betaGroups]": limitBetaGroups])
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
 
@@ -4520,16 +4521,16 @@ extension Paths.BetaTesters {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[apps]", limitApps)
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["limit[apps]": limitApps])
+                encoder.encode(["limit[betaGroups]": limitBetaGroups])
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
 
@@ -4608,14 +4609,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[build]", filterBuild?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[build]": filterBuild], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                return encoder.items
             }
         }
     }
@@ -4684,11 +4685,11 @@ extension Paths.BuildBetaDetails {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                return encoder.items
             }
         }
 
@@ -4991,40 +4992,40 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[betaAppReviewSubmission.betaReviewState]", filterBetaAppReviewSubmissionBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[buildAudienceType]", filterBuildAudienceType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[expired]", filterExpired?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[preReleaseVersion.platform]", filterPreReleaseVersionPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[preReleaseVersion.version]", filterPreReleaseVersionVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[processingState]", filterProcessingState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[usesNonExemptEncryption]", filterUsesNonExemptEncryption?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[appStoreVersion]", filterAppStoreVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[betaGroups]", filterBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[preReleaseVersion]", filterPreReleaseVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
-                query.addQueryItem("limit[buildBundles]", limitBuildBundles)
-                query.addQueryItem("limit[icons]", limitIcons)
-                query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[betaAppReviewSubmission.betaReviewState]": filterBetaAppReviewSubmissionBetaReviewState], explode: false)
+                encoder.encode(["filter[buildAudienceType]": filterBuildAudienceType], explode: false)
+                encoder.encode(["filter[expired]": filterExpired], explode: false)
+                encoder.encode(["filter[preReleaseVersion.platform]": filterPreReleaseVersionPlatform], explode: false)
+                encoder.encode(["filter[preReleaseVersion.version]": filterPreReleaseVersionVersion], explode: false)
+                encoder.encode(["filter[processingState]": filterProcessingState], explode: false)
+                encoder.encode(["filter[usesNonExemptEncryption]": filterUsesNonExemptEncryption], explode: false)
+                encoder.encode(["filter[version]": filterVersion], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["filter[appStoreVersion]": filterAppStoreVersion], explode: false)
+                encoder.encode(["filter[betaGroups]": filterBetaGroups], explode: false)
+                encoder.encode(["filter[preReleaseVersion]": filterPreReleaseVersion], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[diagnosticSignatures]": fieldsDiagnosticSignatures], explode: false)
+                encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
+                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
+                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
+                encoder.encode(["limit[betaBuildLocalizations]": limitBetaBuildLocalizations])
+                encoder.encode(["limit[buildBundles]": limitBuildBundles])
+                encoder.encode(["limit[icons]": limitIcons])
+                encoder.encode(["limit[individualTesters]": limitIndividualTesters])
+                return encoder.items
             }
         }
     }
@@ -5244,25 +5245,25 @@ extension Paths.Builds {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[perfPowerMetrics]", fieldsPerfPowerMetrics?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
-                query.addQueryItem("limit[buildBundles]", limitBuildBundles)
-                query.addQueryItem("limit[icons]", limitIcons)
-                query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[diagnosticSignatures]": fieldsDiagnosticSignatures], explode: false)
+                encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
+                encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
+                encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[perfPowerMetrics]": fieldsPerfPowerMetrics], explode: false)
+                encoder.encode(["limit[betaBuildLocalizations]": limitBetaBuildLocalizations])
+                encoder.encode(["limit[buildBundles]": limitBuildBundles])
+                encoder.encode(["limit[icons]": limitIcons])
+                encoder.encode(["limit[individualTesters]": limitIndividualTesters])
+                return encoder.items
             }
         }
 
@@ -5435,22 +5436,22 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[identifier]", filterIdentifier?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[seedId]", filterSeedID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[bundleIdCapabilities]", limitBundleIDCapabilities)
-                query.addQueryItem("limit[profiles]", limitProfiles)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[identifier]": filterIdentifier], explode: false)
+                encoder.encode(["filter[name]": filterName], explode: false)
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[seedId]": filterSeedID], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[bundleIdCapabilities]": fieldsBundleIDCapabilities], explode: false)
+                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit[bundleIdCapabilities]": limitBundleIDCapabilities])
+                encoder.encode(["limit[profiles]": limitProfiles])
+                return encoder.items
             }
         }
 
@@ -5557,15 +5558,15 @@ extension Paths.BundleIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[bundleIdCapabilities]", limitBundleIDCapabilities)
-                query.addQueryItem("limit[profiles]", limitProfiles)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[bundleIdCapabilities]": fieldsBundleIDCapabilities], explode: false)
+                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit[bundleIdCapabilities]": limitBundleIDCapabilities])
+                encoder.encode(["limit[profiles]": limitProfiles])
+                return encoder.items
             }
         }
 
@@ -5648,15 +5649,15 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[certificateType]", filterCertificateType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[displayName]", filterDisplayName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[serialNumber]", filterSerialNumber?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[certificateType]": filterCertificateType], explode: false)
+                encoder.encode(["filter[displayName]": filterDisplayName], explode: false)
+                encoder.encode(["filter[serialNumber]": filterSerialNumber], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
 
@@ -5680,9 +5681,9 @@ extension Paths.Certificates {
         }
 
         private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
+            return encoder.items
         }
 
         public enum FieldsCertificates: String, Codable, CaseIterable {
@@ -5727,9 +5728,9 @@ extension Paths.CiArtifacts {
         }
 
         private func makeGetQuery(_ fieldsCiArtifacts: [FieldsCiArtifacts]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciArtifacts]", fieldsCiArtifacts?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciArtifacts]": fieldsCiArtifacts], explode: false)
+            return encoder.items
         }
 
         public enum FieldsCiArtifacts: String, Codable, CaseIterable {
@@ -5849,14 +5850,14 @@ extension Paths.CiBuildActions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciBuildActions]", fieldsCiBuildActions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciIssues]", fieldsCiIssues?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciTestResults]", fieldsCiTestResults?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciArtifacts]", fieldsCiArtifacts?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciBuildActions]": fieldsCiBuildActions], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciIssues]": fieldsCiIssues], explode: false)
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[ciTestResults]": fieldsCiTestResults], explode: false)
+                encoder.encode(["fields[ciArtifacts]": fieldsCiArtifacts], explode: false)
+                return encoder.items
             }
         }
     }
@@ -5981,13 +5982,13 @@ extension Paths.CiBuildRuns {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildActions]", fieldsCiBuildActions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciBuildActions]": fieldsCiBuildActions], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
     }
@@ -6018,9 +6019,9 @@ extension Paths.CiIssues {
         }
 
         private func makeGetQuery(_ fieldsCiIssues: [FieldsCiIssues]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciIssues]", fieldsCiIssues?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciIssues]": fieldsCiIssues], explode: false)
+            return encoder.items
         }
 
         public enum FieldsCiIssues: String, Codable, CaseIterable {
@@ -6078,13 +6079,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[xcodeVersions]", limitXcodeVersions)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
+                encoder.encode(["limit[xcodeVersions]": limitXcodeVersions])
+                return encoder.items
             }
         }
     }
@@ -6134,12 +6135,12 @@ extension Paths.CiMacOsVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[xcodeVersions]", limitXcodeVersions)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
+                encoder.encode(["limit[xcodeVersions]": limitXcodeVersions])
+                return encoder.items
             }
         }
     }
@@ -6291,18 +6292,18 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[productType]", filterProductType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[primaryRepositories]", limitPrimaryRepositories)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[productType]": filterProductType], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit[primaryRepositories]": limitPrimaryRepositories])
+                return encoder.items
             }
         }
     }
@@ -6443,15 +6444,15 @@ extension Paths.CiProducts {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[primaryRepositories]", limitPrimaryRepositories)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit[primaryRepositories]": limitPrimaryRepositories])
+                return encoder.items
             }
         }
 
@@ -6486,9 +6487,9 @@ extension Paths.CiTestResults {
         }
 
         private func makeGetQuery(_ fieldsCiTestResults: [FieldsCiTestResults]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciTestResults]", fieldsCiTestResults?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciTestResults]": fieldsCiTestResults], explode: false)
+            return encoder.items
         }
 
         public enum FieldsCiTestResults: String, Codable, CaseIterable {
@@ -6607,12 +6608,12 @@ extension Paths.CiWorkflows {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                return encoder.items
             }
         }
 
@@ -6672,13 +6673,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[macOsVersions]", limitMacOsVersions)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
+                encoder.encode(["limit[macOsVersions]": limitMacOsVersions])
+                return encoder.items
             }
         }
     }
@@ -6728,12 +6729,12 @@ extension Paths.CiXcodeVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[macOsVersions]", limitMacOsVersions)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
+                encoder.encode(["limit[macOsVersions]": limitMacOsVersions])
+                return encoder.items
             }
         }
     }
@@ -6807,16 +6808,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[status]", filterStatus?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[udid]", filterUdid?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[name]": filterName], explode: false)
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[status]": filterStatus], explode: false)
+                encoder.encode(["filter[udid]": filterUdid], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[devices]": fieldsDevices], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
 
@@ -6840,9 +6841,9 @@ extension Paths.Devices {
         }
 
         private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[devices]": fieldsDevices], explode: false)
+            return encoder.items
         }
 
         public enum FieldsDevices: String, Codable, CaseIterable {
@@ -6918,12 +6919,12 @@ extension Paths.EndUserLicenseAgreements {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[territories]", limitTerritories)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                encoder.encode(["limit[territories]": limitTerritories])
+                return encoder.items
             }
         }
 
@@ -6969,12 +6970,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[regionCode]", filterRegionCode.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[reportDate]", filterReportDate.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[reportType]", filterReportType.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[vendorNumber]", filterVendorNumber.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[regionCode]": filterRegionCode], explode: false)
+                encoder.encode(["filter[reportDate]": filterReportDate], explode: false)
+                encoder.encode(["filter[reportType]": filterReportType], explode: false)
+                encoder.encode(["filter[vendorNumber]": filterVendorNumber], explode: false)
+                return encoder.items
             }
         }
     }
@@ -7065,11 +7066,11 @@ extension Paths.InAppPurchases {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[apps]", limitApps)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["limit[apps]": limitApps])
+                return encoder.items
             }
         }
     }
@@ -7207,22 +7208,22 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[builds.expired]", filterBuildsExpired?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[builds.processingState]", filterBuildsProcessingState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[builds.version]", filterBuildsVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[builds.expired]": filterBuildsExpired], explode: false)
+                encoder.encode(["filter[builds.processingState]": filterBuildsProcessingState], explode: false)
+                encoder.encode(["filter[builds.version]": filterBuildsVersion], explode: false)
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[version]": filterVersion], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["filter[builds]": filterBuilds], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
     }
@@ -7324,13 +7325,13 @@ extension Paths.PreReleaseVersions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[builds]", limitBuilds)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[builds]": limitBuilds])
+                return encoder.items
             }
         }
     }
@@ -7465,21 +7466,21 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[name]", filterName?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[profileState]", filterProfileState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[profileType]", filterProfileType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[certificates]", limitCertificates)
-                query.addQueryItem("limit[devices]", limitDevices)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[name]": filterName], explode: false)
+                encoder.encode(["filter[profileState]": filterProfileState], explode: false)
+                encoder.encode(["filter[profileType]": filterProfileType], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
+                encoder.encode(["fields[devices]": fieldsDevices], explode: false)
+                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
+                encoder.encode(["limit[certificates]": limitCertificates])
+                encoder.encode(["limit[devices]": limitDevices])
+                return encoder.items
             }
         }
 
@@ -7573,15 +7574,15 @@ extension Paths.Profiles {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[certificates]", limitCertificates)
-                query.addQueryItem("limit[devices]", limitDevices)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
+                encoder.encode(["fields[devices]": fieldsDevices], explode: false)
+                encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
+                encoder.encode(["limit[certificates]": limitCertificates])
+                encoder.encode(["limit[devices]": limitDevices])
+                return encoder.items
             }
         }
 
@@ -7620,10 +7621,10 @@ extension Paths.RoutingAppCoverages {
         }
 
         private func makeGetQuery(_ fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[routingAppCoverages]": fieldsRoutingAppCoverages], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
@@ -7702,14 +7703,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[frequency]", filterFrequency.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[reportDate]", filterReportDate?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[reportSubType]", filterReportSubType.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[reportType]", filterReportType.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[vendorNumber]", filterVendorNumber.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[frequency]": filterFrequency], explode: false)
+                encoder.encode(["filter[reportDate]": filterReportDate], explode: false)
+                encoder.encode(["filter[reportSubType]": filterReportSubType], explode: false)
+                encoder.encode(["filter[reportType]": filterReportType], explode: false)
+                encoder.encode(["filter[vendorNumber]": filterVendorNumber], explode: false)
+                encoder.encode(["filter[version]": filterVersion], explode: false)
+                return encoder.items
             }
         }
     }
@@ -7740,10 +7741,10 @@ extension Paths.ScmGitReferences {
         }
 
         private func makeGetQuery(_ fieldsScmGitReferences: [FieldsScmGitReferences]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsScmGitReferences: String, Codable, CaseIterable {
@@ -7803,11 +7804,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[scmProviders]", fieldsScmProviders?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[scmProviders]": fieldsScmProviders], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                return encoder.items
             }
         }
     }
@@ -7827,10 +7828,10 @@ extension Paths.ScmProviders {
         }
 
         private func makeGetQuery(_ fieldsScmProviders: [FieldsScmProviders]?, _ fieldsScmRepositories: [FieldsScmRepositories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[scmProviders]", fieldsScmProviders?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[scmProviders]": fieldsScmProviders], explode: false)
+            encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsScmProviders: String, Codable, CaseIterable {
@@ -7878,10 +7879,10 @@ extension Paths.ScmPullRequests {
         }
 
         private func makeGetQuery(_ fieldsScmPullRequests: [FieldsScmPullRequests]?, _ include: [Include]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
+            encoder.encode(["include": include], explode: false)
+            return encoder.items
         }
 
         public enum FieldsScmPullRequests: String, Codable, CaseIterable {
@@ -7976,14 +7977,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
+                encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
+                return encoder.items
             }
         }
     }
@@ -8056,12 +8057,12 @@ extension Paths.ScmRepositories {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
+                encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
+                return encoder.items
             }
         }
     }
@@ -8081,10 +8082,10 @@ extension Paths {
         }
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsTerritories: String, Codable, CaseIterable {
@@ -8196,17 +8197,17 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[email]", filterEmail?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[roles]", filterRoles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[visibleApps]", filterVisibleApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[userInvitations]", fieldsUserInvitations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[email]": filterEmail], explode: false)
+                encoder.encode(["filter[roles]": filterRoles], explode: false)
+                encoder.encode(["filter[visibleApps]": filterVisibleApps], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[userInvitations]": fieldsUserInvitations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                return encoder.items
             }
         }
 
@@ -8286,12 +8287,12 @@ extension Paths.UserInvitations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[userInvitations]", fieldsUserInvitations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[userInvitations]": fieldsUserInvitations], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                return encoder.items
             }
         }
 
@@ -8403,17 +8404,17 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[roles]", filterRoles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[username]", filterUsername?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[visibleApps]", filterVisibleApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[users]", fieldsUsers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[roles]": filterRoles], explode: false)
+                encoder.encode(["filter[username]": filterUsername], explode: false)
+                encoder.encode(["filter[visibleApps]": filterVisibleApps], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[users]": fieldsUsers], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                return encoder.items
             }
         }
     }
@@ -8488,12 +8489,12 @@ extension Paths.Users {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[users]", fieldsUsers?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[visibleApps]", limitVisibleApps)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[users]": fieldsUsers], explode: false)
+                encoder.encode(["include": include], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit[visibleApps]": limitVisibleApps])
+                return encoder.items
             }
         }
 
@@ -8543,9 +8544,9 @@ extension Paths.AppCategories.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -8581,10 +8582,10 @@ extension Paths.AppCategories.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -8631,9 +8632,9 @@ extension Paths.AppClipDefaultExperienceLocalizations.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppClipHeaderImages: [FieldsAppClipHeaderImages]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipHeaderImages]", fieldsAppClipHeaderImages?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipHeaderImages]": fieldsAppClipHeaderImages], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipHeaderImages: String, Codable, CaseIterable {
@@ -8685,9 +8686,9 @@ extension Paths.AppClipDefaultExperiences.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppClipAppStoreReviewDetails: [FieldsAppClipAppStoreReviewDetails]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipAppStoreReviewDetails]", fieldsAppClipAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipAppStoreReviewDetails]": fieldsAppClipAppStoreReviewDetails], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipAppStoreReviewDetails: String, Codable, CaseIterable {
@@ -8740,11 +8741,11 @@ extension Paths.AppClipDefaultExperiences.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[locale]": filterLocale], explode: false)
+                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -8835,12 +8836,12 @@ extension Paths.AppClipDefaultExperiences.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
+                encoder.encode(["limit[appStoreVersionLocalizations]": limitAppStoreVersionLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -8947,16 +8948,16 @@ extension Paths.AppClips.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[action]", filterAction?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[placeStatus]", filterPlaceStatus?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[status]", filterStatus?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipAdvancedExperiences]", fieldsAppClipAdvancedExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipAdvancedExperienceLocalizations]", fieldsAppClipAdvancedExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[localizations]", limitLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[action]": filterAction], explode: false)
+                encoder.encode(["filter[placeStatus]": filterPlaceStatus], explode: false)
+                encoder.encode(["filter[status]": filterStatus], explode: false)
+                encoder.encode(["fields[appClipAdvancedExperiences]": fieldsAppClipAdvancedExperiences], explode: false)
+                encoder.encode(["fields[appClipAdvancedExperienceLocalizations]": fieldsAppClipAdvancedExperienceLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[localizations]": limitLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -9024,14 +9025,14 @@ extension Paths.AppClips.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("exists[releaseWithAppStoreVersion]", existsReleaseWithAppStoreVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[appClipDefaultExperienceLocalizations]", limitAppClipDefaultExperienceLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["exists[releaseWithAppStoreVersion]": existsReleaseWithAppStoreVersion], explode: false)
+                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
+                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[appClipDefaultExperienceLocalizations]": limitAppClipDefaultExperienceLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -9073,9 +9074,9 @@ extension Paths.AppEncryptionDeclarations.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -9159,9 +9160,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
@@ -9232,11 +9233,11 @@ extension Paths.AppInfos.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[locale]", filterLocale?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[locale]": filterLocale], explode: false)
+                encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -9267,9 +9268,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -9305,9 +9306,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -9343,9 +9344,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -9381,9 +9382,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -9419,9 +9420,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -9457,9 +9458,9 @@ extension Paths.AppInfos.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppCategories: [FieldsAppCategories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appCategories]", fieldsAppCategories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appCategories]": fieldsAppCategories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppCategories: String, Codable, CaseIterable {
@@ -9495,9 +9496,9 @@ extension Paths.AppPreviewSets.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func patch(_ body: AppStoreConnectAPI.AppPreviewSetAppPreviewsLinkagesRequest) -> Request<Void> {
@@ -9520,10 +9521,10 @@ extension Paths.AppPreviewSets.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppPreviews: [FieldsAppPreviews]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppPreviews: String, Codable, CaseIterable {
@@ -9578,9 +9579,9 @@ extension Paths.AppPricePoints.WithID {
         }
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsTerritories: String, Codable, CaseIterable {
@@ -9625,10 +9626,10 @@ extension Paths.AppPriceTiers.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppPricePoints: [FieldsAppPricePoints]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPricePoints]", fieldsAppPricePoints?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPricePoints]": fieldsAppPricePoints], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppPricePoints: String, Codable, CaseIterable {
@@ -9665,9 +9666,9 @@ extension Paths.AppScreenshotSets.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func patch(_ body: AppStoreConnectAPI.AppScreenshotSetAppScreenshotsLinkagesRequest) -> Request<Void> {
@@ -9690,10 +9691,10 @@ extension Paths.AppScreenshotSets.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppScreenshots: [FieldsAppScreenshots]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppScreenshots: String, Codable, CaseIterable {
@@ -9747,10 +9748,10 @@ extension Paths.AppStoreReviewDetails.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppStoreReviewAttachments: [FieldsAppStoreReviewAttachments]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppStoreReviewAttachments: String, Codable, CaseIterable {
@@ -9860,14 +9861,14 @@ extension Paths.AppStoreVersionLocalizations.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[previewType]", filterPreviewType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviews]", fieldsAppPreviews?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPreviewSets]", fieldsAppPreviewSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[appPreviews]", limitAppPreviews)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[previewType]": filterPreviewType], explode: false)
+                encoder.encode(["fields[appPreviews]": fieldsAppPreviews], explode: false)
+                encoder.encode(["fields[appPreviewSets]": fieldsAppPreviewSets], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[appPreviews]": limitAppPreviews])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -9967,14 +9968,14 @@ extension Paths.AppStoreVersionLocalizations.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[screenshotDisplayType]", filterScreenshotDisplayType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshotSets]", fieldsAppScreenshotSets?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appScreenshots]", fieldsAppScreenshots?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[appScreenshots]", limitAppScreenshots)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[screenshotDisplayType]": filterScreenshotDisplayType], explode: false)
+                encoder.encode(["fields[appScreenshotSets]": fieldsAppScreenshotSets], explode: false)
+                encoder.encode(["fields[appScreenshots]": fieldsAppScreenshots], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[appScreenshots]": limitAppScreenshots])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -10017,9 +10018,9 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsAgeRatingDeclarations: [FieldsAgeRatingDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ageRatingDeclarations]", fieldsAgeRatingDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ageRatingDeclarations]": fieldsAgeRatingDeclarations], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAgeRatingDeclarations: String, Codable, CaseIterable {
@@ -10110,12 +10111,12 @@ extension Paths.AppStoreVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperienceLocalizations]", fieldsAppClipDefaultExperienceLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appClipDefaultExperienceLocalizations]", limitAppClipDefaultExperienceLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
+                encoder.encode(["fields[appClipDefaultExperienceLocalizations]": fieldsAppClipDefaultExperienceLocalizations], explode: false)
+                encoder.encode(["limit[appClipDefaultExperienceLocalizations]": limitAppClipDefaultExperienceLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -10186,12 +10187,12 @@ extension Paths.AppStoreVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appStoreReviewDetails]", fieldsAppStoreReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreReviewAttachments]", fieldsAppStoreReviewAttachments?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[appStoreReviewAttachments]", limitAppStoreReviewAttachments)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appStoreReviewDetails]": fieldsAppStoreReviewDetails], explode: false)
+                encoder.encode(["fields[appStoreReviewAttachments]": fieldsAppStoreReviewAttachments], explode: false)
+                encoder.encode(["limit[appStoreReviewAttachments]": limitAppStoreReviewAttachments])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -10222,10 +10223,10 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppStoreVersionLocalizations: [FieldsAppStoreVersionLocalizations]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppStoreVersionLocalizations: String, Codable, CaseIterable {
@@ -10268,9 +10269,9 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppStoreVersionPhasedReleases: [FieldsAppStoreVersionPhasedReleases]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersionPhasedReleases]", fieldsAppStoreVersionPhasedReleases?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appStoreVersionPhasedReleases]": fieldsAppStoreVersionPhasedReleases], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppStoreVersionPhasedReleases: String, Codable, CaseIterable {
@@ -10308,9 +10309,9 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppStoreVersionSubmissions: [FieldsAppStoreVersionSubmissions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersionSubmissions]", fieldsAppStoreVersionSubmissions?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appStoreVersionSubmissions]": fieldsAppStoreVersionSubmissions], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppStoreVersionSubmissions: String, Codable, CaseIterable {
@@ -10352,9 +10353,9 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -10412,9 +10413,9 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsIdfaDeclarations: [FieldsIdfaDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[idfaDeclarations]", fieldsIdfaDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[idfaDeclarations]": fieldsIdfaDeclarations], explode: false)
+            return encoder.items
         }
 
         public enum FieldsIdfaDeclarations: String, Codable, CaseIterable {
@@ -10452,9 +10453,9 @@ extension Paths.AppStoreVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsRoutingAppCoverages: [FieldsRoutingAppCoverages]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[routingAppCoverages]", fieldsRoutingAppCoverages?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[routingAppCoverages]": fieldsRoutingAppCoverages], explode: false)
+            return encoder.items
         }
 
         public enum FieldsRoutingAppCoverages: String, Codable, CaseIterable {
@@ -10542,14 +10543,14 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[bundleId]", filterBundleID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClipDefaultExperiences]", fieldsAppClipDefaultExperiences?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[appClipDefaultExperiences]", limitAppClipDefaultExperiences)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[bundleId]": filterBundleID], explode: false)
+                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
+                encoder.encode(["fields[appClipDefaultExperiences]": fieldsAppClipDefaultExperiences], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[appClipDefaultExperiences]": limitAppClipDefaultExperiences])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -10625,13 +10626,13 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfoLocalizations]", fieldsAppInfoLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[appInfoLocalizations]", limitAppInfoLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
+                encoder.encode(["fields[appInfoLocalizations]": fieldsAppInfoLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[appInfoLocalizations]": limitAppInfoLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -10750,17 +10751,17 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[appStoreState]", filterAppStoreState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersionLocalizations]", fieldsAppStoreVersionLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[appStoreVersionLocalizations]", limitAppStoreVersionLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[appStoreState]": filterAppStoreState], explode: false)
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[versionString]": filterVersionString], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[appStoreVersionLocalizations]": fieldsAppStoreVersionLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[appStoreVersionLocalizations]": limitAppStoreVersionLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -10791,10 +10792,10 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsTerritories: String, Codable, CaseIterable {
@@ -10828,10 +10829,10 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaAppLocalizations: [FieldsBetaAppLocalizations]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBetaAppLocalizations: String, Codable, CaseIterable {
@@ -10871,9 +10872,9 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaAppReviewDetails: [FieldsBetaAppReviewDetails]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaAppReviewDetails]", fieldsBetaAppReviewDetails?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaAppReviewDetails]": fieldsBetaAppReviewDetails], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBetaAppReviewDetails: String, Codable, CaseIterable {
@@ -10915,10 +10916,10 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBetaGroups: String, Codable, CaseIterable {
@@ -10965,9 +10966,9 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaLicenseAgreements: [FieldsBetaLicenseAgreements]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaLicenseAgreements]", fieldsBetaLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaLicenseAgreements]": fieldsBetaLicenseAgreements], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBetaLicenseAgreements: String, Codable, CaseIterable {
@@ -11017,10 +11018,10 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -11118,12 +11119,12 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciProducts]", fieldsCiProducts?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[primaryRepositories]", limitPrimaryRepositories)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciProducts]": fieldsCiProducts], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit[primaryRepositories]": limitPrimaryRepositories])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -11154,9 +11155,9 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsEndUserLicenseAgreements: [FieldsEndUserLicenseAgreements]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[endUserLicenseAgreements]", fieldsEndUserLicenseAgreements?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[endUserLicenseAgreements]": fieldsEndUserLicenseAgreements], explode: false)
+            return encoder.items
         }
 
         public enum FieldsEndUserLicenseAgreements: String, Codable, CaseIterable {
@@ -11236,16 +11237,16 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[compatibleVersions]", limitCompatibleVersions)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[versionString]": filterVersionString], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[compatibleVersions]": limitCompatibleVersions])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -11354,16 +11355,16 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[inAppPurchaseType]", filterInAppPurchaseType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[canBeSubmitted]", filterCanBeSubmitted?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[apps]", limitApps)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[inAppPurchaseType]": filterInAppPurchaseType], explode: false)
+                encoder.encode(["filter[canBeSubmitted]": filterCanBeSubmitted], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[apps]": limitApps])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -11419,11 +11420,11 @@ extension Paths.Apps.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[deviceType]": filterDeviceType], explode: false)
+                encoder.encode(["filter[metricType]": filterMetricType], explode: false)
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                return encoder.items
             }
         }
     }
@@ -11454,9 +11455,9 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppPreOrders: [FieldsAppPreOrders]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPreOrders]", fieldsAppPreOrders?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPreOrders]": fieldsAppPreOrders], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppPreOrders: String, Codable, CaseIterable {
@@ -11492,10 +11493,10 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
@@ -11532,10 +11533,10 @@ extension Paths.Apps.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppPrices: [FieldsAppPrices]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsAppPrices: String, Codable, CaseIterable {
@@ -11581,9 +11582,9 @@ extension Paths.BetaAppLocalizations.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -11652,9 +11653,9 @@ extension Paths.BetaAppReviewDetails.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -11723,9 +11724,9 @@ extension Paths.BetaAppReviewSubmissions.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -11793,9 +11794,9 @@ extension Paths.BetaBuildLocalizations.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -11863,9 +11864,9 @@ extension Paths.BetaGroups.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -11912,9 +11913,9 @@ extension Paths.BetaGroups.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.BetaGroupBetaTestersLinkagesRequest) -> Request<Void> {
@@ -11941,10 +11942,10 @@ extension Paths.BetaGroups.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBetaTesters: String, Codable, CaseIterable {
@@ -11973,9 +11974,9 @@ extension Paths.BetaGroups.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.BetaGroupBuildsLinkagesRequest) -> Request<Void> {
@@ -12002,10 +12003,10 @@ extension Paths.BetaGroups.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -12073,9 +12074,9 @@ extension Paths.BetaLicenseAgreements.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -12133,9 +12134,9 @@ extension Paths.BetaTesters.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func delete(_ body: AppStoreConnectAPI.BetaTesterAppsLinkagesRequest) -> Request<Void> {
@@ -12158,10 +12159,10 @@ extension Paths.BetaTesters.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -12208,9 +12209,9 @@ extension Paths.BetaTesters.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.BetaTesterBetaGroupsLinkagesRequest) -> Request<Void> {
@@ -12237,10 +12238,10 @@ extension Paths.BetaTesters.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaGroups: [FieldsBetaGroups]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBetaGroups: String, Codable, CaseIterable {
@@ -12276,9 +12277,9 @@ extension Paths.BetaTesters.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.BetaTesterBuildsLinkagesRequest) -> Request<Void> {
@@ -12305,10 +12306,10 @@ extension Paths.BetaTesters.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -12376,9 +12377,9 @@ extension Paths.BuildBetaDetails.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -12468,9 +12469,9 @@ extension Paths.BuildBundles.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipDomainStatuses]", fieldsAppClipDomainStatuses?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipDomainStatuses]": fieldsAppClipDomainStatuses], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipDomainStatuses: String, Codable, CaseIterable {
@@ -12505,9 +12506,9 @@ extension Paths.BuildBundles.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppClipDomainStatuses: [FieldsAppClipDomainStatuses]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appClipDomainStatuses]", fieldsAppClipDomainStatuses?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appClipDomainStatuses]": fieldsAppClipDomainStatuses], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppClipDomainStatuses: String, Codable, CaseIterable {
@@ -12573,13 +12574,13 @@ extension Paths.BuildBundles.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[betaAppClipInvocations]", fieldsBetaAppClipInvocations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppClipInvocationLocalizations]", fieldsBetaAppClipInvocationLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[betaAppClipInvocationLocalizations]", limitBetaAppClipInvocationLocalizations)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[betaAppClipInvocations]": fieldsBetaAppClipInvocations], explode: false)
+                encoder.encode(["fields[betaAppClipInvocationLocalizations]": fieldsBetaAppClipInvocationLocalizations], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[betaAppClipInvocationLocalizations]": limitBetaAppClipInvocationLocalizations])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -12610,10 +12611,10 @@ extension Paths.BuildBundles.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuildBundleFileSizes: [FieldsBuildBundleFileSizes]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[buildBundleFileSizes]", fieldsBuildBundleFileSizes?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[buildBundleFileSizes]": fieldsBuildBundleFileSizes], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBuildBundleFileSizes: String, Codable, CaseIterable {
@@ -12661,9 +12662,9 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -12729,9 +12730,9 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppEncryptionDeclarations: [FieldsAppEncryptionDeclarations]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appEncryptionDeclarations]", fieldsAppEncryptionDeclarations?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appEncryptionDeclarations]": fieldsAppEncryptionDeclarations], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppEncryptionDeclarations: String, Codable, CaseIterable {
@@ -12778,9 +12779,9 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsAppStoreVersions: [FieldsAppStoreVersions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+            return encoder.items
         }
 
         public enum FieldsAppStoreVersions: String, Codable, CaseIterable {
@@ -12832,9 +12833,9 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaAppReviewSubmissions: [FieldsBetaAppReviewSubmissions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaAppReviewSubmissions]", fieldsBetaAppReviewSubmissions?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaAppReviewSubmissions]": fieldsBetaAppReviewSubmissions], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBetaAppReviewSubmissions: String, Codable, CaseIterable {
@@ -12870,10 +12871,10 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaBuildLocalizations: [FieldsBetaBuildLocalizations]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBetaBuildLocalizations: String, Codable, CaseIterable {
@@ -12928,9 +12929,9 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuildBetaDetails: [FieldsBuildBetaDetails]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[buildBetaDetails]", fieldsBuildBetaDetails?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[buildBetaDetails]": fieldsBuildBetaDetails], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBuildBetaDetails: String, Codable, CaseIterable {
@@ -12989,11 +12990,11 @@ extension Paths.Builds.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[diagnosticType]", filterDiagnosticType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[diagnosticSignatures]", fieldsDiagnosticSignatures?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[diagnosticType]": filterDiagnosticType], explode: false)
+                encoder.encode(["fields[diagnosticSignatures]": fieldsDiagnosticSignatures], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -13024,10 +13025,10 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuildIcons: [FieldsBuildIcons]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBuildIcons: String, Codable, CaseIterable {
@@ -13051,9 +13052,9 @@ extension Paths.Builds.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.BuildIndividualTestersLinkagesRequest) -> Request<Void> {
@@ -13080,10 +13081,10 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsBetaTesters: [FieldsBetaTesters]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBetaTesters: String, Codable, CaseIterable {
@@ -13148,11 +13149,11 @@ extension Paths.Builds.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[deviceType]", filterDeviceType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[metricType]", filterMetricType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[deviceType]": filterDeviceType], explode: false)
+                encoder.encode(["filter[metricType]": filterMetricType], explode: false)
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                return encoder.items
             }
         }
     }
@@ -13183,9 +13184,9 @@ extension Paths.Builds.WithID {
         }
 
         private func makeGetQuery(_ fieldsPreReleaseVersions: [FieldsPreReleaseVersions]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+            return encoder.items
         }
 
         public enum FieldsPreReleaseVersions: String, Codable, CaseIterable {
@@ -13233,9 +13234,9 @@ extension Paths.BundleIDs.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -13293,10 +13294,10 @@ extension Paths.BundleIDs.WithID {
         }
 
         private func makeGetQuery(_ fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[bundleIdCapabilities]", fieldsBundleIDCapabilities?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[bundleIdCapabilities]": fieldsBundleIDCapabilities], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBundleIDCapabilities: String, Codable, CaseIterable {
@@ -13332,10 +13333,10 @@ extension Paths.BundleIDs.WithID {
         }
 
         private func makeGetQuery(_ fieldsProfiles: [FieldsProfiles]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[profiles]", fieldsProfiles?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[profiles]": fieldsProfiles], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsProfiles: String, Codable, CaseIterable {
@@ -13390,10 +13391,10 @@ extension Paths.CiBuildActions.WithID {
         }
 
         private func makeGetQuery(_ fieldsCiArtifacts: [FieldsCiArtifacts]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciArtifacts]", fieldsCiArtifacts?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciArtifacts]": fieldsCiArtifacts], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsCiArtifacts: String, Codable, CaseIterable {
@@ -13498,12 +13499,12 @@ extension Paths.CiBuildActions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[builds]", limitBuilds)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit[builds]": limitBuilds])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -13534,10 +13535,10 @@ extension Paths.CiBuildActions.WithID {
         }
 
         private func makeGetQuery(_ fieldsCiIssues: [FieldsCiIssues]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciIssues]", fieldsCiIssues?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciIssues]": fieldsCiIssues], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsCiIssues: String, Codable, CaseIterable {
@@ -13574,10 +13575,10 @@ extension Paths.CiBuildActions.WithID {
         }
 
         private func makeGetQuery(_ fieldsCiTestResults: [FieldsCiTestResults]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciTestResults]", fieldsCiTestResults?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciTestResults]": fieldsCiTestResults], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsCiTestResults: String, Codable, CaseIterable {
@@ -13627,10 +13628,10 @@ extension Paths.CiBuildRuns.WithID {
         }
 
         private func makeGetQuery(_ fieldsCiBuildActions: [FieldsCiBuildActions]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciBuildActions]", fieldsCiBuildActions?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciBuildActions]": fieldsCiBuildActions], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsCiBuildActions: String, Codable, CaseIterable {
@@ -13843,33 +13844,33 @@ extension Paths.CiBuildRuns.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[betaAppReviewSubmission.betaReviewState]", filterBetaAppReviewSubmissionBetaReviewState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[buildAudienceType]", filterBuildAudienceType?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[expired]", filterExpired?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[preReleaseVersion.platform]", filterPreReleaseVersionPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[preReleaseVersion.version]", filterPreReleaseVersionVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[processingState]", filterProcessingState?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[usesNonExemptEncryption]", filterUsesNonExemptEncryption?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[version]", filterVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[appStoreVersion]", filterAppStoreVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[betaGroups]", filterBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[preReleaseVersion]", filterPreReleaseVersion?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildBundles]", fieldsBuildBundles?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[buildIcons]", fieldsBuildIcons?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaTesters]", fieldsBetaTesters?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaBuildLocalizations]", fieldsBetaBuildLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[individualTesters]", limitIndividualTesters)
-                query.addQueryItem("limit[betaBuildLocalizations]", limitBetaBuildLocalizations)
-                query.addQueryItem("limit[icons]", limitIcons)
-                query.addQueryItem("limit[buildBundles]", limitBuildBundles)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[betaAppReviewSubmission.betaReviewState]": filterBetaAppReviewSubmissionBetaReviewState], explode: false)
+                encoder.encode(["filter[buildAudienceType]": filterBuildAudienceType], explode: false)
+                encoder.encode(["filter[expired]": filterExpired], explode: false)
+                encoder.encode(["filter[preReleaseVersion.platform]": filterPreReleaseVersionPlatform], explode: false)
+                encoder.encode(["filter[preReleaseVersion.version]": filterPreReleaseVersionVersion], explode: false)
+                encoder.encode(["filter[processingState]": filterProcessingState], explode: false)
+                encoder.encode(["filter[usesNonExemptEncryption]": filterUsesNonExemptEncryption], explode: false)
+                encoder.encode(["filter[version]": filterVersion], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["filter[appStoreVersion]": filterAppStoreVersion], explode: false)
+                encoder.encode(["filter[betaGroups]": filterBetaGroups], explode: false)
+                encoder.encode(["filter[preReleaseVersion]": filterPreReleaseVersion], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[buildBundles]": fieldsBuildBundles], explode: false)
+                encoder.encode(["fields[buildIcons]": fieldsBuildIcons], explode: false)
+                encoder.encode(["fields[betaTesters]": fieldsBetaTesters], explode: false)
+                encoder.encode(["fields[betaBuildLocalizations]": fieldsBetaBuildLocalizations], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[individualTesters]": limitIndividualTesters])
+                encoder.encode(["limit[betaBuildLocalizations]": limitBetaBuildLocalizations])
+                encoder.encode(["limit[icons]": limitIcons])
+                encoder.encode(["limit[buildBundles]": limitBuildBundles])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -13943,13 +13944,13 @@ extension Paths.CiMacOsVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[macOsVersions]", limitMacOsVersions)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
+                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[macOsVersions]": limitMacOsVersions])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -14014,11 +14015,11 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -14275,32 +14276,32 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appClips]", fieldsAppClips?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaAppLocalizations]", fieldsBetaAppLocalizations?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appInfos]", fieldsAppInfos?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appStoreVersions]", fieldsAppStoreVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[preReleaseVersions]", fieldsPreReleaseVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[inAppPurchases]", fieldsInAppPurchases?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[betaGroups]", fieldsBetaGroups?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[appPrices]", fieldsAppPrices?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit[betaGroups]", limitBetaGroups)
-                query.addQueryItem("limit[appStoreVersions]", limitAppStoreVersions)
-                query.addQueryItem("limit[preReleaseVersions]", limitPreReleaseVersions)
-                query.addQueryItem("limit[betaAppLocalizations]", limitBetaAppLocalizations)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                query.addQueryItem("limit[appInfos]", limitAppInfos)
-                query.addQueryItem("limit[appClips]", limitAppClips)
-                query.addQueryItem("limit[prices]", limitPrices)
-                query.addQueryItem("limit[availableTerritories]", limitAvailableTerritories)
-                query.addQueryItem("limit[inAppPurchases]", limitInAppPurchases)
-                query.addQueryItem("limit[gameCenterEnabledVersions]", limitGameCenterEnabledVersions)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
+                encoder.encode(["fields[appClips]": fieldsAppClips], explode: false)
+                encoder.encode(["fields[betaAppLocalizations]": fieldsBetaAppLocalizations], explode: false)
+                encoder.encode(["fields[appInfos]": fieldsAppInfos], explode: false)
+                encoder.encode(["fields[appStoreVersions]": fieldsAppStoreVersions], explode: false)
+                encoder.encode(["fields[preReleaseVersions]": fieldsPreReleaseVersions], explode: false)
+                encoder.encode(["fields[inAppPurchases]": fieldsInAppPurchases], explode: false)
+                encoder.encode(["fields[apps]": fieldsApps], explode: false)
+                encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+                encoder.encode(["fields[betaGroups]": fieldsBetaGroups], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["fields[appPrices]": fieldsAppPrices], explode: false)
+                encoder.encode(["limit[betaGroups]": limitBetaGroups])
+                encoder.encode(["limit[appStoreVersions]": limitAppStoreVersions])
+                encoder.encode(["limit[preReleaseVersions]": limitPreReleaseVersions])
+                encoder.encode(["limit[betaAppLocalizations]": limitBetaAppLocalizations])
+                encoder.encode(["limit[builds]": limitBuilds])
+                encoder.encode(["limit[appInfos]": limitAppInfos])
+                encoder.encode(["limit[appClips]": limitAppClips])
+                encoder.encode(["limit[prices]": limitPrices])
+                encoder.encode(["limit[availableTerritories]": limitAvailableTerritories])
+                encoder.encode(["limit[inAppPurchases]": limitInAppPurchases])
+                encoder.encode(["limit[gameCenterEnabledVersions]": limitGameCenterEnabledVersions])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -14403,14 +14404,14 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[builds]": filterBuilds], explode: false)
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[builds]": limitBuilds])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -14464,11 +14465,11 @@ extension Paths.CiProducts.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -14499,10 +14500,10 @@ extension Paths.CiProducts.WithID {
         }
 
         private func makeGetQuery(_ fieldsCiWorkflows: [FieldsCiWorkflows]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[ciWorkflows]", fieldsCiWorkflows?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[ciWorkflows]": fieldsCiWorkflows], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsCiWorkflows: String, Codable, CaseIterable {
@@ -14635,14 +14636,14 @@ extension Paths.CiWorkflows.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[builds]", filterBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciBuildRuns]", fieldsCiBuildRuns?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[builds]", limitBuilds)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[builds]": filterBuilds], explode: false)
+                encoder.encode(["fields[ciBuildRuns]": fieldsCiBuildRuns], explode: false)
+                encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[builds]": limitBuilds])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -14673,9 +14674,9 @@ extension Paths.CiWorkflows.WithID {
         }
 
         private func makeGetQuery(_ fieldsScmRepositories: [FieldsScmRepositories]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+            return encoder.items
         }
 
         public enum FieldsScmRepositories: String, Codable, CaseIterable {
@@ -14760,13 +14761,13 @@ extension Paths.CiXcodeVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields[ciXcodeVersions]", fieldsCiXcodeVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[ciMacOsVersions]", fieldsCiMacOsVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[xcodeVersions]", limitXcodeVersions)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields[ciXcodeVersions]": fieldsCiXcodeVersions], explode: false)
+                encoder.encode(["fields[ciMacOsVersions]": fieldsCiMacOsVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[xcodeVersions]": limitXcodeVersions])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -14830,9 +14831,9 @@ extension Paths.DiagnosticSignatures.WithID {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
     }
 }
@@ -14873,10 +14874,10 @@ extension Paths.EndUserLicenseAgreements.WithID {
         }
 
         private func makeGetQuery(_ fieldsTerritories: [FieldsTerritories]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[territories]", fieldsTerritories?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[territories]": fieldsTerritories], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsTerritories: String, Codable, CaseIterable {
@@ -14932,9 +14933,9 @@ extension Paths.GameCenterEnabledVersions.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.GameCenterEnabledVersionCompatibleVersionsLinkagesRequest) -> Request<Void> {
@@ -15011,17 +15012,17 @@ extension Paths.GameCenterEnabledVersions.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[platform]", filterPlatform?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[versionString]", filterVersionString?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[app]", filterApp?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("sort", sort?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[gameCenterEnabledVersions]", fieldsGameCenterEnabledVersions?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("limit[compatibleVersions]", limitCompatibleVersions)
-                query.addQueryItem("include", include?.map(\.asQueryValue).joined(separator: ","))
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[platform]": filterPlatform], explode: false)
+                encoder.encode(["filter[versionString]": filterVersionString], explode: false)
+                encoder.encode(["filter[app]": filterApp], explode: false)
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["sort": sort], explode: false)
+                encoder.encode(["fields[gameCenterEnabledVersions]": fieldsGameCenterEnabledVersions], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["limit[compatibleVersions]": limitCompatibleVersions])
+                encoder.encode(["include": include], explode: false)
+                return encoder.items
             }
         }
     }
@@ -15063,9 +15064,9 @@ extension Paths.PreReleaseVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -15123,10 +15124,10 @@ extension Paths.PreReleaseVersions.WithID {
         }
 
         private func makeGetQuery(_ fieldsBuilds: [FieldsBuilds]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[builds]", fieldsBuilds?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[builds]": fieldsBuilds], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsBuilds: String, Codable, CaseIterable {
@@ -15194,9 +15195,9 @@ extension Paths.Profiles.WithID {
         }
 
         private func makeGetQuery(_ fieldsBundleIDs: [FieldsBundleIDs]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[bundleIds]", fieldsBundleIDs?.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[bundleIds]": fieldsBundleIDs], explode: false)
+            return encoder.items
         }
 
         public enum FieldsBundleIDs: String, Codable, CaseIterable {
@@ -15236,10 +15237,10 @@ extension Paths.Profiles.WithID {
         }
 
         private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[certificates]", fieldsCertificates?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[certificates]": fieldsCertificates], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsCertificates: String, Codable, CaseIterable {
@@ -15280,10 +15281,10 @@ extension Paths.Profiles.WithID {
         }
 
         private func makeGetQuery(_ fieldsDevices: [FieldsDevices]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[devices]", fieldsDevices?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[devices]": fieldsDevices], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsDevices: String, Codable, CaseIterable {
@@ -15357,11 +15358,11 @@ extension Paths.ScmProviders.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter[id]", filterID?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("fields[scmRepositories]", fieldsScmRepositories?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter[id]": filterID], explode: false)
+                encoder.encode(["fields[scmRepositories]": fieldsScmRepositories], explode: false)
+                encoder.encode(["limit": limit])
+                return encoder.items
             }
         }
     }
@@ -15403,10 +15404,10 @@ extension Paths.ScmRepositories.WithID {
         }
 
         private func makeGetQuery(_ fieldsScmGitReferences: [FieldsScmGitReferences]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[scmGitReferences]", fieldsScmGitReferences?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[scmGitReferences]": fieldsScmGitReferences], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsScmGitReferences: String, Codable, CaseIterable {
@@ -15444,10 +15445,10 @@ extension Paths.ScmRepositories.WithID {
         }
 
         private func makeGetQuery(_ fieldsScmPullRequests: [FieldsScmPullRequests]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[scmPullRequests]", fieldsScmPullRequests?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[scmPullRequests]": fieldsScmPullRequests], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsScmPullRequests: String, Codable, CaseIterable {
@@ -15503,10 +15504,10 @@ extension Paths.UserInvitations.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -15564,9 +15565,9 @@ extension Paths.Users.WithID.Relationships {
         }
 
         private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public func post(_ body: AppStoreConnectAPI.UserVisibleAppsLinkagesRequest) -> Request<Void> {
@@ -15597,10 +15598,10 @@ extension Paths.Users.WithID {
         }
 
         private func makeGetQuery(_ fieldsApps: [FieldsApps]?, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("fields[apps]", fieldsApps?.map(\.asQueryValue).joined(separator: ","))
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["fields[apps]": fieldsApps], explode: false)
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         public enum FieldsApps: String, Codable, CaseIterable {
@@ -15634,89 +15635,3 @@ extension Paths.Users.WithID {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

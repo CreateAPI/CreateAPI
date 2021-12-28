@@ -10,11 +10,13 @@ let package = Package(
         .library(name: "NYTCommunityAPI", targets: ["NYTCommunityAPI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", branch: "main")
+        .package(url: "https://github.com/kean/Get", branch: "main"), 
+        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")
     ],
     targets: [
         .target(name: "NYTCommunityAPI", dependencies: [
-            .product(name: "Get", package: "Get")
+            .product(name: "Get", package: "Get"), 
+            .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
         ], path: "Sources")
     ]
 )

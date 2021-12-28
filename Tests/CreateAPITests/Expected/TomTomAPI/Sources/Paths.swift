@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var search: Search {
@@ -43,10 +44,10 @@ extension Paths.Search.WithVersionNumber {
         }
 
         private func makeGetQuery(_ geometries: String, _ geometriesZoom: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("geometries", geometries)
-            query.addQueryItem("geometriesZoom", geometriesZoom)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["geometries": geometries])
+            encoder.encode(["geometriesZoom": geometriesZoom])
+            return encoder.items
         }
     }
 }
@@ -115,20 +116,20 @@ extension Paths.Search.WithVersionNumber.CS {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("idxSet", idxSet)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["idxSet": idxSet])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -197,20 +198,20 @@ extension Paths.Search.WithVersionNumber.CategorySearch {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -281,21 +282,21 @@ extension Paths.Search.WithVersionNumber.Geocode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("storeResult", isStoreResult)
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["storeResult": isStoreResult])
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -316,10 +317,10 @@ extension Paths.Search.WithVersionNumber {
         }
 
         private func makeGetQuery(_ geometryList: String, _ poiList: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("geometryList", geometryList)
-            query.addQueryItem("poiList", poiList)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["geometryList": geometryList])
+            encoder.encode(["poiList": poiList])
+            return encoder.items
         }
 
         /// Geometry Filter
@@ -466,13 +467,13 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("geometryList", geometryList)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("idxSet", idxSet)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["geometryList": geometryList])
+                encoder.encode(["limit": limit])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["idxSet": idxSet])
+                return encoder.items
             }
         }
 
@@ -495,12 +496,12 @@ extension Paths.Search.WithVersionNumber.GeometrySearch {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("idxSet", idxSet)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["idxSet": idxSet])
+                return encoder.items
             }
         }
 
@@ -620,22 +621,22 @@ extension Paths.Search.WithVersionNumber.NearbySearch {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("minFuzzyLevel", minFuzzyLevel)
-                query.addQueryItem("maxFuzzyLevel", maxFuzzyLevel)
-                query.addQueryItem("idxSet", idxSet)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["minFuzzyLevel": minFuzzyLevel])
+                encoder.encode(["maxFuzzyLevel": maxFuzzyLevel])
+                encoder.encode(["idxSet": idxSet])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -704,20 +705,20 @@ extension Paths.Search.WithVersionNumber.PoiSearch {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -775,13 +776,13 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode.CrossStreet {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("spatialKeys", isSpatialKeys)
-                query.addQueryItem("heading", heading)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("language", language)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["spatialKeys": isSpatialKeys])
+                encoder.encode(["heading": heading])
+                encoder.encode(["radius": radius])
+                encoder.encode(["language": language])
+                return encoder.items
             }
         }
     }
@@ -823,16 +824,16 @@ extension Paths.Search.WithVersionNumber.ReverseGeocode {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("spatialKeys", isSpatialKeys)
-                query.addQueryItem("returnSpeedLimit", isReturnSpeedLimit)
-                query.addQueryItem("heading", heading)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("number", number)
-                query.addQueryItem("returnRoadUse", returnRoadUse)
-                query.addQueryItem("roadUse", roadUse)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["spatialKeys": isSpatialKeys])
+                encoder.encode(["returnSpeedLimit": isReturnSpeedLimit])
+                encoder.encode(["heading": heading])
+                encoder.encode(["radius": radius])
+                encoder.encode(["number": number])
+                encoder.encode(["returnRoadUse": returnRoadUse])
+                encoder.encode(["roadUse": roadUse])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -876,10 +877,10 @@ extension Paths.Search.WithVersionNumber.RoutedFilter.WithPosition {
         }
 
         private func makeGetQuery(_ poiList: String, _ routingTimeout: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("poiList", poiList)
-            query.addQueryItem("routingTimeout", routingTimeout)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["poiList": poiList])
+            encoder.encode(["routingTimeout": routingTimeout])
+            return encoder.items
         }
 
         /// Routed Filter
@@ -889,9 +890,9 @@ extension Paths.Search.WithVersionNumber.RoutedFilter.WithPosition {
         }
 
         private func makePostQuery(_ routingTimeout: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("routingTimeout", routingTimeout)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["routingTimeout": routingTimeout])
+            return encoder.items
         }
 
         /// Example:
@@ -1040,15 +1041,15 @@ extension Paths.Search.WithVersionNumber.RoutedSearch.WithQuery.WithPosition {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("multiplier", multiplier)
-                query.addQueryItem("routingTimeout", routingTimeout)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("idxSet", idxSet)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["multiplier": multiplier])
+                encoder.encode(["routingTimeout": routingTimeout])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["idxSet": idxSet])
+                return encoder.items
             }
         }
     }
@@ -1118,20 +1119,20 @@ extension Paths.Search.WithVersionNumber.S {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("idxSet", idxSet)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["idxSet": idxSet])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -1206,23 +1207,23 @@ extension Paths.Search.WithVersionNumber.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("typeahead", isTypeahead)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("countrySet", countrySet)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lon", lon)
-                query.addQueryItem("radius", radius)
-                query.addQueryItem("topLeft", topLeft)
-                query.addQueryItem("btmRight", btmRight)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                query.addQueryItem("minFuzzyLevel", minFuzzyLevel)
-                query.addQueryItem("maxFuzzyLevel", maxFuzzyLevel)
-                query.addQueryItem("idxSet", idxSet)
-                query.addQueryItem("view", view)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["typeahead": isTypeahead])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["countrySet": countrySet])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lon": lon])
+                encoder.encode(["radius": radius])
+                encoder.encode(["topLeft": topLeft])
+                encoder.encode(["btmRight": btmRight])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                encoder.encode(["minFuzzyLevel": minFuzzyLevel])
+                encoder.encode(["maxFuzzyLevel": maxFuzzyLevel])
+                encoder.encode(["idxSet": idxSet])
+                encoder.encode(["view": view])
+                return encoder.items
             }
         }
     }
@@ -1254,10 +1255,10 @@ extension Paths.Search.WithVersionNumber.SearchAlongRoute {
         }
 
         private func makePostQuery(_ maxDetourTime: Int, _ limit: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("maxDetourTime", maxDetourTime)
-            query.addQueryItem("limit", limit)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["maxDetourTime": maxDetourTime])
+            encoder.encode(["limit": limit])
+            return encoder.items
         }
 
         /// Example:
@@ -1360,111 +1361,25 @@ extension Paths.Search.WithVersionNumber {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("countryCode", countryCode)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("ofs", ofs)
-                query.addQueryItem("streetNumber", streetNumber)
-                query.addQueryItem("streetName", streetName)
-                query.addQueryItem("crossStreet", crossStreet)
-                query.addQueryItem("municipality", municipality)
-                query.addQueryItem("municipalitySubdivision", municipalitySubdivision)
-                query.addQueryItem("countryTertiarySubdivision", countryTertiarySubdivision)
-                query.addQueryItem("countrySecondarySubdivision", countrySecondarySubdivision)
-                query.addQueryItem("countrySubdivision", countrySubdivision)
-                query.addQueryItem("postalCode", postalCode)
-                query.addQueryItem("language", language)
-                query.addQueryItem("extendedPostalCodesFor", extendedPostalCodesFor)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["countryCode": countryCode])
+                encoder.encode(["limit": limit])
+                encoder.encode(["ofs": ofs])
+                encoder.encode(["streetNumber": streetNumber])
+                encoder.encode(["streetName": streetName])
+                encoder.encode(["crossStreet": crossStreet])
+                encoder.encode(["municipality": municipality])
+                encoder.encode(["municipalitySubdivision": municipalitySubdivision])
+                encoder.encode(["countryTertiarySubdivision": countryTertiarySubdivision])
+                encoder.encode(["countrySecondarySubdivision": countrySecondarySubdivision])
+                encoder.encode(["countrySubdivision": countrySubdivision])
+                encoder.encode(["postalCode": postalCode])
+                encoder.encode(["language": language])
+                encoder.encode(["extendedPostalCodesFor": extendedPostalCodesFor])
+                return encoder.items
             }
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

@@ -6,6 +6,7 @@
 import Foundation
 import NaiveDate
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var v1: V1 {
@@ -573,9 +574,9 @@ extension Paths.V1 {
         }
 
         private func makeGetQuery(_ isWithBalance: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("withBalance", isWithBalance)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["withBalance": isWithBalance])
+            return encoder.items
         }
     }
 }
@@ -623,9 +624,9 @@ extension Paths.V1.Accounts {
         }
 
         private func makeGetQuery(_ isWithBalance: Bool?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("withBalance", isWithBalance)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["withBalance": isWithBalance])
+            return encoder.items
         }
     }
 }
@@ -699,14 +700,14 @@ extension Paths.V1.Accounts.WithAccountID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("dateFrom", dateFrom)
-                query.addQueryItem("dateTo", dateTo)
-                query.addQueryItem("entryReferenceFrom", entryReferenceFrom)
-                query.addQueryItem("bookingStatus", bookingStatus)
-                query.addQueryItem("deltaList", isDeltaList)
-                query.addQueryItem("withBalance", isWithBalance)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["dateFrom": dateFrom])
+                encoder.encode(["dateTo": dateTo])
+                encoder.encode(["entryReferenceFrom": entryReferenceFrom])
+                encoder.encode(["bookingStatus": bookingStatus])
+                encoder.encode(["deltaList": isDeltaList])
+                encoder.encode(["withBalance": isWithBalance])
+                return encoder.items
             }
         }
     }
@@ -1294,95 +1295,3 @@ extension Paths.V1.SigningBaskets.WithBasketID.Authorisations {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension NaiveDate: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

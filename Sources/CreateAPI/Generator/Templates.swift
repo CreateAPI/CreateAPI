@@ -113,31 +113,31 @@ final class Templates {
         
     func asQueryContents(_ contents: [String]) -> String {
         """
-        var query: [(String, String?)] = []
+        let encoder = URLQueryEncoder()
         \(contents.joined(separator: "\n"))
-        return query
+        return encoder.items
         """
     }
     
     private func asQuery(_ property: Property) -> String {
+        asQuery(property, keyed: true)
+    }
+    
+    private func asQuery(_ property: Property, keyed: Bool) -> String {
         let getter = (property.name.rawValue == "query" ? "self." : "") + property.name.rawValue
-        let opt = property.isOptional ? "?" : ""
-        if case .array = property.type {
-            if property.explode {
-                return "\(getter)\(opt).forEach { query.addQueryItem(\"\(property.key)\", $0) }"
-            } else {
-                return "query.addQueryItem(\"\(property.key)\", \(getter)\(opt).map(\\.asQueryValue).joined(separator: \"\(delimeter(for: property.style))\"))"
-            }
-        } else if property.isObject {
-            if property.style == .deepObject {
-                return "query.addDeepObject(\"\(property.key)\", \(getter)\(opt).asQuery)"
-            } else if property.explode {
-                return "query += \(getter)\(opt).asQuery"
-            } else {
-                return "query.addQueryItem(\"\(property.key)\", \(getter)\(opt).asQuery.asCompactQuery)"
-            }
+        var parameters: [String] = []
+        if !property.explode { parameters.append("explode: false") }
+        switch property.style {
+        case .pipeDelimited: parameters.append("delimiter: \"|\"")
+        case .spaceDelimited: parameters.append("delimiter: \" \"")
+        case .deepObject: parameters.append("isDeepObject: true")
+        default: break // Do nothing
+        }
+        let value = keyed ? "[\"\(property.key)\": \(getter)]" : getter
+        if parameters.isEmpty {
+            return "encoder.encode(\(value))"
         } else {
-            return "query.addQueryItem(\"\(property.key)\", \(getter))"
+            return "encoder.encode(\(value), \(parameters.joined(separator: ", ")))"
         }
     }
     
@@ -153,7 +153,7 @@ final class Templates {
         let statements: [String] = properties.map {
             var property = $0
             property.name = PropertyName("value")
-            return "case .\($0.name)(let value):\n\(asQuery(property).indented)"
+            return "case .\($0.name)(let value): \(asQuery(property, keyed: false))"
         }
         let contents = """
         switch self {
@@ -573,63 +573,7 @@ final class Templates {
        }
        """
     }
-    
-    func queryParameterEncoders(_ encoders: [String: String], skipped: Set<String>) -> String {
-        var declarations: [String] = []
-        declarations.append("""
-        protocol QueryEncodable {
-            var asQueryValue: String { get }
-        }
-        """)
-        declarations += encoders.keys.sorted()
-            .filter { !skipped.contains($0) }
-            .map { key in
-                """
-                extension \(key): QueryEncodable {
-                    var asQueryValue: String {
-                \(encoders[key]!.indented(count: 2))
-                    }
-                }
-                """
-            }
-        declarations.append("""
-        extension RawRepresentable where RawValue == String {
-            var asQueryValue: String {
-                rawValue
-            }
-        }
 
-        extension Array where Element == (String, String?) {
-            mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-                addQueryItem(name, value?.rawValue)
-            }
-            
-            mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-                guard let value = value?.asQueryValue, !value.isEmpty else { return }
-                append((name, value))
-            }
-            
-            mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-                for (key, value) in query ?? [] {
-                    addQueryItem(\("\"\\(name)[\\(key)]\""), value)
-                }
-            }
-
-            var asPercentEncodedQuery: String {
-                var components = URLComponents()
-                components.queryItems = self.map(URLQueryItem.init)
-                return components.percentEncodedQuery ?? ""
-            }
-            
-            // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-            var asCompactQuery: String {
-                flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-            }
-        }
-        """)
-        return declarations.joined(separator: "\n\n")
-    }
-    
     var anyJSON: String {
         """
         \(access)enum AnyJSON: Equatable, Codable {
@@ -680,12 +624,6 @@ final class Templates {
             }
         }
         """
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
     }
 }
 

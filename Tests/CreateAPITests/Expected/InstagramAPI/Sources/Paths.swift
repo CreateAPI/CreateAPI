@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var geographies: Geographies {
@@ -65,10 +66,10 @@ extension Paths.Geographies.WithGeoID.Media {
         }
 
         private func makeGetQuery(_ count: Int?, _ minID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("count", count)
-            query.addQueryItem("min_id", minID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["count": count])
+            encoder.encode(["min_id": minID])
+            return encoder.items
         }
     }
 }
@@ -116,14 +117,14 @@ extension Paths.Locations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("distance", distance)
-                query.addQueryItem("facebook_places_id", facebookPlacesID)
-                query.addQueryItem("foursquare_id", foursquareID)
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lng", lng)
-                query.addQueryItem("foursquare_v2_id", foursquareV2ID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["distance": distance])
+                encoder.encode(["facebook_places_id": facebookPlacesID])
+                encoder.encode(["foursquare_id": foursquareID])
+                encoder.encode(["lat": lat])
+                encoder.encode(["lng": lng])
+                encoder.encode(["foursquare_v2_id": foursquareV2ID])
+                return encoder.items
             }
         }
     }
@@ -184,12 +185,12 @@ extension Paths.Locations.WithLocationID.Media {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("min_timestamp", minTimestamp)
-                query.addQueryItem("max_timestamp", maxTimestamp)
-                query.addQueryItem("min_id", minID)
-                query.addQueryItem("max_id", maxID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["min_timestamp": minTimestamp])
+                encoder.encode(["max_timestamp": maxTimestamp])
+                encoder.encode(["min_id": minID])
+                encoder.encode(["max_id": maxID])
+                return encoder.items
             }
         }
     }
@@ -260,13 +261,13 @@ extension Paths.Media {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("lat", lat)
-                query.addQueryItem("lng", lng)
-                query.addQueryItem("min_timestamp", minTimestamp)
-                query.addQueryItem("max_timestamp", maxTimestamp)
-                query.addQueryItem("distance", distance)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["lat": lat])
+                encoder.encode(["lng": lng])
+                encoder.encode(["min_timestamp": minTimestamp])
+                encoder.encode(["max_timestamp": maxTimestamp])
+                encoder.encode(["distance": distance])
+                return encoder.items
             }
         }
     }
@@ -353,9 +354,9 @@ extension Paths.Media.WithMediaID {
         }
 
         private func makePostQuery(_ text: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("text", text)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["text": text])
+            return encoder.items
         }
     }
 }
@@ -434,9 +435,9 @@ extension Paths.Tags {
         }
 
         private func makeGetQuery(_ q: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            return encoder.items
         }
     }
 }
@@ -497,11 +498,11 @@ extension Paths.Tags.WithTagName.Media {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("min_tag_id", minTagID)
-                query.addQueryItem("max_tag_id", maxTagID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["min_tag_id": minTagID])
+                encoder.encode(["max_tag_id": maxTagID])
+                return encoder.items
             }
         }
     }
@@ -533,10 +534,10 @@ extension Paths.Users {
         }
 
         private func makeGetQuery(_ q: String, _ count: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("q", q)
-            query.addQueryItem("count", count)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["q": q])
+            encoder.encode(["count": count])
+            return encoder.items
         }
     }
 }
@@ -583,11 +584,11 @@ extension Paths.Users.`Self` {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("min_id", minID)
-                query.addQueryItem("max_id", maxID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["min_id": minID])
+                encoder.encode(["max_id": maxID])
+                return encoder.items
             }
         }
     }
@@ -623,10 +624,10 @@ extension Paths.Users.`Self`.Media {
         }
 
         private func makeGetQuery(_ count: Int?, _ maxLikeID: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("count", count)
-            query.addQueryItem("max_like_id", maxLikeID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["count": count])
+            encoder.encode(["max_like_id": maxLikeID])
+            return encoder.items
         }
     }
 }
@@ -752,13 +753,13 @@ extension Paths.Users.WithUserID.Media {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("count", count)
-                query.addQueryItem("max_timestamp", maxTimestamp)
-                query.addQueryItem("min_timestamp", minTimestamp)
-                query.addQueryItem("min_id", minID)
-                query.addQueryItem("max_id", maxID)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["count": count])
+                encoder.encode(["max_timestamp": maxTimestamp])
+                encoder.encode(["min_timestamp": minTimestamp])
+                encoder.encode(["min_id": minID])
+                encoder.encode(["max_id": maxID])
+                return encoder.items
             }
         }
     }
@@ -784,9 +785,9 @@ extension Paths.Users.WithUserID {
         }
 
         private func makePostQuery(_ action: Action) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("action", action)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["action": action])
+            return encoder.items
         }
 
         public enum Action: String, Codable, CaseIterable {
@@ -801,89 +802,3 @@ extension Paths.Users.WithUserID {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var byDateJSON: ByDateJSON {
@@ -118,9 +119,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ date: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("date", date)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["date": date])
+            return encoder.items
         }
     }
 }
@@ -563,9 +564,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ url: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("url", url)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["url": url])
+            return encoder.items
         }
     }
 }
@@ -833,97 +834,11 @@ extension Paths {
         }
 
         private func makeGetQuery(_ userID: Int?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("userID", userID)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["userID": userID])
+            return encoder.items
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

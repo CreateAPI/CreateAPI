@@ -6,6 +6,7 @@
 import Foundation
 import NaiveDate
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var candidates: Candidates {
@@ -50,12 +51,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("sort_field", sortField)
-                query.addQueryItem("sort_dir", sortDir)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["limit": limit])
+                encoder.encode(["sort_field": sortField])
+                encoder.encode(["sort_dir": sortDir])
+                return encoder.items
             }
         }
 
@@ -215,11 +216,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("examiner_tag", examinerTag)
-                query.addQueryItem("start_date", startDate)
-                query.addQueryItem("end_date", endDate)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["examiner_tag": examinerTag])
+                encoder.encode(["start_date": startDate])
+                encoder.encode(["end_date": endDate])
+                return encoder.items
             }
         }
     }
@@ -1075,95 +1076,3 @@ extension Paths {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension NaiveDate: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

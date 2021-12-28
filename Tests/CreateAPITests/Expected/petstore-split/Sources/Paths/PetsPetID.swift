@@ -6,6 +6,7 @@
 import Foundation
 import Get
 import HTTPHeaders
+import URLQueryEncoder
 
 extension Paths.Pets {
     public func petID(_ petID: String) -> WithPetID {

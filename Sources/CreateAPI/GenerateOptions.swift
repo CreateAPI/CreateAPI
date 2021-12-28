@@ -83,7 +83,6 @@ final class GenerateOptions {
         var isAddingOperationIds: Bool
         var imports: Set<String>
         var overrideResponses: [String: String]
-        var queryParameterEncoders: [String: String]
         var isInliningSimpleRequests: Bool
         var isInliningSimpleQueryParameters: Bool
         var simpleQueryParametersThreshold: Int
@@ -99,11 +98,6 @@ final class GenerateOptions {
             self.isAddingOperationIds = options?.isAddingOperationIds ?? false
             self.imports = Set(options?.imports ?? ["Get"])
             self.overrideResponses = options?.overrideResponses ?? [:]
-            var queryParameterEncoders = makeDefaultParameterEncoders()
-            for (key, value) in options?.queryParameterEncoders ?? [:] {
-                queryParameterEncoders[key] = value // Override default values
-            }
-            self.queryParameterEncoders = queryParameterEncoders
             self.isInliningSimpleRequests = options?.isInliningSimpleRequests ?? true
             self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
             self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
@@ -226,7 +220,6 @@ final class GenerateOptionsSchema: Decodable {
         var isAddingOperationIds: Bool?
         var imports: [String]?
         var overrideResponses: [String: String]?
-        var queryParameterEncoders: [String: String]?
         var isInliningSimpleRequests: Bool?
         var isInliningSimpleQueryParameters: Bool?
         var simpleQueryParametersThreshold: Int?
@@ -260,20 +253,6 @@ struct GenerateArguments {
     let isStrict: Bool
     let vendor: String?
     let module: ModuleName
-}
-
-private func makeDefaultParameterEncoders() -> [String: String] {
-    return [
-        "String": "self",
-        "Int": "String(self)",
-        "Int32": "String(self)",
-        "Int64": "String(self)",
-        "Double": "String(self)",
-        "Bool": #"self ? "true" : "false""#,
-        "Date": "ISO8601DateFormatter().string(from: self)",
-        "URL": "absoluteString",
-        "NaiveDate": "String(self)",
-    ]
 }
 
 private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]

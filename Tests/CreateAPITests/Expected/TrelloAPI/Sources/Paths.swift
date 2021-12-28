@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var actions: Actions {
@@ -55,17 +56,17 @@ extension Paths.Actions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("display", display)
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["display": display])
+                encoder.encode(["entities": entities])
+                encoder.encode(["fields": fields])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -75,10 +76,10 @@ extension Paths.Actions {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteActionsByIdAction()
@@ -87,10 +88,10 @@ extension Paths.Actions {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -121,11 +122,11 @@ extension Paths.Actions.WithIDAction {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -146,10 +147,10 @@ extension Paths.Actions.WithIDAction.Board {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -180,11 +181,11 @@ extension Paths.Actions.WithIDAction {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -205,10 +206,10 @@ extension Paths.Actions.WithIDAction.Card {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -228,10 +229,10 @@ extension Paths.Actions.WithIDAction {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -251,10 +252,10 @@ extension Paths.Actions.WithIDAction {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -285,11 +286,11 @@ extension Paths.Actions.WithIDAction {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -310,10 +311,10 @@ extension Paths.Actions.WithIDAction.List {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -344,11 +345,11 @@ extension Paths.Actions.WithIDAction {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -369,10 +370,10 @@ extension Paths.Actions.WithIDAction.Member {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -403,11 +404,11 @@ extension Paths.Actions.WithIDAction {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -428,10 +429,10 @@ extension Paths.Actions.WithIDAction.MemberCreator {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -462,11 +463,11 @@ extension Paths.Actions.WithIDAction {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -487,10 +488,10 @@ extension Paths.Actions.WithIDAction.Organization {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -510,10 +511,10 @@ extension Paths.Actions.WithIDAction {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -533,10 +534,10 @@ extension Paths.Actions.WithIDAction {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -567,11 +568,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("urls", urls)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["urls": urls])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -592,10 +593,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -698,47 +699,47 @@ extension Paths.Boards {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_display", actionsDisplay)
-                query.addQueryItem("actions_format", actionsFormat)
-                query.addQueryItem("actions_since", actionsSince)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("action_member", actionMember)
-                query.addQueryItem("action_member_fields", actionMemberFields)
-                query.addQueryItem("action_memberCreator", actionMemberCreator)
-                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields)
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("card_attachments", cardAttachments)
-                query.addQueryItem("card_attachment_fields", cardAttachmentFields)
-                query.addQueryItem("card_checklists", cardChecklists)
-                query.addQueryItem("card_stickers", cardStickers)
-                query.addQueryItem("boardStars", boardStars)
-                query.addQueryItem("labels", labels)
-                query.addQueryItem("label_fields", labelFields)
-                query.addQueryItem("labels_limit", labelsLimit)
-                query.addQueryItem("lists", lists)
-                query.addQueryItem("list_fields", listFields)
-                query.addQueryItem("memberships", memberships)
-                query.addQueryItem("memberships_member", membershipsMember)
-                query.addQueryItem("memberships_member_fields", membershipsMemberFields)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("membersInvited", membersInvited)
-                query.addQueryItem("membersInvited_fields", membersInvitedFields)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("checklist_fields", checklistFields)
-                query.addQueryItem("organization", organization)
-                query.addQueryItem("organization_fields", organizationFields)
-                query.addQueryItem("organization_memberships", organizationMemberships)
-                query.addQueryItem("myPrefs", myPrefs)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_display": actionsDisplay])
+                encoder.encode(["actions_format": actionsFormat])
+                encoder.encode(["actions_since": actionsSince])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["action_member": actionMember])
+                encoder.encode(["action_member_fields": actionMemberFields])
+                encoder.encode(["action_memberCreator": actionMemberCreator])
+                encoder.encode(["action_memberCreator_fields": actionMemberCreatorFields])
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["card_attachments": cardAttachments])
+                encoder.encode(["card_attachment_fields": cardAttachmentFields])
+                encoder.encode(["card_checklists": cardChecklists])
+                encoder.encode(["card_stickers": cardStickers])
+                encoder.encode(["boardStars": boardStars])
+                encoder.encode(["labels": labels])
+                encoder.encode(["label_fields": labelFields])
+                encoder.encode(["labels_limit": labelsLimit])
+                encoder.encode(["lists": lists])
+                encoder.encode(["list_fields": listFields])
+                encoder.encode(["memberships": memberships])
+                encoder.encode(["memberships_member": membershipsMember])
+                encoder.encode(["memberships_member_fields": membershipsMemberFields])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["membersInvited": membersInvited])
+                encoder.encode(["membersInvited_fields": membersInvitedFields])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["checklist_fields": checklistFields])
+                encoder.encode(["organization": organization])
+                encoder.encode(["organization_fields": organizationFields])
+                encoder.encode(["organization_memberships": organizationMemberships])
+                encoder.encode(["myPrefs": myPrefs])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -748,10 +749,10 @@ extension Paths.Boards {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -808,24 +809,24 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("display", display)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("format", format)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("page", page)
-                query.addQueryItem("idModels", idModels)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["entities": entities])
+                encoder.encode(["display": display])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["format": format])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["page": page])
+                encoder.encode(["idModels": idModels])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -857,11 +858,11 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -893,10 +894,10 @@ extension Paths.Boards.WithIDBoard.CalendarKey {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -951,23 +952,23 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("stickers", stickers)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["stickers": stickers])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["limit": limit])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -988,10 +989,10 @@ extension Paths.Boards.WithIDBoard.Cards {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1052,26 +1053,26 @@ extension Paths.Boards.WithIDBoard.Cards {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_display", actionsDisplay)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checkItemState_fields", checkItemStateFields)
-                query.addQueryItem("labels", labels)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("checklist_fields", checklistFields)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_display": actionsDisplay])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["action_memberCreator_fields": actionMemberCreatorFields])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checkItemState_fields": checkItemStateFields])
+                encoder.encode(["labels": labels])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["checklist_fields": checklistFields])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1113,16 +1114,16 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("checkItems", checkItems)
-                query.addQueryItem("checkItem_fields", checkItemFields)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["checkItems": checkItems])
+                encoder.encode(["checkItem_fields": checkItemFields])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -1132,10 +1133,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1155,10 +1156,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1191,12 +1192,12 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tags", tags)
-                query.addQueryItem("ixLastUpdate", ixLastUpdate)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tags": tags])
+                encoder.encode(["ixLastUpdate": ixLastUpdate])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1217,10 +1218,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1251,10 +1252,10 @@ extension Paths.Boards.WithIDBoard.EmailKey {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1274,10 +1275,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1308,10 +1309,10 @@ extension Paths.Boards.WithIDBoard.LabelNames {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1331,10 +1332,10 @@ extension Paths.Boards.WithIDBoard.LabelNames {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1354,10 +1355,10 @@ extension Paths.Boards.WithIDBoard.LabelNames {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1377,10 +1378,10 @@ extension Paths.Boards.WithIDBoard.LabelNames {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1400,10 +1401,10 @@ extension Paths.Boards.WithIDBoard.LabelNames {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1423,10 +1424,10 @@ extension Paths.Boards.WithIDBoard.LabelNames {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1459,12 +1460,12 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -1474,10 +1475,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1508,11 +1509,11 @@ extension Paths.Boards.WithIDBoard.Labels {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1550,14 +1551,14 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -1567,10 +1568,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1590,10 +1591,10 @@ extension Paths.Boards.WithIDBoard.Lists {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1613,10 +1614,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1651,13 +1652,13 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("activity", activity)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["activity": activity])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -1667,10 +1668,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1690,10 +1691,10 @@ extension Paths.Boards.WithIDBoard.Members {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1713,10 +1714,10 @@ extension Paths.Boards.WithIDBoard.Members {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteBoardsMembersByIdBoardByIdMember()
@@ -1725,10 +1726,10 @@ extension Paths.Boards.WithIDBoard.Members {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1783,23 +1784,23 @@ extension Paths.Boards.WithIDBoard.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("board", board)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("list", list)
-                query.addQueryItem("list_fields", listFields)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["board": board])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["list": list])
+                encoder.encode(["list_fields": listFields])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1831,11 +1832,11 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1856,10 +1857,10 @@ extension Paths.Boards.WithIDBoard.MembersInvited {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1894,13 +1895,13 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -1934,12 +1935,12 @@ extension Paths.Boards.WithIDBoard.Memberships {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -1949,10 +1950,10 @@ extension Paths.Boards.WithIDBoard.Memberships {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1972,10 +1973,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -1995,10 +1996,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2018,10 +2019,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2041,10 +2042,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2064,10 +2065,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2087,10 +2088,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2110,10 +2111,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2133,10 +2134,10 @@ extension Paths.Boards.WithIDBoard.MyPrefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2156,10 +2157,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2190,11 +2191,11 @@ extension Paths.Boards.WithIDBoard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -2215,10 +2216,10 @@ extension Paths.Boards.WithIDBoard.Organization {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2238,10 +2239,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2261,10 +2262,10 @@ extension Paths.Boards.WithIDBoard.PowerUps {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2295,10 +2296,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2318,10 +2319,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2341,10 +2342,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2364,10 +2365,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2387,10 +2388,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2410,10 +2411,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2433,10 +2434,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2456,10 +2457,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2479,10 +2480,10 @@ extension Paths.Boards.WithIDBoard.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2502,10 +2503,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2525,10 +2526,10 @@ extension Paths.Boards.WithIDBoard {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2548,10 +2549,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2626,33 +2627,33 @@ extension Paths.Cards {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_display", actionsDisplay)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("action_memberCreator_fields", actionMemberCreatorFields)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("membersVoted", membersVoted)
-                query.addQueryItem("memberVoted_fields", memberVotedFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checkItemState_fields", checkItemStateFields)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("checklist_fields", checklistFields)
-                query.addQueryItem("board", board)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("list", list)
-                query.addQueryItem("list_fields", listFields)
-                query.addQueryItem("stickers", stickers)
-                query.addQueryItem("sticker_fields", stickerFields)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_display": actionsDisplay])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["action_memberCreator_fields": actionMemberCreatorFields])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["membersVoted": membersVoted])
+                encoder.encode(["memberVoted_fields": memberVotedFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checkItemState_fields": checkItemStateFields])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["checklist_fields": checklistFields])
+                encoder.encode(["board": board])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["list": list])
+                encoder.encode(["list_fields": listFields])
+                encoder.encode(["stickers": stickers])
+                encoder.encode(["sticker_fields": stickerFields])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -2662,10 +2663,10 @@ extension Paths.Cards {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteCardsByIdCard()
@@ -2674,10 +2675,10 @@ extension Paths.Cards {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2734,24 +2735,24 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("display", display)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("format", format)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("page", page)
-                query.addQueryItem("idModels", idModels)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["entities": entities])
+                encoder.encode(["display": display])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["format": format])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["page": page])
+                encoder.encode(["idModels": idModels])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -2772,10 +2773,10 @@ extension Paths.Cards.WithIDCard.Actions {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2808,10 +2809,10 @@ extension Paths.Cards.WithIDCard.Actions.WithIDAction {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteCardsActionsCommentsByIdCardByIdAction()
@@ -2822,10 +2823,10 @@ extension Paths.Cards.WithIDCard.Actions.WithIDAction {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2858,12 +2859,12 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -2873,10 +2874,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2907,11 +2908,11 @@ extension Paths.Cards.WithIDCard.Attachments {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -2921,10 +2922,10 @@ extension Paths.Cards.WithIDCard.Attachments {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -2955,11 +2956,11 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -2980,10 +2981,10 @@ extension Paths.Cards.WithIDCard.Board {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3014,11 +3015,11 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -3072,10 +3073,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklistCurrent.CheckItem {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3106,10 +3107,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3129,10 +3130,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3152,10 +3153,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3175,10 +3176,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3198,10 +3199,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3221,10 +3222,10 @@ extension Paths.Cards.WithIDCard.Checklist.WithIDChecklist.CheckItem.WithIDCheck
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3265,16 +3266,16 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("checkItems", checkItems)
-                query.addQueryItem("checkItem_fields", checkItemFields)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["checkItems": checkItems])
+                encoder.encode(["checkItem_fields": checkItemFields])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -3284,10 +3285,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3307,10 +3308,10 @@ extension Paths.Cards.WithIDCard.Checklists {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3330,10 +3331,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3353,10 +3354,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3376,10 +3377,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3399,10 +3400,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3422,10 +3423,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3445,10 +3446,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3468,10 +3469,10 @@ extension Paths.Cards.WithIDCard.IDLabels {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3491,10 +3492,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3514,10 +3515,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// UpdateCardsIdMembersByIdCard()
@@ -3526,10 +3527,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3549,10 +3550,10 @@ extension Paths.Cards.WithIDCard.IDMembers {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3572,10 +3573,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// UpdateCardsLabelsByIdCard()
@@ -3584,10 +3585,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3607,10 +3608,10 @@ extension Paths.Cards.WithIDCard.Labels {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3641,11 +3642,11 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -3666,10 +3667,10 @@ extension Paths.Cards.WithIDCard.List {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3689,10 +3690,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3723,11 +3724,11 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -3759,11 +3760,11 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -3773,10 +3774,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3796,10 +3797,10 @@ extension Paths.Cards.WithIDCard.MembersVoted {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3819,10 +3820,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3842,10 +3843,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3876,11 +3877,11 @@ extension Paths.Cards.WithIDCard {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -3890,10 +3891,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3924,11 +3925,11 @@ extension Paths.Cards.WithIDCard.Stickers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -3938,10 +3939,10 @@ extension Paths.Cards.WithIDCard.Stickers {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteCardsStickersByIdCardByIdSticker()
@@ -3950,10 +3951,10 @@ extension Paths.Cards.WithIDCard.Stickers {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3973,10 +3974,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -3996,10 +3997,10 @@ extension Paths.Cards.WithIDCard {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4019,10 +4020,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4061,15 +4062,15 @@ extension Paths.Checklists {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("checkItems", checkItems)
-                query.addQueryItem("checkItem_fields", checkItemFields)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["checkItems": checkItems])
+                encoder.encode(["checkItem_fields": checkItemFields])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -4079,10 +4080,10 @@ extension Paths.Checklists {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteChecklistsByIdChecklist()
@@ -4091,10 +4092,10 @@ extension Paths.Checklists {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4125,11 +4126,11 @@ extension Paths.Checklists.WithIDChecklist {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -4150,10 +4151,10 @@ extension Paths.Checklists.WithIDChecklist.Board {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4208,23 +4209,23 @@ extension Paths.Checklists.WithIDChecklist {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("stickers", stickers)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["stickers": stickers])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["limit": limit])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -4245,10 +4246,10 @@ extension Paths.Checklists.WithIDChecklist.Cards {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4281,12 +4282,12 @@ extension Paths.Checklists.WithIDChecklist {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -4296,10 +4297,10 @@ extension Paths.Checklists.WithIDChecklist {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4330,11 +4331,11 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -4344,10 +4345,10 @@ extension Paths.Checklists.WithIDChecklist.CheckItems {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4367,10 +4368,10 @@ extension Paths.Checklists.WithIDChecklist {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4390,10 +4391,10 @@ extension Paths.Checklists.WithIDChecklist {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4413,10 +4414,10 @@ extension Paths.Checklists.WithIDChecklist {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4436,10 +4437,10 @@ extension Paths.Checklists.WithIDChecklist {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4459,10 +4460,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4493,11 +4494,11 @@ extension Paths.Labels {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -4507,10 +4508,10 @@ extension Paths.Labels {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteLabelsByIdLabel()
@@ -4519,10 +4520,10 @@ extension Paths.Labels {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4553,11 +4554,11 @@ extension Paths.Labels.WithIDLabel {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -4578,10 +4579,10 @@ extension Paths.Labels.WithIDLabel.Board {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4601,10 +4602,10 @@ extension Paths.Labels.WithIDLabel {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4624,10 +4625,10 @@ extension Paths.Labels.WithIDLabel {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4647,10 +4648,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4689,15 +4690,15 @@ extension Paths.Lists {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("board", board)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["board": board])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -4707,10 +4708,10 @@ extension Paths.Lists {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4767,24 +4768,24 @@ extension Paths.Lists.WithIDList {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("display", display)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("format", format)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("page", page)
-                query.addQueryItem("idModels", idModels)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["entities": entities])
+                encoder.encode(["display": display])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["format": format])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["page": page])
+                encoder.encode(["idModels": idModels])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -4805,10 +4806,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4839,11 +4840,11 @@ extension Paths.Lists.WithIDList {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -4864,10 +4865,10 @@ extension Paths.Lists.WithIDList.Board {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4922,23 +4923,23 @@ extension Paths.Lists.WithIDList {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("stickers", stickers)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["stickers": stickers])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["limit": limit])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -4948,10 +4949,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4971,10 +4972,10 @@ extension Paths.Lists.WithIDList.Cards {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -4994,10 +4995,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5017,10 +5018,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5040,10 +5041,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5063,10 +5064,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5086,10 +5087,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5109,10 +5110,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5132,10 +5133,10 @@ extension Paths.Lists.WithIDList {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5281,62 +5282,62 @@ extension Paths.Members {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_display", actionsDisplay)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("action_since", actionSince)
-                query.addQueryItem("action_before", actionBefore)
-                query.addQueryItem("cards", cards)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("card_members", cardMembers)
-                query.addQueryItem("card_member_fields", cardMemberFields)
-                query.addQueryItem("card_attachments", cardAttachments)
-                query.addQueryItem("card_attachment_fields", cardAttachmentFields)
-                query.addQueryItem("card_stickers", cardStickers)
-                query.addQueryItem("boards", boards)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("board_actions", boardActions)
-                query.addQueryItem("board_actions_entities", boardActionsEntities)
-                query.addQueryItem("board_actions_display", boardActionsDisplay)
-                query.addQueryItem("board_actions_format", boardActionsFormat)
-                query.addQueryItem("board_actions_since", boardActionsSince)
-                query.addQueryItem("board_actions_limit", boardActionsLimit)
-                query.addQueryItem("board_action_fields", boardActionFields)
-                query.addQueryItem("board_lists", boardLists)
-                query.addQueryItem("board_memberships", boardMemberships)
-                query.addQueryItem("board_organization", boardOrganization)
-                query.addQueryItem("board_organization_fields", boardOrganizationFields)
-                query.addQueryItem("boardsInvited", boardsInvited)
-                query.addQueryItem("boardsInvited_fields", boardsInvitedFields)
-                query.addQueryItem("boardStars", boardStars)
-                query.addQueryItem("savedSearches", savedSearches)
-                query.addQueryItem("organizations", organizations)
-                query.addQueryItem("organization_fields", organizationFields)
-                query.addQueryItem("organization_paid_account", organizationPaidAccount)
-                query.addQueryItem("organizationsInvited", organizationsInvited)
-                query.addQueryItem("organizationsInvited_fields", organizationsInvitedFields)
-                query.addQueryItem("notifications", notifications)
-                query.addQueryItem("notifications_entities", notificationsEntities)
-                query.addQueryItem("notifications_display", notificationsDisplay)
-                query.addQueryItem("notifications_limit", notificationsLimit)
-                query.addQueryItem("notification_fields", notificationFields)
-                query.addQueryItem("notification_memberCreator", notificationMemberCreator)
-                query.addQueryItem("notification_memberCreator_fields", notificationMemberCreatorFields)
-                query.addQueryItem("notification_before", notificationBefore)
-                query.addQueryItem("notification_since", notificationSince)
-                query.addQueryItem("tokens", tokens)
-                query.addQueryItem("paid_account", paidAccount)
-                query.addQueryItem("boardBackgrounds", boardBackgrounds)
-                query.addQueryItem("customBoardBackgrounds", customBoardBackgrounds)
-                query.addQueryItem("customStickers", customStickers)
-                query.addQueryItem("customEmoji", customEmoji)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_display": actionsDisplay])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["action_since": actionSince])
+                encoder.encode(["action_before": actionBefore])
+                encoder.encode(["cards": cards])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["card_members": cardMembers])
+                encoder.encode(["card_member_fields": cardMemberFields])
+                encoder.encode(["card_attachments": cardAttachments])
+                encoder.encode(["card_attachment_fields": cardAttachmentFields])
+                encoder.encode(["card_stickers": cardStickers])
+                encoder.encode(["boards": boards])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["board_actions": boardActions])
+                encoder.encode(["board_actions_entities": boardActionsEntities])
+                encoder.encode(["board_actions_display": boardActionsDisplay])
+                encoder.encode(["board_actions_format": boardActionsFormat])
+                encoder.encode(["board_actions_since": boardActionsSince])
+                encoder.encode(["board_actions_limit": boardActionsLimit])
+                encoder.encode(["board_action_fields": boardActionFields])
+                encoder.encode(["board_lists": boardLists])
+                encoder.encode(["board_memberships": boardMemberships])
+                encoder.encode(["board_organization": boardOrganization])
+                encoder.encode(["board_organization_fields": boardOrganizationFields])
+                encoder.encode(["boardsInvited": boardsInvited])
+                encoder.encode(["boardsInvited_fields": boardsInvitedFields])
+                encoder.encode(["boardStars": boardStars])
+                encoder.encode(["savedSearches": savedSearches])
+                encoder.encode(["organizations": organizations])
+                encoder.encode(["organization_fields": organizationFields])
+                encoder.encode(["organization_paid_account": organizationPaidAccount])
+                encoder.encode(["organizationsInvited": organizationsInvited])
+                encoder.encode(["organizationsInvited_fields": organizationsInvitedFields])
+                encoder.encode(["notifications": notifications])
+                encoder.encode(["notifications_entities": notificationsEntities])
+                encoder.encode(["notifications_display": notificationsDisplay])
+                encoder.encode(["notifications_limit": notificationsLimit])
+                encoder.encode(["notification_fields": notificationFields])
+                encoder.encode(["notification_memberCreator": notificationMemberCreator])
+                encoder.encode(["notification_memberCreator_fields": notificationMemberCreatorFields])
+                encoder.encode(["notification_before": notificationBefore])
+                encoder.encode(["notification_since": notificationSince])
+                encoder.encode(["tokens": tokens])
+                encoder.encode(["paid_account": paidAccount])
+                encoder.encode(["boardBackgrounds": boardBackgrounds])
+                encoder.encode(["customBoardBackgrounds": customBoardBackgrounds])
+                encoder.encode(["customStickers": customStickers])
+                encoder.encode(["customEmoji": customEmoji])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -5346,10 +5347,10 @@ extension Paths.Members {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5406,24 +5407,24 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("display", display)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("format", format)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("page", page)
-                query.addQueryItem("idModels", idModels)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["entities": entities])
+                encoder.encode(["display": display])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["format": format])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["page": page])
+                encoder.encode(["idModels": idModels])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -5444,10 +5445,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5467,10 +5468,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5490,10 +5491,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5524,11 +5525,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -5538,10 +5539,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5572,11 +5573,11 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -5586,10 +5587,10 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteMembersBoardBackgroundsByIdMemberByIdBoardBackground()
@@ -5598,10 +5599,10 @@ extension Paths.Members.WithIDMember.BoardBackgrounds {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5621,10 +5622,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// AddMembersBoardStarsByIdMember()
@@ -5633,10 +5634,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5656,10 +5657,10 @@ extension Paths.Members.WithIDMember.BoardStars {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// UpdateMembersBoardStarsByIdMemberByIdBoardStar()
@@ -5668,10 +5669,10 @@ extension Paths.Members.WithIDMember.BoardStars {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteMembersBoardStarsByIdMemberByIdBoardStar()
@@ -5680,10 +5681,10 @@ extension Paths.Members.WithIDMember.BoardStars {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5703,10 +5704,10 @@ extension Paths.Members.WithIDMember.BoardStars.WithIDBoardStar {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5726,10 +5727,10 @@ extension Paths.Members.WithIDMember.BoardStars.WithIDBoardStar {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5782,22 +5783,22 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("actions_format", actionsFormat)
-                query.addQueryItem("actions_since", actionsSince)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("memberships", memberships)
-                query.addQueryItem("organization", organization)
-                query.addQueryItem("organization_fields", organizationFields)
-                query.addQueryItem("lists", lists)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["actions_format": actionsFormat])
+                encoder.encode(["actions_since": actionsSince])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["memberships": memberships])
+                encoder.encode(["organization": organization])
+                encoder.encode(["organization_fields": organizationFields])
+                encoder.encode(["lists": lists])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -5818,10 +5819,10 @@ extension Paths.Members.WithIDMember.Boards {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5852,11 +5853,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -5877,10 +5878,10 @@ extension Paths.Members.WithIDMember.BoardsInvited {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -5935,23 +5936,23 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("stickers", stickers)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["stickers": stickers])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["limit": limit])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -5972,10 +5973,10 @@ extension Paths.Members.WithIDMember.Cards {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6006,11 +6007,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -6020,10 +6021,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6054,11 +6055,11 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -6068,10 +6069,10 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteMembersCustomBoardBackgroundsByIdMemberByIdBoardBackground()
@@ -6080,10 +6081,10 @@ extension Paths.Members.WithIDMember.CustomBoardBackgrounds {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6116,11 +6117,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -6130,10 +6131,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6164,11 +6165,11 @@ extension Paths.Members.WithIDMember.CustomEmoji {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -6202,11 +6203,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -6216,10 +6217,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6250,11 +6251,11 @@ extension Paths.Members.WithIDMember.CustomStickers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -6264,10 +6265,10 @@ extension Paths.Members.WithIDMember.CustomStickers {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6300,12 +6301,12 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tags", tags)
-                query.addQueryItem("ixLastUpdate", ixLastUpdate)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tags": tags])
+                encoder.encode(["ixLastUpdate": ixLastUpdate])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -6326,10 +6327,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6349,10 +6350,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6405,21 +6406,21 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("display", display)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("read_filter", readFilter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("page", page)
-                query.addQueryItem("before", before)
-                query.addQueryItem("since", since)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["entities": entities])
+                encoder.encode(["display": display])
+                encoder.encode(["filter": filter])
+                encoder.encode(["read_filter": readFilter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["page": page])
+                encoder.encode(["before": before])
+                encoder.encode(["since": since])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -6440,10 +6441,10 @@ extension Paths.Members.WithIDMember.Notifications {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6463,10 +6464,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6501,13 +6502,13 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("paid_account", paidAccount)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["paid_account": paidAccount])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -6528,10 +6529,10 @@ extension Paths.Members.WithIDMember.Organizations {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6562,11 +6563,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -6587,10 +6588,10 @@ extension Paths.Members.WithIDMember.OrganizationsInvited {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6621,10 +6622,10 @@ extension Paths.Members.WithIDMember.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6644,10 +6645,10 @@ extension Paths.Members.WithIDMember.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6667,10 +6668,10 @@ extension Paths.Members.WithIDMember.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6690,10 +6691,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// AddMembersSavedSearchesByIdMember()
@@ -6702,10 +6703,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6725,10 +6726,10 @@ extension Paths.Members.WithIDMember.SavedSearches {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// UpdateMembersSavedSearchesByIdMemberByIdSavedSearch()
@@ -6737,10 +6738,10 @@ extension Paths.Members.WithIDMember.SavedSearches {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteMembersSavedSearchesByIdMemberByIdSavedSearch()
@@ -6749,10 +6750,10 @@ extension Paths.Members.WithIDMember.SavedSearches {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6772,10 +6773,10 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6795,10 +6796,10 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6818,10 +6819,10 @@ extension Paths.Members.WithIDMember.SavedSearches.WithIDSavedSearch {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6852,11 +6853,11 @@ extension Paths.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -6877,10 +6878,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6900,10 +6901,10 @@ extension Paths.Members.WithIDMember {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -6945,10 +6946,10 @@ extension Paths.Notifications.All {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7005,24 +7006,24 @@ extension Paths.Notifications {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("display", display)
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("board", board)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("list", list)
-                query.addQueryItem("card", card)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("organization", organization)
-                query.addQueryItem("organization_fields", organizationFields)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["display": display])
+                encoder.encode(["entities": entities])
+                encoder.encode(["fields": fields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["board": board])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["list": list])
+                encoder.encode(["card": card])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["organization": organization])
+                encoder.encode(["organization_fields": organizationFields])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -7032,10 +7033,10 @@ extension Paths.Notifications {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7066,11 +7067,11 @@ extension Paths.Notifications.WithIDNotification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7091,10 +7092,10 @@ extension Paths.Notifications.WithIDNotification.Board {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7125,11 +7126,11 @@ extension Paths.Notifications.WithIDNotification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7150,10 +7151,10 @@ extension Paths.Notifications.WithIDNotification.Card {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7173,10 +7174,10 @@ extension Paths.Notifications.WithIDNotification {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7196,10 +7197,10 @@ extension Paths.Notifications.WithIDNotification {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7230,11 +7231,11 @@ extension Paths.Notifications.WithIDNotification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7255,10 +7256,10 @@ extension Paths.Notifications.WithIDNotification.List {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7289,11 +7290,11 @@ extension Paths.Notifications.WithIDNotification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7314,10 +7315,10 @@ extension Paths.Notifications.WithIDNotification.Member {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7348,11 +7349,11 @@ extension Paths.Notifications.WithIDNotification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7373,10 +7374,10 @@ extension Paths.Notifications.WithIDNotification.MemberCreator {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7407,11 +7408,11 @@ extension Paths.Notifications.WithIDNotification {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7432,10 +7433,10 @@ extension Paths.Notifications.WithIDNotification.Organization {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7455,10 +7456,10 @@ extension Paths.Notifications.WithIDNotification {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7478,10 +7479,10 @@ extension Paths.Notifications.WithIDNotification {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7501,10 +7502,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7583,35 +7584,35 @@ extension Paths.Organizations {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_display", actionsDisplay)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("memberships", memberships)
-                query.addQueryItem("memberships_member", membershipsMember)
-                query.addQueryItem("memberships_member_fields", membershipsMemberFields)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("member_activity", memberActivity)
-                query.addQueryItem("membersInvited", membersInvited)
-                query.addQueryItem("membersInvited_fields", membersInvitedFields)
-                query.addQueryItem("boards", boards)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("board_actions", boardActions)
-                query.addQueryItem("board_actions_entities", boardActionsEntities)
-                query.addQueryItem("board_actions_display", boardActionsDisplay)
-                query.addQueryItem("board_actions_format", boardActionsFormat)
-                query.addQueryItem("board_actions_since", boardActionsSince)
-                query.addQueryItem("board_actions_limit", boardActionsLimit)
-                query.addQueryItem("board_action_fields", boardActionFields)
-                query.addQueryItem("board_lists", boardLists)
-                query.addQueryItem("paid_account", paidAccount)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_display": actionsDisplay])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["memberships": memberships])
+                encoder.encode(["memberships_member": membershipsMember])
+                encoder.encode(["memberships_member_fields": membershipsMemberFields])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["member_activity": memberActivity])
+                encoder.encode(["membersInvited": membersInvited])
+                encoder.encode(["membersInvited_fields": membersInvitedFields])
+                encoder.encode(["boards": boards])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["board_actions": boardActions])
+                encoder.encode(["board_actions_entities": boardActionsEntities])
+                encoder.encode(["board_actions_display": boardActionsDisplay])
+                encoder.encode(["board_actions_format": boardActionsFormat])
+                encoder.encode(["board_actions_since": boardActionsSince])
+                encoder.encode(["board_actions_limit": boardActionsLimit])
+                encoder.encode(["board_action_fields": boardActionFields])
+                encoder.encode(["board_lists": boardLists])
+                encoder.encode(["paid_account": paidAccount])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -7621,10 +7622,10 @@ extension Paths.Organizations {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteOrganizationsByIdOrg()
@@ -7633,10 +7634,10 @@ extension Paths.Organizations {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7693,24 +7694,24 @@ extension Paths.Organizations.WithIDOrg {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("entities", entities)
-                query.addQueryItem("display", display)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("format", format)
-                query.addQueryItem("since", since)
-                query.addQueryItem("before", before)
-                query.addQueryItem("page", page)
-                query.addQueryItem("idModels", idModels)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("memberCreator", memberCreator)
-                query.addQueryItem("memberCreator_fields", memberCreatorFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["entities": entities])
+                encoder.encode(["display": display])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["limit": limit])
+                encoder.encode(["format": format])
+                encoder.encode(["since": since])
+                encoder.encode(["before": before])
+                encoder.encode(["page": page])
+                encoder.encode(["idModels": idModels])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["memberCreator": memberCreator])
+                encoder.encode(["memberCreator_fields": memberCreatorFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7764,22 +7765,22 @@ extension Paths.Organizations.WithIDOrg {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("actions_entities", actionsEntities)
-                query.addQueryItem("actions_limit", actionsLimit)
-                query.addQueryItem("actions_format", actionsFormat)
-                query.addQueryItem("actions_since", actionsSince)
-                query.addQueryItem("action_fields", actionFields)
-                query.addQueryItem("memberships", memberships)
-                query.addQueryItem("organization", organization)
-                query.addQueryItem("organization_fields", organizationFields)
-                query.addQueryItem("lists", lists)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["actions": actions])
+                encoder.encode(["actions_entities": actionsEntities])
+                encoder.encode(["actions_limit": actionsLimit])
+                encoder.encode(["actions_format": actionsFormat])
+                encoder.encode(["actions_since": actionsSince])
+                encoder.encode(["action_fields": actionFields])
+                encoder.encode(["memberships": memberships])
+                encoder.encode(["organization": organization])
+                encoder.encode(["organization_fields": organizationFields])
+                encoder.encode(["lists": lists])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7800,10 +7801,10 @@ extension Paths.Organizations.WithIDOrg.Boards {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7836,12 +7837,12 @@ extension Paths.Organizations.WithIDOrg {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tags", tags)
-                query.addQueryItem("ixLastUpdate", ixLastUpdate)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tags": tags])
+                encoder.encode(["ixLastUpdate": ixLastUpdate])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -7862,10 +7863,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7885,10 +7886,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7908,10 +7909,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteOrganizationsLogoByIdOrg()
@@ -7920,10 +7921,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7958,13 +7959,13 @@ extension Paths.Organizations.WithIDOrg {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("activity", activity)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["activity": activity])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -7974,10 +7975,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -7997,10 +7998,10 @@ extension Paths.Organizations.WithIDOrg.Members {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8020,10 +8021,10 @@ extension Paths.Organizations.WithIDOrg.Members {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteOrganizationsMembersByIdOrgByIdMember()
@@ -8032,10 +8033,10 @@ extension Paths.Organizations.WithIDOrg.Members {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8055,10 +8056,10 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8113,23 +8114,23 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("actions", actions)
-                query.addQueryItem("attachments", attachments)
-                query.addQueryItem("attachment_fields", attachmentFields)
-                query.addQueryItem("members", members)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("checkItemStates", checkItemStates)
-                query.addQueryItem("checklists", checklists)
-                query.addQueryItem("board", board)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("list", list)
-                query.addQueryItem("list_fields", listFields)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["actions": actions])
+                encoder.encode(["attachments": attachments])
+                encoder.encode(["attachment_fields": attachmentFields])
+                encoder.encode(["members": members])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["checkItemStates": checkItemStates])
+                encoder.encode(["checklists": checklists])
+                encoder.encode(["board": board])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["list": list])
+                encoder.encode(["list_fields": listFields])
+                encoder.encode(["filter": filter])
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8150,10 +8151,10 @@ extension Paths.Organizations.WithIDOrg.Members.WithIDMember {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8184,11 +8185,11 @@ extension Paths.Organizations.WithIDOrg {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8209,10 +8210,10 @@ extension Paths.Organizations.WithIDOrg.MembersInvited {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8247,13 +8248,13 @@ extension Paths.Organizations.WithIDOrg {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8287,12 +8288,12 @@ extension Paths.Organizations.WithIDOrg.Memberships {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("member", member)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["member": member])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -8302,10 +8303,10 @@ extension Paths.Organizations.WithIDOrg.Memberships {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8325,10 +8326,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8359,10 +8360,10 @@ extension Paths.Organizations.WithIDOrg.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteOrganizationsPrefsAssociatedDomainByIdOrg()
@@ -8371,10 +8372,10 @@ extension Paths.Organizations.WithIDOrg.Prefs {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8405,10 +8406,10 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8428,10 +8429,10 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8451,10 +8452,10 @@ extension Paths.Organizations.WithIDOrg.Prefs.BoardVisibilityRestrict {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8474,10 +8475,10 @@ extension Paths.Organizations.WithIDOrg.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8497,10 +8498,10 @@ extension Paths.Organizations.WithIDOrg.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8520,10 +8521,10 @@ extension Paths.Organizations.WithIDOrg.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteOrganizationsPrefsOrgInviteRestrictByIdOrg()
@@ -8543,11 +8544,11 @@ extension Paths.Organizations.WithIDOrg.Prefs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("value", value)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["value": value])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8568,10 +8569,10 @@ extension Paths.Organizations.WithIDOrg.Prefs {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8591,10 +8592,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8614,10 +8615,10 @@ extension Paths.Organizations.WithIDOrg {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8686,30 +8687,30 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("idBoards", idBoards)
-                query.addQueryItem("idOrganizations", idOrganizations)
-                query.addQueryItem("idCards", idCards)
-                query.addQueryItem("modelTypes", modelTypes)
-                query.addQueryItem("board_fields", boardFields)
-                query.addQueryItem("boards_limit", boardsLimit)
-                query.addQueryItem("card_fields", cardFields)
-                query.addQueryItem("cards_limit", cardsLimit)
-                query.addQueryItem("cards_page", cardsPage)
-                query.addQueryItem("card_board", cardBoard)
-                query.addQueryItem("card_list", cardList)
-                query.addQueryItem("card_members", cardMembers)
-                query.addQueryItem("card_stickers", cardStickers)
-                query.addQueryItem("card_attachments", cardAttachments)
-                query.addQueryItem("organization_fields", organizationFields)
-                query.addQueryItem("organizations_limit", organizationsLimit)
-                query.addQueryItem("member_fields", memberFields)
-                query.addQueryItem("members_limit", membersLimit)
-                query.addQueryItem("partial", partial)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["idBoards": idBoards])
+                encoder.encode(["idOrganizations": idOrganizations])
+                encoder.encode(["idCards": idCards])
+                encoder.encode(["modelTypes": modelTypes])
+                encoder.encode(["board_fields": boardFields])
+                encoder.encode(["boards_limit": boardsLimit])
+                encoder.encode(["card_fields": cardFields])
+                encoder.encode(["cards_limit": cardsLimit])
+                encoder.encode(["cards_page": cardsPage])
+                encoder.encode(["card_board": cardBoard])
+                encoder.encode(["card_list": cardList])
+                encoder.encode(["card_members": cardMembers])
+                encoder.encode(["card_stickers": cardStickers])
+                encoder.encode(["card_attachments": cardAttachments])
+                encoder.encode(["organization_fields": organizationFields])
+                encoder.encode(["organizations_limit": organizationsLimit])
+                encoder.encode(["member_fields": memberFields])
+                encoder.encode(["members_limit": membersLimit])
+                encoder.encode(["partial": partial])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8749,15 +8750,15 @@ extension Paths.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("query", self.query)
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("idBoard", idBoard)
-                query.addQueryItem("idOrganization", idOrganization)
-                query.addQueryItem("onlyOrgMembers", onlyOrgMembers)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["query": self.query])
+                encoder.encode(["limit": limit])
+                encoder.encode(["idBoard": idBoard])
+                encoder.encode(["idOrganization": idOrganization])
+                encoder.encode(["onlyOrgMembers": onlyOrgMembers])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8778,10 +8779,10 @@ extension Paths {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8803,10 +8804,10 @@ extension Paths.Sessions {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8826,10 +8827,10 @@ extension Paths.Sessions {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8849,10 +8850,10 @@ extension Paths.Sessions.WithIDSession {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8896,12 +8897,12 @@ extension Paths.Tokens {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("webhooks", webhooks)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["webhooks": webhooks])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
 
@@ -8911,10 +8912,10 @@ extension Paths.Tokens {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8945,11 +8946,11 @@ extension Paths.Tokens.WithToken {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fields", fields)
-                query.addQueryItem("key", key)
-                query.addQueryItem("token", token)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fields": fields])
+                encoder.encode(["key": key])
+                encoder.encode(["token": token])
+                return encoder.items
             }
         }
     }
@@ -8970,10 +8971,10 @@ extension Paths.Tokens.WithToken.Member {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -8993,10 +8994,10 @@ extension Paths.Tokens.WithToken {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// AddTokensWebhooksByToken()
@@ -9005,10 +9006,10 @@ extension Paths.Tokens.WithToken {
         }
 
         private func makePostQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// UpdateTokensWebhooksByToken()
@@ -9017,10 +9018,10 @@ extension Paths.Tokens.WithToken {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9040,10 +9041,10 @@ extension Paths.Tokens.WithToken.Webhooks {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteTokensWebhooksByTokenByIdWebhook()
@@ -9052,10 +9053,10 @@ extension Paths.Tokens.WithToken.Webhooks {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9075,10 +9076,10 @@ extension Paths.Tokens.WithToken {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9109,10 +9110,10 @@ extension Paths.Types {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9132,10 +9133,10 @@ extension Paths {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9155,10 +9156,10 @@ extension Paths.Webhooks {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// UpdateWebhooksByIdWebhook()
@@ -9167,10 +9168,10 @@ extension Paths.Webhooks {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
 
         /// DeleteWebhooksByIdWebhook()
@@ -9179,10 +9180,10 @@ extension Paths.Webhooks {
         }
 
         private func makeDeleteQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9202,10 +9203,10 @@ extension Paths.Webhooks.WithIDWebhook {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9225,10 +9226,10 @@ extension Paths.Webhooks.WithIDWebhook {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9248,10 +9249,10 @@ extension Paths.Webhooks.WithIDWebhook {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9271,10 +9272,10 @@ extension Paths.Webhooks.WithIDWebhook {
         }
 
         private func makePutQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
@@ -9294,98 +9295,12 @@ extension Paths.Webhooks.WithIDWebhook {
         }
 
         private func makeGetQuery(_ key: String, _ token: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("key", key)
-            query.addQueryItem("token", token)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["key": key])
+            encoder.encode(["token": token])
+            return encoder.items
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

@@ -19,7 +19,7 @@ final class Generator {
     var isHTTPHeadersDependencyNeeded = false
     var isRequestOperationIdExtensionNeeded = false
     var isEmptyObjectNeeded = false
-    var isQueryNeeded = false
+    var isQueryEncoderNeeded = false
     var isNaiveDateNeeded = false
     var needsEncodable = Set<TypeName>()
     var topLevelTypes = Set<TypeName>()
@@ -68,7 +68,7 @@ final class Generator {
     }
     
     func setNeedsQuery() {
-        lock.sync { isQueryNeeded = true }
+        lock.sync { isQueryEncoderNeeded = true }
     }
     
     // MARK: Misc

@@ -7,6 +7,7 @@ import Foundation
 import NaiveDate
 import Get
 import HTTPHeaders
+import URLQueryEncoder
 
 extension Paths {
   public static var pet: Pet {
@@ -46,9 +47,9 @@ extension Paths.Pet {
     }
 
     private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {
-      var query: [(String, String?)] = []
-      query.addQueryItem("status", status.map(\.asQueryValue).joined(separator: ","))
-      return query
+      let encoder = URLQueryEncoder()
+      encoder.encode(["status": status], explode: false)
+      return encoder.items
     }
 
     public enum Status: String, Codable, CaseIterable {
@@ -76,9 +77,9 @@ extension Paths.Pet {
     }
 
     private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
-      var query: [(String, String?)] = []
-      status?.forEach { query.addQueryItem("status", $0) }
-      return query
+      let encoder = URLQueryEncoder()
+      encoder.encode(["status": status])
+      return encoder.items
     }
 
     public enum Status: String, Codable, CaseIterable {
@@ -106,9 +107,9 @@ extension Paths.Pet {
     }
 
     private func makeGetQuery(_ tags: [String]) -> [(String, String?)] {
-      var query: [(String, String?)] = []
-      query.addQueryItem("tags", tags.map(\.asQueryValue).joined(separator: ","))
-      return query
+      let encoder = URLQueryEncoder()
+      encoder.encode(["tags": tags], explode: false)
+      return encoder.items
     }
   }
 }
@@ -146,10 +147,10 @@ extension Paths.Pet {
       }
 
       public var asQuery: [(String, String?)] {
-        var query: [(String, String?)] = []
-        query.addQueryItem("name", name)
-        query.addQueryItem("status", status)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["name": name])
+        encoder.encode(["status": status])
+        return encoder.items
       }
     }
 
@@ -319,10 +320,10 @@ extension Paths.User {
     }
 
     private func makeGetQuery(_ username: String, _ password: String) -> [(String, String?)] {
-      var query: [(String, String?)] = []
-      query.addQueryItem("username", username)
-      query.addQueryItem("password", password)
-      return query
+      let encoder = URLQueryEncoder()
+      encoder.encode(["username": username])
+      encoder.encode(["password": password])
+      return encoder.items
     }
   }
 }
@@ -410,11 +411,11 @@ extension Paths {
       }
 
       public var asQuery: [(String, String?)] {
-        var query: [(String, String?)] = []
-        enumQueryStringArray?.forEach { query.addQueryItem("enum_query_string_array", $0) }
-        query.addQueryItem("enum_query_string", enumQueryString)
-        query.addQueryItem("enum_query_integer", enumQueryInteger)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["enum_query_string_array": enumQueryStringArray])
+        encoder.encode(["enum_query_string": enumQueryString])
+        encoder.encode(["enum_query_integer": enumQueryInteger])
+        return encoder.items
       }
     }
 
@@ -471,22 +472,22 @@ extension Paths {
       }
 
       public var asQuery: [(String, String?)] {
-        var query: [(String, String?)] = []
-        query.addQueryItem("integer", integer)
-        query.addQueryItem("int32", int32)
-        query.addQueryItem("int64", int64)
-        query.addQueryItem("number", number)
-        query.addQueryItem("float", float)
-        query.addQueryItem("double", double)
-        query.addQueryItem("string", string)
-        query.addQueryItem("pattern_without_delimiter", patternWithoutDelimiter)
-        query.addQueryItem("byte", byte)
-        query.addQueryItem("binary", binary)
-        query.addQueryItem("date", date)
-        query.addQueryItem("dateTime", dateTime)
-        query.addQueryItem("password", password)
-        query.addQueryItem("callback", callback)
-        return query
+        let encoder = URLQueryEncoder()
+        encoder.encode(["integer": integer])
+        encoder.encode(["int32": int32])
+        encoder.encode(["int64": int64])
+        encoder.encode(["number": number])
+        encoder.encode(["float": float])
+        encoder.encode(["double": double])
+        encoder.encode(["string": string])
+        encoder.encode(["pattern_without_delimiter": patternWithoutDelimiter])
+        encoder.encode(["byte": byte])
+        encoder.encode(["binary": binary])
+        encoder.encode(["date": date])
+        encoder.encode(["dateTime": dateTime])
+        encoder.encode(["password": password])
+        encoder.encode(["callback": callback])
+        return encoder.items
       }
     }
 
@@ -498,95 +499,3 @@ extension Paths {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-  var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-  var asQueryValue: String {
-    self ? "true" : "false"
-  }
-}
-
-extension Date: QueryEncodable {
-  var asQueryValue: String {
-    ISO8601DateFormatter().string(from: self)
-  }
-}
-
-extension Double: QueryEncodable {
-  var asQueryValue: String {
-    String(self)
-  }
-}
-
-extension Int: QueryEncodable {
-  var asQueryValue: String {
-    String(self)
-  }
-}
-
-extension Int32: QueryEncodable {
-  var asQueryValue: String {
-    String(self)
-  }
-}
-
-extension Int64: QueryEncodable {
-  var asQueryValue: String {
-    String(self)
-  }
-}
-
-extension NaiveDate: QueryEncodable {
-  var asQueryValue: String {
-    String(self)
-  }
-}
-
-extension String: QueryEncodable {
-  var asQueryValue: String {
-    self
-  }
-}
-
-extension URL: QueryEncodable {
-  var asQueryValue: String {
-    absoluteString
-  }
-}
-
-extension RawRepresentable where RawValue == String {
-  var asQueryValue: String {
-    rawValue
-  }
-}
-
-extension Array where Element == (String, String?) {
-  mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-    addQueryItem(name, value?.rawValue)
-  }
-  
-  mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-    guard let value = value?.asQueryValue, !value.isEmpty else { return }
-    append((name, value))
-  }
-  
-  mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-    for (key, value) in query ?? [] {
-      addQueryItem("\(name)[\(key)]", value)
-    }
-  }
-
-  var asPercentEncodedQuery: String {
-    var components = URLComponents()
-    components.queryItems = self.map(URLQueryItem.init)
-    return components.percentEncodedQuery ?? ""
-  }
-  
-  // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-  var asCompactQuery: String {
-    flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-  }
-}

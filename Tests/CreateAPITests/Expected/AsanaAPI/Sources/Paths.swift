@@ -6,6 +6,7 @@
 import Foundation
 import NaiveDate
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var attachments: Attachments {
@@ -614,14 +615,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("portfolio", portfolio)
-                query.addQueryItem("project", project)
-                query.addQueryItem("is_workspace_level", isWorkspaceLevel)
-                query.addQueryItem("team", team)
-                query.addQueryItem("workspace", workspace)
-                timePeriods?.forEach { query.addQueryItem("time_periods", $0) }
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["portfolio": portfolio])
+                encoder.encode(["project": project])
+                encoder.encode(["is_workspace_level": isWorkspaceLevel])
+                encoder.encode(["team": team])
+                encoder.encode(["workspace": workspace])
+                encoder.encode(["time_periods": timePeriods])
+                return encoder.items
             }
         }
 
@@ -1148,12 +1149,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("workspace", workspace)
-                query.addQueryItem("owner", owner)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["workspace": workspace])
+                encoder.encode(["owner": owner])
+                return encoder.items
             }
         }
 
@@ -1592,12 +1593,12 @@ extension Paths.Projects.WithProjectGid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("opt_pretty", isOptPretty)
-                query.addQueryItem("opt_fields", optFields?.map(\.asQueryValue).joined(separator: ","))
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["opt_pretty": isOptPretty])
+                encoder.encode(["opt_fields": optFields], explode: false)
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                return encoder.items
             }
         }
 
@@ -1660,13 +1661,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("workspace", workspace)
-                query.addQueryItem("team", team)
-                query.addQueryItem("archived", isArchived)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["workspace": workspace])
+                encoder.encode(["team": team])
+                encoder.encode(["archived": isArchived])
+                return encoder.items
             }
         }
 
@@ -1853,11 +1854,11 @@ extension Paths.Teams.WithTeamGid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("archived", isArchived)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["archived": isArchived])
+                return encoder.items
             }
         }
 
@@ -1917,11 +1918,11 @@ extension Paths.Workspaces.WithWorkspaceGid {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("archived", isArchived)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["archived": isArchived])
+                return encoder.items
             }
         }
 
@@ -2252,10 +2253,10 @@ extension Paths.Projects.WithProjectGid {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Create a section in a project
@@ -2375,10 +2376,10 @@ extension Paths.Stories {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Update a story
@@ -2441,10 +2442,10 @@ extension Paths.Tasks.WithTaskGid {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Create a story on a task
@@ -2504,11 +2505,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("workspace", workspace)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["workspace": workspace])
+                return encoder.items
             }
         }
 
@@ -2654,10 +2655,10 @@ extension Paths.Workspaces.WithWorkspaceGid {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Create a tag in a workspace
@@ -2733,16 +2734,16 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("assignee", assignee)
-                query.addQueryItem("project", project)
-                query.addQueryItem("section", section)
-                query.addQueryItem("workspace", workspace)
-                query.addQueryItem("completed_since", completedSince)
-                query.addQueryItem("modified_since", modifiedSince)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["assignee": assignee])
+                encoder.encode(["project": project])
+                encoder.encode(["section": section])
+                encoder.encode(["workspace": workspace])
+                encoder.encode(["completed_since": completedSince])
+                encoder.encode(["modified_since": modifiedSince])
+                return encoder.items
             }
         }
 
@@ -3007,10 +3008,10 @@ extension Paths.Tasks.WithTaskGid {
         }
 
         private func makeGetQuery(_ limit: Int?, _ offset: String?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("limit", limit)
-            query.addQueryItem("offset", offset)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["limit": limit])
+            encoder.encode(["offset": offset])
+            return encoder.items
         }
 
         /// Create a subtask
@@ -3523,11 +3524,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("team", team)
-                query.addQueryItem("user", user)
-                query.addQueryItem("workspace", workspace)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["team": team])
+                encoder.encode(["user": user])
+                encoder.encode(["workspace": workspace])
+                return encoder.items
             }
         }
     }
@@ -3584,9 +3585,9 @@ extension Paths.Users.WithUserGid {
         }
 
         private func makeGetQuery(_ workspace: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("workspace", workspace)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["workspace": workspace])
+            return encoder.items
         }
     }
 }
@@ -3834,11 +3835,11 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("start_on", startOn)
-                query.addQueryItem("end_on", endOn)
-                query.addQueryItem("workspace", workspace)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["start_on": startOn])
+                encoder.encode(["end_on": endOn])
+                encoder.encode(["workspace": workspace])
+                return encoder.items
             }
         }
     }
@@ -4127,12 +4128,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("limit", limit)
-                query.addQueryItem("offset", offset)
-                query.addQueryItem("workspace", workspace)
-                query.addQueryItem("resource", resource)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["limit": limit])
+                encoder.encode(["offset": offset])
+                encoder.encode(["workspace": workspace])
+                encoder.encode(["resource": resource])
+                return encoder.items
             }
         }
 
@@ -4481,95 +4482,3 @@ extension Paths.Workspaces.WithWorkspaceGid {
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension NaiveDate: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

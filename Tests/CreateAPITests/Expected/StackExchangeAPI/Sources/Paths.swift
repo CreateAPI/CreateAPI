@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var accessTokens: AccessTokens {
@@ -49,12 +50,12 @@ extension Paths.AccessTokens {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -92,12 +93,12 @@ extension Paths.AccessTokens.WithAccessTokens {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -167,19 +168,19 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -253,19 +254,19 @@ extension Paths.Answers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -337,19 +338,19 @@ extension Paths.Answers.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -413,12 +414,12 @@ extension Paths.Apps.WithAccessTokens {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -489,20 +490,20 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -570,20 +571,20 @@ extension Paths.Badges {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -627,15 +628,15 @@ extension Paths.Badges {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -701,20 +702,20 @@ extension Paths.Badges {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -787,19 +788,19 @@ extension Paths.Badges {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -845,15 +846,15 @@ extension Paths.Badges.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -925,19 +926,19 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1009,19 +1010,19 @@ extension Paths.Comments {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1070,12 +1071,12 @@ extension Paths.Comments.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("preview", isPreview)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["preview": isPreview])
+                return encoder.items
             }
         }
     }
@@ -1115,13 +1116,13 @@ extension Paths.Comments.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("body", body)
-                query.addQueryItem("preview", isPreview)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["body": body])
+                encoder.encode(["preview": isPreview])
+                return encoder.items
             }
         }
     }
@@ -1161,12 +1162,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -1240,14 +1241,14 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("since", since)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["since": since])
+                return encoder.items
             }
         }
     }
@@ -1302,12 +1303,12 @@ extension Paths.Filters {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("base", base)
-                query.addQueryItem("exclude", exclude)
-                query.addQueryItem("include", include)
-                query.addQueryItem("unsafe", isUnsafe)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["base": base])
+                encoder.encode(["exclude": exclude])
+                encoder.encode(["include": include])
+                encoder.encode(["unsafe": isUnsafe])
+                return encoder.items
             }
         }
     }
@@ -1367,12 +1368,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -1412,13 +1413,13 @@ extension Paths.Inbox {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("since", since)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["since": since])
+                return encoder.items
             }
         }
     }
@@ -1445,9 +1446,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ site: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("site", site)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["site": site])
+            return encoder.items
         }
     }
 }
@@ -1508,19 +1509,19 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1581,19 +1582,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1629,12 +1630,12 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -1695,19 +1696,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1767,19 +1768,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1839,19 +1840,19 @@ extension Paths.Me.Comments {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1913,19 +1914,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -1965,13 +1966,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2013,14 +2014,14 @@ extension Paths.Me.Inbox {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("since", since)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["since": since])
+                return encoder.items
             }
         }
     }
@@ -2080,19 +2081,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2136,12 +2137,12 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -2181,13 +2182,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2227,13 +2228,13 @@ extension Paths.Me.Notifications {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2271,13 +2272,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2338,19 +2339,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2411,19 +2412,19 @@ extension Paths.Me.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2484,19 +2485,19 @@ extension Paths.Me.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2557,19 +2558,19 @@ extension Paths.Me.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2630,19 +2631,19 @@ extension Paths.Me.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2676,11 +2677,11 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2718,13 +2719,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2765,13 +2766,13 @@ extension Paths.Me.ReputationHistory {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2832,19 +2833,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2905,19 +2906,19 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -2989,19 +2990,19 @@ extension Paths.Me.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3066,19 +3067,19 @@ extension Paths.Me.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3120,15 +3121,15 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3166,13 +3167,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3210,13 +3211,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3258,13 +3259,13 @@ extension Paths.Me {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3302,12 +3303,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -3345,12 +3346,12 @@ extension Paths.Notifications {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -3424,19 +3425,19 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3510,19 +3511,19 @@ extension Paths.Posts {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3594,19 +3595,19 @@ extension Paths.Posts.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3650,15 +3651,15 @@ extension Paths.Posts.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3727,19 +3728,19 @@ extension Paths.Posts.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3801,13 +3802,13 @@ extension Paths.Posts.WithID.Comments {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("body", body)
-                query.addQueryItem("preview", isPreview)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["body": body])
+                encoder.encode(["preview": isPreview])
+                return encoder.items
             }
         }
     }
@@ -3849,13 +3850,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -3938,20 +3939,20 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4023,20 +4024,20 @@ extension Paths.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4114,20 +4115,20 @@ extension Paths.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4207,20 +4208,20 @@ extension Paths.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4294,19 +4295,19 @@ extension Paths.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4380,19 +4381,19 @@ extension Paths.Questions.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4464,19 +4465,19 @@ extension Paths.Questions.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4554,19 +4555,19 @@ extension Paths.Questions.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4642,19 +4643,19 @@ extension Paths.Questions.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4702,15 +4703,15 @@ extension Paths.Questions.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4765,15 +4766,15 @@ extension Paths.Revisions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -4857,22 +4858,22 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("intitle", intitle)
-                query.addQueryItem("nottagged", nottagged)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["intitle": intitle])
+                encoder.encode(["nottagged": nottagged])
+                return encoder.items
             }
         }
     }
@@ -5016,33 +5017,33 @@ extension Paths.Search {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("accepted", accepted)
-                query.addQueryItem("answers", answers)
-                query.addQueryItem("body", body)
-                query.addQueryItem("closed", closed)
-                query.addQueryItem("migrated", migrated)
-                query.addQueryItem("notice", notice)
-                query.addQueryItem("nottagged", nottagged)
-                query.addQueryItem("q", q)
-                query.addQueryItem("title", title)
-                query.addQueryItem("url", url)
-                query.addQueryItem("user", user)
-                query.addQueryItem("views", views)
-                query.addQueryItem("wiki", wiki)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["accepted": accepted])
+                encoder.encode(["answers": answers])
+                encoder.encode(["body": body])
+                encoder.encode(["closed": closed])
+                encoder.encode(["migrated": migrated])
+                encoder.encode(["notice": notice])
+                encoder.encode(["nottagged": nottagged])
+                encoder.encode(["q": q])
+                encoder.encode(["title": title])
+                encoder.encode(["url": url])
+                encoder.encode(["user": user])
+                encoder.encode(["views": views])
+                encoder.encode(["wiki": wiki])
+                return encoder.items
             }
         }
     }
@@ -5128,22 +5129,22 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("tagged", tagged)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("nottagged", nottagged)
-                query.addQueryItem("title", title)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["tagged": tagged])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["nottagged": nottagged])
+                encoder.encode(["title": title])
+                return encoder.items
             }
         }
     }
@@ -5183,12 +5184,12 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -5257,19 +5258,19 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5341,19 +5342,19 @@ extension Paths.SuggestedEdits {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5426,20 +5427,20 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5512,20 +5513,20 @@ extension Paths.Tags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5598,20 +5599,20 @@ extension Paths.Tags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5683,19 +5684,19 @@ extension Paths.Tags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5748,13 +5749,13 @@ extension Paths.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5825,19 +5826,19 @@ extension Paths.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5881,13 +5882,13 @@ extension Paths.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -5959,19 +5960,19 @@ extension Paths.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6013,13 +6014,13 @@ extension Paths.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6081,13 +6082,13 @@ extension Paths.Tags.WithTag.TopAnswerers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6138,13 +6139,13 @@ extension Paths.Tags.WithTag.TopAskers {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6220,20 +6221,20 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("inname", inname)
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["inname": inname])
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6307,19 +6308,19 @@ extension Paths.Users {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6393,19 +6394,19 @@ extension Paths.Users.Moderators {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6481,19 +6482,19 @@ extension Paths.Users {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6565,19 +6566,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6615,12 +6616,12 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -6692,19 +6693,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6774,19 +6775,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6858,19 +6859,19 @@ extension Paths.Users.WithIDs.Comments {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -6946,19 +6947,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7028,19 +7029,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7084,12 +7085,12 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                return encoder.items
             }
         }
     }
@@ -7161,19 +7162,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7245,19 +7246,19 @@ extension Paths.Users.WithIDs.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7331,19 +7332,19 @@ extension Paths.Users.WithIDs.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7417,19 +7418,19 @@ extension Paths.Users.WithIDs.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7505,19 +7506,19 @@ extension Paths.Users.WithIDs.Questions {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7563,15 +7564,15 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7609,13 +7610,13 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7687,19 +7688,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7773,19 +7774,19 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7831,15 +7832,15 @@ extension Paths.Users.WithIDs {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7894,13 +7895,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -7946,14 +7947,14 @@ extension Paths.Users.WithID.Inbox {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                query.addQueryItem("since", since)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                encoder.encode(["since": since])
+                return encoder.items
             }
         }
     }
@@ -7993,13 +7994,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8039,13 +8040,13 @@ extension Paths.Users.WithID.Notifications {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8087,13 +8088,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8144,13 +8145,13 @@ extension Paths.Users.WithID.ReputationHistory {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8244,19 +8245,19 @@ extension Paths.Users.WithID.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8328,19 +8329,19 @@ extension Paths.Users.WithID.Tags.WithTags {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("order", order)
-                query.addQueryItem("max", max)
-                query.addQueryItem("min", min)
-                query.addQueryItem("sort", sort)
-                query.addQueryItem("fromdate", fromdate)
-                query.addQueryItem("todate", todate)
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["order": order])
+                encoder.encode(["max": max])
+                encoder.encode(["min": min])
+                encoder.encode(["sort": sort])
+                encoder.encode(["fromdate": fromdate])
+                encoder.encode(["todate": todate])
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8382,13 +8383,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8430,13 +8431,13 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
@@ -8478,102 +8479,16 @@ extension Paths.Users.WithID {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("pagesize", pagesize)
-                query.addQueryItem("page", page)
-                query.addQueryItem("filter", filter)
-                query.addQueryItem("callback", callback)
-                query.addQueryItem("site", site)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["pagesize": pagesize])
+                encoder.encode(["page": page])
+                encoder.encode(["filter": filter])
+                encoder.encode(["callback": callback])
+                encoder.encode(["site": site])
+                return encoder.items
             }
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

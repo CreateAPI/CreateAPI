@@ -10,13 +10,16 @@ extension Generator {
         let packages: String = [
             #".package(url: "https://github.com/kean/Get", branch: "main")"#,
             isHTTPHeadersDependencyNeeded ? #".package(url: "https://github.com/kean/HTTPHeaders", branch: "main")"# : nil,
-            isNaiveDateNeeded ? #".package(url: "https://github.com/kean/NaiveDate", branch: "master")"# : nil
+            isNaiveDateNeeded ? #".package(url: "https://github.com/kean/NaiveDate", branch: "master")"# : nil,
+            isQueryEncoderNeeded ? #".package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")"# : nil,
+                
         ].compactMap { $0 }.joined(separator: ", \n")
         
         let dependencies: String = [
             #".product(name: "Get", package: "Get")"#,
             isHTTPHeadersDependencyNeeded ? #".product(name: "HTTPHeaders", package: "HTTPHeaders")"# : nil,
             isNaiveDateNeeded ? #".product(name: "NaiveDate", package: "NaiveDate")"# : nil,
+            isQueryEncoderNeeded ? #".product(name: "URLQueryEncoder", package: "URLQueryEncoder")"# : nil,
         ].compactMap { $0 }.joined(separator: ", \n")
         
         

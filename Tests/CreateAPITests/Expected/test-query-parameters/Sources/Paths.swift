@@ -5,6 +5,7 @@
 
 import Foundation
 import Get
+import URLQueryEncoder
 
 extension Paths {
     public static var form: Form {
@@ -43,11 +44,11 @@ extension Paths.Form {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("id", id)
-                query.addQueryItem("id2", id2)
-                query.addQueryItem("id3", id3)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["id": id])
+                encoder.encode(["id2": id2])
+                encoder.encode(["id3": id3])
+                return encoder.items
             }
         }
 
@@ -57,9 +58,9 @@ extension Paths.Form {
         }
 
         private func makePostQuery(_ name: String) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("name", name)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["name": name])
+            return encoder.items
         }
 
         /// Inlining more complex queries (with an enum)
@@ -68,9 +69,9 @@ extension Paths.Form {
         }
 
         private func makePatchQuery(_ type: `Type`) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            return encoder.items
         }
 
         public enum `Type`: String, Codable, CaseIterable {
@@ -95,9 +96,9 @@ extension Paths.Form {
         }
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            type.forEach { query.addQueryItem("type", $0) }
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            return encoder.items
         }
 
         /// Form Array Explode False
@@ -106,9 +107,9 @@ extension Paths.Form {
         }
 
         private func makePostQuery(_ type: [String]) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type.map(\.asQueryValue).joined(separator: ","))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], explode: false)
+            return encoder.items
         }
     }
 }
@@ -128,9 +129,9 @@ extension Paths.Form {
         }
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query += type.asQuery
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type])
+            return encoder.items
         }
 
         public struct `Type`: Codable {
@@ -143,10 +144,10 @@ extension Paths.Form {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("id", id)
-                query.addQueryItem("name", name)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["id": id])
+                encoder.encode(["name": name])
+                return encoder.items
             }
         }
 
@@ -156,9 +157,9 @@ extension Paths.Form {
         }
 
         private func makePostQuery(_ type: `Type`) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type.asQuery.asCompactQuery)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], explode: false)
+            return encoder.items
         }
     }
 }
@@ -189,9 +190,9 @@ extension Paths.Delimeters {
         }
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type.map(\.asQueryValue).joined(separator: " "))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], explode: false, delimiter: " ")
+            return encoder.items
         }
 
         /// Pipe Delimited Explode False
@@ -200,9 +201,9 @@ extension Paths.Delimeters {
         }
 
         private func makePostQuery(_ type: [String]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addQueryItem("type", type?.map(\.asQueryValue).joined(separator: "|"))
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], explode: false, delimiter: "|")
+            return encoder.items
         }
 
         /// Space Delimited Explode True
@@ -211,9 +212,9 @@ extension Paths.Delimeters {
         }
 
         private func makePutQuery(_ type: [String]) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            type.forEach { query.addQueryItem("type", $0) }
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], delimiter: " ")
+            return encoder.items
         }
 
         /// Pipe Delimited Explode True
@@ -222,9 +223,9 @@ extension Paths.Delimeters {
         }
 
         private func makePatchQuery(_ type: [String]?) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            type?.forEach { query.addQueryItem("type", $0) }
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], delimiter: "|")
+            return encoder.items
         }
     }
 }
@@ -244,9 +245,9 @@ extension Paths {
         }
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
-            var query: [(String, String?)] = []
-            query.addDeepObject("type", type.asQuery)
-            return query
+            let encoder = URLQueryEncoder()
+            encoder.encode(["type": type], explode: false, isDeepObject: true)
+            return encoder.items
         }
 
         public struct `Type`: Codable {
@@ -259,99 +260,13 @@ extension Paths {
             }
 
             public var asQuery: [(String, String?)] {
-                var query: [(String, String?)] = []
-                query.addQueryItem("id", id)
-                query.addQueryItem("name", name)
-                return query
+                let encoder = URLQueryEncoder()
+                encoder.encode(["id": id])
+                encoder.encode(["name": name])
+                return encoder.items
             }
         }
     }
 }
 
 public enum Paths {}
-
-protocol QueryEncodable {
-    var asQueryValue: String { get }
-}
-
-extension Bool: QueryEncodable {
-    var asQueryValue: String {
-        self ? "true" : "false"
-    }
-}
-
-extension Date: QueryEncodable {
-    var asQueryValue: String {
-        ISO8601DateFormatter().string(from: self)
-    }
-}
-
-extension Double: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int32: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension Int64: QueryEncodable {
-    var asQueryValue: String {
-        String(self)
-    }
-}
-
-extension String: QueryEncodable {
-    var asQueryValue: String {
-        self
-    }
-}
-
-extension URL: QueryEncodable {
-    var asQueryValue: String {
-        absoluteString
-    }
-}
-
-extension RawRepresentable where RawValue == String {
-    var asQueryValue: String {
-        rawValue
-    }
-}
-
-extension Array where Element == (String, String?) {
-    mutating func addQueryItem<T: RawRepresentable>(_ name: String, _ value: T?) where T.RawValue == String {
-        addQueryItem(name, value?.rawValue)
-    }
-    
-    mutating func addQueryItem(_ name: String, _ value: QueryEncodable?) {
-        guard let value = value?.asQueryValue, !value.isEmpty else { return }
-        append((name, value))
-    }
-    
-    mutating func addDeepObject(_ name: String, _ query: [(String, String?)]?) {
-        for (key, value) in query ?? [] {
-            addQueryItem("\(name)[\(key)]", value)
-        }
-    }
-
-    var asPercentEncodedQuery: String {
-        var components = URLComponents()
-        components.queryItems = self.map(URLQueryItem.init)
-        return components.percentEncodedQuery ?? ""
-    }
-    
-    // [("role", "admin"), ("name": "kean)] -> "role,admin,name,kean"
-    var asCompactQuery: String {
-        flatMap { [$0, $1] }.compactMap { $0 }.joined(separator: ",")
-    }
-}

@@ -10,11 +10,13 @@ let package = Package(
         .library(name: "SpotifyAPI", targets: ["SpotifyAPI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", branch: "main")
+        .package(url: "https://github.com/kean/Get", branch: "main"), 
+        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")
     ],
     targets: [
         .target(name: "SpotifyAPI", dependencies: [
-            .product(name: "Get", package: "Get")
+            .product(name: "Get", package: "Get"), 
+            .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
         ], path: "Sources")
     ]
 )
