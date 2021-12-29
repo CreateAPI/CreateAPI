@@ -117,7 +117,7 @@ struct GeneratorError: Error, CustomStringConvertible, LocalizedError {
 // TODO: Move props to bit array
 // TODO: Make a reference type or CoW
 struct Context {
-    var parents: [TypeName]
+    var parents: [EntityDeclaration] = []
     var namespace: String? // TODO: Refactor how namespaces are added
     var isDecodableNeeded = true
     var isEncodableNeeded = true
@@ -126,9 +126,8 @@ struct Context {
     /// A special mode where declaration need to exit early if they detect
     /// that that are not resolvable to primitive type identifiers.
     var isInlinableTypeCheck = false
-    var checkedReferences: Set<TypeName> = []
     
-    func adding(_ parent: TypeName) -> Context {
+    func adding(_ parent: EntityDeclaration) -> Context {
         map { $0.parents = $0.parents + [parent] }
     }
     

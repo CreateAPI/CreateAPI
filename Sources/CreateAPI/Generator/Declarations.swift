@@ -5,6 +5,8 @@
 import Foundation
 import OpenAPIKit30
 
+// - note: Currently doesn't contain namespaces or parents names. These are
+// mananged separately.
 indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
     // One of the primitive types: `String`, `Bool`, `Int`, `Date`, `Void` etc
     case builtin(name: TypeName)
@@ -55,7 +57,7 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
     }
     
     // Generates a type identifier adding a namespace if needed.
-    func identifier(namespace: String?) -> TypeName {
+    func identifier(namespace: String) -> TypeName {
         switch self {
         case .builtin(let name): return name
         case .userDefined(let name): return name.namespace(namespace)
@@ -63,7 +65,7 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
         case .dictionary(let key, let value): return TypeName("[\(key): \(value.identifier(namespace: namespace))]")
         }
     }
-
+    
     // MARK: Factory
     
     static func builtin(_ name: String) -> TypeIdentifier {
@@ -183,17 +185,28 @@ struct EnumOfStringsDeclaration: Declaration {
     }
 }
 
+#warning("TODO: find a nicer way to create it (builder/mutable/something?)")
 // Gets rendered as either a struct or a class depending on the options.
-struct EntityDeclaration: Declaration {
+final class EntityDeclaration: Declaration {
     let name: TypeName
-    var type: EntityType
-    let properties: [Property]
-    let protocols: Protocols
+    let type: EntityType
     let metadata: DeclarationMetadata
-    var isForm: Bool
+    let isForm: Bool
+    
+    var protocols = Protocols()
+    var properties: [Property] = []
+    weak var parent: EntityDeclaration?
     
     var nested: [Declaration] {
         properties.compactMap { $0.nested }
+    }
+    
+    init(name: TypeName, type: EntityType, metadata: DeclarationMetadata, isForm: Bool, parent: EntityDeclaration?) {
+        self.name = name
+        self.type = type
+        self.metadata = metadata
+        self.isForm = isForm
+        self.parent = parent
     }
     
     // Returns `true` if the type is nested inside the entity declaration.

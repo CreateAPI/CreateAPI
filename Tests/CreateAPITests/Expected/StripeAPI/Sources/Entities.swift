@@ -1193,10 +1193,10 @@ public struct AlipayAccount: Codable {
     /// The ID of the customer associated with this Alipay Account.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -1205,7 +1205,7 @@ public struct AlipayAccount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -1286,9 +1286,9 @@ public struct APIErrors: Codable {
         /// attached to customers.
         /// 
         /// Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
-        public var source: Source?
+        public var source: StripeAPI.Source?
 
-        public init(bankAccount: BankAccount? = nil, card: Card? = nil, source: Source? = nil) {
+        public init(bankAccount: BankAccount? = nil, card: Card? = nil, source: StripeAPI.Source? = nil) {
             self.bankAccount = bankAccount
             self.card = card
             self.source = source
@@ -1298,7 +1298,7 @@ public struct APIErrors: Codable {
             let container = try decoder.singleValueContainer()
             self.bankAccount = try? container.decode(BankAccount.self)
             self.card = try? container.decode(Card.self)
-            self.source = try? container.decode(Source.self)
+            self.source = try? container.decode(StripeAPI.Source.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -1437,9 +1437,9 @@ public struct ApplicationFee: Codable {
     /// ID of the Stripe account this fee was taken from.
     public final class Account: Codable {
         public var string: String?
-        public var account: Account?
+        public var account: StripeAPI.Account?
 
-        public init(string: String? = nil, account: Account? = nil) {
+        public init(string: String? = nil, account: StripeAPI.Account? = nil) {
             self.string = string
             self.account = account
         }
@@ -1447,7 +1447,7 @@ public struct ApplicationFee: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.account = try? container.decode(Account.self)
+            self.account = try? container.decode(StripeAPI.Account.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -1460,9 +1460,9 @@ public struct ApplicationFee: Codable {
     /// ID of the Connect application that earned the fee.
     public final class Application: Codable {
         public var string: String?
-        public var application: Application?
+        public var application: StripeAPI.Application?
 
-        public init(string: String? = nil, application: Application? = nil) {
+        public init(string: String? = nil, application: StripeAPI.Application? = nil) {
             self.string = string
             self.application = application
         }
@@ -1470,7 +1470,7 @@ public struct ApplicationFee: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.application = try? container.decode(Application.self)
+            self.application = try? container.decode(StripeAPI.Application.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -1483,9 +1483,9 @@ public struct ApplicationFee: Codable {
     /// Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds).
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -1493,7 +1493,7 @@ public struct ApplicationFee: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -1506,9 +1506,9 @@ public struct ApplicationFee: Codable {
     /// ID of the charge that the application fee was taken from.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -1516,7 +1516,7 @@ public struct ApplicationFee: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -1996,9 +1996,9 @@ public struct BankAccount: Codable {
     /// The ID of the account that the bank account is associated with.
     public final class Account: Codable {
         public var string: String?
-        public var account: Account?
+        public var account: StripeAPI.Account?
 
-        public init(string: String? = nil, account: Account? = nil) {
+        public init(string: String? = nil, account: StripeAPI.Account? = nil) {
             self.string = string
             self.account = account
         }
@@ -2006,7 +2006,7 @@ public struct BankAccount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.account = try? container.decode(Account.self)
+            self.account = try? container.decode(StripeAPI.Account.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -2024,10 +2024,10 @@ public struct BankAccount: Codable {
     /// The ID of the customer that the bank account is associated with.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -2036,7 +2036,7 @@ public struct BankAccount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -2107,15 +2107,15 @@ public struct BillingDetails: Codable {
 
     /// Billing address.
     public final class Address: Codable {
-        public var address: Address?
+        public var address: StripeAPI.Address?
 
-        public init(address: Address? = nil) {
+        public init(address: StripeAPI.Address? = nil) {
             self.address = address
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.address = try? container.decode(Address.self)
+            self.address = try? container.decode(StripeAPI.Address.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -2549,9 +2549,9 @@ public struct Capability: Codable {
     /// The account for which the capability enables functionality.
     public final class Account: Codable {
         public var string: String?
-        public var account: Account?
+        public var account: StripeAPI.Account?
 
-        public init(string: String? = nil, account: Account? = nil) {
+        public init(string: String? = nil, account: StripeAPI.Account? = nil) {
             self.string = string
             self.account = account
         }
@@ -2559,7 +2559,7 @@ public struct Capability: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.account = try? container.decode(Account.self)
+            self.account = try? container.decode(StripeAPI.Account.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -2674,9 +2674,9 @@ public struct Card: Codable {
     /// The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead.
     public final class Account: Codable {
         public var string: String?
-        public var account: Account?
+        public var account: StripeAPI.Account?
 
-        public init(string: String? = nil, account: Account? = nil) {
+        public init(string: String? = nil, account: StripeAPI.Account? = nil) {
             self.string = string
             self.account = account
         }
@@ -2684,7 +2684,7 @@ public struct Card: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.account = try? container.decode(Account.self)
+            self.account = try? container.decode(StripeAPI.Account.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -2702,10 +2702,10 @@ public struct Card: Codable {
     /// The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -2714,7 +2714,7 @@ public struct Card: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -2734,9 +2734,9 @@ public struct Card: Codable {
     /// The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead.
     public final class Recipient: Codable {
         public var string: String?
-        public var recipient: Recipient?
+        public var recipient: StripeAPI.Recipient?
 
-        public init(string: String? = nil, recipient: Recipient? = nil) {
+        public init(string: String? = nil, recipient: StripeAPI.Recipient? = nil) {
             self.string = string
             self.recipient = recipient
         }
@@ -2744,7 +2744,7 @@ public struct Card: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.recipient = try? container.decode(Recipient.self)
+            self.recipient = try? container.decode(StripeAPI.Recipient.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -2956,9 +2956,9 @@ public struct Charge: Codable {
     /// ID of the Connect application that created the charge.
     public final class Application: Codable {
         public var string: String?
-        public var application: Application?
+        public var application: StripeAPI.Application?
 
-        public init(string: String? = nil, application: Application? = nil) {
+        public init(string: String? = nil, application: StripeAPI.Application? = nil) {
             self.string = string
             self.application = application
         }
@@ -2966,7 +2966,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.application = try? container.decode(Application.self)
+            self.application = try? container.decode(StripeAPI.Application.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -2979,9 +2979,9 @@ public struct Charge: Codable {
     /// The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees) for details.
     public final class ApplicationFee: Codable {
         public var string: String?
-        public var applicationFee: ApplicationFee?
+        public var applicationFee: StripeAPI.ApplicationFee?
 
-        public init(string: String? = nil, applicationFee: ApplicationFee? = nil) {
+        public init(string: String? = nil, applicationFee: StripeAPI.ApplicationFee? = nil) {
             self.string = string
             self.applicationFee = applicationFee
         }
@@ -2989,7 +2989,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.applicationFee = try? container.decode(ApplicationFee.self)
+            self.applicationFee = try? container.decode(StripeAPI.ApplicationFee.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3002,9 +3002,9 @@ public struct Charge: Codable {
     /// ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes).
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -3012,7 +3012,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3025,10 +3025,10 @@ public struct Charge: Codable {
     /// ID of the customer this charge is for if one exists.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -3037,7 +3037,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -3071,9 +3071,9 @@ public struct Charge: Codable {
     /// ID of the invoice this charge is for if one exists.
     public final class Invoice: Codable {
         public var string: String?
-        public var invoice: Invoice?
+        public var invoice: StripeAPI.Invoice?
 
-        public init(string: String? = nil, invoice: Invoice? = nil) {
+        public init(string: String? = nil, invoice: StripeAPI.Invoice? = nil) {
             self.string = string
             self.invoice = invoice
         }
@@ -3081,7 +3081,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.invoice = try? container.decode(Invoice.self)
+            self.invoice = try? container.decode(StripeAPI.Invoice.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3122,9 +3122,9 @@ public struct Charge: Codable {
     /// ID of the order this charge is for if one exists.
     public final class Order: Codable {
         public var string: String?
-        public var order: Order?
+        public var order: StripeAPI.Order?
 
-        public init(string: String? = nil, order: Order? = nil) {
+        public init(string: String? = nil, order: StripeAPI.Order? = nil) {
             self.string = string
             self.order = order
         }
@@ -3132,7 +3132,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.order = try? container.decode(Order.self)
+            self.order = try? container.decode(StripeAPI.Order.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3164,9 +3164,9 @@ public struct Charge: Codable {
     /// ID of the PaymentIntent associated with this charge, if one exists.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -3174,7 +3174,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3186,15 +3186,15 @@ public struct Charge: Codable {
 
     /// Details about the payment method at the time of the transaction.
     public final class PaymentMethodDetails: Codable {
-        public var paymentMethodDetails: PaymentMethodDetails?
+        public var paymentMethodDetails: StripeAPI.PaymentMethodDetails?
 
-        public init(paymentMethodDetails: PaymentMethodDetails? = nil) {
+        public init(paymentMethodDetails: StripeAPI.PaymentMethodDetails? = nil) {
             self.paymentMethodDetails = paymentMethodDetails
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.paymentMethodDetails = try? container.decode(PaymentMethodDetails.self)
+            self.paymentMethodDetails = try? container.decode(StripeAPI.PaymentMethodDetails.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3239,9 +3239,9 @@ public struct Charge: Codable {
     /// ID of the review associated with this charge if one exists.
     public final class Review: Codable {
         public var string: String?
-        public var review: Review?
+        public var review: StripeAPI.Review?
 
-        public init(string: String? = nil, review: Review? = nil) {
+        public init(string: String? = nil, review: StripeAPI.Review? = nil) {
             self.string = string
             self.review = review
         }
@@ -3249,7 +3249,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.review = try? container.decode(Review.self)
+            self.review = try? container.decode(StripeAPI.Review.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3261,15 +3261,15 @@ public struct Charge: Codable {
 
     /// Shipping information for the charge.
     public final class Shipping: Codable {
-        public var shipping: Shipping?
+        public var shipping: StripeAPI.Shipping?
 
-        public init(shipping: Shipping? = nil) {
+        public init(shipping: StripeAPI.Shipping? = nil) {
             self.shipping = shipping
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.shipping = try? container.decode(Shipping.self)
+            self.shipping = try? container.decode(StripeAPI.Shipping.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3304,9 +3304,9 @@ public struct Charge: Codable {
     /// ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
     public final class Transfer: Codable {
         public var string: String?
-        public var transfer: Transfer?
+        public var transfer: StripeAPI.Transfer?
 
-        public init(string: String? = nil, transfer: Transfer? = nil) {
+        public init(string: String? = nil, transfer: StripeAPI.Transfer? = nil) {
             self.string = string
             self.transfer = transfer
         }
@@ -3314,7 +3314,7 @@ public struct Charge: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.transfer = try? container.decode(Transfer.self)
+            self.transfer = try? container.decode(StripeAPI.Transfer.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3475,9 +3475,9 @@ public struct ChargeOutcome: Codable {
     public final class Rule: Codable {
         public var string: String?
         /// RadarRule
-        public var rule: Rule?
+        public var rule: StripeAPI.Rule?
 
-        public init(string: String? = nil, rule: Rule? = nil) {
+        public init(string: String? = nil, rule: StripeAPI.Rule? = nil) {
             self.string = string
             self.rule = rule
         }
@@ -3485,7 +3485,7 @@ public struct ChargeOutcome: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.rule = try? container.decode(Rule.self)
+            self.rule = try? container.decode(StripeAPI.Rule.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3738,10 +3738,10 @@ public struct CheckoutSession: Codable {
     /// the Session was created.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -3750,7 +3750,7 @@ public struct CheckoutSession: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -3874,9 +3874,9 @@ public struct CheckoutSession: Codable {
     /// The ID of the PaymentIntent for Checkout Sessions in `payment` mode.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -3884,7 +3884,7 @@ public struct CheckoutSession: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3924,9 +3924,9 @@ public struct CheckoutSession: Codable {
     /// The ID of the SetupIntent for Checkout Sessions in `setup` mode.
     public final class SetupIntent: Codable {
         public var string: String?
-        public var setupIntent: SetupIntent?
+        public var setupIntent: StripeAPI.SetupIntent?
 
-        public init(string: String? = nil, setupIntent: SetupIntent? = nil) {
+        public init(string: String? = nil, setupIntent: StripeAPI.SetupIntent? = nil) {
             self.string = string
             self.setupIntent = setupIntent
         }
@@ -3934,7 +3934,7 @@ public struct CheckoutSession: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.setupIntent = try? container.decode(SetupIntent.self)
+            self.setupIntent = try? container.decode(StripeAPI.SetupIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3946,15 +3946,15 @@ public struct CheckoutSession: Codable {
 
     /// Shipping information for this Checkout Session.
     public final class Shipping: Codable {
-        public var shipping: Shipping?
+        public var shipping: StripeAPI.Shipping?
 
-        public init(shipping: Shipping? = nil) {
+        public init(shipping: StripeAPI.Shipping? = nil) {
             self.shipping = shipping
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.shipping = try? container.decode(Shipping.self)
+            self.shipping = try? container.decode(StripeAPI.Shipping.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -3987,9 +3987,9 @@ public struct CheckoutSession: Codable {
         public var string: String?
         /// Shipping rates describe the price of shipping presented to your customers and can be
         /// applied to [Checkout Sessions](https://stripe.com/docs/payments/checkout/shipping) to collect shipping costs.
-        public var shippingRate: ShippingRate?
+        public var shippingRate: StripeAPI.ShippingRate?
 
-        public init(string: String? = nil, shippingRate: ShippingRate? = nil) {
+        public init(string: String? = nil, shippingRate: StripeAPI.ShippingRate? = nil) {
             self.string = string
             self.shippingRate = shippingRate
         }
@@ -3997,7 +3997,7 @@ public struct CheckoutSession: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.shippingRate = try? container.decode(ShippingRate.self)
+            self.shippingRate = try? container.decode(StripeAPI.ShippingRate.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4028,9 +4028,9 @@ public struct CheckoutSession: Codable {
     /// The ID of the subscription for Checkout Sessions in `subscription` mode.
     public final class Subscription: Codable {
         public var string: String?
-        public var subscription: Subscription?
+        public var subscription: StripeAPI.Subscription?
 
-        public init(string: String? = nil, subscription: Subscription? = nil) {
+        public init(string: String? = nil, subscription: StripeAPI.Subscription? = nil) {
             self.string = string
             self.subscription = subscription
         }
@@ -4038,7 +4038,7 @@ public struct CheckoutSession: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.subscription = try? container.decode(Subscription.self)
+            self.subscription = try? container.decode(StripeAPI.Subscription.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4550,10 +4550,10 @@ public struct CreditNote: Codable {
     /// ID of the customer.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -4562,7 +4562,7 @@ public struct CreditNote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -4577,9 +4577,9 @@ public struct CreditNote: Codable {
     /// Customer balance transaction related to this credit note.
     public final class CustomerBalanceTransaction: Codable {
         public var string: String?
-        public var customerBalanceTransaction: CustomerBalanceTransaction?
+        public var customerBalanceTransaction: StripeAPI.CustomerBalanceTransaction?
 
-        public init(string: String? = nil, customerBalanceTransaction: CustomerBalanceTransaction? = nil) {
+        public init(string: String? = nil, customerBalanceTransaction: StripeAPI.CustomerBalanceTransaction? = nil) {
             self.string = string
             self.customerBalanceTransaction = customerBalanceTransaction
         }
@@ -4587,7 +4587,7 @@ public struct CreditNote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customerBalanceTransaction = try? container.decode(CustomerBalanceTransaction.self)
+            self.customerBalanceTransaction = try? container.decode(StripeAPI.CustomerBalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4600,9 +4600,9 @@ public struct CreditNote: Codable {
     /// ID of the invoice.
     public final class Invoice: Codable {
         public var string: String?
-        public var invoice: Invoice?
+        public var invoice: StripeAPI.Invoice?
 
-        public init(string: String? = nil, invoice: Invoice? = nil) {
+        public init(string: String? = nil, invoice: StripeAPI.Invoice? = nil) {
             self.string = string
             self.invoice = invoice
         }
@@ -4610,7 +4610,7 @@ public struct CreditNote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.invoice = try? container.decode(Invoice.self)
+            self.invoice = try? container.decode(StripeAPI.Invoice.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4669,9 +4669,9 @@ public struct CreditNote: Codable {
     /// Refund related to this credit note.
     public final class Refund: Codable {
         public var string: String?
-        public var refund: Refund?
+        public var refund: StripeAPI.Refund?
 
-        public init(string: String? = nil, refund: Refund? = nil) {
+        public init(string: String? = nil, refund: StripeAPI.Refund? = nil) {
             self.string = string
             self.refund = refund
         }
@@ -4679,7 +4679,7 @@ public struct CreditNote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.refund = try? container.decode(Refund.self)
+            self.refund = try? container.decode(StripeAPI.Refund.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4848,9 +4848,9 @@ public struct CreditNoteTaxAmount: Codable {
         /// Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
         /// 
         /// Related guide: [Tax Rates](https://stripe.com/docs/billing/taxes/tax-rates).
-        public var taxRate: TaxRate?
+        public var taxRate: StripeAPI.TaxRate?
 
-        public init(string: String? = nil, taxRate: TaxRate? = nil) {
+        public init(string: String? = nil, taxRate: StripeAPI.TaxRate? = nil) {
             self.string = string
             self.taxRate = taxRate
         }
@@ -4858,7 +4858,7 @@ public struct CreditNoteTaxAmount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.taxRate = try? container.decode(TaxRate.self)
+            self.taxRate = try? container.decode(StripeAPI.TaxRate.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -4947,15 +4947,15 @@ public struct Customer: Codable {
 
     /// The customer's address.
     public final class Address: Codable {
-        public var address: Address?
+        public var address: StripeAPI.Address?
 
-        public init(address: Address? = nil) {
+        public init(address: StripeAPI.Address? = nil) {
             self.address = address
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.address = try? container.decode(Address.self)
+            self.address = try? container.decode(StripeAPI.Address.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -5013,15 +5013,15 @@ public struct Customer: Codable {
 
     /// Describes the current discount active on the customer, if there is one.
     public final class Discount: Codable {
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
 
-        public init(discount: Discount? = nil) {
+        public init(discount: StripeAPI.Discount? = nil) {
             self.discount = discount
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -5037,15 +5037,15 @@ public struct Customer: Codable {
 
     /// Mailing and shipping address for the customer. Appears on invoices emailed to this customer.
     public final class Shipping: Codable {
-        public var shipping: Shipping?
+        public var shipping: StripeAPI.Shipping?
 
-        public init(shipping: Shipping? = nil) {
+        public init(shipping: StripeAPI.Shipping? = nil) {
             self.shipping = shipping
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.shipping = try? container.decode(Shipping.self)
+            self.shipping = try? container.decode(StripeAPI.Shipping.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -5327,9 +5327,9 @@ public struct CustomerBalanceTransaction: Codable {
     /// The ID of the credit note (if any) related to the transaction.
     public final class CreditNote: Codable {
         public var string: String?
-        public var creditNote: CreditNote?
+        public var creditNote: StripeAPI.CreditNote?
 
-        public init(string: String? = nil, creditNote: CreditNote? = nil) {
+        public init(string: String? = nil, creditNote: StripeAPI.CreditNote? = nil) {
             self.string = string
             self.creditNote = creditNote
         }
@@ -5337,7 +5337,7 @@ public struct CustomerBalanceTransaction: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.creditNote = try? container.decode(CreditNote.self)
+            self.creditNote = try? container.decode(StripeAPI.CreditNote.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -5350,9 +5350,9 @@ public struct CustomerBalanceTransaction: Codable {
     /// The ID of the customer the transaction belongs to.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
 
-        public init(string: String? = nil, customer: Customer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil) {
             self.string = string
             self.customer = customer
         }
@@ -5360,7 +5360,7 @@ public struct CustomerBalanceTransaction: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -5373,9 +5373,9 @@ public struct CustomerBalanceTransaction: Codable {
     /// The ID of the invoice (if any) related to the transaction.
     public final class Invoice: Codable {
         public var string: String?
-        public var invoice: Invoice?
+        public var invoice: StripeAPI.Invoice?
 
-        public init(string: String? = nil, invoice: Invoice? = nil) {
+        public init(string: String? = nil, invoice: StripeAPI.Invoice? = nil) {
             self.string = string
             self.invoice = invoice
         }
@@ -5383,7 +5383,7 @@ public struct CustomerBalanceTransaction: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.invoice = try? container.decode(Invoice.self)
+            self.invoice = try? container.decode(StripeAPI.Invoice.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -5762,10 +5762,10 @@ public struct DeletedDiscount: Codable {
     /// The ID of the customer associated with this discount.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -5774,7 +5774,7 @@ public struct DeletedDiscount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -5794,9 +5794,9 @@ public struct DeletedDiscount: Codable {
     /// The promotion code applied to create this discount.
     public final class PromotionCode: Codable {
         public var string: String?
-        public var promotionCode: PromotionCode?
+        public var promotionCode: StripeAPI.PromotionCode?
 
-        public init(string: String? = nil, promotionCode: PromotionCode? = nil) {
+        public init(string: String? = nil, promotionCode: StripeAPI.PromotionCode? = nil) {
             self.string = string
             self.promotionCode = promotionCode
         }
@@ -5804,7 +5804,7 @@ public struct DeletedDiscount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.promotionCode = try? container.decode(PromotionCode.self)
+            self.promotionCode = try? container.decode(StripeAPI.PromotionCode.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -6348,10 +6348,10 @@ public struct Discount: Codable {
     /// The ID of the customer associated with this discount.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -6360,7 +6360,7 @@ public struct Discount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -6380,9 +6380,9 @@ public struct Discount: Codable {
     /// The promotion code applied to create this discount.
     public final class PromotionCode: Codable {
         public var string: String?
-        public var promotionCode: PromotionCode?
+        public var promotionCode: StripeAPI.PromotionCode?
 
-        public init(string: String? = nil, promotionCode: PromotionCode? = nil) {
+        public init(string: String? = nil, promotionCode: StripeAPI.PromotionCode? = nil) {
             self.string = string
             self.promotionCode = promotionCode
         }
@@ -6390,7 +6390,7 @@ public struct Discount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.promotionCode = try? container.decode(PromotionCode.self)
+            self.promotionCode = try? container.decode(StripeAPI.PromotionCode.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -6438,10 +6438,10 @@ public struct DiscountsResourceDiscountAmount: Codable {
     /// The discount that was applied to get this discount amount.
     public final class Discount: Codable {
         public var string: String?
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
         public var deletedDiscount: DeletedDiscount?
 
-        public init(string: String? = nil, discount: Discount? = nil, deletedDiscount: DeletedDiscount? = nil) {
+        public init(string: String? = nil, discount: StripeAPI.Discount? = nil, deletedDiscount: DeletedDiscount? = nil) {
             self.string = string
             self.discount = discount
             self.deletedDiscount = deletedDiscount
@@ -6450,7 +6450,7 @@ public struct DiscountsResourceDiscountAmount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
             self.deletedDiscount = try? container.decode(DeletedDiscount.self)
         }
 
@@ -6509,9 +6509,9 @@ public struct Dispute: Codable {
     /// ID of the charge that was disputed.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -6519,7 +6519,7 @@ public struct Dispute: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -6537,9 +6537,9 @@ public struct Dispute: Codable {
     /// ID of the PaymentIntent that was disputed.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -6547,7 +6547,7 @@ public struct Dispute: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -7207,9 +7207,9 @@ public struct FeeRefund: Codable {
     /// Balance transaction that describes the impact on your account balance.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -7217,7 +7217,7 @@ public struct FeeRefund: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -7422,9 +7422,9 @@ public struct FileLink: Codable {
     /// The file object this link points to.
     public final class File: Codable {
         public var string: String?
-        public var file: File?
+        public var file: StripeAPI.File?
 
-        public init(string: String? = nil, file: File? = nil) {
+        public init(string: String? = nil, file: StripeAPI.File? = nil) {
             self.string = string
             self.file = file
         }
@@ -7432,7 +7432,7 @@ public struct FileLink: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.file = try? container.decode(File.self)
+            self.file = try? container.decode(StripeAPI.File.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -7622,15 +7622,15 @@ public struct GelatoDocumentReport: Codable {
 
     /// Address as it appears in the document.
     public final class Address: Codable {
-        public var address: Address?
+        public var address: StripeAPI.Address?
 
-        public init(address: Address? = nil) {
+        public init(address: StripeAPI.Address? = nil) {
             self.address = address
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.address = try? container.decode(Address.self)
+            self.address = try? container.decode(StripeAPI.Address.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -8098,15 +8098,15 @@ public struct GelatoVerifiedOutputs: Codable {
 
     /// The user's verified address.
     public final class Address: Codable {
-        public var address: Address?
+        public var address: StripeAPI.Address?
 
-        public init(address: Address? = nil) {
+        public init(address: StripeAPI.Address? = nil) {
             self.address = address
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.address = try? container.decode(Address.self)
+            self.address = try? container.decode(StripeAPI.Address.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -8646,9 +8646,9 @@ public struct Invoice: Codable {
     /// ID of the latest charge generated for this invoice, if any.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -8656,7 +8656,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -8675,10 +8675,10 @@ public struct Invoice: Codable {
     /// The ID of the customer who will be billed.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -8687,7 +8687,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -8814,15 +8814,15 @@ public struct Invoice: Codable {
 
     /// Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     public final class Discount: Codable {
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
 
-        public init(discount: Discount? = nil) {
+        public init(discount: StripeAPI.Discount? = nil) {
             self.discount = discount
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -8833,10 +8833,10 @@ public struct Invoice: Codable {
 
     public final class Discount: Codable {
         public var string: String?
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
         public var deletedDiscount: DeletedDiscount?
 
-        public init(string: String? = nil, discount: Discount? = nil, deletedDiscount: DeletedDiscount? = nil) {
+        public init(string: String? = nil, discount: StripeAPI.Discount? = nil, deletedDiscount: DeletedDiscount? = nil) {
             self.string = string
             self.discount = discount
             self.deletedDiscount = deletedDiscount
@@ -8845,7 +8845,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
             self.deletedDiscount = try? container.decode(DeletedDiscount.self)
         }
 
@@ -8940,9 +8940,9 @@ public struct Invoice: Codable {
     /// The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -8950,7 +8950,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -8963,9 +8963,9 @@ public struct Invoice: Codable {
     /// The quote this invoice was generated from.
     public final class Quote: Codable {
         public var string: String?
-        public var quote: Quote?
+        public var quote: StripeAPI.Quote?
 
-        public init(string: String? = nil, quote: Quote? = nil) {
+        public init(string: String? = nil, quote: StripeAPI.Quote? = nil) {
             self.string = string
             self.quote = quote
         }
@@ -8973,7 +8973,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.quote = try? container.decode(Quote.self)
+            self.quote = try? container.decode(StripeAPI.Quote.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -8996,9 +8996,9 @@ public struct Invoice: Codable {
     /// The subscription that this invoice was prepared for, if any.
     public final class Subscription: Codable {
         public var string: String?
-        public var subscription: Subscription?
+        public var subscription: StripeAPI.Subscription?
 
-        public init(string: String? = nil, subscription: Subscription? = nil) {
+        public init(string: String? = nil, subscription: StripeAPI.Subscription? = nil) {
             self.string = string
             self.subscription = subscription
         }
@@ -9006,7 +9006,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.subscription = try? container.decode(Subscription.self)
+            self.subscription = try? container.decode(StripeAPI.Subscription.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -9390,9 +9390,9 @@ public struct InvoiceTaxAmount: Codable {
         /// Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
         /// 
         /// Related guide: [Tax Rates](https://stripe.com/docs/billing/taxes/tax-rates).
-        public var taxRate: TaxRate?
+        public var taxRate: StripeAPI.TaxRate?
 
-        public init(string: String? = nil, taxRate: TaxRate? = nil) {
+        public init(string: String? = nil, taxRate: StripeAPI.TaxRate? = nil) {
             self.string = string
             self.taxRate = taxRate
         }
@@ -9400,7 +9400,7 @@ public struct InvoiceTaxAmount: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.taxRate = try? container.decode(TaxRate.self)
+            self.taxRate = try? container.decode(StripeAPI.TaxRate.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -9529,10 +9529,10 @@ public struct Invoiceitem: Codable {
     /// The ID of the customer who will be billed when this invoice item is billed.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -9541,7 +9541,7 @@ public struct Invoiceitem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -9555,9 +9555,9 @@ public struct Invoiceitem: Codable {
 
     public final class Discount: Codable {
         public var string: String?
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
 
-        public init(string: String? = nil, discount: Discount? = nil) {
+        public init(string: String? = nil, discount: StripeAPI.Discount? = nil) {
             self.string = string
             self.discount = discount
         }
@@ -9565,7 +9565,7 @@ public struct Invoiceitem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -9578,9 +9578,9 @@ public struct Invoiceitem: Codable {
     /// The ID of the invoice this invoice item belongs to.
     public final class Invoice: Codable {
         public var string: String?
-        public var invoice: Invoice?
+        public var invoice: StripeAPI.Invoice?
 
-        public init(string: String? = nil, invoice: Invoice? = nil) {
+        public init(string: String? = nil, invoice: StripeAPI.Invoice? = nil) {
             self.string = string
             self.invoice = invoice
         }
@@ -9588,7 +9588,7 @@ public struct Invoiceitem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.invoice = try? container.decode(Invoice.self)
+            self.invoice = try? container.decode(StripeAPI.Invoice.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -9611,15 +9611,15 @@ public struct Invoiceitem: Codable {
         /// For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-        public var price: Price?
+        public var price: StripeAPI.Price?
 
-        public init(price: Price? = nil) {
+        public init(price: StripeAPI.Price? = nil) {
             self.price = price
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.price = try? container.decode(Price.self)
+            self.price = try? container.decode(StripeAPI.Price.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -9631,9 +9631,9 @@ public struct Invoiceitem: Codable {
     /// The subscription that this invoice item has been created for, if any.
     public final class Subscription: Codable {
         public var string: String?
-        public var subscription: Subscription?
+        public var subscription: StripeAPI.Subscription?
 
-        public init(string: String? = nil, subscription: Subscription? = nil) {
+        public init(string: String? = nil, subscription: StripeAPI.Subscription? = nil) {
             self.string = string
             self.subscription = subscription
         }
@@ -9641,7 +9641,7 @@ public struct Invoiceitem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.subscription = try? container.decode(Subscription.self)
+            self.subscription = try? container.decode(StripeAPI.Subscription.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -9943,9 +9943,9 @@ public struct IssuerFraudRecord: Codable {
     /// ID of the charge this issuer fraud record is for, optionally expanded.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -9953,7 +9953,7 @@ public struct IssuerFraudRecord: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -10802,9 +10802,9 @@ public struct IssuingTransaction: Codable {
     /// ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -10812,7 +10812,7 @@ public struct IssuingTransaction: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -14196,15 +14196,15 @@ public struct Item: Codable {
         /// For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-        public var price: Price?
+        public var price: StripeAPI.Price?
 
-        public init(price: Price? = nil) {
+        public init(price: StripeAPI.Price? = nil) {
             self.price = price
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.price = try? container.decode(Price.self)
+            self.price = try? container.decode(StripeAPI.Price.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -14727,9 +14727,9 @@ public struct LineItem: Codable {
 
     public final class Discount: Codable {
         public var string: String?
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
 
-        public init(string: String? = nil, discount: Discount? = nil) {
+        public init(string: String? = nil, discount: StripeAPI.Discount? = nil) {
             self.string = string
             self.discount = discount
         }
@@ -14737,7 +14737,7 @@ public struct LineItem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -14760,15 +14760,15 @@ public struct LineItem: Codable {
         /// For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-        public var price: Price?
+        public var price: StripeAPI.Price?
 
-        public init(price: Price? = nil) {
+        public init(price: StripeAPI.Price? = nil) {
             self.price = price
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.price = try? container.decode(Price.self)
+            self.price = try? container.decode(StripeAPI.Price.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -14908,9 +14908,9 @@ public struct Mandate: Codable {
     /// ID of the payment method associated with this mandate.
     public final class PaymentMethod: Codable {
         public var string: String?
-        public var paymentMethod: PaymentMethod?
+        public var paymentMethod: StripeAPI.PaymentMethod?
 
-        public init(string: String? = nil, paymentMethod: PaymentMethod? = nil) {
+        public init(string: String? = nil, paymentMethod: StripeAPI.PaymentMethod? = nil) {
             self.string = string
             self.paymentMethod = paymentMethod
         }
@@ -14918,7 +14918,7 @@ public struct Mandate: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentMethod = try? container.decode(PaymentMethod.self)
+            self.paymentMethod = try? container.decode(StripeAPI.PaymentMethod.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15234,9 +15234,9 @@ public struct Order: Codable {
     /// The ID of the payment used to pay for the order. Present if the order status is `paid`, `fulfilled`, or `refunded`.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -15244,7 +15244,7 @@ public struct Order: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15257,10 +15257,10 @@ public struct Order: Codable {
     /// The customer used for the order.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -15269,7 +15269,7 @@ public struct Order: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -15321,15 +15321,15 @@ public struct Order: Codable {
 
     /// The shipping address for the order. Present if the order is for goods to be shipped.
     public final class Shipping: Codable {
-        public var shipping: Shipping?
+        public var shipping: StripeAPI.Shipping?
 
-        public init(shipping: Shipping? = nil) {
+        public init(shipping: StripeAPI.Shipping? = nil) {
             self.shipping = shipping
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.shipping = try? container.decode(Shipping.self)
+            self.shipping = try? container.decode(StripeAPI.Shipping.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15340,15 +15340,15 @@ public struct Order: Codable {
 
     /// The timestamps at which the order status was updated.
     public final class StatusTransitions: Codable {
-        public var statusTransitions: StatusTransitions?
+        public var statusTransitions: StripeAPI.StatusTransitions?
 
-        public init(statusTransitions: StatusTransitions? = nil) {
+        public init(statusTransitions: StripeAPI.StatusTransitions? = nil) {
             self.statusTransitions = statusTransitions
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.statusTransitions = try? container.decode(StatusTransitions.self)
+            self.statusTransitions = try? container.decode(StripeAPI.StatusTransitions.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15509,9 +15509,9 @@ public struct OrderReturn: Codable {
     /// The order that this return includes items from.
     public final class Order: Codable {
         public var string: String?
-        public var order: Order?
+        public var order: StripeAPI.Order?
 
-        public init(string: String? = nil, order: Order? = nil) {
+        public init(string: String? = nil, order: StripeAPI.Order? = nil) {
             self.string = string
             self.order = order
         }
@@ -15519,7 +15519,7 @@ public struct OrderReturn: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.order = try? container.decode(Order.self)
+            self.order = try? container.decode(StripeAPI.Order.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15532,9 +15532,9 @@ public struct OrderReturn: Codable {
     /// The ID of the refund issued for this return.
     public final class Refund: Codable {
         public var string: String?
-        public var refund: Refund?
+        public var refund: StripeAPI.Refund?
 
-        public init(string: String? = nil, refund: Refund? = nil) {
+        public init(string: String? = nil, refund: StripeAPI.Refund? = nil) {
             self.string = string
             self.refund = refund
         }
@@ -15542,7 +15542,7 @@ public struct OrderReturn: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.refund = try? container.decode(Refund.self)
+            self.refund = try? container.decode(StripeAPI.Refund.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15747,9 +15747,9 @@ public struct PaymentIntent: Codable {
     /// ID of the Connect application that created the PaymentIntent.
     public final class Application: Codable {
         public var string: String?
-        public var application: Application?
+        public var application: StripeAPI.Application?
 
-        public init(string: String? = nil, application: Application? = nil) {
+        public init(string: String? = nil, application: StripeAPI.Application? = nil) {
             self.string = string
             self.application = application
         }
@@ -15757,7 +15757,7 @@ public struct PaymentIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.application = try? container.decode(Application.self)
+            self.application = try? container.decode(StripeAPI.Application.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15848,10 +15848,10 @@ public struct PaymentIntent: Codable {
     /// If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -15860,7 +15860,7 @@ public struct PaymentIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -15875,9 +15875,9 @@ public struct PaymentIntent: Codable {
     /// ID of the invoice that created this PaymentIntent, if it exists.
     public final class Invoice: Codable {
         public var string: String?
-        public var invoice: Invoice?
+        public var invoice: StripeAPI.Invoice?
 
-        public init(string: String? = nil, invoice: Invoice? = nil) {
+        public init(string: String? = nil, invoice: StripeAPI.Invoice? = nil) {
             self.string = string
             self.invoice = invoice
         }
@@ -15885,7 +15885,7 @@ public struct PaymentIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.invoice = try? container.decode(Invoice.self)
+            self.invoice = try? container.decode(StripeAPI.Invoice.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -15964,9 +15964,9 @@ public struct PaymentIntent: Codable {
     /// ID of the payment method used in this PaymentIntent.
     public final class PaymentMethod: Codable {
         public var string: String?
-        public var paymentMethod: PaymentMethod?
+        public var paymentMethod: StripeAPI.PaymentMethod?
 
-        public init(string: String? = nil, paymentMethod: PaymentMethod? = nil) {
+        public init(string: String? = nil, paymentMethod: StripeAPI.PaymentMethod? = nil) {
             self.string = string
             self.paymentMethod = paymentMethod
         }
@@ -15974,7 +15974,7 @@ public struct PaymentIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentMethod = try? container.decode(PaymentMethod.self)
+            self.paymentMethod = try? container.decode(StripeAPI.PaymentMethod.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -16025,9 +16025,9 @@ public struct PaymentIntent: Codable {
     /// ID of the review associated with this PaymentIntent, if any.
     public final class Review: Codable {
         public var string: String?
-        public var review: Review?
+        public var review: StripeAPI.Review?
 
-        public init(string: String? = nil, review: Review? = nil) {
+        public init(string: String? = nil, review: StripeAPI.Review? = nil) {
             self.string = string
             self.review = review
         }
@@ -16035,7 +16035,7 @@ public struct PaymentIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.review = try? container.decode(Review.self)
+            self.review = try? container.decode(StripeAPI.Review.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -16057,15 +16057,15 @@ public struct PaymentIntent: Codable {
 
     /// Shipping information for this PaymentIntent.
     public final class Shipping: Codable {
-        public var shipping: Shipping?
+        public var shipping: StripeAPI.Shipping?
 
-        public init(shipping: Shipping? = nil) {
+        public init(shipping: StripeAPI.Shipping? = nil) {
             self.shipping = shipping
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.shipping = try? container.decode(Shipping.self)
+            self.shipping = try? container.decode(StripeAPI.Shipping.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -16087,15 +16087,15 @@ public struct PaymentIntent: Codable {
 
     /// The data with which to automatically create a Transfer when the payment is finalized. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
     public final class TransferData: Codable {
-        public var transferData: TransferData?
+        public var transferData: StripeAPI.TransferData?
 
-        public init(transferData: TransferData? = nil) {
+        public init(transferData: StripeAPI.TransferData? = nil) {
             self.transferData = transferData
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.transferData = try? container.decode(TransferData.self)
+            self.transferData = try? container.decode(StripeAPI.TransferData.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -17102,9 +17102,9 @@ public struct PaymentMethod: Codable {
     /// The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
 
-        public init(string: String? = nil, customer: Customer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil) {
             self.string = string
             self.customer = customer
         }
@@ -17112,7 +17112,7 @@ public struct PaymentMethod: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -17375,15 +17375,15 @@ public struct PaymentMethodCard: Codable {
 
     /// Contains information about card networks that can be used to process the payment.
     public final class Networks: Codable {
-        public var networks: Networks?
+        public var networks: StripeAPI.Networks?
 
-        public init(networks: Networks? = nil) {
+        public init(networks: StripeAPI.Networks? = nil) {
             self.networks = networks
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.networks = try? container.decode(Networks.self)
+            self.networks = try? container.decode(StripeAPI.Networks.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -17395,15 +17395,15 @@ public struct PaymentMethodCard: Codable {
     /// Contains details on how this Card maybe be used for 3D Secure authentication.
     public final class ThreeDSecureUsage: Codable {
         /// Three_d_secure_usage
-        public var threeDSecureUsage: ThreeDSecureUsage?
+        public var threeDSecureUsage: StripeAPI.ThreeDSecureUsage?
 
-        public init(threeDSecureUsage: ThreeDSecureUsage? = nil) {
+        public init(threeDSecureUsage: StripeAPI.ThreeDSecureUsage? = nil) {
             self.threeDSecureUsage = threeDSecureUsage
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.threeDSecureUsage = try? container.decode(ThreeDSecureUsage.self)
+            self.threeDSecureUsage = try? container.decode(StripeAPI.ThreeDSecureUsage.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -17517,9 +17517,9 @@ public struct PaymentMethodCardGeneratedCard: Codable {
     /// The ID of the SetupAttempt that generated this PaymentMethod, if any.
     public final class SetupAttempt: Codable {
         public var string: String?
-        public var setupAttempt: SetupAttempt?
+        public var setupAttempt: StripeAPI.SetupAttempt?
 
-        public init(string: String? = nil, setupAttempt: SetupAttempt? = nil) {
+        public init(string: String? = nil, setupAttempt: StripeAPI.SetupAttempt? = nil) {
             self.string = string
             self.setupAttempt = setupAttempt
         }
@@ -17527,7 +17527,7 @@ public struct PaymentMethodCardGeneratedCard: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.setupAttempt = try? container.decode(SetupAttempt.self)
+            self.setupAttempt = try? container.decode(StripeAPI.SetupAttempt.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -19928,9 +19928,9 @@ public struct PaymentPagesCheckoutSessionShippingOption: Codable {
         public var string: String?
         /// Shipping rates describe the price of shipping presented to your customers and can be
         /// applied to [Checkout Sessions](https://stripe.com/docs/payments/checkout/shipping) to collect shipping costs.
-        public var shippingRate: ShippingRate?
+        public var shippingRate: StripeAPI.ShippingRate?
 
-        public init(string: String? = nil, shippingRate: ShippingRate? = nil) {
+        public init(string: String? = nil, shippingRate: StripeAPI.ShippingRate? = nil) {
             self.string = string
             self.shippingRate = shippingRate
         }
@@ -19938,7 +19938,7 @@ public struct PaymentPagesCheckoutSessionShippingOption: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.shippingRate = try? container.decode(ShippingRate.self)
+            self.shippingRate = try? container.decode(StripeAPI.ShippingRate.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -20422,9 +20422,9 @@ public struct Payout: Codable {
     /// ID of the balance transaction that describes the impact of this payout on your account balance.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -20432,7 +20432,7 @@ public struct Payout: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -21008,10 +21008,10 @@ public struct Plan: Codable {
         /// They can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Checkout and Subscriptions.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) or accept [one-time payments with Checkout](https://stripe.com/docs/payments/checkout/client#create-products) and more about [Products and Prices](https://stripe.com/docs/billing/prices-guide)
-        public var product: Product?
+        public var product: StripeAPI.Product?
         public var deletedProduct: DeletedProduct?
 
-        public init(string: String? = nil, product: Product? = nil, deletedProduct: DeletedProduct? = nil) {
+        public init(string: String? = nil, product: StripeAPI.Product? = nil, deletedProduct: DeletedProduct? = nil) {
             self.string = string
             self.product = product
             self.deletedProduct = deletedProduct
@@ -21020,7 +21020,7 @@ public struct Plan: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.product = try? container.decode(Product.self)
+            self.product = try? container.decode(StripeAPI.Product.self)
             self.deletedProduct = try? container.decode(DeletedProduct.self)
         }
 
@@ -21040,15 +21040,15 @@ public struct Plan: Codable {
 
     /// Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`.
     public final class TransformUsage: Codable {
-        public var transformUsage: TransformUsage?
+        public var transformUsage: StripeAPI.TransformUsage?
 
-        public init(transformUsage: TransformUsage? = nil) {
+        public init(transformUsage: StripeAPI.TransformUsage? = nil) {
             self.transformUsage = transformUsage
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.transformUsage = try? container.decode(TransformUsage.self)
+            self.transformUsage = try? container.decode(StripeAPI.TransformUsage.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -21473,10 +21473,10 @@ public struct Price: Codable {
         /// They can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Checkout and Subscriptions.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) or accept [one-time payments with Checkout](https://stripe.com/docs/payments/checkout/client#create-products) and more about [Products and Prices](https://stripe.com/docs/billing/prices-guide)
-        public var product: Product?
+        public var product: StripeAPI.Product?
         public var deletedProduct: DeletedProduct?
 
-        public init(string: String? = nil, product: Product? = nil, deletedProduct: DeletedProduct? = nil) {
+        public init(string: String? = nil, product: StripeAPI.Product? = nil, deletedProduct: DeletedProduct? = nil) {
             self.string = string
             self.product = product
             self.deletedProduct = deletedProduct
@@ -21485,7 +21485,7 @@ public struct Price: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.product = try? container.decode(Product.self)
+            self.product = try? container.decode(StripeAPI.Product.self)
             self.deletedProduct = try? container.decode(DeletedProduct.self)
         }
 
@@ -21499,15 +21499,15 @@ public struct Price: Codable {
 
     /// The recurring components of a price such as `interval` and `usage_type`.
     public final class Recurring: Codable {
-        public var recurring: Recurring?
+        public var recurring: StripeAPI.Recurring?
 
-        public init(recurring: Recurring? = nil) {
+        public init(recurring: StripeAPI.Recurring? = nil) {
             self.recurring = recurring
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.recurring = try? container.decode(Recurring.self)
+            self.recurring = try? container.decode(StripeAPI.Recurring.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -21531,15 +21531,15 @@ public struct Price: Codable {
 
     /// Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`.
     public final class TransformQuantity: Codable {
-        public var transformQuantity: TransformQuantity?
+        public var transformQuantity: StripeAPI.TransformQuantity?
 
-        public init(transformQuantity: TransformQuantity? = nil) {
+        public init(transformQuantity: StripeAPI.TransformQuantity? = nil) {
             self.transformQuantity = transformQuantity
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.transformQuantity = try? container.decode(TransformQuantity.self)
+            self.transformQuantity = try? container.decode(StripeAPI.TransformQuantity.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -21674,15 +21674,15 @@ public struct Product: Codable {
 
     /// The dimensions of this product for shipping purposes.
     public final class PackageDimensions: Codable {
-        public var packageDimensions: PackageDimensions?
+        public var packageDimensions: StripeAPI.PackageDimensions?
 
-        public init(packageDimensions: PackageDimensions? = nil) {
+        public init(packageDimensions: StripeAPI.PackageDimensions? = nil) {
             self.packageDimensions = packageDimensions
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.packageDimensions = try? container.decode(PackageDimensions.self)
+            self.packageDimensions = try? container.decode(StripeAPI.PackageDimensions.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -21697,9 +21697,9 @@ public struct Product: Codable {
         /// TaxProductResourceTaxCode
         ///
         /// [Tax codes](https://stripe.com/docs/tax/tax-codes) classify goods and services for tax purposes.
-        public var taxCode: TaxCode?
+        public var taxCode: StripeAPI.TaxCode?
 
-        public init(string: String? = nil, taxCode: TaxCode? = nil) {
+        public init(string: String? = nil, taxCode: StripeAPI.TaxCode? = nil) {
             self.string = string
             self.taxCode = taxCode
         }
@@ -21707,7 +21707,7 @@ public struct Product: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.taxCode = try? container.decode(TaxCode.self)
+            self.taxCode = try? container.decode(StripeAPI.TaxCode.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -21791,10 +21791,10 @@ public struct PromotionCode: Codable {
     /// The customer that this promotion code can be used by.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -21803,7 +21803,7 @@ public struct PromotionCode: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -21953,10 +21953,10 @@ public struct Quote: Codable {
     /// The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -21965,7 +21965,7 @@ public struct Quote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -22004,9 +22004,9 @@ public struct Quote: Codable {
 
     public final class Discount: Codable {
         public var string: String?
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
 
-        public init(string: String? = nil, discount: Discount? = nil) {
+        public init(string: String? = nil, discount: StripeAPI.Discount? = nil) {
             self.string = string
             self.discount = discount
         }
@@ -22014,7 +22014,7 @@ public struct Quote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -22046,10 +22046,10 @@ public struct Quote: Codable {
     /// The invoice that was created from this quote.
     public final class Invoice: Codable {
         public var string: String?
-        public var invoice: Invoice?
+        public var invoice: StripeAPI.Invoice?
         public var deletedInvoice: DeletedInvoice?
 
-        public init(string: String? = nil, invoice: Invoice? = nil, deletedInvoice: DeletedInvoice? = nil) {
+        public init(string: String? = nil, invoice: StripeAPI.Invoice? = nil, deletedInvoice: DeletedInvoice? = nil) {
             self.string = string
             self.invoice = invoice
             self.deletedInvoice = deletedInvoice
@@ -22058,7 +22058,7 @@ public struct Quote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.invoice = try? container.decode(Invoice.self)
+            self.invoice = try? container.decode(StripeAPI.Invoice.self)
             self.deletedInvoice = try? container.decode(DeletedInvoice.self)
         }
 
@@ -22161,9 +22161,9 @@ public struct Quote: Codable {
     /// The subscription that was created or updated from this quote.
     public final class Subscription: Codable {
         public var string: String?
-        public var subscription: Subscription?
+        public var subscription: StripeAPI.Subscription?
 
-        public init(string: String? = nil, subscription: Subscription? = nil) {
+        public init(string: String? = nil, subscription: StripeAPI.Subscription? = nil) {
             self.string = string
             self.subscription = subscription
         }
@@ -22171,7 +22171,7 @@ public struct Quote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.subscription = try? container.decode(Subscription.self)
+            self.subscription = try? container.decode(StripeAPI.Subscription.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -22184,9 +22184,9 @@ public struct Quote: Codable {
     /// The subscription schedule that was created or updated from this quote.
     public final class SubscriptionSchedule: Codable {
         public var string: String?
-        public var subscriptionSchedule: SubscriptionSchedule?
+        public var subscriptionSchedule: StripeAPI.SubscriptionSchedule?
 
-        public init(string: String? = nil, subscriptionSchedule: SubscriptionSchedule? = nil) {
+        public init(string: String? = nil, subscriptionSchedule: StripeAPI.SubscriptionSchedule? = nil) {
             self.string = string
             self.subscriptionSchedule = subscriptionSchedule
         }
@@ -22194,7 +22194,7 @@ public struct Quote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.subscriptionSchedule = try? container.decode(SubscriptionSchedule.self)
+            self.subscriptionSchedule = try? container.decode(StripeAPI.SubscriptionSchedule.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -22359,9 +22359,9 @@ public struct QuotesResourceFromQuote: Codable {
     /// The quote that was cloned.
     public final class Quote: Codable {
         public var string: String?
-        public var quote: Quote?
+        public var quote: StripeAPI.Quote?
 
-        public init(string: String? = nil, quote: Quote? = nil) {
+        public init(string: String? = nil, quote: StripeAPI.Quote? = nil) {
             self.string = string
             self.quote = quote
         }
@@ -22369,7 +22369,7 @@ public struct QuotesResourceFromQuote: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.quote = try? container.decode(Quote.self)
+            self.quote = try? container.decode(StripeAPI.Quote.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -22628,9 +22628,9 @@ public struct RadarEarlyFraudWarning: Codable {
     /// ID of the charge this early fraud warning is for, optionally expanded.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -22638,7 +22638,7 @@ public struct RadarEarlyFraudWarning: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -22656,9 +22656,9 @@ public struct RadarEarlyFraudWarning: Codable {
     /// ID of the Payment Intent this early fraud warning is for, optionally expanded.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -22666,7 +22666,7 @@ public struct RadarEarlyFraudWarning: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23179,9 +23179,9 @@ public struct Refund: Codable {
     /// Balance transaction that describes the impact on your account balance.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -23189,7 +23189,7 @@ public struct Refund: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23202,9 +23202,9 @@ public struct Refund: Codable {
     /// ID of the charge that was refunded.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -23212,7 +23212,7 @@ public struct Refund: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23253,9 +23253,9 @@ public struct Refund: Codable {
     /// ID of the PaymentIntent that was refunded.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -23263,7 +23263,7 @@ public struct Refund: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23299,9 +23299,9 @@ public struct Refund: Codable {
     /// If the accompanying transfer was reversed, the transfer reversal object. Only applicable if the charge was created using the destination parameter.
     public final class TransferReversal: Codable {
         public var string: String?
-        public var transferReversal: TransferReversal?
+        public var transferReversal: StripeAPI.TransferReversal?
 
-        public init(string: String? = nil, transferReversal: TransferReversal? = nil) {
+        public init(string: String? = nil, transferReversal: StripeAPI.TransferReversal? = nil) {
             self.string = string
             self.transferReversal = transferReversal
         }
@@ -23309,7 +23309,7 @@ public struct Refund: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.transferReversal = try? container.decode(TransferReversal.self)
+            self.transferReversal = try? container.decode(StripeAPI.TransferReversal.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23573,9 +23573,9 @@ public struct Review: Codable {
     /// The charge associated with this review.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -23583,7 +23583,7 @@ public struct Review: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23635,9 +23635,9 @@ public struct Review: Codable {
     /// The PaymentIntent ID associated with this review, if one exists.
     public final class PaymentIntent: Codable {
         public var string: String?
-        public var paymentIntent: PaymentIntent?
+        public var paymentIntent: StripeAPI.PaymentIntent?
 
-        public init(string: String? = nil, paymentIntent: PaymentIntent? = nil) {
+        public init(string: String? = nil, paymentIntent: StripeAPI.PaymentIntent? = nil) {
             self.string = string
             self.paymentIntent = paymentIntent
         }
@@ -23645,7 +23645,7 @@ public struct Review: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentIntent = try? container.decode(PaymentIntent.self)
+            self.paymentIntent = try? container.decode(StripeAPI.PaymentIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23755,15 +23755,15 @@ public struct ScheduledQueryRun: Codable {
 
     /// The file object representing the results of the query.
     public final class File: Codable {
-        public var file: File?
+        public var file: StripeAPI.File?
 
-        public init(file: File? = nil) {
+        public init(file: StripeAPI.File? = nil) {
             self.file = file
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.file = try? container.decode(File.self)
+            self.file = try? container.decode(StripeAPI.File.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23829,9 +23829,9 @@ public struct SepaDebitGeneratedFrom: Codable {
     /// The ID of the Charge that generated this PaymentMethod, if any.
     public final class Charge: Codable {
         public var string: String?
-        public var charge: Charge?
+        public var charge: StripeAPI.Charge?
 
-        public init(string: String? = nil, charge: Charge? = nil) {
+        public init(string: String? = nil, charge: StripeAPI.Charge? = nil) {
             self.string = string
             self.charge = charge
         }
@@ -23839,7 +23839,7 @@ public struct SepaDebitGeneratedFrom: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.charge = try? container.decode(Charge.self)
+            self.charge = try? container.decode(StripeAPI.Charge.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23852,9 +23852,9 @@ public struct SepaDebitGeneratedFrom: Codable {
     /// The ID of the SetupAttempt that generated this PaymentMethod, if any.
     public final class SetupAttempt: Codable {
         public var string: String?
-        public var setupAttempt: SetupAttempt?
+        public var setupAttempt: StripeAPI.SetupAttempt?
 
-        public init(string: String? = nil, setupAttempt: SetupAttempt? = nil) {
+        public init(string: String? = nil, setupAttempt: StripeAPI.SetupAttempt? = nil) {
             self.string = string
             self.setupAttempt = setupAttempt
         }
@@ -23862,7 +23862,7 @@ public struct SepaDebitGeneratedFrom: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.setupAttempt = try? container.decode(SetupAttempt.self)
+            self.setupAttempt = try? container.decode(StripeAPI.SetupAttempt.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23919,9 +23919,9 @@ public struct SetupAttempt: Codable {
     /// The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation.
     public final class Application: Codable {
         public var string: String?
-        public var application: Application?
+        public var application: StripeAPI.Application?
 
-        public init(string: String? = nil, application: Application? = nil) {
+        public init(string: String? = nil, application: StripeAPI.Application? = nil) {
             self.string = string
             self.application = application
         }
@@ -23929,7 +23929,7 @@ public struct SetupAttempt: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.application = try? container.decode(Application.self)
+            self.application = try? container.decode(StripeAPI.Application.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -23942,10 +23942,10 @@ public struct SetupAttempt: Codable {
     /// The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -23954,7 +23954,7 @@ public struct SetupAttempt: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -23997,9 +23997,9 @@ public struct SetupAttempt: Codable {
     /// ID of the payment method used with this SetupAttempt.
     public final class PaymentMethod: Codable {
         public var string: String?
-        public var paymentMethod: PaymentMethod?
+        public var paymentMethod: StripeAPI.PaymentMethod?
 
-        public init(string: String? = nil, paymentMethod: PaymentMethod? = nil) {
+        public init(string: String? = nil, paymentMethod: StripeAPI.PaymentMethod? = nil) {
             self.string = string
             self.paymentMethod = paymentMethod
         }
@@ -24007,7 +24007,7 @@ public struct SetupAttempt: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentMethod = try? container.decode(PaymentMethod.self)
+            self.paymentMethod = try? container.decode(StripeAPI.PaymentMethod.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -24039,9 +24039,9 @@ public struct SetupAttempt: Codable {
     /// ID of the SetupIntent that this attempt belongs to.
     public final class SetupIntent: Codable {
         public var string: String?
-        public var setupIntent: SetupIntent?
+        public var setupIntent: StripeAPI.SetupIntent?
 
-        public init(string: String? = nil, setupIntent: SetupIntent? = nil) {
+        public init(string: String? = nil, setupIntent: StripeAPI.SetupIntent? = nil) {
             self.string = string
             self.setupIntent = setupIntent
         }
@@ -24049,7 +24049,7 @@ public struct SetupAttempt: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.setupIntent = try? container.decode(SetupIntent.self)
+            self.setupIntent = try? container.decode(StripeAPI.SetupIntent.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -24596,9 +24596,9 @@ public struct SetupIntent: Codable {
     /// ID of the Connect application that created the SetupIntent.
     public final class Application: Codable {
         public var string: String?
-        public var application: Application?
+        public var application: StripeAPI.Application?
 
-        public init(string: String? = nil, application: Application? = nil) {
+        public init(string: String? = nil, application: StripeAPI.Application? = nil) {
             self.string = string
             self.application = application
         }
@@ -24606,7 +24606,7 @@ public struct SetupIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.application = try? container.decode(Application.self)
+            self.application = try? container.decode(StripeAPI.Application.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -24628,10 +24628,10 @@ public struct SetupIntent: Codable {
     /// If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -24640,7 +24640,7 @@ public struct SetupIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -24697,9 +24697,9 @@ public struct SetupIntent: Codable {
     /// ID of the multi use Mandate generated by the SetupIntent.
     public final class Mandate: Codable {
         public var string: String?
-        public var mandate: Mandate?
+        public var mandate: StripeAPI.Mandate?
 
-        public init(string: String? = nil, mandate: Mandate? = nil) {
+        public init(string: String? = nil, mandate: StripeAPI.Mandate? = nil) {
             self.string = string
             self.mandate = mandate
         }
@@ -24707,7 +24707,7 @@ public struct SetupIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.mandate = try? container.decode(Mandate.self)
+            self.mandate = try? container.decode(StripeAPI.Mandate.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -24767,9 +24767,9 @@ public struct SetupIntent: Codable {
     /// ID of the payment method used with this SetupIntent.
     public final class PaymentMethod: Codable {
         public var string: String?
-        public var paymentMethod: PaymentMethod?
+        public var paymentMethod: StripeAPI.PaymentMethod?
 
-        public init(string: String? = nil, paymentMethod: PaymentMethod? = nil) {
+        public init(string: String? = nil, paymentMethod: StripeAPI.PaymentMethod? = nil) {
             self.string = string
             self.paymentMethod = paymentMethod
         }
@@ -24777,7 +24777,7 @@ public struct SetupIntent: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.paymentMethod = try? container.decode(PaymentMethod.self)
+            self.paymentMethod = try? container.decode(StripeAPI.PaymentMethod.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -25128,15 +25128,15 @@ public struct ShippingMethod: Codable {
 
     /// The estimated delivery date for the given shipping method. Can be either a specific date or a range.
     public final class DeliveryEstimate: Codable {
-        public var deliveryEstimate: DeliveryEstimate?
+        public var deliveryEstimate: StripeAPI.DeliveryEstimate?
 
-        public init(deliveryEstimate: DeliveryEstimate? = nil) {
+        public init(deliveryEstimate: StripeAPI.DeliveryEstimate? = nil) {
             self.deliveryEstimate = deliveryEstimate
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.deliveryEstimate = try? container.decode(DeliveryEstimate.self)
+            self.deliveryEstimate = try? container.decode(StripeAPI.DeliveryEstimate.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -25227,9 +25227,9 @@ public struct ShippingRate: Codable {
         /// TaxProductResourceTaxCode
         ///
         /// [Tax codes](https://stripe.com/docs/tax/tax-codes) classify goods and services for tax purposes.
-        public var taxCode: TaxCode?
+        public var taxCode: StripeAPI.TaxCode?
 
-        public init(string: String? = nil, taxCode: TaxCode? = nil) {
+        public init(string: String? = nil, taxCode: StripeAPI.TaxCode? = nil) {
             self.string = string
             self.taxCode = taxCode
         }
@@ -25237,7 +25237,7 @@ public struct ShippingRate: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.taxCode = try? container.decode(TaxCode.self)
+            self.taxCode = try? container.decode(StripeAPI.TaxCode.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -25420,15 +25420,15 @@ public struct Sku: Codable {
 
     /// The dimensions of this SKU for shipping purposes.
     public final class PackageDimensions: Codable {
-        public var packageDimensions: PackageDimensions?
+        public var packageDimensions: StripeAPI.PackageDimensions?
 
-        public init(packageDimensions: PackageDimensions? = nil) {
+        public init(packageDimensions: StripeAPI.PackageDimensions? = nil) {
             self.packageDimensions = packageDimensions
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.packageDimensions = try? container.decode(PackageDimensions.self)
+            self.packageDimensions = try? container.decode(StripeAPI.PackageDimensions.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -25445,9 +25445,9 @@ public struct Sku: Codable {
         /// They can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Checkout and Subscriptions.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) or accept [one-time payments with Checkout](https://stripe.com/docs/payments/checkout/client#create-products) and more about [Products and Prices](https://stripe.com/docs/billing/prices-guide)
-        public var product: Product?
+        public var product: StripeAPI.Product?
 
-        public init(string: String? = nil, product: Product? = nil) {
+        public init(string: String? = nil, product: StripeAPI.Product? = nil) {
             self.string = string
             self.product = product
         }
@@ -25455,7 +25455,7 @@ public struct Sku: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.product = try? container.decode(Product.self)
+            self.product = try? container.decode(StripeAPI.Product.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -25899,15 +25899,15 @@ public struct SourceOwner: Codable {
 
     /// Owner's address.
     public final class Address: Codable {
-        public var address: Address?
+        public var address: StripeAPI.Address?
 
-        public init(address: Address? = nil) {
+        public init(address: StripeAPI.Address? = nil) {
             self.address = address
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.address = try? container.decode(Address.self)
+            self.address = try? container.decode(StripeAPI.Address.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -26992,10 +26992,10 @@ public struct Subscription: Codable {
     /// ID of the customer who owns the subscription.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -27004,7 +27004,7 @@ public struct Subscription: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -27086,15 +27086,15 @@ public struct Subscription: Codable {
 
     /// Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis.
     public final class Discount: Codable {
-        public var discount: Discount?
+        public var discount: StripeAPI.Discount?
 
-        public init(discount: Discount? = nil) {
+        public init(discount: StripeAPI.Discount? = nil) {
             self.discount = discount
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            self.discount = try? container.decode(Discount.self)
+            self.discount = try? container.decode(StripeAPI.Discount.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -27629,10 +27629,10 @@ public struct SubscriptionSchedule: Codable {
     /// ID of the customer who owns the subscription schedule.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
         public var deletedCustomer: DeletedCustomer?
 
-        public init(string: String? = nil, customer: Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil, deletedCustomer: DeletedCustomer? = nil) {
             self.string = string
             self.customer = customer
             self.deletedCustomer = deletedCustomer
@@ -27641,7 +27641,7 @@ public struct SubscriptionSchedule: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
             self.deletedCustomer = try? container.decode(DeletedCustomer.self)
         }
 
@@ -27678,9 +27678,9 @@ public struct SubscriptionSchedule: Codable {
     /// ID of the subscription managed by the subscription schedule.
     public final class Subscription: Codable {
         public var string: String?
-        public var subscription: Subscription?
+        public var subscription: StripeAPI.Subscription?
 
-        public init(string: String? = nil, subscription: Subscription? = nil) {
+        public init(string: String? = nil, subscription: StripeAPI.Subscription? = nil) {
             self.string = string
             self.subscription = subscription
         }
@@ -27688,7 +27688,7 @@ public struct SubscriptionSchedule: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.subscription = try? container.decode(Subscription.self)
+            self.subscription = try? container.decode(StripeAPI.Subscription.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -27755,10 +27755,10 @@ public struct SubscriptionScheduleAddInvoiceItem: Codable {
         /// For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-        public var price: Price?
+        public var price: StripeAPI.Price?
         public var deletedPrice: DeletedPrice?
 
-        public init(string: String? = nil, price: Price? = nil, deletedPrice: DeletedPrice? = nil) {
+        public init(string: String? = nil, price: StripeAPI.Price? = nil, deletedPrice: DeletedPrice? = nil) {
             self.string = string
             self.price = price
             self.deletedPrice = deletedPrice
@@ -27767,7 +27767,7 @@ public struct SubscriptionScheduleAddInvoiceItem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.price = try? container.decode(Price.self)
+            self.price = try? container.decode(StripeAPI.Price.self)
             self.deletedPrice = try? container.decode(DeletedPrice.self)
         }
 
@@ -27831,10 +27831,10 @@ public struct SubscriptionScheduleConfigurationItem: Codable {
         /// For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
         /// 
         /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-        public var price: Price?
+        public var price: StripeAPI.Price?
         public var deletedPrice: DeletedPrice?
 
-        public init(string: String? = nil, price: Price? = nil, deletedPrice: DeletedPrice? = nil) {
+        public init(string: String? = nil, price: StripeAPI.Price? = nil, deletedPrice: DeletedPrice? = nil) {
             self.string = string
             self.price = price
             self.deletedPrice = deletedPrice
@@ -27843,7 +27843,7 @@ public struct SubscriptionScheduleConfigurationItem: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.price = try? container.decode(Price.self)
+            self.price = try? container.decode(StripeAPI.Price.self)
             self.deletedPrice = try? container.decode(DeletedPrice.self)
         }
 
@@ -27959,10 +27959,10 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
         /// A coupon contains information about a percent-off or amount-off discount you
         /// might want to apply to a customer. Coupons may be applied to [invoices](https://stripe.com/docs/api#invoices) or
         /// [orders](https://stripe.com/docs/api#create_order_legacy-coupon). Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge).
-        public var coupon: Coupon?
+        public var coupon: StripeAPI.Coupon?
         public var deletedCoupon: DeletedCoupon?
 
-        public init(string: String? = nil, coupon: Coupon? = nil, deletedCoupon: DeletedCoupon? = nil) {
+        public init(string: String? = nil, coupon: StripeAPI.Coupon? = nil, deletedCoupon: DeletedCoupon? = nil) {
             self.string = string
             self.coupon = coupon
             self.deletedCoupon = deletedCoupon
@@ -27971,7 +27971,7 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.coupon = try? container.decode(Coupon.self)
+            self.coupon = try? container.decode(StripeAPI.Coupon.self)
             self.deletedCoupon = try? container.decode(DeletedCoupon.self)
         }
 
@@ -28556,9 +28556,9 @@ public struct TaxID: Codable {
     /// ID of the customer.
     public final class Customer: Codable {
         public var string: String?
-        public var customer: Customer?
+        public var customer: StripeAPI.Customer?
 
-        public init(string: String? = nil, customer: Customer? = nil) {
+        public init(string: String? = nil, customer: StripeAPI.Customer? = nil) {
             self.string = string
             self.customer = customer
         }
@@ -28566,7 +28566,7 @@ public struct TaxID: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.customer = try? container.decode(Customer.self)
+            self.customer = try? container.decode(StripeAPI.Customer.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -29200,9 +29200,9 @@ public struct Topup: Codable {
     /// ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -29210,7 +29210,7 @@ public struct Topup: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -29324,9 +29324,9 @@ public struct Transfer: Codable {
     /// Balance transaction that describes the impact of this transfer on your account balance.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -29334,7 +29334,7 @@ public struct Transfer: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -29570,9 +29570,9 @@ public struct TransferReversal: Codable {
     /// Balance transaction that describes the impact on your account balance.
     public final class BalanceTransaction: Codable {
         public var string: String?
-        public var balanceTransaction: BalanceTransaction?
+        public var balanceTransaction: StripeAPI.BalanceTransaction?
 
-        public init(string: String? = nil, balanceTransaction: BalanceTransaction? = nil) {
+        public init(string: String? = nil, balanceTransaction: StripeAPI.BalanceTransaction? = nil) {
             self.string = string
             self.balanceTransaction = balanceTransaction
         }
@@ -29580,7 +29580,7 @@ public struct TransferReversal: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.balanceTransaction = try? container.decode(BalanceTransaction.self)
+            self.balanceTransaction = try? container.decode(StripeAPI.BalanceTransaction.self)
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -29644,9 +29644,9 @@ public struct TransferReversal: Codable {
     /// ID of the transfer that was reversed.
     public final class Transfer: Codable {
         public var string: String?
-        public var transfer: Transfer?
+        public var transfer: StripeAPI.Transfer?
 
-        public init(string: String? = nil, transfer: Transfer? = nil) {
+        public init(string: String? = nil, transfer: StripeAPI.Transfer? = nil) {
             self.string = string
             self.transfer = transfer
         }
@@ -29654,7 +29654,7 @@ public struct TransferReversal: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.transfer = try? container.decode(Transfer.self)
+            self.transfer = try? container.decode(StripeAPI.Transfer.self)
         }
 
         public func encode(to encoder: Encoder) throws {

@@ -25,7 +25,17 @@ extension Generator {
     }
     
     private func render(_ decl: EntityDeclaration) -> String {
-        let properties = decl.properties
+        let properties: [Property] = decl.properties
+            .map {
+                // This handles a scenario where a nested entity has a reference
+                // to one of the top-level types with the same name as the entity.
+                if $0.type.name == decl.name && $0.nested == nil, decl.parent != nil {
+                    var property = $0
+                    property.type = .builtin(name: $0.type.identifier(namespace: arguments.module.rawValue)) // TODO: Refactor
+                    return property
+                }
+                return $0
+            }
         
         var contents: [String] = []
         switch decl.type {
