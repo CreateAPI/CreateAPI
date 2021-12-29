@@ -404,10 +404,6 @@ extension Generator {
                    case .object(_, let details) = schema.jsonSchema.value {
                     return try makeProperties(for: name, object: details, context: context)
                 } else {
-                    var context = context
-                    if name.rawValue == info.name { // Gotta disambiguate
-                        context.namespace = arguments.module.rawValue
-                    }
                     return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
                 }
             default:
