@@ -362,7 +362,8 @@ extension Generator {
     
     private func makeEntity(name: TypeName, type: EntityType, info: JSONSchemaContext, context: Context) -> (EntityDeclaration, Context) {
         let entity = EntityDeclaration(name: name, type: type, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding, parent: context.parents.last)
-        return (entity, context.adding(entity))
+        let context = context.map { $0.parents.append(entity) }
+        return (entity, context)
     }
     
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
