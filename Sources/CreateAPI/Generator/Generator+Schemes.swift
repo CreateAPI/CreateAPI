@@ -389,7 +389,7 @@ extension Generator {
         // Covers a weird case encountered in open-banking.yaml spec (xml-sct schema)
         // TODO: We can potentially inline this instead of creating a typealias
         if entity.properties.count == 1, entity.properties[0].nested == nil {
-            return TypealiasDeclaration(name: name, type: entity.properties[0].type)
+            return TypealiasDeclaration(name: name, type: entity.properties[0].type, nested: entity.properties[0].nested)
         }
 
         return entity
@@ -434,7 +434,7 @@ extension Generator {
         
         // TODO: Figure out how to inline these
         if properties.count == 1 {
-            return TypealiasDeclaration(name: name, type: properties[0].type)
+            return TypealiasDeclaration(name: name, type: properties[0].type, nested: properties[0].nested)
         }
         
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
