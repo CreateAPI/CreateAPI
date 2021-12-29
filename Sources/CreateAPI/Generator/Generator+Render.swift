@@ -137,6 +137,9 @@ extension Generator {
         hasReferences(to: entity.name, entity)
     }
     
+    // TODO: This doesn't handle a scenario where a reference is detected in an
+    // entity that itself has references to itself and thus always gets geenrated
+    // as a class. So technically, struct is ok, but we err on the safe safe.
     private func hasReferences(to type: TypeName, _ entity: EntityDeclaration) -> Bool {
         var encountered = Set<TypeName>()
         var properties = entity.properties
