@@ -1253,7 +1253,7 @@ public struct AlipayAccount: Codable {
     }
 }
 
-public struct APIErrors: Codable {
+public final class APIErrors: Codable {
     /// For card errors, the ID of the failed charge.
     public var charge: String?
     /// For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
@@ -1754,7 +1754,7 @@ public struct BalanceDetail: Codable {
 /// They're created for every type of transaction that comes into or flows out of your Stripe account balance.
 /// 
 /// Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
-public struct BalanceTransaction: Codable {
+public final class BalanceTransaction: Codable {
     /// Gross amount of the transaction, in %s.
     public var amount: Int
     /// The date the transaction's net funds will become available in the Stripe balance.
@@ -10177,7 +10177,7 @@ public struct IssuingAuthorization: Codable {
 }
 
 /// You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
-public struct IssuingCard: Codable {
+public final class IssuingCard: Codable {
     /// The brand of the card.
     public var brand: String
     /// The reason why the card was canceled.
@@ -10539,7 +10539,7 @@ public struct IssuingCardholder: Codable {
 /// As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
 /// 
 /// Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
-public struct IssuingDispute: Codable {
+public final class IssuingDispute: Codable {
     /// Disputed amount. Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
     public var amount: Int
     /// List of balance transactions associated with the dispute.
@@ -10717,7 +10717,7 @@ public struct IssuingSettlement: Codable {
 /// `Transaction` object.
 /// 
 /// Related guide: [Issued Card Transactions](https://stripe.com/docs/issuing/purchases/transactions).
-public struct IssuingTransaction: Codable {
+public final class IssuingTransaction: Codable {
     /// The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     public var amount: Int
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
@@ -15655,7 +15655,7 @@ public struct PaymentFlowsPrivatePaymentMethodsKlarnaDob: Codable {
 /// authentication flows and ultimately creates at most one successful charge.
 /// 
 /// Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents).
-public struct PaymentIntent: Codable {
+public final class PaymentIntent: Codable {
     /// Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     public var amount: Int
     /// Amount that can be captured from this PaymentIntent.
@@ -20373,7 +20373,7 @@ public struct PaymentSource: Codable {
 /// industry.
 /// 
 /// Related guide: [Receiving Payouts](https://stripe.com/docs/payouts).
-public struct Payout: Codable {
+public final class Payout: Codable {
     /// Amount (in %s) to be transferred to your bank account or debit card.
     public var amount: Int
     /// Date the payout is expected to arrive in the bank. This factors in delays like weekends or bank holidays.
@@ -23140,7 +23140,7 @@ public struct Recurring: Codable {
 /// was originally charged.
 /// 
 /// Related guide: [Refunds](https://stripe.com/docs/refunds).
-public struct Refund: Codable {
+public final class Refund: Codable {
     /// Amount, in %s.
     public var amount: Int
     /// Balance transaction that describes the impact on your account balance.

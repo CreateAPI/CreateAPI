@@ -200,7 +200,7 @@ public struct User: Codable {
 /// This object represents a chat.
 ///
 /// [External Documentation](https://core.telegram.org/bots/api/#chat)
-public struct Chat: Codable {
+public final class Chat: Codable {
     /// Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
     public var id: Int
     /// Type of chat, can be either “private”, “group”, “supergroup” or “channel”

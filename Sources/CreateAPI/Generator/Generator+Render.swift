@@ -117,7 +117,7 @@ extension Generator {
         let entity: String
         if decl.type == .oneOf {
             entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
-        } else if decl.hasReferencesToItself {
+        } else if hasRefeferencesToItself(decl) {
             // Struct can't have references to itself
             entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
         } else {
@@ -132,21 +132,45 @@ extension Generator {
             .compactMap { $0 }
             .joined(separator: "\n\n")
     }
-}
-
-private extension EntityDeclaration {
-    var hasReferencesToItself: Bool {
-        properties.contains {
+    
+    private func hasRefeferencesToItself(_ entity: EntityDeclaration) -> Bool {
+        hasReferences(to: entity.name, entity)
+    }
+    
+    private func hasReferences(to type: TypeName, _ entity: EntityDeclaration) -> Bool {
+        var encountered = Set<TypeName>()
+        var properties = entity.properties
+        while let property = properties.popLast() {
+            guard case .userDefined(let propertyType) = property.type else {
+                // Skip built-in types and collections (they are OK for the purposes
+                // or generating structs)
+                continue
+            }
+            guard !encountered.contains(propertyType) else {
+                continue // Found a cycle (but not in entity)
+            }
+            encountered.insert(propertyType)
             // Check a simple case where a property references to the type itself
             // (not it's not a nested type with the same name)
-            if $0.type.name == name && $0.nested == nil {
+            if property.type.elementType.name == type && property.nested == nil {
                 return true
             }
-            // Shallow check for typealiases
-            if let alias = $0.nested as? TypealiasDeclaration, alias.type.name == name {
-                return true
+            // Deep check in nested objects or other top-level declarations.
+            if let nested = property.nested {
+                switch nested {
+                case let decl as EntityDeclaration:
+                    properties += decl.properties
+                case let alias as TypealiasDeclaration:
+                    if alias.type.name == type {
+                        return true
+                    }
+                default:
+                    break
+                }
+            } else if let entity = generatedEntities[property.type.elementType.name] {
+                properties += entity.properties
             }
-            return false
         }
+        return false
     }
 }

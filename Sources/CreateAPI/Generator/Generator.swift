@@ -23,6 +23,7 @@ final class Generator {
     var isNaiveDateNeeded = false
     var needsEncodable = Set<TypeName>()
     var topLevelTypes = Set<TypeName>()
+    var generatedEntities: [TypeName: EntityDeclaration] = [:]
     let lock = NSLock()
     
     private var startTime: CFAbsoluteTime?

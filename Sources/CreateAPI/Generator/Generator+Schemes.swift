@@ -34,29 +34,40 @@ extension Generator {
     
     private func _schemas() throws -> GeneratorOutput {
         let jobs = makeJobs()
-        var generated = Array<Result<GeneratedFile, Error>?>(repeating: nil, count: jobs.count)
+        var declarations = Array<Result<Declaration, Error>?>(repeating: nil, count: jobs.count)
         topLevelTypes = Set(jobs.map(\.name))
         let lock = NSLock()
         concurrentPerform(on: jobs, parallel: arguments.isParallel) { index, job in
             let job = jobs[index]
 
             do {
-                if let entry = try makeDeclaration(job: job) {
-                    let file = GeneratedFile(name: job.name.rawValue, contents: render(entry))
-                    lock.sync { generated[index] = .success(file) }
+                if let decl = try makeDeclaration(job: job) {
+                    lock.sync {
+                        declarations[index] = .success(decl)
+                    }
                 }
             } catch {
                 if arguments.isStrict {
-                    lock.sync { generated[index] = .failure(error) }
+                    lock.sync { declarations[index] = .failure(error) }
                 } else {
                     print("ERROR: Failed to generate entity for \(job.name.rawValue): \(error)")
                 }
             }
         }
-            
+        // Pre-process generated entities before rendering.
+        for result in declarations.compactMap({ $0 }) {
+            let entity = try result.get()
+            generatedEntities[entity.name] = entity as? EntityDeclaration
+        }
+        // Render entities as a final phase
+        let files: [GeneratedFile] = try zip(jobs, declarations).map { job, result in
+            guard let entity = try result?.get() else { return nil }
+            return GeneratedFile(name: job.name.rawValue, contents: render(entity))
+        }.compactMap { $0 }
+   
         return GeneratorOutput(
             header: fileHeader,
-            files: try generated.compactMap { $0 }.map { try $0.get() },
+            files: files,
             extensions: makeExtensions()
         )
     }

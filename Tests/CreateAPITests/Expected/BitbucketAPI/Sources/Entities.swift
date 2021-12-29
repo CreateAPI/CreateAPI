@@ -278,7 +278,7 @@ public struct BaseCommit: Codable {
     }
 }
 
-public struct Branch: Codable {
+public final class Branch: Codable {
     public var ref: Ref
     /// The default merge strategy for pull requests targeting this branch.
     public var defaultMergeStrategy: String?
@@ -825,7 +825,7 @@ public final class Comment: Codable {
     }
 }
 
-public struct Commit: Codable {
+public final class Commit: Codable {
     public var baseCommit: BaseCommit
     public var participants: [Participant]?
     public var repository: Repository?
@@ -5487,7 +5487,7 @@ public struct PullrequestMergeParameters: Codable {
 }
 
 /// A ref object, representing a branch or tag in a repository.
-public struct Ref: Codable {
+public final class Ref: Codable {
     public var links: Links?
     /// The name of the ref.
     public var name: String?
