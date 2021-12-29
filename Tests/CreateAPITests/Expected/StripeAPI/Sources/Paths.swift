@@ -47618,600 +47618,600 @@ extension Paths.Reporting {
                 }
 
                 public enum Timezone: String, Codable, CaseIterable {
-                    case Africa/Abidjan
-                    case Africa/Accra
-                    case Africa/Addis_Ababa
-                    case Africa/Algiers
-                    case Africa/Asmara
-                    case Africa/Asmera
-                    case Africa/Bamako
-                    case Africa/Bangui
-                    case Africa/Banjul
-                    case Africa/Bissau
-                    case Africa/Blantyre
-                    case Africa/Brazzaville
-                    case Africa/Bujumbura
-                    case Africa/Cairo
-                    case Africa/Casablanca
-                    case Africa/Ceuta
-                    case Africa/Conakry
-                    case Africa/Dakar
-                    case Africa/Dar_es_Salaam
-                    case Africa/Djibouti
-                    case Africa/Douala
-                    case Africa/El_Aaiun
-                    case Africa/Freetown
-                    case Africa/Gaborone
-                    case Africa/Harare
-                    case Africa/Johannesburg
-                    case Africa/Juba
-                    case Africa/Kampala
-                    case Africa/Khartoum
-                    case Africa/Kigali
-                    case Africa/Kinshasa
-                    case Africa/Lagos
-                    case Africa/Libreville
-                    case Africa/Lome
-                    case Africa/Luanda
-                    case Africa/Lubumbashi
-                    case Africa/Lusaka
-                    case Africa/Malabo
-                    case Africa/Maputo
-                    case Africa/Maseru
-                    case Africa/Mbabane
-                    case Africa/Mogadishu
-                    case Africa/Monrovia
-                    case Africa/Nairobi
-                    case Africa/Ndjamena
-                    case Africa/Niamey
-                    case Africa/Nouakchott
-                    case Africa/Ouagadougou
-                    case Africa/Porto-Novo
-                    case Africa/Sao_Tome
-                    case Africa/Timbuktu
-                    case Africa/Tripoli
-                    case Africa/Tunis
-                    case Africa/Windhoek
-                    case America/Adak
-                    case America/Anchorage
-                    case America/Anguilla
-                    case America/Antigua
-                    case America/Araguaina
-                    case America/Argentina/Buenos_Aires
-                    case America/Argentina/Catamarca
-                    case America/Argentina/ComodRivadavia
-                    case America/Argentina/Cordoba
-                    case America/Argentina/Jujuy
-                    case America/Argentina/La_Rioja
-                    case America/Argentina/Mendoza
-                    case America/Argentina/Rio_Gallegos
-                    case America/Argentina/Salta
-                    case America/Argentina/San_Juan
-                    case America/Argentina/San_Luis
-                    case America/Argentina/Tucuman
-                    case America/Argentina/Ushuaia
-                    case America/Aruba
-                    case America/Asuncion
-                    case America/Atikokan
-                    case America/Atka
-                    case America/Bahia
-                    case America/Bahia_Banderas
-                    case America/Barbados
-                    case America/Belem
-                    case America/Belize
-                    case America/Blanc-Sablon
-                    case America/Boa_Vista
-                    case America/Bogota
-                    case America/Boise
-                    case America/Buenos_Aires
-                    case America/Cambridge_Bay
-                    case America/Campo_Grande
-                    case America/Cancun
-                    case America/Caracas
-                    case America/Catamarca
-                    case America/Cayenne
-                    case America/Cayman
-                    case America/Chicago
-                    case America/Chihuahua
-                    case America/Coral_Harbour
-                    case America/Cordoba
-                    case America/Costa_Rica
-                    case America/Creston
-                    case America/Cuiaba
-                    case America/Curacao
-                    case America/Danmarkshavn
-                    case America/Dawson
-                    case America/Dawson_Creek
-                    case America/Denver
-                    case America/Detroit
-                    case America/Dominica
-                    case America/Edmonton
-                    case America/Eirunepe
-                    case America/El_Salvador
-                    case America/Ensenada
-                    case America/Fort_Nelson
-                    case America/Fort_Wayne
-                    case America/Fortaleza
-                    case America/Glace_Bay
-                    case America/Godthab
-                    case America/Goose_Bay
-                    case America/Grand_Turk
-                    case America/Grenada
-                    case America/Guadeloupe
-                    case America/Guatemala
-                    case America/Guayaquil
-                    case America/Guyana
-                    case America/Halifax
-                    case America/Havana
-                    case America/Hermosillo
-                    case America/Indiana/Indianapolis
-                    case America/Indiana/Knox
-                    case America/Indiana/Marengo
-                    case America/Indiana/Petersburg
-                    case America/Indiana/Tell_City
-                    case America/Indiana/Vevay
-                    case America/Indiana/Vincennes
-                    case America/Indiana/Winamac
-                    case America/Indianapolis
-                    case America/Inuvik
-                    case America/Iqaluit
-                    case America/Jamaica
-                    case America/Jujuy
-                    case America/Juneau
-                    case America/Kentucky/Louisville
-                    case America/Kentucky/Monticello
-                    case America/Knox_IN
-                    case America/Kralendijk
-                    case America/La_Paz
-                    case America/Lima
-                    case America/Los_Angeles
-                    case America/Louisville
-                    case America/Lower_Princes
-                    case America/Maceio
-                    case America/Managua
-                    case America/Manaus
-                    case America/Marigot
-                    case America/Martinique
-                    case America/Matamoros
-                    case America/Mazatlan
-                    case America/Mendoza
-                    case America/Menominee
-                    case America/Merida
-                    case America/Metlakatla
-                    case America/Mexico_City
-                    case America/Miquelon
-                    case America/Moncton
-                    case America/Monterrey
-                    case America/Montevideo
-                    case America/Montreal
-                    case America/Montserrat
-                    case America/Nassau
-                    case America/New_York
-                    case America/Nipigon
-                    case America/Nome
-                    case America/Noronha
-                    case America/North_Dakota/Beulah
-                    case America/North_Dakota/Center
-                    case America/North_Dakota/New_Salem
-                    case America/Ojinaga
-                    case America/Panama
-                    case America/Pangnirtung
-                    case America/Paramaribo
-                    case America/Phoenix
-                    case America/Port-au-Prince
-                    case America/Port_of_Spain
-                    case America/Porto_Acre
-                    case America/Porto_Velho
-                    case America/Puerto_Rico
-                    case America/Punta_Arenas
-                    case America/Rainy_River
-                    case America/Rankin_Inlet
-                    case America/Recife
-                    case America/Regina
-                    case America/Resolute
-                    case America/Rio_Branco
-                    case America/Rosario
-                    case America/Santa_Isabel
-                    case America/Santarem
-                    case America/Santiago
-                    case America/Santo_Domingo
-                    case America/Sao_Paulo
-                    case America/Scoresbysund
-                    case America/Shiprock
-                    case America/Sitka
-                    case America/St_Barthelemy
-                    case America/St_Johns
-                    case America/St_Kitts
-                    case America/St_Lucia
-                    case America/St_Thomas
-                    case America/St_Vincent
-                    case America/Swift_Current
-                    case America/Tegucigalpa
-                    case America/Thule
-                    case America/Thunder_Bay
-                    case America/Tijuana
-                    case America/Toronto
-                    case America/Tortola
-                    case America/Vancouver
-                    case America/Virgin
-                    case America/Whitehorse
-                    case America/Winnipeg
-                    case America/Yakutat
-                    case America/Yellowknife
-                    case Antarctica/Casey
-                    case Antarctica/Davis
-                    case Antarctica/DumontDUrville
-                    case Antarctica/Macquarie
-                    case Antarctica/Mawson
-                    case Antarctica/McMurdo
-                    case Antarctica/Palmer
-                    case Antarctica/Rothera
-                    case Antarctica/South_Pole
-                    case Antarctica/Syowa
-                    case Antarctica/Troll
-                    case Antarctica/Vostok
-                    case Arctic/Longyearbyen
-                    case Asia/Aden
-                    case Asia/Almaty
-                    case Asia/Amman
-                    case Asia/Anadyr
-                    case Asia/Aqtau
-                    case Asia/Aqtobe
-                    case Asia/Ashgabat
-                    case Asia/Ashkhabad
-                    case Asia/Atyrau
-                    case Asia/Baghdad
-                    case Asia/Bahrain
-                    case Asia/Baku
-                    case Asia/Bangkok
-                    case Asia/Barnaul
-                    case Asia/Beirut
-                    case Asia/Bishkek
-                    case Asia/Brunei
-                    case Asia/Calcutta
-                    case Asia/Chita
-                    case Asia/Choibalsan
-                    case Asia/Chongqing
-                    case Asia/Chungking
-                    case Asia/Colombo
-                    case Asia/Dacca
-                    case Asia/Damascus
-                    case Asia/Dhaka
-                    case Asia/Dili
-                    case Asia/Dubai
-                    case Asia/Dushanbe
-                    case Asia/Famagusta
-                    case Asia/Gaza
-                    case Asia/Harbin
-                    case Asia/Hebron
-                    case Asia/Ho_Chi_Minh
-                    case Asia/Hong_Kong
-                    case Asia/Hovd
-                    case Asia/Irkutsk
-                    case Asia/Istanbul
-                    case Asia/Jakarta
-                    case Asia/Jayapura
-                    case Asia/Jerusalem
-                    case Asia/Kabul
-                    case Asia/Kamchatka
-                    case Asia/Karachi
-                    case Asia/Kashgar
-                    case Asia/Kathmandu
-                    case Asia/Katmandu
-                    case Asia/Khandyga
-                    case Asia/Kolkata
-                    case Asia/Krasnoyarsk
-                    case Asia/Kuala_Lumpur
-                    case Asia/Kuching
-                    case Asia/Kuwait
-                    case Asia/Macao
-                    case Asia/Macau
-                    case Asia/Magadan
-                    case Asia/Makassar
-                    case Asia/Manila
-                    case Asia/Muscat
-                    case Asia/Nicosia
-                    case Asia/Novokuznetsk
-                    case Asia/Novosibirsk
-                    case Asia/Omsk
-                    case Asia/Oral
-                    case Asia/Phnom_Penh
-                    case Asia/Pontianak
-                    case Asia/Pyongyang
-                    case Asia/Qatar
-                    case Asia/Qostanay
-                    case Asia/Qyzylorda
-                    case Asia/Rangoon
-                    case Asia/Riyadh
-                    case Asia/Saigon
-                    case Asia/Sakhalin
-                    case Asia/Samarkand
-                    case Asia/Seoul
-                    case Asia/Shanghai
-                    case Asia/Singapore
-                    case Asia/Srednekolymsk
-                    case Asia/Taipei
-                    case Asia/Tashkent
-                    case Asia/Tbilisi
-                    case Asia/Tehran
-                    case Asia/Tel_Aviv
-                    case Asia/Thimbu
-                    case Asia/Thimphu
-                    case Asia/Tokyo
-                    case Asia/Tomsk
-                    case Asia/Ujung_Pandang
-                    case Asia/Ulaanbaatar
-                    case Asia/Ulan_Bator
-                    case Asia/Urumqi
-                    case Asia/Ust-Nera
-                    case Asia/Vientiane
-                    case Asia/Vladivostok
-                    case Asia/Yakutsk
-                    case Asia/Yangon
-                    case Asia/Yekaterinburg
-                    case Asia/Yerevan
-                    case Atlantic/Azores
-                    case Atlantic/Bermuda
-                    case Atlantic/Canary
-                    case Atlantic/Cape_Verde
-                    case Atlantic/Faeroe
-                    case Atlantic/Faroe
-                    case Atlantic/Jan_Mayen
-                    case Atlantic/Madeira
-                    case Atlantic/Reykjavik
-                    case Atlantic/South_Georgia
-                    case Atlantic/St_Helena
-                    case Atlantic/Stanley
-                    case Australia/ACT
-                    case Australia/Adelaide
-                    case Australia/Brisbane
-                    case Australia/Broken_Hill
-                    case Australia/Canberra
-                    case Australia/Currie
-                    case Australia/Darwin
-                    case Australia/Eucla
-                    case Australia/Hobart
-                    case Australia/LHI
-                    case Australia/Lindeman
-                    case Australia/Lord_Howe
-                    case Australia/Melbourne
-                    case Australia/NSW
-                    case Australia/North
-                    case Australia/Perth
-                    case Australia/Queensland
-                    case Australia/South
-                    case Australia/Sydney
-                    case Australia/Tasmania
-                    case Australia/Victoria
-                    case Australia/West
-                    case Australia/Yancowinna
-                    case Brazil/Acre
-                    case Brazil/DeNoronha
-                    case Brazil/East
-                    case Brazil/West
-                    case CET
-                    case CST6CDT
-                    case Canada/Atlantic
-                    case Canada/Central
-                    case Canada/Eastern
-                    case Canada/Mountain
-                    case Canada/Newfoundland
-                    case Canada/Pacific
-                    case Canada/Saskatchewan
-                    case Canada/Yukon
-                    case Chile/Continental
-                    case Chile/EasterIsland
-                    case Cuba
-                    case EET
-                    case EST
-                    case EST5EDT
-                    case Egypt
-                    case Eire
-                    case Etc/GMT
-                    case Etc/GMT+0
-                    case Etc/GMT+1
-                    case Etc/GMT+10
-                    case Etc/GMT+11
-                    case Etc/GMT+12
-                    case Etc/GMT+2
-                    case Etc/GMT+3
-                    case Etc/GMT+4
-                    case Etc/GMT+5
-                    case Etc/GMT+6
-                    case Etc/GMT+7
-                    case Etc/GMT+8
-                    case Etc/GMT+9
-                    case Etc/GMT-0
-                    case Etc/GMT-1
-                    case Etc/GMT-10
-                    case Etc/GMT-11
-                    case Etc/GMT-12
-                    case Etc/GMT-13
-                    case Etc/GMT-14
-                    case Etc/GMT-2
-                    case Etc/GMT-3
-                    case Etc/GMT-4
-                    case Etc/GMT-5
-                    case Etc/GMT-6
-                    case Etc/GMT-7
-                    case Etc/GMT-8
-                    case Etc/GMT-9
-                    case Etc/GMT0
-                    case Etc/Greenwich
-                    case Etc/UCT
-                    case Etc/UTC
-                    case Etc/Universal
-                    case Etc/Zulu
-                    case Europe/Amsterdam
-                    case Europe/Andorra
-                    case Europe/Astrakhan
-                    case Europe/Athens
-                    case Europe/Belfast
-                    case Europe/Belgrade
-                    case Europe/Berlin
-                    case Europe/Bratislava
-                    case Europe/Brussels
-                    case Europe/Bucharest
-                    case Europe/Budapest
-                    case Europe/Busingen
-                    case Europe/Chisinau
-                    case Europe/Copenhagen
-                    case Europe/Dublin
-                    case Europe/Gibraltar
-                    case Europe/Guernsey
-                    case Europe/Helsinki
-                    case Europe/Isle_of_Man
-                    case Europe/Istanbul
-                    case Europe/Jersey
-                    case Europe/Kaliningrad
-                    case Europe/Kiev
-                    case Europe/Kirov
-                    case Europe/Lisbon
-                    case Europe/Ljubljana
-                    case Europe/London
-                    case Europe/Luxembourg
-                    case Europe/Madrid
-                    case Europe/Malta
-                    case Europe/Mariehamn
-                    case Europe/Minsk
-                    case Europe/Monaco
-                    case Europe/Moscow
-                    case Europe/Nicosia
-                    case Europe/Oslo
-                    case Europe/Paris
-                    case Europe/Podgorica
-                    case Europe/Prague
-                    case Europe/Riga
-                    case Europe/Rome
-                    case Europe/Samara
-                    case Europe/San_Marino
-                    case Europe/Sarajevo
-                    case Europe/Saratov
-                    case Europe/Simferopol
-                    case Europe/Skopje
-                    case Europe/Sofia
-                    case Europe/Stockholm
-                    case Europe/Tallinn
-                    case Europe/Tirane
-                    case Europe/Tiraspol
-                    case Europe/Ulyanovsk
-                    case Europe/Uzhgorod
-                    case Europe/Vaduz
-                    case Europe/Vatican
-                    case Europe/Vienna
-                    case Europe/Vilnius
-                    case Europe/Volgograd
-                    case Europe/Warsaw
-                    case Europe/Zagreb
-                    case Europe/Zaporozhye
-                    case Europe/Zurich
-                    case Factory
-                    case GB
-                    case GB-Eire
-                    case GMT
-                    case GMT+0
-                    case GMT-0
-                    case GMT0
-                    case Greenwich
-                    case HST
-                    case Hongkong
-                    case Iceland
-                    case Indian/Antananarivo
-                    case Indian/Chagos
-                    case Indian/Christmas
-                    case Indian/Cocos
-                    case Indian/Comoro
-                    case Indian/Kerguelen
-                    case Indian/Mahe
-                    case Indian/Maldives
-                    case Indian/Mauritius
-                    case Indian/Mayotte
-                    case Indian/Reunion
-                    case Iran
-                    case Israel
-                    case Jamaica
-                    case Japan
-                    case Kwajalein
-                    case Libya
-                    case MET
-                    case MST
-                    case MST7MDT
-                    case Mexico/BajaNorte
-                    case Mexico/BajaSur
-                    case Mexico/General
-                    case NZ
-                    case NZ-CHAT
-                    case Navajo
-                    case PRC
-                    case PST8PDT
-                    case Pacific/Apia
-                    case Pacific/Auckland
-                    case Pacific/Bougainville
-                    case Pacific/Chatham
-                    case Pacific/Chuuk
-                    case Pacific/Easter
-                    case Pacific/Efate
-                    case Pacific/Enderbury
-                    case Pacific/Fakaofo
-                    case Pacific/Fiji
-                    case Pacific/Funafuti
-                    case Pacific/Galapagos
-                    case Pacific/Gambier
-                    case Pacific/Guadalcanal
-                    case Pacific/Guam
-                    case Pacific/Honolulu
-                    case Pacific/Johnston
-                    case Pacific/Kiritimati
-                    case Pacific/Kosrae
-                    case Pacific/Kwajalein
-                    case Pacific/Majuro
-                    case Pacific/Marquesas
-                    case Pacific/Midway
-                    case Pacific/Nauru
-                    case Pacific/Niue
-                    case Pacific/Norfolk
-                    case Pacific/Noumea
-                    case Pacific/Pago_Pago
-                    case Pacific/Palau
-                    case Pacific/Pitcairn
-                    case Pacific/Pohnpei
-                    case Pacific/Ponape
-                    case Pacific/Port_Moresby
-                    case Pacific/Rarotonga
-                    case Pacific/Saipan
-                    case Pacific/Samoa
-                    case Pacific/Tahiti
-                    case Pacific/Tarawa
-                    case Pacific/Tongatapu
-                    case Pacific/Truk
-                    case Pacific/Wake
-                    case Pacific/Wallis
-                    case Pacific/Yap
-                    case Poland
-                    case Portugal
-                    case ROC
-                    case ROK
-                    case Singapore
-                    case Turkey
-                    case UCT
-                    case US/Alaska
-                    case US/Aleutian
-                    case US/Arizona
-                    case US/Central
-                    case US/East-Indiana
-                    case US/Eastern
-                    case US/Hawaii
-                    case US/Indiana-Starke
-                    case US/Michigan
-                    case US/Mountain
-                    case US/Pacific
-                    case US/Pacific-New
-                    case US/Samoa
-                    case UTC
-                    case Universal
-                    case W-SU
-                    case WET
-                    case Zulu
+                    case africaAbidjan = "Africa/Abidjan"
+                    case africaAccra = "Africa/Accra"
+                    case africaAddisAbaba = "Africa/Addis_Ababa"
+                    case africaAlgiers = "Africa/Algiers"
+                    case africaAsmara = "Africa/Asmara"
+                    case africaAsmera = "Africa/Asmera"
+                    case africaBamako = "Africa/Bamako"
+                    case africaBangui = "Africa/Bangui"
+                    case africaBanjul = "Africa/Banjul"
+                    case africaBissau = "Africa/Bissau"
+                    case africaBlantyre = "Africa/Blantyre"
+                    case africaBrazzaville = "Africa/Brazzaville"
+                    case africaBujumbura = "Africa/Bujumbura"
+                    case africaCairo = "Africa/Cairo"
+                    case africaCasablanca = "Africa/Casablanca"
+                    case africaCeuta = "Africa/Ceuta"
+                    case africaConakry = "Africa/Conakry"
+                    case africaDakar = "Africa/Dakar"
+                    case africaDarEsSalaam = "Africa/Dar_es_Salaam"
+                    case africaDjibouti = "Africa/Djibouti"
+                    case africaDouala = "Africa/Douala"
+                    case africaElAaiun = "Africa/El_Aaiun"
+                    case africaFreetown = "Africa/Freetown"
+                    case africaGaborone = "Africa/Gaborone"
+                    case africaHarare = "Africa/Harare"
+                    case africaJohannesburg = "Africa/Johannesburg"
+                    case africaJuba = "Africa/Juba"
+                    case africaKampala = "Africa/Kampala"
+                    case africaKhartoum = "Africa/Khartoum"
+                    case africaKigali = "Africa/Kigali"
+                    case africaKinshasa = "Africa/Kinshasa"
+                    case africaLagos = "Africa/Lagos"
+                    case africaLibreville = "Africa/Libreville"
+                    case africaLome = "Africa/Lome"
+                    case africaLuanda = "Africa/Luanda"
+                    case africaLubumbashi = "Africa/Lubumbashi"
+                    case africaLusaka = "Africa/Lusaka"
+                    case africaMalabo = "Africa/Malabo"
+                    case africaMaputo = "Africa/Maputo"
+                    case africaMaseru = "Africa/Maseru"
+                    case africaMbabane = "Africa/Mbabane"
+                    case africaMogadishu = "Africa/Mogadishu"
+                    case africaMonrovia = "Africa/Monrovia"
+                    case africaNairobi = "Africa/Nairobi"
+                    case africaNdjamena = "Africa/Ndjamena"
+                    case africaNiamey = "Africa/Niamey"
+                    case africaNouakchott = "Africa/Nouakchott"
+                    case africaOuagadougou = "Africa/Ouagadougou"
+                    case africaPortoNovo = "Africa/Porto-Novo"
+                    case africaSaoTome = "Africa/Sao_Tome"
+                    case africaTimbuktu = "Africa/Timbuktu"
+                    case africaTripoli = "Africa/Tripoli"
+                    case africaTunis = "Africa/Tunis"
+                    case africaWindhoek = "Africa/Windhoek"
+                    case americaAdak = "America/Adak"
+                    case americaAnchorage = "America/Anchorage"
+                    case americaAnguilla = "America/Anguilla"
+                    case americaAntigua = "America/Antigua"
+                    case americaAraguaina = "America/Araguaina"
+                    case americaArgentinaBuenosAires = "America/Argentina/Buenos_Aires"
+                    case americaArgentinaCatamarca = "America/Argentina/Catamarca"
+                    case americaArgentinaComodRivadavia = "America/Argentina/ComodRivadavia"
+                    case americaArgentinaCordoba = "America/Argentina/Cordoba"
+                    case americaArgentinaJujuy = "America/Argentina/Jujuy"
+                    case americaArgentinaLaRioja = "America/Argentina/La_Rioja"
+                    case americaArgentinaMendoza = "America/Argentina/Mendoza"
+                    case americaArgentinaRioGallegos = "America/Argentina/Rio_Gallegos"
+                    case americaArgentinaSalta = "America/Argentina/Salta"
+                    case americaArgentinaSanJuan = "America/Argentina/San_Juan"
+                    case americaArgentinaSanLuis = "America/Argentina/San_Luis"
+                    case americaArgentinaTucuman = "America/Argentina/Tucuman"
+                    case americaArgentinaUshuaia = "America/Argentina/Ushuaia"
+                    case americaAruba = "America/Aruba"
+                    case americaAsuncion = "America/Asuncion"
+                    case americaAtikokan = "America/Atikokan"
+                    case americaAtka = "America/Atka"
+                    case americaBahia = "America/Bahia"
+                    case americaBahiaBanderas = "America/Bahia_Banderas"
+                    case americaBarbados = "America/Barbados"
+                    case americaBelem = "America/Belem"
+                    case americaBelize = "America/Belize"
+                    case americaBlancSablon = "America/Blanc-Sablon"
+                    case americaBoaVista = "America/Boa_Vista"
+                    case americaBogota = "America/Bogota"
+                    case americaBoise = "America/Boise"
+                    case americaBuenosAires = "America/Buenos_Aires"
+                    case americaCambridgeBay = "America/Cambridge_Bay"
+                    case americaCampoGrande = "America/Campo_Grande"
+                    case americaCancun = "America/Cancun"
+                    case americaCaracas = "America/Caracas"
+                    case americaCatamarca = "America/Catamarca"
+                    case americaCayenne = "America/Cayenne"
+                    case americaCayman = "America/Cayman"
+                    case americaChicago = "America/Chicago"
+                    case americaChihuahua = "America/Chihuahua"
+                    case americaCoralHarbour = "America/Coral_Harbour"
+                    case americaCordoba = "America/Cordoba"
+                    case americaCostaRica = "America/Costa_Rica"
+                    case americaCreston = "America/Creston"
+                    case americaCuiaba = "America/Cuiaba"
+                    case americaCuracao = "America/Curacao"
+                    case americaDanmarkshavn = "America/Danmarkshavn"
+                    case americaDawson = "America/Dawson"
+                    case americaDawsonCreek = "America/Dawson_Creek"
+                    case americaDenver = "America/Denver"
+                    case americaDetroit = "America/Detroit"
+                    case americaDominica = "America/Dominica"
+                    case americaEdmonton = "America/Edmonton"
+                    case americaEirunepe = "America/Eirunepe"
+                    case americaElSalvador = "America/El_Salvador"
+                    case americaEnsenada = "America/Ensenada"
+                    case americaFortNelson = "America/Fort_Nelson"
+                    case americaFortWayne = "America/Fort_Wayne"
+                    case americaFortaleza = "America/Fortaleza"
+                    case americaGlaceBay = "America/Glace_Bay"
+                    case americaGodthab = "America/Godthab"
+                    case americaGooseBay = "America/Goose_Bay"
+                    case americaGrandTurk = "America/Grand_Turk"
+                    case americaGrenada = "America/Grenada"
+                    case americaGuadeloupe = "America/Guadeloupe"
+                    case americaGuatemala = "America/Guatemala"
+                    case americaGuayaquil = "America/Guayaquil"
+                    case americaGuyana = "America/Guyana"
+                    case americaHalifax = "America/Halifax"
+                    case americaHavana = "America/Havana"
+                    case americaHermosillo = "America/Hermosillo"
+                    case americaIndianaIndianapolis = "America/Indiana/Indianapolis"
+                    case americaIndianaKnox = "America/Indiana/Knox"
+                    case americaIndianaMarengo = "America/Indiana/Marengo"
+                    case americaIndianaPetersburg = "America/Indiana/Petersburg"
+                    case americaIndianaTellCity = "America/Indiana/Tell_City"
+                    case americaIndianaVevay = "America/Indiana/Vevay"
+                    case americaIndianaVincennes = "America/Indiana/Vincennes"
+                    case americaIndianaWinamac = "America/Indiana/Winamac"
+                    case americaIndianapolis = "America/Indianapolis"
+                    case americaInuvik = "America/Inuvik"
+                    case americaIqaluit = "America/Iqaluit"
+                    case americaJamaica = "America/Jamaica"
+                    case americaJujuy = "America/Jujuy"
+                    case americaJuneau = "America/Juneau"
+                    case americaKentuckyLouisville = "America/Kentucky/Louisville"
+                    case americaKentuckyMonticello = "America/Kentucky/Monticello"
+                    case americaKnoxIN = "America/Knox_IN"
+                    case americaKralendijk = "America/Kralendijk"
+                    case americaLaPaz = "America/La_Paz"
+                    case americaLima = "America/Lima"
+                    case americaLosAngeles = "America/Los_Angeles"
+                    case americaLouisville = "America/Louisville"
+                    case americaLowerPrinces = "America/Lower_Princes"
+                    case americaMaceio = "America/Maceio"
+                    case americaManagua = "America/Managua"
+                    case americaManaus = "America/Manaus"
+                    case americaMarigot = "America/Marigot"
+                    case americaMartinique = "America/Martinique"
+                    case americaMatamoros = "America/Matamoros"
+                    case americaMazatlan = "America/Mazatlan"
+                    case americaMendoza = "America/Mendoza"
+                    case americaMenominee = "America/Menominee"
+                    case americaMerida = "America/Merida"
+                    case americaMetlakatla = "America/Metlakatla"
+                    case americaMexicoCity = "America/Mexico_City"
+                    case americaMiquelon = "America/Miquelon"
+                    case americaMoncton = "America/Moncton"
+                    case americaMonterrey = "America/Monterrey"
+                    case americaMontevideo = "America/Montevideo"
+                    case americaMontreal = "America/Montreal"
+                    case americaMontserrat = "America/Montserrat"
+                    case americaNassau = "America/Nassau"
+                    case americaNewYork = "America/New_York"
+                    case americaNipigon = "America/Nipigon"
+                    case americaNome = "America/Nome"
+                    case americaNoronha = "America/Noronha"
+                    case americaNorthDakotaBeulah = "America/North_Dakota/Beulah"
+                    case americaNorthDakotaCenter = "America/North_Dakota/Center"
+                    case americaNorthDakotaNewSalem = "America/North_Dakota/New_Salem"
+                    case americaOjinaga = "America/Ojinaga"
+                    case americaPanama = "America/Panama"
+                    case americaPangnirtung = "America/Pangnirtung"
+                    case americaParamaribo = "America/Paramaribo"
+                    case americaPhoenix = "America/Phoenix"
+                    case americaPortAuPrince = "America/Port-au-Prince"
+                    case americaPortOfSpain = "America/Port_of_Spain"
+                    case americaPortoAcre = "America/Porto_Acre"
+                    case americaPortoVelho = "America/Porto_Velho"
+                    case americaPuertoRico = "America/Puerto_Rico"
+                    case americaPuntaArenas = "America/Punta_Arenas"
+                    case americaRainyRiver = "America/Rainy_River"
+                    case americaRankinInlet = "America/Rankin_Inlet"
+                    case americaRecife = "America/Recife"
+                    case americaRegina = "America/Regina"
+                    case americaResolute = "America/Resolute"
+                    case americaRioBranco = "America/Rio_Branco"
+                    case americaRosario = "America/Rosario"
+                    case americaSantaIsabel = "America/Santa_Isabel"
+                    case americaSantarem = "America/Santarem"
+                    case americaSantiago = "America/Santiago"
+                    case americaSantoDomingo = "America/Santo_Domingo"
+                    case americaSaoPaulo = "America/Sao_Paulo"
+                    case americaScoresbysund = "America/Scoresbysund"
+                    case americaShiprock = "America/Shiprock"
+                    case americaSitka = "America/Sitka"
+                    case americaStBarthelemy = "America/St_Barthelemy"
+                    case americaStJohns = "America/St_Johns"
+                    case americaStKitts = "America/St_Kitts"
+                    case americaStLucia = "America/St_Lucia"
+                    case americaStThomas = "America/St_Thomas"
+                    case americaStVincent = "America/St_Vincent"
+                    case americaSwiftCurrent = "America/Swift_Current"
+                    case americaTegucigalpa = "America/Tegucigalpa"
+                    case americaThule = "America/Thule"
+                    case americaThunderBay = "America/Thunder_Bay"
+                    case americaTijuana = "America/Tijuana"
+                    case americaToronto = "America/Toronto"
+                    case americaTortola = "America/Tortola"
+                    case americaVancouver = "America/Vancouver"
+                    case americaVirgin = "America/Virgin"
+                    case americaWhitehorse = "America/Whitehorse"
+                    case americaWinnipeg = "America/Winnipeg"
+                    case americaYakutat = "America/Yakutat"
+                    case americaYellowknife = "America/Yellowknife"
+                    case antarcticaCasey = "Antarctica/Casey"
+                    case antarcticaDavis = "Antarctica/Davis"
+                    case antarcticaDumontDUrville = "Antarctica/DumontDUrville"
+                    case antarcticaMacquarie = "Antarctica/Macquarie"
+                    case antarcticaMawson = "Antarctica/Mawson"
+                    case antarcticaMcMurdo = "Antarctica/McMurdo"
+                    case antarcticaPalmer = "Antarctica/Palmer"
+                    case antarcticaRothera = "Antarctica/Rothera"
+                    case antarcticaSouthPole = "Antarctica/South_Pole"
+                    case antarcticaSyowa = "Antarctica/Syowa"
+                    case antarcticaTroll = "Antarctica/Troll"
+                    case antarcticaVostok = "Antarctica/Vostok"
+                    case arcticLongyearbyen = "Arctic/Longyearbyen"
+                    case asiaAden = "Asia/Aden"
+                    case asiaAlmaty = "Asia/Almaty"
+                    case asiaAmman = "Asia/Amman"
+                    case asiaAnadyr = "Asia/Anadyr"
+                    case asiaAqtau = "Asia/Aqtau"
+                    case asiaAqtobe = "Asia/Aqtobe"
+                    case asiaAshgabat = "Asia/Ashgabat"
+                    case asiaAshkhabad = "Asia/Ashkhabad"
+                    case asiaAtyrau = "Asia/Atyrau"
+                    case asiaBaghdad = "Asia/Baghdad"
+                    case asiaBahrain = "Asia/Bahrain"
+                    case asiaBaku = "Asia/Baku"
+                    case asiaBangkok = "Asia/Bangkok"
+                    case asiaBarnaul = "Asia/Barnaul"
+                    case asiaBeirut = "Asia/Beirut"
+                    case asiaBishkek = "Asia/Bishkek"
+                    case asiaBrunei = "Asia/Brunei"
+                    case asiaCalcutta = "Asia/Calcutta"
+                    case asiaChita = "Asia/Chita"
+                    case asiaChoibalsan = "Asia/Choibalsan"
+                    case asiaChongqing = "Asia/Chongqing"
+                    case asiaChungking = "Asia/Chungking"
+                    case asiaColombo = "Asia/Colombo"
+                    case asiaDacca = "Asia/Dacca"
+                    case asiaDamascus = "Asia/Damascus"
+                    case asiaDhaka = "Asia/Dhaka"
+                    case asiaDili = "Asia/Dili"
+                    case asiaDubai = "Asia/Dubai"
+                    case asiaDushanbe = "Asia/Dushanbe"
+                    case asiaFamagusta = "Asia/Famagusta"
+                    case asiaGaza = "Asia/Gaza"
+                    case asiaHarbin = "Asia/Harbin"
+                    case asiaHebron = "Asia/Hebron"
+                    case asiaHoChiMinh = "Asia/Ho_Chi_Minh"
+                    case asiaHongKong = "Asia/Hong_Kong"
+                    case asiaHovd = "Asia/Hovd"
+                    case asiaIrkutsk = "Asia/Irkutsk"
+                    case asiaIstanbul = "Asia/Istanbul"
+                    case asiaJakarta = "Asia/Jakarta"
+                    case asiaJayapura = "Asia/Jayapura"
+                    case asiaJerusalem = "Asia/Jerusalem"
+                    case asiaKabul = "Asia/Kabul"
+                    case asiaKamchatka = "Asia/Kamchatka"
+                    case asiaKarachi = "Asia/Karachi"
+                    case asiaKashgar = "Asia/Kashgar"
+                    case asiaKathmandu = "Asia/Kathmandu"
+                    case asiaKatmandu = "Asia/Katmandu"
+                    case asiaKhandyga = "Asia/Khandyga"
+                    case asiaKolkata = "Asia/Kolkata"
+                    case asiaKrasnoyarsk = "Asia/Krasnoyarsk"
+                    case asiaKualaLumpur = "Asia/Kuala_Lumpur"
+                    case asiaKuching = "Asia/Kuching"
+                    case asiaKuwait = "Asia/Kuwait"
+                    case asiaMacao = "Asia/Macao"
+                    case asiaMacau = "Asia/Macau"
+                    case asiaMagadan = "Asia/Magadan"
+                    case asiaMakassar = "Asia/Makassar"
+                    case asiaManila = "Asia/Manila"
+                    case asiaMuscat = "Asia/Muscat"
+                    case asiaNicosia = "Asia/Nicosia"
+                    case asiaNovokuznetsk = "Asia/Novokuznetsk"
+                    case asiaNovosibirsk = "Asia/Novosibirsk"
+                    case asiaOmsk = "Asia/Omsk"
+                    case asiaOral = "Asia/Oral"
+                    case asiaPhnomPenh = "Asia/Phnom_Penh"
+                    case asiaPontianak = "Asia/Pontianak"
+                    case asiaPyongyang = "Asia/Pyongyang"
+                    case asiaQatar = "Asia/Qatar"
+                    case asiaQostanay = "Asia/Qostanay"
+                    case asiaQyzylorda = "Asia/Qyzylorda"
+                    case asiaRangoon = "Asia/Rangoon"
+                    case asiaRiyadh = "Asia/Riyadh"
+                    case asiaSaigon = "Asia/Saigon"
+                    case asiaSakhalin = "Asia/Sakhalin"
+                    case asiaSamarkand = "Asia/Samarkand"
+                    case asiaSeoul = "Asia/Seoul"
+                    case asiaShanghai = "Asia/Shanghai"
+                    case asiaSingapore = "Asia/Singapore"
+                    case asiaSrednekolymsk = "Asia/Srednekolymsk"
+                    case asiaTaipei = "Asia/Taipei"
+                    case asiaTashkent = "Asia/Tashkent"
+                    case asiaTbilisi = "Asia/Tbilisi"
+                    case asiaTehran = "Asia/Tehran"
+                    case asiaTelAviv = "Asia/Tel_Aviv"
+                    case asiaThimbu = "Asia/Thimbu"
+                    case asiaThimphu = "Asia/Thimphu"
+                    case asiaTokyo = "Asia/Tokyo"
+                    case asiaTomsk = "Asia/Tomsk"
+                    case asiaUjungPandang = "Asia/Ujung_Pandang"
+                    case asiaUlaanbaatar = "Asia/Ulaanbaatar"
+                    case asiaUlanBator = "Asia/Ulan_Bator"
+                    case asiaUrumqi = "Asia/Urumqi"
+                    case asiaUstNera = "Asia/Ust-Nera"
+                    case asiaVientiane = "Asia/Vientiane"
+                    case asiaVladivostok = "Asia/Vladivostok"
+                    case asiaYakutsk = "Asia/Yakutsk"
+                    case asiaYangon = "Asia/Yangon"
+                    case asiaYekaterinburg = "Asia/Yekaterinburg"
+                    case asiaYerevan = "Asia/Yerevan"
+                    case atlanticAzores = "Atlantic/Azores"
+                    case atlanticBermuda = "Atlantic/Bermuda"
+                    case atlanticCanary = "Atlantic/Canary"
+                    case atlanticCapeVerde = "Atlantic/Cape_Verde"
+                    case atlanticFaeroe = "Atlantic/Faeroe"
+                    case atlanticFaroe = "Atlantic/Faroe"
+                    case atlanticJanMayen = "Atlantic/Jan_Mayen"
+                    case atlanticMadeira = "Atlantic/Madeira"
+                    case atlanticReykjavik = "Atlantic/Reykjavik"
+                    case atlanticSouthGeorgia = "Atlantic/South_Georgia"
+                    case atlanticStHelena = "Atlantic/St_Helena"
+                    case atlanticStanley = "Atlantic/Stanley"
+                    case australiaACT = "Australia/ACT"
+                    case australiaAdelaide = "Australia/Adelaide"
+                    case australiaBrisbane = "Australia/Brisbane"
+                    case australiaBrokenHill = "Australia/Broken_Hill"
+                    case australiaCanberra = "Australia/Canberra"
+                    case australiaCurrie = "Australia/Currie"
+                    case australiaDarwin = "Australia/Darwin"
+                    case australiaEucla = "Australia/Eucla"
+                    case australiaHobart = "Australia/Hobart"
+                    case australiaLHI = "Australia/LHI"
+                    case australiaLindeman = "Australia/Lindeman"
+                    case australiaLordHowe = "Australia/Lord_Howe"
+                    case australiaMelbourne = "Australia/Melbourne"
+                    case australiaNSW = "Australia/NSW"
+                    case australiaNorth = "Australia/North"
+                    case australiaPerth = "Australia/Perth"
+                    case australiaQueensland = "Australia/Queensland"
+                    case australiaSouth = "Australia/South"
+                    case australiaSydney = "Australia/Sydney"
+                    case australiaTasmania = "Australia/Tasmania"
+                    case australiaVictoria = "Australia/Victoria"
+                    case australiaWest = "Australia/West"
+                    case australiaYancowinna = "Australia/Yancowinna"
+                    case brazilAcre = "Brazil/Acre"
+                    case brazilDeNoronha = "Brazil/DeNoronha"
+                    case brazilEast = "Brazil/East"
+                    case brazilWest = "Brazil/West"
+                    case cet = "CET"
+                    case cst6cdt = "CST6CDT"
+                    case canadaAtlantic = "Canada/Atlantic"
+                    case canadaCentral = "Canada/Central"
+                    case canadaEastern = "Canada/Eastern"
+                    case canadaMountain = "Canada/Mountain"
+                    case canadaNewfoundland = "Canada/Newfoundland"
+                    case canadaPacific = "Canada/Pacific"
+                    case canadaSaskatchewan = "Canada/Saskatchewan"
+                    case canadaYukon = "Canada/Yukon"
+                    case chileContinental = "Chile/Continental"
+                    case chileEasterIsland = "Chile/EasterIsland"
+                    case cuba = "Cuba"
+                    case eet = "EET"
+                    case est = "EST"
+                    case est5edt = "EST5EDT"
+                    case egypt = "Egypt"
+                    case eire = "Eire"
+                    case etcGMT = "Etc/GMT"
+                    case etcGMT0 = "Etc/GMT+0"
+                    case etcGMT1 = "Etc/GMT+1"
+                    case etcGMT10 = "Etc/GMT+10"
+                    case etcGMT11 = "Etc/GMT+11"
+                    case etcGMT12 = "Etc/GMT+12"
+                    case etcGMT2 = "Etc/GMT+2"
+                    case etcGMT3 = "Etc/GMT+3"
+                    case etcGMT4 = "Etc/GMT+4"
+                    case etcGMT5 = "Etc/GMT+5"
+                    case etcGMT6 = "Etc/GMT+6"
+                    case etcGMT7 = "Etc/GMT+7"
+                    case etcGMT8 = "Etc/GMT+8"
+                    case etcGMT9 = "Etc/GMT+9"
+                    case etcGMT02 = "Etc/GMT-0"
+                    case etcGMT122 = "Etc/GMT-1"
+                    case etcGMT102 = "Etc/GMT-10"
+                    case etcGMT112 = "Etc/GMT-11"
+                    case etcGMT123 = "Etc/GMT-12"
+                    case etcGMT13 = "Etc/GMT-13"
+                    case etcGMT14 = "Etc/GMT-14"
+                    case etcGMT22 = "Etc/GMT-2"
+                    case etcGMT32 = "Etc/GMT-3"
+                    case etcGMT42 = "Etc/GMT-4"
+                    case etcGMT52 = "Etc/GMT-5"
+                    case etcGMT62 = "Etc/GMT-6"
+                    case etcGMT72 = "Etc/GMT-7"
+                    case etcGMT82 = "Etc/GMT-8"
+                    case etcGMT92 = "Etc/GMT-9"
+                    case etcGMT03 = "Etc/GMT0"
+                    case etcGreenwich = "Etc/Greenwich"
+                    case etcUCT = "Etc/UCT"
+                    case etcUTC = "Etc/UTC"
+                    case etcUniversal = "Etc/Universal"
+                    case etcZulu = "Etc/Zulu"
+                    case europeAmsterdam = "Europe/Amsterdam"
+                    case europeAndorra = "Europe/Andorra"
+                    case europeAstrakhan = "Europe/Astrakhan"
+                    case europeAthens = "Europe/Athens"
+                    case europeBelfast = "Europe/Belfast"
+                    case europeBelgrade = "Europe/Belgrade"
+                    case europeBerlin = "Europe/Berlin"
+                    case europeBratislava = "Europe/Bratislava"
+                    case europeBrussels = "Europe/Brussels"
+                    case europeBucharest = "Europe/Bucharest"
+                    case europeBudapest = "Europe/Budapest"
+                    case europeBusingen = "Europe/Busingen"
+                    case europeChisinau = "Europe/Chisinau"
+                    case europeCopenhagen = "Europe/Copenhagen"
+                    case europeDublin = "Europe/Dublin"
+                    case europeGibraltar = "Europe/Gibraltar"
+                    case europeGuernsey = "Europe/Guernsey"
+                    case europeHelsinki = "Europe/Helsinki"
+                    case europeIsleOfMan = "Europe/Isle_of_Man"
+                    case europeIstanbul = "Europe/Istanbul"
+                    case europeJersey = "Europe/Jersey"
+                    case europeKaliningrad = "Europe/Kaliningrad"
+                    case europeKiev = "Europe/Kiev"
+                    case europeKirov = "Europe/Kirov"
+                    case europeLisbon = "Europe/Lisbon"
+                    case europeLjubljana = "Europe/Ljubljana"
+                    case europeLondon = "Europe/London"
+                    case europeLuxembourg = "Europe/Luxembourg"
+                    case europeMadrid = "Europe/Madrid"
+                    case europeMalta = "Europe/Malta"
+                    case europeMariehamn = "Europe/Mariehamn"
+                    case europeMinsk = "Europe/Minsk"
+                    case europeMonaco = "Europe/Monaco"
+                    case europeMoscow = "Europe/Moscow"
+                    case europeNicosia = "Europe/Nicosia"
+                    case europeOslo = "Europe/Oslo"
+                    case europeParis = "Europe/Paris"
+                    case europePodgorica = "Europe/Podgorica"
+                    case europePrague = "Europe/Prague"
+                    case europeRiga = "Europe/Riga"
+                    case europeRome = "Europe/Rome"
+                    case europeSamara = "Europe/Samara"
+                    case europeSanMarino = "Europe/San_Marino"
+                    case europeSarajevo = "Europe/Sarajevo"
+                    case europeSaratov = "Europe/Saratov"
+                    case europeSimferopol = "Europe/Simferopol"
+                    case europeSkopje = "Europe/Skopje"
+                    case europeSofia = "Europe/Sofia"
+                    case europeStockholm = "Europe/Stockholm"
+                    case europeTallinn = "Europe/Tallinn"
+                    case europeTirane = "Europe/Tirane"
+                    case europeTiraspol = "Europe/Tiraspol"
+                    case europeUlyanovsk = "Europe/Ulyanovsk"
+                    case europeUzhgorod = "Europe/Uzhgorod"
+                    case europeVaduz = "Europe/Vaduz"
+                    case europeVatican = "Europe/Vatican"
+                    case europeVienna = "Europe/Vienna"
+                    case europeVilnius = "Europe/Vilnius"
+                    case europeVolgograd = "Europe/Volgograd"
+                    case europeWarsaw = "Europe/Warsaw"
+                    case europeZagreb = "Europe/Zagreb"
+                    case europeZaporozhye = "Europe/Zaporozhye"
+                    case europeZurich = "Europe/Zurich"
+                    case factory = "Factory"
+                    case gb = "GB"
+                    case gBEire = "GB-Eire"
+                    case gmt = "GMT"
+                    case gmt0 = "GMT+0"
+                    case gmt02 = "GMT-0"
+                    case gmt03 = "GMT0"
+                    case greenwich = "Greenwich"
+                    case hst = "HST"
+                    case hongkong = "Hongkong"
+                    case iceland = "Iceland"
+                    case indianAntananarivo = "Indian/Antananarivo"
+                    case indianChagos = "Indian/Chagos"
+                    case indianChristmas = "Indian/Christmas"
+                    case indianCocos = "Indian/Cocos"
+                    case indianComoro = "Indian/Comoro"
+                    case indianKerguelen = "Indian/Kerguelen"
+                    case indianMahe = "Indian/Mahe"
+                    case indianMaldives = "Indian/Maldives"
+                    case indianMauritius = "Indian/Mauritius"
+                    case indianMayotte = "Indian/Mayotte"
+                    case indianReunion = "Indian/Reunion"
+                    case iran = "Iran"
+                    case israel = "Israel"
+                    case jamaica = "Jamaica"
+                    case japan = "Japan"
+                    case kwajalein = "Kwajalein"
+                    case libya = "Libya"
+                    case met = "MET"
+                    case mst = "MST"
+                    case mst7mdt = "MST7MDT"
+                    case mexicoBajaNorte = "Mexico/BajaNorte"
+                    case mexicoBajaSur = "Mexico/BajaSur"
+                    case mexicoGeneral = "Mexico/General"
+                    case nz = "NZ"
+                    case nzChat = "NZ-CHAT"
+                    case navajo = "Navajo"
+                    case prc = "PRC"
+                    case pst8pdt = "PST8PDT"
+                    case pacificApia = "Pacific/Apia"
+                    case pacificAuckland = "Pacific/Auckland"
+                    case pacificBougainville = "Pacific/Bougainville"
+                    case pacificChatham = "Pacific/Chatham"
+                    case pacificChuuk = "Pacific/Chuuk"
+                    case pacificEaster = "Pacific/Easter"
+                    case pacificEfate = "Pacific/Efate"
+                    case pacificEnderbury = "Pacific/Enderbury"
+                    case pacificFakaofo = "Pacific/Fakaofo"
+                    case pacificFiji = "Pacific/Fiji"
+                    case pacificFunafuti = "Pacific/Funafuti"
+                    case pacificGalapagos = "Pacific/Galapagos"
+                    case pacificGambier = "Pacific/Gambier"
+                    case pacificGuadalcanal = "Pacific/Guadalcanal"
+                    case pacificGuam = "Pacific/Guam"
+                    case pacificHonolulu = "Pacific/Honolulu"
+                    case pacificJohnston = "Pacific/Johnston"
+                    case pacificKiritimati = "Pacific/Kiritimati"
+                    case pacificKosrae = "Pacific/Kosrae"
+                    case pacificKwajalein = "Pacific/Kwajalein"
+                    case pacificMajuro = "Pacific/Majuro"
+                    case pacificMarquesas = "Pacific/Marquesas"
+                    case pacificMidway = "Pacific/Midway"
+                    case pacificNauru = "Pacific/Nauru"
+                    case pacificNiue = "Pacific/Niue"
+                    case pacificNorfolk = "Pacific/Norfolk"
+                    case pacificNoumea = "Pacific/Noumea"
+                    case pacificPagoPago = "Pacific/Pago_Pago"
+                    case pacificPalau = "Pacific/Palau"
+                    case pacificPitcairn = "Pacific/Pitcairn"
+                    case pacificPohnpei = "Pacific/Pohnpei"
+                    case pacificPonape = "Pacific/Ponape"
+                    case pacificPortMoresby = "Pacific/Port_Moresby"
+                    case pacificRarotonga = "Pacific/Rarotonga"
+                    case pacificSaipan = "Pacific/Saipan"
+                    case pacificSamoa = "Pacific/Samoa"
+                    case pacificTahiti = "Pacific/Tahiti"
+                    case pacificTarawa = "Pacific/Tarawa"
+                    case pacificTongatapu = "Pacific/Tongatapu"
+                    case pacificTruk = "Pacific/Truk"
+                    case pacificWake = "Pacific/Wake"
+                    case pacificWallis = "Pacific/Wallis"
+                    case pacificYap = "Pacific/Yap"
+                    case poland = "Poland"
+                    case portugal = "Portugal"
+                    case roc = "ROC"
+                    case rok = "ROK"
+                    case singapore = "Singapore"
+                    case turkey = "Turkey"
+                    case uct = "UCT"
+                    case uSAlaska = "US/Alaska"
+                    case uSAleutian = "US/Aleutian"
+                    case uSArizona = "US/Arizona"
+                    case uSCentral = "US/Central"
+                    case uSEastIndiana = "US/East-Indiana"
+                    case uSEastern = "US/Eastern"
+                    case uSHawaii = "US/Hawaii"
+                    case uSIndianaStarke = "US/Indiana-Starke"
+                    case uSMichigan = "US/Michigan"
+                    case uSMountain = "US/Mountain"
+                    case uSPacific = "US/Pacific"
+                    case uSPacificNew = "US/Pacific-New"
+                    case uSSamoa = "US/Samoa"
+                    case utc = "UTC"
+                    case universal = "Universal"
+                    case wSu = "W-SU"
+                    case wet = "WET"
+                    case zulu = "Zulu"
                 }
 
                 public init(columns: [String]? = nil, connectedAccount: String? = nil, currency: String? = nil, intervalEnd: Int? = nil, intervalStart: Int? = nil, payout: String? = nil, reportingCategory: ReportingCategory? = nil, timezone: Timezone? = nil) {

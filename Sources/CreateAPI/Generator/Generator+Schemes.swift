@@ -520,12 +520,9 @@ extension Generator {
             // TODO: Is this expected behavior? Or does it mean "nullable"?
             return name.isEmpty ? PropertyName("empty") : makePropertyName(name)
         }
-        let hasDuplicates = values.count != Set(caseNames.map(\.rawValue)).count
+        var deduplicator = NameDeduplicator()
         let cases: [EnumOfStringsDeclaration.Case] = zip(values, caseNames).map { value, name in
-            // TODO: This handles somescenarios but not all,
-            // e.g "reaction+1", "reaction-1" will fail to compile. You can
-            // use `rename.enumCases` to fix these scenarios.
-            let caseName = hasDuplicates ? value : name.rawValue
+            let caseName = deduplicator.add(name: name.rawValue)
             return EnumOfStringsDeclaration.Case(name: caseName, key: value)
         }
         return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))

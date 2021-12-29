@@ -21614,11 +21614,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
 
                 public enum Op: String, Codable, CaseIterable {
                     case add
-                    case Add
+                    case add1 = "Add"
                     case remove
-                    case Remove
+                    case remove1 = "Remove"
                     case replace
-                    case Replace
+                    case replace1 = "Replace"
                 }
 
                 public init(op: Op, path: String? = nil, value: AnyJSON? = nil) {

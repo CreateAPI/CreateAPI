@@ -131,3 +131,17 @@ extension Array where Element == String {
         }
     }
 }
+
+struct NameDeduplicator {
+    private var encountered: [String: Int] = [:]
+    
+    mutating func add(name: String) -> String {
+        let count = encountered[name] ?? 0
+        encountered[name] = count + 1
+        if count == 0 {
+            return name
+        }
+        let name = name + "\(count + 1)"
+        return add(name: name)
+    }
+}
