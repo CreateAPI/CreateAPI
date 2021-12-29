@@ -510,7 +510,7 @@ extension Generator {
             return property
         } catch {
             if arguments.isStrict {
-                throw GeneratorError("Failed to generate query parametr \(input.description): \(error)")
+                throw GeneratorError("Failed to generate query parameter \(input.description): \(error)")
             } else {
                 print("ERROR: Fail to generate query parameter \(input.description)")
                 return nil
@@ -541,9 +541,7 @@ extension Generator {
                 self.type = .builtin(name)
             }
         }
-        
-        var isObject = false
-        
+                
         func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
             switch schema.value {
             case .boolean: return QueryItemType("Bool")
@@ -573,10 +571,9 @@ extension Generator {
                     return QueryItemType(type: .userDefined(name: enumTypeName), nested: nested)
                 }
                 return QueryItemType("String")
-            case .object:
+            case .object, .all, .one, .any:
                 let type = makeTypeName(parameter.name)
                 let nested = try _makeDeclaration(name: type, schema: schema, context: context)
-                isObject = true
                 return QueryItemType(type: .userDefined(name: type), nested: nested)
             case .array(_, let details):
                 guard isTopLevel else {
@@ -589,8 +586,6 @@ extension Generator {
                     return QueryItemType(type: type.type.asArray(), nested: type.nested)
                 }
                 return nil
-            case .all, .one, .any, .not:
-                throw GeneratorError("Unsupported query parameter type: \(parameter)")
             case .reference(let ref, _):
                 guard let name = ref.name.map(makeTypeName) else {
                     throw GeneratorError("Missing or invalid reference name")
@@ -601,6 +596,8 @@ extension Generator {
                 return QueryItemType(type: .userDefined(name: name))
             case .fragment:
                 return QueryItemType("String")
+            case .not:
+                throw GeneratorError("Unsupported query parameter type: \(parameter)")
             }
         }
         
@@ -619,7 +616,7 @@ extension Generator {
         }
 
         let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
-        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: schemaContext.explode, isObject: isObject, style: schemaContext.style, metadata: .init(schema.coreContext), nested: type.nested)
+        return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: schemaContext.explode, style: schemaContext.style, metadata: .init(schema.coreContext), nested: type.nested)
     }
         
     // MARK: - Request Body

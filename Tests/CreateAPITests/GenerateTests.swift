@@ -150,8 +150,7 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "stackexchange", package: "StackExchangeAPI")
     }
     
-    // TODO: Add support for query-encoding objects and uncomment
-    func _testStripe() throws {
+    func testStripe() throws {
         try testSpec(name: "stripe", package: "StripeAPI")
     }
     

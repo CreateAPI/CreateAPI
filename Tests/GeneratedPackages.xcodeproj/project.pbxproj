@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C3B597D277C2489004C29CA /* StripeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C3B597C277C2489004C29CA /* StripeAPI */; };
 		0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5EE19A277909B100C94994 /* BitbucketAPI */; };
 		0C612EA12777B570008D32A4 /* SimpleCartAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E672777B56E008D32A4 /* SimpleCartAPI */; };
 		0C612EA22777B570008D32A4 /* petstore-single-threaded in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E682777B56E008D32A4 /* petstore-single-threaded */; };
@@ -126,6 +127,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C3B597B277C2483004C29CA /* StripeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = StripeAPI; path = CreateAPITests/Expected/StripeAPI; sourceTree = "<group>"; };
 		0C612E602777B55A008D32A4 /* GeneratedPackages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeneratedPackages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C612E672777B56E008D32A4 /* SimpleCartAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SimpleCartAPI; path = CreateAPITests/Expected/SimpleCartAPI; sourceTree = "<group>"; };
 		0C612E682777B56E008D32A4 /* petstore-single-threaded */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-single-threaded"; path = "CreateAPITests/Expected/petstore-single-threaded"; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				0C612EF02777B594008D32A4 /* edgecases-disable-enums in Frameworks */,
 				0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */,
 				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
+				0C3B597D277C2489004C29CA /* StripeAPI in Frameworks */,
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
 				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
 				0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */,
@@ -304,6 +307,7 @@
 				0C612E882777B56F008D32A4 /* petstore-some-entities-as-classes */,
 				0C612E7C2777B56E008D32A4 /* petstore-some-entities-as-structs */,
 				0C612E6B2777B56E008D32A4 /* petstore-split */,
+				0C3B597B277C2483004C29CA /* StripeAPI */,
 				0C612E892777B56F008D32A4 /* PlatformAPI */,
 				0C612E872777B56F008D32A4 /* postman-operations */,
 				0C612E8E2777B56F008D32A4 /* PostmanAPI */,
@@ -427,6 +431,7 @@
 				0C612F492777B596008D32A4 /* WikimediaAPI */,
 				0C5EE19A277909B100C94994 /* BitbucketAPI */,
 				0C69E09C2779316100A46D93 /* SoundcloudAPI */,
+				0C3B597C277C2489004C29CA /* StripeAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -744,6 +749,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0C3B597C277C2489004C29CA /* StripeAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StripeAPI;
+		};
 		0C5EE19A277909B100C94994 /* BitbucketAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BitbucketAPI;

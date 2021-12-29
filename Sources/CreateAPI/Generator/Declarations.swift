@@ -148,8 +148,6 @@ struct Property {
     // warning: - This is currently only used for query parameters
     var explode = true
     // warning: - This is currently only used for query parameters
-    var isObject = false
-    // warning: - This is currently only used for query parameters
     var style: OpenAPI.Parameter.SchemaContext.Style?
     var defaultValue: String?
     var metadata: DeclarationMetadata?
