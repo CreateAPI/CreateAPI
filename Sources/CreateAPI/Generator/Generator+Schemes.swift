@@ -140,7 +140,6 @@ extension Generator {
     
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         let declaration = try _makeDeclaration(name: name, schema: schema, context: context)
-        #warning("TODO: inline if nested isnt nil too?")
         if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration {
             return alias.nested
         }
@@ -452,9 +451,15 @@ extension Generator {
             }
         }.removingDuplicates(by: \.name)
         
-        // TODO: Figure out how to inline these
+        // TODO: Improve this and adopt for other types (see Zoom spec)
         if properties.count == 1 {
-            return TypealiasDeclaration(name: name, type: properties[0].type, nested: properties[0].nested)
+            var property = properties[0]
+            if let nested = property.nested as? EntityDeclaration, nested.name.rawValue == "Object" {
+                nested.name = name
+                property.nested = nested
+                property.type = .userDefined(name: name)
+            }
+            return TypealiasDeclaration(name: name, type: property.type, nested: property.nested)
         }
         
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }

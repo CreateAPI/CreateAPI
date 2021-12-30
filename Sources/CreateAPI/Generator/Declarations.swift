@@ -185,10 +185,9 @@ struct EnumOfStringsDeclaration: Declaration {
     }
 }
 
-#warning("TODO: find a nicer way to create it (builder/mutable/something?)")
 // Gets rendered as either a struct or a class depending on the options.
 final class EntityDeclaration: Declaration {
-    let name: TypeName
+    var name: TypeName
     let type: EntityType
     let metadata: DeclarationMetadata
     let isForm: Bool

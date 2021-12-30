@@ -174,8 +174,7 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "wikimedia", package: "WikimediaAPI")
     }
     
-    // TODO: Fix nested types duplication and reenable
-    func _testZoom() throws {
+    func testZoom() throws {
         try testSpec(name: "zoom", package: "ZoomAPI")
     }
 }
