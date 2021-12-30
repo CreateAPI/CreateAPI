@@ -265,7 +265,8 @@ extension Generator {
         }
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
 
-        let (entity, context) = makeEntity(name: name, type: .object, info: info, context: context)
+        var (entity, context) = makeEntity(name: name, type: .object, info: info, context: context)
+        context.objectSchema = details
         entity.properties = try makeProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
@@ -313,11 +314,29 @@ extension Generator {
             let sing = (words.dropLast() + [words.last?.singularized()])
                 .compactMap { $0?.capitalizingFirstLetter() }
                 .joined(separator: "")
-            if !context.parents.isEmpty || !topLevelTypes.contains(TypeName(sing)) {
-                return makeTypeName(sing) // TODO: refactor
+            if context.parents.isEmpty && !topLevelTypes.contains(TypeName(sing)) {
+                return makeTypeName(sing)
+            }
+            if !context.parents.isEmpty && !hasConflict(name: TypeName(sing), context: context.objectSchema) {
+                return makeTypeName(sing)
             }
         }
         return name.appending("Item")
+    }
+    
+    // TODO: This take inlining into account
+    private func hasConflict(name: TypeName, context: JSONSchema.ObjectContext?) -> Bool {
+        guard let context = context else {
+            return false
+        }
+        return context.properties.contains { key, value in
+            switch value.value {
+            case .object, .all, .any, .one:
+                return makeTypeName(key) == name
+            default:
+                return false
+            }
+        }
     }
     
     private struct AdditionalProperties {

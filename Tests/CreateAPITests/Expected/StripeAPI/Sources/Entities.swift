@@ -8525,7 +8525,7 @@ public struct Invoice: Codable {
     /// Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     public var discount: Discount?
     /// The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
-    public var discounts: [Discount]?
+    public var discounts: [DiscountsItem]?
     /// The date on which payment for this invoice is due. This value will be `null` for invoices where `collection_method=charge_automatically`.
     public var dueDate: Int?
     /// Ending customer balance after the invoice is finalized. Invoices are finalized approximately an hour after successful webhook delivery or when payment collection is attempted for the invoice. If the invoice has not been finalized yet, this will be null.
@@ -8831,12 +8831,12 @@ public struct Invoice: Codable {
         }
     }
 
-    public final class Discount: Codable {
+    public struct DiscountsItem: Codable {
         public var string: String?
-        public var discount: StripeAPI.Discount?
+        public var discount: Discount?
         public var deletedDiscount: DeletedDiscount?
 
-        public init(string: String? = nil, discount: StripeAPI.Discount? = nil, deletedDiscount: DeletedDiscount? = nil) {
+        public init(string: String? = nil, discount: Discount? = nil, deletedDiscount: DeletedDiscount? = nil) {
             self.string = string
             self.discount = discount
             self.deletedDiscount = deletedDiscount
@@ -8845,7 +8845,7 @@ public struct Invoice: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             self.string = try? container.decode(String.self)
-            self.discount = try? container.decode(StripeAPI.Discount.self)
+            self.discount = try? container.decode(Discount.self)
             self.deletedDiscount = try? container.decode(DeletedDiscount.self)
         }
 
@@ -9035,7 +9035,7 @@ public struct Invoice: Codable {
         }
     }
 
-    public init(accountCountry: String? = nil, accountName: String? = nil, accountTaxIDs: [AccountTaxID]? = nil, amountDue: Int, amountPaid: Int, amountRemaining: Int, applicationFeeAmount: Int? = nil, attemptCount: Int, isAttempted: Bool, isAutoAdvance: Bool? = nil, automaticTax: AutomaticTax, billingReason: BillingReason? = nil, charge: Charge? = nil, collectionMethod: CollectionMethod, created: Int, currency: String, customFields: [InvoiceSettingCustomField]? = nil, customer: Customer? = nil, customerAddress: CustomerAddress? = nil, customerEmail: String? = nil, customerName: String? = nil, customerPhone: String? = nil, customerShipping: CustomerShipping? = nil, customerTaxExempt: CustomerTaxExempt? = nil, customerTaxIDs: [InvoicesResourceInvoiceTaxID]? = nil, defaultPaymentMethod: DefaultPaymentMethod? = nil, defaultSource: DefaultSource? = nil, defaultTaxRates: [TaxRate], description: String? = nil, discount: Discount? = nil, discounts: [Discount]? = nil, dueDate: Int? = nil, endingBalance: Int? = nil, footer: String? = nil, hostedInvoiceURL: String? = nil, id: String? = nil, invoicePdf: String? = nil, lastFinalizationError: LastFinalizationError? = nil, lines: Lines, isLivemode: Bool, metadata: [String: String]? = nil, nextPaymentAttempt: Int? = nil, number: String? = nil, object: Object, onBehalfOf: OnBehalfOf? = nil, isPaid: Bool, paymentIntent: PaymentIntent? = nil, paymentSettings: InvoicesPaymentSettings, periodEnd: Int, periodStart: Int, postPaymentCreditNotesAmount: Int, prePaymentCreditNotesAmount: Int, quote: Quote? = nil, receiptNumber: String? = nil, startingBalance: Int, statementDescriptor: String? = nil, status: Status? = nil, statusTransitions: InvoicesStatusTransitions, subscription: Subscription? = nil, subscriptionProrationDate: Int? = nil, subtotal: Int, tax: Int? = nil, thresholdReason: InvoiceThresholdReason? = nil, total: Int, totalDiscountAmounts: [DiscountsResourceDiscountAmount]? = nil, totalTaxAmounts: [InvoiceTaxAmount], transferData: TransferData? = nil, webhooksDeliveredAt: Int? = nil) {
+    public init(accountCountry: String? = nil, accountName: String? = nil, accountTaxIDs: [AccountTaxID]? = nil, amountDue: Int, amountPaid: Int, amountRemaining: Int, applicationFeeAmount: Int? = nil, attemptCount: Int, isAttempted: Bool, isAutoAdvance: Bool? = nil, automaticTax: AutomaticTax, billingReason: BillingReason? = nil, charge: Charge? = nil, collectionMethod: CollectionMethod, created: Int, currency: String, customFields: [InvoiceSettingCustomField]? = nil, customer: Customer? = nil, customerAddress: CustomerAddress? = nil, customerEmail: String? = nil, customerName: String? = nil, customerPhone: String? = nil, customerShipping: CustomerShipping? = nil, customerTaxExempt: CustomerTaxExempt? = nil, customerTaxIDs: [InvoicesResourceInvoiceTaxID]? = nil, defaultPaymentMethod: DefaultPaymentMethod? = nil, defaultSource: DefaultSource? = nil, defaultTaxRates: [TaxRate], description: String? = nil, discount: Discount? = nil, discounts: [DiscountsItem]? = nil, dueDate: Int? = nil, endingBalance: Int? = nil, footer: String? = nil, hostedInvoiceURL: String? = nil, id: String? = nil, invoicePdf: String? = nil, lastFinalizationError: LastFinalizationError? = nil, lines: Lines, isLivemode: Bool, metadata: [String: String]? = nil, nextPaymentAttempt: Int? = nil, number: String? = nil, object: Object, onBehalfOf: OnBehalfOf? = nil, isPaid: Bool, paymentIntent: PaymentIntent? = nil, paymentSettings: InvoicesPaymentSettings, periodEnd: Int, periodStart: Int, postPaymentCreditNotesAmount: Int, prePaymentCreditNotesAmount: Int, quote: Quote? = nil, receiptNumber: String? = nil, startingBalance: Int, statementDescriptor: String? = nil, status: Status? = nil, statusTransitions: InvoicesStatusTransitions, subscription: Subscription? = nil, subscriptionProrationDate: Int? = nil, subtotal: Int, tax: Int? = nil, thresholdReason: InvoiceThresholdReason? = nil, total: Int, totalDiscountAmounts: [DiscountsResourceDiscountAmount]? = nil, totalTaxAmounts: [InvoiceTaxAmount], transferData: TransferData? = nil, webhooksDeliveredAt: Int? = nil) {
         self.accountCountry = accountCountry
         self.accountName = accountName
         self.accountTaxIDs = accountTaxIDs

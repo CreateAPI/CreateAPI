@@ -119,6 +119,7 @@ struct GeneratorError: Error, CustomStringConvertible, LocalizedError {
 // TODO: Make a reference type or CoW
 struct Context {
     var parents: [EntityDeclaration] = []
+    var objectSchema: JSONSchema.ObjectContext? // TODO: Refactor
     var namespace: String? // TODO: Refactor how namespaces are added
     var isDecodableNeeded = true
     var isEncodableNeeded = true
