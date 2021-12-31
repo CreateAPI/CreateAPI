@@ -141,6 +141,7 @@
 		0C80E8E7277F98DD009130EA /* AppVeyorAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E6277F98DD009130EA /* AppVeyorAPI */; };
 		0C80E8EA277F9A4A009130EA /* BeezUPAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E9277F9A4A009130EA /* BeezUPAPI */; };
 		0C80E8ED277F9CC5009130EA /* BudgeaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8EC277F9CC5009130EA /* BudgeaAPI */; };
+		0C80E8F3277F9E03009130EA /* BillingoAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8F2277F9E03009130EA /* BillingoAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -224,6 +225,7 @@
 		0C80E8E5277F98D8009130EA /* AppVeyorAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppVeyorAPI; path = CreateAPITests/Expected/AppVeyorAPI; sourceTree = "<group>"; };
 		0C80E8E8277F9A47009130EA /* BeezUPAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BeezUPAPI; path = CreateAPITests/Expected/BeezUPAPI; sourceTree = "<group>"; };
 		0C80E8EB277F9CBF009130EA /* BudgeaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BudgeaAPI; path = CreateAPITests/Expected/BudgeaAPI; sourceTree = "<group>"; };
+		0C80E8F1277F9DFC009130EA /* BillingoAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BillingoAPI; path = CreateAPITests/Expected/BillingoAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,6 +257,7 @@
 				0C612F342777B595008D32A4 /* SlackAPI in Frameworks */,
 				0C80E30E277D3F29009130EA /* ZoomAPI in Frameworks */,
 				0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */,
+				0C80E8F3277F9E03009130EA /* BillingoAPI in Frameworks */,
 				0C612F142777B594008D32A4 /* petstore-change-filename in Frameworks */,
 				0C612F082777B594008D32A4 /* NYTBooksAPI in Frameworks */,
 				0C612EFE2777B594008D32A4 /* GoogleBooksAPI in Frameworks */,
@@ -332,6 +335,7 @@
 				0C80E8E5277F98D8009130EA /* AppVeyorAPI */,
 				0C80E8E8277F9A47009130EA /* BeezUPAPI */,
 				0C84E3952778121D00609E4A /* BitbucketAPI */,
+				0C80E8F1277F9DFC009130EA /* BillingoAPI */,
 				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
@@ -521,6 +525,7 @@
 				0C80E8E6277F98DD009130EA /* AppVeyorAPI */,
 				0C80E8E9277F9A4A009130EA /* BeezUPAPI */,
 				0C80E8EC277F9CC5009130EA /* BudgeaAPI */,
+				0C80E8F2277F9E03009130EA /* BillingoAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1141,6 +1146,10 @@
 		0C80E8EC277F9CC5009130EA /* BudgeaAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BudgeaAPI;
+		};
+		0C80E8F2277F9E03009130EA /* BillingoAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BillingoAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
