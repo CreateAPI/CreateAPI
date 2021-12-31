@@ -195,6 +195,7 @@
 		0C80E8B8277F83B0009130EA /* BoxAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BoxAPI; path = CreateAPITests/Expected/BoxAPI; sourceTree = "<group>"; };
 		0C80E8BB277F85B0009130EA /* AEMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AEMAPI; path = CreateAPITests/Expected/AEMAPI; sourceTree = "<group>"; };
 		0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonOpenSearchAPI; path = CreateAPITests/Expected/AmazonOpenSearchAPI; sourceTree = "<group>"; };
+		0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonMemoryDBAPI; path = CreateAPITests/Expected/AmazonMemoryDBAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				0C80E8BB277F85B0009130EA /* AEMAPI */,
+				0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */,
 				0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
