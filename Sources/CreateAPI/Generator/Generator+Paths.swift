@@ -154,13 +154,13 @@ extension Generator {
         for job in jobs {
             if job.type.rawValue == "Request" {
                 let path = job.components.dropLast().joined(separator: "/")
-                pathsContainingRequesType.append(path)
+                pathsContainingRequestType.append(path)
             }
         }
     }
     
     private func needsGetPrefix(for path: OpenAPI.Path) -> Bool {
-        pathsContainingRequesType.contains(where: {
+        pathsContainingRequestType.contains(where: {
             path.components.joined(separator: "/").hasPrefix($0)
         })
     }
