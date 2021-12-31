@@ -67,6 +67,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "apideck-crm", package: "ApiDeckCRMAPI")
     }
     
+    func testApiDeckLead() throws {
+        try testSpec(name: "apideck-lead", package: "ApiDeckLeadAPI")
+    }
+    
     func testGoogleBooks() throws {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }

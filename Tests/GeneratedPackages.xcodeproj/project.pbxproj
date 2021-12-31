@@ -130,6 +130,7 @@
 		0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C5277F8F7F009130EA /* AnchoreAPI */; };
 		0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */; };
 		0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */; };
+		0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,6 +203,7 @@
 		0C80E8C4277F8F7A009130EA /* AnchoreAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnchoreAPI; path = CreateAPITests/Expected/AnchoreAPI; sourceTree = "<group>"; };
 		0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckAccountingAPI; path = CreateAPITests/Expected/ApiDeckAccountingAPI; sourceTree = "<group>"; };
 		0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckCRMAPI; path = CreateAPITests/Expected/ApiDeckCRMAPI; sourceTree = "<group>"; };
+		0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckLeadAPI; path = CreateAPITests/Expected/ApiDeckLeadAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -273,6 +275,7 @@
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
 				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
 				0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */,
+				0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */,
 				0C612EE62777B594008D32A4 /* EbayFinancesAPI in Frameworks */,
 				0C612EF42777B594008D32A4 /* edgecases-int32-int64 in Frameworks */,
 			);
@@ -290,6 +293,7 @@
 				0C80E8C4277F8F7A009130EA /* AnchoreAPI */,
 				0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */,
 				0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */,
+				0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
@@ -466,6 +470,7 @@
 				0C80E8C5277F8F7F009130EA /* AnchoreAPI */,
 				0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */,
 				0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */,
+				0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1042,6 +1047,10 @@
 		0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApiDeckCRMAPI;
+		};
+		0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApiDeckLeadAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
