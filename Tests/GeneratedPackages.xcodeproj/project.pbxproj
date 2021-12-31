@@ -136,6 +136,7 @@
 		0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D7277F9318009130EA /* MarketcheckAPI */; };
 		0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DA277F93B9009130EA /* EbayIdentityAPI */; };
 		0C80E8DE277F9477009130EA /* MicrosoftAppCenterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */; };
+		0C80E8E1277F9823009130EA /* SiriAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E0277F9823009130EA /* SiriAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -214,6 +215,7 @@
 		0C80E8D6277F9314009130EA /* MarketcheckAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarketcheckAPI; path = CreateAPITests/Expected/MarketcheckAPI; sourceTree = "<group>"; };
 		0C80E8D9277F93B1009130EA /* EbayIdentityAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EbayIdentityAPI; path = CreateAPITests/Expected/EbayIdentityAPI; sourceTree = "<group>"; };
 		0C80E8DC277F9471009130EA /* MicrosoftAppCenterAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MicrosoftAppCenterAPI; path = CreateAPITests/Expected/MicrosoftAppCenterAPI; sourceTree = "<group>"; };
+		0C80E8DF277F981B009130EA /* SiriAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SiriAPI; path = CreateAPITests/Expected/SiriAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -222,6 +224,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C80E8E1277F9823009130EA /* SiriAPI in Frameworks */,
 				0C612F382777B596008D32A4 /* SquareAPI in Frameworks */,
 				0C612EEE2777B594008D32A4 /* edgecases-disable-acronyms in Frameworks */,
 				0C612F242777B595008D32A4 /* petstore-single-threaded in Frameworks */,
@@ -335,6 +338,7 @@
 				0C612E9E2777B570008D32A4 /* JiraAPI */,
 				0C80E8D6277F9314009130EA /* MarketcheckAPI */,
 				0C80E8DC277F9471009130EA /* MicrosoftAppCenterAPI */,
+				0C80E8DF277F981B009130EA /* SiriAPI */,
 				0C612E782777B56E008D32A4 /* NYTArchiveAPI */,
 				0C612E762777B56E008D32A4 /* NYTArticleSearchAPI */,
 				0C612E8F2777B56F008D32A4 /* NYTBooksAPI */,
@@ -496,6 +500,7 @@
 				0C80E8D7277F9318009130EA /* MarketcheckAPI */,
 				0C80E8DA277F93B9009130EA /* EbayIdentityAPI */,
 				0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */,
+				0C80E8E0277F9823009130EA /* SiriAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1096,6 +1101,10 @@
 		0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MicrosoftAppCenterAPI;
+		};
+		0C80E8E0277F9823009130EA /* SiriAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SiriAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

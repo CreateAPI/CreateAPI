@@ -91,6 +91,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "microsoft-app-center", package: "MicrosoftAppCenterAPI")
     }
     
+    func testSiriKit() throws {
+        try testSpec(name: "sirikit", package: "SiriAPI")
+    }
+    
     func testEbayIdentity() throws {
         try testSpec(name: "ebay-identity", package: "EbayIdentityAPI")
     }
