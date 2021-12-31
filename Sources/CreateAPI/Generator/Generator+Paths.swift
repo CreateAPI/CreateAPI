@@ -70,7 +70,7 @@ extension Generator {
     // MARK: - Jobs (Rest)
     
     // Generate code for the given (sub)path.
-    private struct JobRest: Job {
+    private final class JobRest: Job {
         let type: TypeName
         let component: String
         let path: OpenAPI.Path // Can be sub-path too
@@ -81,6 +81,16 @@ extension Generator {
         
         var isTopLevel: Bool { components.count == 1 }
         var filename: String { path.rawValue }
+        
+        init(type: TypeName, component: String, path: OpenAPI.Path, components: [String], isSubpath: Bool, item: OpenAPI.PathItem, commonIndices: Int) {
+            self.type = type
+            self.component = component
+            self.path = path
+            self.components = components
+            self.isSubpath = isSubpath
+            self.item = item
+            self.commonIndices = commonIndices
+        }
     }
     
     // Make all jobs upfront so we could then parallelize code generation
@@ -110,7 +120,7 @@ extension Generator {
                 guard !encountered.contains(subpath) else { continue }
                 encountered.insert(subpath)
 
-                // TODO: Refator (add componenet to handle type name like this
+                // TODO: Refator (add componnet to handle type name like this
                 // Handles the scenario with paths that result in a conflicting names, e.g.
                 // - /repositories/{repo_slug}/pipelines_config
                 // - /repositories/{repo_slug}/pipelines-config
@@ -131,7 +141,28 @@ extension Generator {
                 jobs.append(job)
             }
         }
+        
+        addGetPrefixIfNeeded(for: jobs)
+        
         return jobs
+    }
+    
+    // Add `Get.Request` instead of just `Request` in paths that themselve
+    // define a `Request` type (to avoid conflicts).
+    private func addGetPrefixIfNeeded(for jobs: [JobRest]) {
+        // Figure out what subpaths contain "Request" type
+        for job in jobs {
+            if job.type.rawValue == "Request" {
+                let path = job.components.dropLast().joined(separator: "/")
+                pathsContainingRequesType.append(path)
+            }
+        }
+    }
+    
+    private func needsGetPrefix(for path: OpenAPI.Path) -> Bool {
+        pathsContainingRequesType.contains(where: {
+            path.components.joined(separator: "/").hasPrefix($0)
+        })
     }
     
     // TODO: Improve this logic
@@ -296,7 +327,7 @@ extension Generator {
     // MARK: - Paths (Operation)
     
     private func makePath(job: JobOperation) throws -> String {
-        let context = Context(parents: [], namespace: arguments.module.rawValue)
+        let context = Context(namespace: arguments.module.rawValue)
         // TODO: Add non-strict version
         var nestedTypeNames = Set<TypeName>()
         guard let entry = try makeOperation(job.path, job.item, job.operation, job.method, .operations, context, &nestedTypeNames) else {
@@ -480,7 +511,8 @@ extension Generator {
 
         var output = templates.comments(for: .init(operation), name: "")
         let methodName = style == .operations ? makePropertyName(operationId).rawValue : method
-        output += templates.methodOrProperty(name: methodName, parameters: parameters, returning: "Request<\(responseType)>", contents: contents, isStatic: style == .operations)
+        let prefix = needsGetPrefix(for: path) ? "Get." : ""
+        output += templates.methodOrProperty(name: methodName, parameters: parameters, returning: "\(prefix)Request<\(responseType)>", contents: contents, isStatic: style == .operations)
         if let headers = responseHeaders {
             output += "\n\n"
             output += headers

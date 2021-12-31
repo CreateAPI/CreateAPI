@@ -24,6 +24,7 @@ final class Generator {
     var needsEncodable = Set<TypeName>()
     var topLevelTypes = Set<TypeName>()
     var generatedEntities: [TypeName: EntityDeclaration] = [:]
+    var pathsContainingRequesType: [String] = []
     let lock = NSLock()
     
     private var startTime: CFAbsoluteTime?

@@ -142,6 +142,7 @@
 		0C80E8EA277F9A4A009130EA /* BeezUPAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E9277F9A4A009130EA /* BeezUPAPI */; };
 		0C80E8ED277F9CC5009130EA /* BudgeaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8EC277F9CC5009130EA /* BudgeaAPI */; };
 		0C80E8F3277F9E03009130EA /* BillingoAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8F2277F9E03009130EA /* BillingoAPI */; };
+		0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +228,7 @@
 		0C80E8EB277F9CBF009130EA /* BudgeaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BudgeaAPI; path = CreateAPITests/Expected/BudgeaAPI; sourceTree = "<group>"; };
 		0C80E8F1277F9DFC009130EA /* BillingoAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BillingoAPI; path = CreateAPITests/Expected/BillingoAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
+		0CBD8051277F9F1A00F2D9EC /* IBMContainersAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IBMContainersAPI; path = CreateAPITests/Expected/IBMContainersAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
 				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
 				0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */,
+				0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */,
 				0C612EDC2777B594008D32A4 /* AppStoreConnectAPI in Frameworks */,
 				0C612F0E2777B594008D32A4 /* OnePasswordAPI in Frameworks */,
 				0C612EFA2777B594008D32A4 /* edgecases-tabs in Frameworks */,
@@ -359,6 +362,7 @@
 				0C80E8D6277F9314009130EA /* MarketcheckAPI */,
 				0C80E8DC277F9471009130EA /* MicrosoftAppCenterAPI */,
 				0C80E8DF277F981B009130EA /* SiriAPI */,
+				0CBD8051277F9F1A00F2D9EC /* IBMContainersAPI */,
 				0C612E782777B56E008D32A4 /* NYTArchiveAPI */,
 				0C612E762777B56E008D32A4 /* NYTArticleSearchAPI */,
 				0C612E8F2777B56F008D32A4 /* NYTBooksAPI */,
@@ -526,6 +530,7 @@
 				0C80E8E9277F9A4A009130EA /* BeezUPAPI */,
 				0C80E8EC277F9CC5009130EA /* BudgeaAPI */,
 				0C80E8F2277F9E03009130EA /* BillingoAPI */,
+				0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1150,6 +1155,10 @@
 		0C80E8F2277F9E03009130EA /* BillingoAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BillingoAPI;
+		};
+		0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IBMContainersAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -131,6 +131,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "simplecart", package: "SimpleCartAPI")
     }
     
+    func testIBMContainers() throws {
+        try testSpec(name: "ibm-containers", package: "IBMContainersAPI")
+    }
+    
     func testTwitter() throws {
         try testSpec(name: "twitter", package: "TwitterAPI")
     }
