@@ -137,6 +137,7 @@
 		0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DA277F93B9009130EA /* EbayIdentityAPI */; };
 		0C80E8DE277F9477009130EA /* MicrosoftAppCenterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */; };
 		0C80E8E1277F9823009130EA /* SiriAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E0277F9823009130EA /* SiriAPI */; };
+		0C80E8E4277F987E009130EA /* PowertoolsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E3277F987E009130EA /* PowertoolsAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -216,6 +217,7 @@
 		0C80E8D9277F93B1009130EA /* EbayIdentityAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EbayIdentityAPI; path = CreateAPITests/Expected/EbayIdentityAPI; sourceTree = "<group>"; };
 		0C80E8DC277F9471009130EA /* MicrosoftAppCenterAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MicrosoftAppCenterAPI; path = CreateAPITests/Expected/MicrosoftAppCenterAPI; sourceTree = "<group>"; };
 		0C80E8DF277F981B009130EA /* SiriAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SiriAPI; path = CreateAPITests/Expected/SiriAPI; sourceTree = "<group>"; };
+		0C80E8E2277F9879009130EA /* PowertoolsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PowertoolsAPI; path = CreateAPITests/Expected/PowertoolsAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,6 +276,7 @@
 				0C612EDC2777B594008D32A4 /* AppStoreConnectAPI in Frameworks */,
 				0C612F0E2777B594008D32A4 /* OnePasswordAPI in Frameworks */,
 				0C612EFA2777B594008D32A4 /* edgecases-tabs in Frameworks */,
+				0C80E8E4277F987E009130EA /* PowertoolsAPI in Frameworks */,
 				0C612F222777B595008D32A4 /* petstore-operation-id in Frameworks */,
 				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
 				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
@@ -320,6 +323,7 @@
 				0C84E3952778121D00609E4A /* BitbucketAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
+				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
 				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
 				0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */,
@@ -501,6 +505,7 @@
 				0C80E8DA277F93B9009130EA /* EbayIdentityAPI */,
 				0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */,
 				0C80E8E0277F9823009130EA /* SiriAPI */,
+				0C80E8E3277F987E009130EA /* PowertoolsAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1105,6 +1110,10 @@
 		0C80E8E0277F9823009130EA /* SiriAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SiriAPI;
+		};
+		0C80E8E3277F987E009130EA /* PowertoolsAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PowertoolsAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
