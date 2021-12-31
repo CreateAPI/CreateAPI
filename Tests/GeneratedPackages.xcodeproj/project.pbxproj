@@ -128,6 +128,7 @@
 		0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B9277F83BA009130EA /* BoxAPI */; };
 		0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8BC277F85B7009130EA /* AEMAPI */; };
 		0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C5277F8F7F009130EA /* AnchoreAPI */; };
+		0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,6 +199,7 @@
 		0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonOpenSearchAPI; path = CreateAPITests/Expected/AmazonOpenSearchAPI; sourceTree = "<group>"; };
 		0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonMemoryDBAPI; path = CreateAPITests/Expected/AmazonMemoryDBAPI; sourceTree = "<group>"; };
 		0C80E8C4277F8F7A009130EA /* AnchoreAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnchoreAPI; path = CreateAPITests/Expected/AnchoreAPI; sourceTree = "<group>"; };
+		0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckAccountingAPI; path = CreateAPITests/Expected/ApiDeckAccountingAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +218,7 @@
 				0C612F3E2777B596008D32A4 /* test-query-parameters in Frameworks */,
 				0C612F1A2777B595008D32A4 /* petstore-disable-comments in Frameworks */,
 				0C612EE82777B594008D32A4 /* edgecases-change-access-control in Frameworks */,
+				0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */,
 				0C612F042777B594008D32A4 /* NYTArchiveAPI in Frameworks */,
 				0C612EF22777B594008D32A4 /* edgecases-indent-with-two-width-spaces in Frameworks */,
 				0C612EE02777B594008D32A4 /* AuthentiqAPI in Frameworks */,
@@ -282,6 +285,7 @@
 				0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */,
 				0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */,
 				0C80E8C4277F8F7A009130EA /* AnchoreAPI */,
+				0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
@@ -456,6 +460,7 @@
 				0C80E8B9277F83BA009130EA /* BoxAPI */,
 				0C80E8BC277F85B7009130EA /* AEMAPI */,
 				0C80E8C5277F8F7F009130EA /* AnchoreAPI */,
+				0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1024,6 +1029,10 @@
 		0C80E8C5277F8F7F009130EA /* AnchoreAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnchoreAPI;
+		};
+		0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApiDeckAccountingAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
