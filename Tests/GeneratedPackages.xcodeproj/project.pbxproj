@@ -126,6 +126,7 @@
 		0C80E30E277D3F29009130EA /* ZoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E30D277D3F29009130EA /* ZoomAPI */; };
 		0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B6277EA83A009130EA /* StripeAPI */; };
 		0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B9277F83BA009130EA /* BoxAPI */; };
+		0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8BC277F85B7009130EA /* AEMAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -192,6 +193,7 @@
 		0C69E09B2779315800A46D93 /* SoundcloudAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SoundcloudAPI; path = CreateAPITests/Expected/SoundcloudAPI; sourceTree = "<group>"; };
 		0C80E30C277D3F25009130EA /* ZoomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ZoomAPI; path = CreateAPITests/Expected/ZoomAPI; sourceTree = "<group>"; };
 		0C80E8B8277F83B0009130EA /* BoxAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BoxAPI; path = CreateAPITests/Expected/BoxAPI; sourceTree = "<group>"; };
+		0C80E8BB277F85B0009130EA /* AEMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AEMAPI; path = CreateAPITests/Expected/AEMAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,6 +227,7 @@
 				0C612F3A2777B596008D32A4 /* StackExchangeAPI in Frameworks */,
 				0C612F362777B595008D32A4 /* SpotifyAPI in Frameworks */,
 				0C612F482777B596008D32A4 /* TwitterAPI in Frameworks */,
+				0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */,
 				0C612F202777B595008D32A4 /* petstore-only-schemas in Frameworks */,
 				0C612F1E2777B595008D32A4 /* petstore-generate-classes in Frameworks */,
 				0C612F322777B595008D32A4 /* SimpleCartAPI in Frameworks */,
@@ -270,6 +273,7 @@
 		0C612D6D2777AFD5008D32A4 = {
 			isa = PBXGroup;
 			children = (
+				0C80E8BB277F85B0009130EA /* AEMAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
@@ -442,6 +446,7 @@
 				0C80E30D277D3F29009130EA /* ZoomAPI */,
 				0C80E8B6277EA83A009130EA /* StripeAPI */,
 				0C80E8B9277F83BA009130EA /* BoxAPI */,
+				0C80E8BC277F85B7009130EA /* AEMAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1002,6 +1007,10 @@
 		0C80E8B9277F83BA009130EA /* BoxAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BoxAPI;
+		};
+		0C80E8BC277F85B7009130EA /* AEMAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AEMAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

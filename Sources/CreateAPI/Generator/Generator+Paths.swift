@@ -676,7 +676,7 @@ extension Generator {
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return makeRequestType(TypeName("String"))
         }
-        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml")]) != nil {
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml"), .other("text/xml"), .other("plain/text")]) != nil {
             return makeRequestType(TypeName("String"))
         }
         if firstContent(for: [
@@ -792,7 +792,7 @@ extension Generator {
         if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
-        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml")]) != nil {
+        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml"), .other("text/xml"), .other("plain/text")]) != nil {
             return GeneratedType(type: TypeName("String"))
         }
         // TODO: Add support for images as response types

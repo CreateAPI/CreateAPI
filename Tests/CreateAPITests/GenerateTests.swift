@@ -40,6 +40,10 @@ final class GenerateTests: GenerateBaseTests {
         // THEN
         try compare(package: "OctoKit")
     }
+
+    func testAEM() throws {
+        try testSpec(name: "aem", package: "AEMAPI")
+    }
     
     func testGoogleBooks() throws {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
