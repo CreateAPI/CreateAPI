@@ -1,0 +1,235 @@
+openapi: 3.0.0
+info:
+  title: Identity API
+  description: <span class="tablenote"><b>Note:</b> This is a <a href="https://developer.ebay.com/api-docs/static/versioning.html#limited" target="_blank"> <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited Release" />(Limited Release)</a> API available only to select developers approved by business units.</span><br /><br />Retrieves the authenticated user's account profile information. It can be used to let users log into your app or site using eBay, which frees you from needing to store and protect user's PII (Personal Identifiable Information) data.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.1.0
+servers:
+  - url: https://apiz.ebay.com{basePath}
+    description: Production
+    variables:
+      basePath:
+        default: /commerce/identity/v1
+paths:
+  /user/:
+    get:
+      tags:
+        - user
+      description: 'This method retrieves the account profile information for an authenticated user, which requires a User access token. What is returned is controlled by the scopes. For a business account you use the default scope commerce.identity.readonly, which returns all the fields in the businessAccount container. These are returned because this is all public information. For an individual account, the fields returned in the individualAccount container are based on the scope you use. Using the default scope, only public information, such as eBay user ID, are returned. For details about what each scope returns, see the Identity API Overview. URLs for this method Production URL: https://apiz.ebay.com/commerce/identity/v1/user/ Sandbox URL: https://apiz.sandbox.ebay.com/commerce/identity/v1/user/ In the Sandbox, this method returns mock data. Note: You must use the correct scope or scopes for the data you want returned.'
+      operationId: getUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '140000':
+                domain: API_IDENTITY
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+        - api_auth:
+            - https://api.ebay.com/oauth/api_scope/commerce.identity.readonly
+            - https://api.ebay.com/oauth/api_scope/commerce.identity.status.readonly
+            - https://api.ebay.com/oauth/api_scope/commerce.identity.name.readonly
+            - https://api.ebay.com/oauth/api_scope/commerce.identity.address.readonly
+            - https://api.ebay.com/oauth/api_scope/commerce.identity.email.readonly
+            - https://api.ebay.com/oauth/api_scope/commerce.identity.phone.readonly
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: The first line of the street address.
+        addressLine2:
+          type: string
+          description: The second line of the street address. This field is not always used, but can be used for 'Suite Number' or 'Apt Number'.
+        city:
+          type: string
+          description: The city of the address.
+        country:
+          type: string
+          description: The two-letter ISO 3166 standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/identity/types/bas:CountryCodeEnum'>eBay API documentation</a>
+        county:
+          type: string
+          description: The county of the address.
+        postalCode:
+          type: string
+          description: The postal code of the address.
+        stateOrProvince:
+          type: string
+          description: The state or province of the address.
+      description: The type that defines the fields for an address.
+    BusinessAccount:
+      type: object
+      properties:
+        address:
+          description: The container that returns the address of the business account.
+          $ref: '#/components/schemas/Address'
+        doingBusinessAs:
+          type: string
+          description: An additional name that is used for their business on eBay. The business name is returned in the name field.
+        email:
+          type: string
+          description: The email address of the business account.
+        name:
+          type: string
+          description: The business name associated with the user's eBay account.
+        primaryContact:
+          description: The container that returns the contact details of the person who is the primary contact for this account.
+          $ref: '#/components/schemas/Contact'
+        primaryPhone:
+          description: The container that returns the primary phone number for the business account.
+          $ref: '#/components/schemas/Phone'
+        secondaryPhone:
+          description: The container that returns the secondary phone number for the business account.
+          $ref: '#/components/schemas/Phone'
+        website:
+          type: string
+          description: The business website address associated with the eBay account.
+      description: The type that defines the fields for the business account information.
+    Contact:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: The first name of the contact person.
+        lastName:
+          type: string
+          description: The last name of the contact person.
+      description: The type that defines the fields for the information of the contact person for the account.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: Identifies the type of erro.
+        domain:
+          type: string
+          description: Name for the primary system where the error occurred. This is relevant for application errors.
+        errorId:
+          type: integer
+          description: A unique number to identify the error.
+          format: int32
+        inputRefIds:
+          type: array
+          description: An array of request elements most closely associated to the error.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A more detailed explanation of the error.
+        message:
+          type: string
+          description: Information on how to correct the problem, in the end user's terms and language where applicable.
+        outputRefIds:
+          type: array
+          description: An array of request elements most closely associated to the error.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: An array of name/value pairs that describe details the error condition. These are useful when multiple errors are returned.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: 'Further helps indicate which subsystem the error is coming from. System subcategories include: Initialization, Serialization, Security, Monitoring, Rate Limiting, etc.'
+      description: This type defines the fields that can be returned in an error.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The object of the error.
+        value:
+          type: string
+          description: The value of the object.
+    IndividualAccount:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The eBay user's registration email address.
+        firstName:
+          type: string
+          description: The eBay user's first name.
+        lastName:
+          type: string
+          description: The eBay user's last name.
+        primaryPhone:
+          description: The container that returns the eBay user's primary phone number information.
+          $ref: '#/components/schemas/Phone'
+        registrationAddress:
+          description: The container that returns the eBay user's address information.
+          $ref: '#/components/schemas/Address'
+        secondaryPhone:
+          description: The container that returns the eBay user's secondary phone number information.
+          $ref: '#/components/schemas/Phone'
+      description: The type that defines the fields for the information of an individual account.
+    Phone:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          description: The two-letter ISO 3166 standard of the country to which the phone number belongs.
+        number:
+          type: string
+          description: The numeric string representing the phone number.
+        phoneType:
+          type: string
+          description: 'The type of phone service. Valid Values: MOBILE or LAND_LINE Code so that your app gracefully handles any future changes to this list.'
+      description: The type that defines the fields for the details of a phone.
+    UserResponse:
+      type: object
+      properties:
+        accountType:
+          type: string
+          description: 'Indicates the user account type. This is determined when the user registers with eBay. If they register for a business account, this value will be BUSINESS. If they register for a private account, this value will be INDIVIDUAL. This designation is required by the tax laws in the following countries: EBAY_AT, EBAY_BE, EBAY_CH, EBAY_DE, EBAY_ES, EBAY_FR, EBAY_GB, EBAY_IE, EBAY_IT, EBAY_PL Valid Values: BUSINESS or INDIVIDUAL Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/identity/types/api:AccountTypeEnum''>eBay API documentation</a>'
+        businessAccount:
+          description: The container that returns the business account information of the user.
+          $ref: '#/components/schemas/BusinessAccount'
+        individualAccount:
+          description: The account information of the user.
+          $ref: '#/components/schemas/IndividualAccount'
+        registrationMarketplaceId:
+          type: string
+          description: The eBay site on which the account is registered. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/identity/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
+        status:
+          type: string
+          description: 'Indicates the user''s account status. Possible values: CONFIRMED, UNCONFIRMED, ACCOUNTONHOLD and UNDETERMINED. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/identity/types/api:UserStatusEnum''>eBay API documentation</a>'
+        userId:
+          type: string
+          description: The eBay immutable user ID of the user's account and can always be used to identify the user.
+        username:
+          type: string
+          description: 'The user name, which was specific by the user when they created the account. Note: This value can be changed by the user.'
+      description: The type that defines the fields for the getUser method.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/commerce.identity.email.readonly: View a user's personal email information from their eBay member account
+            https://api.ebay.com/oauth/api_scope/commerce.identity.status.readonly: View a user's eBay member account status
+            https://api.ebay.com/oauth/api_scope/commerce.identity.address.readonly: View a user's personal address information from their eBay member account
+            https://api.ebay.com/oauth/api_scope/commerce.identity.readonly: View a user's basic information, such as username or business account details, from their eBay member account
+            https://api.ebay.com/oauth/api_scope/commerce.identity.name.readonly: View a user's first and last name from their eBay member account
+            https://api.ebay.com/oauth/api_scope/commerce.identity.phone.readonly: View a user's personal telephone information from their eBay member account

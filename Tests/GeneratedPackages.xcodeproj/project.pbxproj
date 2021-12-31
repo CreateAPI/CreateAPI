@@ -134,6 +134,7 @@
 		0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */; };
 		0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */; };
 		0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D7277F9318009130EA /* MarketcheckAPI */; };
+		0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DA277F93B9009130EA /* EbayIdentityAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -210,6 +211,7 @@
 		0C80E8D0277F923B009130EA /* ApiDeckProxyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckProxyAPI; path = CreateAPITests/Expected/ApiDeckProxyAPI; sourceTree = "<group>"; };
 		0C80E8D3277F9283009130EA /* ApiDeckVaultAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckVaultAPI; path = CreateAPITests/Expected/ApiDeckVaultAPI; sourceTree = "<group>"; };
 		0C80E8D6277F9314009130EA /* MarketcheckAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarketcheckAPI; path = CreateAPITests/Expected/MarketcheckAPI; sourceTree = "<group>"; };
+		0C80E8D9277F93B1009130EA /* EbayIdentityAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EbayIdentityAPI; path = CreateAPITests/Expected/EbayIdentityAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -270,6 +272,7 @@
 				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
 				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
 				0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */,
+				0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */,
 				0C612F282777B595008D32A4 /* petstore-some-entities-as-structs in Frameworks */,
 				0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */,
 				0C612F022777B594008D32A4 /* JiraAPI in Frameworks */,
@@ -312,6 +315,7 @@
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
+				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
 				0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */,
 				0C612E962777B56F008D32A4 /* edgecases-coding-keys */,
 				0C612E6E2777B56E008D32A4 /* edgecases-default */,
@@ -486,6 +490,7 @@
 				0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */,
 				0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */,
 				0C80E8D7277F9318009130EA /* MarketcheckAPI */,
+				0C80E8DA277F93B9009130EA /* EbayIdentityAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1078,6 +1083,10 @@
 		0C80E8D7277F9318009130EA /* MarketcheckAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MarketcheckAPI;
+		};
+		0C80E8DA277F93B9009130EA /* EbayIdentityAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EbayIdentityAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
