@@ -150,8 +150,12 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "stackexchange", package: "StackExchangeAPI")
     }
     
+    // TODO: Stripe has massive entities and structs take 4x more tike to compile. Auto-generate classes based on some criteria?
     func testStripe() throws {
-        try testSpec(name: "stripe", package: "StripeAPI")
+        try testSpec(name: "stripe", package: "StripeAPI", config: """
+        entities:
+            isGeneratingStructs: false
+        """)
     }
     
     func testTelegramBot() throws {

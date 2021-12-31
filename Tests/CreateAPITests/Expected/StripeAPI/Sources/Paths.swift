@@ -21,7 +21,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Amount of the charge that you will create when authentication completes.
             public var amount: Int
             /// The ID of a card token, or the ID of a card belonging to the given customer.
@@ -107,7 +107,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
             public var accountToken: String?
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
@@ -154,13 +154,13 @@ extension Paths {
             public var tosAcceptance: TosAcceptance?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -227,7 +227,7 @@ extension Paths {
             /// Business_profile_specs
             ///
             /// Business information about the account.
-            public struct BusinessProfile: Encodable {
+            public final class BusinessProfile: Encodable {
                 public var mcc: String?
                 public var name: String?
                 public var productDescription: String?
@@ -239,7 +239,7 @@ extension Paths {
                 public var url: String?
 
                 /// Address_specs
-                public struct SupportAddress: Encodable {
+                public final class SupportAddress: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -268,7 +268,7 @@ extension Paths {
                     }
                 }
 
-                public struct SupportURL: Encodable {
+                public final class SupportURL: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -325,7 +325,7 @@ extension Paths {
             /// Capabilities_param
             ///
             /// Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
-            public struct Capabilities: Encodable {
+            public final class Capabilities: Encodable {
                 /// Capability_param
                 public var acssDebitPayments: AcssDebitPayments?
                 /// Capability_param
@@ -376,7 +376,7 @@ extension Paths {
                 public var transfers: Transfers?
 
                 /// Capability_param
-                public struct AcssDebitPayments: Encodable {
+                public final class AcssDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -391,7 +391,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct AfterpayClearpayPayments: Encodable {
+                public final class AfterpayClearpayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -406,7 +406,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct AuBecsDebitPayments: Encodable {
+                public final class AuBecsDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -421,7 +421,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct BacsDebitPayments: Encodable {
+                public final class BacsDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -436,7 +436,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct BancontactPayments: Encodable {
+                public final class BancontactPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -451,7 +451,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct BoletoPayments: Encodable {
+                public final class BoletoPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -466,7 +466,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct CardIssuing: Encodable {
+                public final class CardIssuing: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -481,7 +481,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct CardPayments: Encodable {
+                public final class CardPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -496,7 +496,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct CartesBancairesPayments: Encodable {
+                public final class CartesBancairesPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -511,7 +511,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct EpsPayments: Encodable {
+                public final class EpsPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -526,7 +526,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct FpxPayments: Encodable {
+                public final class FpxPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -541,7 +541,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct GiropayPayments: Encodable {
+                public final class GiropayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -556,7 +556,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct GrabpayPayments: Encodable {
+                public final class GrabpayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -571,7 +571,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct IdealPayments: Encodable {
+                public final class IdealPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -586,7 +586,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct JcbPayments: Encodable {
+                public final class JcbPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -601,7 +601,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct KlarnaPayments: Encodable {
+                public final class KlarnaPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -616,7 +616,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct LegacyPayments: Encodable {
+                public final class LegacyPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -631,7 +631,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct OxxoPayments: Encodable {
+                public final class OxxoPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -646,7 +646,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct P24Payments: Encodable {
+                public final class P24Payments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -661,7 +661,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct SepaDebitPayments: Encodable {
+                public final class SepaDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -676,7 +676,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct SofortPayments: Encodable {
+                public final class SofortPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -691,7 +691,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct TaxReportingUs1099K: Encodable {
+                public final class TaxReportingUs1099K: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -706,7 +706,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct TaxReportingUs1099Misc: Encodable {
+                public final class TaxReportingUs1099Misc: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -721,7 +721,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct Transfers: Encodable {
+                public final class Transfers: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -795,7 +795,7 @@ extension Paths {
             /// Company_specs
             ///
             /// Information about the company or business. This field is available for any `business_type`.
-            public struct Company: Encodable {
+            public final class Company: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -820,7 +820,7 @@ extension Paths {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -850,7 +850,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -883,7 +883,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -916,7 +916,7 @@ extension Paths {
                 }
 
                 /// Company_ownership_declaration
-                public struct OwnershipDeclaration: Encodable {
+                public final class OwnershipDeclaration: Encodable {
                     public var date: Int?
                     public var ip: String?
                     public var userAgent: String?
@@ -961,12 +961,12 @@ extension Paths {
                 }
 
                 /// Verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Verification_document_specs
                     public var document: Document?
 
                     /// Verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -1040,7 +1040,7 @@ extension Paths {
             /// Documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var bankAccountOwnershipVerification: BankAccountOwnershipVerification?
                 /// Documents_param
@@ -1057,7 +1057,7 @@ extension Paths {
                 public var proofOfRegistration: ProofOfRegistration?
 
                 /// Documents_param
-                public struct BankAccountOwnershipVerification: Encodable {
+                public final class BankAccountOwnershipVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1072,7 +1072,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyLicense: Encodable {
+                public final class CompanyLicense: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1087,7 +1087,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyMemorandumOfAssociation: Encodable {
+                public final class CompanyMemorandumOfAssociation: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1102,7 +1102,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyMinisterialDecree: Encodable {
+                public final class CompanyMinisterialDecree: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1117,7 +1117,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyRegistrationVerification: Encodable {
+                public final class CompanyRegistrationVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1132,7 +1132,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyTaxIDVerification: Encodable {
+                public final class CompanyTaxIDVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1147,7 +1147,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct ProofOfRegistration: Encodable {
+                public final class ProofOfRegistration: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -1187,7 +1187,7 @@ extension Paths {
             /// Individual_specs
             ///
             /// Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
-            public struct Individual: Encodable {
+            public final class Individual: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -1214,7 +1214,7 @@ extension Paths {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -1244,7 +1244,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -1277,7 +1277,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -1309,13 +1309,13 @@ extension Paths {
                     }
                 }
 
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     /// Date_of_birth_specs
                     public var a: A?
                     public var b: B?
 
                     /// Date_of_birth_specs
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -1352,7 +1352,7 @@ extension Paths {
                     }
                 }
 
-                public struct FullNameAliases: Encodable {
+                public final class FullNameAliases: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -1373,7 +1373,7 @@ extension Paths {
                     }
                 }
 
-                public struct Metadata: Encodable {
+                public final class Metadata: Encodable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -1400,14 +1400,14 @@ extension Paths {
                 }
 
                 /// Person_verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Person_verification_document_specs
                     public var additionalDocument: AdditionalDocument?
                     /// Person_verification_document_specs
                     public var document: Document?
 
                     /// Person_verification_document_specs
-                    public struct AdditionalDocument: Encodable {
+                    public final class AdditionalDocument: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -1425,7 +1425,7 @@ extension Paths {
                     }
 
                     /// Person_verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -1505,7 +1505,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -1529,7 +1529,7 @@ extension Paths {
             /// Settings_specs_update
             ///
             /// Options for customizing how the account functions within Stripe.
-            public struct Settings: Encodable {
+            public final class Settings: Encodable {
                 /// Branding_settings_specs
                 public var branding: Branding?
                 /// Card_issuing_settings_specs
@@ -1542,7 +1542,7 @@ extension Paths {
                 public var payouts: Payouts?
 
                 /// Branding_settings_specs
-                public struct Branding: Encodable {
+                public final class Branding: Encodable {
                     public var icon: String?
                     public var logo: String?
                     public var primaryColor: String?
@@ -1566,12 +1566,12 @@ extension Paths {
                 }
 
                 /// Card_issuing_settings_specs
-                public struct CardIssuing: Encodable {
+                public final class CardIssuing: Encodable {
                     /// Settings_terms_of_service_specs
                     public var tosAcceptance: TosAcceptance?
 
                     /// Settings_terms_of_service_specs
-                    public struct TosAcceptance: Encodable {
+                    public final class TosAcceptance: Encodable {
                         public var date: Int?
                         public var ip: String?
                         public var userAgent: String?
@@ -1603,13 +1603,13 @@ extension Paths {
                 }
 
                 /// Card_payments_settings_specs
-                public struct CardPayments: Encodable {
+                public final class CardPayments: Encodable {
                     /// Decline_charge_on_specs
                     public var declineOn: DeclineOn?
                     public var statementDescriptorPrefix: String?
 
                     /// Decline_charge_on_specs
-                    public struct DeclineOn: Encodable {
+                    public final class DeclineOn: Encodable {
                         public var isAvsFailure: Bool?
                         public var isCvcFailure: Bool?
 
@@ -1640,7 +1640,7 @@ extension Paths {
                 }
 
                 /// Payments_settings_specs
-                public struct Payments: Encodable {
+                public final class Payments: Encodable {
                     public var statementDescriptor: String?
                     public var statementDescriptorKana: String?
                     public var statementDescriptorKanji: String?
@@ -1661,20 +1661,20 @@ extension Paths {
                 }
 
                 /// Payout_settings_specs
-                public struct Payouts: Encodable {
+                public final class Payouts: Encodable {
                     public var isDebitNegativeBalances: Bool?
                     /// Transfer_schedule_specs
                     public var schedule: Schedule?
                     public var statementDescriptor: String?
 
                     /// Transfer_schedule_specs
-                    public struct Schedule: Encodable {
+                    public final class Schedule: Encodable {
                         public var delayDays: DelayDays?
                         public var interval: Interval?
                         public var monthlyAnchor: Int?
                         public var weeklyAnchor: WeeklyAnchor?
 
-                        public struct DelayDays: Encodable {
+                        public final class DelayDays: Encodable {
                             public var object: Object?
                             public var int: Int?
 
@@ -1766,7 +1766,7 @@ extension Paths {
             /// Tos_acceptance_specs
             ///
             /// Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
-            public struct TosAcceptance: Encodable {
+            public final class TosAcceptance: Encodable {
                 public var date: Int?
                 public var ip: String?
                 public var serviceAgreement: String?
@@ -1837,7 +1837,7 @@ extension Paths {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             public var account: String?
 
             public init(account: String? = nil) {
@@ -1867,7 +1867,7 @@ extension Paths.Account {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
             public var bankAccount: BankAccount?
             /// When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
@@ -1880,13 +1880,13 @@ extension Paths.Account {
             public var metadata: [String: String]?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -1998,7 +1998,7 @@ extension Paths.Account.BankAccounts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -2046,7 +2046,7 @@ extension Paths.Account.BankAccounts {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -2128,7 +2128,7 @@ extension Paths.Account {
         }
 
         /// ListAccountCapability
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Capability]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -2190,7 +2190,7 @@ extension Paths.Account.Capabilities {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2226,7 +2226,7 @@ extension Paths.Account {
         }
 
         /// ExternalAccountList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
             public var data: [Datum]
             /// True if this list has another page of items after this one that can be fetched.
@@ -2237,7 +2237,7 @@ extension Paths.Account {
             public var url: String
 
             /// Polymorphic
-            public struct Datum: Decodable {
+            public final class Datum: Decodable {
                 public var bankAccount: StripeAPI.BankAccount?
                 public var card: StripeAPI.Card?
 
@@ -2273,7 +2273,7 @@ extension Paths.Account {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -2301,7 +2301,7 @@ extension Paths.Account {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
             public var bankAccount: BankAccount?
             /// When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
@@ -2314,13 +2314,13 @@ extension Paths.Account {
             public var metadata: [String: String]?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -2432,7 +2432,7 @@ extension Paths.Account.ExternalAccounts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -2480,7 +2480,7 @@ extension Paths.Account.ExternalAccounts {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -2563,7 +2563,7 @@ extension Paths.Account {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var account: String
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
@@ -2601,7 +2601,7 @@ extension Paths.Account {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Person]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -2630,7 +2630,7 @@ extension Paths.Account {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -2639,7 +2639,7 @@ extension Paths.Account {
             public var startingAfter: String?
 
             /// All_people_relationship_specs
-            public struct Relationship: Codable {
+            public final class Relationship: Codable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -2686,7 +2686,7 @@ extension Paths.Account {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var account: String?
             /// Address_specs
             ///
@@ -2754,7 +2754,7 @@ extension Paths.Account {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -2786,7 +2786,7 @@ extension Paths.Account {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -2821,7 +2821,7 @@ extension Paths.Account {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -2854,13 +2854,13 @@ extension Paths.Account {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -2900,7 +2900,7 @@ extension Paths.Account {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -2909,7 +2909,7 @@ extension Paths.Account {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -2924,7 +2924,7 @@ extension Paths.Account {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -2939,7 +2939,7 @@ extension Paths.Account {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -2969,7 +2969,7 @@ extension Paths.Account {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -2991,7 +2991,7 @@ extension Paths.Account {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -3015,7 +3015,7 @@ extension Paths.Account {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -3023,7 +3023,7 @@ extension Paths.Account {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -3068,14 +3068,14 @@ extension Paths.Account {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -3093,7 +3093,7 @@ extension Paths.Account {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -3211,7 +3211,7 @@ extension Paths.Account.People {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var account: String?
             /// Address_specs
             ///
@@ -3279,7 +3279,7 @@ extension Paths.Account.People {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -3311,7 +3311,7 @@ extension Paths.Account.People {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -3346,7 +3346,7 @@ extension Paths.Account.People {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -3379,13 +3379,13 @@ extension Paths.Account.People {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -3425,7 +3425,7 @@ extension Paths.Account.People {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -3434,7 +3434,7 @@ extension Paths.Account.People {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -3449,7 +3449,7 @@ extension Paths.Account.People {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -3464,7 +3464,7 @@ extension Paths.Account.People {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -3494,7 +3494,7 @@ extension Paths.Account.People {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -3516,7 +3516,7 @@ extension Paths.Account.People {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -3540,7 +3540,7 @@ extension Paths.Account.People {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -3548,7 +3548,7 @@ extension Paths.Account.People {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -3593,14 +3593,14 @@ extension Paths.Account.People {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -3618,7 +3618,7 @@ extension Paths.Account.People {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -3730,7 +3730,7 @@ extension Paths.Account {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Person]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -3759,7 +3759,7 @@ extension Paths.Account {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -3768,7 +3768,7 @@ extension Paths.Account {
             public var startingAfter: String?
 
             /// All_people_relationship_specs
-            public struct Relationship: Codable {
+            public final class Relationship: Codable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -3815,7 +3815,7 @@ extension Paths.Account {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var account: String?
             /// Address_specs
             ///
@@ -3883,7 +3883,7 @@ extension Paths.Account {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -3915,7 +3915,7 @@ extension Paths.Account {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -3950,7 +3950,7 @@ extension Paths.Account {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -3983,13 +3983,13 @@ extension Paths.Account {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -4029,7 +4029,7 @@ extension Paths.Account {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -4038,7 +4038,7 @@ extension Paths.Account {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -4053,7 +4053,7 @@ extension Paths.Account {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -4068,7 +4068,7 @@ extension Paths.Account {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -4098,7 +4098,7 @@ extension Paths.Account {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -4120,7 +4120,7 @@ extension Paths.Account {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -4144,7 +4144,7 @@ extension Paths.Account {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -4152,7 +4152,7 @@ extension Paths.Account {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -4197,14 +4197,14 @@ extension Paths.Account {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -4222,7 +4222,7 @@ extension Paths.Account {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -4340,7 +4340,7 @@ extension Paths.Account.Persons {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var account: String?
             /// Address_specs
             ///
@@ -4408,7 +4408,7 @@ extension Paths.Account.Persons {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -4440,7 +4440,7 @@ extension Paths.Account.Persons {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -4475,7 +4475,7 @@ extension Paths.Account.Persons {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -4508,13 +4508,13 @@ extension Paths.Account.Persons {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -4554,7 +4554,7 @@ extension Paths.Account.Persons {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -4563,7 +4563,7 @@ extension Paths.Account.Persons {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -4578,7 +4578,7 @@ extension Paths.Account.Persons {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -4593,7 +4593,7 @@ extension Paths.Account.Persons {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -4623,7 +4623,7 @@ extension Paths.Account.Persons {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -4645,7 +4645,7 @@ extension Paths.Account.Persons {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -4669,7 +4669,7 @@ extension Paths.Account.Persons {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -4677,7 +4677,7 @@ extension Paths.Account.Persons {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -4722,14 +4722,14 @@ extension Paths.Account.Persons {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -4747,7 +4747,7 @@ extension Paths.Account.Persons {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -4859,7 +4859,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The identifier of the account to create an account link for.
             public var account: String
             /// Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
@@ -4922,7 +4922,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Account]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -4951,20 +4951,20 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -5025,7 +5025,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
             public var accountToken: String?
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
@@ -5076,13 +5076,13 @@ extension Paths {
             public var type: `Type`?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -5149,7 +5149,7 @@ extension Paths {
             /// Business_profile_specs
             ///
             /// Business information about the account.
-            public struct BusinessProfile: Encodable {
+            public final class BusinessProfile: Encodable {
                 public var mcc: String?
                 public var name: String?
                 public var productDescription: String?
@@ -5161,7 +5161,7 @@ extension Paths {
                 public var url: String?
 
                 /// Address_specs
-                public struct SupportAddress: Encodable {
+                public final class SupportAddress: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -5190,7 +5190,7 @@ extension Paths {
                     }
                 }
 
-                public struct SupportURL: Encodable {
+                public final class SupportURL: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -5247,7 +5247,7 @@ extension Paths {
             /// Capabilities_param
             ///
             /// Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
-            public struct Capabilities: Encodable {
+            public final class Capabilities: Encodable {
                 /// Capability_param
                 public var acssDebitPayments: AcssDebitPayments?
                 /// Capability_param
@@ -5298,7 +5298,7 @@ extension Paths {
                 public var transfers: Transfers?
 
                 /// Capability_param
-                public struct AcssDebitPayments: Encodable {
+                public final class AcssDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5313,7 +5313,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct AfterpayClearpayPayments: Encodable {
+                public final class AfterpayClearpayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5328,7 +5328,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct AuBecsDebitPayments: Encodable {
+                public final class AuBecsDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5343,7 +5343,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct BacsDebitPayments: Encodable {
+                public final class BacsDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5358,7 +5358,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct BancontactPayments: Encodable {
+                public final class BancontactPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5373,7 +5373,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct BoletoPayments: Encodable {
+                public final class BoletoPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5388,7 +5388,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct CardIssuing: Encodable {
+                public final class CardIssuing: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5403,7 +5403,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct CardPayments: Encodable {
+                public final class CardPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5418,7 +5418,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct CartesBancairesPayments: Encodable {
+                public final class CartesBancairesPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5433,7 +5433,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct EpsPayments: Encodable {
+                public final class EpsPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5448,7 +5448,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct FpxPayments: Encodable {
+                public final class FpxPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5463,7 +5463,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct GiropayPayments: Encodable {
+                public final class GiropayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5478,7 +5478,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct GrabpayPayments: Encodable {
+                public final class GrabpayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5493,7 +5493,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct IdealPayments: Encodable {
+                public final class IdealPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5508,7 +5508,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct JcbPayments: Encodable {
+                public final class JcbPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5523,7 +5523,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct KlarnaPayments: Encodable {
+                public final class KlarnaPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5538,7 +5538,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct LegacyPayments: Encodable {
+                public final class LegacyPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5553,7 +5553,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct OxxoPayments: Encodable {
+                public final class OxxoPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5568,7 +5568,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct P24Payments: Encodable {
+                public final class P24Payments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5583,7 +5583,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct SepaDebitPayments: Encodable {
+                public final class SepaDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5598,7 +5598,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct SofortPayments: Encodable {
+                public final class SofortPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5613,7 +5613,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct TaxReportingUs1099K: Encodable {
+                public final class TaxReportingUs1099K: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5628,7 +5628,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct TaxReportingUs1099Misc: Encodable {
+                public final class TaxReportingUs1099Misc: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5643,7 +5643,7 @@ extension Paths {
                 }
 
                 /// Capability_param
-                public struct Transfers: Encodable {
+                public final class Transfers: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -5717,7 +5717,7 @@ extension Paths {
             /// Company_specs
             ///
             /// Information about the company or business. This field is available for any `business_type`.
-            public struct Company: Encodable {
+            public final class Company: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -5742,7 +5742,7 @@ extension Paths {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -5772,7 +5772,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -5805,7 +5805,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -5838,7 +5838,7 @@ extension Paths {
                 }
 
                 /// Company_ownership_declaration
-                public struct OwnershipDeclaration: Encodable {
+                public final class OwnershipDeclaration: Encodable {
                     public var date: Int?
                     public var ip: String?
                     public var userAgent: String?
@@ -5883,12 +5883,12 @@ extension Paths {
                 }
 
                 /// Verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Verification_document_specs
                     public var document: Document?
 
                     /// Verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -5962,7 +5962,7 @@ extension Paths {
             /// Documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var bankAccountOwnershipVerification: BankAccountOwnershipVerification?
                 /// Documents_param
@@ -5979,7 +5979,7 @@ extension Paths {
                 public var proofOfRegistration: ProofOfRegistration?
 
                 /// Documents_param
-                public struct BankAccountOwnershipVerification: Encodable {
+                public final class BankAccountOwnershipVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -5994,7 +5994,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyLicense: Encodable {
+                public final class CompanyLicense: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -6009,7 +6009,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyMemorandumOfAssociation: Encodable {
+                public final class CompanyMemorandumOfAssociation: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -6024,7 +6024,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyMinisterialDecree: Encodable {
+                public final class CompanyMinisterialDecree: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -6039,7 +6039,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyRegistrationVerification: Encodable {
+                public final class CompanyRegistrationVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -6054,7 +6054,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct CompanyTaxIDVerification: Encodable {
+                public final class CompanyTaxIDVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -6069,7 +6069,7 @@ extension Paths {
                 }
 
                 /// Documents_param
-                public struct ProofOfRegistration: Encodable {
+                public final class ProofOfRegistration: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -6109,7 +6109,7 @@ extension Paths {
             /// Individual_specs
             ///
             /// Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
-            public struct Individual: Encodable {
+            public final class Individual: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -6136,7 +6136,7 @@ extension Paths {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -6166,7 +6166,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -6199,7 +6199,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -6231,13 +6231,13 @@ extension Paths {
                     }
                 }
 
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     /// Date_of_birth_specs
                     public var a: A?
                     public var b: B?
 
                     /// Date_of_birth_specs
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -6274,7 +6274,7 @@ extension Paths {
                     }
                 }
 
-                public struct FullNameAliases: Encodable {
+                public final class FullNameAliases: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -6295,7 +6295,7 @@ extension Paths {
                     }
                 }
 
-                public struct Metadata: Encodable {
+                public final class Metadata: Encodable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -6322,14 +6322,14 @@ extension Paths {
                 }
 
                 /// Person_verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Person_verification_document_specs
                     public var additionalDocument: AdditionalDocument?
                     /// Person_verification_document_specs
                     public var document: Document?
 
                     /// Person_verification_document_specs
-                    public struct AdditionalDocument: Encodable {
+                    public final class AdditionalDocument: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -6347,7 +6347,7 @@ extension Paths {
                     }
 
                     /// Person_verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -6427,7 +6427,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -6451,7 +6451,7 @@ extension Paths {
             /// Settings_specs
             ///
             /// Options for customizing how the account functions within Stripe.
-            public struct Settings: Encodable {
+            public final class Settings: Encodable {
                 /// Branding_settings_specs
                 public var branding: Branding?
                 /// Card_issuing_settings_specs
@@ -6464,7 +6464,7 @@ extension Paths {
                 public var payouts: Payouts?
 
                 /// Branding_settings_specs
-                public struct Branding: Encodable {
+                public final class Branding: Encodable {
                     public var icon: String?
                     public var logo: String?
                     public var primaryColor: String?
@@ -6488,12 +6488,12 @@ extension Paths {
                 }
 
                 /// Card_issuing_settings_specs
-                public struct CardIssuing: Encodable {
+                public final class CardIssuing: Encodable {
                     /// Settings_terms_of_service_specs
                     public var tosAcceptance: TosAcceptance?
 
                     /// Settings_terms_of_service_specs
-                    public struct TosAcceptance: Encodable {
+                    public final class TosAcceptance: Encodable {
                         public var date: Int?
                         public var ip: String?
                         public var userAgent: String?
@@ -6525,13 +6525,13 @@ extension Paths {
                 }
 
                 /// Card_payments_settings_specs
-                public struct CardPayments: Encodable {
+                public final class CardPayments: Encodable {
                     /// Decline_charge_on_specs
                     public var declineOn: DeclineOn?
                     public var statementDescriptorPrefix: String?
 
                     /// Decline_charge_on_specs
-                    public struct DeclineOn: Encodable {
+                    public final class DeclineOn: Encodable {
                         public var isAvsFailure: Bool?
                         public var isCvcFailure: Bool?
 
@@ -6562,7 +6562,7 @@ extension Paths {
                 }
 
                 /// Payments_settings_specs
-                public struct Payments: Encodable {
+                public final class Payments: Encodable {
                     public var statementDescriptor: String?
                     public var statementDescriptorKana: String?
                     public var statementDescriptorKanji: String?
@@ -6583,20 +6583,20 @@ extension Paths {
                 }
 
                 /// Payout_settings_specs
-                public struct Payouts: Encodable {
+                public final class Payouts: Encodable {
                     public var isDebitNegativeBalances: Bool?
                     /// Transfer_schedule_specs
                     public var schedule: Schedule?
                     public var statementDescriptor: String?
 
                     /// Transfer_schedule_specs
-                    public struct Schedule: Encodable {
+                    public final class Schedule: Encodable {
                         public var delayDays: DelayDays?
                         public var interval: Interval?
                         public var monthlyAnchor: Int?
                         public var weeklyAnchor: WeeklyAnchor?
 
-                        public struct DelayDays: Encodable {
+                        public final class DelayDays: Encodable {
                             public var object: Object?
                             public var int: Int?
 
@@ -6688,7 +6688,7 @@ extension Paths {
             /// Tos_acceptance_specs
             ///
             /// Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
-            public struct TosAcceptance: Encodable {
+            public final class TosAcceptance: Encodable {
                 public var date: Int?
                 public var ip: String?
                 public var serviceAgreement: String?
@@ -6790,7 +6790,7 @@ extension Paths.Accounts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
             public var accountToken: String?
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
@@ -6837,13 +6837,13 @@ extension Paths.Accounts {
             public var tosAcceptance: TosAcceptance?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -6910,7 +6910,7 @@ extension Paths.Accounts {
             /// Business_profile_specs
             ///
             /// Business information about the account.
-            public struct BusinessProfile: Encodable {
+            public final class BusinessProfile: Encodable {
                 public var mcc: String?
                 public var name: String?
                 public var productDescription: String?
@@ -6922,7 +6922,7 @@ extension Paths.Accounts {
                 public var url: String?
 
                 /// Address_specs
-                public struct SupportAddress: Encodable {
+                public final class SupportAddress: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -6951,7 +6951,7 @@ extension Paths.Accounts {
                     }
                 }
 
-                public struct SupportURL: Encodable {
+                public final class SupportURL: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -7008,7 +7008,7 @@ extension Paths.Accounts {
             /// Capabilities_param
             ///
             /// Each key of the dictionary represents a capability, and each capability maps to its settings (e.g. whether it has been requested or not). Each capability will be inactive until you have provided its specific requirements and Stripe has verified them. An account may have some of its requested capabilities be active and some be inactive.
-            public struct Capabilities: Encodable {
+            public final class Capabilities: Encodable {
                 /// Capability_param
                 public var acssDebitPayments: AcssDebitPayments?
                 /// Capability_param
@@ -7059,7 +7059,7 @@ extension Paths.Accounts {
                 public var transfers: Transfers?
 
                 /// Capability_param
-                public struct AcssDebitPayments: Encodable {
+                public final class AcssDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7074,7 +7074,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct AfterpayClearpayPayments: Encodable {
+                public final class AfterpayClearpayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7089,7 +7089,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct AuBecsDebitPayments: Encodable {
+                public final class AuBecsDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7104,7 +7104,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct BacsDebitPayments: Encodable {
+                public final class BacsDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7119,7 +7119,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct BancontactPayments: Encodable {
+                public final class BancontactPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7134,7 +7134,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct BoletoPayments: Encodable {
+                public final class BoletoPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7149,7 +7149,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct CardIssuing: Encodable {
+                public final class CardIssuing: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7164,7 +7164,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct CardPayments: Encodable {
+                public final class CardPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7179,7 +7179,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct CartesBancairesPayments: Encodable {
+                public final class CartesBancairesPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7194,7 +7194,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct EpsPayments: Encodable {
+                public final class EpsPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7209,7 +7209,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct FpxPayments: Encodable {
+                public final class FpxPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7224,7 +7224,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct GiropayPayments: Encodable {
+                public final class GiropayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7239,7 +7239,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct GrabpayPayments: Encodable {
+                public final class GrabpayPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7254,7 +7254,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct IdealPayments: Encodable {
+                public final class IdealPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7269,7 +7269,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct JcbPayments: Encodable {
+                public final class JcbPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7284,7 +7284,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct KlarnaPayments: Encodable {
+                public final class KlarnaPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7299,7 +7299,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct LegacyPayments: Encodable {
+                public final class LegacyPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7314,7 +7314,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct OxxoPayments: Encodable {
+                public final class OxxoPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7329,7 +7329,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct P24Payments: Encodable {
+                public final class P24Payments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7344,7 +7344,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct SepaDebitPayments: Encodable {
+                public final class SepaDebitPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7359,7 +7359,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct SofortPayments: Encodable {
+                public final class SofortPayments: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7374,7 +7374,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct TaxReportingUs1099K: Encodable {
+                public final class TaxReportingUs1099K: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7389,7 +7389,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct TaxReportingUs1099Misc: Encodable {
+                public final class TaxReportingUs1099Misc: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7404,7 +7404,7 @@ extension Paths.Accounts {
                 }
 
                 /// Capability_param
-                public struct Transfers: Encodable {
+                public final class Transfers: Encodable {
                     public var isRequested: Bool?
 
                     public init(isRequested: Bool? = nil) {
@@ -7478,7 +7478,7 @@ extension Paths.Accounts {
             /// Company_specs
             ///
             /// Information about the company or business. This field is available for any `business_type`.
-            public struct Company: Encodable {
+            public final class Company: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -7503,7 +7503,7 @@ extension Paths.Accounts {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -7533,7 +7533,7 @@ extension Paths.Accounts {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -7566,7 +7566,7 @@ extension Paths.Accounts {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -7599,7 +7599,7 @@ extension Paths.Accounts {
                 }
 
                 /// Company_ownership_declaration
-                public struct OwnershipDeclaration: Encodable {
+                public final class OwnershipDeclaration: Encodable {
                     public var date: Int?
                     public var ip: String?
                     public var userAgent: String?
@@ -7644,12 +7644,12 @@ extension Paths.Accounts {
                 }
 
                 /// Verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Verification_document_specs
                     public var document: Document?
 
                     /// Verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -7723,7 +7723,7 @@ extension Paths.Accounts {
             /// Documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var bankAccountOwnershipVerification: BankAccountOwnershipVerification?
                 /// Documents_param
@@ -7740,7 +7740,7 @@ extension Paths.Accounts {
                 public var proofOfRegistration: ProofOfRegistration?
 
                 /// Documents_param
-                public struct BankAccountOwnershipVerification: Encodable {
+                public final class BankAccountOwnershipVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7755,7 +7755,7 @@ extension Paths.Accounts {
                 }
 
                 /// Documents_param
-                public struct CompanyLicense: Encodable {
+                public final class CompanyLicense: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7770,7 +7770,7 @@ extension Paths.Accounts {
                 }
 
                 /// Documents_param
-                public struct CompanyMemorandumOfAssociation: Encodable {
+                public final class CompanyMemorandumOfAssociation: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7785,7 +7785,7 @@ extension Paths.Accounts {
                 }
 
                 /// Documents_param
-                public struct CompanyMinisterialDecree: Encodable {
+                public final class CompanyMinisterialDecree: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7800,7 +7800,7 @@ extension Paths.Accounts {
                 }
 
                 /// Documents_param
-                public struct CompanyRegistrationVerification: Encodable {
+                public final class CompanyRegistrationVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7815,7 +7815,7 @@ extension Paths.Accounts {
                 }
 
                 /// Documents_param
-                public struct CompanyTaxIDVerification: Encodable {
+                public final class CompanyTaxIDVerification: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7830,7 +7830,7 @@ extension Paths.Accounts {
                 }
 
                 /// Documents_param
-                public struct ProofOfRegistration: Encodable {
+                public final class ProofOfRegistration: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -7870,7 +7870,7 @@ extension Paths.Accounts {
             /// Individual_specs
             ///
             /// Information about the person represented by the account. This field is null unless `business_type` is set to `individual`.
-            public struct Individual: Encodable {
+            public final class Individual: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -7897,7 +7897,7 @@ extension Paths.Accounts {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -7927,7 +7927,7 @@ extension Paths.Accounts {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -7960,7 +7960,7 @@ extension Paths.Accounts {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -7992,13 +7992,13 @@ extension Paths.Accounts {
                     }
                 }
 
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     /// Date_of_birth_specs
                     public var a: A?
                     public var b: B?
 
                     /// Date_of_birth_specs
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -8035,7 +8035,7 @@ extension Paths.Accounts {
                     }
                 }
 
-                public struct FullNameAliases: Encodable {
+                public final class FullNameAliases: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -8056,7 +8056,7 @@ extension Paths.Accounts {
                     }
                 }
 
-                public struct Metadata: Encodable {
+                public final class Metadata: Encodable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -8083,14 +8083,14 @@ extension Paths.Accounts {
                 }
 
                 /// Person_verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Person_verification_document_specs
                     public var additionalDocument: AdditionalDocument?
                     /// Person_verification_document_specs
                     public var document: Document?
 
                     /// Person_verification_document_specs
-                    public struct AdditionalDocument: Encodable {
+                    public final class AdditionalDocument: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -8108,7 +8108,7 @@ extension Paths.Accounts {
                     }
 
                     /// Person_verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -8188,7 +8188,7 @@ extension Paths.Accounts {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -8212,7 +8212,7 @@ extension Paths.Accounts {
             /// Settings_specs_update
             ///
             /// Options for customizing how the account functions within Stripe.
-            public struct Settings: Encodable {
+            public final class Settings: Encodable {
                 /// Branding_settings_specs
                 public var branding: Branding?
                 /// Card_issuing_settings_specs
@@ -8225,7 +8225,7 @@ extension Paths.Accounts {
                 public var payouts: Payouts?
 
                 /// Branding_settings_specs
-                public struct Branding: Encodable {
+                public final class Branding: Encodable {
                     public var icon: String?
                     public var logo: String?
                     public var primaryColor: String?
@@ -8249,12 +8249,12 @@ extension Paths.Accounts {
                 }
 
                 /// Card_issuing_settings_specs
-                public struct CardIssuing: Encodable {
+                public final class CardIssuing: Encodable {
                     /// Settings_terms_of_service_specs
                     public var tosAcceptance: TosAcceptance?
 
                     /// Settings_terms_of_service_specs
-                    public struct TosAcceptance: Encodable {
+                    public final class TosAcceptance: Encodable {
                         public var date: Int?
                         public var ip: String?
                         public var userAgent: String?
@@ -8286,13 +8286,13 @@ extension Paths.Accounts {
                 }
 
                 /// Card_payments_settings_specs
-                public struct CardPayments: Encodable {
+                public final class CardPayments: Encodable {
                     /// Decline_charge_on_specs
                     public var declineOn: DeclineOn?
                     public var statementDescriptorPrefix: String?
 
                     /// Decline_charge_on_specs
-                    public struct DeclineOn: Encodable {
+                    public final class DeclineOn: Encodable {
                         public var isAvsFailure: Bool?
                         public var isCvcFailure: Bool?
 
@@ -8323,7 +8323,7 @@ extension Paths.Accounts {
                 }
 
                 /// Payments_settings_specs
-                public struct Payments: Encodable {
+                public final class Payments: Encodable {
                     public var statementDescriptor: String?
                     public var statementDescriptorKana: String?
                     public var statementDescriptorKanji: String?
@@ -8344,20 +8344,20 @@ extension Paths.Accounts {
                 }
 
                 /// Payout_settings_specs
-                public struct Payouts: Encodable {
+                public final class Payouts: Encodable {
                     public var isDebitNegativeBalances: Bool?
                     /// Transfer_schedule_specs
                     public var schedule: Schedule?
                     public var statementDescriptor: String?
 
                     /// Transfer_schedule_specs
-                    public struct Schedule: Encodable {
+                    public final class Schedule: Encodable {
                         public var delayDays: DelayDays?
                         public var interval: Interval?
                         public var monthlyAnchor: Int?
                         public var weeklyAnchor: WeeklyAnchor?
 
-                        public struct DelayDays: Encodable {
+                        public final class DelayDays: Encodable {
                             public var object: Object?
                             public var int: Int?
 
@@ -8449,7 +8449,7 @@ extension Paths.Accounts {
             /// Tos_acceptance_specs
             ///
             /// Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/docs/connect/updating-accounts#tos-acceptance).
-            public struct TosAcceptance: Encodable {
+            public final class TosAcceptance: Encodable {
                 public var date: Int?
                 public var ip: String?
                 public var serviceAgreement: String?
@@ -8536,7 +8536,7 @@ extension Paths.Accounts.WithAccount {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
             public var bankAccount: BankAccount?
             /// When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
@@ -8549,13 +8549,13 @@ extension Paths.Accounts.WithAccount {
             public var metadata: [String: String]?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -8667,7 +8667,7 @@ extension Paths.Accounts.WithAccount.BankAccounts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -8715,7 +8715,7 @@ extension Paths.Accounts.WithAccount.BankAccounts {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -8797,7 +8797,7 @@ extension Paths.Accounts.WithAccount {
         }
 
         /// ListAccountCapability
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Capability]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -8859,7 +8859,7 @@ extension Paths.Accounts.WithAccount.Capabilities {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -8895,7 +8895,7 @@ extension Paths.Accounts.WithAccount {
         }
 
         /// ExternalAccountList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
             public var data: [Datum]
             /// True if this list has another page of items after this one that can be fetched.
@@ -8906,7 +8906,7 @@ extension Paths.Accounts.WithAccount {
             public var url: String
 
             /// Polymorphic
-            public struct Datum: Decodable {
+            public final class Datum: Decodable {
                 public var bankAccount: StripeAPI.BankAccount?
                 public var card: StripeAPI.Card?
 
@@ -8942,7 +8942,7 @@ extension Paths.Accounts.WithAccount {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -8970,7 +8970,7 @@ extension Paths.Accounts.WithAccount {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
             public var bankAccount: BankAccount?
             /// When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.
@@ -8983,13 +8983,13 @@ extension Paths.Accounts.WithAccount {
             public var metadata: [String: String]?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// External_account_payout_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// External_account_payout_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -9101,7 +9101,7 @@ extension Paths.Accounts.WithAccount.ExternalAccounts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -9149,7 +9149,7 @@ extension Paths.Accounts.WithAccount.ExternalAccounts {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -9232,7 +9232,7 @@ extension Paths.Accounts.WithAccount {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Where to redirect the user after they log out of their dashboard.
@@ -9267,7 +9267,7 @@ extension Paths.Accounts.WithAccount {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Person]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -9296,7 +9296,7 @@ extension Paths.Accounts.WithAccount {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -9305,7 +9305,7 @@ extension Paths.Accounts.WithAccount {
             public var startingAfter: String?
 
             /// All_people_relationship_specs
-            public struct Relationship: Codable {
+            public final class Relationship: Codable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -9352,7 +9352,7 @@ extension Paths.Accounts.WithAccount {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Address_specs
             ///
             /// The person's address.
@@ -9419,7 +9419,7 @@ extension Paths.Accounts.WithAccount {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -9451,7 +9451,7 @@ extension Paths.Accounts.WithAccount {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -9486,7 +9486,7 @@ extension Paths.Accounts.WithAccount {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -9519,13 +9519,13 @@ extension Paths.Accounts.WithAccount {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -9565,7 +9565,7 @@ extension Paths.Accounts.WithAccount {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -9574,7 +9574,7 @@ extension Paths.Accounts.WithAccount {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -9589,7 +9589,7 @@ extension Paths.Accounts.WithAccount {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -9604,7 +9604,7 @@ extension Paths.Accounts.WithAccount {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -9634,7 +9634,7 @@ extension Paths.Accounts.WithAccount {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -9656,7 +9656,7 @@ extension Paths.Accounts.WithAccount {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -9680,7 +9680,7 @@ extension Paths.Accounts.WithAccount {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -9688,7 +9688,7 @@ extension Paths.Accounts.WithAccount {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -9733,14 +9733,14 @@ extension Paths.Accounts.WithAccount {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -9758,7 +9758,7 @@ extension Paths.Accounts.WithAccount {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -9874,7 +9874,7 @@ extension Paths.Accounts.WithAccount.People {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Address_specs
             ///
             /// The person's address.
@@ -9941,7 +9941,7 @@ extension Paths.Accounts.WithAccount.People {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -9973,7 +9973,7 @@ extension Paths.Accounts.WithAccount.People {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -10008,7 +10008,7 @@ extension Paths.Accounts.WithAccount.People {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -10041,13 +10041,13 @@ extension Paths.Accounts.WithAccount.People {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -10087,7 +10087,7 @@ extension Paths.Accounts.WithAccount.People {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -10096,7 +10096,7 @@ extension Paths.Accounts.WithAccount.People {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -10111,7 +10111,7 @@ extension Paths.Accounts.WithAccount.People {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -10126,7 +10126,7 @@ extension Paths.Accounts.WithAccount.People {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -10156,7 +10156,7 @@ extension Paths.Accounts.WithAccount.People {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -10178,7 +10178,7 @@ extension Paths.Accounts.WithAccount.People {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -10202,7 +10202,7 @@ extension Paths.Accounts.WithAccount.People {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -10210,7 +10210,7 @@ extension Paths.Accounts.WithAccount.People {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -10255,14 +10255,14 @@ extension Paths.Accounts.WithAccount.People {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -10280,7 +10280,7 @@ extension Paths.Accounts.WithAccount.People {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -10390,7 +10390,7 @@ extension Paths.Accounts.WithAccount {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Person]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -10419,7 +10419,7 @@ extension Paths.Accounts.WithAccount {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -10428,7 +10428,7 @@ extension Paths.Accounts.WithAccount {
             public var startingAfter: String?
 
             /// All_people_relationship_specs
-            public struct Relationship: Codable {
+            public final class Relationship: Codable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -10475,7 +10475,7 @@ extension Paths.Accounts.WithAccount {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Address_specs
             ///
             /// The person's address.
@@ -10542,7 +10542,7 @@ extension Paths.Accounts.WithAccount {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -10574,7 +10574,7 @@ extension Paths.Accounts.WithAccount {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -10609,7 +10609,7 @@ extension Paths.Accounts.WithAccount {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -10642,13 +10642,13 @@ extension Paths.Accounts.WithAccount {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -10688,7 +10688,7 @@ extension Paths.Accounts.WithAccount {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -10697,7 +10697,7 @@ extension Paths.Accounts.WithAccount {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -10712,7 +10712,7 @@ extension Paths.Accounts.WithAccount {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -10727,7 +10727,7 @@ extension Paths.Accounts.WithAccount {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -10757,7 +10757,7 @@ extension Paths.Accounts.WithAccount {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -10779,7 +10779,7 @@ extension Paths.Accounts.WithAccount {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -10803,7 +10803,7 @@ extension Paths.Accounts.WithAccount {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -10811,7 +10811,7 @@ extension Paths.Accounts.WithAccount {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -10856,14 +10856,14 @@ extension Paths.Accounts.WithAccount {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -10881,7 +10881,7 @@ extension Paths.Accounts.WithAccount {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -10997,7 +10997,7 @@ extension Paths.Accounts.WithAccount.Persons {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Address_specs
             ///
             /// The person's address.
@@ -11064,7 +11064,7 @@ extension Paths.Accounts.WithAccount.Persons {
             /// Address_specs
             ///
             /// The person's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -11096,7 +11096,7 @@ extension Paths.Accounts.WithAccount.Persons {
             /// Japan_address_kana_specs
             ///
             /// The Kana variation of the person's address (Japan only).
-            public struct AddressKana: Encodable {
+            public final class AddressKana: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -11131,7 +11131,7 @@ extension Paths.Accounts.WithAccount.Persons {
             /// Japan_address_kanji_specs
             ///
             /// The Kanji variation of the person's address (Japan only).
-            public struct AddressKanji: Encodable {
+            public final class AddressKanji: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -11164,13 +11164,13 @@ extension Paths.Accounts.WithAccount.Persons {
             }
 
             /// The person's date of birth.
-            public struct Dob: Encodable {
+            public final class Dob: Encodable {
                 /// Date_of_birth_specs
                 public var a: A?
                 public var b: B?
 
                 /// Date_of_birth_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -11210,7 +11210,7 @@ extension Paths.Accounts.WithAccount.Persons {
             /// Person_documents_specs
             ///
             /// Documents that may be submitted to satisfy various informational requests.
-            public struct Documents: Encodable {
+            public final class Documents: Encodable {
                 /// Documents_param
                 public var companyAuthorization: CompanyAuthorization?
                 /// Documents_param
@@ -11219,7 +11219,7 @@ extension Paths.Accounts.WithAccount.Persons {
                 public var visa: Visa?
 
                 /// Documents_param
-                public struct CompanyAuthorization: Encodable {
+                public final class CompanyAuthorization: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -11234,7 +11234,7 @@ extension Paths.Accounts.WithAccount.Persons {
                 }
 
                 /// Documents_param
-                public struct Passport: Encodable {
+                public final class Passport: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -11249,7 +11249,7 @@ extension Paths.Accounts.WithAccount.Persons {
                 }
 
                 /// Documents_param
-                public struct Visa: Encodable {
+                public final class Visa: Encodable {
                     public var files: [String]?
 
                     public init(files: [String]? = nil) {
@@ -11279,7 +11279,7 @@ extension Paths.Accounts.WithAccount.Persons {
             }
 
             /// A list of alternate names or aliases that the person is known by.
-            public struct FullNameAliases: Encodable {
+            public final class FullNameAliases: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -11301,7 +11301,7 @@ extension Paths.Accounts.WithAccount.Persons {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -11325,7 +11325,7 @@ extension Paths.Accounts.WithAccount.Persons {
             /// Relationship_specs
             ///
             /// The relationship that this person has with the account's legal entity.
-            public struct Relationship: Encodable {
+            public final class Relationship: Encodable {
                 public var isDirector: Bool?
                 public var isExecutive: Bool?
                 public var isOwner: Bool?
@@ -11333,7 +11333,7 @@ extension Paths.Accounts.WithAccount.Persons {
                 public var isRepresentative: Bool?
                 public var title: String?
 
-                public struct PercentOwnership: Encodable {
+                public final class PercentOwnership: Encodable {
                     public var double: Double?
                     public var object: Object?
 
@@ -11378,14 +11378,14 @@ extension Paths.Accounts.WithAccount.Persons {
             /// Person_verification_specs
             ///
             /// The person's verification status.
-            public struct Verification: Encodable {
+            public final class Verification: Encodable {
                 /// Person_verification_document_specs
                 public var additionalDocument: AdditionalDocument?
                 /// Person_verification_document_specs
                 public var document: Document?
 
                 /// Person_verification_document_specs
-                public struct AdditionalDocument: Encodable {
+                public final class AdditionalDocument: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -11403,7 +11403,7 @@ extension Paths.Accounts.WithAccount.Persons {
                 }
 
                 /// Person_verification_document_specs
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     public var back: String?
                     public var front: String?
 
@@ -11515,7 +11515,7 @@ extension Paths.Accounts.WithAccount {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`.
@@ -11562,7 +11562,7 @@ extension Paths.ApplePay {
         }
 
         /// ApplePayDomainList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ApplePayDomain]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -11591,7 +11591,7 @@ extension Paths.ApplePay {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var domainName: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -11622,7 +11622,7 @@ extension Paths.ApplePay {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var domainName: String
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
@@ -11683,7 +11683,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ApplicationFee]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -11712,7 +11712,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var charge: String?
             public var created: Created?
             public var endingBefore: String?
@@ -11720,13 +11720,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -11834,14 +11834,14 @@ extension Paths.ApplicationFees.WithFee.Refunds {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -11912,7 +11912,7 @@ extension Paths.ApplicationFees.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var amount: Int?
             public var directive: String?
             /// Specifies which fields in the response should be expanded.
@@ -11950,7 +11950,7 @@ extension Paths.ApplicationFees.WithID {
         }
 
         /// FeeRefundList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.FeeRefund]
             /// True if this list has another page of items after this one that can be fetched.
@@ -11980,7 +11980,7 @@ extension Paths.ApplicationFees.WithID {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -12016,7 +12016,7 @@ extension Paths.ApplicationFees.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A positive integer, in _%s_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
             public var amount: Int?
             /// Specifies which fields in the response should be expanded.
@@ -12081,7 +12081,7 @@ extension Paths.Balance {
         }
 
         /// BalanceTransactionsList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.BalanceTransaction]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -12110,7 +12110,7 @@ extension Paths.Balance {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var currency: String?
             public var endingBefore: String?
@@ -12121,13 +12121,13 @@ extension Paths.Balance {
             public var startingAfter: String?
             public var type: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -12233,7 +12233,7 @@ extension Paths {
         }
 
         /// BalanceTransactionsList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.BalanceTransaction]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -12262,7 +12262,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var currency: String?
             public var endingBefore: String?
@@ -12273,13 +12273,13 @@ extension Paths {
             public var startingAfter: String?
             public var type: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -12393,7 +12393,7 @@ extension Paths.BillingPortal {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.BillingPortalConfiguration]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -12422,7 +12422,7 @@ extension Paths.BillingPortal {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var endingBefore: String?
             public var expand: [String]?
@@ -12456,7 +12456,7 @@ extension Paths.BillingPortal {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Business_profile_create_param
             ///
             /// The business information shown to customers in the portal.
@@ -12475,7 +12475,7 @@ extension Paths.BillingPortal {
             /// Business_profile_create_param
             ///
             /// The business information shown to customers in the portal.
-            public struct BusinessProfile: Encodable {
+            public final class BusinessProfile: Encodable {
                 public var headline: String?
                 public var privacyPolicyURL: String
                 public var termsOfServiceURL: String
@@ -12496,7 +12496,7 @@ extension Paths.BillingPortal {
             }
 
             /// The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
-            public struct DefaultReturnURL: Encodable {
+            public final class DefaultReturnURL: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -12520,7 +12520,7 @@ extension Paths.BillingPortal {
             /// Features_creation_param
             ///
             /// Information about the features available in the portal.
-            public struct Features: Encodable {
+            public final class Features: Encodable {
                 /// Customer_update_creation_param
                 public var customerUpdate: CustomerUpdate?
                 /// Invoice_list_param
@@ -12535,11 +12535,11 @@ extension Paths.BillingPortal {
                 public var subscriptionUpdate: SubscriptionUpdate?
 
                 /// Customer_update_creation_param
-                public struct CustomerUpdate: Encodable {
+                public final class CustomerUpdate: Encodable {
                     public var allowedUpdates: AllowedUpdates
                     public var isEnabled: Bool
 
-                    public struct AllowedUpdates: Encodable {
+                    public final class AllowedUpdates: Encodable {
                         public var placeholderItems: [PlaceholderItem]?
                         public var object: Object?
 
@@ -12582,7 +12582,7 @@ extension Paths.BillingPortal {
                 }
 
                 /// Invoice_list_param
-                public struct InvoiceHistory: Encodable {
+                public final class InvoiceHistory: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -12597,7 +12597,7 @@ extension Paths.BillingPortal {
                 }
 
                 /// Payment_method_update_param
-                public struct PaymentMethodUpdate: Encodable {
+                public final class PaymentMethodUpdate: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -12612,7 +12612,7 @@ extension Paths.BillingPortal {
                 }
 
                 /// Subscription_cancel_creation_param
-                public struct SubscriptionCancel: Encodable {
+                public final class SubscriptionCancel: Encodable {
                     /// Subscription_cancellation_reason_creation_param
                     public var cancellationReason: CancellationReason?
                     public var isEnabled: Bool
@@ -12620,11 +12620,11 @@ extension Paths.BillingPortal {
                     public var prorationBehavior: ProrationBehavior?
 
                     /// Subscription_cancellation_reason_creation_param
-                    public struct CancellationReason: Encodable {
+                    public final class CancellationReason: Encodable {
                         public var isEnabled: Bool
                         public var options: Options
 
-                        public struct Options: Encodable {
+                        public final class Options: Encodable {
                             public var placeholderItems: [PlaceholderItem]?
                             public var object: Object?
 
@@ -12698,7 +12698,7 @@ extension Paths.BillingPortal {
                 }
 
                 /// Subscription_pause_param
-                public struct SubscriptionPause: Encodable {
+                public final class SubscriptionPause: Encodable {
                     public var isEnabled: Bool?
 
                     public init(isEnabled: Bool? = nil) {
@@ -12713,13 +12713,13 @@ extension Paths.BillingPortal {
                 }
 
                 /// Subscription_update_creation_param
-                public struct SubscriptionUpdate: Encodable {
+                public final class SubscriptionUpdate: Encodable {
                     public var defaultAllowedUpdates: DefaultAllowedUpdates
                     public var isEnabled: Bool
                     public var products: Products
                     public var prorationBehavior: ProrationBehavior?
 
-                    public struct DefaultAllowedUpdates: Encodable {
+                    public final class DefaultAllowedUpdates: Encodable {
                         public var placeholderItems: [PlaceholderItem]?
                         public var object: Object?
 
@@ -12746,12 +12746,12 @@ extension Paths.BillingPortal {
                         }
                     }
 
-                    public struct Products: Encodable {
+                    public final class Products: Encodable {
                         public var placeholderItems: [PlaceholderItem]?
                         public var object: Object?
 
                         /// Subscription_update_product_param
-                        public struct PlaceholderItem: Encodable {
+                        public final class PlaceholderItem: Encodable {
                             public var prices: [String]
                             public var product: String
 
@@ -12875,7 +12875,7 @@ extension Paths.BillingPortal.Configurations {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the configuration is active and can be used to create portal sessions.
             public var isActive: Bool?
             /// Business_profile_update_param
@@ -12896,7 +12896,7 @@ extension Paths.BillingPortal.Configurations {
             /// Business_profile_update_param
             ///
             /// The business information shown to customers in the portal.
-            public struct BusinessProfile: Encodable {
+            public final class BusinessProfile: Encodable {
                 public var headline: String?
                 public var privacyPolicyURL: String?
                 public var termsOfServiceURL: String?
@@ -12917,7 +12917,7 @@ extension Paths.BillingPortal.Configurations {
             }
 
             /// The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
-            public struct DefaultReturnURL: Encodable {
+            public final class DefaultReturnURL: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -12941,7 +12941,7 @@ extension Paths.BillingPortal.Configurations {
             /// Features_updating_param
             ///
             /// Information about the features available in the portal.
-            public struct Features: Encodable {
+            public final class Features: Encodable {
                 /// Customer_update_updating_param
                 public var customerUpdate: CustomerUpdate?
                 /// Invoice_list_param
@@ -12956,11 +12956,11 @@ extension Paths.BillingPortal.Configurations {
                 public var subscriptionUpdate: SubscriptionUpdate?
 
                 /// Customer_update_updating_param
-                public struct CustomerUpdate: Encodable {
+                public final class CustomerUpdate: Encodable {
                     public var allowedUpdates: AllowedUpdates?
                     public var isEnabled: Bool?
 
-                    public struct AllowedUpdates: Encodable {
+                    public final class AllowedUpdates: Encodable {
                         public var placeholderItems: [PlaceholderItem]?
                         public var object: Object?
 
@@ -13003,7 +13003,7 @@ extension Paths.BillingPortal.Configurations {
                 }
 
                 /// Invoice_list_param
-                public struct InvoiceHistory: Encodable {
+                public final class InvoiceHistory: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -13018,7 +13018,7 @@ extension Paths.BillingPortal.Configurations {
                 }
 
                 /// Payment_method_update_param
-                public struct PaymentMethodUpdate: Encodable {
+                public final class PaymentMethodUpdate: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -13033,7 +13033,7 @@ extension Paths.BillingPortal.Configurations {
                 }
 
                 /// Subscription_cancel_updating_param
-                public struct SubscriptionCancel: Encodable {
+                public final class SubscriptionCancel: Encodable {
                     /// Subscription_cancellation_reason_updating_param
                     public var cancellationReason: CancellationReason?
                     public var isEnabled: Bool?
@@ -13041,11 +13041,11 @@ extension Paths.BillingPortal.Configurations {
                     public var prorationBehavior: ProrationBehavior?
 
                     /// Subscription_cancellation_reason_updating_param
-                    public struct CancellationReason: Encodable {
+                    public final class CancellationReason: Encodable {
                         public var isEnabled: Bool
                         public var options: Options?
 
-                        public struct Options: Encodable {
+                        public final class Options: Encodable {
                             public var placeholderItems: [PlaceholderItem]?
                             public var object: Object?
 
@@ -13119,7 +13119,7 @@ extension Paths.BillingPortal.Configurations {
                 }
 
                 /// Subscription_pause_param
-                public struct SubscriptionPause: Encodable {
+                public final class SubscriptionPause: Encodable {
                     public var isEnabled: Bool?
 
                     public init(isEnabled: Bool? = nil) {
@@ -13134,13 +13134,13 @@ extension Paths.BillingPortal.Configurations {
                 }
 
                 /// Subscription_update_updating_param
-                public struct SubscriptionUpdate: Encodable {
+                public final class SubscriptionUpdate: Encodable {
                     public var defaultAllowedUpdates: DefaultAllowedUpdates?
                     public var isEnabled: Bool?
                     public var products: Products?
                     public var prorationBehavior: ProrationBehavior?
 
-                    public struct DefaultAllowedUpdates: Encodable {
+                    public final class DefaultAllowedUpdates: Encodable {
                         public var placeholderItems: [PlaceholderItem]?
                         public var object: Object?
 
@@ -13167,12 +13167,12 @@ extension Paths.BillingPortal.Configurations {
                         }
                     }
 
-                    public struct Products: Encodable {
+                    public final class Products: Encodable {
                         public var placeholderItems: [PlaceholderItem]?
                         public var object: Object?
 
                         /// Subscription_update_product_param
-                        public struct PlaceholderItem: Encodable {
+                        public final class PlaceholderItem: Encodable {
                             public var prices: [String]
                             public var product: String
 
@@ -13251,7 +13251,7 @@ extension Paths.BillingPortal.Configurations {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -13309,7 +13309,7 @@ extension Paths.BillingPortal {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
             public var configuration: String?
             /// The ID of an existing customer.
@@ -13423,7 +13423,7 @@ extension Paths.Bitcoin {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.BitcoinReceiver]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -13452,7 +13452,7 @@ extension Paths.Bitcoin {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var endingBefore: String?
             public var expand: [String]?
@@ -13536,7 +13536,7 @@ extension Paths.Bitcoin.Receivers.WithReceiver {
         }
 
         /// BitcoinTransactionList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.BitcoinTransaction]
             /// True if this list has another page of items after this one that can be fetched.
@@ -13566,7 +13566,7 @@ extension Paths.Bitcoin.Receivers.WithReceiver {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var customer: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -13610,7 +13610,7 @@ extension Paths.Bitcoin {
         }
 
         /// BitcoinTransactionList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.BitcoinTransaction]
             /// True if this list has another page of items after this one that can be fetched.
@@ -13640,7 +13640,7 @@ extension Paths.Bitcoin {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var customer: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -13685,7 +13685,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Charge]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -13714,7 +13714,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var customer: String?
             public var endingBefore: String?
@@ -13724,13 +13724,13 @@ extension Paths {
             public var startingAfter: String?
             public var transferGroup: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -13796,7 +13796,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
             public var amount: Int?
             public var applicationFee: Int?
@@ -13839,13 +13839,13 @@ extension Paths {
             public var transferGroup: String?
 
             /// A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js).
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Customer_payment_source_card
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_card
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var addressCity: String?
                     public var addressCountry: String?
                     public var addressLine1: String?
@@ -13912,13 +13912,13 @@ extension Paths {
                 }
             }
 
-            public struct Destination: Encodable {
+            public final class Destination: Encodable {
                 /// Destination_specs
                 public var object: Object?
                 public var string: String?
 
                 /// Destination_specs
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var account: String
                     public var amount: Int?
 
@@ -13949,7 +13949,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -13973,7 +13973,7 @@ extension Paths {
             /// Optional_fields_shipping
             ///
             /// Shipping information for the charge. Helps prevent fraud on charges for physical goods.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Optional_fields_address
                 public var address: Address
                 public var carrier: String?
@@ -13982,7 +13982,7 @@ extension Paths {
                 public var trackingNumber: String?
 
                 /// Optional_fields_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -14033,7 +14033,7 @@ extension Paths {
             /// Transfer_data_specs
             ///
             /// An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amount: Int?
                 public var destination: String
 
@@ -14124,7 +14124,7 @@ extension Paths.Charges {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The ID of an existing customer that will be associated with this request. This field may only be updated if there is no existing associated customer with this charge.
             public var customer: String?
             /// An arbitrary string which you can attach to a charge object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing.
@@ -14149,7 +14149,7 @@ extension Paths.Charges {
             /// Fraud_details
             ///
             /// A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.
-            public struct FraudDetails: Encodable {
+            public final class FraudDetails: Encodable {
                 public var userReport: UserReport
 
                 public enum UserReport: String, Codable, CaseIterable {
@@ -14170,7 +14170,7 @@ extension Paths.Charges {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -14194,7 +14194,7 @@ extension Paths.Charges {
             /// Optional_fields_shipping
             ///
             /// Shipping information for the charge. Helps prevent fraud on charges for physical goods.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Optional_fields_address
                 public var address: Address
                 public var carrier: String?
@@ -14203,7 +14203,7 @@ extension Paths.Charges {
                 public var trackingNumber: String?
 
                 /// Optional_fields_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -14294,7 +14294,7 @@ extension Paths.Charges.WithCharge {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
             public var amount: Int?
             /// An application fee to add on to this charge.
@@ -14319,7 +14319,7 @@ extension Paths.Charges.WithCharge {
             /// Transfer_data_specs
             ///
             /// An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amount: Int?
 
                 public init(amount: Int? = nil) {
@@ -14386,7 +14386,7 @@ extension Paths.Charges.WithCharge {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Dispute_evidence_params
             ///
             /// Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
@@ -14401,7 +14401,7 @@ extension Paths.Charges.WithCharge {
             /// Dispute_evidence_params
             ///
             /// Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
-            public struct Evidence: Encodable {
+            public final class Evidence: Encodable {
                 public var accessActivityLog: String?
                 public var billingAddress: String?
                 public var cancellationPolicy: String?
@@ -14494,7 +14494,7 @@ extension Paths.Charges.WithCharge {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -14547,7 +14547,7 @@ extension Paths.Charges.WithCharge.Dispute {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -14588,7 +14588,7 @@ extension Paths.Charges.WithCharge {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var amount: Int?
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
@@ -14600,7 +14600,7 @@ extension Paths.Charges.WithCharge {
             public var isReverseTransfer: Bool?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -14667,7 +14667,7 @@ extension Paths.Charges.WithCharge {
         }
 
         /// RefundList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Refund]
             /// True if this list has another page of items after this one that can be fetched.
@@ -14697,7 +14697,7 @@ extension Paths.Charges.WithCharge {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -14725,7 +14725,7 @@ extension Paths.Charges.WithCharge {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var amount: Int?
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
@@ -14737,7 +14737,7 @@ extension Paths.Charges.WithCharge {
             public var isReverseTransfer: Bool?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -14814,12 +14814,12 @@ extension Paths.Charges.WithCharge.Refunds {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             public var metadata: Metadata?
 
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -14881,7 +14881,7 @@ extension Paths.Checkout {
         }
 
         /// PaymentPagesCheckoutSessionList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.CheckoutSession]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -14910,7 +14910,7 @@ extension Paths.Checkout {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -14944,7 +14944,7 @@ extension Paths.Checkout {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// After_expiration_params
             ///
             /// Configure actions after a Checkout Session has expired.
@@ -15063,12 +15063,12 @@ extension Paths.Checkout {
             /// After_expiration_params
             ///
             /// Configure actions after a Checkout Session has expired.
-            public struct AfterExpiration: Encodable {
+            public final class AfterExpiration: Encodable {
                 /// Recovery_params
                 public var recovery: Recovery?
 
                 /// Recovery_params
-                public struct Recovery: Encodable {
+                public final class Recovery: Encodable {
                     public var allowPromotionCodes: Bool?
                     public var isEnabled: Bool
 
@@ -15099,7 +15099,7 @@ extension Paths.Checkout {
             /// Automatic_tax_params
             ///
             /// Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -15122,7 +15122,7 @@ extension Paths.Checkout {
             /// Consent_collection_params
             ///
             /// Configure fields for the Checkout Session to gather active consent from customers.
-            public struct ConsentCollection: Encodable {
+            public final class ConsentCollection: Encodable {
                 public var promotions: Promotions?
 
                 public enum Promotions: String, Codable, CaseIterable {
@@ -15143,7 +15143,7 @@ extension Paths.Checkout {
             /// Customer_update_params
             ///
             /// Controls what fields on Customer can be updated by the Checkout Session. Can only be provided when `customer` is provided.
-            public struct CustomerUpdate: Encodable {
+            public final class CustomerUpdate: Encodable {
                 public var address: Address?
                 public var name: Name?
                 public var shipping: Shipping?
@@ -15179,7 +15179,7 @@ extension Paths.Checkout {
             }
 
             /// Discount_params
-            public struct Discount: Encodable {
+            public final class Discount: Encodable {
                 public var coupon: String?
                 public var promotionCode: String?
 
@@ -15197,7 +15197,7 @@ extension Paths.Checkout {
             }
 
             /// Line_item_params
-            public struct LineItem: Encodable {
+            public final class LineItem: Encodable {
                 /// Adjustable_quantity_params
                 public var adjustableQuantity: AdjustableQuantity?
                 public var description: String?
@@ -15209,7 +15209,7 @@ extension Paths.Checkout {
                 public var taxRates: [String]?
 
                 /// Adjustable_quantity_params
-                public struct AdjustableQuantity: Encodable {
+                public final class AdjustableQuantity: Encodable {
                     public var isEnabled: Bool
                     public var maximum: Int?
                     public var minimum: Int?
@@ -15230,7 +15230,7 @@ extension Paths.Checkout {
                 }
 
                 /// Price_data_with_product_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String?
                     /// Product_data
@@ -15242,7 +15242,7 @@ extension Paths.Checkout {
                     public var unitAmountDecimal: String?
 
                     /// Product_data
-                    public struct ProductData: Encodable {
+                    public final class ProductData: Encodable {
                         public var description: String?
                         public var images: [String]?
                         public var metadata: [String: String]?
@@ -15269,7 +15269,7 @@ extension Paths.Checkout {
                     }
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -15400,7 +15400,7 @@ extension Paths.Checkout {
             /// Payment_intent_data_params
             ///
             /// A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
-            public struct PaymentIntentData: Encodable {
+            public final class PaymentIntentData: Encodable {
                 public var applicationFeeAmount: Int?
                 public var captureMethod: CaptureMethod?
                 public var description: String?
@@ -15425,14 +15425,14 @@ extension Paths.Checkout {
                     case onSession = "on_session"
                 }
 
-                public struct Shipping: Encodable {
+                public final class Shipping: Encodable {
                     public var address: Address
                     public var carrier: String?
                     public var name: String
                     public var phone: String?
                     public var trackingNumber: String?
 
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String
@@ -15481,7 +15481,7 @@ extension Paths.Checkout {
                 }
 
                 /// Transfer_data_params
-                public struct TransferData: Encodable {
+                public final class TransferData: Encodable {
                     public var amount: Int?
                     public var destination: String
 
@@ -15534,7 +15534,7 @@ extension Paths.Checkout {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 /// Payment_method_options_param
                 public var acssDebit: AcssDebit?
                 /// Payment_method_options_param
@@ -15545,7 +15545,7 @@ extension Paths.Checkout {
                 public var wechatPay: WechatPay?
 
                 /// Payment_method_options_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var currency: Currency?
                     /// Mandate_options_param
                     public var mandateOptions: MandateOptions?
@@ -15557,14 +15557,14 @@ extension Paths.Checkout {
                     }
 
                     /// Mandate_options_param
-                    public struct MandateOptions: Encodable {
+                    public final class MandateOptions: Encodable {
                         public var customMandateURL: CustomMandateURL?
                         public var defaultFor: [DefaultForItem]?
                         public var intervalDescription: String?
                         public var paymentSchedule: PaymentSchedule?
                         public var transactionType: TransactionType?
 
-                        public struct CustomMandateURL: Encodable {
+                        public final class CustomMandateURL: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -15642,7 +15642,7 @@ extension Paths.Checkout {
                 }
 
                 /// Payment_method_options_param
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     public var expiresAfterDays: Int?
 
                     public init(expiresAfterDays: Int? = nil) {
@@ -15657,7 +15657,7 @@ extension Paths.Checkout {
                 }
 
                 /// Payment_method_options_param
-                public struct Oxxo: Encodable {
+                public final class Oxxo: Encodable {
                     public var expiresAfterDays: Int?
 
                     public init(expiresAfterDays: Int? = nil) {
@@ -15672,7 +15672,7 @@ extension Paths.Checkout {
                 }
 
                 /// Payment_method_options_param
-                public struct WechatPay: Encodable {
+                public final class WechatPay: Encodable {
                     public var appID: String?
                     public var client: Client
 
@@ -15739,7 +15739,7 @@ extension Paths.Checkout {
             /// 
             /// We recommend that you review your privacy policy and check with your legal contacts
             /// before using this feature. Learn more about [collecting phone numbers with Checkout](https://stripe.com/docs/payments/checkout/phone-numbers).
-            public struct PhoneNumberCollection: Encodable {
+            public final class PhoneNumberCollection: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -15756,7 +15756,7 @@ extension Paths.Checkout {
             /// Setup_intent_data_param
             ///
             /// A subset of parameters to be passed to SetupIntent creation for Checkout Sessions in `setup` mode.
-            public struct SetupIntentData: Encodable {
+            public final class SetupIntentData: Encodable {
                 public var description: String?
                 public var metadata: [String: String]?
                 public var onBehalfOf: String?
@@ -15779,7 +15779,7 @@ extension Paths.Checkout {
             /// Shipping_address_collection_params
             ///
             /// When set, provides configuration for Checkout to collect a shipping address from a customer.
-            public struct ShippingAddressCollection: Encodable {
+            public final class ShippingAddressCollection: Encodable {
                 public var allowedCountries: [AllowedCountry]
 
                 public enum AllowedCountry: String, Codable, CaseIterable {
@@ -16034,13 +16034,13 @@ extension Paths.Checkout {
             }
 
             /// Shipping_option_params
-            public struct ShippingOption: Encodable {
+            public final class ShippingOption: Encodable {
                 public var shippingRate: String?
                 /// Method_params
                 public var shippingRateData: ShippingRateData?
 
                 /// Method_params
-                public struct ShippingRateData: Encodable {
+                public final class ShippingRateData: Encodable {
                     /// Delivery_estimate
                     public var deliveryEstimate: DeliveryEstimate?
                     public var displayName: String
@@ -16052,14 +16052,14 @@ extension Paths.Checkout {
                     public var type: `Type`?
 
                     /// Delivery_estimate
-                    public struct DeliveryEstimate: Encodable {
+                    public final class DeliveryEstimate: Encodable {
                         /// Delivery_estimate_bound
                         public var maximum: Maximum?
                         /// Delivery_estimate_bound
                         public var minimum: Minimum?
 
                         /// Delivery_estimate_bound
-                        public struct Maximum: Encodable {
+                        public final class Maximum: Encodable {
                             public var unit: Unit
                             public var value: Int
 
@@ -16085,7 +16085,7 @@ extension Paths.Checkout {
                         }
 
                         /// Delivery_estimate_bound
-                        public struct Minimum: Encodable {
+                        public final class Minimum: Encodable {
                             public var unit: Unit
                             public var value: Int
 
@@ -16124,7 +16124,7 @@ extension Paths.Checkout {
                     }
 
                     /// Fixed_amount
-                    public struct FixedAmount: Encodable {
+                    public final class FixedAmount: Encodable {
                         public var amount: Int
                         public var currency: String
 
@@ -16201,7 +16201,7 @@ extension Paths.Checkout {
             /// Subscription_data_params
             ///
             /// A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
-            public struct SubscriptionData: Encodable {
+            public final class SubscriptionData: Encodable {
                 public var applicationFeePercent: Double?
                 public var defaultTaxRates: [String]?
                 public var items: [Item]?
@@ -16212,7 +16212,7 @@ extension Paths.Checkout {
                 public var trialPeriodDays: Int?
 
                 /// Subscription_data_item_param
-                public struct Item: Encodable {
+                public final class Item: Encodable {
                     public var plan: String
                     public var quantity: Int?
                     public var taxRates: [String]?
@@ -16233,7 +16233,7 @@ extension Paths.Checkout {
                 }
 
                 /// Transfer_data_specs
-                public struct TransferData: Encodable {
+                public final class TransferData: Encodable {
                     public var amountPercent: Double?
                     public var destination: String
 
@@ -16276,7 +16276,7 @@ extension Paths.Checkout {
             /// Tax_id_collection_params
             ///
             /// Controls tax ID collection settings for the session.
-            public struct TaxIDCollection: Encodable {
+            public final class TaxIDCollection: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -16395,7 +16395,7 @@ extension Paths.Checkout.Sessions.WithSession {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -16427,7 +16427,7 @@ extension Paths.Checkout.Sessions.WithSession {
         }
 
         /// PaymentPagesCheckoutSessionListLineItems
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Item]
             /// True if this list has another page of items after this one that can be fetched.
@@ -16457,7 +16457,7 @@ extension Paths.Checkout.Sessions.WithSession {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -16496,7 +16496,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.CountrySpec]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -16525,7 +16525,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -16586,7 +16586,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Coupon]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -16615,20 +16615,20 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -16690,7 +16690,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
             public var amountOff: Int?
             /// Applies_to_params
@@ -16721,7 +16721,7 @@ extension Paths {
             /// Applies_to_params
             ///
             /// A hash containing directions for what this Coupon will apply discounts to.
-            public struct AppliesTo: Encodable {
+            public final class AppliesTo: Encodable {
                 public var products: [String]?
 
                 public init(products: [String]? = nil) {
@@ -16743,7 +16743,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -16824,7 +16824,7 @@ extension Paths.Coupons {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -16833,7 +16833,7 @@ extension Paths.Coupons {
             public var name: String?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -16891,7 +16891,7 @@ extension Paths {
         }
 
         /// CreditNotesList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.CreditNote]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -16920,7 +16920,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var customer: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -16967,7 +16967,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The integer amount in %s representing the total amount of the credit note.
             public var amount: Int?
             /// The integer amount in %s representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.
@@ -16992,7 +16992,7 @@ extension Paths {
             public var refundAmount: Int?
 
             /// Credit_note_line_item_params
-            public struct Line: Encodable {
+            public final class Line: Encodable {
                 public var amount: Int?
                 public var description: String?
                 public var invoiceLineItem: String?
@@ -17002,7 +17002,7 @@ extension Paths {
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -17108,7 +17108,7 @@ extension Paths.CreditNotes {
             .get(path, query: parameters.asQuery)
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var amount: Int?
             public var creditAmount: Int?
             public var expand: [String]?
@@ -17122,7 +17122,7 @@ extension Paths.CreditNotes {
             public var refundAmount: Int?
 
             /// Credit_note_line_item_params
-            public struct Lines: Codable {
+            public final class Lines: Codable {
                 public var amount: Int?
                 public var description: String?
                 public var invoiceLineItem: String?
@@ -17132,7 +17132,7 @@ extension Paths.CreditNotes {
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
 
-                public struct TaxRates: Codable {
+                public final class TaxRates: Codable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -17240,7 +17240,7 @@ extension Paths.CreditNotes.Preview {
         }
 
         /// CreditNoteLinesList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.CreditNoteLineItem]
             /// True if this list has another page of items after this one that can be fetched.
@@ -17270,7 +17270,7 @@ extension Paths.CreditNotes.Preview {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var amount: Int?
             public var creditAmount: Int?
             public var endingBefore: String?
@@ -17287,7 +17287,7 @@ extension Paths.CreditNotes.Preview {
             public var startingAfter: String?
 
             /// Credit_note_line_item_params
-            public struct Lines: Codable {
+            public final class Lines: Codable {
                 public var amount: Int?
                 public var description: String?
                 public var invoiceLineItem: String?
@@ -17297,7 +17297,7 @@ extension Paths.CreditNotes.Preview {
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
 
-                public struct TaxRates: Codable {
+                public final class TaxRates: Codable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -17422,7 +17422,7 @@ extension Paths.CreditNotes.WithCreditNote {
         }
 
         /// CreditNoteLinesList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.CreditNoteLineItem]
             /// True if this list has another page of items after this one that can be fetched.
@@ -17452,7 +17452,7 @@ extension Paths.CreditNotes.WithCreditNote {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -17502,7 +17502,7 @@ extension Paths.CreditNotes {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Credit note memo.
@@ -17541,7 +17541,7 @@ extension Paths.CreditNotes.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -17572,7 +17572,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Customer]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -17601,7 +17601,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var email: String?
             public var endingBefore: String?
@@ -17609,13 +17609,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -17677,7 +17677,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The customer's address.
             public var address: Address?
             /// An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
@@ -17721,13 +17721,13 @@ extension Paths {
             public var taxIDData: [TaxIDDatum]?
 
             /// The customer's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 /// Optional_fields_address
                 public var a: A?
                 public var b: B?
 
                 /// Optional_fields_address
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -17776,17 +17776,17 @@ extension Paths {
             /// Customer_param
             ///
             /// Default invoice settings for this customer.
-            public struct InvoiceSettings: Encodable {
+            public final class InvoiceSettings: Encodable {
                 public var customFields: CustomFields?
                 public var defaultPaymentMethod: String?
                 public var footer: String?
 
-                public struct CustomFields: Encodable {
+                public final class CustomFields: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
                     /// Custom_field_params
-                    public struct PlaceholderItem: Encodable {
+                    public final class PlaceholderItem: Encodable {
                         public var name: String
                         public var value: String
 
@@ -17836,7 +17836,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -17858,20 +17858,20 @@ extension Paths {
             }
 
             /// The customer's shipping information. Appears on invoices emailed to this customer.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Customer_shipping
                 public var a: A?
                 public var b: B?
 
                 /// Customer_shipping
-                public struct A: Encodable {
+                public final class A: Encodable {
                     /// Optional_fields_address
                     public var address: Address
                     public var name: String
                     public var phone: String?
 
                     /// Optional_fields_address
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -17935,10 +17935,10 @@ extension Paths {
             /// Tax_param
             ///
             /// Tax details about the customer.
-            public struct Tax: Encodable {
+            public final class Tax: Encodable {
                 public var ipAddress: IpAddress?
 
-                public struct IpAddress: Encodable {
+                public final class IpAddress: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -17979,7 +17979,7 @@ extension Paths {
             }
 
             /// Data_params
-            public struct TaxIDDatum: Encodable {
+            public final class TaxIDDatum: Encodable {
                 public var type: `Type`
                 public var value: String
 
@@ -18105,7 +18105,7 @@ extension Paths.Customers {
             .get(path, query: makeGetQuery(expand))
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var customer: StripeAPI.Customer?
             public var deletedCustomer: StripeAPI.DeletedCustomer?
 
@@ -18134,7 +18134,7 @@ extension Paths.Customers {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The customer's address.
             public var address: Address?
             /// An integer amount in %s that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
@@ -18193,13 +18193,13 @@ extension Paths.Customers {
             public var trialEnd: TrialEnd?
 
             /// The customer's address.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 /// Optional_fields_address
                 public var a: A?
                 public var b: B?
 
                 /// Optional_fields_address
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -18246,13 +18246,13 @@ extension Paths.Customers {
             }
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// Customer_payment_source_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -18307,13 +18307,13 @@ extension Paths.Customers {
             }
 
             /// A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js).
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Customer_payment_source_card
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_card
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var addressCity: String?
                     public var addressCountry: String?
                     public var addressLine1: String?
@@ -18383,17 +18383,17 @@ extension Paths.Customers {
             /// Customer_param
             ///
             /// Default invoice settings for this customer.
-            public struct InvoiceSettings: Encodable {
+            public final class InvoiceSettings: Encodable {
                 public var customFields: CustomFields?
                 public var defaultPaymentMethod: String?
                 public var footer: String?
 
-                public struct CustomFields: Encodable {
+                public final class CustomFields: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
                     /// Custom_field_params
-                    public struct PlaceholderItem: Encodable {
+                    public final class PlaceholderItem: Encodable {
                         public var name: String
                         public var value: String
 
@@ -18443,7 +18443,7 @@ extension Paths.Customers {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -18465,20 +18465,20 @@ extension Paths.Customers {
             }
 
             /// The customer's shipping information. Appears on invoices emailed to this customer.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Customer_shipping
                 public var a: A?
                 public var b: B?
 
                 /// Customer_shipping
-                public struct A: Encodable {
+                public final class A: Encodable {
                     /// Optional_fields_address
                     public var address: Address
                     public var name: String
                     public var phone: String?
 
                     /// Optional_fields_address
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -18542,10 +18542,10 @@ extension Paths.Customers {
             /// Tax_param
             ///
             /// Tax details about the customer.
-            public struct Tax: Encodable {
+            public final class Tax: Encodable {
                 public var ipAddress: IpAddress?
 
-                public struct IpAddress: Encodable {
+                public final class IpAddress: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -18586,7 +18586,7 @@ extension Paths.Customers {
             }
 
             /// Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
-            public struct TrialEnd: Encodable {
+            public final class TrialEnd: Encodable {
                 public var object: Object?
                 public var int: Int?
 
@@ -18688,7 +18688,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// CustomerBalanceTransactionList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.CustomerBalanceTransaction]
             /// True if this list has another page of items after this one that can be fetched.
@@ -18718,7 +18718,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -18746,7 +18746,7 @@ extension Paths.Customers.WithCustomer {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The integer amount in **%s** to apply to the customer's credit balance.
             public var amount: Int
             /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). If the customer's [`currency`](https://stripe.com/docs/api/customers/object#customer_object-currency) is set, this value must match it. If the customer's `currency` is not set, it will be updated to this value.
@@ -18759,7 +18759,7 @@ extension Paths.Customers.WithCustomer {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -18826,7 +18826,7 @@ extension Paths.Customers.WithCustomer.BalanceTransactions {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An arbitrary string attached to the object. Often useful for displaying to users.
             public var description: String?
             /// Specifies which fields in the response should be expanded.
@@ -18835,7 +18835,7 @@ extension Paths.Customers.WithCustomer.BalanceTransactions {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -18889,7 +18889,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// BankAccountList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.BankAccount]
             /// True if this list has another page of items after this one that can be fetched.
@@ -18919,7 +18919,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -18951,7 +18951,7 @@ extension Paths.Customers.WithCustomer {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details.
             public var alipayAccount: String?
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
@@ -18966,13 +18966,13 @@ extension Paths.Customers.WithCustomer {
             public var source: String?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// Customer_payment_source_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -19027,13 +19027,13 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js).
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Customer_payment_source_card
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_card
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var addressCity: String?
                     public var addressCountry: String?
                     public var addressLine1: String?
@@ -19149,7 +19149,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostResponse: Decodable {
+        public final class PostResponse: Decodable {
             public var card: StripeAPI.Card?
             public var bankAccount: StripeAPI.BankAccount?
             /// `Source` objects allow you to accept a variety of payment methods. They
@@ -19174,7 +19174,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
             }
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -19210,7 +19210,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -19231,7 +19231,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
                 }
             }
 
-            public struct Owner: Encodable {
+            public final class Owner: Encodable {
                 /// Source_address
                 public var address: Address?
                 public var email: String?
@@ -19239,7 +19239,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
                 public var phone: String?
 
                 /// Source_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -19327,7 +19327,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteResponse: Decodable {
+        public final class DeleteResponse: Decodable {
             public var paymentSource: StripeAPI.PaymentSource?
             /// Polymorphic
             public var deletedPaymentSource: StripeAPI.DeletedPaymentSource?
@@ -19344,7 +19344,7 @@ extension Paths.Customers.WithCustomer.BankAccounts {
             }
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -19375,7 +19375,7 @@ extension Paths.Customers.WithCustomer.BankAccounts.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
             public var amounts: [Int]?
             /// Specifies which fields in the response should be expanded.
@@ -19414,7 +19414,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// CardList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Card]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -19443,7 +19443,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -19475,7 +19475,7 @@ extension Paths.Customers.WithCustomer {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details.
             public var alipayAccount: String?
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
@@ -19490,13 +19490,13 @@ extension Paths.Customers.WithCustomer {
             public var source: String?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// Customer_payment_source_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -19551,13 +19551,13 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js).
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Customer_payment_source_card
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_card
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var addressCity: String?
                     public var addressCountry: String?
                     public var addressLine1: String?
@@ -19673,7 +19673,7 @@ extension Paths.Customers.WithCustomer.Cards {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostResponse: Decodable {
+        public final class PostResponse: Decodable {
             public var card: StripeAPI.Card?
             public var bankAccount: StripeAPI.BankAccount?
             /// `Source` objects allow you to accept a variety of payment methods. They
@@ -19698,7 +19698,7 @@ extension Paths.Customers.WithCustomer.Cards {
             }
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -19734,7 +19734,7 @@ extension Paths.Customers.WithCustomer.Cards {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -19755,7 +19755,7 @@ extension Paths.Customers.WithCustomer.Cards {
                 }
             }
 
-            public struct Owner: Encodable {
+            public final class Owner: Encodable {
                 /// Source_address
                 public var address: Address?
                 public var email: String?
@@ -19763,7 +19763,7 @@ extension Paths.Customers.WithCustomer.Cards {
                 public var phone: String?
 
                 /// Source_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -19851,7 +19851,7 @@ extension Paths.Customers.WithCustomer.Cards {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteResponse: Decodable {
+        public final class DeleteResponse: Decodable {
             public var paymentSource: StripeAPI.PaymentSource?
             /// Polymorphic
             public var deletedPaymentSource: StripeAPI.DeletedPaymentSource?
@@ -19868,7 +19868,7 @@ extension Paths.Customers.WithCustomer.Cards {
             }
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -19926,7 +19926,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// CustomerPaymentMethodResourceList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.PaymentMethod]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -19955,7 +19955,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -20020,7 +20020,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// ApmsSourcesSourceList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [Datum]
             /// True if this list has another page of items after this one that can be fetched.
@@ -20031,7 +20031,7 @@ extension Paths.Customers.WithCustomer {
             public var url: String
 
             /// Polymorphic
-            public struct Datum: Decodable {
+            public final class Datum: Decodable {
                 public var alipayAccount: StripeAPI.AlipayAccount?
                 public var bankAccount: StripeAPI.BankAccount?
                 public var bitcoinReceiver: StripeAPI.BitcoinReceiver?
@@ -20082,7 +20082,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -20117,7 +20117,7 @@ extension Paths.Customers.WithCustomer {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user’s Alipay account details.
             public var alipayAccount: String?
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
@@ -20132,13 +20132,13 @@ extension Paths.Customers.WithCustomer {
             public var source: String?
 
             /// Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 /// Customer_payment_source_bank_account
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_bank_account
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var accountHolderName: String?
                     public var accountHolderType: AccountHolderType?
                     public var accountNumber: String
@@ -20193,13 +20193,13 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js).
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Customer_payment_source_card
                 public var object: Object?
                 public var string: String?
 
                 /// Customer_payment_source_card
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var addressCity: String?
                     public var addressCountry: String?
                     public var addressLine1: String?
@@ -20314,7 +20314,7 @@ extension Paths.Customers.WithCustomer.Sources {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostResponse: Decodable {
+        public final class PostResponse: Decodable {
             public var card: StripeAPI.Card?
             public var bankAccount: StripeAPI.BankAccount?
             /// `Source` objects allow you to accept a variety of payment methods. They
@@ -20339,7 +20339,7 @@ extension Paths.Customers.WithCustomer.Sources {
             }
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the person or business that owns the bank account.
             public var accountHolderName: String?
             /// The type of entity that holds the account. This can be either `individual` or `company`.
@@ -20375,7 +20375,7 @@ extension Paths.Customers.WithCustomer.Sources {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -20396,7 +20396,7 @@ extension Paths.Customers.WithCustomer.Sources {
                 }
             }
 
-            public struct Owner: Encodable {
+            public final class Owner: Encodable {
                 /// Source_address
                 public var address: Address?
                 public var email: String?
@@ -20404,7 +20404,7 @@ extension Paths.Customers.WithCustomer.Sources {
                 public var phone: String?
 
                 /// Source_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -20492,7 +20492,7 @@ extension Paths.Customers.WithCustomer.Sources {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteResponse: Decodable {
+        public final class DeleteResponse: Decodable {
             public var paymentSource: StripeAPI.PaymentSource?
             /// Polymorphic
             public var deletedPaymentSource: StripeAPI.DeletedPaymentSource?
@@ -20509,7 +20509,7 @@ extension Paths.Customers.WithCustomer.Sources {
             }
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -20540,7 +20540,7 @@ extension Paths.Customers.WithCustomer.Sources.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
             public var amounts: [Int]?
             /// Specifies which fields in the response should be expanded.
@@ -20576,7 +20576,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// SubscriptionList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Subscription]
             /// True if this list has another page of items after this one that can be fetched.
@@ -20606,7 +20606,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -20634,7 +20634,7 @@ extension Paths.Customers.WithCustomer {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A list of prices and quantities that will generate invoice items appended to the first invoice for this subscription. You may pass up to 20 items.
             public var addInvoiceItems: [AddInvoiceItem]?
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
@@ -20705,7 +20705,7 @@ extension Paths.Customers.WithCustomer {
             public var trialPeriodDays: Int?
 
             /// Add_invoice_item_entry
-            public struct AddInvoiceItem: Encodable {
+            public final class AddInvoiceItem: Encodable {
                 public var price: String?
                 /// One_time_price_data
                 public var priceData: PriceData?
@@ -20713,7 +20713,7 @@ extension Paths.Customers.WithCustomer {
                 public var taxRates: TaxRates?
 
                 /// One_time_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     public var taxBehavior: TaxBehavior?
@@ -20745,7 +20745,7 @@ extension Paths.Customers.WithCustomer {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -20786,7 +20786,7 @@ extension Paths.Customers.WithCustomer {
             /// Automatic_tax_config
             ///
             /// Automatic tax settings for this subscription.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -20801,13 +20801,13 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-            public struct BillingThresholds: Encodable {
+            public final class BillingThresholds: Encodable {
                 /// Billing_thresholds_param
                 public var a: A?
                 public var b: B?
 
                 /// Billing_thresholds_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amountGte: Int?
                     public var isResetBillingCycleAnchor: Bool?
 
@@ -20848,7 +20848,7 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -20870,7 +20870,7 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// Subscription_item_create_params
-            public struct Item: Encodable {
+            public final class Item: Encodable {
                 public var billingThresholds: BillingThresholds?
                 public var metadata: [String: String]?
                 public var price: String?
@@ -20879,13 +20879,13 @@ extension Paths.Customers.WithCustomer {
                 public var quantity: Int?
                 public var taxRates: TaxRates?
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Item_billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Item_billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var usageGte: Int
 
                         public init(usageGte: Int) {
@@ -20917,7 +20917,7 @@ extension Paths.Customers.WithCustomer {
                 }
 
                 /// Recurring_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -20927,7 +20927,7 @@ extension Paths.Customers.WithCustomer {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -20978,7 +20978,7 @@ extension Paths.Customers.WithCustomer {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -21021,7 +21021,7 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -21059,30 +21059,30 @@ extension Paths.Customers.WithCustomer {
             /// Payment_settings
             ///
             /// Payment settings to pass to invoices created by the subscription.
-            public struct PaymentSettings: Encodable {
+            public final class PaymentSettings: Encodable {
                 /// Payment_method_options
                 public var paymentMethodOptions: PaymentMethodOptions?
                 public var paymentMethodTypes: PaymentMethodTypes?
 
                 /// Payment_method_options
-                public struct PaymentMethodOptions: Encodable {
+                public final class PaymentMethodOptions: Encodable {
                     public var acssDebit: AcssDebit?
                     public var bancontact: Bancontact?
                     public var card: Card?
 
-                    public struct AcssDebit: Encodable {
+                    public final class AcssDebit: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             /// Mandate_options_param
                             public var mandateOptions: MandateOptions?
                             public var verificationMethod: VerificationMethod?
 
                             /// Mandate_options_param
-                            public struct MandateOptions: Encodable {
+                            public final class MandateOptions: Encodable {
                                 public var transactionType: TransactionType?
 
                                 public enum TransactionType: String, Codable, CaseIterable {
@@ -21137,13 +21137,13 @@ extension Paths.Customers.WithCustomer {
                         }
                     }
 
-                    public struct Bancontact: Encodable {
+                    public final class Bancontact: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var preferredLanguage: PreferredLanguage?
 
                             public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -21181,13 +21181,13 @@ extension Paths.Customers.WithCustomer {
                         }
                     }
 
-                    public struct Card: Encodable {
+                    public final class Card: Encodable {
                         /// Subscription_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Subscription_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var requestThreeDSecure: RequestThreeDSecure?
 
                             public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -21238,7 +21238,7 @@ extension Paths.Customers.WithCustomer {
                     }
                 }
 
-                public struct PaymentMethodTypes: Encodable {
+                public final class PaymentMethodTypes: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
@@ -21290,13 +21290,13 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
-            public struct PendingInvoiceItemInterval: Encodable {
+            public final class PendingInvoiceItemInterval: Encodable {
                 /// Pending_invoice_item_interval_params
                 public var a: A?
                 public var b: B?
 
                 /// Pending_invoice_item_interval_params
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var interval: Interval
                     public var intervalCount: Int?
 
@@ -21349,7 +21349,7 @@ extension Paths.Customers.WithCustomer {
             /// Transfer_data_specs
             ///
             /// If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amountPercent: Double?
                 public var destination: String
 
@@ -21367,7 +21367,7 @@ extension Paths.Customers.WithCustomer {
             }
 
             /// Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
-            public struct TrialEnd: Encodable {
+            public final class TrialEnd: Encodable {
                 public var object: Object?
                 public var int: Int?
 
@@ -21478,7 +21478,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A list of prices and quantities that will generate invoice items appended to the first invoice for this subscription. You may pass up to 20 items.
             public var addInvoiceItems: [AddInvoiceItem]?
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
@@ -21549,7 +21549,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             public var isTrialFromPlan: Bool?
 
             /// Add_invoice_item_entry
-            public struct AddInvoiceItem: Encodable {
+            public final class AddInvoiceItem: Encodable {
                 public var price: String?
                 /// One_time_price_data
                 public var priceData: PriceData?
@@ -21557,7 +21557,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                 public var taxRates: TaxRates?
 
                 /// One_time_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     public var taxBehavior: TaxBehavior?
@@ -21589,7 +21589,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -21630,7 +21630,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             /// Automatic_tax_config
             ///
             /// Automatic tax settings for this subscription.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -21651,13 +21651,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-            public struct BillingThresholds: Encodable {
+            public final class BillingThresholds: Encodable {
                 /// Billing_thresholds_param
                 public var a: A?
                 public var b: B?
 
                 /// Billing_thresholds_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amountGte: Int?
                     public var isResetBillingCycleAnchor: Bool?
 
@@ -21692,7 +21692,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-            public struct CancelAt: Encodable {
+            public final class CancelAt: Encodable {
                 public var int: Int?
                 public var object: Object?
 
@@ -21720,7 +21720,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -21742,7 +21742,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// Subscription_item_update_params
-            public struct Item: Encodable {
+            public final class Item: Encodable {
                 public var billingThresholds: BillingThresholds?
                 public var isClearUsage: Bool?
                 public var isDeleted: Bool?
@@ -21754,13 +21754,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                 public var quantity: Int?
                 public var taxRates: TaxRates?
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Item_billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Item_billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var usageGte: Int
 
                         public init(usageGte: Int) {
@@ -21791,7 +21791,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                     }
                 }
 
-                public struct Metadata: Encodable {
+                public final class Metadata: Encodable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -21813,7 +21813,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                 }
 
                 /// Recurring_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -21823,7 +21823,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -21874,7 +21874,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -21923,7 +21923,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -21945,13 +21945,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// If specified, payment collection for this subscription will be paused.
-            public struct PauseCollection: Encodable {
+            public final class PauseCollection: Encodable {
                 /// Pause_collection_param
                 public var a: A?
                 public var b: B?
 
                 /// Pause_collection_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var behavior: Behavior
                     public var resumesAt: Int?
 
@@ -22008,30 +22008,30 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             /// Payment_settings
             ///
             /// Payment settings to pass to invoices created by the subscription.
-            public struct PaymentSettings: Encodable {
+            public final class PaymentSettings: Encodable {
                 /// Payment_method_options
                 public var paymentMethodOptions: PaymentMethodOptions?
                 public var paymentMethodTypes: PaymentMethodTypes?
 
                 /// Payment_method_options
-                public struct PaymentMethodOptions: Encodable {
+                public final class PaymentMethodOptions: Encodable {
                     public var acssDebit: AcssDebit?
                     public var bancontact: Bancontact?
                     public var card: Card?
 
-                    public struct AcssDebit: Encodable {
+                    public final class AcssDebit: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             /// Mandate_options_param
                             public var mandateOptions: MandateOptions?
                             public var verificationMethod: VerificationMethod?
 
                             /// Mandate_options_param
-                            public struct MandateOptions: Encodable {
+                            public final class MandateOptions: Encodable {
                                 public var transactionType: TransactionType?
 
                                 public enum TransactionType: String, Codable, CaseIterable {
@@ -22086,13 +22086,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                         }
                     }
 
-                    public struct Bancontact: Encodable {
+                    public final class Bancontact: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var preferredLanguage: PreferredLanguage?
 
                             public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -22130,13 +22130,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                         }
                     }
 
-                    public struct Card: Encodable {
+                    public final class Card: Encodable {
                         /// Subscription_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Subscription_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var requestThreeDSecure: RequestThreeDSecure?
 
                             public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -22187,7 +22187,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
                     }
                 }
 
-                public struct PaymentMethodTypes: Encodable {
+                public final class PaymentMethodTypes: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
@@ -22239,13 +22239,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
-            public struct PendingInvoiceItemInterval: Encodable {
+            public final class PendingInvoiceItemInterval: Encodable {
                 /// Pending_invoice_item_interval_params
                 public var a: A?
                 public var b: B?
 
                 /// Pending_invoice_item_interval_params
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var interval: Interval
                     public var intervalCount: Int?
 
@@ -22298,13 +22298,13 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 /// Transfer_data_specs
                 public var a: A?
                 public var b: B?
 
                 /// Transfer_data_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amountPercent: Double?
                     public var destination: String
 
@@ -22339,7 +22339,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             }
 
             /// Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
-            public struct TrialEnd: Encodable {
+            public final class TrialEnd: Encodable {
                 public var object: Object?
                 public var int: Int?
 
@@ -22432,7 +22432,7 @@ extension Paths.Customers.WithCustomer.Subscriptions {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Can be set to `true` if `at_period_end` is not set to `true`. Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
@@ -22498,7 +22498,7 @@ extension Paths.Customers.WithCustomer {
         }
 
         /// TaxIDsList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.TaxID]
             /// True if this list has another page of items after this one that can be fetched.
@@ -22528,7 +22528,7 @@ extension Paths.Customers.WithCustomer {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -22556,7 +22556,7 @@ extension Paths.Customers.WithCustomer {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Type of the tax ID, one of `ae_trn`, `au_abn`, `au_arn`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `es_cif`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `id_npwp`, `il_vat`, `in_gst`, `jp_cn`, `jp_rn`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `th_vat`, `tw_vat`, `ua_vat`, `us_ein`, or `za_vat`
@@ -22667,7 +22667,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Dispute]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -22696,7 +22696,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var charge: String?
             public var created: Created?
             public var endingBefore: String?
@@ -22705,13 +22705,13 @@ extension Paths {
             public var paymentIntent: String?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -22799,7 +22799,7 @@ extension Paths.Disputes {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Dispute_evidence_params
             ///
             /// Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
@@ -22814,7 +22814,7 @@ extension Paths.Disputes {
             /// Dispute_evidence_params
             ///
             /// Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
-            public struct Evidence: Encodable {
+            public final class Evidence: Encodable {
                 public var accessActivityLog: String?
                 public var billingAddress: String?
                 public var cancellationPolicy: String?
@@ -22907,7 +22907,7 @@ extension Paths.Disputes {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -22963,7 +22963,7 @@ extension Paths.Disputes.WithDispute {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -22994,7 +22994,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The ID of the Customer you'd like to modify using the resulting ephemeral key.
             public var customer: String?
             /// Specifies which fields in the response should be expanded.
@@ -23033,7 +23033,7 @@ extension Paths.EphemeralKeys {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -23065,7 +23065,7 @@ extension Paths {
         }
 
         /// NotificationEventList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Event]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -23094,7 +23094,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var isDeliverySuccess: Bool?
             public var endingBefore: String?
@@ -23104,13 +23104,13 @@ extension Paths {
             public var type: String?
             public var types: [String]?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -23209,7 +23209,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ExchangeRate]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -23238,7 +23238,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -23299,7 +23299,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.FileLink]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -23328,7 +23328,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -23337,13 +23337,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -23407,7 +23407,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// A future timestamp after which the link will no longer be usable.
@@ -23418,7 +23418,7 @@ extension Paths {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -23483,7 +23483,7 @@ extension Paths.FileLinks {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately.
@@ -23492,7 +23492,7 @@ extension Paths.FileLinks {
             public var metadata: Metadata?
 
             /// A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately.
-            public struct ExpiresAt: Encodable {
+            public final class ExpiresAt: Encodable {
                 public var object1: Object1?
                 public var int: Int?
                 public var object2: Object2?
@@ -23521,7 +23521,7 @@ extension Paths.FileLinks {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -23573,7 +23573,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.File]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -23602,7 +23602,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -23610,13 +23610,13 @@ extension Paths {
             public var purpose: Purpose?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -23746,7 +23746,7 @@ extension Paths.Identity {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IdentityVerificationReport]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -23775,7 +23775,7 @@ extension Paths.Identity {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -23784,13 +23784,13 @@ extension Paths.Identity {
             public var type: `Type`?
             public var verificationSession: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -23892,7 +23892,7 @@ extension Paths.Identity {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IdentityVerificationSession]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -23921,7 +23921,7 @@ extension Paths.Identity {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -23929,13 +23929,13 @@ extension Paths.Identity {
             public var startingAfter: String?
             public var status: Status?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -24010,7 +24010,7 @@ extension Paths.Identity {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -24027,16 +24027,16 @@ extension Paths.Identity {
             /// Session_options_param
             ///
             /// A set of options for the session’s verification checks.
-            public struct Options: Encodable {
+            public final class Options: Encodable {
                 public var document: Document?
 
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     /// Document_options
                     public var a: A?
                     public var b: B?
 
                     /// Document_options
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var allowedTypes: [AllowedType]?
                         public var requireIDNumber: Bool?
                         public var requireLiveCapture: Bool?
@@ -24151,7 +24151,7 @@ extension Paths.Identity.VerificationSessions {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -24166,16 +24166,16 @@ extension Paths.Identity.VerificationSessions {
             /// Session_options_param
             ///
             /// A set of options for the session’s verification checks.
-            public struct Options: Encodable {
+            public final class Options: Encodable {
                 public var document: Document?
 
-                public struct Document: Encodable {
+                public final class Document: Encodable {
                     /// Document_options
                     public var a: A?
                     public var b: B?
 
                     /// Document_options
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var allowedTypes: [AllowedType]?
                         public var requireIDNumber: Bool?
                         public var requireLiveCapture: Bool?
@@ -24273,7 +24273,7 @@ extension Paths.Identity.VerificationSessions.WithSession {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -24322,7 +24322,7 @@ extension Paths.Identity.VerificationSessions.WithSession {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -24353,7 +24353,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Invoiceitem]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -24382,7 +24382,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var customer: String?
             public var endingBefore: String?
@@ -24392,13 +24392,13 @@ extension Paths {
             public var isPending: Bool?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -24464,7 +24464,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The integer amount in %s of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice.
             public var amount: Int?
             /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -24503,12 +24503,12 @@ extension Paths {
             public var unitAmountDecimal: String?
 
             /// The coupons to redeem into discounts for the invoice item or invoice line item.
-            public struct Discounts: Encodable {
+            public final class Discounts: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -24543,7 +24543,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -24565,7 +24565,7 @@ extension Paths {
             }
 
             /// The period associated with this invoice item.
-            public struct Period: Encodable {
+            public final class Period: Encodable {
                 public var end: Int
                 public var start: Int
 
@@ -24585,7 +24585,7 @@ extension Paths {
             /// One_time_price_data
             ///
             /// Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-            public struct PriceData: Encodable {
+            public final class PriceData: Encodable {
                 public var currency: String
                 public var product: String
                 public var taxBehavior: TaxBehavior?
@@ -24687,7 +24687,7 @@ extension Paths.Invoiceitems {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The integer amount in %s of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
             public var amount: Int?
             /// An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
@@ -24718,12 +24718,12 @@ extension Paths.Invoiceitems {
             public var unitAmountDecimal: String?
 
             /// The coupons & existing discounts which apply to the invoice item or invoice line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
-            public struct Discounts: Encodable {
+            public final class Discounts: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -24758,7 +24758,7 @@ extension Paths.Invoiceitems {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -24780,7 +24780,7 @@ extension Paths.Invoiceitems {
             }
 
             /// The period associated with this invoice item.
-            public struct Period: Encodable {
+            public final class Period: Encodable {
                 public var end: Int
                 public var start: Int
 
@@ -24800,7 +24800,7 @@ extension Paths.Invoiceitems {
             /// One_time_price_data
             ///
             /// Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-            public struct PriceData: Encodable {
+            public final class PriceData: Encodable {
                 public var currency: String
                 public var product: String
                 public var taxBehavior: TaxBehavior?
@@ -24833,7 +24833,7 @@ extension Paths.Invoiceitems {
             }
 
             /// The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
-            public struct TaxRates: Encodable {
+            public final class TaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -24911,7 +24911,7 @@ extension Paths {
         }
 
         /// InvoicesList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Invoice]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -24940,7 +24940,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var collectionMethod: CollectionMethod?
             public var created: Created?
             public var customer: String?
@@ -24957,13 +24957,13 @@ extension Paths {
                 case sendInvoice = "send_invoice"
             }
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -24999,13 +24999,13 @@ extension Paths {
                 }
             }
 
-            public struct DueDate: Codable {
+            public final class DueDate: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -25083,7 +25083,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
             public var accountTaxIDs: AccountTaxIDs?
             /// A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
@@ -25136,7 +25136,7 @@ extension Paths {
             public var transferData: TransferData?
 
             /// The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
-            public struct AccountTaxIDs: Encodable {
+            public final class AccountTaxIDs: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -25160,7 +25160,7 @@ extension Paths {
             /// Automatic_tax_param
             ///
             /// Settings for automatic tax lookup for this invoice.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -25181,12 +25181,12 @@ extension Paths {
             }
 
             /// A list of up to 4 custom fields to be displayed on the invoice.
-            public struct CustomFields: Encodable {
+            public final class CustomFields: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Custom_field_params
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var name: String
                     public var value: String
 
@@ -25221,12 +25221,12 @@ extension Paths {
             }
 
             /// The coupons to redeem into discounts for the invoice. If not specified, inherits the discount from the invoice's customer. Pass an empty string to avoid inheriting any discounts.
-            public struct Discounts: Encodable {
+            public final class Discounts: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -25261,7 +25261,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -25285,30 +25285,30 @@ extension Paths {
             /// Payment_settings
             ///
             /// Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
-            public struct PaymentSettings: Encodable {
+            public final class PaymentSettings: Encodable {
                 /// Payment_method_options
                 public var paymentMethodOptions: PaymentMethodOptions?
                 public var paymentMethodTypes: PaymentMethodTypes?
 
                 /// Payment_method_options
-                public struct PaymentMethodOptions: Encodable {
+                public final class PaymentMethodOptions: Encodable {
                     public var acssDebit: AcssDebit?
                     public var bancontact: Bancontact?
                     public var card: Card?
 
-                    public struct AcssDebit: Encodable {
+                    public final class AcssDebit: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             /// Mandate_options_param
                             public var mandateOptions: MandateOptions?
                             public var verificationMethod: VerificationMethod?
 
                             /// Mandate_options_param
-                            public struct MandateOptions: Encodable {
+                            public final class MandateOptions: Encodable {
                                 public var transactionType: TransactionType?
 
                                 public enum TransactionType: String, Codable, CaseIterable {
@@ -25363,13 +25363,13 @@ extension Paths {
                         }
                     }
 
-                    public struct Bancontact: Encodable {
+                    public final class Bancontact: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var preferredLanguage: PreferredLanguage?
 
                             public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -25407,13 +25407,13 @@ extension Paths {
                         }
                     }
 
-                    public struct Card: Encodable {
+                    public final class Card: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var requestThreeDSecure: RequestThreeDSecure?
 
                             public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -25464,7 +25464,7 @@ extension Paths {
                     }
                 }
 
-                public struct PaymentMethodTypes: Encodable {
+                public final class PaymentMethodTypes: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
@@ -25518,7 +25518,7 @@ extension Paths {
             /// Transfer_data_specs
             ///
             /// If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amount: Int?
                 public var destination: String
 
@@ -25608,7 +25608,7 @@ extension Paths.Invoices {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             /// Automatic_tax_param
             public var automaticTax: AutomaticTax?
             public var coupon: String?
@@ -25633,7 +25633,7 @@ extension Paths.Invoices {
             public var isSubscriptionTrialFromPlan: Bool?
 
             /// Automatic_tax_param
-            public struct AutomaticTax: Codable {
+            public final class AutomaticTax: Codable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -25648,7 +25648,7 @@ extension Paths.Invoices {
             }
 
             /// Customer_details_param
-            public struct CustomerDetails: Codable {
+            public final class CustomerDetails: Codable {
                 public var address: Address?
                 public var shipping: Shipping?
                 /// Tax_param
@@ -25656,13 +25656,13 @@ extension Paths.Invoices {
                 public var taxExempt: TaxExempt?
                 public var taxIDs: [TaxID]?
 
-                public struct Address: Codable {
+                public final class Address: Codable {
                     /// Optional_fields_address
                     public var a: A?
                     public var b: B?
 
                     /// Optional_fields_address
-                    public struct A: Codable {
+                    public final class A: Codable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -25708,20 +25708,20 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct Shipping: Codable {
+                public final class Shipping: Codable {
                     /// Customer_shipping
                     public var a: A?
                     public var b: B?
 
                     /// Customer_shipping
-                    public struct A: Codable {
+                    public final class A: Codable {
                         /// Optional_fields_address
                         public var address: Address
                         public var name: String
                         public var phone: String?
 
                         /// Optional_fields_address
-                        public struct Address: Codable {
+                        public final class Address: Codable {
                             public var city: String?
                             public var country: String?
                             public var line1: String?
@@ -25783,10 +25783,10 @@ extension Paths.Invoices {
                 }
 
                 /// Tax_param
-                public struct Tax: Codable {
+                public final class Tax: Codable {
                     public var ipAddress: IpAddress?
 
-                    public struct IpAddress: Codable {
+                    public final class IpAddress: Codable {
                         public var string: String?
                         public var object: Object?
 
@@ -25826,7 +25826,7 @@ extension Paths.Invoices {
                 }
 
                 /// Data_params
-                public struct TaxID: Codable {
+                public final class TaxID: Codable {
                     public var type: `Type`
                     public var value: String
 
@@ -25906,12 +25906,12 @@ extension Paths.Invoices {
                 }
             }
 
-            public struct Discounts: Codable {
+            public final class Discounts: Codable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Codable {
+                public final class PlaceholderItem: Codable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -25946,7 +25946,7 @@ extension Paths.Invoices {
             }
 
             /// Invoice_item_preview_params
-            public struct InvoiceItems: Codable {
+            public final class InvoiceItems: Codable {
                 public var amount: Int?
                 public var currency: String?
                 public var description: String?
@@ -25963,12 +25963,12 @@ extension Paths.Invoices {
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
 
-                public struct Discounts: Codable {
+                public final class Discounts: Codable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
                     /// Discounts_data_param
-                    public struct PlaceholderItem: Codable {
+                    public final class PlaceholderItem: Codable {
                         public var coupon: String?
                         public var discount: String?
 
@@ -26002,7 +26002,7 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct Metadata: Codable {
+                public final class Metadata: Codable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -26023,7 +26023,7 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct Period: Codable {
+                public final class Period: Codable {
                     public var end: Int
                     public var start: Int
 
@@ -26041,7 +26041,7 @@ extension Paths.Invoices {
                 }
 
                 /// One_time_price_data
-                public struct PriceData: Codable {
+                public final class PriceData: Codable {
                     public var currency: String
                     public var product: String
                     public var taxBehavior: TaxBehavior?
@@ -26073,7 +26073,7 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct TaxRates: Codable {
+                public final class TaxRates: Codable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -26131,7 +26131,7 @@ extension Paths.Invoices {
                 }
             }
 
-            public struct SubscriptionBillingCycleAnchor: Codable {
+            public final class SubscriptionBillingCycleAnchor: Codable {
                 public var object: Object?
                 public var int: Int?
 
@@ -26153,7 +26153,7 @@ extension Paths.Invoices {
                 }
             }
 
-            public struct SubscriptionCancelAt: Codable {
+            public final class SubscriptionCancelAt: Codable {
                 public var int: Int?
                 public var object: Object?
 
@@ -26174,7 +26174,7 @@ extension Paths.Invoices {
                 }
             }
 
-            public struct SubscriptionDefaultTaxRates: Codable {
+            public final class SubscriptionDefaultTaxRates: Codable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -26196,7 +26196,7 @@ extension Paths.Invoices {
             }
 
             /// Subscription_item_update_params
-            public struct SubscriptionItems: Codable {
+            public final class SubscriptionItems: Codable {
                 public var billingThresholds: BillingThresholds?
                 public var isClearUsage: Bool?
                 public var isDeleted: Bool?
@@ -26208,13 +26208,13 @@ extension Paths.Invoices {
                 public var quantity: Int?
                 public var taxRates: TaxRates?
 
-                public struct BillingThresholds: Codable {
+                public final class BillingThresholds: Codable {
                     /// Item_billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Item_billing_thresholds_param
-                    public struct A: Codable {
+                    public final class A: Codable {
                         public var usageGte: Int
 
                         public init(usageGte: Int) {
@@ -26245,7 +26245,7 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct Metadata: Codable {
+                public final class Metadata: Codable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -26267,7 +26267,7 @@ extension Paths.Invoices {
                 }
 
                 /// Recurring_price_data
-                public struct PriceData: Codable {
+                public final class PriceData: Codable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -26277,7 +26277,7 @@ extension Paths.Invoices {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Codable {
+                    public final class Recurring: Codable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -26328,7 +26328,7 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct TaxRates: Codable {
+                public final class TaxRates: Codable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -26382,7 +26382,7 @@ extension Paths.Invoices {
                 case `none`
             }
 
-            public struct SubscriptionTrialEnd: Codable {
+            public final class SubscriptionTrialEnd: Codable {
                 public var object: Object?
                 public var int: Int?
 
@@ -26469,7 +26469,7 @@ extension Paths.Invoices.Upcoming {
         }
 
         /// InvoiceLinesList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.LineItem]
             /// True if this list has another page of items after this one that can be fetched.
@@ -26499,7 +26499,7 @@ extension Paths.Invoices.Upcoming {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             /// Automatic_tax_param
             public var automaticTax: AutomaticTax?
             public var coupon: String?
@@ -26527,7 +26527,7 @@ extension Paths.Invoices.Upcoming {
             public var isSubscriptionTrialFromPlan: Bool?
 
             /// Automatic_tax_param
-            public struct AutomaticTax: Codable {
+            public final class AutomaticTax: Codable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -26542,7 +26542,7 @@ extension Paths.Invoices.Upcoming {
             }
 
             /// Customer_details_param
-            public struct CustomerDetails: Codable {
+            public final class CustomerDetails: Codable {
                 public var address: Address?
                 public var shipping: Shipping?
                 /// Tax_param
@@ -26550,13 +26550,13 @@ extension Paths.Invoices.Upcoming {
                 public var taxExempt: TaxExempt?
                 public var taxIDs: [TaxID]?
 
-                public struct Address: Codable {
+                public final class Address: Codable {
                     /// Optional_fields_address
                     public var a: A?
                     public var b: B?
 
                     /// Optional_fields_address
-                    public struct A: Codable {
+                    public final class A: Codable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -26602,20 +26602,20 @@ extension Paths.Invoices.Upcoming {
                     }
                 }
 
-                public struct Shipping: Codable {
+                public final class Shipping: Codable {
                     /// Customer_shipping
                     public var a: A?
                     public var b: B?
 
                     /// Customer_shipping
-                    public struct A: Codable {
+                    public final class A: Codable {
                         /// Optional_fields_address
                         public var address: Address
                         public var name: String
                         public var phone: String?
 
                         /// Optional_fields_address
-                        public struct Address: Codable {
+                        public final class Address: Codable {
                             public var city: String?
                             public var country: String?
                             public var line1: String?
@@ -26677,10 +26677,10 @@ extension Paths.Invoices.Upcoming {
                 }
 
                 /// Tax_param
-                public struct Tax: Codable {
+                public final class Tax: Codable {
                     public var ipAddress: IpAddress?
 
-                    public struct IpAddress: Codable {
+                    public final class IpAddress: Codable {
                         public var string: String?
                         public var object: Object?
 
@@ -26720,7 +26720,7 @@ extension Paths.Invoices.Upcoming {
                 }
 
                 /// Data_params
-                public struct TaxID: Codable {
+                public final class TaxID: Codable {
                     public var type: `Type`
                     public var value: String
 
@@ -26800,12 +26800,12 @@ extension Paths.Invoices.Upcoming {
                 }
             }
 
-            public struct Discounts: Codable {
+            public final class Discounts: Codable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Codable {
+                public final class PlaceholderItem: Codable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -26840,7 +26840,7 @@ extension Paths.Invoices.Upcoming {
             }
 
             /// Invoice_item_preview_params
-            public struct InvoiceItems: Codable {
+            public final class InvoiceItems: Codable {
                 public var amount: Int?
                 public var currency: String?
                 public var description: String?
@@ -26857,12 +26857,12 @@ extension Paths.Invoices.Upcoming {
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
 
-                public struct Discounts: Codable {
+                public final class Discounts: Codable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
                     /// Discounts_data_param
-                    public struct PlaceholderItem: Codable {
+                    public final class PlaceholderItem: Codable {
                         public var coupon: String?
                         public var discount: String?
 
@@ -26896,7 +26896,7 @@ extension Paths.Invoices.Upcoming {
                     }
                 }
 
-                public struct Metadata: Codable {
+                public final class Metadata: Codable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -26917,7 +26917,7 @@ extension Paths.Invoices.Upcoming {
                     }
                 }
 
-                public struct Period: Codable {
+                public final class Period: Codable {
                     public var end: Int
                     public var start: Int
 
@@ -26935,7 +26935,7 @@ extension Paths.Invoices.Upcoming {
                 }
 
                 /// One_time_price_data
-                public struct PriceData: Codable {
+                public final class PriceData: Codable {
                     public var currency: String
                     public var product: String
                     public var taxBehavior: TaxBehavior?
@@ -26967,7 +26967,7 @@ extension Paths.Invoices.Upcoming {
                     }
                 }
 
-                public struct TaxRates: Codable {
+                public final class TaxRates: Codable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -27025,7 +27025,7 @@ extension Paths.Invoices.Upcoming {
                 }
             }
 
-            public struct SubscriptionBillingCycleAnchor: Codable {
+            public final class SubscriptionBillingCycleAnchor: Codable {
                 public var object: Object?
                 public var int: Int?
 
@@ -27047,7 +27047,7 @@ extension Paths.Invoices.Upcoming {
                 }
             }
 
-            public struct SubscriptionCancelAt: Codable {
+            public final class SubscriptionCancelAt: Codable {
                 public var int: Int?
                 public var object: Object?
 
@@ -27068,7 +27068,7 @@ extension Paths.Invoices.Upcoming {
                 }
             }
 
-            public struct SubscriptionDefaultTaxRates: Codable {
+            public final class SubscriptionDefaultTaxRates: Codable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -27090,7 +27090,7 @@ extension Paths.Invoices.Upcoming {
             }
 
             /// Subscription_item_update_params
-            public struct SubscriptionItems: Codable {
+            public final class SubscriptionItems: Codable {
                 public var billingThresholds: BillingThresholds?
                 public var isClearUsage: Bool?
                 public var isDeleted: Bool?
@@ -27102,13 +27102,13 @@ extension Paths.Invoices.Upcoming {
                 public var quantity: Int?
                 public var taxRates: TaxRates?
 
-                public struct BillingThresholds: Codable {
+                public final class BillingThresholds: Codable {
                     /// Item_billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Item_billing_thresholds_param
-                    public struct A: Codable {
+                    public final class A: Codable {
                         public var usageGte: Int
 
                         public init(usageGte: Int) {
@@ -27139,7 +27139,7 @@ extension Paths.Invoices.Upcoming {
                     }
                 }
 
-                public struct Metadata: Codable {
+                public final class Metadata: Codable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -27161,7 +27161,7 @@ extension Paths.Invoices.Upcoming {
                 }
 
                 /// Recurring_price_data
-                public struct PriceData: Codable {
+                public final class PriceData: Codable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -27171,7 +27171,7 @@ extension Paths.Invoices.Upcoming {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Codable {
+                    public final class Recurring: Codable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -27222,7 +27222,7 @@ extension Paths.Invoices.Upcoming {
                     }
                 }
 
-                public struct TaxRates: Codable {
+                public final class TaxRates: Codable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -27276,7 +27276,7 @@ extension Paths.Invoices.Upcoming {
                 case `none`
             }
 
-            public struct SubscriptionTrialEnd: Codable {
+            public final class SubscriptionTrialEnd: Codable {
                 public var object: Object?
                 public var int: Int?
 
@@ -27384,7 +27384,7 @@ extension Paths.Invoices {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
             public var accountTaxIDs: AccountTaxIDs?
             /// A fee in %s that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
@@ -27431,7 +27431,7 @@ extension Paths.Invoices {
             public var transferData: TransferData?
 
             /// The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
-            public struct AccountTaxIDs: Encodable {
+            public final class AccountTaxIDs: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -27455,7 +27455,7 @@ extension Paths.Invoices {
             /// Automatic_tax_param
             ///
             /// Settings for automatic tax lookup for this invoice.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -27476,12 +27476,12 @@ extension Paths.Invoices {
             }
 
             /// A list of up to 4 custom fields to be displayed on the invoice. If a value for `custom_fields` is specified, the list specified will replace the existing custom field list on this invoice. Pass an empty string to remove previously-defined fields.
-            public struct CustomFields: Encodable {
+            public final class CustomFields: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Custom_field_params
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var name: String
                     public var value: String
 
@@ -27516,7 +27516,7 @@ extension Paths.Invoices {
             }
 
             /// The tax rates that will apply to any line item that does not have `tax_rates` set. Pass an empty string to remove previously-defined tax rates.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -27538,12 +27538,12 @@ extension Paths.Invoices {
             }
 
             /// The discounts that will apply to the invoice. Pass an empty string to remove previously-defined discounts.
-            public struct Discounts: Encodable {
+            public final class Discounts: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -27578,7 +27578,7 @@ extension Paths.Invoices {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -27600,7 +27600,7 @@ extension Paths.Invoices {
             }
 
             /// The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
-            public struct OnBehalfOf: Encodable {
+            public final class OnBehalfOf: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -27624,30 +27624,30 @@ extension Paths.Invoices {
             /// Payment_settings
             ///
             /// Configuration settings for the PaymentIntent that is generated when the invoice is finalized.
-            public struct PaymentSettings: Encodable {
+            public final class PaymentSettings: Encodable {
                 /// Payment_method_options
                 public var paymentMethodOptions: PaymentMethodOptions?
                 public var paymentMethodTypes: PaymentMethodTypes?
 
                 /// Payment_method_options
-                public struct PaymentMethodOptions: Encodable {
+                public final class PaymentMethodOptions: Encodable {
                     public var acssDebit: AcssDebit?
                     public var bancontact: Bancontact?
                     public var card: Card?
 
-                    public struct AcssDebit: Encodable {
+                    public final class AcssDebit: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             /// Mandate_options_param
                             public var mandateOptions: MandateOptions?
                             public var verificationMethod: VerificationMethod?
 
                             /// Mandate_options_param
-                            public struct MandateOptions: Encodable {
+                            public final class MandateOptions: Encodable {
                                 public var transactionType: TransactionType?
 
                                 public enum TransactionType: String, Codable, CaseIterable {
@@ -27702,13 +27702,13 @@ extension Paths.Invoices {
                         }
                     }
 
-                    public struct Bancontact: Encodable {
+                    public final class Bancontact: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var preferredLanguage: PreferredLanguage?
 
                             public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -27746,13 +27746,13 @@ extension Paths.Invoices {
                         }
                     }
 
-                    public struct Card: Encodable {
+                    public final class Card: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var requestThreeDSecure: RequestThreeDSecure?
 
                             public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -27803,7 +27803,7 @@ extension Paths.Invoices {
                     }
                 }
 
-                public struct PaymentMethodTypes: Encodable {
+                public final class PaymentMethodTypes: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
@@ -27855,13 +27855,13 @@ extension Paths.Invoices {
             }
 
             /// If specified, the funds from the invoice will be transferred to the destination and the ID of the resulting transfer will be found on the invoice's charge. This will be unset if you POST an empty value.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 /// Transfer_data_specs
                 public var a: A?
                 public var b: B?
 
                 /// Transfer_data_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amount: Int?
                     public var destination: String
 
@@ -27965,7 +27965,7 @@ extension Paths.Invoices.WithInvoice {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Controls whether Stripe will perform [automatic collection](https://stripe.com/docs/billing/invoices/overview#auto-advance) of the invoice. When `false`, the invoice's state will not automatically advance without an explicit action.
             public var isAutoAdvance: Bool?
             /// Specifies which fields in the response should be expanded.
@@ -28001,7 +28001,7 @@ extension Paths.Invoices.WithInvoice {
         }
 
         /// InvoiceLinesList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.LineItem]
             /// True if this list has another page of items after this one that can be fetched.
@@ -28031,7 +28031,7 @@ extension Paths.Invoices.WithInvoice {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -28070,7 +28070,7 @@ extension Paths.Invoices.WithInvoice {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -28101,7 +28101,7 @@ extension Paths.Invoices.WithInvoice {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due. 
@@ -28156,7 +28156,7 @@ extension Paths.Invoices.WithInvoice {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -28187,7 +28187,7 @@ extension Paths.Invoices.WithInvoice {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -28220,7 +28220,7 @@ extension Paths {
         }
 
         /// RadarIssuerFraudRecordList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuerFraudRecord]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -28249,7 +28249,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var charge: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -28327,7 +28327,7 @@ extension Paths.Issuing {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuingAuthorization]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -28356,7 +28356,7 @@ extension Paths.Issuing {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var card: String?
             public var cardholder: String?
             public var created: Created?
@@ -28366,13 +28366,13 @@ extension Paths.Issuing {
             public var startingAfter: String?
             public var status: Status?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -28466,14 +28466,14 @@ extension Paths.Issuing.Authorizations {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -28523,7 +28523,7 @@ extension Paths.Issuing.Authorizations.WithAuthorization {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// If the authorization's `pending_request.is_amount_controllable` property is `true`, you may provide this value to control how much to hold for the authorization. Must be positive (use [`decline`](https://stripe.com/docs/api/issuing/authorizations/decline) to decline an authorization request).
             public var amount: Int?
             /// Specifies which fields in the response should be expanded.
@@ -28532,7 +28532,7 @@ extension Paths.Issuing.Authorizations.WithAuthorization {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -28584,14 +28584,14 @@ extension Paths.Issuing.Authorizations.WithAuthorization {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -28641,7 +28641,7 @@ extension Paths.Issuing {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuingCardholder]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -28670,7 +28670,7 @@ extension Paths.Issuing {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var email: String?
             public var endingBefore: String?
@@ -28681,13 +28681,13 @@ extension Paths.Issuing {
             public var status: Status?
             public var type: `Type`?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -28766,7 +28766,7 @@ extension Paths.Issuing {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Billing_specs
             ///
             /// The cardholder's billing address.
@@ -28801,12 +28801,12 @@ extension Paths.Issuing {
             /// Billing_specs
             ///
             /// The cardholder's billing address.
-            public struct Billing: Encodable {
+            public final class Billing: Encodable {
                 /// Required_address
                 public var address: Address
 
                 /// Required_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String
                     public var country: String
                     public var line1: String
@@ -28849,7 +28849,7 @@ extension Paths.Issuing {
             /// Company_param
             ///
             /// Additional information about a `company` cardholder.
-            public struct Company: Encodable {
+            public final class Company: Encodable {
                 public var taxID: String?
 
                 public init(taxID: String? = nil) {
@@ -28866,7 +28866,7 @@ extension Paths.Issuing {
             /// Individual_param
             ///
             /// Additional information about an `individual` cardholder.
-            public struct Individual: Encodable {
+            public final class Individual: Encodable {
                 /// Date_of_birth_specs
                 public var dob: Dob?
                 public var firstName: String
@@ -28875,7 +28875,7 @@ extension Paths.Issuing {
                 public var verification: Verification?
 
                 /// Date_of_birth_specs
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -28896,12 +28896,12 @@ extension Paths.Issuing {
                 }
 
                 /// Person_verification_param
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Person_verification_document_param
                     public var document: Document?
 
                     /// Person_verification_document_param
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -28949,7 +28949,7 @@ extension Paths.Issuing {
             /// Authorization_controls_param_v2
             ///
             /// Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
-            public struct SpendingControls: Encodable {
+            public final class SpendingControls: Encodable {
                 public var allowedCategories: [AllowedCategory]?
                 public var blockedCategories: [BlockedCategory]?
                 public var spendingLimits: [SpendingLimit]?
@@ -29538,7 +29538,7 @@ extension Paths.Issuing {
                 }
 
                 /// Spending_limits_param
-                public struct SpendingLimit: Encodable {
+                public final class SpendingLimit: Encodable {
                     public var amount: Int
                     public var categories: [Category]?
                     public var interval: Interval
@@ -29945,7 +29945,7 @@ extension Paths.Issuing.Cardholders {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Billing_specs
             ///
             /// The cardholder's billing address.
@@ -29976,12 +29976,12 @@ extension Paths.Issuing.Cardholders {
             /// Billing_specs
             ///
             /// The cardholder's billing address.
-            public struct Billing: Encodable {
+            public final class Billing: Encodable {
                 /// Required_address
                 public var address: Address
 
                 /// Required_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String
                     public var country: String
                     public var line1: String
@@ -30024,7 +30024,7 @@ extension Paths.Issuing.Cardholders {
             /// Company_param
             ///
             /// Additional information about a `company` cardholder.
-            public struct Company: Encodable {
+            public final class Company: Encodable {
                 public var taxID: String?
 
                 public init(taxID: String? = nil) {
@@ -30041,7 +30041,7 @@ extension Paths.Issuing.Cardholders {
             /// Individual_param
             ///
             /// Additional information about an `individual` cardholder.
-            public struct Individual: Encodable {
+            public final class Individual: Encodable {
                 /// Date_of_birth_specs
                 public var dob: Dob?
                 public var firstName: String
@@ -30050,7 +30050,7 @@ extension Paths.Issuing.Cardholders {
                 public var verification: Verification?
 
                 /// Date_of_birth_specs
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -30071,12 +30071,12 @@ extension Paths.Issuing.Cardholders {
                 }
 
                 /// Person_verification_param
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Person_verification_document_param
                     public var document: Document?
 
                     /// Person_verification_document_param
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -30124,7 +30124,7 @@ extension Paths.Issuing.Cardholders {
             /// Authorization_controls_param_v2
             ///
             /// Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
-            public struct SpendingControls: Encodable {
+            public final class SpendingControls: Encodable {
                 public var allowedCategories: [AllowedCategory]?
                 public var blockedCategories: [BlockedCategory]?
                 public var spendingLimits: [SpendingLimit]?
@@ -30713,7 +30713,7 @@ extension Paths.Issuing.Cardholders {
                 }
 
                 /// Spending_limits_param
-                public struct SpendingLimit: Encodable {
+                public final class SpendingLimit: Encodable {
                     public var amount: Int
                     public var categories: [Category]?
                     public var interval: Interval
@@ -31099,7 +31099,7 @@ extension Paths.Issuing {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuingCard]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -31128,7 +31128,7 @@ extension Paths.Issuing {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var cardholder: String?
             public var created: Created?
             public var endingBefore: String?
@@ -31141,13 +31141,13 @@ extension Paths.Issuing {
             public var status: Status?
             public var type: `Type`?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -31230,7 +31230,7 @@ extension Paths.Issuing {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The [Cardholder](https://stripe.com/docs/api#issuing_cardholder_object) object with which the card will be associated.
             public var cardholder: String?
             /// The currency for the card.
@@ -31267,7 +31267,7 @@ extension Paths.Issuing {
             /// Shipping_specs
             ///
             /// The address where the card will be shipped.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Required_address
                 public var address: Address
                 public var name: String
@@ -31275,7 +31275,7 @@ extension Paths.Issuing {
                 public var type: `Type`?
 
                 /// Required_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String
                     public var country: String
                     public var line1: String
@@ -31335,7 +31335,7 @@ extension Paths.Issuing {
             /// Authorization_controls_param
             ///
             /// Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
-            public struct SpendingControls: Encodable {
+            public final class SpendingControls: Encodable {
                 public var allowedCategories: [AllowedCategory]?
                 public var blockedCategories: [BlockedCategory]?
                 public var spendingLimits: [SpendingLimit]?
@@ -31923,7 +31923,7 @@ extension Paths.Issuing {
                 }
 
                 /// Spending_limits_param
-                public struct SpendingLimit: Encodable {
+                public final class SpendingLimit: Encodable {
                     public var amount: Int
                     public var categories: [Category]?
                     public var interval: Interval
@@ -32326,7 +32326,7 @@ extension Paths.Issuing.Cards {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Reason why the `status` of this card is `canceled`.
             public var cancellationReason: CancellationReason?
             /// Specifies which fields in the response should be expanded.
@@ -32347,7 +32347,7 @@ extension Paths.Issuing.Cards {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -32371,7 +32371,7 @@ extension Paths.Issuing.Cards {
             /// Authorization_controls_param
             ///
             /// Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
-            public struct SpendingControls: Encodable {
+            public final class SpendingControls: Encodable {
                 public var allowedCategories: [AllowedCategory]?
                 public var blockedCategories: [BlockedCategory]?
                 public var spendingLimits: [SpendingLimit]?
@@ -32959,7 +32959,7 @@ extension Paths.Issuing.Cards {
                 }
 
                 /// Spending_limits_param
-                public struct SpendingLimit: Encodable {
+                public final class SpendingLimit: Encodable {
                     public var amount: Int
                     public var categories: [Category]?
                     public var interval: Interval
@@ -33337,7 +33337,7 @@ extension Paths.Issuing {
         }
 
         /// IssuingDisputeList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuingDispute]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -33366,7 +33366,7 @@ extension Paths.Issuing {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -33375,13 +33375,13 @@ extension Paths.Issuing {
             public var status: Status?
             public var transaction: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -33453,7 +33453,7 @@ extension Paths.Issuing {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Evidence_param
             ///
             /// Evidence provided for the dispute.
@@ -33468,7 +33468,7 @@ extension Paths.Issuing {
             /// Evidence_param
             ///
             /// Evidence provided for the dispute.
-            public struct Evidence: Encodable {
+            public final class Evidence: Encodable {
                 public var canceled: Canceled?
                 public var duplicate: Duplicate?
                 public var fraudulent: Fraudulent?
@@ -33478,13 +33478,13 @@ extension Paths.Issuing {
                 public var reason: Reason?
                 public var serviceNotAsDescribed: ServiceNotAsDescribed?
 
-                public struct Canceled: Encodable {
+                public final class Canceled: Encodable {
                     /// Canceled
                     public var a: A?
                     public var b: B?
 
                     /// Canceled
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var canceledAt: CanceledAt?
                         public var cancellationPolicyProvided: CancellationPolicyProvided?
@@ -33496,7 +33496,7 @@ extension Paths.Issuing {
                         public var returnStatus: ReturnStatus?
                         public var returnedAt: ReturnedAt?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33517,7 +33517,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct CanceledAt: Encodable {
+                        public final class CanceledAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -33538,7 +33538,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct CancellationPolicyProvided: Encodable {
+                        public final class CancellationPolicyProvided: Encodable {
                             public var isBool: Bool?
                             public var object: Object?
 
@@ -33559,7 +33559,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct ExpectedAt: Encodable {
+                        public final class ExpectedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -33592,7 +33592,7 @@ extension Paths.Issuing {
                             case successful
                         }
 
-                        public struct ReturnedAt: Encodable {
+                        public final class ReturnedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -33659,13 +33659,13 @@ extension Paths.Issuing {
                     }
                 }
 
-                public struct Duplicate: Encodable {
+                public final class Duplicate: Encodable {
                     /// Duplicate
                     public var a: A?
                     public var b: B?
 
                     /// Duplicate
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var cardStatement: CardStatement?
                         public var cashReceipt: CashReceipt?
@@ -33673,7 +33673,7 @@ extension Paths.Issuing {
                         public var explanation: String?
                         public var originalTransaction: String?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33694,7 +33694,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct CardStatement: Encodable {
+                        public final class CardStatement: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33715,7 +33715,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct CashReceipt: Encodable {
+                        public final class CashReceipt: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33736,7 +33736,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct CheckImage: Encodable {
+                        public final class CheckImage: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33795,17 +33795,17 @@ extension Paths.Issuing {
                     }
                 }
 
-                public struct Fraudulent: Encodable {
+                public final class Fraudulent: Encodable {
                     /// Fraudulent
                     public var a: A?
                     public var b: B?
 
                     /// Fraudulent
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var explanation: String?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33856,13 +33856,13 @@ extension Paths.Issuing {
                     }
                 }
 
-                public struct MerchandiseNotAsDescribed: Encodable {
+                public final class MerchandiseNotAsDescribed: Encodable {
                     /// Merchandise_not_as_described
                     public var a: A?
                     public var b: B?
 
                     /// Merchandise_not_as_described
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var explanation: String?
                         public var receivedAt: ReceivedAt?
@@ -33870,7 +33870,7 @@ extension Paths.Issuing {
                         public var returnStatus: ReturnStatus?
                         public var returnedAt: ReturnedAt?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -33891,7 +33891,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct ReceivedAt: Encodable {
+                        public final class ReceivedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -33918,7 +33918,7 @@ extension Paths.Issuing {
                             case successful
                         }
 
-                        public struct ReturnedAt: Encodable {
+                        public final class ReturnedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -33977,20 +33977,20 @@ extension Paths.Issuing {
                     }
                 }
 
-                public struct NotReceived: Encodable {
+                public final class NotReceived: Encodable {
                     /// Not_received
                     public var a: A?
                     public var b: B?
 
                     /// Not_received
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var expectedAt: ExpectedAt?
                         public var explanation: String?
                         public var productDescription: String?
                         public var productType: ProductType?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34011,7 +34011,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct ExpectedAt: Encodable {
+                        public final class ExpectedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34074,19 +34074,19 @@ extension Paths.Issuing {
                     }
                 }
 
-                public struct Other: Encodable {
+                public final class Other: Encodable {
                     /// Other
                     public var a: A?
                     public var b: B?
 
                     /// Other
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var explanation: String?
                         public var productDescription: String?
                         public var productType: ProductType?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34157,20 +34157,20 @@ extension Paths.Issuing {
                     case serviceNotAsDescribed = "service_not_as_described"
                 }
 
-                public struct ServiceNotAsDescribed: Encodable {
+                public final class ServiceNotAsDescribed: Encodable {
                     /// Service_not_as_described
                     public var a: A?
                     public var b: B?
 
                     /// Service_not_as_described
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var canceledAt: CanceledAt?
                         public var cancellationReason: String?
                         public var explanation: String?
                         public var receivedAt: ReceivedAt?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34191,7 +34191,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct CanceledAt: Encodable {
+                        public final class CanceledAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34212,7 +34212,7 @@ extension Paths.Issuing {
                             }
                         }
 
-                        public struct ReceivedAt: Encodable {
+                        public final class ReceivedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34338,7 +34338,7 @@ extension Paths.Issuing.Disputes {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Evidence_param
             ///
             /// Evidence provided for the dispute.
@@ -34351,7 +34351,7 @@ extension Paths.Issuing.Disputes {
             /// Evidence_param
             ///
             /// Evidence provided for the dispute.
-            public struct Evidence: Encodable {
+            public final class Evidence: Encodable {
                 public var canceled: Canceled?
                 public var duplicate: Duplicate?
                 public var fraudulent: Fraudulent?
@@ -34361,13 +34361,13 @@ extension Paths.Issuing.Disputes {
                 public var reason: Reason?
                 public var serviceNotAsDescribed: ServiceNotAsDescribed?
 
-                public struct Canceled: Encodable {
+                public final class Canceled: Encodable {
                     /// Canceled
                     public var a: A?
                     public var b: B?
 
                     /// Canceled
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var canceledAt: CanceledAt?
                         public var cancellationPolicyProvided: CancellationPolicyProvided?
@@ -34379,7 +34379,7 @@ extension Paths.Issuing.Disputes {
                         public var returnStatus: ReturnStatus?
                         public var returnedAt: ReturnedAt?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34400,7 +34400,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct CanceledAt: Encodable {
+                        public final class CanceledAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34421,7 +34421,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct CancellationPolicyProvided: Encodable {
+                        public final class CancellationPolicyProvided: Encodable {
                             public var isBool: Bool?
                             public var object: Object?
 
@@ -34442,7 +34442,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct ExpectedAt: Encodable {
+                        public final class ExpectedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34475,7 +34475,7 @@ extension Paths.Issuing.Disputes {
                             case successful
                         }
 
-                        public struct ReturnedAt: Encodable {
+                        public final class ReturnedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34542,13 +34542,13 @@ extension Paths.Issuing.Disputes {
                     }
                 }
 
-                public struct Duplicate: Encodable {
+                public final class Duplicate: Encodable {
                     /// Duplicate
                     public var a: A?
                     public var b: B?
 
                     /// Duplicate
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var cardStatement: CardStatement?
                         public var cashReceipt: CashReceipt?
@@ -34556,7 +34556,7 @@ extension Paths.Issuing.Disputes {
                         public var explanation: String?
                         public var originalTransaction: String?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34577,7 +34577,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct CardStatement: Encodable {
+                        public final class CardStatement: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34598,7 +34598,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct CashReceipt: Encodable {
+                        public final class CashReceipt: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34619,7 +34619,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct CheckImage: Encodable {
+                        public final class CheckImage: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34678,17 +34678,17 @@ extension Paths.Issuing.Disputes {
                     }
                 }
 
-                public struct Fraudulent: Encodable {
+                public final class Fraudulent: Encodable {
                     /// Fraudulent
                     public var a: A?
                     public var b: B?
 
                     /// Fraudulent
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var explanation: String?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34739,13 +34739,13 @@ extension Paths.Issuing.Disputes {
                     }
                 }
 
-                public struct MerchandiseNotAsDescribed: Encodable {
+                public final class MerchandiseNotAsDescribed: Encodable {
                     /// Merchandise_not_as_described
                     public var a: A?
                     public var b: B?
 
                     /// Merchandise_not_as_described
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var explanation: String?
                         public var receivedAt: ReceivedAt?
@@ -34753,7 +34753,7 @@ extension Paths.Issuing.Disputes {
                         public var returnStatus: ReturnStatus?
                         public var returnedAt: ReturnedAt?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34774,7 +34774,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct ReceivedAt: Encodable {
+                        public final class ReceivedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34801,7 +34801,7 @@ extension Paths.Issuing.Disputes {
                             case successful
                         }
 
-                        public struct ReturnedAt: Encodable {
+                        public final class ReturnedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34860,20 +34860,20 @@ extension Paths.Issuing.Disputes {
                     }
                 }
 
-                public struct NotReceived: Encodable {
+                public final class NotReceived: Encodable {
                     /// Not_received
                     public var a: A?
                     public var b: B?
 
                     /// Not_received
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var expectedAt: ExpectedAt?
                         public var explanation: String?
                         public var productDescription: String?
                         public var productType: ProductType?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -34894,7 +34894,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct ExpectedAt: Encodable {
+                        public final class ExpectedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -34957,19 +34957,19 @@ extension Paths.Issuing.Disputes {
                     }
                 }
 
-                public struct Other: Encodable {
+                public final class Other: Encodable {
                     /// Other
                     public var a: A?
                     public var b: B?
 
                     /// Other
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var explanation: String?
                         public var productDescription: String?
                         public var productType: ProductType?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -35040,20 +35040,20 @@ extension Paths.Issuing.Disputes {
                     case serviceNotAsDescribed = "service_not_as_described"
                 }
 
-                public struct ServiceNotAsDescribed: Encodable {
+                public final class ServiceNotAsDescribed: Encodable {
                     /// Service_not_as_described
                     public var a: A?
                     public var b: B?
 
                     /// Service_not_as_described
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var additionalDocumentation: AdditionalDocumentation?
                         public var canceledAt: CanceledAt?
                         public var cancellationReason: String?
                         public var explanation: String?
                         public var receivedAt: ReceivedAt?
 
-                        public struct AdditionalDocumentation: Encodable {
+                        public final class AdditionalDocumentation: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -35074,7 +35074,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct CanceledAt: Encodable {
+                        public final class CanceledAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -35095,7 +35095,7 @@ extension Paths.Issuing.Disputes {
                             }
                         }
 
-                        public struct ReceivedAt: Encodable {
+                        public final class ReceivedAt: Encodable {
                             public var int: Int?
                             public var object: Object?
 
@@ -35178,7 +35178,7 @@ extension Paths.Issuing.Disputes {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -35230,14 +35230,14 @@ extension Paths.Issuing.Disputes.WithDispute {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -35287,7 +35287,7 @@ extension Paths.Issuing {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuingSettlement]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -35316,20 +35316,20 @@ extension Paths.Issuing {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -35411,7 +35411,7 @@ extension Paths.Issuing.Settlements {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -35446,7 +35446,7 @@ extension Paths.Issuing {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.IssuingTransaction]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -35475,7 +35475,7 @@ extension Paths.Issuing {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var card: String?
             public var cardholder: String?
             public var created: Created?
@@ -35485,13 +35485,13 @@ extension Paths.Issuing {
             public var startingAfter: String?
             public var type: `Type`?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -35584,14 +35584,14 @@ extension Paths.Issuing.Transactions {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -35674,7 +35674,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.OrderReturn]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -35703,7 +35703,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -35711,13 +35711,13 @@ extension Paths {
             public var order: String?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -35813,7 +35813,7 @@ extension Paths {
         }
 
         /// OrdersLegacyResourceOrderList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Order]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -35842,7 +35842,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var customer: String?
             public var endingBefore: String?
@@ -35855,13 +35855,13 @@ extension Paths {
             public var statusTransitions: StatusTransitions?
             public var upstreamIDs: [String]?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -35898,19 +35898,19 @@ extension Paths {
             }
 
             /// Order_timestamp_specs
-            public struct StatusTransitions: Codable {
+            public final class StatusTransitions: Codable {
                 public var canceled: Canceled?
                 public var fulfilled: Fulfilled?
                 public var paid: Paid?
                 public var returned: Returned?
 
-                public struct Canceled: Codable {
+                public final class Canceled: Codable {
                     /// Range_query_specs
                     public var object: Object?
                     public var int: Int?
 
                     /// Range_query_specs
-                    public struct Object: Codable {
+                    public final class Object: Codable {
                         public var gt: Int?
                         public var gte: Int?
                         public var lt: Int?
@@ -35946,13 +35946,13 @@ extension Paths {
                     }
                 }
 
-                public struct Fulfilled: Codable {
+                public final class Fulfilled: Codable {
                     /// Range_query_specs
                     public var object: Object?
                     public var int: Int?
 
                     /// Range_query_specs
-                    public struct Object: Codable {
+                    public final class Object: Codable {
                         public var gt: Int?
                         public var gte: Int?
                         public var lt: Int?
@@ -35988,13 +35988,13 @@ extension Paths {
                     }
                 }
 
-                public struct Paid: Codable {
+                public final class Paid: Codable {
                     /// Range_query_specs
                     public var object: Object?
                     public var int: Int?
 
                     /// Range_query_specs
-                    public struct Object: Codable {
+                    public final class Object: Codable {
                         public var gt: Int?
                         public var gte: Int?
                         public var lt: Int?
@@ -36030,13 +36030,13 @@ extension Paths {
                     }
                 }
 
-                public struct Returned: Codable {
+                public final class Returned: Codable {
                     /// Range_query_specs
                     public var object: Object?
                     public var int: Int?
 
                     /// Range_query_specs
-                    public struct Object: Codable {
+                    public final class Object: Codable {
                         public var gt: Int?
                         public var gte: Int?
                         public var lt: Int?
@@ -36123,7 +36123,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A coupon code that represents a discount to be applied to this order. Must be one-time duration and in same currency as the order. An order can have multiple coupons.
             public var coupon: String?
             /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -36144,7 +36144,7 @@ extension Paths {
             public var shipping: Shipping?
 
             /// Order_item_specs
-            public struct Item: Encodable {
+            public final class Item: Encodable {
                 public var amount: Int?
                 public var currency: String?
                 public var description: String?
@@ -36183,14 +36183,14 @@ extension Paths {
             /// Customer_shipping
             ///
             /// Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Optional_fields_address
                 public var address: Address
                 public var name: String
                 public var phone: String?
 
                 /// Optional_fields_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -36286,7 +36286,7 @@ extension Paths.Orders {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A coupon code that represents a discount to be applied to this order. Must be one-time duration and in same currency as the order. An order can have multiple coupons.
             public var coupon: String?
             /// Specifies which fields in the response should be expanded.
@@ -36303,7 +36303,7 @@ extension Paths.Orders {
             public var status: Status?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -36327,7 +36327,7 @@ extension Paths.Orders {
             /// Shipping_tracking_params
             ///
             /// Tracking information once the order has been fulfilled.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 public var carrier: String
                 public var trackingNumber: String
 
@@ -36390,7 +36390,7 @@ extension Paths.Orders.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A fee in %s that will be applied to the order and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the `Stripe-Account` header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/connect/direct-charges#collecting-fees).
             public var applicationFee: Int?
             /// The ID of an existing customer that will be charged for this order. If no customer was attached to the order at creation, either `source` or `customer` is required. Otherwise, the specified customer will be charged instead of the one attached to the order.
@@ -36441,19 +36441,19 @@ extension Paths.Orders.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// List of items to return.
             public var items: Items?
 
             /// List of items to return.
-            public struct Items: Encodable {
+            public final class Items: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Return_order_item_specs
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var amount: Int?
                     public var description: String?
                     public var parent: String?
@@ -36533,7 +36533,7 @@ extension Paths {
         }
 
         /// PaymentFlowsPaymentIntentList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.PaymentIntent]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -36562,7 +36562,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var customer: String?
             public var endingBefore: String?
@@ -36570,13 +36570,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -36647,7 +36647,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
             public var amount: Int
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -36734,7 +36734,7 @@ extension Paths {
             /// Automatic_payment_methods_param
             ///
             /// When enabled, this PaymentIntent will accept payment methods that you have enabled in the Dashboard and are compatible with this PaymentIntent's other parameters.
-            public struct AutomaticPaymentMethods: Encodable {
+            public final class AutomaticPaymentMethods: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -36762,12 +36762,12 @@ extension Paths {
             /// Secret_key_param
             ///
             /// This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
-            public struct MandateData: Encodable {
+            public final class MandateData: Encodable {
                 /// Customer_acceptance_param
                 public var customerAcceptance: CustomerAcceptance
 
                 /// Customer_acceptance_param
-                public struct CustomerAcceptance: Encodable {
+                public final class CustomerAcceptance: Encodable {
                     public var acceptedAt: Int?
                     /// Offline_param
                     public var offline: [String: AnyJSON]?
@@ -36776,7 +36776,7 @@ extension Paths {
                     public var type: `Type`
 
                     /// Online_param
-                    public struct Online: Encodable {
+                    public final class Online: Encodable {
                         public var ipAddress: String
                         public var userAgent: String
 
@@ -36827,7 +36827,7 @@ extension Paths {
             }
 
             /// Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
-            public struct OffSession: Encodable {
+            public final class OffSession: Encodable {
                 public var isBool: Bool?
                 public var object: Object?
 
@@ -36854,7 +36854,7 @@ extension Paths {
             /// If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
             /// in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
             /// property on the PaymentIntent.
-            public struct PaymentMethodData: Encodable {
+            public final class PaymentMethodData: Encodable {
                 /// Payment_method_param
                 public var acssDebit: AcssDebit?
                 /// Param
@@ -36899,7 +36899,7 @@ extension Paths {
                 public var wechatPay: [String: AnyJSON]?
 
                 /// Payment_method_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var accountNumber: String
                     public var institutionNumber: String
                     public var transitNumber: String
@@ -36920,7 +36920,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct AuBecsDebit: Encodable {
+                public final class AuBecsDebit: Encodable {
                     public var accountNumber: String
                     public var bsbNumber: String
 
@@ -36938,7 +36938,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct BacsDebit: Encodable {
+                public final class BacsDebit: Encodable {
                     public var accountNumber: String?
                     public var sortCode: String?
 
@@ -36956,19 +36956,19 @@ extension Paths {
                 }
 
                 /// Billing_details_inner_params
-                public struct BillingDetails: Encodable {
+                public final class BillingDetails: Encodable {
                     public var address: Address?
                     public var email: Email?
                     public var name: String?
                     public var phone: String?
 
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         /// Billing_details_address
                         public var a: A?
                         public var b: B?
 
                         /// Billing_details_address
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var city: String?
                             public var country: String?
                             public var line1: String?
@@ -37014,7 +37014,7 @@ extension Paths {
                         }
                     }
 
-                    public struct Email: Encodable {
+                    public final class Email: Encodable {
                         public var string: String?
                         public var object: Object?
 
@@ -37053,7 +37053,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     public var taxID: String
 
                     public init(taxID: String) {
@@ -37068,7 +37068,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct Eps: Encodable {
+                public final class Eps: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -37113,7 +37113,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct Fpx: Encodable {
+                public final class Fpx: Encodable {
                     public var bank: Bank
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -37152,7 +37152,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct Ideal: Encodable {
+                public final class Ideal: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -37183,12 +37183,12 @@ extension Paths {
                 }
 
                 /// Param
-                public struct Klarna: Encodable {
+                public final class Klarna: Encodable {
                     /// Date_of_birth
                     public var dob: Dob?
 
                     /// Date_of_birth
-                    public struct Dob: Encodable {
+                    public final class Dob: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -37220,7 +37220,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct P24: Encodable {
+                public final class P24: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -37263,7 +37263,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     public var iban: String
 
                     public init(iban: String) {
@@ -37278,7 +37278,7 @@ extension Paths {
                 }
 
                 /// Param
-                public struct Sofort: Encodable {
+                public final class Sofort: Encodable {
                     public var country: Country
 
                     public enum Country: String, Codable, CaseIterable {
@@ -37378,7 +37378,7 @@ extension Paths {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration for this PaymentIntent.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 public var acssDebit: AcssDebit?
                 public var afterpayClearpay: AfterpayClearpay?
                 public var alipay: Alipay?
@@ -37396,25 +37396,25 @@ extension Paths {
                 public var sofort: Sofort?
                 public var wechatPay: WechatPay?
 
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     /// Payment_intent_payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         /// Payment_intent_payment_method_options_mandate_options_param
                         public var mandateOptions: MandateOptions?
                         public var verificationMethod: VerificationMethod?
 
                         /// Payment_intent_payment_method_options_mandate_options_param
-                        public struct MandateOptions: Encodable {
+                        public final class MandateOptions: Encodable {
                             public var customMandateURL: CustomMandateURL?
                             public var intervalDescription: String?
                             public var paymentSchedule: PaymentSchedule?
                             public var transactionType: TransactionType?
 
-                            public struct CustomMandateURL: Encodable {
+                            public final class CustomMandateURL: Encodable {
                                 public var string: String?
                                 public var object: Object?
 
@@ -37499,13 +37499,13 @@ extension Paths {
                     }
                 }
 
-                public struct AfterpayClearpay: Encodable {
+                public final class AfterpayClearpay: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var reference: String?
 
                         public init(reference: String? = nil) {
@@ -37536,7 +37536,7 @@ extension Paths {
                     }
                 }
 
-                public struct Alipay: Encodable {
+                public final class Alipay: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -37558,13 +37558,13 @@ extension Paths {
                     }
                 }
 
-                public struct Bancontact: Encodable {
+                public final class Bancontact: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLanguage: PreferredLanguage?
 
                         public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -37602,13 +37602,13 @@ extension Paths {
                     }
                 }
 
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var expiresAfterDays: Int?
 
                         public init(expiresAfterDays: Int? = nil) {
@@ -37639,13 +37639,13 @@ extension Paths {
                     }
                 }
 
-                public struct Card: Encodable {
+                public final class Card: Encodable {
                     /// Payment_intent_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var cvcToken: String?
                         /// Installments_param
                         public var installments: Installments?
@@ -37654,17 +37654,17 @@ extension Paths {
                         public var setupFutureUsage: SetupFutureUsage?
 
                         /// Installments_param
-                        public struct Installments: Encodable {
+                        public final class Installments: Encodable {
                             public var isEnabled: Bool?
                             public var plan: Plan?
 
-                            public struct Plan: Encodable {
+                            public final class Plan: Encodable {
                                 /// Installment_plan
                                 public var a: A?
                                 public var b: B?
 
                                 /// Installment_plan
-                                public struct A: Encodable {
+                                public final class A: Encodable {
                                     public var count: Int
                                     public var interval: Interval
                                     public var type: `Type`
@@ -37783,7 +37783,7 @@ extension Paths {
                     }
                 }
 
-                public struct CardPresent: Encodable {
+                public final class CardPresent: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -37805,7 +37805,7 @@ extension Paths {
                     }
                 }
 
-                public struct Giropay: Encodable {
+                public final class Giropay: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -37827,7 +37827,7 @@ extension Paths {
                     }
                 }
 
-                public struct Ideal: Encodable {
+                public final class Ideal: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -37849,7 +37849,7 @@ extension Paths {
                     }
                 }
 
-                public struct InteracPresent: Encodable {
+                public final class InteracPresent: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -37871,13 +37871,13 @@ extension Paths {
                     }
                 }
 
-                public struct Klarna: Encodable {
+                public final class Klarna: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLocale: PreferredLocale?
 
                         public enum PreferredLocale: String, Codable, CaseIterable {
@@ -37936,13 +37936,13 @@ extension Paths {
                     }
                 }
 
-                public struct Oxxo: Encodable {
+                public final class Oxxo: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var expiresAfterDays: Int?
 
                         public init(expiresAfterDays: Int? = nil) {
@@ -37973,13 +37973,13 @@ extension Paths {
                     }
                 }
 
-                public struct P24: Encodable {
+                public final class P24: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var isTosShownAndAccepted: Bool?
 
                         public init(isTosShownAndAccepted: Bool? = nil) {
@@ -38010,13 +38010,13 @@ extension Paths {
                     }
                 }
 
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     /// Payment_intent_payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         /// Payment_method_options_mandate_options_param
                         public var mandateOptions: [String: AnyJSON]?
 
@@ -38048,13 +38048,13 @@ extension Paths {
                     }
                 }
 
-                public struct Sofort: Encodable {
+                public final class Sofort: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLanguage: PreferredLanguage?
 
                         public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -38096,13 +38096,13 @@ extension Paths {
                     }
                 }
 
-                public struct WechatPay: Encodable {
+                public final class WechatPay: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var appID: String?
                         public var client: Client
 
@@ -38196,7 +38196,7 @@ extension Paths {
             /// Optional_fields_shipping
             ///
             /// Shipping information for this PaymentIntent.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Optional_fields_address
                 public var address: Address
                 public var carrier: String?
@@ -38205,7 +38205,7 @@ extension Paths {
                 public var trackingNumber: String?
 
                 /// Optional_fields_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -38257,7 +38257,7 @@ extension Paths {
             ///
             /// The parameters used to automatically create a Transfer when the payment succeeds.
             /// For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amount: Int?
                 public var destination: String
 
@@ -38379,7 +38379,7 @@ extension Paths.PaymentIntents {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
             public var amount: Int?
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -38436,7 +38436,7 @@ extension Paths.PaymentIntents {
             public var transferGroup: String?
 
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-            public struct ApplicationFeeAmount: Encodable {
+            public final class ApplicationFeeAmount: Encodable {
                 public var int: Int?
                 public var object: Object?
 
@@ -38458,7 +38458,7 @@ extension Paths.PaymentIntents {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -38484,7 +38484,7 @@ extension Paths.PaymentIntents {
             /// If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
             /// in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
             /// property on the PaymentIntent.
-            public struct PaymentMethodData: Encodable {
+            public final class PaymentMethodData: Encodable {
                 /// Payment_method_param
                 public var acssDebit: AcssDebit?
                 /// Param
@@ -38529,7 +38529,7 @@ extension Paths.PaymentIntents {
                 public var wechatPay: [String: AnyJSON]?
 
                 /// Payment_method_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var accountNumber: String
                     public var institutionNumber: String
                     public var transitNumber: String
@@ -38550,7 +38550,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct AuBecsDebit: Encodable {
+                public final class AuBecsDebit: Encodable {
                     public var accountNumber: String
                     public var bsbNumber: String
 
@@ -38568,7 +38568,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct BacsDebit: Encodable {
+                public final class BacsDebit: Encodable {
                     public var accountNumber: String?
                     public var sortCode: String?
 
@@ -38586,19 +38586,19 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Billing_details_inner_params
-                public struct BillingDetails: Encodable {
+                public final class BillingDetails: Encodable {
                     public var address: Address?
                     public var email: Email?
                     public var name: String?
                     public var phone: String?
 
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         /// Billing_details_address
                         public var a: A?
                         public var b: B?
 
                         /// Billing_details_address
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var city: String?
                             public var country: String?
                             public var line1: String?
@@ -38644,7 +38644,7 @@ extension Paths.PaymentIntents {
                         }
                     }
 
-                    public struct Email: Encodable {
+                    public final class Email: Encodable {
                         public var string: String?
                         public var object: Object?
 
@@ -38683,7 +38683,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     public var taxID: String
 
                     public init(taxID: String) {
@@ -38698,7 +38698,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct Eps: Encodable {
+                public final class Eps: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -38743,7 +38743,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct Fpx: Encodable {
+                public final class Fpx: Encodable {
                     public var bank: Bank
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -38782,7 +38782,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct Ideal: Encodable {
+                public final class Ideal: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -38813,12 +38813,12 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct Klarna: Encodable {
+                public final class Klarna: Encodable {
                     /// Date_of_birth
                     public var dob: Dob?
 
                     /// Date_of_birth
-                    public struct Dob: Encodable {
+                    public final class Dob: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -38850,7 +38850,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct P24: Encodable {
+                public final class P24: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -38893,7 +38893,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     public var iban: String
 
                     public init(iban: String) {
@@ -38908,7 +38908,7 @@ extension Paths.PaymentIntents {
                 }
 
                 /// Param
-                public struct Sofort: Encodable {
+                public final class Sofort: Encodable {
                     public var country: Country
 
                     public enum Country: String, Codable, CaseIterable {
@@ -39008,7 +39008,7 @@ extension Paths.PaymentIntents {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration for this PaymentIntent.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 public var acssDebit: AcssDebit?
                 public var afterpayClearpay: AfterpayClearpay?
                 public var alipay: Alipay?
@@ -39026,25 +39026,25 @@ extension Paths.PaymentIntents {
                 public var sofort: Sofort?
                 public var wechatPay: WechatPay?
 
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     /// Payment_intent_payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         /// Payment_intent_payment_method_options_mandate_options_param
                         public var mandateOptions: MandateOptions?
                         public var verificationMethod: VerificationMethod?
 
                         /// Payment_intent_payment_method_options_mandate_options_param
-                        public struct MandateOptions: Encodable {
+                        public final class MandateOptions: Encodable {
                             public var customMandateURL: CustomMandateURL?
                             public var intervalDescription: String?
                             public var paymentSchedule: PaymentSchedule?
                             public var transactionType: TransactionType?
 
-                            public struct CustomMandateURL: Encodable {
+                            public final class CustomMandateURL: Encodable {
                                 public var string: String?
                                 public var object: Object?
 
@@ -39129,13 +39129,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct AfterpayClearpay: Encodable {
+                public final class AfterpayClearpay: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var reference: String?
 
                         public init(reference: String? = nil) {
@@ -39166,7 +39166,7 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Alipay: Encodable {
+                public final class Alipay: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -39188,13 +39188,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Bancontact: Encodable {
+                public final class Bancontact: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLanguage: PreferredLanguage?
 
                         public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -39232,13 +39232,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var expiresAfterDays: Int?
 
                         public init(expiresAfterDays: Int? = nil) {
@@ -39269,13 +39269,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Card: Encodable {
+                public final class Card: Encodable {
                     /// Payment_intent_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var cvcToken: String?
                         /// Installments_param
                         public var installments: Installments?
@@ -39284,17 +39284,17 @@ extension Paths.PaymentIntents {
                         public var setupFutureUsage: SetupFutureUsage?
 
                         /// Installments_param
-                        public struct Installments: Encodable {
+                        public final class Installments: Encodable {
                             public var isEnabled: Bool?
                             public var plan: Plan?
 
-                            public struct Plan: Encodable {
+                            public final class Plan: Encodable {
                                 /// Installment_plan
                                 public var a: A?
                                 public var b: B?
 
                                 /// Installment_plan
-                                public struct A: Encodable {
+                                public final class A: Encodable {
                                     public var count: Int
                                     public var interval: Interval
                                     public var type: `Type`
@@ -39413,7 +39413,7 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct CardPresent: Encodable {
+                public final class CardPresent: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -39435,7 +39435,7 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Giropay: Encodable {
+                public final class Giropay: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -39457,7 +39457,7 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Ideal: Encodable {
+                public final class Ideal: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -39479,7 +39479,7 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct InteracPresent: Encodable {
+                public final class InteracPresent: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -39501,13 +39501,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Klarna: Encodable {
+                public final class Klarna: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLocale: PreferredLocale?
 
                         public enum PreferredLocale: String, Codable, CaseIterable {
@@ -39566,13 +39566,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Oxxo: Encodable {
+                public final class Oxxo: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var expiresAfterDays: Int?
 
                         public init(expiresAfterDays: Int? = nil) {
@@ -39603,13 +39603,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct P24: Encodable {
+                public final class P24: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var isTosShownAndAccepted: Bool?
 
                         public init(isTosShownAndAccepted: Bool? = nil) {
@@ -39640,13 +39640,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     /// Payment_intent_payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         /// Payment_method_options_mandate_options_param
                         public var mandateOptions: [String: AnyJSON]?
 
@@ -39678,13 +39678,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct Sofort: Encodable {
+                public final class Sofort: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLanguage: PreferredLanguage?
 
                         public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -39726,13 +39726,13 @@ extension Paths.PaymentIntents {
                     }
                 }
 
-                public struct WechatPay: Encodable {
+                public final class WechatPay: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var appID: String?
                         public var client: Client
 
@@ -39814,7 +39814,7 @@ extension Paths.PaymentIntents {
             }
 
             /// Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
-            public struct ReceiptEmail: Encodable {
+            public final class ReceiptEmail: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -39849,13 +39849,13 @@ extension Paths.PaymentIntents {
             }
 
             /// Shipping information for this PaymentIntent.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Optional_fields_shipping
                 public var a: A?
                 public var b: B?
 
                 /// Optional_fields_shipping
-                public struct A: Encodable {
+                public final class A: Encodable {
                     /// Optional_fields_address
                     public var address: Address
                     public var carrier: String?
@@ -39864,7 +39864,7 @@ extension Paths.PaymentIntents {
                     public var trackingNumber: String?
 
                     /// Optional_fields_address
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -39932,7 +39932,7 @@ extension Paths.PaymentIntents {
             /// Transfer_data_update_params
             ///
             /// The parameters used to automatically create a Transfer when the payment succeeds. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amount: Int?
 
                 public init(amount: Int? = nil) {
@@ -40009,7 +40009,7 @@ extension Paths.PaymentIntents.WithIntent {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Reason for canceling this PaymentIntent. Possible values are `duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`
             public var cancellationReason: CancellationReason?
             /// Specifies which fields in the response should be expanded.
@@ -40056,7 +40056,7 @@ extension Paths.PaymentIntents.WithIntent {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Any additional amount will be automatically refunded. Defaults to the full `amount_capturable` if not provided.
             public var amountToCapture: Int?
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -40077,7 +40077,7 @@ extension Paths.PaymentIntents.WithIntent {
             ///
             /// The parameters used to automatically create a Transfer when the payment
             /// is captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amount: Int?
 
                 public init(amount: Int? = nil) {
@@ -40152,7 +40152,7 @@ extension Paths.PaymentIntents.WithIntent {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The client secret of the PaymentIntent.
             public var clientSecret: String?
             /// Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
@@ -40199,19 +40199,19 @@ extension Paths.PaymentIntents.WithIntent {
             public var useStripeSdk: Bool?
 
             /// This hash contains details about the Mandate to create
-            public struct MandateData: Encodable {
+            public final class MandateData: Encodable {
                 /// Secret_key_param
                 public var a: A?
                 /// Client_key_param
                 public var b: B?
 
                 /// Secret_key_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     /// Customer_acceptance_param
                     public var customerAcceptance: CustomerAcceptance
 
                     /// Customer_acceptance_param
-                    public struct CustomerAcceptance: Encodable {
+                    public final class CustomerAcceptance: Encodable {
                         public var acceptedAt: Int?
                         /// Offline_param
                         public var offline: [String: AnyJSON]?
@@ -40220,7 +40220,7 @@ extension Paths.PaymentIntents.WithIntent {
                         public var type: `Type`
 
                         /// Online_param
-                        public struct Online: Encodable {
+                        public final class Online: Encodable {
                             public var ipAddress: String
                             public var userAgent: String
 
@@ -40271,18 +40271,18 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Client_key_param
-                public struct B: Encodable {
+                public final class B: Encodable {
                     /// Customer_acceptance_param
                     public var customerAcceptance: CustomerAcceptance
 
                     /// Customer_acceptance_param
-                    public struct CustomerAcceptance: Encodable {
+                    public final class CustomerAcceptance: Encodable {
                         /// Online_param
                         public var online: Online
                         public var type: `Type`
 
                         /// Online_param
-                        public struct Online: Encodable {
+                        public final class Online: Encodable {
                             public var ipAddress: String?
                             public var userAgent: String?
 
@@ -40341,7 +40341,7 @@ extension Paths.PaymentIntents.WithIntent {
             }
 
             /// Set to `true` to indicate that the customer is not in your checkout flow during this payment attempt, and therefore is unable to authenticate. This parameter is intended for scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
-            public struct OffSession: Encodable {
+            public final class OffSession: Encodable {
                 public var isBool: Bool?
                 public var object: Object?
 
@@ -40368,7 +40368,7 @@ extension Paths.PaymentIntents.WithIntent {
             /// If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
             /// in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
             /// property on the PaymentIntent.
-            public struct PaymentMethodData: Encodable {
+            public final class PaymentMethodData: Encodable {
                 /// Payment_method_param
                 public var acssDebit: AcssDebit?
                 /// Param
@@ -40413,7 +40413,7 @@ extension Paths.PaymentIntents.WithIntent {
                 public var wechatPay: [String: AnyJSON]?
 
                 /// Payment_method_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var accountNumber: String
                     public var institutionNumber: String
                     public var transitNumber: String
@@ -40434,7 +40434,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct AuBecsDebit: Encodable {
+                public final class AuBecsDebit: Encodable {
                     public var accountNumber: String
                     public var bsbNumber: String
 
@@ -40452,7 +40452,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct BacsDebit: Encodable {
+                public final class BacsDebit: Encodable {
                     public var accountNumber: String?
                     public var sortCode: String?
 
@@ -40470,19 +40470,19 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Billing_details_inner_params
-                public struct BillingDetails: Encodable {
+                public final class BillingDetails: Encodable {
                     public var address: Address?
                     public var email: Email?
                     public var name: String?
                     public var phone: String?
 
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         /// Billing_details_address
                         public var a: A?
                         public var b: B?
 
                         /// Billing_details_address
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var city: String?
                             public var country: String?
                             public var line1: String?
@@ -40528,7 +40528,7 @@ extension Paths.PaymentIntents.WithIntent {
                         }
                     }
 
-                    public struct Email: Encodable {
+                    public final class Email: Encodable {
                         public var string: String?
                         public var object: Object?
 
@@ -40567,7 +40567,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     public var taxID: String
 
                     public init(taxID: String) {
@@ -40582,7 +40582,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct Eps: Encodable {
+                public final class Eps: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -40627,7 +40627,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct Fpx: Encodable {
+                public final class Fpx: Encodable {
                     public var bank: Bank
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -40666,7 +40666,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct Ideal: Encodable {
+                public final class Ideal: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -40697,12 +40697,12 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct Klarna: Encodable {
+                public final class Klarna: Encodable {
                     /// Date_of_birth
                     public var dob: Dob?
 
                     /// Date_of_birth
-                    public struct Dob: Encodable {
+                    public final class Dob: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -40734,7 +40734,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct P24: Encodable {
+                public final class P24: Encodable {
                     public var bank: Bank?
 
                     public enum Bank: String, Codable, CaseIterable {
@@ -40777,7 +40777,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     public var iban: String
 
                     public init(iban: String) {
@@ -40792,7 +40792,7 @@ extension Paths.PaymentIntents.WithIntent {
                 }
 
                 /// Param
-                public struct Sofort: Encodable {
+                public final class Sofort: Encodable {
                     public var country: Country
 
                     public enum Country: String, Codable, CaseIterable {
@@ -40892,7 +40892,7 @@ extension Paths.PaymentIntents.WithIntent {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration for this PaymentIntent.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 public var acssDebit: AcssDebit?
                 public var afterpayClearpay: AfterpayClearpay?
                 public var alipay: Alipay?
@@ -40910,25 +40910,25 @@ extension Paths.PaymentIntents.WithIntent {
                 public var sofort: Sofort?
                 public var wechatPay: WechatPay?
 
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     /// Payment_intent_payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         /// Payment_intent_payment_method_options_mandate_options_param
                         public var mandateOptions: MandateOptions?
                         public var verificationMethod: VerificationMethod?
 
                         /// Payment_intent_payment_method_options_mandate_options_param
-                        public struct MandateOptions: Encodable {
+                        public final class MandateOptions: Encodable {
                             public var customMandateURL: CustomMandateURL?
                             public var intervalDescription: String?
                             public var paymentSchedule: PaymentSchedule?
                             public var transactionType: TransactionType?
 
-                            public struct CustomMandateURL: Encodable {
+                            public final class CustomMandateURL: Encodable {
                                 public var string: String?
                                 public var object: Object?
 
@@ -41013,13 +41013,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct AfterpayClearpay: Encodable {
+                public final class AfterpayClearpay: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var reference: String?
 
                         public init(reference: String? = nil) {
@@ -41050,7 +41050,7 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Alipay: Encodable {
+                public final class Alipay: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -41072,13 +41072,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Bancontact: Encodable {
+                public final class Bancontact: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLanguage: PreferredLanguage?
 
                         public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -41116,13 +41116,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Boleto: Encodable {
+                public final class Boleto: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var expiresAfterDays: Int?
 
                         public init(expiresAfterDays: Int? = nil) {
@@ -41153,13 +41153,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Card: Encodable {
+                public final class Card: Encodable {
                     /// Payment_intent_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var cvcToken: String?
                         /// Installments_param
                         public var installments: Installments?
@@ -41168,17 +41168,17 @@ extension Paths.PaymentIntents.WithIntent {
                         public var setupFutureUsage: SetupFutureUsage?
 
                         /// Installments_param
-                        public struct Installments: Encodable {
+                        public final class Installments: Encodable {
                             public var isEnabled: Bool?
                             public var plan: Plan?
 
-                            public struct Plan: Encodable {
+                            public final class Plan: Encodable {
                                 /// Installment_plan
                                 public var a: A?
                                 public var b: B?
 
                                 /// Installment_plan
-                                public struct A: Encodable {
+                                public final class A: Encodable {
                                     public var count: Int
                                     public var interval: Interval
                                     public var type: `Type`
@@ -41297,7 +41297,7 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct CardPresent: Encodable {
+                public final class CardPresent: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -41319,7 +41319,7 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Giropay: Encodable {
+                public final class Giropay: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -41341,7 +41341,7 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Ideal: Encodable {
+                public final class Ideal: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -41363,7 +41363,7 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct InteracPresent: Encodable {
+                public final class InteracPresent: Encodable {
                     /// Payment_method_options_param
                     public var object: [String: AnyJSON]?
                     public var object2: Object2?
@@ -41385,13 +41385,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Klarna: Encodable {
+                public final class Klarna: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLocale: PreferredLocale?
 
                         public enum PreferredLocale: String, Codable, CaseIterable {
@@ -41450,13 +41450,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Oxxo: Encodable {
+                public final class Oxxo: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var expiresAfterDays: Int?
 
                         public init(expiresAfterDays: Int? = nil) {
@@ -41487,13 +41487,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct P24: Encodable {
+                public final class P24: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var isTosShownAndAccepted: Bool?
 
                         public init(isTosShownAndAccepted: Bool? = nil) {
@@ -41524,13 +41524,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     /// Payment_intent_payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_intent_payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         /// Payment_method_options_mandate_options_param
                         public var mandateOptions: [String: AnyJSON]?
 
@@ -41562,13 +41562,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct Sofort: Encodable {
+                public final class Sofort: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var preferredLanguage: PreferredLanguage?
 
                         public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -41610,13 +41610,13 @@ extension Paths.PaymentIntents.WithIntent {
                     }
                 }
 
-                public struct WechatPay: Encodable {
+                public final class WechatPay: Encodable {
                     /// Payment_method_options_param
                     public var a: A?
                     public var b: B?
 
                     /// Payment_method_options_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var appID: String?
                         public var client: Client
 
@@ -41698,7 +41698,7 @@ extension Paths.PaymentIntents.WithIntent {
             }
 
             /// Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
-            public struct ReceiptEmail: Encodable {
+            public final class ReceiptEmail: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -41733,13 +41733,13 @@ extension Paths.PaymentIntents.WithIntent {
             }
 
             /// Shipping information for this PaymentIntent.
-            public struct Shipping: Encodable {
+            public final class Shipping: Encodable {
                 /// Optional_fields_shipping
                 public var a: A?
                 public var b: B?
 
                 /// Optional_fields_shipping
-                public struct A: Encodable {
+                public final class A: Encodable {
                     /// Optional_fields_address
                     public var address: Address
                     public var carrier: String?
@@ -41748,7 +41748,7 @@ extension Paths.PaymentIntents.WithIntent {
                     public var trackingNumber: String?
 
                     /// Optional_fields_address
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -41869,7 +41869,7 @@ extension Paths {
         }
 
         /// PaymentFlowsPaymentMethodList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.PaymentMethod]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -41898,7 +41898,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var customer: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -41956,7 +41956,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Payment_method_param
             ///
             /// If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
@@ -42053,7 +42053,7 @@ extension Paths {
             /// Payment_method_param
             ///
             /// If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
-            public struct AcssDebit: Encodable {
+            public final class AcssDebit: Encodable {
                 public var accountNumber: String
                 public var institutionNumber: String
                 public var transitNumber: String
@@ -42076,7 +42076,7 @@ extension Paths {
             /// Param
             ///
             /// If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
-            public struct AuBecsDebit: Encodable {
+            public final class AuBecsDebit: Encodable {
                 public var accountNumber: String
                 public var bsbNumber: String
 
@@ -42096,7 +42096,7 @@ extension Paths {
             /// Param
             ///
             /// If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
-            public struct BacsDebit: Encodable {
+            public final class BacsDebit: Encodable {
                 public var accountNumber: String?
                 public var sortCode: String?
 
@@ -42116,19 +42116,19 @@ extension Paths {
             /// Billing_details_inner_params
             ///
             /// Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
-            public struct BillingDetails: Encodable {
+            public final class BillingDetails: Encodable {
                 public var address: Address?
                 public var email: Email?
                 public var name: String?
                 public var phone: String?
 
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     /// Billing_details_address
                     public var a: A?
                     public var b: B?
 
                     /// Billing_details_address
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -42174,7 +42174,7 @@ extension Paths {
                     }
                 }
 
-                public struct Email: Encodable {
+                public final class Email: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -42215,7 +42215,7 @@ extension Paths {
             /// Param
             ///
             /// If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
-            public struct Boleto: Encodable {
+            public final class Boleto: Encodable {
                 public var taxID: String
 
                 public init(taxID: String) {
@@ -42230,14 +42230,14 @@ extension Paths {
             }
 
             /// If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Card_details_params
                 public var a: A?
                 /// Token_params
                 public var b: B?
 
                 /// Card_details_params
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var cvc: String?
                     public var expMonth: Int
                     public var expYear: Int
@@ -42261,7 +42261,7 @@ extension Paths {
                 }
 
                 /// Token_params
-                public struct B: Encodable {
+                public final class B: Encodable {
                     public var token: String
 
                     public init(token: String) {
@@ -42291,7 +42291,7 @@ extension Paths {
             /// Param
             ///
             /// If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
-            public struct Eps: Encodable {
+            public final class Eps: Encodable {
                 public var bank: Bank?
 
                 public enum Bank: String, Codable, CaseIterable {
@@ -42338,7 +42338,7 @@ extension Paths {
             /// Param
             ///
             /// If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
-            public struct Fpx: Encodable {
+            public final class Fpx: Encodable {
                 public var bank: Bank
 
                 public enum Bank: String, Codable, CaseIterable {
@@ -42379,7 +42379,7 @@ extension Paths {
             /// Param
             ///
             /// If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
-            public struct Ideal: Encodable {
+            public final class Ideal: Encodable {
                 public var bank: Bank?
 
                 public enum Bank: String, Codable, CaseIterable {
@@ -42412,12 +42412,12 @@ extension Paths {
             /// Param
             ///
             /// If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
-            public struct Klarna: Encodable {
+            public final class Klarna: Encodable {
                 /// Date_of_birth
                 public var dob: Dob?
 
                 /// Date_of_birth
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     public var day: Int
                     public var month: Int
                     public var year: Int
@@ -42451,7 +42451,7 @@ extension Paths {
             /// Param
             ///
             /// If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
-            public struct P24: Encodable {
+            public final class P24: Encodable {
                 public var bank: Bank?
 
                 public enum Bank: String, Codable, CaseIterable {
@@ -42496,7 +42496,7 @@ extension Paths {
             /// Param
             ///
             /// If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
-            public struct SepaDebit: Encodable {
+            public final class SepaDebit: Encodable {
                 public var iban: String
 
                 public init(iban: String) {
@@ -42513,7 +42513,7 @@ extension Paths {
             /// Param
             ///
             /// If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
-            public struct Sofort: Encodable {
+            public final class Sofort: Encodable {
                 public var country: Country
 
                 public enum Country: String, Codable, CaseIterable {
@@ -42647,7 +42647,7 @@ extension Paths.PaymentMethods {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Billing_details_inner_params
             ///
             /// Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
@@ -42664,19 +42664,19 @@ extension Paths.PaymentMethods {
             /// Billing_details_inner_params
             ///
             /// Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
-            public struct BillingDetails: Encodable {
+            public final class BillingDetails: Encodable {
                 public var address: Address?
                 public var email: Email?
                 public var name: String?
                 public var phone: String?
 
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     /// Billing_details_address
                     public var a: A?
                     public var b: B?
 
                     /// Billing_details_address
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -42722,7 +42722,7 @@ extension Paths.PaymentMethods {
                     }
                 }
 
-                public struct Email: Encodable {
+                public final class Email: Encodable {
                     public var string: String?
                     public var object: Object?
 
@@ -42763,7 +42763,7 @@ extension Paths.PaymentMethods {
             /// Update_api_param
             ///
             /// If this is a `card` PaymentMethod, this hash contains the user's card details.
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 public var expMonth: Int?
                 public var expYear: Int?
 
@@ -42781,7 +42781,7 @@ extension Paths.PaymentMethods {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -42845,7 +42845,7 @@ extension Paths.PaymentMethods.WithPaymentMethod {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The ID of the customer to which to attach the PaymentMethod.
             public var customer: String
             /// Specifies which fields in the response should be expanded.
@@ -42880,7 +42880,7 @@ extension Paths.PaymentMethods.WithPaymentMethod {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -42912,7 +42912,7 @@ extension Paths {
         }
 
         /// PayoutList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Payout]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -42941,7 +42941,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var arrivalDate: ArrivalDate?
             public var created: Created?
             public var destination: String?
@@ -42951,13 +42951,13 @@ extension Paths {
             public var startingAfter: String?
             public var status: String?
 
-            public struct ArrivalDate: Codable {
+            public final class ArrivalDate: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -42993,13 +42993,13 @@ extension Paths {
                 }
             }
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -43069,7 +43069,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A positive integer in cents representing how much to payout.
             public var amount: Int
             /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -43156,14 +43156,14 @@ extension Paths.Payouts {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -43213,7 +43213,7 @@ extension Paths.Payouts.WithPayout {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -43246,7 +43246,7 @@ extension Paths.Payouts.WithPayout {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -43282,7 +43282,7 @@ extension Paths {
         }
 
         /// PlanList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Plan]
             /// True if this list has another page of items after this one that can be fetched.
@@ -43312,7 +43312,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var created: Created?
             public var endingBefore: String?
@@ -43321,13 +43321,13 @@ extension Paths {
             public var product: String?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -43391,7 +43391,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the plan is currently available for new subscriptions. Defaults to `true`.
             public var isActive: Bool?
             /// Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
@@ -43453,7 +43453,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -43474,7 +43474,7 @@ extension Paths {
                 }
             }
 
-            public struct Product: Encodable {
+            public final class Product: Encodable {
                 /// Inline_product_params
                 ///
                 /// The product whose pricing the created plan will represent. This can either be the ID of an existing product, or a dictionary containing fields used to create a [service product](https://stripe.com/docs/api#product_object-type).
@@ -43485,7 +43485,7 @@ extension Paths {
                 /// Inline_product_params
                 ///
                 /// The product whose pricing the created plan will represent. This can either be the ID of an existing product, or a dictionary containing fields used to create a [service product](https://stripe.com/docs/api#product_object-type).
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var isActive: Bool?
                     public var id: String?
                     public var metadata: [String: String]?
@@ -43530,14 +43530,14 @@ extension Paths {
                 }
             }
 
-            public struct Tier: Encodable {
+            public final class Tier: Encodable {
                 public var flatAmount: Int?
                 public var flatAmountDecimal: String?
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
                 public var upTo: UpTo
 
-                public struct UpTo: Encodable {
+                public final class UpTo: Encodable {
                     public var object: Object?
                     public var int: Int?
 
@@ -43586,7 +43586,7 @@ extension Paths {
             /// Transform_usage_param
             ///
             /// Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
-            public struct TransformUsage: Encodable {
+            public final class TransformUsage: Encodable {
                 public var divideBy: Int
                 public var round: Round
 
@@ -43686,7 +43686,7 @@ extension Paths.Plans {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the plan is currently available for new subscriptions.
             public var isActive: Bool?
             /// Specifies which fields in the response should be expanded.
@@ -43701,7 +43701,7 @@ extension Paths.Plans {
             public var trialPeriodDays: Int?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -43765,7 +43765,7 @@ extension Paths {
         }
 
         /// PriceList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Price]
             /// True if this list has another page of items after this one that can be fetched.
@@ -43795,7 +43795,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var created: Created?
             public var currency: String?
@@ -43809,13 +43809,13 @@ extension Paths {
             public var startingAfter: String?
             public var type: `Type`?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -43852,7 +43852,7 @@ extension Paths {
             }
 
             /// All_prices_recurring_params
-            public struct Recurring: Codable {
+            public final class Recurring: Codable {
                 public var interval: Interval?
                 public var usageType: UsageType?
 
@@ -43922,7 +43922,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the price can be used for new purchases. Defaults to `true`.
             public var isActive: Bool?
             /// Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -43971,7 +43971,7 @@ extension Paths {
             /// Inline_product_params
             ///
             /// These fields can be used to create a new product that this price will belong to.
-            public struct ProductData: Encodable {
+            public final class ProductData: Encodable {
                 public var isActive: Bool?
                 public var id: String?
                 public var metadata: [String: String]?
@@ -44004,7 +44004,7 @@ extension Paths {
             }
 
             /// The recurring components of a price such as `interval` and `usage_type`.
-            public struct Recurring: Encodable {
+            public final class Recurring: Encodable {
                 public var aggregateUsage: AggregateUsage?
                 public var interval: Interval
                 public var intervalCount: Int?
@@ -44053,14 +44053,14 @@ extension Paths {
                 case unspecified
             }
 
-            public struct Tier: Encodable {
+            public final class Tier: Encodable {
                 public var flatAmount: Int?
                 public var flatAmountDecimal: String?
                 public var unitAmount: Int?
                 public var unitAmountDecimal: String?
                 public var upTo: UpTo
 
-                public struct UpTo: Encodable {
+                public final class UpTo: Encodable {
                     public var object: Object?
                     public var int: Int?
 
@@ -44109,7 +44109,7 @@ extension Paths {
             /// Transform_usage_param
             ///
             /// Apply a transformation to the reported usage or set quantity before computing the billed price. Cannot be combined with `tiers`.
-            public struct TransformQuantity: Encodable {
+            public final class TransformQuantity: Encodable {
                 public var divideBy: Int
                 public var round: Round
 
@@ -44201,7 +44201,7 @@ extension Paths.Prices {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the price can be used for new purchases. Defaults to `true`.
             public var isActive: Bool?
             /// Specifies which fields in the response should be expanded.
@@ -44218,7 +44218,7 @@ extension Paths.Prices {
             public var isTransferLookupKey: Bool?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -44286,7 +44286,7 @@ extension Paths {
         }
 
         /// ProductList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Product]
             /// True if this list has another page of items after this one that can be fetched.
@@ -44316,7 +44316,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var created: Created?
             public var endingBefore: String?
@@ -44327,13 +44327,13 @@ extension Paths {
             public var startingAfter: String?
             public var url: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -44401,7 +44401,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the product is currently available for purchase. Defaults to `true`.
             public var isActive: Bool?
             /// The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
@@ -44437,7 +44437,7 @@ extension Paths {
             /// Package_dimensions_specs
             ///
             /// The dimensions of this product for shipping purposes.
-            public struct PackageDimensions: Encodable {
+            public final class PackageDimensions: Encodable {
                 public var height: Double
                 public var length: Double
                 public var weight: Double
@@ -44522,7 +44522,7 @@ extension Paths.Products {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the product is available for purchase.
             public var isActive: Bool?
             /// The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
@@ -44552,7 +44552,7 @@ extension Paths.Products {
             public var url: String?
 
             /// A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-            public struct Images: Encodable {
+            public final class Images: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -44574,7 +44574,7 @@ extension Paths.Products {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -44596,13 +44596,13 @@ extension Paths.Products {
             }
 
             /// The dimensions of this product for shipping purposes.
-            public struct PackageDimensions: Encodable {
+            public final class PackageDimensions: Encodable {
                 /// Package_dimensions_specs
                 public var a: A?
                 public var b: B?
 
                 /// Package_dimensions_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var height: Double
                     public var length: Double
                     public var weight: Double
@@ -44643,7 +44643,7 @@ extension Paths.Products {
             }
 
             /// A [tax code](https://stripe.com/docs/tax/tax-codes) ID.
-            public struct TaxCode: Encodable {
+            public final class TaxCode: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -44718,7 +44718,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.PromotionCode]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -44747,7 +44747,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var code: String?
             public var coupon: String?
@@ -44758,13 +44758,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -44832,7 +44832,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the promotion code is currently active.
             public var isActive: Bool?
             /// The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. If left blank, we will generate one automatically.
@@ -44857,7 +44857,7 @@ extension Paths {
             /// Restrictions_params
             ///
             /// Settings that restrict the redemption of the promotion code.
-            public struct Restrictions: Encodable {
+            public final class Restrictions: Encodable {
                 public var isFirstTimeTransaction: Bool?
                 public var minimumAmount: Int?
                 public var minimumAmountCurrency: String?
@@ -44931,7 +44931,7 @@ extension Paths.PromotionCodes {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the promotion code is currently active. A promotion code can only be reactivated when the coupon is still valid and the promotion code is otherwise redeemable.
             public var isActive: Bool?
             /// Specifies which fields in the response should be expanded.
@@ -44940,7 +44940,7 @@ extension Paths.PromotionCodes {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -44992,7 +44992,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Quote]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -45021,7 +45021,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var customer: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -45062,7 +45062,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
             public var applicationFeeAmount: ApplicationFeeAmount?
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
@@ -45111,7 +45111,7 @@ extension Paths {
             public var transferData: TransferData?
 
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
-            public struct ApplicationFeeAmount: Encodable {
+            public final class ApplicationFeeAmount: Encodable {
                 public var int: Int?
                 public var object: Object?
 
@@ -45133,7 +45133,7 @@ extension Paths {
             }
 
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
-            public struct ApplicationFeePercent: Encodable {
+            public final class ApplicationFeePercent: Encodable {
                 public var double: Double?
                 public var object: Object?
 
@@ -45157,7 +45157,7 @@ extension Paths {
             /// Automatic_tax_param
             ///
             /// Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -45178,7 +45178,7 @@ extension Paths {
             }
 
             /// The tax rates that will apply to any line item that does not have `tax_rates` set.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -45200,12 +45200,12 @@ extension Paths {
             }
 
             /// The discounts applied to the quote. You can only set up to one discount.
-            public struct Discounts: Encodable {
+            public final class Discounts: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -45242,7 +45242,7 @@ extension Paths {
             /// From_quote_params
             ///
             /// Clone an existing quote. The new quote will be created in `status=draft`. When using this parameter, you cannot specify any other parameters except for `expires_at`.
-            public struct FromQuote: Encodable {
+            public final class FromQuote: Encodable {
                 public var isRevision: Bool?
                 public var quote: String
 
@@ -45262,7 +45262,7 @@ extension Paths {
             /// Quote_param
             ///
             /// All invoices will be billed using the specified settings.
-            public struct InvoiceSettings: Encodable {
+            public final class InvoiceSettings: Encodable {
                 public var daysUntilDue: Int?
 
                 public init(daysUntilDue: Int? = nil) {
@@ -45277,7 +45277,7 @@ extension Paths {
             }
 
             /// Line_item_create_params
-            public struct LineItem: Encodable {
+            public final class LineItem: Encodable {
                 public var price: String?
                 /// Price_data
                 public var priceData: PriceData?
@@ -45285,7 +45285,7 @@ extension Paths {
                 public var taxRates: TaxRates?
 
                 /// Price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -45295,7 +45295,7 @@ extension Paths {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -45346,7 +45346,7 @@ extension Paths {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -45385,7 +45385,7 @@ extension Paths {
             }
 
             /// The account on behalf of which to charge.
-            public struct OnBehalfOf: Encodable {
+            public final class OnBehalfOf: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -45409,11 +45409,11 @@ extension Paths {
             /// Subscription_data_create_params
             ///
             /// When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
-            public struct SubscriptionData: Encodable {
+            public final class SubscriptionData: Encodable {
                 public var effectiveDate: EffectiveDate?
                 public var trialPeriodDays: TrialPeriodDays?
 
-                public struct EffectiveDate: Encodable {
+                public final class EffectiveDate: Encodable {
                     public var object1: Object1?
                     public var int: Int?
                     public var object2: Object2?
@@ -45441,7 +45441,7 @@ extension Paths {
                     }
                 }
 
-                public struct TrialPeriodDays: Encodable {
+                public final class TrialPeriodDays: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -45476,13 +45476,13 @@ extension Paths {
             }
 
             /// The data with which to automatically create a Transfer for each of the invoices.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 /// Transfer_data_specs
                 public var a: A?
                 public var b: B?
 
                 /// Transfer_data_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amount: Int?
                     public var amountPercent: Double?
                     public var destination: String
@@ -45593,7 +45593,7 @@ extension Paths.Quotes {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
             public var applicationFeeAmount: ApplicationFeeAmount?
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
@@ -45638,7 +45638,7 @@ extension Paths.Quotes {
             public var transferData: TransferData?
 
             /// The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
-            public struct ApplicationFeeAmount: Encodable {
+            public final class ApplicationFeeAmount: Encodable {
                 public var int: Int?
                 public var object: Object?
 
@@ -45660,7 +45660,7 @@ extension Paths.Quotes {
             }
 
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
-            public struct ApplicationFeePercent: Encodable {
+            public final class ApplicationFeePercent: Encodable {
                 public var double: Double?
                 public var object: Object?
 
@@ -45684,7 +45684,7 @@ extension Paths.Quotes {
             /// Automatic_tax_param
             ///
             /// Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -45705,7 +45705,7 @@ extension Paths.Quotes {
             }
 
             /// The tax rates that will apply to any line item that does not have `tax_rates` set.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -45727,12 +45727,12 @@ extension Paths.Quotes {
             }
 
             /// The discounts applied to the quote. You can only set up to one discount.
-            public struct Discounts: Encodable {
+            public final class Discounts: Encodable {
                 public var placeholderItems: [PlaceholderItem]?
                 public var object: Object?
 
                 /// Discounts_data_param
-                public struct PlaceholderItem: Encodable {
+                public final class PlaceholderItem: Encodable {
                     public var coupon: String?
                     public var discount: String?
 
@@ -45769,7 +45769,7 @@ extension Paths.Quotes {
             /// Quote_param
             ///
             /// All invoices will be billed using the specified settings.
-            public struct InvoiceSettings: Encodable {
+            public final class InvoiceSettings: Encodable {
                 public var daysUntilDue: Int?
 
                 public init(daysUntilDue: Int? = nil) {
@@ -45784,7 +45784,7 @@ extension Paths.Quotes {
             }
 
             /// Line_item_update_params
-            public struct LineItem: Encodable {
+            public final class LineItem: Encodable {
                 public var id: String?
                 public var price: String?
                 /// Price_data
@@ -45793,7 +45793,7 @@ extension Paths.Quotes {
                 public var taxRates: TaxRates?
 
                 /// Price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -45803,7 +45803,7 @@ extension Paths.Quotes {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -45854,7 +45854,7 @@ extension Paths.Quotes {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -45895,7 +45895,7 @@ extension Paths.Quotes {
             }
 
             /// The account on behalf of which to charge.
-            public struct OnBehalfOf: Encodable {
+            public final class OnBehalfOf: Encodable {
                 public var string: String?
                 public var object: Object?
 
@@ -45919,11 +45919,11 @@ extension Paths.Quotes {
             /// Subscription_data_update_params
             ///
             /// When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
-            public struct SubscriptionData: Encodable {
+            public final class SubscriptionData: Encodable {
                 public var effectiveDate: EffectiveDate?
                 public var trialPeriodDays: TrialPeriodDays?
 
-                public struct EffectiveDate: Encodable {
+                public final class EffectiveDate: Encodable {
                     public var object1: Object1?
                     public var int: Int?
                     public var object2: Object2?
@@ -45951,7 +45951,7 @@ extension Paths.Quotes {
                     }
                 }
 
-                public struct TrialPeriodDays: Encodable {
+                public final class TrialPeriodDays: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -45986,13 +45986,13 @@ extension Paths.Quotes {
             }
 
             /// The data with which to automatically create a Transfer for each of the invoices.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 /// Transfer_data_specs
                 public var a: A?
                 public var b: B?
 
                 /// Transfer_data_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amount: Int?
                     public var amountPercent: Double?
                     public var destination: String
@@ -46090,7 +46090,7 @@ extension Paths.Quotes.WithQuote {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -46121,7 +46121,7 @@ extension Paths.Quotes.WithQuote {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -46153,7 +46153,7 @@ extension Paths.Quotes.WithQuote {
         }
 
         /// QuotesResourceListLineItems
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Item]
             /// True if this list has another page of items after this one that can be fetched.
@@ -46183,7 +46183,7 @@ extension Paths.Quotes.WithQuote {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -46222,7 +46222,7 @@ extension Paths.Quotes.WithQuote {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.
@@ -46258,7 +46258,7 @@ extension Paths.Quotes.WithQuote {
         }
 
         /// QuotesResourceListLineItems
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Item]
             /// True if this list has another page of items after this one that can be fetched.
@@ -46288,7 +46288,7 @@ extension Paths.Quotes.WithQuote {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -46361,7 +46361,7 @@ extension Paths.Radar {
         }
 
         /// RadarEarlyFraudWarningList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.RadarEarlyFraudWarning]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -46390,7 +46390,7 @@ extension Paths.Radar {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var charge: String?
             public var endingBefore: String?
             public var expand: [String]?
@@ -46459,7 +46459,7 @@ extension Paths.Radar {
             .get(path, query: parameters.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.RadarValueListItem]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -46488,7 +46488,7 @@ extension Paths.Radar {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -46497,13 +46497,13 @@ extension Paths.Radar {
             public var value: String?
             public var valueList: String
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -46567,7 +46567,7 @@ extension Paths.Radar {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// The value of the item (whose type must match the type of the parent value list).
@@ -46633,7 +46633,7 @@ extension Paths.Radar {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.RadarValueList]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -46662,7 +46662,7 @@ extension Paths.Radar {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var alias: String?
             public var contains: String?
             public var created: Created?
@@ -46671,13 +46671,13 @@ extension Paths.Radar {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -46741,7 +46741,7 @@ extension Paths.Radar {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the value list for use in rules.
             public var alias: String
             /// Specifies which fields in the response should be expanded.
@@ -46811,7 +46811,7 @@ extension Paths.Radar.ValueLists {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The name of the value list for use in rules.
             public var alias: String?
             /// Specifies which fields in the response should be expanded.
@@ -46860,7 +46860,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Recipient]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -46889,7 +46889,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -46898,13 +46898,13 @@ extension Paths {
             public var type: `Type`?
             public var isVerified: Bool?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -46975,7 +46975,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A bank account to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details, with the options described below.
             public var bankAccount: String?
             /// A U.S. Visa or MasterCard debit card (_not_ prepaid) to attach to the recipient. If the debit card is not valid, recipient creation will fail. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's debit card details, with the options described below. Although not all information is required, the extra info helps prevent fraud.
@@ -46996,7 +46996,7 @@ extension Paths {
             public var type: String
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -47061,7 +47061,7 @@ extension Paths.Recipients {
             .get(path, query: makeGetQuery(expand))
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var recipient: StripeAPI.Recipient?
             /// DeletedTransferRecipient
             public var deletedRecipient: StripeAPI.DeletedRecipient?
@@ -47094,7 +47094,7 @@ extension Paths.Recipients {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A bank account to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details, with the options described below.
             public var bankAccount: String?
             /// A U.S. Visa or MasterCard debit card (not prepaid) to attach to the recipient. You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's debit card details, with the options described below. Passing `card` will create a new card, make it the new recipient default card, and delete the old recipient default (if one exists). If you want to add additional debit cards instead of replacing the existing default, use the [card creation API](https://stripe.com/docs/api#create_card). Whenever you attach a card to a recipient, Stripe will automatically validate the debit card.
@@ -47115,7 +47115,7 @@ extension Paths.Recipients {
             public var taxID: String?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -47185,7 +47185,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Refund]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -47214,7 +47214,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var charge: String?
             public var created: Created?
             public var endingBefore: String?
@@ -47223,13 +47223,13 @@ extension Paths {
             public var paymentIntent: String?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -47293,7 +47293,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             public var amount: Int?
             public var charge: String?
             /// Specifies which fields in the response should be expanded.
@@ -47306,7 +47306,7 @@ extension Paths {
             public var isReverseTransfer: Bool?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -47387,14 +47387,14 @@ extension Paths.Refunds {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -47455,7 +47455,7 @@ extension Paths.Reporting {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ReportingReportRun]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -47484,20 +47484,20 @@ extension Paths.Reporting {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -47557,7 +47557,7 @@ extension Paths.Reporting {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Run_parameter_specs
@@ -47570,7 +47570,7 @@ extension Paths.Reporting {
             /// Run_parameter_specs
             ///
             /// Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
-            public struct Parameters: Encodable {
+            public final class Parameters: Encodable {
                 public var columns: [String]?
                 public var connectedAccount: String?
                 public var currency: String?
@@ -48293,7 +48293,7 @@ extension Paths.Reporting {
         }
 
         /// FinancialReportingFinanceReportTypeList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ReportingReportType]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -48366,7 +48366,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Review]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -48395,20 +48395,20 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -48501,7 +48501,7 @@ extension Paths.Reviews.WithReview {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -48533,7 +48533,7 @@ extension Paths {
         }
 
         /// PaymentFlowsSetupIntentSetupAttemptList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.SetupAttempt]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -48562,7 +48562,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var endingBefore: String?
             public var expand: [String]?
@@ -48570,13 +48570,13 @@ extension Paths {
             public var setupIntent: String
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -48650,7 +48650,7 @@ extension Paths {
         }
 
         /// PaymentFlowsSetupIntentList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.SetupIntent]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -48679,7 +48679,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var customer: String?
             public var endingBefore: String?
@@ -48688,13 +48688,13 @@ extension Paths {
             public var paymentMethod: String?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -48761,7 +48761,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If the payment method attached is a card, a return_url may be provided in case additional authentication is required.
             public var isConfirm: Bool?
             /// ID of the Customer this SetupIntent belongs to, if one exists.
@@ -48800,12 +48800,12 @@ extension Paths {
             /// Secret_key_param
             ///
             /// This hash contains details about the Mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
-            public struct MandateData: Encodable {
+            public final class MandateData: Encodable {
                 /// Customer_acceptance_param
                 public var customerAcceptance: CustomerAcceptance
 
                 /// Customer_acceptance_param
-                public struct CustomerAcceptance: Encodable {
+                public final class CustomerAcceptance: Encodable {
                     public var acceptedAt: Int?
                     /// Offline_param
                     public var offline: [String: AnyJSON]?
@@ -48814,7 +48814,7 @@ extension Paths {
                     public var type: `Type`
 
                     /// Online_param
-                    public struct Online: Encodable {
+                    public final class Online: Encodable {
                         public var ipAddress: String
                         public var userAgent: String
 
@@ -48867,7 +48867,7 @@ extension Paths {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration for this SetupIntent.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 /// Setup_intent_payment_method_options_param
                 public var acssDebit: AcssDebit?
                 /// Setup_intent_param
@@ -48876,7 +48876,7 @@ extension Paths {
                 public var sepaDebit: SepaDebit?
 
                 /// Setup_intent_payment_method_options_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var currency: Currency?
                     /// Setup_intent_payment_method_options_mandate_options_param
                     public var mandateOptions: MandateOptions?
@@ -48888,14 +48888,14 @@ extension Paths {
                     }
 
                     /// Setup_intent_payment_method_options_mandate_options_param
-                    public struct MandateOptions: Encodable {
+                    public final class MandateOptions: Encodable {
                         public var customMandateURL: CustomMandateURL?
                         public var defaultFor: [DefaultForItem]?
                         public var intervalDescription: String?
                         public var paymentSchedule: PaymentSchedule?
                         public var transactionType: TransactionType?
 
-                        public struct CustomMandateURL: Encodable {
+                        public final class CustomMandateURL: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -48973,7 +48973,7 @@ extension Paths {
                 }
 
                 /// Setup_intent_param
-                public struct Card: Encodable {
+                public final class Card: Encodable {
                     public var requestThreeDSecure: RequestThreeDSecure?
 
                     public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -48993,7 +48993,7 @@ extension Paths {
                 }
 
                 /// Setup_intent_payment_method_options_param
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     /// Payment_method_options_mandate_options_param
                     public var mandateOptions: [String: AnyJSON]?
 
@@ -49026,7 +49026,7 @@ extension Paths {
             /// Setup_intent_single_use_params
             ///
             /// If this hash is populated, this SetupIntent will generate a single_use Mandate on success.
-            public struct SingleUse: Encodable {
+            public final class SingleUse: Encodable {
                 public var amount: Int
                 public var currency: String
 
@@ -49116,7 +49116,7 @@ extension Paths.SetupIntents {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// ID of the Customer this SetupIntent belongs to, if one exists.
             /// 
             /// If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
@@ -49137,7 +49137,7 @@ extension Paths.SetupIntents {
             public var paymentMethodTypes: [String]?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -49161,7 +49161,7 @@ extension Paths.SetupIntents {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration for this SetupIntent.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 /// Setup_intent_payment_method_options_param
                 public var acssDebit: AcssDebit?
                 /// Setup_intent_param
@@ -49170,7 +49170,7 @@ extension Paths.SetupIntents {
                 public var sepaDebit: SepaDebit?
 
                 /// Setup_intent_payment_method_options_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var currency: Currency?
                     /// Setup_intent_payment_method_options_mandate_options_param
                     public var mandateOptions: MandateOptions?
@@ -49182,14 +49182,14 @@ extension Paths.SetupIntents {
                     }
 
                     /// Setup_intent_payment_method_options_mandate_options_param
-                    public struct MandateOptions: Encodable {
+                    public final class MandateOptions: Encodable {
                         public var customMandateURL: CustomMandateURL?
                         public var defaultFor: [DefaultForItem]?
                         public var intervalDescription: String?
                         public var paymentSchedule: PaymentSchedule?
                         public var transactionType: TransactionType?
 
-                        public struct CustomMandateURL: Encodable {
+                        public final class CustomMandateURL: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -49267,7 +49267,7 @@ extension Paths.SetupIntents {
                 }
 
                 /// Setup_intent_param
-                public struct Card: Encodable {
+                public final class Card: Encodable {
                     public var requestThreeDSecure: RequestThreeDSecure?
 
                     public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -49287,7 +49287,7 @@ extension Paths.SetupIntents {
                 }
 
                 /// Setup_intent_payment_method_options_param
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     /// Payment_method_options_mandate_options_param
                     public var mandateOptions: [String: AnyJSON]?
 
@@ -49358,7 +49358,7 @@ extension Paths.SetupIntents.WithIntent {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Reason for canceling this SetupIntent. Possible values are `abandoned`, `requested_by_customer`, or `duplicate`
             public var cancellationReason: CancellationReason?
             /// Specifies which fields in the response should be expanded.
@@ -49412,7 +49412,7 @@ extension Paths.SetupIntents.WithIntent {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The client secret of the SetupIntent.
             public var clientSecret: String?
             /// Specifies which fields in the response should be expanded.
@@ -49431,19 +49431,19 @@ extension Paths.SetupIntents.WithIntent {
             public var returnURL: String?
 
             /// This hash contains details about the Mandate to create
-            public struct MandateData: Encodable {
+            public final class MandateData: Encodable {
                 /// Secret_key_param
                 public var a: A?
                 /// Client_key_param
                 public var b: B?
 
                 /// Secret_key_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     /// Customer_acceptance_param
                     public var customerAcceptance: CustomerAcceptance
 
                     /// Customer_acceptance_param
-                    public struct CustomerAcceptance: Encodable {
+                    public final class CustomerAcceptance: Encodable {
                         public var acceptedAt: Int?
                         /// Offline_param
                         public var offline: [String: AnyJSON]?
@@ -49452,7 +49452,7 @@ extension Paths.SetupIntents.WithIntent {
                         public var type: `Type`
 
                         /// Online_param
-                        public struct Online: Encodable {
+                        public final class Online: Encodable {
                             public var ipAddress: String
                             public var userAgent: String
 
@@ -49503,18 +49503,18 @@ extension Paths.SetupIntents.WithIntent {
                 }
 
                 /// Client_key_param
-                public struct B: Encodable {
+                public final class B: Encodable {
                     /// Customer_acceptance_param
                     public var customerAcceptance: CustomerAcceptance
 
                     /// Customer_acceptance_param
-                    public struct CustomerAcceptance: Encodable {
+                    public final class CustomerAcceptance: Encodable {
                         /// Online_param
                         public var online: Online
                         public var type: `Type`
 
                         /// Online_param
-                        public struct Online: Encodable {
+                        public final class Online: Encodable {
                             public var ipAddress: String?
                             public var userAgent: String?
 
@@ -49575,7 +49575,7 @@ extension Paths.SetupIntents.WithIntent {
             /// Payment_method_options_param
             ///
             /// Payment-method-specific configuration for this SetupIntent.
-            public struct PaymentMethodOptions: Encodable {
+            public final class PaymentMethodOptions: Encodable {
                 /// Setup_intent_payment_method_options_param
                 public var acssDebit: AcssDebit?
                 /// Setup_intent_param
@@ -49584,7 +49584,7 @@ extension Paths.SetupIntents.WithIntent {
                 public var sepaDebit: SepaDebit?
 
                 /// Setup_intent_payment_method_options_param
-                public struct AcssDebit: Encodable {
+                public final class AcssDebit: Encodable {
                     public var currency: Currency?
                     /// Setup_intent_payment_method_options_mandate_options_param
                     public var mandateOptions: MandateOptions?
@@ -49596,14 +49596,14 @@ extension Paths.SetupIntents.WithIntent {
                     }
 
                     /// Setup_intent_payment_method_options_mandate_options_param
-                    public struct MandateOptions: Encodable {
+                    public final class MandateOptions: Encodable {
                         public var customMandateURL: CustomMandateURL?
                         public var defaultFor: [DefaultForItem]?
                         public var intervalDescription: String?
                         public var paymentSchedule: PaymentSchedule?
                         public var transactionType: TransactionType?
 
-                        public struct CustomMandateURL: Encodable {
+                        public final class CustomMandateURL: Encodable {
                             public var string: String?
                             public var object: Object?
 
@@ -49681,7 +49681,7 @@ extension Paths.SetupIntents.WithIntent {
                 }
 
                 /// Setup_intent_param
-                public struct Card: Encodable {
+                public final class Card: Encodable {
                     public var requestThreeDSecure: RequestThreeDSecure?
 
                     public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -49701,7 +49701,7 @@ extension Paths.SetupIntents.WithIntent {
                 }
 
                 /// Setup_intent_payment_method_options_param
-                public struct SepaDebit: Encodable {
+                public final class SepaDebit: Encodable {
                     /// Payment_method_options_mandate_options_param
                     public var mandateOptions: [String: AnyJSON]?
 
@@ -49769,7 +49769,7 @@ extension Paths {
         }
 
         /// ShippingResourcesShippingRateList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ShippingRate]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -49798,7 +49798,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var created: Created?
             public var currency: String?
@@ -49807,13 +49807,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -49877,7 +49877,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Delivery_estimate
             ///
             /// The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
@@ -49902,14 +49902,14 @@ extension Paths {
             /// Delivery_estimate
             ///
             /// The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
-            public struct DeliveryEstimate: Encodable {
+            public final class DeliveryEstimate: Encodable {
                 /// Delivery_estimate_bound
                 public var maximum: Maximum?
                 /// Delivery_estimate_bound
                 public var minimum: Minimum?
 
                 /// Delivery_estimate_bound
-                public struct Maximum: Encodable {
+                public final class Maximum: Encodable {
                     public var unit: Unit
                     public var value: Int
 
@@ -49935,7 +49935,7 @@ extension Paths {
                 }
 
                 /// Delivery_estimate_bound
-                public struct Minimum: Encodable {
+                public final class Minimum: Encodable {
                     public var unit: Unit
                     public var value: Int
 
@@ -49976,7 +49976,7 @@ extension Paths {
             /// Fixed_amount
             ///
             /// Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-            public struct FixedAmount: Encodable {
+            public final class FixedAmount: Encodable {
                 public var amount: Int
                 public var currency: String
 
@@ -50057,7 +50057,7 @@ extension Paths.ShippingRates {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the shipping rate can be used for new purchases. Defaults to `true`.
             public var isActive: Bool?
             /// Specifies which fields in the response should be expanded.
@@ -50066,7 +50066,7 @@ extension Paths.ShippingRates {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -50129,7 +50129,7 @@ extension Paths.Sigma {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.ScheduledQueryRun]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -50158,7 +50158,7 @@ extension Paths.Sigma {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -50219,7 +50219,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Sku]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -50248,7 +50248,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var attributes: Attributes?
             public var endingBefore: String?
@@ -50293,7 +50293,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether the SKU is available for purchase. Default to `true`.
             public var isActive: Bool?
             /// A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`.
@@ -50324,7 +50324,7 @@ extension Paths {
             /// Inventory_create_specs
             ///
             /// Description of the SKU's inventory.
-            public struct Inventory: Encodable {
+            public final class Inventory: Encodable {
                 public var quantity: Int?
                 public var type: `Type`
                 public var value: Value?
@@ -50360,7 +50360,7 @@ extension Paths {
             /// Package_dimensions_specs
             ///
             /// The dimensions of this SKU for shipping purposes.
-            public struct PackageDimensions: Encodable {
+            public final class PackageDimensions: Encodable {
                 public var height: Double
                 public var length: Double
                 public var weight: Double
@@ -50430,7 +50430,7 @@ extension Paths.Skus {
             .get(path, query: makeGetQuery(expand))
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
             /// SKUs describe specific product variations, taking into account any combination of: attributes,
             /// currency, and cost. For example, a product may be a T-shirt, whereas a specific SKU represents
@@ -50467,7 +50467,7 @@ extension Paths.Skus {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Whether this SKU is available for purchase.
             public var isActive: Bool?
             /// A dictionary of attributes and values for the attributes defined by the product. When specified, `attributes` will partially update the existing attributes dictionary on the product, with the postcondition that a value must be present for each attribute key on the product.
@@ -50494,7 +50494,7 @@ extension Paths.Skus {
             /// Inventory_update_specs
             ///
             /// Description of the SKU's inventory.
-            public struct Inventory: Encodable {
+            public final class Inventory: Encodable {
                 public var quantity: Int?
                 public var type: `Type`?
                 public var value: Value?
@@ -50528,7 +50528,7 @@ extension Paths.Skus {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -50550,13 +50550,13 @@ extension Paths.Skus {
             }
 
             /// The dimensions of this SKU for shipping purposes.
-            public struct PackageDimensions: Encodable {
+            public final class PackageDimensions: Encodable {
                 /// Package_dimensions_specs
                 public var a: A?
                 public var b: B?
 
                 /// Package_dimensions_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var height: Double
                     public var length: Double
                     public var weight: Double
@@ -50646,7 +50646,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.
             public var amount: Int?
             /// Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
@@ -50697,7 +50697,7 @@ extension Paths {
             /// Mandate_params
             ///
             /// Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-            public struct Mandate: Encodable {
+            public final class Mandate: Encodable {
                 /// Mandate_acceptance_params
                 public var acceptance: Acceptance?
                 public var amount: Amount?
@@ -50706,7 +50706,7 @@ extension Paths {
                 public var notificationMethod: NotificationMethod?
 
                 /// Mandate_acceptance_params
-                public struct Acceptance: Encodable {
+                public final class Acceptance: Encodable {
                     public var date: Int?
                     public var ip: String?
                     /// Mandate_offline_acceptance_params
@@ -50718,7 +50718,7 @@ extension Paths {
                     public var userAgent: String?
 
                     /// Mandate_offline_acceptance_params
-                    public struct Offline: Encodable {
+                    public final class Offline: Encodable {
                         public var contactEmail: String
 
                         public init(contactEmail: String) {
@@ -50733,7 +50733,7 @@ extension Paths {
                     }
 
                     /// Mandate_online_acceptance_params
-                    public struct Online: Encodable {
+                    public final class Online: Encodable {
                         public var date: Int?
                         public var ip: String?
                         public var userAgent: String?
@@ -50788,7 +50788,7 @@ extension Paths {
                     }
                 }
 
-                public struct Amount: Encodable {
+                public final class Amount: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -50843,7 +50843,7 @@ extension Paths {
             }
 
             /// Information about the owner of the payment instrument that may be used or required by particular source types.
-            public struct Owner: Encodable {
+            public final class Owner: Encodable {
                 /// Source_address
                 public var address: Address?
                 public var email: String?
@@ -50851,7 +50851,7 @@ extension Paths {
                 public var phone: String?
 
                 /// Source_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -50900,7 +50900,7 @@ extension Paths {
             /// Receiver_params
             ///
             /// Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
-            public struct Receiver: Encodable {
+            public final class Receiver: Encodable {
                 public var refundAttributesMethod: RefundAttributesMethod?
 
                 public enum RefundAttributesMethod: String, Codable, CaseIterable {
@@ -50923,7 +50923,7 @@ extension Paths {
             /// Redirect_params
             ///
             /// Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
-            public struct Redirect: Encodable {
+            public final class Redirect: Encodable {
                 public var returnURL: String
 
                 public init(returnURL: String) {
@@ -50940,13 +50940,13 @@ extension Paths {
             /// Shallow_order_specs
             ///
             /// Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-            public struct SourceOrder: Encodable {
+            public final class SourceOrder: Encodable {
                 public var items: [Item]?
                 /// Order_shipping
                 public var shipping: Shipping?
 
                 /// Order_item_specs
-                public struct Item: Encodable {
+                public final class Item: Encodable {
                     public var amount: Int?
                     public var currency: String?
                     public var description: String?
@@ -50983,14 +50983,14 @@ extension Paths {
                 }
 
                 /// Order_shipping
-                public struct Shipping: Encodable {
+                public final class Shipping: Encodable {
                     public var address: Address
                     public var carrier: String?
                     public var name: String?
                     public var phone: String?
                     public var trackingNumber: String?
 
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String
@@ -51127,7 +51127,7 @@ extension Paths.Sources {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Amount associated with the source.
             public var amount: Int?
             /// Specifies which fields in the response should be expanded.
@@ -51148,7 +51148,7 @@ extension Paths.Sources {
             /// Mandate_params
             ///
             /// Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-            public struct Mandate: Encodable {
+            public final class Mandate: Encodable {
                 /// Mandate_acceptance_params
                 public var acceptance: Acceptance?
                 public var amount: Amount?
@@ -51157,7 +51157,7 @@ extension Paths.Sources {
                 public var notificationMethod: NotificationMethod?
 
                 /// Mandate_acceptance_params
-                public struct Acceptance: Encodable {
+                public final class Acceptance: Encodable {
                     public var date: Int?
                     public var ip: String?
                     /// Mandate_offline_acceptance_params
@@ -51169,7 +51169,7 @@ extension Paths.Sources {
                     public var userAgent: String?
 
                     /// Mandate_offline_acceptance_params
-                    public struct Offline: Encodable {
+                    public final class Offline: Encodable {
                         public var contactEmail: String
 
                         public init(contactEmail: String) {
@@ -51184,7 +51184,7 @@ extension Paths.Sources {
                     }
 
                     /// Mandate_online_acceptance_params
-                    public struct Online: Encodable {
+                    public final class Online: Encodable {
                         public var date: Int?
                         public var ip: String?
                         public var userAgent: String?
@@ -51239,7 +51239,7 @@ extension Paths.Sources {
                     }
                 }
 
-                public struct Amount: Encodable {
+                public final class Amount: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -51294,7 +51294,7 @@ extension Paths.Sources {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -51316,7 +51316,7 @@ extension Paths.Sources {
             }
 
             /// Information about the owner of the payment instrument that may be used or required by particular source types.
-            public struct Owner: Encodable {
+            public final class Owner: Encodable {
                 /// Source_address
                 public var address: Address?
                 public var email: String?
@@ -51324,7 +51324,7 @@ extension Paths.Sources {
                 public var phone: String?
 
                 /// Source_address
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -51373,13 +51373,13 @@ extension Paths.Sources {
             /// Order_params
             ///
             /// Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-            public struct SourceOrder: Encodable {
+            public final class SourceOrder: Encodable {
                 public var items: [Item]?
                 /// Order_shipping
                 public var shipping: Shipping?
 
                 /// Order_item_specs
-                public struct Item: Encodable {
+                public final class Item: Encodable {
                     public var amount: Int?
                     public var currency: String?
                     public var description: String?
@@ -51416,14 +51416,14 @@ extension Paths.Sources {
                 }
 
                 /// Order_shipping
-                public struct Shipping: Encodable {
+                public final class Shipping: Encodable {
                     public var address: Address
                     public var carrier: String?
                     public var name: String?
                     public var phone: String?
                     public var trackingNumber: String?
 
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String
@@ -51555,7 +51555,7 @@ extension Paths.Sources.WithSource {
         }
 
         /// ApmsSourcesSourceTransactionList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.SourceTransaction]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -51584,7 +51584,7 @@ extension Paths.Sources.WithSource {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -51645,7 +51645,7 @@ extension Paths.Sources.WithSource {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// The values needed to verify the source.
@@ -51680,7 +51680,7 @@ extension Paths {
             .get(path, query: parameters.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.SubscriptionItem]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -51709,7 +51709,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -51740,7 +51740,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
             public var billingThresholds: BillingThresholds?
             /// Specifies which fields in the response should be expanded.
@@ -51777,13 +51777,13 @@ extension Paths {
             public var taxRates: TaxRates?
 
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-            public struct BillingThresholds: Encodable {
+            public final class BillingThresholds: Encodable {
                 /// Item_billing_thresholds_param
                 public var a: A?
                 public var b: B?
 
                 /// Item_billing_thresholds_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var usageGte: Int
 
                     public init(usageGte: Int) {
@@ -51831,7 +51831,7 @@ extension Paths {
             /// Recurring_price_data
             ///
             /// Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-            public struct PriceData: Encodable {
+            public final class PriceData: Encodable {
                 public var currency: String
                 public var product: String
                 /// Recurring_adhoc
@@ -51841,7 +51841,7 @@ extension Paths {
                 public var unitAmountDecimal: String?
 
                 /// Recurring_adhoc
-                public struct Recurring: Encodable {
+                public final class Recurring: Encodable {
                     public var interval: Interval
                     public var intervalCount: Int?
 
@@ -51904,7 +51904,7 @@ extension Paths {
             }
 
             /// A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-            public struct TaxRates: Encodable {
+            public final class TaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -51983,7 +51983,7 @@ extension Paths.SubscriptionItems {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
             public var billingThresholds: BillingThresholds?
             /// Specifies which fields in the response should be expanded.
@@ -52020,13 +52020,13 @@ extension Paths.SubscriptionItems {
             public var taxRates: TaxRates?
 
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-            public struct BillingThresholds: Encodable {
+            public final class BillingThresholds: Encodable {
                 /// Item_billing_thresholds_param
                 public var a: A?
                 public var b: B?
 
                 /// Item_billing_thresholds_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var usageGte: Int
 
                     public init(usageGte: Int) {
@@ -52058,7 +52058,7 @@ extension Paths.SubscriptionItems {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -52096,7 +52096,7 @@ extension Paths.SubscriptionItems {
             /// Recurring_price_data
             ///
             /// Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-            public struct PriceData: Encodable {
+            public final class PriceData: Encodable {
                 public var currency: String
                 public var product: String
                 /// Recurring_adhoc
@@ -52106,7 +52106,7 @@ extension Paths.SubscriptionItems {
                 public var unitAmountDecimal: String?
 
                 /// Recurring_adhoc
-                public struct Recurring: Encodable {
+                public final class Recurring: Encodable {
                     public var interval: Interval
                     public var intervalCount: Int?
 
@@ -52169,7 +52169,7 @@ extension Paths.SubscriptionItems {
             }
 
             /// A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-            public struct TaxRates: Encodable {
+            public final class TaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -52226,7 +52226,7 @@ extension Paths.SubscriptionItems {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Delete all usage for the given subscription item. Allowed only when the current plan's `usage_type` is `metered`.
             public var isClearUsage: Bool?
             /// Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. Valid values are `create_prorations`, `none`, or `always_invoice`.
@@ -52293,7 +52293,7 @@ extension Paths.SubscriptionItems.WithSubscriptionItem {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.UsageRecordSummary]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -52322,7 +52322,7 @@ extension Paths.SubscriptionItems.WithSubscriptionItem {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -52367,7 +52367,7 @@ extension Paths.SubscriptionItems.WithSubscriptionItem {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
             public var action: Action?
             /// Specifies which fields in the response should be expanded.
@@ -52384,7 +52384,7 @@ extension Paths.SubscriptionItems.WithSubscriptionItem {
             }
 
             /// The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided.
-            public struct Timestamp: Encodable {
+            public final class Timestamp: Encodable {
                 public var object: Object?
                 public var int: Int?
 
@@ -52438,7 +52438,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.SubscriptionSchedule]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -52467,7 +52467,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var canceledAt: CanceledAt?
             public var completedAt: CompletedAt?
             public var created: Created?
@@ -52479,13 +52479,13 @@ extension Paths {
             public var isScheduled: Bool?
             public var startingAfter: String?
 
-            public struct CanceledAt: Codable {
+            public final class CanceledAt: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -52521,13 +52521,13 @@ extension Paths {
                 }
             }
 
-            public struct CompletedAt: Codable {
+            public final class CompletedAt: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -52563,13 +52563,13 @@ extension Paths {
                 }
             }
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -52605,13 +52605,13 @@ extension Paths {
                 }
             }
 
-            public struct ReleasedAt: Codable {
+            public final class ReleasedAt: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -52681,7 +52681,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// The identifier of the customer to create the subscription schedule for.
             public var customer: String?
             /// Default_settings_params
@@ -52704,7 +52704,7 @@ extension Paths {
             /// Default_settings_params
             ///
             /// Object representing the subscription schedule's default settings.
-            public struct DefaultSettings: Encodable {
+            public final class DefaultSettings: Encodable {
                 public var applicationFeePercent: Double?
                 /// Automatic_tax_config
                 public var automaticTax: AutomaticTax?
@@ -52717,7 +52717,7 @@ extension Paths {
                 public var transferData: TransferData?
 
                 /// Automatic_tax_config
-                public struct AutomaticTax: Encodable {
+                public final class AutomaticTax: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -52736,13 +52736,13 @@ extension Paths {
                     case phaseStart = "phase_start"
                 }
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var amountGte: Int?
                         public var isResetBillingCycleAnchor: Bool?
 
@@ -52782,7 +52782,7 @@ extension Paths {
                 }
 
                 /// Subscription_schedules_param
-                public struct InvoiceSettings: Encodable {
+                public final class InvoiceSettings: Encodable {
                     public var daysUntilDue: Int?
 
                     public init(daysUntilDue: Int? = nil) {
@@ -52796,13 +52796,13 @@ extension Paths {
                     }
                 }
 
-                public struct TransferData: Encodable {
+                public final class TransferData: Encodable {
                     /// Transfer_data_specs
                     public var a: A?
                     public var b: B?
 
                     /// Transfer_data_specs
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var amountPercent: Double?
                         public var destination: String
 
@@ -52870,7 +52870,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -52892,7 +52892,7 @@ extension Paths {
             }
 
             /// Phase_configuration_params
-            public struct Phase: Encodable {
+            public final class Phase: Encodable {
                 public var addInvoiceItems: [AddInvoiceItem]?
                 public var applicationFeePercent: Double?
                 /// Automatic_tax_config
@@ -52915,7 +52915,7 @@ extension Paths {
                 public var trialEnd: Int?
 
                 /// Add_invoice_item_entry
-                public struct AddInvoiceItem: Encodable {
+                public final class AddInvoiceItem: Encodable {
                     public var price: String?
                     /// One_time_price_data
                     public var priceData: PriceData?
@@ -52923,7 +52923,7 @@ extension Paths {
                     public var taxRates: TaxRates?
 
                     /// One_time_price_data
-                    public struct PriceData: Encodable {
+                    public final class PriceData: Encodable {
                         public var currency: String
                         public var product: String
                         public var taxBehavior: TaxBehavior?
@@ -52955,7 +52955,7 @@ extension Paths {
                         }
                     }
 
-                    public struct TaxRates: Encodable {
+                    public final class TaxRates: Encodable {
                         public var strings: [String]?
                         public var object: Object?
 
@@ -52994,7 +52994,7 @@ extension Paths {
                 }
 
                 /// Automatic_tax_config
-                public struct AutomaticTax: Encodable {
+                public final class AutomaticTax: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -53013,13 +53013,13 @@ extension Paths {
                     case phaseStart = "phase_start"
                 }
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var amountGte: Int?
                         public var isResetBillingCycleAnchor: Bool?
 
@@ -53058,7 +53058,7 @@ extension Paths {
                     case sendInvoice = "send_invoice"
                 }
 
-                public struct DefaultTaxRates: Encodable {
+                public final class DefaultTaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -53080,7 +53080,7 @@ extension Paths {
                 }
 
                 /// Subscription_schedules_param
-                public struct InvoiceSettings: Encodable {
+                public final class InvoiceSettings: Encodable {
                     public var daysUntilDue: Int?
 
                     public init(daysUntilDue: Int? = nil) {
@@ -53095,7 +53095,7 @@ extension Paths {
                 }
 
                 /// Configuration_item_params
-                public struct Item: Encodable {
+                public final class Item: Encodable {
                     public var billingThresholds: BillingThresholds?
                     public var price: String?
                     /// Recurring_price_data
@@ -53103,13 +53103,13 @@ extension Paths {
                     public var quantity: Int?
                     public var taxRates: TaxRates?
 
-                    public struct BillingThresholds: Encodable {
+                    public final class BillingThresholds: Encodable {
                         /// Item_billing_thresholds_param
                         public var a: A?
                         public var b: B?
 
                         /// Item_billing_thresholds_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var usageGte: Int
 
                             public init(usageGte: Int) {
@@ -53141,7 +53141,7 @@ extension Paths {
                     }
 
                     /// Recurring_price_data
-                    public struct PriceData: Encodable {
+                    public final class PriceData: Encodable {
                         public var currency: String
                         public var product: String
                         /// Recurring_adhoc
@@ -53151,7 +53151,7 @@ extension Paths {
                         public var unitAmountDecimal: String?
 
                         /// Recurring_adhoc
-                        public struct Recurring: Encodable {
+                        public final class Recurring: Encodable {
                             public var interval: Interval
                             public var intervalCount: Int?
 
@@ -53202,7 +53202,7 @@ extension Paths {
                         }
                     }
 
-                    public struct TaxRates: Encodable {
+                    public final class TaxRates: Encodable {
                         public var strings: [String]?
                         public var object: Object?
 
@@ -53249,7 +53249,7 @@ extension Paths {
                 }
 
                 /// Transfer_data_specs
-                public struct TransferData: Encodable {
+                public final class TransferData: Encodable {
                     public var amountPercent: Double?
                     public var destination: String
 
@@ -53310,7 +53310,7 @@ extension Paths {
             }
 
             /// When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
-            public struct StartDate: Encodable {
+            public final class StartDate: Encodable {
                 public var int: Int?
                 public var object: Object?
 
@@ -53383,7 +53383,7 @@ extension Paths.SubscriptionSchedules {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Default_settings_params
             ///
             /// Object representing the subscription schedule's default settings.
@@ -53402,7 +53402,7 @@ extension Paths.SubscriptionSchedules {
             /// Default_settings_params
             ///
             /// Object representing the subscription schedule's default settings.
-            public struct DefaultSettings: Encodable {
+            public final class DefaultSettings: Encodable {
                 public var applicationFeePercent: Double?
                 /// Automatic_tax_config
                 public var automaticTax: AutomaticTax?
@@ -53415,7 +53415,7 @@ extension Paths.SubscriptionSchedules {
                 public var transferData: TransferData?
 
                 /// Automatic_tax_config
-                public struct AutomaticTax: Encodable {
+                public final class AutomaticTax: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -53434,13 +53434,13 @@ extension Paths.SubscriptionSchedules {
                     case phaseStart = "phase_start"
                 }
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var amountGte: Int?
                         public var isResetBillingCycleAnchor: Bool?
 
@@ -53480,7 +53480,7 @@ extension Paths.SubscriptionSchedules {
                 }
 
                 /// Subscription_schedules_param
-                public struct InvoiceSettings: Encodable {
+                public final class InvoiceSettings: Encodable {
                     public var daysUntilDue: Int?
 
                     public init(daysUntilDue: Int? = nil) {
@@ -53494,13 +53494,13 @@ extension Paths.SubscriptionSchedules {
                     }
                 }
 
-                public struct TransferData: Encodable {
+                public final class TransferData: Encodable {
                     /// Transfer_data_specs
                     public var a: A?
                     public var b: B?
 
                     /// Transfer_data_specs
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var amountPercent: Double?
                         public var destination: String
 
@@ -53568,7 +53568,7 @@ extension Paths.SubscriptionSchedules {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -53590,7 +53590,7 @@ extension Paths.SubscriptionSchedules {
             }
 
             /// Phase_configuration_params
-            public struct Phase: Encodable {
+            public final class Phase: Encodable {
                 public var addInvoiceItems: [AddInvoiceItem]?
                 public var applicationFeePercent: Double?
                 /// Automatic_tax_config
@@ -53614,7 +53614,7 @@ extension Paths.SubscriptionSchedules {
                 public var trialEnd: TrialEnd?
 
                 /// Add_invoice_item_entry
-                public struct AddInvoiceItem: Encodable {
+                public final class AddInvoiceItem: Encodable {
                     public var price: String?
                     /// One_time_price_data
                     public var priceData: PriceData?
@@ -53622,7 +53622,7 @@ extension Paths.SubscriptionSchedules {
                     public var taxRates: TaxRates?
 
                     /// One_time_price_data
-                    public struct PriceData: Encodable {
+                    public final class PriceData: Encodable {
                         public var currency: String
                         public var product: String
                         public var taxBehavior: TaxBehavior?
@@ -53654,7 +53654,7 @@ extension Paths.SubscriptionSchedules {
                         }
                     }
 
-                    public struct TaxRates: Encodable {
+                    public final class TaxRates: Encodable {
                         public var strings: [String]?
                         public var object: Object?
 
@@ -53693,7 +53693,7 @@ extension Paths.SubscriptionSchedules {
                 }
 
                 /// Automatic_tax_config
-                public struct AutomaticTax: Encodable {
+                public final class AutomaticTax: Encodable {
                     public var isEnabled: Bool
 
                     public init(isEnabled: Bool) {
@@ -53712,13 +53712,13 @@ extension Paths.SubscriptionSchedules {
                     case phaseStart = "phase_start"
                 }
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var amountGte: Int?
                         public var isResetBillingCycleAnchor: Bool?
 
@@ -53757,7 +53757,7 @@ extension Paths.SubscriptionSchedules {
                     case sendInvoice = "send_invoice"
                 }
 
-                public struct DefaultTaxRates: Encodable {
+                public final class DefaultTaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -53778,7 +53778,7 @@ extension Paths.SubscriptionSchedules {
                     }
                 }
 
-                public struct EndDate: Encodable {
+                public final class EndDate: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -53800,7 +53800,7 @@ extension Paths.SubscriptionSchedules {
                 }
 
                 /// Subscription_schedules_param
-                public struct InvoiceSettings: Encodable {
+                public final class InvoiceSettings: Encodable {
                     public var daysUntilDue: Int?
 
                     public init(daysUntilDue: Int? = nil) {
@@ -53815,7 +53815,7 @@ extension Paths.SubscriptionSchedules {
                 }
 
                 /// Configuration_item_params
-                public struct Item: Encodable {
+                public final class Item: Encodable {
                     public var billingThresholds: BillingThresholds?
                     public var price: String?
                     /// Recurring_price_data
@@ -53823,13 +53823,13 @@ extension Paths.SubscriptionSchedules {
                     public var quantity: Int?
                     public var taxRates: TaxRates?
 
-                    public struct BillingThresholds: Encodable {
+                    public final class BillingThresholds: Encodable {
                         /// Item_billing_thresholds_param
                         public var a: A?
                         public var b: B?
 
                         /// Item_billing_thresholds_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var usageGte: Int
 
                             public init(usageGte: Int) {
@@ -53861,7 +53861,7 @@ extension Paths.SubscriptionSchedules {
                     }
 
                     /// Recurring_price_data
-                    public struct PriceData: Encodable {
+                    public final class PriceData: Encodable {
                         public var currency: String
                         public var product: String
                         /// Recurring_adhoc
@@ -53871,7 +53871,7 @@ extension Paths.SubscriptionSchedules {
                         public var unitAmountDecimal: String?
 
                         /// Recurring_adhoc
-                        public struct Recurring: Encodable {
+                        public final class Recurring: Encodable {
                             public var interval: Interval
                             public var intervalCount: Int?
 
@@ -53922,7 +53922,7 @@ extension Paths.SubscriptionSchedules {
                         }
                     }
 
-                    public struct TaxRates: Encodable {
+                    public final class TaxRates: Encodable {
                         public var strings: [String]?
                         public var object: Object?
 
@@ -53968,7 +53968,7 @@ extension Paths.SubscriptionSchedules {
                     case `none`
                 }
 
-                public struct StartDate: Encodable {
+                public final class StartDate: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -53990,7 +53990,7 @@ extension Paths.SubscriptionSchedules {
                 }
 
                 /// Transfer_data_specs
-                public struct TransferData: Encodable {
+                public final class TransferData: Encodable {
                     public var amountPercent: Double?
                     public var destination: String
 
@@ -54007,7 +54007,7 @@ extension Paths.SubscriptionSchedules {
                     }
                 }
 
-                public struct TrialEnd: Encodable {
+                public final class TrialEnd: Encodable {
                     public var int: Int?
                     public var object: Object?
 
@@ -54117,7 +54117,7 @@ extension Paths.SubscriptionSchedules.WithSchedule {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`.
@@ -54156,7 +54156,7 @@ extension Paths.SubscriptionSchedules.WithSchedule {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Keep any cancellation on the subscription that the schedule has set
@@ -54191,7 +54191,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Subscription]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -54220,7 +54220,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var collectionMethod: CollectionMethod?
             public var created: Created?
             public var currentPeriodEnd: CurrentPeriodEnd?
@@ -54238,13 +54238,13 @@ extension Paths {
                 case sendInvoice = "send_invoice"
             }
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -54280,13 +54280,13 @@ extension Paths {
                 }
             }
 
-            public struct CurrentPeriodEnd: Codable {
+            public final class CurrentPeriodEnd: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -54322,13 +54322,13 @@ extension Paths {
                 }
             }
 
-            public struct CurrentPeriodStart: Codable {
+            public final class CurrentPeriodStart: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -54412,7 +54412,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A list of prices and quantities that will generate invoice items appended to the first invoice for this subscription. You may pass up to 20 items.
             public var addInvoiceItems: [AddInvoiceItem]?
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
@@ -54485,7 +54485,7 @@ extension Paths {
             public var trialPeriodDays: Int?
 
             /// Add_invoice_item_entry
-            public struct AddInvoiceItem: Encodable {
+            public final class AddInvoiceItem: Encodable {
                 public var price: String?
                 /// One_time_price_data
                 public var priceData: PriceData?
@@ -54493,7 +54493,7 @@ extension Paths {
                 public var taxRates: TaxRates?
 
                 /// One_time_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     public var taxBehavior: TaxBehavior?
@@ -54525,7 +54525,7 @@ extension Paths {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -54566,7 +54566,7 @@ extension Paths {
             /// Automatic_tax_config
             ///
             /// Automatic tax settings for this subscription.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -54581,13 +54581,13 @@ extension Paths {
             }
 
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-            public struct BillingThresholds: Encodable {
+            public final class BillingThresholds: Encodable {
                 /// Billing_thresholds_param
                 public var a: A?
                 public var b: B?
 
                 /// Billing_thresholds_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amountGte: Int?
                     public var isResetBillingCycleAnchor: Bool?
 
@@ -54628,7 +54628,7 @@ extension Paths {
             }
 
             /// The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -54650,7 +54650,7 @@ extension Paths {
             }
 
             /// Subscription_item_create_params
-            public struct Item: Encodable {
+            public final class Item: Encodable {
                 public var billingThresholds: BillingThresholds?
                 public var metadata: [String: String]?
                 public var price: String?
@@ -54659,13 +54659,13 @@ extension Paths {
                 public var quantity: Int?
                 public var taxRates: TaxRates?
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Item_billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Item_billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var usageGte: Int
 
                         public init(usageGte: Int) {
@@ -54697,7 +54697,7 @@ extension Paths {
                 }
 
                 /// Recurring_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -54707,7 +54707,7 @@ extension Paths {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -54758,7 +54758,7 @@ extension Paths {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -54801,7 +54801,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -54839,30 +54839,30 @@ extension Paths {
             /// Payment_settings
             ///
             /// Payment settings to pass to invoices created by the subscription.
-            public struct PaymentSettings: Encodable {
+            public final class PaymentSettings: Encodable {
                 /// Payment_method_options
                 public var paymentMethodOptions: PaymentMethodOptions?
                 public var paymentMethodTypes: PaymentMethodTypes?
 
                 /// Payment_method_options
-                public struct PaymentMethodOptions: Encodable {
+                public final class PaymentMethodOptions: Encodable {
                     public var acssDebit: AcssDebit?
                     public var bancontact: Bancontact?
                     public var card: Card?
 
-                    public struct AcssDebit: Encodable {
+                    public final class AcssDebit: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             /// Mandate_options_param
                             public var mandateOptions: MandateOptions?
                             public var verificationMethod: VerificationMethod?
 
                             /// Mandate_options_param
-                            public struct MandateOptions: Encodable {
+                            public final class MandateOptions: Encodable {
                                 public var transactionType: TransactionType?
 
                                 public enum TransactionType: String, Codable, CaseIterable {
@@ -54917,13 +54917,13 @@ extension Paths {
                         }
                     }
 
-                    public struct Bancontact: Encodable {
+                    public final class Bancontact: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var preferredLanguage: PreferredLanguage?
 
                             public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -54961,13 +54961,13 @@ extension Paths {
                         }
                     }
 
-                    public struct Card: Encodable {
+                    public final class Card: Encodable {
                         /// Subscription_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Subscription_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var requestThreeDSecure: RequestThreeDSecure?
 
                             public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -55018,7 +55018,7 @@ extension Paths {
                     }
                 }
 
-                public struct PaymentMethodTypes: Encodable {
+                public final class PaymentMethodTypes: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
@@ -55070,13 +55070,13 @@ extension Paths {
             }
 
             /// Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
-            public struct PendingInvoiceItemInterval: Encodable {
+            public final class PendingInvoiceItemInterval: Encodable {
                 /// Pending_invoice_item_interval_params
                 public var a: A?
                 public var b: B?
 
                 /// Pending_invoice_item_interval_params
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var interval: Interval
                     public var intervalCount: Int?
 
@@ -55129,7 +55129,7 @@ extension Paths {
             /// Transfer_data_specs
             ///
             /// If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 public var amountPercent: Double?
                 public var destination: String
 
@@ -55147,7 +55147,7 @@ extension Paths {
             }
 
             /// Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
-            public struct TrialEnd: Encodable {
+            public final class TrialEnd: Encodable {
                 public var object: Object?
                 public var int: Int?
 
@@ -55260,7 +55260,7 @@ extension Paths.Subscriptions {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A list of prices and quantities that will generate invoice items appended to the first invoice for this subscription. You may pass up to 20 items.
             public var addInvoiceItems: [AddInvoiceItem]?
             /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
@@ -55331,7 +55331,7 @@ extension Paths.Subscriptions {
             public var isTrialFromPlan: Bool?
 
             /// Add_invoice_item_entry
-            public struct AddInvoiceItem: Encodable {
+            public final class AddInvoiceItem: Encodable {
                 public var price: String?
                 /// One_time_price_data
                 public var priceData: PriceData?
@@ -55339,7 +55339,7 @@ extension Paths.Subscriptions {
                 public var taxRates: TaxRates?
 
                 /// One_time_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     public var taxBehavior: TaxBehavior?
@@ -55371,7 +55371,7 @@ extension Paths.Subscriptions {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -55412,7 +55412,7 @@ extension Paths.Subscriptions {
             /// Automatic_tax_config
             ///
             /// Automatic tax settings for this subscription.
-            public struct AutomaticTax: Encodable {
+            public final class AutomaticTax: Encodable {
                 public var isEnabled: Bool
 
                 public init(isEnabled: Bool) {
@@ -55433,13 +55433,13 @@ extension Paths.Subscriptions {
             }
 
             /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-            public struct BillingThresholds: Encodable {
+            public final class BillingThresholds: Encodable {
                 /// Billing_thresholds_param
                 public var a: A?
                 public var b: B?
 
                 /// Billing_thresholds_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amountGte: Int?
                     public var isResetBillingCycleAnchor: Bool?
 
@@ -55474,7 +55474,7 @@ extension Paths.Subscriptions {
             }
 
             /// A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-            public struct CancelAt: Encodable {
+            public final class CancelAt: Encodable {
                 public var int: Int?
                 public var object: Object?
 
@@ -55502,7 +55502,7 @@ extension Paths.Subscriptions {
             }
 
             /// The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates.
-            public struct DefaultTaxRates: Encodable {
+            public final class DefaultTaxRates: Encodable {
                 public var strings: [String]?
                 public var object: Object?
 
@@ -55524,7 +55524,7 @@ extension Paths.Subscriptions {
             }
 
             /// Subscription_item_update_params
-            public struct Item: Encodable {
+            public final class Item: Encodable {
                 public var billingThresholds: BillingThresholds?
                 public var isClearUsage: Bool?
                 public var isDeleted: Bool?
@@ -55536,13 +55536,13 @@ extension Paths.Subscriptions {
                 public var quantity: Int?
                 public var taxRates: TaxRates?
 
-                public struct BillingThresholds: Encodable {
+                public final class BillingThresholds: Encodable {
                     /// Item_billing_thresholds_param
                     public var a: A?
                     public var b: B?
 
                     /// Item_billing_thresholds_param
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var usageGte: Int
 
                         public init(usageGte: Int) {
@@ -55573,7 +55573,7 @@ extension Paths.Subscriptions {
                     }
                 }
 
-                public struct Metadata: Encodable {
+                public final class Metadata: Encodable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -55595,7 +55595,7 @@ extension Paths.Subscriptions {
                 }
 
                 /// Recurring_price_data
-                public struct PriceData: Encodable {
+                public final class PriceData: Encodable {
                     public var currency: String
                     public var product: String
                     /// Recurring_adhoc
@@ -55605,7 +55605,7 @@ extension Paths.Subscriptions {
                     public var unitAmountDecimal: String?
 
                     /// Recurring_adhoc
-                    public struct Recurring: Encodable {
+                    public final class Recurring: Encodable {
                         public var interval: Interval
                         public var intervalCount: Int?
 
@@ -55656,7 +55656,7 @@ extension Paths.Subscriptions {
                     }
                 }
 
-                public struct TaxRates: Encodable {
+                public final class TaxRates: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -55705,7 +55705,7 @@ extension Paths.Subscriptions {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -55727,13 +55727,13 @@ extension Paths.Subscriptions {
             }
 
             /// If specified, payment collection for this subscription will be paused.
-            public struct PauseCollection: Encodable {
+            public final class PauseCollection: Encodable {
                 /// Pause_collection_param
                 public var a: A?
                 public var b: B?
 
                 /// Pause_collection_param
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var behavior: Behavior
                     public var resumesAt: Int?
 
@@ -55790,30 +55790,30 @@ extension Paths.Subscriptions {
             /// Payment_settings
             ///
             /// Payment settings to pass to invoices created by the subscription.
-            public struct PaymentSettings: Encodable {
+            public final class PaymentSettings: Encodable {
                 /// Payment_method_options
                 public var paymentMethodOptions: PaymentMethodOptions?
                 public var paymentMethodTypes: PaymentMethodTypes?
 
                 /// Payment_method_options
-                public struct PaymentMethodOptions: Encodable {
+                public final class PaymentMethodOptions: Encodable {
                     public var acssDebit: AcssDebit?
                     public var bancontact: Bancontact?
                     public var card: Card?
 
-                    public struct AcssDebit: Encodable {
+                    public final class AcssDebit: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             /// Mandate_options_param
                             public var mandateOptions: MandateOptions?
                             public var verificationMethod: VerificationMethod?
 
                             /// Mandate_options_param
-                            public struct MandateOptions: Encodable {
+                            public final class MandateOptions: Encodable {
                                 public var transactionType: TransactionType?
 
                                 public enum TransactionType: String, Codable, CaseIterable {
@@ -55868,13 +55868,13 @@ extension Paths.Subscriptions {
                         }
                     }
 
-                    public struct Bancontact: Encodable {
+                    public final class Bancontact: Encodable {
                         /// Invoice_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Invoice_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var preferredLanguage: PreferredLanguage?
 
                             public enum PreferredLanguage: String, Codable, CaseIterable {
@@ -55912,13 +55912,13 @@ extension Paths.Subscriptions {
                         }
                     }
 
-                    public struct Card: Encodable {
+                    public final class Card: Encodable {
                         /// Subscription_payment_method_options_param
                         public var a: A?
                         public var b: B?
 
                         /// Subscription_payment_method_options_param
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var requestThreeDSecure: RequestThreeDSecure?
 
                             public enum RequestThreeDSecure: String, Codable, CaseIterable {
@@ -55969,7 +55969,7 @@ extension Paths.Subscriptions {
                     }
                 }
 
-                public struct PaymentMethodTypes: Encodable {
+                public final class PaymentMethodTypes: Encodable {
                     public var placeholderItems: [PlaceholderItem]?
                     public var object: Object?
 
@@ -56021,13 +56021,13 @@ extension Paths.Subscriptions {
             }
 
             /// Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
-            public struct PendingInvoiceItemInterval: Encodable {
+            public final class PendingInvoiceItemInterval: Encodable {
                 /// Pending_invoice_item_interval_params
                 public var a: A?
                 public var b: B?
 
                 /// Pending_invoice_item_interval_params
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var interval: Interval
                     public var intervalCount: Int?
 
@@ -56080,13 +56080,13 @@ extension Paths.Subscriptions {
             }
 
             /// If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value.
-            public struct TransferData: Encodable {
+            public final class TransferData: Encodable {
                 /// Transfer_data_specs
                 public var a: A?
                 public var b: B?
 
                 /// Transfer_data_specs
-                public struct A: Encodable {
+                public final class A: Encodable {
                     public var amountPercent: Double?
                     public var destination: String
 
@@ -56121,7 +56121,7 @@ extension Paths.Subscriptions {
             }
 
             /// Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
-            public struct TrialEnd: Encodable {
+            public final class TrialEnd: Encodable {
                 public var object: Object?
                 public var int: Int?
 
@@ -56214,7 +56214,7 @@ extension Paths.Subscriptions {
             .delete(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct DeleteRequest: Encodable {
+        public final class DeleteRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items.
@@ -56270,7 +56270,7 @@ extension Paths {
         }
 
         /// TaxProductResourceTaxCodeList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.TaxCode]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -56299,7 +56299,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -56360,7 +56360,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.TaxRate]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -56389,7 +56389,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var isActive: Bool?
             public var created: Created?
             public var endingBefore: String?
@@ -56398,13 +56398,13 @@ extension Paths {
             public var limit: Int?
             public var startingAfter: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -56468,7 +56468,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
             public var isActive: Bool?
             /// Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -56562,7 +56562,7 @@ extension Paths.TaxRates {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
             public var isActive: Bool?
             /// Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -56583,7 +56583,7 @@ extension Paths.TaxRates {
             public var taxType: TaxType?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -56670,7 +56670,7 @@ extension Paths.Terminal {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens).
@@ -56706,7 +56706,7 @@ extension Paths.Terminal {
         }
 
         /// TerminalLocationLocationList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.TerminalLocation]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -56735,7 +56735,7 @@ extension Paths.Terminal {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -56764,7 +56764,7 @@ extension Paths.Terminal {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Create_location_address_param
             ///
             /// The full address of the location.
@@ -56779,7 +56779,7 @@ extension Paths.Terminal {
             /// Create_location_address_param
             ///
             /// The full address of the location.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String
                 public var line1: String?
@@ -56809,7 +56809,7 @@ extension Paths.Terminal {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -56874,7 +56874,7 @@ extension Paths.Terminal.Locations {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Optional_fields_address
             ///
             /// The full address of the location.
@@ -56889,7 +56889,7 @@ extension Paths.Terminal.Locations {
             /// Optional_fields_address
             ///
             /// The full address of the location.
-            public struct Address: Encodable {
+            public final class Address: Encodable {
                 public var city: String?
                 public var country: String?
                 public var line1: String?
@@ -56919,7 +56919,7 @@ extension Paths.Terminal.Locations {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -56979,7 +56979,7 @@ extension Paths.Terminal {
         }
 
         /// TerminalReaderRetrieveReader
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// A list of readers
             public var data: [StripeAPI.TerminalReader]
             /// True if this list has another page of items after this one that can be fetched.
@@ -57009,7 +57009,7 @@ extension Paths.Terminal {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var deviceType: DeviceType?
             public var endingBefore: String?
             public var expand: [String]?
@@ -57057,7 +57057,7 @@ extension Paths.Terminal {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
@@ -57070,7 +57070,7 @@ extension Paths.Terminal {
             public var registrationCode: String
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -57137,7 +57137,7 @@ extension Paths.Terminal.Readers {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// The new label of the reader.
@@ -57146,7 +57146,7 @@ extension Paths.Terminal.Readers {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -57204,7 +57204,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Connect_js_account_token_specs
             ///
             /// Information for the account this token will represent.
@@ -57234,7 +57234,7 @@ extension Paths {
             /// Connect_js_account_token_specs
             ///
             /// Information for the account this token will represent.
-            public struct Account: Encodable {
+            public final class Account: Encodable {
                 public var businessType: BusinessType?
                 /// Connect_js_account_token_company_specs
                 public var company: Company?
@@ -57250,7 +57250,7 @@ extension Paths {
                 }
 
                 /// Connect_js_account_token_company_specs
-                public struct Company: Encodable {
+                public final class Company: Encodable {
                     /// Address_specs
                     public var address: Address?
                     /// Japan_address_kana_specs
@@ -57276,7 +57276,7 @@ extension Paths {
                     public var verification: Verification?
 
                     /// Address_specs
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -57306,7 +57306,7 @@ extension Paths {
                     }
 
                     /// Japan_address_kana_specs
-                    public struct AddressKana: Encodable {
+                    public final class AddressKana: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -57339,7 +57339,7 @@ extension Paths {
                     }
 
                     /// Japan_address_kanji_specs
-                    public struct AddressKanji: Encodable {
+                    public final class AddressKanji: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -57372,7 +57372,7 @@ extension Paths {
                     }
 
                     /// Company_ownership_declaration
-                    public struct OwnershipDeclaration: Encodable {
+                    public final class OwnershipDeclaration: Encodable {
                         public var date: Int?
                         public var ip: String?
                         public var userAgent: String?
@@ -57417,12 +57417,12 @@ extension Paths {
                     }
 
                     /// Verification_specs
-                    public struct Verification: Encodable {
+                    public final class Verification: Encodable {
                         /// Verification_document_specs
                         public var document: Document?
 
                         /// Verification_document_specs
-                        public struct Document: Encodable {
+                        public final class Document: Encodable {
                             public var back: String?
                             public var front: String?
 
@@ -57496,7 +57496,7 @@ extension Paths {
                 }
 
                 /// Individual_specs
-                public struct Individual: Encodable {
+                public final class Individual: Encodable {
                     /// Address_specs
                     public var address: Address?
                     /// Japan_address_kana_specs
@@ -57523,7 +57523,7 @@ extension Paths {
                     public var verification: Verification?
 
                     /// Address_specs
-                    public struct Address: Encodable {
+                    public final class Address: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -57553,7 +57553,7 @@ extension Paths {
                     }
 
                     /// Japan_address_kana_specs
-                    public struct AddressKana: Encodable {
+                    public final class AddressKana: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -57586,7 +57586,7 @@ extension Paths {
                     }
 
                     /// Japan_address_kanji_specs
-                    public struct AddressKanji: Encodable {
+                    public final class AddressKanji: Encodable {
                         public var city: String?
                         public var country: String?
                         public var line1: String?
@@ -57618,13 +57618,13 @@ extension Paths {
                         }
                     }
 
-                    public struct Dob: Encodable {
+                    public final class Dob: Encodable {
                         /// Date_of_birth_specs
                         public var a: A?
                         public var b: B?
 
                         /// Date_of_birth_specs
-                        public struct A: Encodable {
+                        public final class A: Encodable {
                             public var day: Int
                             public var month: Int
                             public var year: Int
@@ -57661,7 +57661,7 @@ extension Paths {
                         }
                     }
 
-                    public struct FullNameAliases: Encodable {
+                    public final class FullNameAliases: Encodable {
                         public var strings: [String]?
                         public var object: Object?
 
@@ -57682,7 +57682,7 @@ extension Paths {
                         }
                     }
 
-                    public struct Metadata: Encodable {
+                    public final class Metadata: Encodable {
                         public var stringString: [String: String]?
                         public var object: Object?
 
@@ -57709,14 +57709,14 @@ extension Paths {
                     }
 
                     /// Person_verification_specs
-                    public struct Verification: Encodable {
+                    public final class Verification: Encodable {
                         /// Person_verification_document_specs
                         public var additionalDocument: AdditionalDocument?
                         /// Person_verification_document_specs
                         public var document: Document?
 
                         /// Person_verification_document_specs
-                        public struct AdditionalDocument: Encodable {
+                        public final class AdditionalDocument: Encodable {
                             public var back: String?
                             public var front: String?
 
@@ -57734,7 +57734,7 @@ extension Paths {
                         }
 
                         /// Person_verification_document_specs
-                        public struct Document: Encodable {
+                        public final class Document: Encodable {
                             public var back: String?
                             public var front: String?
 
@@ -57833,7 +57833,7 @@ extension Paths {
             /// Token_create_bank_account
             ///
             /// The bank account this token will represent.
-            public struct BankAccount: Encodable {
+            public final class BankAccount: Encodable {
                 public var accountHolderName: String?
                 public var accountHolderType: AccountHolderType?
                 public var accountNumber: String
@@ -57877,13 +57877,13 @@ extension Paths {
                 }
             }
 
-            public struct Card: Encodable {
+            public final class Card: Encodable {
                 /// Credit_card_specs
                 public var object: Object?
                 public var string: String?
 
                 /// Credit_card_specs
-                public struct Object: Encodable {
+                public final class Object: Encodable {
                     public var addressCity: String?
                     public var addressCountry: String?
                     public var addressLine1: String?
@@ -57946,7 +57946,7 @@ extension Paths {
             /// Cvc_params
             ///
             /// The updated CVC value this token will represent.
-            public struct CvcUpdate: Encodable {
+            public final class CvcUpdate: Encodable {
                 public var cvc: String
 
                 public init(cvc: String) {
@@ -57963,7 +57963,7 @@ extension Paths {
             /// Person_token_specs
             ///
             /// Information for the person this token will represent.
-            public struct Person: Encodable {
+            public final class Person: Encodable {
                 /// Address_specs
                 public var address: Address?
                 /// Japan_address_kana_specs
@@ -57995,7 +57995,7 @@ extension Paths {
                 public var verification: Verification?
 
                 /// Address_specs
-                public struct Address: Encodable {
+                public final class Address: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -58025,7 +58025,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kana_specs
-                public struct AddressKana: Encodable {
+                public final class AddressKana: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -58058,7 +58058,7 @@ extension Paths {
                 }
 
                 /// Japan_address_kanji_specs
-                public struct AddressKanji: Encodable {
+                public final class AddressKanji: Encodable {
                     public var city: String?
                     public var country: String?
                     public var line1: String?
@@ -58090,13 +58090,13 @@ extension Paths {
                     }
                 }
 
-                public struct Dob: Encodable {
+                public final class Dob: Encodable {
                     /// Date_of_birth_specs
                     public var a: A?
                     public var b: B?
 
                     /// Date_of_birth_specs
-                    public struct A: Encodable {
+                    public final class A: Encodable {
                         public var day: Int
                         public var month: Int
                         public var year: Int
@@ -58134,7 +58134,7 @@ extension Paths {
                 }
 
                 /// Person_documents_specs
-                public struct Documents: Encodable {
+                public final class Documents: Encodable {
                     /// Documents_param
                     public var companyAuthorization: CompanyAuthorization?
                     /// Documents_param
@@ -58143,7 +58143,7 @@ extension Paths {
                     public var visa: Visa?
 
                     /// Documents_param
-                    public struct CompanyAuthorization: Encodable {
+                    public final class CompanyAuthorization: Encodable {
                         public var files: [String]?
 
                         public init(files: [String]? = nil) {
@@ -58158,7 +58158,7 @@ extension Paths {
                     }
 
                     /// Documents_param
-                    public struct Passport: Encodable {
+                    public final class Passport: Encodable {
                         public var files: [String]?
 
                         public init(files: [String]? = nil) {
@@ -58173,7 +58173,7 @@ extension Paths {
                     }
 
                     /// Documents_param
-                    public struct Visa: Encodable {
+                    public final class Visa: Encodable {
                         public var files: [String]?
 
                         public init(files: [String]? = nil) {
@@ -58202,7 +58202,7 @@ extension Paths {
                     }
                 }
 
-                public struct FullNameAliases: Encodable {
+                public final class FullNameAliases: Encodable {
                     public var strings: [String]?
                     public var object: Object?
 
@@ -58223,7 +58223,7 @@ extension Paths {
                     }
                 }
 
-                public struct Metadata: Encodable {
+                public final class Metadata: Encodable {
                     public var stringString: [String: String]?
                     public var object: Object?
 
@@ -58245,7 +58245,7 @@ extension Paths {
                 }
 
                 /// Relationship_specs
-                public struct Relationship: Encodable {
+                public final class Relationship: Encodable {
                     public var isDirector: Bool?
                     public var isExecutive: Bool?
                     public var isOwner: Bool?
@@ -58253,7 +58253,7 @@ extension Paths {
                     public var isRepresentative: Bool?
                     public var title: String?
 
-                    public struct PercentOwnership: Encodable {
+                    public final class PercentOwnership: Encodable {
                         public var double: Double?
                         public var object: Object?
 
@@ -58296,14 +58296,14 @@ extension Paths {
                 }
 
                 /// Person_verification_specs
-                public struct Verification: Encodable {
+                public final class Verification: Encodable {
                     /// Person_verification_document_specs
                     public var additionalDocument: AdditionalDocument?
                     /// Person_verification_document_specs
                     public var document: Document?
 
                     /// Person_verification_document_specs
-                    public struct AdditionalDocument: Encodable {
+                    public final class AdditionalDocument: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -58321,7 +58321,7 @@ extension Paths {
                     }
 
                     /// Person_verification_document_specs
-                    public struct Document: Encodable {
+                    public final class Document: Encodable {
                         public var back: String?
                         public var front: String?
 
@@ -58409,7 +58409,7 @@ extension Paths {
             /// Pii_token_specs
             ///
             /// The PII this token will represent.
-            public struct Pii: Encodable {
+            public final class Pii: Encodable {
                 public var idNumber: String?
 
                 public init(idNumber: String? = nil) {
@@ -58487,7 +58487,7 @@ extension Paths {
         }
 
         /// TopupList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.Topup]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -58516,7 +58516,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var amount: Amount?
             public var created: Created?
             public var endingBefore: String?
@@ -58525,13 +58525,13 @@ extension Paths {
             public var startingAfter: String?
             public var status: Status?
 
-            public struct Amount: Codable {
+            public final class Amount: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -58567,13 +58567,13 @@ extension Paths {
                 }
             }
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -58644,7 +58644,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A positive integer representing how much to transfer.
             public var amount: Int
             /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -58663,7 +58663,7 @@ extension Paths {
             public var transferGroup: String?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -58736,7 +58736,7 @@ extension Paths.Topups {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An arbitrary string attached to the object. Often useful for displaying to users.
             public var description: String?
             /// Specifies which fields in the response should be expanded.
@@ -58745,7 +58745,7 @@ extension Paths.Topups {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -58797,7 +58797,7 @@ extension Paths.Topups.WithTopup {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
 
@@ -58829,7 +58829,7 @@ extension Paths {
         }
 
         /// TransferList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.Transfer]
             /// True if this list has another page of items after this one that can be fetched.
@@ -58859,7 +58859,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var created: Created?
             public var destination: String?
             public var endingBefore: String?
@@ -58868,13 +58868,13 @@ extension Paths {
             public var startingAfter: String?
             public var transferGroup: String?
 
-            public struct Created: Codable {
+            public final class Created: Codable {
                 /// Range_query_specs
                 public var object: Object?
                 public var int: Int?
 
                 /// Range_query_specs
-                public struct Object: Codable {
+                public final class Object: Codable {
                     public var gt: Int?
                     public var gte: Int?
                     public var lt: Int?
@@ -58938,7 +58938,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A positive integer in %s representing how much to transfer.
             public var amount: Int?
             /// 3-letter [ISO code for currency](https://stripe.com/docs/payouts).
@@ -59020,7 +59020,7 @@ extension Paths.Transfers.WithID {
         }
 
         /// TransferReversalList
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             /// Details about each object.
             public var data: [StripeAPI.TransferReversal]
             /// True if this list has another page of items after this one that can be fetched.
@@ -59050,7 +59050,7 @@ extension Paths.Transfers.WithID {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -59082,7 +59082,7 @@ extension Paths.Transfers.WithID {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// A positive integer in %s representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
             public var amount: Int?
             /// An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value.
@@ -59095,7 +59095,7 @@ extension Paths.Transfers.WithID {
             public var isRefundApplicationFee: Bool?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -59164,7 +59164,7 @@ extension Paths.Transfers {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An arbitrary string attached to the object. Often useful for displaying to users.
             public var description: String?
             /// Specifies which fields in the response should be expanded.
@@ -59173,7 +59173,7 @@ extension Paths.Transfers {
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -59249,14 +59249,14 @@ extension Paths.Transfers.WithTransfer.Reversals {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Specifies which fields in the response should be expanded.
             public var expand: [String]?
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             public var metadata: Metadata?
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -59306,7 +59306,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-        public struct GetResponse: Decodable {
+        public final class GetResponse: Decodable {
             public var data: [StripeAPI.WebhookEndpoint]
             /// True if this list has another page of items after this one that can be fetched.
             public var hasMore: Bool
@@ -59335,7 +59335,7 @@ extension Paths {
             }
         }
 
-        public struct GetParameters {
+        public final class GetParameters {
             public var endingBefore: String?
             public var expand: [String]?
             public var limit: Int?
@@ -59363,7 +59363,7 @@ extension Paths {
             .post(path, body: URLQueryEncoder.encode(body).percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
             public var apiVersion: APIVersion?
             /// Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`.
@@ -59661,7 +59661,7 @@ extension Paths {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 
@@ -59732,7 +59732,7 @@ extension Paths.WebhookEndpoints {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-        public struct PostRequest: Encodable {
+        public final class PostRequest: Encodable {
             /// An optional description of what the webhook is used for.
             public var description: String?
             /// Disable the webhook endpoint if set to true.
@@ -59928,7 +59928,7 @@ extension Paths.WebhookEndpoints {
             }
 
             /// Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            public struct Metadata: Encodable {
+            public final class Metadata: Encodable {
                 public var stringString: [String: String]?
                 public var object: Object?
 

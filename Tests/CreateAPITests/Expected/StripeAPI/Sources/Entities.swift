@@ -11,7 +11,7 @@ import Foundation
 /// 
 /// Some properties, marked below, are available only to platforms that want to
 /// [create and manage Express or Custom accounts](https://stripe.com/docs/connect/accounts).
-public struct Account: Codable {
+public final class Account: Codable {
     /// Business information about the account.
     public var businessProfile: BusinessProfile?
     /// The business type.
@@ -58,7 +58,7 @@ public struct Account: Codable {
     public var type: `Type`?
 
     /// Business information about the account.
-    public struct BusinessProfile: Codable {
+    public final class BusinessProfile: Codable {
         public var accountBusinessProfile: AccountBusinessProfile?
 
         public init(accountBusinessProfile: AccountBusinessProfile? = nil) {
@@ -87,7 +87,7 @@ public struct Account: Codable {
     /// ExternalAccountList
     ///
     /// External accounts (bank accounts and debit cards) currently attached to this account
-    public struct ExternalAccounts: Codable {
+    public final class ExternalAccounts: Codable {
         /// The list contains all external accounts that have been attached to the Stripe account. These may be bank accounts or cards.
         public var data: [Datum]
         /// True if this list has another page of items after this one that can be fetched.
@@ -98,7 +98,7 @@ public struct Account: Codable {
         public var url: String
 
         /// Polymorphic
-        public struct Datum: Codable {
+        public final class Datum: Codable {
             public var bankAccount: BankAccount?
             public var card: Card?
 
@@ -146,7 +146,7 @@ public struct Account: Codable {
     }
 
     /// Options for customizing how the account functions within Stripe.
-    public struct Settings: Codable {
+    public final class Settings: Codable {
         public var accountSettings: AccountSettings?
 
         public init(accountSettings: AccountSettings? = nil) {
@@ -222,7 +222,7 @@ public struct Account: Codable {
     }
 }
 
-public struct AccountBacsDebitPaymentsSettings: Codable {
+public final class AccountBacsDebitPaymentsSettings: Codable {
     /// The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this will appear on the mandate, and as the statement descriptor.
     public var displayName: String?
 
@@ -235,7 +235,7 @@ public struct AccountBacsDebitPaymentsSettings: Codable {
     }
 }
 
-public struct AccountBrandingSettings: Codable {
+public final class AccountBrandingSettings: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
     public var icon: Icon?
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
@@ -246,7 +246,7 @@ public struct AccountBrandingSettings: Codable {
     public var secondaryColor: String?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
-    public struct Icon: Codable {
+    public final class Icon: Codable {
         public var string: String?
         public var file: File?
 
@@ -269,7 +269,7 @@ public struct AccountBrandingSettings: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
-    public struct Logo: Codable {
+    public final class Logo: Codable {
         public var string: String?
         public var file: File?
 
@@ -306,7 +306,7 @@ public struct AccountBrandingSettings: Codable {
     }
 }
 
-public struct AccountBusinessProfile: Codable {
+public final class AccountBusinessProfile: Codable {
     /// [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
     public var mcc: String?
     /// The customer-facing business name.
@@ -325,7 +325,7 @@ public struct AccountBusinessProfile: Codable {
     public var url: String?
 
     /// A publicly available mailing address for sending support issues to.
-    public struct SupportAddress: Codable {
+    public final class SupportAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -366,7 +366,7 @@ public struct AccountBusinessProfile: Codable {
     }
 }
 
-public struct AccountCapabilities: Codable {
+public final class AccountCapabilities: Codable {
     /// The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
     public var acssDebitPayments: AcssDebitPayments?
     /// The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
@@ -639,7 +639,7 @@ public struct AccountCapabilities: Codable {
     }
 }
 
-public struct AccountCapabilityFutureRequirements: Codable {
+public final class AccountCapabilityFutureRequirements: Codable {
     /// Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
     public var alternatives: [AccountRequirementsAlternative]?
     /// Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
@@ -680,7 +680,7 @@ public struct AccountCapabilityFutureRequirements: Codable {
     }
 }
 
-public struct AccountCapabilityRequirements: Codable {
+public final class AccountCapabilityRequirements: Codable {
     /// Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
     public var alternatives: [AccountRequirementsAlternative]?
     /// Date by which the fields in `currently_due` must be collected to keep the capability enabled for the account. These fields may disable the capability sooner if the next threshold is reached before they are collected.
@@ -727,7 +727,7 @@ public struct AccountCapabilityRequirements: Codable {
     }
 }
 
-public struct AccountCardIssuingSettings: Codable {
+public final class AccountCardIssuingSettings: Codable {
     /// CardIssuingAccountTermsOfService
     public var tosAcceptance: CardIssuingAccountTermsOfService?
 
@@ -740,7 +740,7 @@ public struct AccountCardIssuingSettings: Codable {
     }
 }
 
-public struct AccountCardPaymentsSettings: Codable {
+public final class AccountCardPaymentsSettings: Codable {
     /// AccountDeclineChargeOn
     public var declineOn: AccountDeclineChargeOn?
     /// The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion.
@@ -757,7 +757,7 @@ public struct AccountCardPaymentsSettings: Codable {
     }
 }
 
-public struct AccountDashboardSettings: Codable {
+public final class AccountDashboardSettings: Codable {
     /// The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts.
     public var displayName: String?
     /// The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
@@ -774,7 +774,7 @@ public struct AccountDashboardSettings: Codable {
     }
 }
 
-public struct AccountDeclineChargeOn: Codable {
+public final class AccountDeclineChargeOn: Codable {
     /// Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
     public var isAvsFailure: Bool
     /// Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
@@ -791,7 +791,7 @@ public struct AccountDeclineChargeOn: Codable {
     }
 }
 
-public struct AccountFutureRequirements: Codable {
+public final class AccountFutureRequirements: Codable {
     /// Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
     public var alternatives: [AccountRequirementsAlternative]?
     /// Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
@@ -836,7 +836,7 @@ public struct AccountFutureRequirements: Codable {
 /// Stripe-hosted applications, such as Connect Onboarding.
 /// 
 /// Related guide: [Connect Onboarding](https://stripe.com/docs/connect/connect-onboarding).
-public struct AccountLink: Codable {
+public final class AccountLink: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// The timestamp at which this account link will expire.
@@ -866,7 +866,7 @@ public struct AccountLink: Codable {
     }
 }
 
-public struct AccountPaymentsSettings: Codable {
+public final class AccountPaymentsSettings: Codable {
     /// The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
     public var statementDescriptor: String?
     /// The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only)
@@ -887,7 +887,7 @@ public struct AccountPaymentsSettings: Codable {
     }
 }
 
-public struct AccountPayoutSettings: Codable {
+public final class AccountPayoutSettings: Codable {
     /// A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See our [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances) documentation for details. Default value is `false` for Custom accounts, otherwise `true`.
     public var isDebitNegativeBalances: Bool
     /// TransferSchedule
@@ -908,7 +908,7 @@ public struct AccountPayoutSettings: Codable {
     }
 }
 
-public struct AccountRequirements: Codable {
+public final class AccountRequirements: Codable {
     /// Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
     public var alternatives: [AccountRequirementsAlternative]?
     /// Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
@@ -949,7 +949,7 @@ public struct AccountRequirements: Codable {
     }
 }
 
-public struct AccountRequirementsAlternative: Codable {
+public final class AccountRequirementsAlternative: Codable {
     /// Fields that can be provided to satisfy all fields in `original_fields_due`.
     public var alternativeFieldsDue: [String]
     /// Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
@@ -966,7 +966,7 @@ public struct AccountRequirementsAlternative: Codable {
     }
 }
 
-public struct AccountRequirementsError: Codable {
+public final class AccountRequirementsError: Codable {
     /// The code for the type of error.
     public var code: Code
     /// An informative message that indicates the error type and provides additional details about the error.
@@ -1030,7 +1030,7 @@ public struct AccountRequirementsError: Codable {
     }
 }
 
-public struct AccountSepaDebitPaymentsSettings: Codable {
+public final class AccountSepaDebitPaymentsSettings: Codable {
     /// SEPA creditor identifier that identifies the company making the payment.
     public var creditorID: String?
 
@@ -1043,7 +1043,7 @@ public struct AccountSepaDebitPaymentsSettings: Codable {
     }
 }
 
-public struct AccountSettings: Codable {
+public final class AccountSettings: Codable {
     /// AccountBacsDebitPaymentsSettings
     public var bacsDebitPayments: AccountBacsDebitPaymentsSettings?
     public var branding: AccountBrandingSettings
@@ -1083,7 +1083,7 @@ public struct AccountSettings: Codable {
     }
 }
 
-public struct AccountTosAcceptance: Codable {
+public final class AccountTosAcceptance: Codable {
     /// The Unix timestamp marking when the account representative accepted their service agreement
     public var date: Int?
     /// The IP address from which the account representative accepted their service agreement
@@ -1108,7 +1108,7 @@ public struct AccountTosAcceptance: Codable {
     }
 }
 
-public struct AccountUnificationAccountController: Codable {
+public final class AccountUnificationAccountController: Codable {
     /// `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
     public var isController: Bool?
     /// The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
@@ -1131,7 +1131,7 @@ public struct AccountUnificationAccountController: Codable {
     }
 }
 
-public struct Address: Codable {
+public final class Address: Codable {
     /// City, district, suburb, town, or village.
     public var city: String?
     /// Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -1164,7 +1164,7 @@ public struct Address: Codable {
     }
 }
 
-public struct AlipayAccount: Codable {
+public final class AlipayAccount: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// The ID of the customer associated with this Alipay Account.
@@ -1348,7 +1348,7 @@ public final class APIErrors: Codable {
     }
 }
 
-public struct ApplePayDomain: Codable {
+public final class ApplePayDomain: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     public var domainName: String
@@ -1381,7 +1381,7 @@ public struct ApplePayDomain: Codable {
     }
 }
 
-public struct Application: Codable {
+public final class Application: Codable {
     /// Unique identifier for the object.
     public var id: String
     /// The name of the application.
@@ -1402,7 +1402,7 @@ public struct Application: Codable {
 }
 
 /// PlatformFee
-public struct ApplicationFee: Codable {
+public final class ApplicationFee: Codable {
     /// ID of the Stripe account this fee was taken from.
     public var account: Account
     /// Amount earned, in %s.
@@ -1532,7 +1532,7 @@ public struct ApplicationFee: Codable {
     }
 
     /// ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter.
-    public struct OriginatingTransaction: Codable {
+    public final class OriginatingTransaction: Codable {
         public var string: String?
         public var charge: Charge?
 
@@ -1557,7 +1557,7 @@ public struct ApplicationFee: Codable {
     /// FeeRefundList
     ///
     /// A list of refunds that have been applied to the fee.
-    public struct Refunds: Codable {
+    public final class Refunds: Codable {
         /// Details about each object.
         public var data: [FeeRefund]
         /// True if this list has another page of items after this one that can be fetched.
@@ -1622,7 +1622,7 @@ public struct ApplicationFee: Codable {
     }
 }
 
-public struct AutomaticTax: Codable {
+public final class AutomaticTax: Codable {
     /// Whether Stripe automatically computes tax on this invoice.
     public var isEnabled: Bool
     /// The status of the most recent automated tax calculation for this invoice.
@@ -1657,7 +1657,7 @@ public struct AutomaticTax: Codable {
 /// payment source types.
 /// 
 /// Related guide: [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
-public struct Balance: Codable {
+public final class Balance: Codable {
     /// Funds that are available to be transferred or paid out, whether automatically by Stripe or explicitly via the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). The available balance for each currency and payment type can be found in the `source_types` property.
     public var available: [BalanceAmount]
     /// Funds held due to negative balances on connected Custom accounts. The connect reserve balance for each currency and payment type can be found in the `source_types` property.
@@ -1699,7 +1699,7 @@ public struct Balance: Codable {
     }
 }
 
-public struct BalanceAmount: Codable {
+public final class BalanceAmount: Codable {
     /// Balance amount.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1720,7 +1720,7 @@ public struct BalanceAmount: Codable {
     }
 }
 
-public struct BalanceAmountBySourceType: Codable {
+public final class BalanceAmountBySourceType: Codable {
     /// Amount for bank account.
     public var bankAccount: Int?
     /// Amount for card.
@@ -1741,7 +1741,7 @@ public struct BalanceAmountBySourceType: Codable {
     }
 }
 
-public struct BalanceDetail: Codable {
+public final class BalanceDetail: Codable {
     /// Funds that are available for use.
     public var available: [BalanceAmount]
 
@@ -1792,7 +1792,7 @@ public final class BalanceTransaction: Codable {
     }
 
     /// The Stripe object to which this transaction is related.
-    public struct Source: Codable {
+    public final class Source: Codable {
         public var string: String?
         public var applicationFee: ApplicationFee?
         public var charge: Charge?
@@ -1955,7 +1955,7 @@ public final class BalanceTransaction: Codable {
 /// They can be bank accounts or debit cards as well, and are documented in the links above.
 /// 
 /// Related guide: [Bank Debits and Transfers](https://stripe.com/docs/payments/bank-debits-transfers).
-public struct BankAccount: Codable {
+public final class BankAccount: Codable {
     /// The ID of the account that the bank account is associated with.
     public var account: Account?
     /// The name of the person or business that owns the bank account.
@@ -2095,7 +2095,7 @@ public struct BankAccount: Codable {
 }
 
 /// Billing_details
-public struct BillingDetails: Codable {
+public final class BillingDetails: Codable {
     /// Billing address.
     public var address: Address?
     /// Email address.
@@ -2135,7 +2135,7 @@ public struct BillingDetails: Codable {
 /// PortalConfiguration
 ///
 /// A portal configuration describes the functionality and behavior of a portal session.
-public struct BillingPortalConfiguration: Codable {
+public final class BillingPortalConfiguration: Codable {
     /// Whether the configuration is active and can be used to create portal sessions.
     public var isActive: Bool
     /// ID of the Connect Application that created the configuration.
@@ -2213,7 +2213,7 @@ public struct BillingPortalConfiguration: Codable {
 /// and billing details.
 /// 
 /// Learn more in the [integration guide](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal).
-public struct BillingPortalSession: Codable {
+public final class BillingPortalSession: Codable {
     /// The configuration used by this session, describing the features available.
     public var configuration: Configuration
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -2236,7 +2236,7 @@ public struct BillingPortalSession: Codable {
     public var url: String
 
     /// The configuration used by this session, describing the features available.
-    public struct Configuration: Codable {
+    public final class Configuration: Codable {
         public var string: String?
         /// PortalConfiguration
         ///
@@ -2344,7 +2344,7 @@ public struct BillingPortalSession: Codable {
     }
 }
 
-public struct BitcoinReceiver: Codable {
+public final class BitcoinReceiver: Codable {
     /// True when this bitcoin receiver has received a non-zero amount of bitcoin.
     public var isActive: Bool
     /// The amount of `currency` that you are collecting as payment.
@@ -2400,7 +2400,7 @@ public struct BitcoinReceiver: Codable {
     /// BitcoinTransactionList
     ///
     /// A list with one entry for each time that the customer sent bitcoin to the receiver. Hidden when viewing the receiver with a publishable key.
-    public struct Transactions: Codable {
+    public final class Transactions: Codable {
         /// Details about each object.
         public var data: [BitcoinTransaction]
         /// True if this list has another page of items after this one that can be fetched.
@@ -2481,7 +2481,7 @@ public struct BitcoinReceiver: Codable {
     }
 }
 
-public struct BitcoinTransaction: Codable {
+public final class BitcoinTransaction: Codable {
     /// The amount of `currency` that the transaction was converted to in real-time.
     public var amount: Int
     /// The amount of bitcoin contained in the transaction.
@@ -2528,7 +2528,7 @@ public struct BitcoinTransaction: Codable {
 /// This is an object representing a capability for a Stripe account.
 /// 
 /// Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities).
-public struct Capability: Codable {
+public final class Capability: Codable {
     /// The account for which the capability enables functionality.
     public var account: Account
     /// AccountCapabilityFutureRequirements
@@ -2611,7 +2611,7 @@ public struct Capability: Codable {
 /// transfer to those cards later.
 /// 
 /// Related guide: [Card Payments with Sources](https://stripe.com/docs/sources/cards).
-public struct Card: Codable {
+public final class Card: Codable {
     /// The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead.
     public var account: Account?
     /// City/District/Suburb/Town/Village.
@@ -2818,7 +2818,7 @@ public struct Card: Codable {
 }
 
 /// Card_generated_from_payment_method_details
-public struct CardGeneratedFromPaymentMethodDetails: Codable {
+public final class CardGeneratedFromPaymentMethodDetails: Codable {
     /// Payment_method_details_card_present
     public var cardPresent: PaymentMethodDetailsCardPresent?
     /// The type of payment method transaction-specific details from the transaction that generated this `card` payment method. Always `card_present`.
@@ -2835,7 +2835,7 @@ public struct CardGeneratedFromPaymentMethodDetails: Codable {
     }
 }
 
-public struct CardIssuingAccountTermsOfService: Codable {
+public final class CardIssuingAccountTermsOfService: Codable {
     /// The Unix timestamp marking when the account representative accepted the service agreement.
     public var date: Int?
     /// The IP address from which the account representative accepted the service agreement.
@@ -2861,7 +2861,7 @@ public struct CardIssuingAccountTermsOfService: Codable {
 /// are identified by a unique, random ID.
 /// 
 /// Related guide: [Accept a payment with the Charges API](https://stripe.com/docs/payments/accept-a-payment-charges).
-public struct Charge: Codable {
+public final class Charge: Codable {
     /// Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     public var amount: Int
     /// Amount in %s captured (can be less than the amount attribute on the charge if a partial capture was made).
@@ -3050,7 +3050,7 @@ public struct Charge: Codable {
     }
 
     /// Information on fraud assessments for the charge.
-    public struct FraudDetails: Codable {
+    public final class FraudDetails: Codable {
         public var chargeFraudDetails: ChargeFraudDetails?
 
         public init(chargeFraudDetails: ChargeFraudDetails? = nil) {
@@ -3097,7 +3097,7 @@ public struct Charge: Codable {
     }
 
     /// The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/charges-transfers) for details.
-    public struct OnBehalfOf: Codable {
+    public final class OnBehalfOf: Codable {
         public var string: String?
         public var account: Account?
 
@@ -3143,7 +3143,7 @@ public struct Charge: Codable {
     }
 
     /// Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details.
-    public struct Outcome: Codable {
+    public final class Outcome: Codable {
         public var chargeOutcome: ChargeOutcome?
 
         public init(chargeOutcome: ChargeOutcome? = nil) {
@@ -3206,7 +3206,7 @@ public struct Charge: Codable {
     /// RefundList
     ///
     /// A list of refunds that have been applied to the charge.
-    public struct Refunds: Codable {
+    public final class Refunds: Codable {
         /// Details about each object.
         public var data: [Refund]
         /// True if this list has another page of items after this one that can be fetched.
@@ -3279,7 +3279,7 @@ public struct Charge: Codable {
     }
 
     /// The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
-    public struct SourceTransfer: Codable {
+    public final class SourceTransfer: Codable {
         public var string: String?
         public var transfer: Transfer?
 
@@ -3325,7 +3325,7 @@ public struct Charge: Codable {
     }
 
     /// An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
-    public struct TransferData: Codable {
+    public final class TransferData: Codable {
         public var chargeTransferData: ChargeTransferData?
 
         public init(chargeTransferData: ChargeTransferData? = nil) {
@@ -3438,7 +3438,7 @@ public struct Charge: Codable {
     }
 }
 
-public struct ChargeFraudDetails: Codable {
+public final class ChargeFraudDetails: Codable {
     /// Assessments from Stripe. If set, the value is `fraudulent`.
     public var stripeReport: String?
     /// Assessments reported by you. If set, possible values of are `safe` and `fraudulent`.
@@ -3455,7 +3455,7 @@ public struct ChargeFraudDetails: Codable {
     }
 }
 
-public struct ChargeOutcome: Codable {
+public final class ChargeOutcome: Codable {
     /// Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
     public var networkStatus: String?
     /// An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
@@ -3516,14 +3516,14 @@ public struct ChargeOutcome: Codable {
     }
 }
 
-public struct ChargeTransferData: Codable {
+public final class ChargeTransferData: Codable {
     /// The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
     public var amount: Int?
     /// ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request.
     public var destination: Destination
 
     /// ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -3567,7 +3567,7 @@ public struct ChargeTransferData: Codable {
 /// client to begin Checkout.
 /// 
 /// Related guide: [Checkout Server Quickstart](https://stripe.com/docs/payments/checkout/api).
-public struct CheckoutSession: Codable {
+public final class CheckoutSession: Codable {
     /// When set, provides configuration for actions to take if this Checkout Session expires.
     public var afterExpiration: AfterExpiration?
     /// Enables user redeemable promotion codes.
@@ -3669,7 +3669,7 @@ public struct CheckoutSession: Codable {
     public var url: String?
 
     /// When set, provides configuration for actions to take if this Checkout Session expires.
-    public struct AfterExpiration: Codable {
+    public final class AfterExpiration: Codable {
         public var paymentPagesCheckoutSessionAfterExpiration: PaymentPagesCheckoutSessionAfterExpiration?
 
         public init(paymentPagesCheckoutSessionAfterExpiration: PaymentPagesCheckoutSessionAfterExpiration? = nil) {
@@ -3694,7 +3694,7 @@ public struct CheckoutSession: Codable {
     }
 
     /// Results of `consent_collection` for this session.
-    public struct Consent: Codable {
+    public final class Consent: Codable {
         public var paymentPagesCheckoutSessionConsent: PaymentPagesCheckoutSessionConsent?
 
         public init(paymentPagesCheckoutSessionConsent: PaymentPagesCheckoutSessionConsent? = nil) {
@@ -3713,7 +3713,7 @@ public struct CheckoutSession: Codable {
     }
 
     /// When set, provides configuration for the Checkout Session to gather active consent from customers.
-    public struct ConsentCollection: Codable {
+    public final class ConsentCollection: Codable {
         public var paymentPagesCheckoutSessionConsentCollection: PaymentPagesCheckoutSessionConsentCollection?
 
         public init(paymentPagesCheckoutSessionConsentCollection: PaymentPagesCheckoutSessionConsentCollection? = nil) {
@@ -3763,7 +3763,7 @@ public struct CheckoutSession: Codable {
     }
 
     /// The customer details including the customer's tax exempt status and the customer's tax IDs. Only present on Sessions in `payment` or `subscription` mode.
-    public struct CustomerDetails: Codable {
+    public final class CustomerDetails: Codable {
         public var paymentPagesCheckoutSessionCustomerDetails: PaymentPagesCheckoutSessionCustomerDetails?
 
         public init(paymentPagesCheckoutSessionCustomerDetails: PaymentPagesCheckoutSessionCustomerDetails? = nil) {
@@ -3784,7 +3784,7 @@ public struct CheckoutSession: Codable {
     /// PaymentPagesCheckoutSessionListLineItems
     ///
     /// The line items purchased by the customer.
-    public struct LineItems: Codable {
+    public final class LineItems: Codable {
         /// Details about each object.
         public var data: [Item]
         /// True if this list has another page of items after this one that can be fetched.
@@ -3895,7 +3895,7 @@ public struct CheckoutSession: Codable {
     }
 
     /// Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession.
-    public struct PaymentMethodOptions: Codable {
+    public final class PaymentMethodOptions: Codable {
         public var checkoutSessionPaymentMethodOptions: CheckoutSessionPaymentMethodOptions?
 
         public init(checkoutSessionPaymentMethodOptions: CheckoutSessionPaymentMethodOptions? = nil) {
@@ -3964,7 +3964,7 @@ public struct CheckoutSession: Codable {
     }
 
     /// When set, provides configuration for Checkout to collect a shipping address from a customer.
-    public struct ShippingAddressCollection: Codable {
+    public final class ShippingAddressCollection: Codable {
         public var paymentPagesPaymentPageResourcesShippingAddressCollection: PaymentPagesPaymentPageResourcesShippingAddressCollection?
 
         public init(paymentPagesPaymentPageResourcesShippingAddressCollection: PaymentPagesPaymentPageResourcesShippingAddressCollection? = nil) {
@@ -4049,7 +4049,7 @@ public struct CheckoutSession: Codable {
     }
 
     /// Tax and discount details for the computed total amount.
-    public struct TotalDetails: Codable {
+    public final class TotalDetails: Codable {
         public var paymentPagesCheckoutSessionTotalDetails: PaymentPagesCheckoutSessionTotalDetails?
 
         public init(paymentPagesCheckoutSessionTotalDetails: PaymentPagesCheckoutSessionTotalDetails? = nil) {
@@ -4154,7 +4154,7 @@ public struct CheckoutSession: Codable {
     }
 }
 
-public struct CheckoutAcssDebitMandateOptions: Codable {
+public final class CheckoutAcssDebitMandateOptions: Codable {
     /// A URL for custom mandate text
     public var customMandateURL: String?
     /// List of Stripe products where this mandate can be selected automatically. Returned when the Session is in `setup` mode.
@@ -4201,7 +4201,7 @@ public struct CheckoutAcssDebitMandateOptions: Codable {
     }
 }
 
-public struct CheckoutAcssDebitPaymentMethodOptions: Codable {
+public final class CheckoutAcssDebitPaymentMethodOptions: Codable {
     /// Currency supported by the bank account. Returned when the Session is in `setup` mode.
     public var currency: Currency?
     /// CheckoutAcssDebitMandateOptions
@@ -4235,7 +4235,7 @@ public struct CheckoutAcssDebitPaymentMethodOptions: Codable {
     }
 }
 
-public struct CheckoutSessionPaymentMethodOptions: Codable {
+public final class CheckoutSessionPaymentMethodOptions: Codable {
     /// CheckoutAcssDebitPaymentMethodOptions
     public var acssDebit: CheckoutAcssDebitPaymentMethodOptions?
     /// Payment_method_options_boleto
@@ -4256,7 +4256,7 @@ public struct CheckoutSessionPaymentMethodOptions: Codable {
     }
 }
 
-public struct ConnectCollectionTransfer: Codable {
+public final class ConnectCollectionTransfer: Codable {
     /// Amount transferred, in %s.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -4271,7 +4271,7 @@ public struct ConnectCollectionTransfer: Codable {
     public var object: Object
 
     /// ID of the account that funds are being collected for.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -4323,7 +4323,7 @@ public struct ConnectCollectionTransfer: Codable {
 /// 
 /// You can also view the information from this API call as [an online
 /// guide](/docs/connect/required-verification-information).
-public struct CountrySpec: Codable {
+public final class CountrySpec: Codable {
     /// The default currency for this country. This applies to both payment methods and bank accounts.
     public var defaultCurrency: String
     /// Unique identifier for the object. Represented as the ISO country code for this country.
@@ -4369,7 +4369,7 @@ public struct CountrySpec: Codable {
     }
 }
 
-public struct CountrySpecVerificationFieldDetails: Codable {
+public final class CountrySpecVerificationFieldDetails: Codable {
     /// Additional fields which are only required for some users.
     public var additional: [String]
     /// Fields which every account must eventually provide.
@@ -4381,7 +4381,7 @@ public struct CountrySpecVerificationFieldDetails: Codable {
     }
 }
 
-public struct CountrySpecVerificationFields: Codable {
+public final class CountrySpecVerificationFields: Codable {
     /// CountrySpecVerificationFieldDetails
     public var company: CountrySpecVerificationFieldDetails
     /// CountrySpecVerificationFieldDetails
@@ -4396,7 +4396,7 @@ public struct CountrySpecVerificationFields: Codable {
 /// A coupon contains information about a percent-off or amount-off discount you
 /// might want to apply to a customer. Coupons may be applied to [invoices](https://stripe.com/docs/api#invoices) or
 /// [orders](https://stripe.com/docs/api#create_order_legacy-coupon). Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge).
-public struct Coupon: Codable {
+public final class Coupon: Codable {
     /// Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     public var amountOff: Int?
     /// CouponAppliesTo
@@ -4481,7 +4481,7 @@ public struct Coupon: Codable {
     }
 }
 
-public struct CouponAppliesTo: Codable {
+public final class CouponAppliesTo: Codable {
     /// A list of product IDs this coupon applies to
     public var products: [String]
 
@@ -4493,7 +4493,7 @@ public struct CouponAppliesTo: Codable {
 /// Issue a credit note to adjust an invoice's amount after the invoice is finalized.
 /// 
 /// Related guide: [Credit Notes](https://stripe.com/docs/billing/invoices/credit-notes).
-public struct CreditNote: Codable {
+public final class CreditNote: Codable {
     /// The integer amount in %s representing the total amount of the credit note, including tax.
     public var amount: Int
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -4623,7 +4623,7 @@ public struct CreditNote: Codable {
     /// CreditNoteLinesList
     ///
     /// Line items that make up the credit note
-    public struct Lines: Codable {
+    public final class Lines: Codable {
         /// Details about each object.
         public var data: [CreditNoteLineItem]
         /// True if this list has another page of items after this one that can be fetched.
@@ -4758,7 +4758,7 @@ public struct CreditNote: Codable {
     }
 }
 
-public struct CreditNoteLineItem: Codable {
+public final class CreditNoteLineItem: Codable {
     /// The integer amount in %s representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     public var amount: Int
     /// Description of the item being credited.
@@ -4834,7 +4834,7 @@ public struct CreditNoteLineItem: Codable {
     }
 }
 
-public struct CreditNoteTaxAmount: Codable {
+public final class CreditNoteTaxAmount: Codable {
     /// The amount, in %s, of the tax.
     public var amount: Int
     /// Whether this tax amount is inclusive or exclusive.
@@ -4884,7 +4884,7 @@ public struct CreditNoteTaxAmount: Codable {
 /// This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
 /// 
 /// Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment).
-public struct Customer: Codable {
+public final class Customer: Codable {
     /// The customer's address.
     public var address: Address?
     /// Current balance, if any, being stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that will be added to their next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account as invoices are finalized.
@@ -4967,7 +4967,7 @@ public struct Customer: Codable {
     /// ID of the default payment source for the customer.
     /// 
     /// If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
-    public struct DefaultSource: Codable {
+    public final class DefaultSource: Codable {
         public var string: String?
         public var alipayAccount: AlipayAccount?
         public var bankAccount: BankAccount?
@@ -5057,7 +5057,7 @@ public struct Customer: Codable {
     /// ApmsSourcesSourceList
     ///
     /// The customer's payment sources, if any.
-    public struct Sources: Codable {
+    public final class Sources: Codable {
         /// Details about each object.
         public var data: [Datum]
         /// True if this list has another page of items after this one that can be fetched.
@@ -5068,7 +5068,7 @@ public struct Customer: Codable {
         public var url: String
 
         /// Polymorphic
-        public struct Datum: Codable {
+        public final class Datum: Codable {
             public var alipayAccount: AlipayAccount?
             public var bankAccount: BankAccount?
             public var bitcoinReceiver: BitcoinReceiver?
@@ -5131,7 +5131,7 @@ public struct Customer: Codable {
     /// SubscriptionList
     ///
     /// The customer's current subscriptions, if any.
-    public struct Subscriptions: Codable {
+    public final class Subscriptions: Codable {
         /// Details about each object.
         public var data: [Subscription]
         /// True if this list has another page of items after this one that can be fetched.
@@ -5171,7 +5171,7 @@ public struct Customer: Codable {
     /// TaxIDsList
     ///
     /// The customer's tax IDs.
-    public struct TaxIDs: Codable {
+    public final class TaxIDs: Codable {
         /// Details about each object.
         public var data: [TaxID]
         /// True if this list has another page of items after this one that can be fetched.
@@ -5259,7 +5259,7 @@ public struct Customer: Codable {
 }
 
 /// Customer_acceptance
-public struct CustomerAcceptance: Codable {
+public final class CustomerAcceptance: Codable {
     /// The time at which the customer accepted the Mandate.
     public var acceptedAt: Int?
     /// Offline_acceptance
@@ -5296,7 +5296,7 @@ public struct CustomerAcceptance: Codable {
 /// or by creating a Customer Balance Transaction, which increments or decrements the customer's `balance` by the specified `amount`.
 /// 
 /// Related guide: [Customer Balance](https://stripe.com/docs/billing/customer/balance) to learn more.
-public struct CustomerBalanceTransaction: Codable {
+public final class CustomerBalanceTransaction: Codable {
     /// The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.
     public var amount: Int
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -5444,7 +5444,7 @@ public struct CustomerBalanceTransaction: Codable {
     }
 }
 
-public struct CustomerTax: Codable {
+public final class CustomerTax: Codable {
     /// Surfaces if automatic tax computation is possible given the current customer location information.
     public var automaticTax: AutomaticTax
     /// A recent IP address of the customer used for tax reporting and tax location inference.
@@ -5461,7 +5461,7 @@ public struct CustomerTax: Codable {
     }
 
     /// The customer's location as identified by Stripe Tax.
-    public struct Location: Codable {
+    public final class Location: Codable {
         public var customerTaxLocation: CustomerTaxLocation?
 
         public init(customerTaxLocation: CustomerTaxLocation? = nil) {
@@ -5492,7 +5492,7 @@ public struct CustomerTax: Codable {
     }
 }
 
-public struct CustomerTaxLocation: Codable {
+public final class CustomerTaxLocation: Codable {
     /// The customer's country as identified by Stripe Tax.
     public var country: String
     /// The data source used to infer the customer's location.
@@ -5515,7 +5515,7 @@ public struct CustomerTaxLocation: Codable {
     }
 }
 
-public struct DeletedAccount: Codable {
+public final class DeletedAccount: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5542,7 +5542,7 @@ public struct DeletedAccount: Codable {
 }
 
 /// AlipayDeletedAccount
-public struct DeletedAlipayAccount: Codable {
+public final class DeletedAlipayAccount: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5568,7 +5568,7 @@ public struct DeletedAlipayAccount: Codable {
     }
 }
 
-public struct DeletedApplePayDomain: Codable {
+public final class DeletedApplePayDomain: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5594,7 +5594,7 @@ public struct DeletedApplePayDomain: Codable {
     }
 }
 
-public struct DeletedBankAccount: Codable {
+public final class DeletedBankAccount: Codable {
     /// Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
     public var currency: String?
     /// Always true for a deleted object
@@ -5625,7 +5625,7 @@ public struct DeletedBankAccount: Codable {
 }
 
 /// BitcoinDeletedReceiver
-public struct DeletedBitcoinReceiver: Codable {
+public final class DeletedBitcoinReceiver: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5651,7 +5651,7 @@ public struct DeletedBitcoinReceiver: Codable {
     }
 }
 
-public struct DeletedCard: Codable {
+public final class DeletedCard: Codable {
     /// Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
     public var currency: String?
     /// Always true for a deleted object
@@ -5681,7 +5681,7 @@ public struct DeletedCard: Codable {
     }
 }
 
-public struct DeletedCoupon: Codable {
+public final class DeletedCoupon: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5707,7 +5707,7 @@ public struct DeletedCoupon: Codable {
     }
 }
 
-public struct DeletedCustomer: Codable {
+public final class DeletedCustomer: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5733,7 +5733,7 @@ public struct DeletedCustomer: Codable {
     }
 }
 
-public struct DeletedDiscount: Codable {
+public final class DeletedDiscount: Codable {
     /// The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     public var checkoutSession: String?
     /// A coupon contains information about a percent-off or amount-off discount you
@@ -5844,7 +5844,7 @@ public struct DeletedDiscount: Codable {
 }
 
 /// Polymorphic
-public struct DeletedExternalAccount: Codable {
+public final class DeletedExternalAccount: Codable {
     public var deletedBankAccount: DeletedBankAccount?
     public var deletedCard: DeletedCard?
 
@@ -5866,7 +5866,7 @@ public struct DeletedExternalAccount: Codable {
     }
 }
 
-public struct DeletedInvoice: Codable {
+public final class DeletedInvoice: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5892,7 +5892,7 @@ public struct DeletedInvoice: Codable {
     }
 }
 
-public struct DeletedInvoiceitem: Codable {
+public final class DeletedInvoiceitem: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5919,7 +5919,7 @@ public struct DeletedInvoiceitem: Codable {
 }
 
 /// Polymorphic
-public struct DeletedPaymentSource: Codable {
+public final class DeletedPaymentSource: Codable {
     /// AlipayDeletedAccount
     public var deletedAlipayAccount: DeletedAlipayAccount?
     public var deletedBankAccount: DeletedBankAccount?
@@ -5951,7 +5951,7 @@ public struct DeletedPaymentSource: Codable {
     }
 }
 
-public struct DeletedPerson: Codable {
+public final class DeletedPerson: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -5977,7 +5977,7 @@ public struct DeletedPerson: Codable {
     }
 }
 
-public struct DeletedPlan: Codable {
+public final class DeletedPlan: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6003,7 +6003,7 @@ public struct DeletedPlan: Codable {
     }
 }
 
-public struct DeletedPrice: Codable {
+public final class DeletedPrice: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6029,7 +6029,7 @@ public struct DeletedPrice: Codable {
     }
 }
 
-public struct DeletedProduct: Codable {
+public final class DeletedProduct: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6056,7 +6056,7 @@ public struct DeletedProduct: Codable {
 }
 
 /// RadarListDeletedList
-public struct DeletedRadarValueList: Codable {
+public final class DeletedRadarValueList: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6083,7 +6083,7 @@ public struct DeletedRadarValueList: Codable {
 }
 
 /// RadarListDeletedListItem
-public struct DeletedRadarValueListItem: Codable {
+public final class DeletedRadarValueListItem: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6110,7 +6110,7 @@ public struct DeletedRadarValueListItem: Codable {
 }
 
 /// DeletedTransferRecipient
-public struct DeletedRecipient: Codable {
+public final class DeletedRecipient: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6136,7 +6136,7 @@ public struct DeletedRecipient: Codable {
     }
 }
 
-public struct DeletedSku: Codable {
+public final class DeletedSku: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6162,7 +6162,7 @@ public struct DeletedSku: Codable {
     }
 }
 
-public struct DeletedSubscriptionItem: Codable {
+public final class DeletedSubscriptionItem: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6189,7 +6189,7 @@ public struct DeletedSubscriptionItem: Codable {
 }
 
 /// Deleted_tax_id
-public struct DeletedTaxID: Codable {
+public final class DeletedTaxID: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6216,7 +6216,7 @@ public struct DeletedTaxID: Codable {
 }
 
 /// TerminalLocationDeletedLocation
-public struct DeletedTerminalLocation: Codable {
+public final class DeletedTerminalLocation: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6243,7 +6243,7 @@ public struct DeletedTerminalLocation: Codable {
 }
 
 /// TerminalReaderDeletedReader
-public struct DeletedTerminalReader: Codable {
+public final class DeletedTerminalReader: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6270,7 +6270,7 @@ public struct DeletedTerminalReader: Codable {
 }
 
 /// NotificationWebhookEndpointDeleted
-public struct DeletedWebhookEndpoint: Codable {
+public final class DeletedWebhookEndpoint: Codable {
     /// Always true for a deleted object
     public var isDeleted: Bool
     /// Unique identifier for the object.
@@ -6296,7 +6296,7 @@ public struct DeletedWebhookEndpoint: Codable {
     }
 }
 
-public struct DeliveryEstimate: Codable {
+public final class DeliveryEstimate: Codable {
     /// If `type` is `"exact"`, `date` will be the expected delivery date in the format YYYY-MM-DD.
     public var date: String?
     /// If `type` is `"range"`, `earliest` will be be the earliest delivery date in the format YYYY-MM-DD.
@@ -6319,7 +6319,7 @@ public struct DeliveryEstimate: Codable {
 /// will end.
 /// 
 /// Related guide: [Applying Discounts to Subscriptions](https://stripe.com/docs/billing/subscriptions/discounts).
-public struct Discount: Codable {
+public final class Discount: Codable {
     /// The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     public var checkoutSession: String?
     /// A coupon contains information about a percent-off or amount-off discount you
@@ -6429,7 +6429,7 @@ public struct Discount: Codable {
     }
 }
 
-public struct DiscountsResourceDiscountAmount: Codable {
+public final class DiscountsResourceDiscountAmount: Codable {
     /// The amount, in %s, of the discount.
     public var amount: Int
     /// The discount that was applied to get this discount amount.
@@ -6475,7 +6475,7 @@ public struct DiscountsResourceDiscountAmount: Codable {
 /// Fraud](/docs/disputes) documentation.
 /// 
 /// Related guide: [Disputes and Fraud](https://stripe.com/docs/disputes).
-public struct Dispute: Codable {
+public final class Dispute: Codable {
     /// Disputed amount. Usually the amount of the charge, but can differ (usually because of currency fluctuation or because only part of the order is disputed).
     public var amount: Int
     /// List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
@@ -6606,7 +6606,7 @@ public struct Dispute: Codable {
     }
 }
 
-public struct DisputeEvidence: Codable {
+public final class DisputeEvidence: Codable {
     /// Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
     public var accessActivityLog: String?
     /// The billing address provided by the customer.
@@ -6663,7 +6663,7 @@ public struct DisputeEvidence: Codable {
     public var uncategorizedText: String?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
-    public struct CancellationPolicy: Codable {
+    public final class CancellationPolicy: Codable {
         public var string: String?
         public var file: File?
 
@@ -6686,7 +6686,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service.
-    public struct CustomerCommunication: Codable {
+    public final class CustomerCommunication: Codable {
         public var string: String?
         public var file: File?
 
@@ -6709,7 +6709,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature.
-    public struct CustomerSignature: Codable {
+    public final class CustomerSignature: Codable {
         public var string: String?
         public var file: File?
 
@@ -6732,7 +6732,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate.
-    public struct DuplicateChargeDocumentation: Codable {
+    public final class DuplicateChargeDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -6755,7 +6755,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge.
-    public struct Receipt: Codable {
+    public final class Receipt: Codable {
         public var string: String?
         public var file: File?
 
@@ -6778,7 +6778,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer.
-    public struct RefundPolicy: Codable {
+    public final class RefundPolicy: Codable {
         public var string: String?
         public var file: File?
 
@@ -6801,7 +6801,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement.
-    public struct ServiceDocumentation: Codable {
+    public final class ServiceDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -6824,7 +6824,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible.
-    public struct ShippingDocumentation: Codable {
+    public final class ShippingDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -6847,7 +6847,7 @@ public struct DisputeEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements.
-    public struct UncategorizedFile: Codable {
+    public final class UncategorizedFile: Codable {
         public var string: String?
         public var file: File?
 
@@ -6930,7 +6930,7 @@ public struct DisputeEvidence: Codable {
     }
 }
 
-public struct DisputeEvidenceDetails: Codable {
+public final class DisputeEvidenceDetails: Codable {
     /// Date by which evidence must be submitted in order to successfully challenge dispute. Will be null if the customer's bank or credit card company doesn't allow a response for this particular dispute.
     public var dueBy: Int?
     /// Whether evidence has been staged for this dispute.
@@ -6955,7 +6955,7 @@ public struct DisputeEvidenceDetails: Codable {
     }
 }
 
-public struct EphemeralKey: Codable {
+public final class EphemeralKey: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// Time at which the key will expire. Measured in seconds since the Unix epoch.
@@ -6994,7 +6994,7 @@ public struct EphemeralKey: Codable {
 }
 
 /// An error response from the Stripe API
-public struct Error: Codable {
+public final class Error: Codable {
     public var error: APIErrors
 
     public init(error: APIErrors) {
@@ -7033,7 +7033,7 @@ public struct Error: Codable {
 /// 
 /// **NOTE:** Right now, access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event) is
 /// guaranteed only for 30 days.
-public struct Event: Codable {
+public final class Event: Codable {
     /// The connected account that originated the event.
     public var account: String?
     /// The Stripe API version used to render `data`. *Note: This property is populated only for events on or after October 31, 2014*.
@@ -7061,7 +7061,7 @@ public struct Event: Codable {
     }
 
     /// Information on the API request that instigated the event.
-    public struct Request: Codable {
+    public final class Request: Codable {
         public var notificationEventRequest: NotificationEventRequest?
 
         public init(notificationEventRequest: NotificationEventRequest? = nil) {
@@ -7117,7 +7117,7 @@ public struct Event: Codable {
 /// If the value is no longer up to date, the charge won't go through. Please
 /// refer to our [Exchange Rates API](https://stripe.com/docs/exchange-rates) guide for more
 /// details.
-public struct ExchangeRate: Codable {
+public final class ExchangeRate: Codable {
     /// Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
     public var id: String
     /// String representing the object's type. Objects of the same type share the same value.
@@ -7138,7 +7138,7 @@ public struct ExchangeRate: Codable {
 }
 
 /// Polymorphic
-public struct ExternalAccount: Codable {
+public final class ExternalAccount: Codable {
     public var bankAccount: BankAccount?
     public var card: Card?
 
@@ -7160,7 +7160,7 @@ public struct ExternalAccount: Codable {
     }
 }
 
-public struct Fee: Codable {
+public final class Fee: Codable {
     /// Amount of the fee, in cents.
     public var amount: Int
     /// ID of the Connect application that earned the fee.
@@ -7186,7 +7186,7 @@ public struct Fee: Codable {
 /// the Stripe account from which the fee was originally collected.
 /// 
 /// Related guide: [Refunding Application Fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee).
-public struct FeeRefund: Codable {
+public final class FeeRefund: Codable {
     /// Amount, in %s.
     public var amount: Int
     /// Balance transaction that describes the impact on your account balance.
@@ -7228,7 +7228,7 @@ public struct FeeRefund: Codable {
     }
 
     /// ID of the application fee that was refunded.
-    public struct Fee: Codable {
+    public final class Fee: Codable {
         public var string: String?
         public var applicationFee: ApplicationFee?
 
@@ -7285,7 +7285,7 @@ public struct FeeRefund: Codable {
 /// query](#scheduled_queries)).
 /// 
 /// Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
-public struct File: Codable {
+public final class File: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// The time at which the file expires and is no longer available in epoch seconds.
@@ -7314,7 +7314,7 @@ public struct File: Codable {
     /// FileFileLinkList
     ///
     /// A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
-    public struct Links: Codable {
+    public final class Links: Codable {
         /// Details about each object.
         public var data: [FileLink]
         /// True if this list has another page of items after this one that can be fetched.
@@ -7399,7 +7399,7 @@ public struct File: Codable {
 /// To share the contents of a `File` object with non-Stripe users, you can
 /// create a `FileLink`. `FileLink`s contain a URL that can be used to
 /// retrieve the contents of the file without authentication.
-public struct FileLink: Codable {
+public final class FileLink: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// Whether this link is already expired.
@@ -7472,7 +7472,7 @@ public struct FileLink: Codable {
     }
 }
 
-public struct FinancialReportingFinanceReportRunRunParameters: Codable {
+public final class FinancialReportingFinanceReportRunRunParameters: Codable {
     /// The set of output columns requested for inclusion in the report run.
     public var columns: [String]?
     /// Connected account ID by which to filter the report run.
@@ -7514,7 +7514,7 @@ public struct FinancialReportingFinanceReportRunRunParameters: Codable {
 }
 
 /// Point in Time
-public struct GelatoDataDocumentReportDateOfBirth: Codable {
+public final class GelatoDataDocumentReportDateOfBirth: Codable {
     /// Numerical day between 1 and 31.
     public var day: Int?
     /// Numerical month between 1 and 12.
@@ -7530,7 +7530,7 @@ public struct GelatoDataDocumentReportDateOfBirth: Codable {
 }
 
 /// Point in Time
-public struct GelatoDataDocumentReportExpirationDate: Codable {
+public final class GelatoDataDocumentReportExpirationDate: Codable {
     /// Numerical day between 1 and 31.
     public var day: Int?
     /// Numerical month between 1 and 12.
@@ -7546,7 +7546,7 @@ public struct GelatoDataDocumentReportExpirationDate: Codable {
 }
 
 /// Point in Time
-public struct GelatoDataDocumentReportIssuedDate: Codable {
+public final class GelatoDataDocumentReportIssuedDate: Codable {
     /// Numerical day between 1 and 31.
     public var day: Int?
     /// Numerical month between 1 and 12.
@@ -7562,7 +7562,7 @@ public struct GelatoDataDocumentReportIssuedDate: Codable {
 }
 
 /// Point in Time
-public struct GelatoDataIDNumberReportDate: Codable {
+public final class GelatoDataIDNumberReportDate: Codable {
     /// Numerical day between 1 and 31.
     public var day: Int?
     /// Numerical month between 1 and 12.
@@ -7578,7 +7578,7 @@ public struct GelatoDataIDNumberReportDate: Codable {
 }
 
 /// Point in Time
-public struct GelatoDataVerifiedOutputsDate: Codable {
+public final class GelatoDataVerifiedOutputsDate: Codable {
     /// Numerical day between 1 and 31.
     public var day: Int?
     /// Numerical month between 1 and 12.
@@ -7594,7 +7594,7 @@ public struct GelatoDataVerifiedOutputsDate: Codable {
 }
 
 /// Result from a document check
-public struct GelatoDocumentReport: Codable {
+public final class GelatoDocumentReport: Codable {
     /// Address as it appears in the document.
     public var address: Address?
     /// Date of birth as it appears in the document.
@@ -7640,7 +7640,7 @@ public struct GelatoDocumentReport: Codable {
     }
 
     /// Date of birth as it appears in the document.
-    public struct Dob: Codable {
+    public final class Dob: Codable {
         /// Point in Time
         public var gelatoDataDocumentReportDateOfBirth: GelatoDataDocumentReportDateOfBirth?
 
@@ -7660,7 +7660,7 @@ public struct GelatoDocumentReport: Codable {
     }
 
     /// Details on the verification error. Present when status is `unverified`.
-    public struct Error: Codable {
+    public final class Error: Codable {
         public var gelatoDocumentReportError: GelatoDocumentReportError?
 
         public init(gelatoDocumentReportError: GelatoDocumentReportError? = nil) {
@@ -7679,7 +7679,7 @@ public struct GelatoDocumentReport: Codable {
     }
 
     /// Expiration date of the document.
-    public struct ExpirationDate: Codable {
+    public final class ExpirationDate: Codable {
         /// Point in Time
         public var gelatoDataDocumentReportExpirationDate: GelatoDataDocumentReportExpirationDate?
 
@@ -7699,7 +7699,7 @@ public struct GelatoDocumentReport: Codable {
     }
 
     /// Issued date of the document.
-    public struct IssuedDate: Codable {
+    public final class IssuedDate: Codable {
         /// Point in Time
         public var gelatoDataDocumentReportIssuedDate: GelatoDataDocumentReportIssuedDate?
 
@@ -7762,7 +7762,7 @@ public struct GelatoDocumentReport: Codable {
     }
 }
 
-public struct GelatoDocumentReportError: Codable {
+public final class GelatoDocumentReportError: Codable {
     /// A short machine-readable string giving the reason for the verification failure.
     public var code: Code?
     /// A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -7782,7 +7782,7 @@ public struct GelatoDocumentReportError: Codable {
 }
 
 /// Result from an id_number check
-public struct GelatoIDNumberReport: Codable {
+public final class GelatoIDNumberReport: Codable {
     /// Date of birth.
     public var dob: Dob?
     /// Details on the verification error. Present when status is `unverified`.
@@ -7799,7 +7799,7 @@ public struct GelatoIDNumberReport: Codable {
     public var status: Status
 
     /// Date of birth.
-    public struct Dob: Codable {
+    public final class Dob: Codable {
         /// Point in Time
         public var gelatoDataIDNumberReportDate: GelatoDataIDNumberReportDate?
 
@@ -7819,7 +7819,7 @@ public struct GelatoIDNumberReport: Codable {
     }
 
     /// Details on the verification error. Present when status is `unverified`.
-    public struct Error: Codable {
+    public final class Error: Codable {
         public var gelatoIDNumberReportError: GelatoIDNumberReportError?
 
         public init(gelatoIDNumberReportError: GelatoIDNumberReportError? = nil) {
@@ -7871,7 +7871,7 @@ public struct GelatoIDNumberReport: Codable {
     }
 }
 
-public struct GelatoIDNumberReportError: Codable {
+public final class GelatoIDNumberReportError: Codable {
     /// A short machine-readable string giving the reason for the verification failure.
     public var code: Code?
     /// A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -7890,7 +7890,7 @@ public struct GelatoIDNumberReportError: Codable {
     }
 }
 
-public struct GelatoReportDocumentOptions: Codable {
+public final class GelatoReportDocumentOptions: Codable {
     /// Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
     public var allowedTypes: [AllowedType]?
     /// Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
@@ -7922,7 +7922,7 @@ public struct GelatoReportDocumentOptions: Codable {
 }
 
 /// Result from a selfie check
-public struct GelatoSelfieReport: Codable {
+public final class GelatoSelfieReport: Codable {
     /// ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
     public var document: String?
     /// Details on the verification error. Present when status is `unverified`.
@@ -7933,7 +7933,7 @@ public struct GelatoSelfieReport: Codable {
     public var status: Status
 
     /// Details on the verification error. Present when status is `unverified`.
-    public struct Error: Codable {
+    public final class Error: Codable {
         public var gelatoSelfieReportError: GelatoSelfieReportError?
 
         public init(gelatoSelfieReportError: GelatoSelfieReportError? = nil) {
@@ -7965,7 +7965,7 @@ public struct GelatoSelfieReport: Codable {
     }
 }
 
-public struct GelatoSelfieReportError: Codable {
+public final class GelatoSelfieReportError: Codable {
     /// A short machine-readable string giving the reason for the verification failure.
     public var code: Code?
     /// A human-readable message giving the reason for the failure. These messages can be shown to your users.
@@ -7985,7 +7985,7 @@ public struct GelatoSelfieReportError: Codable {
     }
 }
 
-public struct GelatoSessionDocumentOptions: Codable {
+public final class GelatoSessionDocumentOptions: Codable {
     /// Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
     public var allowedTypes: [AllowedType]?
     /// Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
@@ -8017,7 +8017,7 @@ public struct GelatoSessionDocumentOptions: Codable {
 }
 
 /// Shows last VerificationSession error
-public struct GelatoSessionLastError: Codable {
+public final class GelatoSessionLastError: Codable {
     /// A short machine-readable string giving the reason for the verification or user-session failure.
     public var code: Code?
     /// A message that explains the reason for verification or user-session failure.
@@ -8048,7 +8048,7 @@ public struct GelatoSessionLastError: Codable {
     }
 }
 
-public struct GelatoVerificationReportOptions: Codable {
+public final class GelatoVerificationReportOptions: Codable {
     /// GelatoReportDocumentOptions
     public var document: GelatoReportDocumentOptions?
     /// GelatoReportIdNumberOptions
@@ -8065,7 +8065,7 @@ public struct GelatoVerificationReportOptions: Codable {
     }
 }
 
-public struct GelatoVerificationSessionOptions: Codable {
+public final class GelatoVerificationSessionOptions: Codable {
     /// GelatoSessionDocumentOptions
     public var document: GelatoSessionDocumentOptions?
     /// GelatoSessionIdNumberOptions
@@ -8082,7 +8082,7 @@ public struct GelatoVerificationSessionOptions: Codable {
     }
 }
 
-public struct GelatoVerifiedOutputs: Codable {
+public final class GelatoVerifiedOutputs: Codable {
     /// The user's verified address.
     public var address: Address?
     /// The user’s verified date of birth.
@@ -8116,7 +8116,7 @@ public struct GelatoVerifiedOutputs: Codable {
     }
 
     /// The user’s verified date of birth.
-    public struct Dob: Codable {
+    public final class Dob: Codable {
         /// Point in Time
         public var gelatoDataVerifiedOutputsDate: GelatoDataVerifiedOutputsDate?
 
@@ -8174,7 +8174,7 @@ public struct GelatoVerifiedOutputs: Codable {
 /// [VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.
 /// 
 /// Related guides: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
-public struct IdentityVerificationReport: Codable {
+public final class IdentityVerificationReport: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// GelatoDocumentReport
@@ -8253,7 +8253,7 @@ public struct IdentityVerificationReport: Codable {
 /// verification checks are complete.
 /// 
 /// Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
-public struct IdentityVerificationSession: Codable {
+public final class IdentityVerificationSession: Codable {
     /// The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more.
     public var clientSecret: String?
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -8284,7 +8284,7 @@ public struct IdentityVerificationSession: Codable {
     public var verifiedOutputs: VerifiedOutputs?
 
     /// If present, this property tells you the last error encountered when processing the verification.
-    public struct LastError: Codable {
+    public final class LastError: Codable {
         /// Shows last VerificationSession error
         public var gelatoSessionLastError: GelatoSessionLastError?
 
@@ -8304,7 +8304,7 @@ public struct IdentityVerificationSession: Codable {
     }
 
     /// ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results)
-    public struct LastVerificationReport: Codable {
+    public final class LastVerificationReport: Codable {
         public var string: String?
         /// GelatoVerificationReport
         ///
@@ -8345,7 +8345,7 @@ public struct IdentityVerificationSession: Codable {
     }
 
     /// Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
-    public struct Redaction: Codable {
+    public final class Redaction: Codable {
         /// Verification_session_redaction
         public var verificationSessionRedaction: VerificationSessionRedaction?
 
@@ -8379,7 +8379,7 @@ public struct IdentityVerificationSession: Codable {
     }
 
     /// The user’s verified data.
-    public struct VerifiedOutputs: Codable {
+    public final class VerifiedOutputs: Codable {
         public var gelatoVerifiedOutputs: GelatoVerifiedOutputs?
 
         public init(gelatoVerifiedOutputs: GelatoVerifiedOutputs? = nil) {
@@ -8464,7 +8464,7 @@ public struct IdentityVerificationSession: Codable {
 /// [here](https://stripe.com/docs/billing/customer/balance).
 /// 
 /// Related guide: [Send Invoices to Customers](https://stripe.com/docs/billing/invoices/sending).
-public struct Invoice: Codable {
+public final class Invoice: Codable {
     /// The country of the business associated with this invoice, most often the business creating the invoice.
     public var accountCountry: String?
     /// The public name of the business associated with this invoice, most often the business creating the invoice.
@@ -8603,7 +8603,7 @@ public struct Invoice: Codable {
     /// Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     public var webhooksDeliveredAt: Int?
 
-    public struct AccountTaxID: Codable {
+    public final class AccountTaxID: Codable {
         public var string: String?
         public var taxID: TaxID?
         /// Deleted_tax_id
@@ -8700,7 +8700,7 @@ public struct Invoice: Codable {
     }
 
     /// The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
-    public struct CustomerAddress: Codable {
+    public final class CustomerAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -8719,7 +8719,7 @@ public struct Invoice: Codable {
     }
 
     /// The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated.
-    public struct CustomerShipping: Codable {
+    public final class CustomerShipping: Codable {
         public var shipping: Shipping?
 
         public init(shipping: Shipping? = nil) {
@@ -8745,7 +8745,7 @@ public struct Invoice: Codable {
     }
 
     /// ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
-    public struct DefaultPaymentMethod: Codable {
+    public final class DefaultPaymentMethod: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -8768,7 +8768,7 @@ public struct Invoice: Codable {
     }
 
     /// ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
-    public struct DefaultSource: Codable {
+    public final class DefaultSource: Codable {
         public var string: String?
         public var alipayAccount: AlipayAccount?
         public var bankAccount: BankAccount?
@@ -8831,7 +8831,7 @@ public struct Invoice: Codable {
         }
     }
 
-    public struct DiscountsItem: Codable {
+    public final class DiscountsItem: Codable {
         public var string: String?
         public var discount: Discount?
         public var deletedDiscount: DeletedDiscount?
@@ -8858,7 +8858,7 @@ public struct Invoice: Codable {
     }
 
     /// The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.
-    public struct LastFinalizationError: Codable {
+    public final class LastFinalizationError: Codable {
         public var apiErrors: APIErrors?
 
         public init(apiErrors: APIErrors? = nil) {
@@ -8879,7 +8879,7 @@ public struct Invoice: Codable {
     /// InvoiceLinesList
     ///
     /// The individual line items that make up the invoice. `lines` is sorted as follows: invoice items in reverse chronological order, followed by the subscription, if any.
-    public struct Lines: Codable {
+    public final class Lines: Codable {
         /// Details about each object.
         public var data: [LineItem]
         /// True if this list has another page of items after this one that can be fetched.
@@ -8915,7 +8915,7 @@ public struct Invoice: Codable {
     }
 
     /// The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
-    public struct OnBehalfOf: Codable {
+    public final class OnBehalfOf: Codable {
         public var string: String?
         public var account: Account?
 
@@ -9017,7 +9017,7 @@ public struct Invoice: Codable {
     }
 
     /// The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice.
-    public struct TransferData: Codable {
+    public final class TransferData: Codable {
         public var invoiceTransferData: InvoiceTransferData?
 
         public init(invoiceTransferData: InvoiceTransferData? = nil) {
@@ -9178,7 +9178,7 @@ public struct Invoice: Codable {
     }
 }
 
-public struct InvoiceItemThresholdReason: Codable {
+public final class InvoiceItemThresholdReason: Codable {
     /// The IDs of the line items that triggered the threshold invoice.
     public var lineItemIDs: [String]
     /// The quantity threshold boundary that applied to the given line item.
@@ -9195,7 +9195,7 @@ public struct InvoiceItemThresholdReason: Codable {
     }
 }
 
-public struct InvoiceLineItemPeriod: Codable {
+public final class InvoiceLineItemPeriod: Codable {
     /// End of the line item's billing period
     public var end: Int
     /// Start of the line item's billing period
@@ -9208,7 +9208,7 @@ public struct InvoiceLineItemPeriod: Codable {
 }
 
 /// Invoice_payment_method_options_acss_debit
-public struct InvoicePaymentMethodOptionsAcssDebit: Codable {
+public final class InvoicePaymentMethodOptionsAcssDebit: Codable {
     /// Invoice_payment_method_options_acss_debit_mandate_options
     public var mandateOptions: InvoicePaymentMethodOptionsAcssDebitMandateOptions?
     /// Bank account verification method.
@@ -9233,7 +9233,7 @@ public struct InvoicePaymentMethodOptionsAcssDebit: Codable {
 }
 
 /// Invoice_payment_method_options_acss_debit_mandate_options
-public struct InvoicePaymentMethodOptionsAcssDebitMandateOptions: Codable {
+public final class InvoicePaymentMethodOptionsAcssDebitMandateOptions: Codable {
     /// Transaction type of the mandate.
     public var transactionType: TransactionType?
 
@@ -9253,7 +9253,7 @@ public struct InvoicePaymentMethodOptionsAcssDebitMandateOptions: Codable {
 }
 
 /// Invoice_payment_method_options_bancontact
-public struct InvoicePaymentMethodOptionsBancontact: Codable {
+public final class InvoicePaymentMethodOptionsBancontact: Codable {
     /// Preferred language of the Bancontact authorization page that the customer is redirected to.
     public var preferredLanguage: PreferredLanguage
 
@@ -9275,7 +9275,7 @@ public struct InvoicePaymentMethodOptionsBancontact: Codable {
 }
 
 /// Invoice_payment_method_options_card
-public struct InvoicePaymentMethodOptionsCard: Codable {
+public final class InvoicePaymentMethodOptionsCard: Codable {
     /// We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     public var requestThreeDSecure: RequestThreeDSecure?
 
@@ -9294,7 +9294,7 @@ public struct InvoicePaymentMethodOptionsCard: Codable {
     }
 }
 
-public struct InvoiceSettingCustomField: Codable {
+public final class InvoiceSettingCustomField: Codable {
     /// The name of the custom field.
     public var name: String
     /// The value of the custom field.
@@ -9306,7 +9306,7 @@ public struct InvoiceSettingCustomField: Codable {
     }
 }
 
-public struct InvoiceSettingCustomerSetting: Codable {
+public final class InvoiceSettingCustomerSetting: Codable {
     /// Default custom fields to be displayed on invoices for this customer.
     public var customFields: [InvoiceSettingCustomField]?
     /// ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
@@ -9315,7 +9315,7 @@ public struct InvoiceSettingCustomerSetting: Codable {
     public var footer: String?
 
     /// ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-    public struct DefaultPaymentMethod: Codable {
+    public final class DefaultPaymentMethod: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -9350,7 +9350,7 @@ public struct InvoiceSettingCustomerSetting: Codable {
     }
 }
 
-public struct InvoiceSettingQuoteSetting: Codable {
+public final class InvoiceSettingQuoteSetting: Codable {
     /// Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
     public var daysUntilDue: Int?
 
@@ -9363,7 +9363,7 @@ public struct InvoiceSettingQuoteSetting: Codable {
     }
 }
 
-public struct InvoiceSettingSubscriptionScheduleSetting: Codable {
+public final class InvoiceSettingSubscriptionScheduleSetting: Codable {
     /// Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
     public var daysUntilDue: Int?
 
@@ -9376,7 +9376,7 @@ public struct InvoiceSettingSubscriptionScheduleSetting: Codable {
     }
 }
 
-public struct InvoiceTaxAmount: Codable {
+public final class InvoiceTaxAmount: Codable {
     /// The amount, in %s, of the tax.
     public var amount: Int
     /// Whether this tax amount is inclusive or exclusive.
@@ -9423,7 +9423,7 @@ public struct InvoiceTaxAmount: Codable {
     }
 }
 
-public struct InvoiceThresholdReason: Codable {
+public final class InvoiceThresholdReason: Codable {
     /// The total invoice amount threshold boundary if it triggered the threshold invoice.
     public var amountGte: Int?
     /// Indicates which line items triggered a threshold invoice.
@@ -9440,14 +9440,14 @@ public struct InvoiceThresholdReason: Codable {
     }
 }
 
-public struct InvoiceTransferData: Codable {
+public final class InvoiceTransferData: Codable {
     /// The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
     public var amount: Int?
     /// The account where funds from the payment will be transferred to upon payment success.
     public var destination: Destination
 
     /// The account where funds from the payment will be transferred to upon payment success.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -9482,7 +9482,7 @@ public struct InvoiceTransferData: Codable {
 /// totals.
 /// 
 /// Related guide: [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
-public struct Invoiceitem: Codable {
+public final class Invoiceitem: Codable {
     /// Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -9700,7 +9700,7 @@ public struct Invoiceitem: Codable {
     }
 }
 
-public struct InvoicesPaymentMethodOptions: Codable {
+public final class InvoicesPaymentMethodOptions: Codable {
     /// If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
     public var acssDebit: AcssDebit?
     /// If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
@@ -9709,7 +9709,7 @@ public struct InvoicesPaymentMethodOptions: Codable {
     public var card: Card?
 
     /// If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
-    public struct AcssDebit: Codable {
+    public final class AcssDebit: Codable {
         /// Invoice_payment_method_options_acss_debit
         public var invoicePaymentMethodOptionsAcssDebit: InvoicePaymentMethodOptionsAcssDebit?
 
@@ -9729,7 +9729,7 @@ public struct InvoicesPaymentMethodOptions: Codable {
     }
 
     /// If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
-    public struct Bancontact: Codable {
+    public final class Bancontact: Codable {
         /// Invoice_payment_method_options_bancontact
         public var invoicePaymentMethodOptionsBancontact: InvoicePaymentMethodOptionsBancontact?
 
@@ -9749,7 +9749,7 @@ public struct InvoicesPaymentMethodOptions: Codable {
     }
 
     /// If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
-    public struct Card: Codable {
+    public final class Card: Codable {
         /// Invoice_payment_method_options_card
         public var invoicePaymentMethodOptionsCard: InvoicePaymentMethodOptionsCard?
 
@@ -9781,14 +9781,14 @@ public struct InvoicesPaymentMethodOptions: Codable {
     }
 }
 
-public struct InvoicesPaymentSettings: Codable {
+public final class InvoicesPaymentSettings: Codable {
     /// Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
     public var paymentMethodOptions: PaymentMethodOptions?
     /// The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
     public var paymentMethodTypes: [PaymentMethodType]?
 
     /// Payment-method-specific configuration to provide to the invoice’s PaymentIntent.
-    public struct PaymentMethodOptions: Codable {
+    public final class PaymentMethodOptions: Codable {
         public var invoicesPaymentMethodOptions: InvoicesPaymentMethodOptions?
 
         public init(invoicesPaymentMethodOptions: InvoicesPaymentMethodOptions? = nil) {
@@ -9834,7 +9834,7 @@ public struct InvoicesPaymentSettings: Codable {
     }
 }
 
-public struct InvoicesResourceInvoiceTaxID: Codable {
+public final class InvoicesResourceInvoiceTaxID: Codable {
     /// The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, or `unknown`
     public var type: `Type`
     /// The value of the tax ID.
@@ -9892,7 +9892,7 @@ public struct InvoicesResourceInvoiceTaxID: Codable {
     }
 }
 
-public struct InvoicesStatusTransitions: Codable {
+public final class InvoicesStatusTransitions: Codable {
     /// The time that the invoice draft was finalized.
     public var finalizedAt: Int?
     /// The time that the invoice was marked uncollectible.
@@ -9920,7 +9920,7 @@ public struct InvoicesStatusTransitions: Codable {
 /// This resource has been renamed to [Early Fraud
 /// Warning](#early_fraud_warning_object) and will be removed in a future API
 /// version.
-public struct IssuerFraudRecord: Codable {
+public final class IssuerFraudRecord: Codable {
     /// An IFR is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an IFR, in order to avoid receiving a dispute later.
     public var isActionable: Bool
     /// ID of the charge this issuer fraud record is for, optionally expanded.
@@ -9998,7 +9998,7 @@ public struct IssuerFraudRecord: Codable {
 /// purchase to be completed successfully.
 /// 
 /// Related guide: [Issued Card Authorizations](https://stripe.com/docs/issuing/purchases/authorizations).
-public struct IssuingAuthorization: Codable {
+public final class IssuingAuthorization: Codable {
     /// The total amount that was authorized or rejected. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     public var amount: Int
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
@@ -10044,7 +10044,7 @@ public struct IssuingAuthorization: Codable {
     public var wallet: String?
 
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
-    public struct AmountDetails: Codable {
+    public final class AmountDetails: Codable {
         public var issuingAuthorizationAmountDetails: IssuingAuthorizationAmountDetails?
 
         public init(issuingAuthorizationAmountDetails: IssuingAuthorizationAmountDetails? = nil) {
@@ -10072,7 +10072,7 @@ public struct IssuingAuthorization: Codable {
     }
 
     /// The cardholder to whom this authorization belongs.
-    public struct Cardholder: Codable {
+    public final class Cardholder: Codable {
         public var string: String?
         public var issuingCardholder: IssuingCardholder?
 
@@ -10100,7 +10100,7 @@ public struct IssuingAuthorization: Codable {
     }
 
     /// The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
-    public struct PendingRequest: Codable {
+    public final class PendingRequest: Codable {
         public var issuingAuthorizationPendingRequest: IssuingAuthorizationPendingRequest?
 
         public init(issuingAuthorizationPendingRequest: IssuingAuthorizationPendingRequest? = nil) {
@@ -10234,7 +10234,7 @@ public final class IssuingCard: Codable {
     }
 
     /// The latest card that replaces this card, if any.
-    public struct ReplacedBy: Codable {
+    public final class ReplacedBy: Codable {
         public var string: String?
         public var issuingCard: IssuingCard?
 
@@ -10257,7 +10257,7 @@ public final class IssuingCard: Codable {
     }
 
     /// The card this card replaces, if any.
-    public struct ReplacementFor: Codable {
+    public final class ReplacementFor: Codable {
         public var string: String?
         public var issuingCard: IssuingCard?
 
@@ -10288,7 +10288,7 @@ public final class IssuingCard: Codable {
     }
 
     /// Where and how the card will be shipped.
-    public struct Shipping: Codable {
+    public final class Shipping: Codable {
         public var issuingCardShipping: IssuingCardShipping?
 
         public init(issuingCardShipping: IssuingCardShipping? = nil) {
@@ -10320,7 +10320,7 @@ public final class IssuingCard: Codable {
     }
 
     /// Information relating to digital wallets (like Apple Pay and Google Pay).
-    public struct Wallets: Codable {
+    public final class Wallets: Codable {
         public var issuingCardWallets: IssuingCardWallets?
 
         public init(issuingCardWallets: IssuingCardWallets? = nil) {
@@ -10392,7 +10392,7 @@ public final class IssuingCard: Codable {
 /// An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
 /// 
 /// Related guide: [How to create a Cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
-public struct IssuingCardholder: Codable {
+public final class IssuingCardholder: Codable {
     /// IssuingCardholderAddress
     public var billing: IssuingCardholderAddress
     /// Additional information about a `company` cardholder.
@@ -10425,7 +10425,7 @@ public struct IssuingCardholder: Codable {
     public var type: `Type`
 
     /// Additional information about a `company` cardholder.
-    public struct Company: Codable {
+    public final class Company: Codable {
         public var issuingCardholderCompany: IssuingCardholderCompany?
 
         public init(issuingCardholderCompany: IssuingCardholderCompany? = nil) {
@@ -10444,7 +10444,7 @@ public struct IssuingCardholder: Codable {
     }
 
     /// Additional information about an `individual` cardholder.
-    public struct Individual: Codable {
+    public final class Individual: Codable {
         public var issuingCardholderIndividual: IssuingCardholderIndividual?
 
         public init(issuingCardholderIndividual: IssuingCardholderIndividual? = nil) {
@@ -10468,7 +10468,7 @@ public struct IssuingCardholder: Codable {
     }
 
     /// Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
-    public struct SpendingControls: Codable {
+    public final class SpendingControls: Codable {
         public var issuingCardholderAuthorizationControls: IssuingCardholderAuthorizationControls?
 
         public init(issuingCardholderAuthorizationControls: IssuingCardholderAuthorizationControls? = nil) {
@@ -10577,7 +10577,7 @@ public final class IssuingDispute: Codable {
     }
 
     /// The transaction being disputed.
-    public struct Transaction: Codable {
+    public final class Transaction: Codable {
         public var string: String?
         public var issuingTransaction: IssuingTransaction?
 
@@ -10629,7 +10629,7 @@ public final class IssuingDispute: Codable {
 }
 
 /// When a non-stripe BIN is used, any use of an [issued card](https://stripe.com/docs/issuing) must be settled directly with the card network. The net amount owed is represented by an Issuing `Settlement` object.
-public struct IssuingSettlement: Codable {
+public final class IssuingSettlement: Codable {
     /// The Bank Identification Number reflecting this settlement record.
     public var bin: String
     /// The date that the transactions are cleared and posted to user's accounts.
@@ -10758,7 +10758,7 @@ public final class IssuingTransaction: Codable {
     public var wallet: Wallet?
 
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
-    public struct AmountDetails: Codable {
+    public final class AmountDetails: Codable {
         public var issuingTransactionAmountDetails: IssuingTransactionAmountDetails?
 
         public init(issuingTransactionAmountDetails: IssuingTransactionAmountDetails? = nil) {
@@ -10777,7 +10777,7 @@ public final class IssuingTransaction: Codable {
     }
 
     /// The `Authorization` object that led to this transaction.
-    public struct Authorization: Codable {
+    public final class Authorization: Codable {
         public var string: String?
         public var issuingAuthorization: IssuingAuthorization?
 
@@ -10823,7 +10823,7 @@ public final class IssuingTransaction: Codable {
     }
 
     /// The card used to make this transaction.
-    public struct Card: Codable {
+    public final class Card: Codable {
         public var string: String?
         public var issuingCard: IssuingCard?
 
@@ -10846,7 +10846,7 @@ public final class IssuingTransaction: Codable {
     }
 
     /// The cardholder to whom this transaction belongs.
-    public struct Cardholder: Codable {
+    public final class Cardholder: Codable {
         public var string: String?
         public var issuingCardholder: IssuingCardholder?
 
@@ -10869,7 +10869,7 @@ public final class IssuingTransaction: Codable {
     }
 
     /// If you've disputed the transaction, the ID of the dispute.
-    public struct Dispute: Codable {
+    public final class Dispute: Codable {
         public var string: String?
         public var issuingDispute: IssuingDispute?
 
@@ -10897,7 +10897,7 @@ public final class IssuingTransaction: Codable {
     }
 
     /// Additional purchase information that is optionally provided by the merchant.
-    public struct PurchaseDetails: Codable {
+    public final class PurchaseDetails: Codable {
         public var issuingTransactionPurchaseDetails: IssuingTransactionPurchaseDetails?
 
         public init(issuingTransactionPurchaseDetails: IssuingTransactionPurchaseDetails? = nil) {
@@ -10973,7 +10973,7 @@ public final class IssuingTransaction: Codable {
     }
 }
 
-public struct IssuingAuthorizationAmountDetails: Codable {
+public final class IssuingAuthorizationAmountDetails: Codable {
     /// The fee charged by the ATM for the cash withdrawal.
     public var atmFee: Int?
 
@@ -10986,7 +10986,7 @@ public struct IssuingAuthorizationAmountDetails: Codable {
     }
 }
 
-public struct IssuingAuthorizationMerchantData: Codable {
+public final class IssuingAuthorizationMerchantData: Codable {
     /// A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
     public var category: String
     /// The merchant category code for the seller’s business
@@ -11027,7 +11027,7 @@ public struct IssuingAuthorizationMerchantData: Codable {
     }
 }
 
-public struct IssuingAuthorizationPendingRequest: Codable {
+public final class IssuingAuthorizationPendingRequest: Codable {
     /// The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     public var amount: Int
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
@@ -11042,7 +11042,7 @@ public struct IssuingAuthorizationPendingRequest: Codable {
     public var merchantCurrency: String
 
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
-    public struct AmountDetails: Codable {
+    public final class AmountDetails: Codable {
         public var issuingAuthorizationAmountDetails: IssuingAuthorizationAmountDetails?
 
         public init(issuingAuthorizationAmountDetails: IssuingAuthorizationAmountDetails? = nil) {
@@ -11079,7 +11079,7 @@ public struct IssuingAuthorizationPendingRequest: Codable {
     }
 }
 
-public struct IssuingAuthorizationRequest: Codable {
+public final class IssuingAuthorizationRequest: Codable {
     /// The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
     public var amount: Int
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
@@ -11098,7 +11098,7 @@ public struct IssuingAuthorizationRequest: Codable {
     public var reason: Reason
 
     /// Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
-    public struct AmountDetails: Codable {
+    public final class AmountDetails: Codable {
         public var issuingAuthorizationAmountDetails: IssuingAuthorizationAmountDetails?
 
         public init(issuingAuthorizationAmountDetails: IssuingAuthorizationAmountDetails? = nil) {
@@ -11156,7 +11156,7 @@ public struct IssuingAuthorizationRequest: Codable {
     }
 }
 
-public struct IssuingAuthorizationVerificationData: Codable {
+public final class IssuingAuthorizationVerificationData: Codable {
     /// Whether the cardholder provided an address first line and if it matched the cardholder’s `billing.address.line1`.
     public var addressLine1Check: AddressLine1Check
     /// Whether the cardholder provided a postal code and if it matched the cardholder’s `billing.address.postal_code`.
@@ -11209,7 +11209,7 @@ public struct IssuingAuthorizationVerificationData: Codable {
     }
 }
 
-public struct IssuingCardApplePay: Codable {
+public final class IssuingCardApplePay: Codable {
     /// Apple Pay Eligibility
     public var isEligible: Bool
     /// Reason the card is ineligible for Apple Pay
@@ -11233,7 +11233,7 @@ public struct IssuingCardApplePay: Codable {
     }
 }
 
-public struct IssuingCardAuthorizationControls: Codable {
+public final class IssuingCardAuthorizationControls: Codable {
     /// Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
     public var allowedCategories: [AllowedCategory]?
     /// Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
@@ -11840,7 +11840,7 @@ public struct IssuingCardAuthorizationControls: Codable {
     }
 }
 
-public struct IssuingCardGooglePay: Codable {
+public final class IssuingCardGooglePay: Codable {
     /// Google Pay Eligibility
     public var isEligible: Bool
     /// Reason the card is ineligible for Google Pay
@@ -11864,7 +11864,7 @@ public struct IssuingCardGooglePay: Codable {
     }
 }
 
-public struct IssuingCardShipping: Codable {
+public final class IssuingCardShipping: Codable {
     public var address: Address
     /// The delivery company that shipped a card.
     public var carrier: Carrier?
@@ -11939,7 +11939,7 @@ public struct IssuingCardShipping: Codable {
     }
 }
 
-public struct IssuingCardSpendingLimit: Codable {
+public final class IssuingCardSpendingLimit: Codable {
     /// Maximum amount allowed to spend per interval.
     public var amount: Int
     /// Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
@@ -12255,7 +12255,7 @@ public struct IssuingCardSpendingLimit: Codable {
     }
 }
 
-public struct IssuingCardWallets: Codable {
+public final class IssuingCardWallets: Codable {
     /// IssuingCardApplePay
     public var applePay: IssuingCardApplePay
     /// IssuingCardGooglePay
@@ -12276,7 +12276,7 @@ public struct IssuingCardWallets: Codable {
     }
 }
 
-public struct IssuingCardholderAddress: Codable {
+public final class IssuingCardholderAddress: Codable {
     public var address: Address
 
     public init(address: Address) {
@@ -12284,7 +12284,7 @@ public struct IssuingCardholderAddress: Codable {
     }
 }
 
-public struct IssuingCardholderAuthorizationControls: Codable {
+public final class IssuingCardholderAuthorizationControls: Codable {
     /// Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
     public var allowedCategories: [AllowedCategory]?
     /// Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
@@ -12891,7 +12891,7 @@ public struct IssuingCardholderAuthorizationControls: Codable {
     }
 }
 
-public struct IssuingCardholderCompany: Codable {
+public final class IssuingCardholderCompany: Codable {
     /// Whether the company's business ID number was provided.
     public var isTaxIDProvided: Bool
 
@@ -12904,14 +12904,14 @@ public struct IssuingCardholderCompany: Codable {
     }
 }
 
-public struct IssuingCardholderIDDocument: Codable {
+public final class IssuingCardholderIDDocument: Codable {
     /// The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
     public var back: Back?
     /// The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
     public var front: Front?
 
     /// The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-    public struct Back: Codable {
+    public final class Back: Codable {
         public var string: String?
         public var file: File?
 
@@ -12934,7 +12934,7 @@ public struct IssuingCardholderIDDocument: Codable {
     }
 
     /// The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-    public struct Front: Codable {
+    public final class Front: Codable {
         public var string: String?
         public var file: File?
 
@@ -12962,7 +12962,7 @@ public struct IssuingCardholderIDDocument: Codable {
     }
 }
 
-public struct IssuingCardholderIndividual: Codable {
+public final class IssuingCardholderIndividual: Codable {
     /// The date of birth of this cardholder.
     public var dob: Dob?
     /// The first name of this cardholder.
@@ -12973,7 +12973,7 @@ public struct IssuingCardholderIndividual: Codable {
     public var verification: Verification?
 
     /// The date of birth of this cardholder.
-    public struct Dob: Codable {
+    public final class Dob: Codable {
         public var issuingCardholderIndividualDob: IssuingCardholderIndividualDob?
 
         public init(issuingCardholderIndividualDob: IssuingCardholderIndividualDob? = nil) {
@@ -12992,7 +12992,7 @@ public struct IssuingCardholderIndividual: Codable {
     }
 
     /// Government-issued ID document for this cardholder.
-    public struct Verification: Codable {
+    public final class Verification: Codable {
         public var issuingCardholderVerification: IssuingCardholderVerification?
 
         public init(issuingCardholderVerification: IssuingCardholderVerification? = nil) {
@@ -13025,7 +13025,7 @@ public struct IssuingCardholderIndividual: Codable {
     }
 }
 
-public struct IssuingCardholderIndividualDob: Codable {
+public final class IssuingCardholderIndividualDob: Codable {
     /// The day of birth, between 1 and 31.
     public var day: Int?
     /// The month of birth, between 1 and 12.
@@ -13040,7 +13040,7 @@ public struct IssuingCardholderIndividualDob: Codable {
     }
 }
 
-public struct IssuingCardholderRequirements: Codable {
+public final class IssuingCardholderRequirements: Codable {
     /// If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
     public var disabledReason: DisabledReason?
     /// Array of fields that need to be collected in order to verify and re-enable the cardholder.
@@ -13074,7 +13074,7 @@ public struct IssuingCardholderRequirements: Codable {
     }
 }
 
-public struct IssuingCardholderSpendingLimit: Codable {
+public final class IssuingCardholderSpendingLimit: Codable {
     /// Maximum amount allowed to spend per interval.
     public var amount: Int
     /// Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
@@ -13390,12 +13390,12 @@ public struct IssuingCardholderSpendingLimit: Codable {
     }
 }
 
-public struct IssuingCardholderVerification: Codable {
+public final class IssuingCardholderVerification: Codable {
     /// An identifying document, either a passport or local ID card.
     public var document: Document?
 
     /// An identifying document, either a passport or local ID card.
-    public struct Document: Codable {
+    public final class Document: Codable {
         public var issuingCardholderIDDocument: IssuingCardholderIDDocument?
 
         public init(issuingCardholderIDDocument: IssuingCardholderIDDocument? = nil) {
@@ -13418,7 +13418,7 @@ public struct IssuingCardholderVerification: Codable {
     }
 }
 
-public struct IssuingDisputeCanceledEvidence: Codable {
+public final class IssuingDisputeCanceledEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// Date when order was canceled.
@@ -13441,7 +13441,7 @@ public struct IssuingDisputeCanceledEvidence: Codable {
     public var returnedAt: Int?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13502,7 +13502,7 @@ public struct IssuingDisputeCanceledEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeDuplicateEvidence: Codable {
+public final class IssuingDisputeDuplicateEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
@@ -13517,7 +13517,7 @@ public struct IssuingDisputeDuplicateEvidence: Codable {
     public var originalTransaction: String?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13540,7 +13540,7 @@ public struct IssuingDisputeDuplicateEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
-    public struct CardStatement: Codable {
+    public final class CardStatement: Codable {
         public var string: String?
         public var file: File?
 
@@ -13563,7 +13563,7 @@ public struct IssuingDisputeDuplicateEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
-    public struct CashReceipt: Codable {
+    public final class CashReceipt: Codable {
         public var string: String?
         public var file: File?
 
@@ -13586,7 +13586,7 @@ public struct IssuingDisputeDuplicateEvidence: Codable {
     }
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
-    public struct CheckImage: Codable {
+    public final class CheckImage: Codable {
         public var string: String?
         public var file: File?
 
@@ -13627,7 +13627,7 @@ public struct IssuingDisputeDuplicateEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeEvidence: Codable {
+public final class IssuingDisputeEvidence: Codable {
     public var canceled: IssuingDisputeCanceledEvidence?
     public var duplicate: IssuingDisputeDuplicateEvidence?
     public var fraudulent: IssuingDisputeFraudulentEvidence?
@@ -13672,14 +13672,14 @@ public struct IssuingDisputeEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeFraudulentEvidence: Codable {
+public final class IssuingDisputeFraudulentEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// Explanation of why the cardholder is disputing this transaction.
     public var explanation: String?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13712,7 +13712,7 @@ public struct IssuingDisputeFraudulentEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeMerchandiseNotAsDescribedEvidence: Codable {
+public final class IssuingDisputeMerchandiseNotAsDescribedEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// Explanation of why the cardholder is disputing this transaction.
@@ -13727,7 +13727,7 @@ public struct IssuingDisputeMerchandiseNotAsDescribedEvidence: Codable {
     public var returnedAt: Int?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13774,7 +13774,7 @@ public struct IssuingDisputeMerchandiseNotAsDescribedEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeNotReceivedEvidence: Codable {
+public final class IssuingDisputeNotReceivedEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// Date when the cardholder expected to receive the product.
@@ -13787,7 +13787,7 @@ public struct IssuingDisputeNotReceivedEvidence: Codable {
     public var productType: ProductType?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13832,7 +13832,7 @@ public struct IssuingDisputeNotReceivedEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeOtherEvidence: Codable {
+public final class IssuingDisputeOtherEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// Explanation of why the cardholder is disputing this transaction.
@@ -13843,7 +13843,7 @@ public struct IssuingDisputeOtherEvidence: Codable {
     public var productType: ProductType?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13886,7 +13886,7 @@ public struct IssuingDisputeOtherEvidence: Codable {
     }
 }
 
-public struct IssuingDisputeServiceNotAsDescribedEvidence: Codable {
+public final class IssuingDisputeServiceNotAsDescribedEvidence: Codable {
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
     public var additionalDocumentation: AdditionalDocumentation?
     /// Date when order was canceled.
@@ -13899,7 +13899,7 @@ public struct IssuingDisputeServiceNotAsDescribedEvidence: Codable {
     public var receivedAt: Int?
 
     /// (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
-    public struct AdditionalDocumentation: Codable {
+    public final class AdditionalDocumentation: Codable {
         public var string: String?
         public var file: File?
 
@@ -13938,7 +13938,7 @@ public struct IssuingDisputeServiceNotAsDescribedEvidence: Codable {
     }
 }
 
-public struct IssuingTransactionAmountDetails: Codable {
+public final class IssuingTransactionAmountDetails: Codable {
     /// The fee charged by the ATM for the cash withdrawal.
     public var atmFee: Int?
 
@@ -13951,7 +13951,7 @@ public struct IssuingTransactionAmountDetails: Codable {
     }
 }
 
-public struct IssuingTransactionFlightData: Codable {
+public final class IssuingTransactionFlightData: Codable {
     /// The time that the flight departed.
     public var departureAt: Int?
     /// The name of the passenger.
@@ -13980,7 +13980,7 @@ public struct IssuingTransactionFlightData: Codable {
     }
 }
 
-public struct IssuingTransactionFlightDataLeg: Codable {
+public final class IssuingTransactionFlightDataLeg: Codable {
     /// The three-letter IATA airport code of the flight's destination.
     public var arrivalAirportCode: String?
     /// The airline carrier code.
@@ -14013,7 +14013,7 @@ public struct IssuingTransactionFlightDataLeg: Codable {
     }
 }
 
-public struct IssuingTransactionFuelData: Codable {
+public final class IssuingTransactionFuelData: Codable {
     /// The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
     public var type: String
     /// The units for `volume_decimal`. One of `us_gallon` or `liter`.
@@ -14038,7 +14038,7 @@ public struct IssuingTransactionFuelData: Codable {
     }
 }
 
-public struct IssuingTransactionLodgingData: Codable {
+public final class IssuingTransactionLodgingData: Codable {
     /// The time of checking into the lodging.
     public var checkInAt: Int?
     /// The number of nights stayed at the lodging.
@@ -14055,7 +14055,7 @@ public struct IssuingTransactionLodgingData: Codable {
     }
 }
 
-public struct IssuingTransactionPurchaseDetails: Codable {
+public final class IssuingTransactionPurchaseDetails: Codable {
     /// Information about the flight that was purchased with this transaction.
     public var flight: Flight?
     /// Information about fuel that was purchased with this transaction.
@@ -14068,7 +14068,7 @@ public struct IssuingTransactionPurchaseDetails: Codable {
     public var reference: String?
 
     /// Information about the flight that was purchased with this transaction.
-    public struct Flight: Codable {
+    public final class Flight: Codable {
         public var issuingTransactionFlightData: IssuingTransactionFlightData?
 
         public init(issuingTransactionFlightData: IssuingTransactionFlightData? = nil) {
@@ -14087,7 +14087,7 @@ public struct IssuingTransactionPurchaseDetails: Codable {
     }
 
     /// Information about fuel that was purchased with this transaction.
-    public struct Fuel: Codable {
+    public final class Fuel: Codable {
         public var issuingTransactionFuelData: IssuingTransactionFuelData?
 
         public init(issuingTransactionFuelData: IssuingTransactionFuelData? = nil) {
@@ -14106,7 +14106,7 @@ public struct IssuingTransactionPurchaseDetails: Codable {
     }
 
     /// Information about lodging that was purchased with this transaction.
-    public struct Lodging: Codable {
+    public final class Lodging: Codable {
         public var issuingTransactionLodgingData: IssuingTransactionLodgingData?
 
         public init(issuingTransactionLodgingData: IssuingTransactionLodgingData? = nil) {
@@ -14133,7 +14133,7 @@ public struct IssuingTransactionPurchaseDetails: Codable {
     }
 }
 
-public struct IssuingTransactionReceiptData: Codable {
+public final class IssuingTransactionReceiptData: Codable {
     /// The description of the item. The maximum length of this field is 26 characters.
     public var description: String?
     /// The quantity of the item.
@@ -14161,7 +14161,7 @@ public struct IssuingTransactionReceiptData: Codable {
 /// LineItem
 ///
 /// A line item.
-public struct Item: Codable {
+public final class Item: Codable {
     /// Total before any discounts or taxes are applied.
     public var amountSubtotal: Int
     /// Total after discounts and taxes.
@@ -14240,7 +14240,7 @@ public struct Item: Codable {
     }
 }
 
-public struct LegalEntityCompany: Codable {
+public final class LegalEntityCompany: Codable {
     public var address: Address?
     /// The Kana variation of the company's primary address (Japan only).
     public var addressKana: AddressKana?
@@ -14274,7 +14274,7 @@ public struct LegalEntityCompany: Codable {
     public var verification: Verification?
 
     /// The Kana variation of the company's primary address (Japan only).
-    public struct AddressKana: Codable {
+    public final class AddressKana: Codable {
         public var legalEntityJapanAddress: LegalEntityJapanAddress?
 
         public init(legalEntityJapanAddress: LegalEntityJapanAddress? = nil) {
@@ -14293,7 +14293,7 @@ public struct LegalEntityCompany: Codable {
     }
 
     /// The Kanji variation of the company's primary address (Japan only).
-    public struct AddressKanji: Codable {
+    public final class AddressKanji: Codable {
         public var legalEntityJapanAddress: LegalEntityJapanAddress?
 
         public init(legalEntityJapanAddress: LegalEntityJapanAddress? = nil) {
@@ -14312,7 +14312,7 @@ public struct LegalEntityCompany: Codable {
     }
 
     /// This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
-    public struct OwnershipDeclaration: Codable {
+    public final class OwnershipDeclaration: Codable {
         public var legalEntityUboDeclaration: LegalEntityUboDeclaration?
 
         public init(legalEntityUboDeclaration: LegalEntityUboDeclaration? = nil) {
@@ -14355,7 +14355,7 @@ public struct LegalEntityCompany: Codable {
     }
 
     /// Information on the verification state of the company.
-    public struct Verification: Codable {
+    public final class Verification: Codable {
         public var legalEntityCompanyVerification: LegalEntityCompanyVerification?
 
         public init(legalEntityCompanyVerification: LegalEntityCompanyVerification? = nil) {
@@ -14412,7 +14412,7 @@ public struct LegalEntityCompany: Codable {
     }
 }
 
-public struct LegalEntityCompanyVerification: Codable {
+public final class LegalEntityCompanyVerification: Codable {
     public var document: LegalEntityCompanyVerificationDocument
 
     public init(document: LegalEntityCompanyVerificationDocument) {
@@ -14420,7 +14420,7 @@ public struct LegalEntityCompanyVerification: Codable {
     }
 }
 
-public struct LegalEntityCompanyVerificationDocument: Codable {
+public final class LegalEntityCompanyVerificationDocument: Codable {
     /// The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
     public var back: Back?
     /// A user-displayable string describing the verification state of this document.
@@ -14431,7 +14431,7 @@ public struct LegalEntityCompanyVerificationDocument: Codable {
     public var front: Front?
 
     /// The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
-    public struct Back: Codable {
+    public final class Back: Codable {
         public var string: String?
         public var file: File?
 
@@ -14454,7 +14454,7 @@ public struct LegalEntityCompanyVerificationDocument: Codable {
     }
 
     /// The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
-    public struct Front: Codable {
+    public final class Front: Codable {
         public var string: String?
         public var file: File?
 
@@ -14491,7 +14491,7 @@ public struct LegalEntityCompanyVerificationDocument: Codable {
     }
 }
 
-public struct LegalEntityDob: Codable {
+public final class LegalEntityDob: Codable {
     /// The day of birth, between 1 and 31.
     public var day: Int?
     /// The month of birth, between 1 and 12.
@@ -14506,7 +14506,7 @@ public struct LegalEntityDob: Codable {
     }
 }
 
-public struct LegalEntityJapanAddress: Codable {
+public final class LegalEntityJapanAddress: Codable {
     /// City/Ward.
     public var city: String?
     /// Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -14543,7 +14543,7 @@ public struct LegalEntityJapanAddress: Codable {
     }
 }
 
-public struct LegalEntityPersonVerification: Codable {
+public final class LegalEntityPersonVerification: Codable {
     /// A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
     public var additionalDocument: AdditionalDocument?
     /// A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified".
@@ -14555,7 +14555,7 @@ public struct LegalEntityPersonVerification: Codable {
     public var status: String
 
     /// A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
-    public struct AdditionalDocument: Codable {
+    public final class AdditionalDocument: Codable {
         public var legalEntityPersonVerificationDocument: LegalEntityPersonVerificationDocument?
 
         public init(legalEntityPersonVerificationDocument: LegalEntityPersonVerificationDocument? = nil) {
@@ -14590,7 +14590,7 @@ public struct LegalEntityPersonVerification: Codable {
     }
 }
 
-public struct LegalEntityPersonVerificationDocument: Codable {
+public final class LegalEntityPersonVerificationDocument: Codable {
     /// The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
     public var back: Back?
     /// A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
@@ -14601,7 +14601,7 @@ public struct LegalEntityPersonVerificationDocument: Codable {
     public var front: Front?
 
     /// The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-    public struct Back: Codable {
+    public final class Back: Codable {
         public var string: String?
         public var file: File?
 
@@ -14624,7 +14624,7 @@ public struct LegalEntityPersonVerificationDocument: Codable {
     }
 
     /// The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-    public struct Front: Codable {
+    public final class Front: Codable {
         public var string: String?
         public var file: File?
 
@@ -14661,7 +14661,7 @@ public struct LegalEntityPersonVerificationDocument: Codable {
     }
 }
 
-public struct LegalEntityUboDeclaration: Codable {
+public final class LegalEntityUboDeclaration: Codable {
     /// The Unix timestamp marking when the beneficial owner attestation was made.
     public var date: Int?
     /// The IP address from which the beneficial owner attestation was made.
@@ -14683,7 +14683,7 @@ public struct LegalEntityUboDeclaration: Codable {
 }
 
 /// InvoiceLineItem
-public struct LineItem: Codable {
+public final class LineItem: Codable {
     /// The amount, in %s.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -14830,7 +14830,7 @@ public struct LineItem: Codable {
     }
 }
 
-public struct LineItemsDiscountAmount: Codable {
+public final class LineItemsDiscountAmount: Codable {
     /// The amount discounted.
     public var amount: Int
     public var discount: Discount
@@ -14841,7 +14841,7 @@ public struct LineItemsDiscountAmount: Codable {
     }
 }
 
-public struct LineItemsTaxAmount: Codable {
+public final class LineItemsTaxAmount: Codable {
     /// Amount of tax applied for this rate.
     public var amount: Int
     /// TaxRate
@@ -14857,7 +14857,7 @@ public struct LineItemsTaxAmount: Codable {
     }
 }
 
-public struct LoginLink: Codable {
+public final class LoginLink: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// String representing the object's type. Objects of the same type share the same value.
@@ -14878,7 +14878,7 @@ public struct LoginLink: Codable {
 }
 
 /// A Mandate is a record of the permission a customer has given you to debit their payment method.
-public struct Mandate: Codable {
+public final class Mandate: Codable {
     /// Customer_acceptance
     public var customerAcceptance: CustomerAcceptance
     /// Unique identifier for the object.
@@ -14969,7 +14969,7 @@ public struct Mandate: Codable {
 }
 
 /// Mandate_acss_debit
-public struct MandateAcssDebit: Codable {
+public final class MandateAcssDebit: Codable {
     /// List of Stripe products where this mandate can be selected automatically.
     public var defaultFor: [DefaultForItem]?
     /// Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
@@ -15013,7 +15013,7 @@ public struct MandateAcssDebit: Codable {
 }
 
 /// Mandate_au_becs_debit
-public struct MandateAuBecsDebit: Codable {
+public final class MandateAuBecsDebit: Codable {
     /// The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
     public var url: String
 
@@ -15023,7 +15023,7 @@ public struct MandateAuBecsDebit: Codable {
 }
 
 /// Mandate_bacs_debit
-public struct MandateBacsDebit: Codable {
+public final class MandateBacsDebit: Codable {
     /// The status of the mandate on the Bacs network. Can be one of `pending`, `revoked`, `refused`, or `accepted`.
     public var networkStatus: NetworkStatus
     /// The unique reference identifying the mandate on the Bacs network.
@@ -15053,7 +15053,7 @@ public struct MandateBacsDebit: Codable {
 }
 
 /// Mandate_payment_method_details
-public struct MandatePaymentMethodDetails: Codable {
+public final class MandatePaymentMethodDetails: Codable {
     /// Mandate_acss_debit
     public var acssDebit: MandateAcssDebit?
     /// Mandate_au_becs_debit
@@ -15087,7 +15087,7 @@ public struct MandatePaymentMethodDetails: Codable {
 }
 
 /// Mandate_sepa_debit
-public struct MandateSepaDebit: Codable {
+public final class MandateSepaDebit: Codable {
     /// The unique reference of the mandate.
     public var reference: String
     /// The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
@@ -15100,7 +15100,7 @@ public struct MandateSepaDebit: Codable {
 }
 
 /// Mandate_single_use
-public struct MandateSingleUse: Codable {
+public final class MandateSingleUse: Codable {
     /// On a single use mandate, the amount of the payment.
     public var amount: Int
     /// On a single use mandate, the currency of the payment.
@@ -15112,7 +15112,7 @@ public struct MandateSingleUse: Codable {
     }
 }
 
-public struct Networks: Codable {
+public final class Networks: Codable {
     /// All available networks for the card.
     public var available: [String]
     /// The preferred network for the card.
@@ -15124,7 +15124,7 @@ public struct Networks: Codable {
     }
 }
 
-public struct NotificationEventData: Codable {
+public final class NotificationEventData: Codable {
     /// Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
     public var object: [String: AnyJSON]
     /// Object containing the names of the attributes that have changed, and their previous values (sent along only with *.updated events).
@@ -15141,7 +15141,7 @@ public struct NotificationEventData: Codable {
     }
 }
 
-public struct NotificationEventRequest: Codable {
+public final class NotificationEventRequest: Codable {
     /// ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
     public var id: String?
     /// The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
@@ -15159,7 +15159,7 @@ public struct NotificationEventRequest: Codable {
 }
 
 /// Online_acceptance
-public struct OnlineAcceptance: Codable {
+public final class OnlineAcceptance: Codable {
     /// The IP address from which the Mandate was accepted by the customer.
     public var ipAddress: String?
     /// The user agent of the browser from which the Mandate was accepted by the customer.
@@ -15181,7 +15181,7 @@ public struct OnlineAcceptance: Codable {
 /// as list all orders. Orders are identified by a unique, random ID.
 /// 
 /// Related guide: [Tax, Shipping, and Inventory](https://stripe.com/docs/orders).
-public struct Order: Codable {
+public final class Order: Codable {
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
     public var amount: Int
     /// The total amount that was returned to the customer.
@@ -15289,7 +15289,7 @@ public struct Order: Codable {
     /// OrdersResourceOrderReturnList
     ///
     /// A list of returns that have taken place for this order.
-    public struct Returns: Codable {
+    public final class Returns: Codable {
         /// Details about each object.
         public var data: [OrderReturn]
         /// True if this list has another page of items after this one that can be fetched.
@@ -15414,7 +15414,7 @@ public struct Order: Codable {
 /// represent [SKUs](https://stripe.com/docs/api#skus), shipping costs, or taxes owed on the order.
 /// 
 /// Related guide: [Orders](https://stripe.com/docs/orders/guide).
-public struct OrderItem: Codable {
+public final class OrderItem: Codable {
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the line item.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -15436,7 +15436,7 @@ public struct OrderItem: Codable {
     }
 
     /// The ID of the associated object for this line item. Expandable if not null (e.g., expandable to a SKU).
-    public struct Parent: Codable {
+    public final class Parent: Codable {
         public var string: String?
         /// Stores representations of [stock keeping units](http://en.wikipedia.org/wiki/Stock_keeping_unit).
         /// SKUs describe specific product variations, taking into account any combination of: attributes,
@@ -15481,7 +15481,7 @@ public struct OrderItem: Codable {
 /// Returns always belong to an order, and may optionally contain a refund.
 /// 
 /// Related guide: [Handling Returns](https://stripe.com/docs/orders/guide#handling-returns).
-public struct OrderReturn: Codable {
+public final class OrderReturn: Codable {
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the returned line item.
     public var amount: Int
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -15577,7 +15577,7 @@ public struct OrderReturn: Codable {
     }
 }
 
-public struct PackageDimensions: Codable {
+public final class PackageDimensions: Codable {
     /// Height, in inches.
     public var height: Double
     /// Length, in inches.
@@ -15595,7 +15595,7 @@ public struct PackageDimensions: Codable {
     }
 }
 
-public struct PaymentFlowsAutomaticPaymentMethodsPaymentIntent: Codable {
+public final class PaymentFlowsAutomaticPaymentMethodsPaymentIntent: Codable {
     /// Automatically calculates compatible payment methods
     public var isEnabled: Bool
 
@@ -15608,7 +15608,7 @@ public struct PaymentFlowsAutomaticPaymentMethodsPaymentIntent: Codable {
     }
 }
 
-public struct PaymentFlowsPrivatePaymentMethodsAlipayDetails: Codable {
+public final class PaymentFlowsPrivatePaymentMethodsAlipayDetails: Codable {
     /// Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
     public var buyerID: String?
     /// Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
@@ -15629,7 +15629,7 @@ public struct PaymentFlowsPrivatePaymentMethodsAlipayDetails: Codable {
     }
 }
 
-public struct PaymentFlowsPrivatePaymentMethodsKlarnaDob: Codable {
+public final class PaymentFlowsPrivatePaymentMethodsKlarnaDob: Codable {
     /// The day of birth, between 1 and 31.
     public var day: Int?
     /// The month of birth, between 1 and 12.
@@ -15768,7 +15768,7 @@ public final class PaymentIntent: Codable {
     }
 
     /// Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)
-    public struct AutomaticPaymentMethods: Codable {
+    public final class AutomaticPaymentMethods: Codable {
         public var paymentFlowsAutomaticPaymentMethodsPaymentIntent: PaymentFlowsAutomaticPaymentMethodsPaymentIntent?
 
         public init(paymentFlowsAutomaticPaymentMethodsPaymentIntent: PaymentFlowsAutomaticPaymentMethodsPaymentIntent? = nil) {
@@ -15806,7 +15806,7 @@ public final class PaymentIntent: Codable {
     /// PaymentFlowsPaymentIntentResourceChargeList
     ///
     /// Charges that were created by this PaymentIntent, if any.
-    public struct Charges: Codable {
+    public final class Charges: Codable {
         /// This list only contains the latest charge, even if there were previously multiple unsuccessful charges. To view all previous charges for a PaymentIntent, you can filter the charges list using the `payment_intent` [parameter](https://stripe.com/docs/api/charges/list#list_charges-payment_intent).
         public var data: [Charge]
         /// True if this list has another page of items after this one that can be fetched.
@@ -15896,7 +15896,7 @@ public final class PaymentIntent: Codable {
     }
 
     /// The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.
-    public struct LastPaymentError: Codable {
+    public final class LastPaymentError: Codable {
         public var apiErrors: APIErrors?
 
         public init(apiErrors: APIErrors? = nil) {
@@ -15915,7 +15915,7 @@ public final class PaymentIntent: Codable {
     }
 
     /// If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source.
-    public struct NextAction: Codable {
+    public final class NextAction: Codable {
         public var paymentIntentNextAction: PaymentIntentNextAction?
 
         public init(paymentIntentNextAction: PaymentIntentNextAction? = nil) {
@@ -15939,7 +15939,7 @@ public final class PaymentIntent: Codable {
     }
 
     /// The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
-    public struct OnBehalfOf: Codable {
+    public final class OnBehalfOf: Codable {
         public var string: String?
         public var account: Account?
 
@@ -15985,7 +15985,7 @@ public final class PaymentIntent: Codable {
     }
 
     /// Payment-method-specific configuration for this PaymentIntent.
-    public struct PaymentMethodOptions: Codable {
+    public final class PaymentMethodOptions: Codable {
         public var paymentIntentPaymentMethodOptions: PaymentIntentPaymentMethodOptions?
 
         public init(paymentIntentPaymentMethodOptions: PaymentIntentPaymentMethodOptions? = nil) {
@@ -16004,7 +16004,7 @@ public final class PaymentIntent: Codable {
     }
 
     /// If present, this property tells you about the processing state of the payment.
-    public struct Processing: Codable {
+    public final class Processing: Codable {
         public var paymentIntentProcessing: PaymentIntentProcessing?
 
         public init(paymentIntentProcessing: PaymentIntentProcessing? = nil) {
@@ -16185,7 +16185,7 @@ public final class PaymentIntent: Codable {
     }
 }
 
-public struct PaymentIntentNextAction: Codable {
+public final class PaymentIntentNextAction: Codable {
     /// PaymentIntentNextActionAlipayHandleRedirect
     public var alipayHandleRedirect: PaymentIntentNextActionAlipayHandleRedirect?
     /// Payment_intent_next_action_boleto
@@ -16234,7 +16234,7 @@ public struct PaymentIntentNextAction: Codable {
     }
 }
 
-public struct PaymentIntentNextActionAlipayHandleRedirect: Codable {
+public final class PaymentIntentNextActionAlipayHandleRedirect: Codable {
     /// The native data to be used with Alipay SDK you must redirect your customer to in order to authenticate the payment in an Android App.
     public var nativeData: String?
     /// The native URL you must redirect your customer to in order to authenticate the payment in an iOS App.
@@ -16260,7 +16260,7 @@ public struct PaymentIntentNextActionAlipayHandleRedirect: Codable {
 }
 
 /// Payment_intent_next_action_boleto
-public struct PaymentIntentNextActionBoleto: Codable {
+public final class PaymentIntentNextActionBoleto: Codable {
     /// The timestamp after which the boleto expires.
     public var expiresAt: Int?
     /// The URL to the hosted boleto voucher page, which allows customers to view the boleto voucher.
@@ -16285,7 +16285,7 @@ public struct PaymentIntentNextActionBoleto: Codable {
     }
 }
 
-public struct PaymentIntentNextActionDisplayOxxoDetails: Codable {
+public final class PaymentIntentNextActionDisplayOxxoDetails: Codable {
     /// The timestamp after which the OXXO voucher expires.
     public var expiresAfter: Int?
     /// The URL for the hosted OXXO voucher page, which allows customers to view and print an OXXO voucher.
@@ -16306,7 +16306,7 @@ public struct PaymentIntentNextActionDisplayOxxoDetails: Codable {
     }
 }
 
-public struct PaymentIntentNextActionRedirectToURL: Codable {
+public final class PaymentIntentNextActionRedirectToURL: Codable {
     /// If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
     public var returnURL: String?
     /// The URL you must redirect your customer to in order to authenticate the payment.
@@ -16323,7 +16323,7 @@ public struct PaymentIntentNextActionRedirectToURL: Codable {
     }
 }
 
-public struct PaymentIntentNextActionVerifyWithMicrodeposits: Codable {
+public final class PaymentIntentNextActionVerifyWithMicrodeposits: Codable {
     /// The timestamp when the microdeposits are expected to land.
     public var arrivalDate: Int
     /// The URL for the hosted verification page, which allows customers to verify their bank account.
@@ -16340,7 +16340,7 @@ public struct PaymentIntentNextActionVerifyWithMicrodeposits: Codable {
     }
 }
 
-public struct PaymentIntentNextActionWechatPayDisplayQrCode: Codable {
+public final class PaymentIntentNextActionWechatPayDisplayQrCode: Codable {
     /// The data being used to generate QR code
     public var data: String
     /// The base64 image data for a pre-generated QR code
@@ -16357,7 +16357,7 @@ public struct PaymentIntentNextActionWechatPayDisplayQrCode: Codable {
     }
 }
 
-public struct PaymentIntentNextActionWechatPayRedirectToAndroidApp: Codable {
+public final class PaymentIntentNextActionWechatPayRedirectToAndroidApp: Codable {
     /// App_id is the APP ID registered on WeChat open platform
     public var appID: String
     /// Nonce_str is a random string
@@ -16394,7 +16394,7 @@ public struct PaymentIntentNextActionWechatPayRedirectToAndroidApp: Codable {
     }
 }
 
-public struct PaymentIntentNextActionWechatPayRedirectToIosApp: Codable {
+public final class PaymentIntentNextActionWechatPayRedirectToIosApp: Codable {
     /// An universal link that redirect to Wechat Pay APP
     public var nativeURL: String
 
@@ -16407,7 +16407,7 @@ public struct PaymentIntentNextActionWechatPayRedirectToIosApp: Codable {
     }
 }
 
-public struct PaymentIntentPaymentMethodOptions: Codable {
+public final class PaymentIntentPaymentMethodOptions: Codable {
     public var acssDebit: AcssDebit?
     public var afterpayClearpay: AfterpayClearpay?
     public var alipay: Alipay?
@@ -16425,7 +16425,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
     public var sofort: Sofort?
     public var wechatPay: WechatPay?
 
-    public struct AcssDebit: Codable {
+    public final class AcssDebit: Codable {
         /// Payment_intent_payment_method_options_acss_debit
         public var paymentIntentPaymentMethodOptionsAcssDebit: PaymentIntentPaymentMethodOptionsAcssDebit?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16448,7 +16448,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct AfterpayClearpay: Codable {
+    public final class AfterpayClearpay: Codable {
         /// Payment_method_options_afterpay_clearpay
         public var paymentMethodOptionsAfterpayClearpay: PaymentMethodOptionsAfterpayClearpay?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16471,7 +16471,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Alipay: Codable {
+    public final class Alipay: Codable {
         /// Payment_method_options_alipay
         public var object: [String: AnyJSON]?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16494,7 +16494,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Bancontact: Codable {
+    public final class Bancontact: Codable {
         /// Payment_method_options_bancontact
         public var paymentMethodOptionsBancontact: PaymentMethodOptionsBancontact?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16517,7 +16517,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Boleto: Codable {
+    public final class Boleto: Codable {
         /// Payment_method_options_boleto
         public var paymentMethodOptionsBoleto: PaymentMethodOptionsBoleto?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16540,7 +16540,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Card: Codable {
+    public final class Card: Codable {
         /// Payment_intent_payment_method_options_card
         public var paymentIntentPaymentMethodOptionsCard: PaymentIntentPaymentMethodOptionsCard?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16563,7 +16563,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct CardPresent: Codable {
+    public final class CardPresent: Codable {
         /// Payment_method_options_card_present
         public var object: [String: AnyJSON]?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16586,7 +16586,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Giropay: Codable {
+    public final class Giropay: Codable {
         /// Payment_method_options_giropay
         public var object: [String: AnyJSON]?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16609,7 +16609,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Ideal: Codable {
+    public final class Ideal: Codable {
         /// Payment_method_options_ideal
         public var object: [String: AnyJSON]?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16632,7 +16632,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct InteracPresent: Codable {
+    public final class InteracPresent: Codable {
         /// Payment_method_options_interac_present
         public var object: [String: AnyJSON]?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16655,7 +16655,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Klarna: Codable {
+    public final class Klarna: Codable {
         /// Payment_method_options_klarna
         public var paymentMethodOptionsKlarna: PaymentMethodOptionsKlarna?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16678,7 +16678,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Oxxo: Codable {
+    public final class Oxxo: Codable {
         /// Payment_method_options_oxxo
         public var paymentMethodOptionsOxxo: PaymentMethodOptionsOxxo?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16701,7 +16701,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct P24: Codable {
+    public final class P24: Codable {
         /// Payment_method_options_p24
         public var object: [String: AnyJSON]?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16724,7 +16724,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct SepaDebit: Codable {
+    public final class SepaDebit: Codable {
         /// Payment_intent_payment_method_options_sepa_debit
         public var paymentIntentPaymentMethodOptionsSepaDebit: PaymentIntentPaymentMethodOptionsSepaDebit?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16747,7 +16747,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct Sofort: Codable {
+    public final class Sofort: Codable {
         /// Payment_method_options_sofort
         public var paymentMethodOptionsSofort: PaymentMethodOptionsSofort?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16770,7 +16770,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
         }
     }
 
-    public struct WechatPay: Codable {
+    public final class WechatPay: Codable {
         /// Payment_method_options_wechat_pay
         public var paymentMethodOptionsWechatPay: PaymentMethodOptionsWechatPay?
         public var paymentIntentTypeSpecificPaymentMethodOptionsClient: PaymentIntentTypeSpecificPaymentMethodOptionsClient?
@@ -16833,7 +16833,7 @@ public struct PaymentIntentPaymentMethodOptions: Codable {
 }
 
 /// Payment_intent_payment_method_options_acss_debit
-public struct PaymentIntentPaymentMethodOptionsAcssDebit: Codable {
+public final class PaymentIntentPaymentMethodOptionsAcssDebit: Codable {
     /// Payment_intent_payment_method_options_mandate_options_acss_debit
     public var mandateOptions: PaymentIntentPaymentMethodOptionsMandateOptionsAcssDebit?
     /// Bank account verification method.
@@ -16858,7 +16858,7 @@ public struct PaymentIntentPaymentMethodOptionsAcssDebit: Codable {
 }
 
 /// Payment_intent_payment_method_options_card
-public struct PaymentIntentPaymentMethodOptionsCard: Codable {
+public final class PaymentIntentPaymentMethodOptionsCard: Codable {
     /// Installment details for this payment (Mexico only).
     /// 
     /// For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
@@ -16877,7 +16877,7 @@ public struct PaymentIntentPaymentMethodOptionsCard: Codable {
     /// Installment details for this payment (Mexico only).
     /// 
     /// For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
-    public struct Installments: Codable {
+    public final class Installments: Codable {
         /// Payment_method_options_card_installments
         public var paymentMethodOptionsCardInstallments: PaymentMethodOptionsCardInstallments?
 
@@ -16944,7 +16944,7 @@ public struct PaymentIntentPaymentMethodOptionsCard: Codable {
 }
 
 /// Payment_intent_payment_method_options_mandate_options_acss_debit
-public struct PaymentIntentPaymentMethodOptionsMandateOptionsAcssDebit: Codable {
+public final class PaymentIntentPaymentMethodOptionsMandateOptionsAcssDebit: Codable {
     /// A URL for custom mandate text
     public var customMandateURL: String?
     /// Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
@@ -16983,7 +16983,7 @@ public struct PaymentIntentPaymentMethodOptionsMandateOptionsAcssDebit: Codable 
 }
 
 /// Payment_intent_payment_method_options_sepa_debit
-public struct PaymentIntentPaymentMethodOptionsSepaDebit: Codable {
+public final class PaymentIntentPaymentMethodOptionsSepaDebit: Codable {
     /// Payment_intent_payment_method_options_mandate_options_sepa_debit
     public var mandateOptions: [String: AnyJSON]?
 
@@ -16996,7 +16996,7 @@ public struct PaymentIntentPaymentMethodOptionsSepaDebit: Codable {
     }
 }
 
-public struct PaymentIntentProcessing: Codable {
+public final class PaymentIntentProcessing: Codable {
     /// PaymentIntentCardProcessing
     public var card: [String: AnyJSON]?
     /// Type of the next action to perform, one of `card`.
@@ -17008,7 +17008,7 @@ public struct PaymentIntentProcessing: Codable {
     }
 }
 
-public struct PaymentIntentTypeSpecificPaymentMethodOptionsClient: Codable {
+public final class PaymentIntentTypeSpecificPaymentMethodOptionsClient: Codable {
     /// Indicates that you intend to make future payments with this PaymentIntent's payment method.
     /// 
     /// Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
@@ -17041,7 +17041,7 @@ public struct PaymentIntentTypeSpecificPaymentMethodOptionsClient: Codable {
 /// Customer objects to store instrument details for future payments.
 /// 
 /// Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
-public struct PaymentMethod: Codable {
+public final class PaymentMethod: Codable {
     /// Payment_method_acss_debit
     public var acssDebit: PaymentMethodAcssDebit?
     /// Payment_method_afterpay_clearpay
@@ -17218,7 +17218,7 @@ public struct PaymentMethod: Codable {
 }
 
 /// Payment_method_acss_debit
-public struct PaymentMethodAcssDebit: Codable {
+public final class PaymentMethodAcssDebit: Codable {
     /// Name of the bank associated with the bank account.
     public var bankName: String?
     /// Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -17248,7 +17248,7 @@ public struct PaymentMethodAcssDebit: Codable {
 }
 
 /// Payment_method_au_becs_debit
-public struct PaymentMethodAuBecsDebit: Codable {
+public final class PaymentMethodAuBecsDebit: Codable {
     /// Six-digit number identifying bank and branch associated with this bank account.
     public var bsbNumber: String?
     /// Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -17270,7 +17270,7 @@ public struct PaymentMethodAuBecsDebit: Codable {
 }
 
 /// Payment_method_bacs_debit
-public struct PaymentMethodBacsDebit: Codable {
+public final class PaymentMethodBacsDebit: Codable {
     /// Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
     public var fingerprint: String?
     /// Last four digits of the bank account number.
@@ -17292,7 +17292,7 @@ public struct PaymentMethodBacsDebit: Codable {
 }
 
 /// Payment_method_boleto
-public struct PaymentMethodBoleto: Codable {
+public final class PaymentMethodBoleto: Codable {
     /// Uniquely identifies the customer tax id (CNPJ or CPF)
     public var taxID: String
 
@@ -17306,7 +17306,7 @@ public struct PaymentMethodBoleto: Codable {
 }
 
 /// Payment_method_card
-public struct PaymentMethodCard: Codable {
+public final class PaymentMethodCard: Codable {
     /// Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
     public var brand: String
     /// Checks on Card address and CVC if provided.
@@ -17335,7 +17335,7 @@ public struct PaymentMethodCard: Codable {
     public var wallet: Wallet?
 
     /// Checks on Card address and CVC if provided.
-    public struct Checks: Codable {
+    public final class Checks: Codable {
         /// Payment_method_card_checks
         public var paymentMethodCardChecks: PaymentMethodCardChecks?
 
@@ -17355,7 +17355,7 @@ public struct PaymentMethodCard: Codable {
     }
 
     /// Details of the original PaymentMethod that created this object.
-    public struct GeneratedFrom: Codable {
+    public final class GeneratedFrom: Codable {
         public var paymentMethodCardGeneratedCard: PaymentMethodCardGeneratedCard?
 
         public init(paymentMethodCardGeneratedCard: PaymentMethodCardGeneratedCard? = nil) {
@@ -17413,7 +17413,7 @@ public struct PaymentMethodCard: Codable {
     }
 
     /// If this Card is part of a card wallet, this contains the details of the card wallet.
-    public struct Wallet: Codable {
+    public final class Wallet: Codable {
         /// Payment_method_card_wallet
         public var paymentMethodCardWallet: PaymentMethodCardWallet?
 
@@ -17464,7 +17464,7 @@ public struct PaymentMethodCard: Codable {
 }
 
 /// Payment_method_card_checks
-public struct PaymentMethodCardChecks: Codable {
+public final class PaymentMethodCardChecks: Codable {
     /// If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
     public var addressLine1Check: String?
     /// If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -17486,7 +17486,7 @@ public struct PaymentMethodCardChecks: Codable {
 }
 
 /// Payment_method_card_generated_card
-public struct PaymentMethodCardGeneratedCard: Codable {
+public final class PaymentMethodCardGeneratedCard: Codable {
     /// The charge that created this object.
     public var charge: String?
     /// Transaction-specific details of the payment method used in the payment.
@@ -17495,7 +17495,7 @@ public struct PaymentMethodCardGeneratedCard: Codable {
     public var setupAttempt: SetupAttempt?
 
     /// Transaction-specific details of the payment method used in the payment.
-    public struct PaymentMethodDetails: Codable {
+    public final class PaymentMethodDetails: Codable {
         /// Card_generated_from_payment_method_details
         public var cardGeneratedFromPaymentMethodDetails: CardGeneratedFromPaymentMethodDetails?
 
@@ -17551,7 +17551,7 @@ public struct PaymentMethodCardGeneratedCard: Codable {
 }
 
 /// Payment_method_card_wallet
-public struct PaymentMethodCardWallet: Codable {
+public final class PaymentMethodCardWallet: Codable {
     /// Payment_method_card_wallet_amex_express_checkout
     public var amexExpressCheckout: [String: AnyJSON]?
     /// Payment_method_card_wallet_apple_pay
@@ -17603,7 +17603,7 @@ public struct PaymentMethodCardWallet: Codable {
 }
 
 /// Payment_method_card_wallet_masterpass
-public struct PaymentMethodCardWalletMasterpass: Codable {
+public final class PaymentMethodCardWalletMasterpass: Codable {
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
     public var billingAddress: BillingAddress?
     /// Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
@@ -17614,7 +17614,7 @@ public struct PaymentMethodCardWalletMasterpass: Codable {
     public var shippingAddress: ShippingAddress?
 
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct BillingAddress: Codable {
+    public final class BillingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -17633,7 +17633,7 @@ public struct PaymentMethodCardWalletMasterpass: Codable {
     }
 
     /// Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct ShippingAddress: Codable {
+    public final class ShippingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -17667,7 +17667,7 @@ public struct PaymentMethodCardWalletMasterpass: Codable {
 }
 
 /// Payment_method_card_wallet_visa_checkout
-public struct PaymentMethodCardWalletVisaCheckout: Codable {
+public final class PaymentMethodCardWalletVisaCheckout: Codable {
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
     public var billingAddress: BillingAddress?
     /// Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
@@ -17678,7 +17678,7 @@ public struct PaymentMethodCardWalletVisaCheckout: Codable {
     public var shippingAddress: ShippingAddress?
 
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct BillingAddress: Codable {
+    public final class BillingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -17697,7 +17697,7 @@ public struct PaymentMethodCardWalletVisaCheckout: Codable {
     }
 
     /// Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct ShippingAddress: Codable {
+    public final class ShippingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -17731,7 +17731,7 @@ public struct PaymentMethodCardWalletVisaCheckout: Codable {
 }
 
 /// Payment_method_details
-public struct PaymentMethodDetails: Codable {
+public final class PaymentMethodDetails: Codable {
     /// Payment_method_details_ach_credit_transfer
     public var achCreditTransfer: PaymentMethodDetailsAchCreditTransfer?
     /// Payment_method_details_ach_debit
@@ -17848,7 +17848,7 @@ public struct PaymentMethodDetails: Codable {
 }
 
 /// Payment_method_details_ach_credit_transfer
-public struct PaymentMethodDetailsAchCreditTransfer: Codable {
+public final class PaymentMethodDetailsAchCreditTransfer: Codable {
     /// Account number to transfer funds to.
     public var accountNumber: String?
     /// Name of the bank associated with the routing number.
@@ -17874,7 +17874,7 @@ public struct PaymentMethodDetailsAchCreditTransfer: Codable {
 }
 
 /// Payment_method_details_ach_debit
-public struct PaymentMethodDetailsAchDebit: Codable {
+public final class PaymentMethodDetailsAchDebit: Codable {
     /// Type of entity that holds the account. This can be either `individual` or `company`.
     public var accountHolderType: AccountHolderType?
     /// Name of the bank associated with the bank account.
@@ -17914,7 +17914,7 @@ public struct PaymentMethodDetailsAchDebit: Codable {
 }
 
 /// Payment_method_details_acss_debit
-public struct PaymentMethodDetailsAcssDebit: Codable {
+public final class PaymentMethodDetailsAcssDebit: Codable {
     /// Name of the bank associated with the bank account.
     public var bankName: String?
     /// Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -17948,7 +17948,7 @@ public struct PaymentMethodDetailsAcssDebit: Codable {
 }
 
 /// Payment_method_details_afterpay_clearpay
-public struct PaymentMethodDetailsAfterpayClearpay: Codable {
+public final class PaymentMethodDetailsAfterpayClearpay: Codable {
     /// Order identifier shown to the merchant in Afterpay’s online portal.
     public var reference: String?
 
@@ -17958,7 +17958,7 @@ public struct PaymentMethodDetailsAfterpayClearpay: Codable {
 }
 
 /// Payment_method_details_au_becs_debit
-public struct PaymentMethodDetailsAuBecsDebit: Codable {
+public final class PaymentMethodDetailsAuBecsDebit: Codable {
     /// Bank-State-Branch number of the bank account.
     public var bsbNumber: String?
     /// Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -17984,7 +17984,7 @@ public struct PaymentMethodDetailsAuBecsDebit: Codable {
 }
 
 /// Payment_method_details_bacs_debit
-public struct PaymentMethodDetailsBacsDebit: Codable {
+public final class PaymentMethodDetailsBacsDebit: Codable {
     /// Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
     public var fingerprint: String?
     /// Last four digits of the bank account number.
@@ -18010,7 +18010,7 @@ public struct PaymentMethodDetailsBacsDebit: Codable {
 }
 
 /// Payment_method_details_bancontact
-public struct PaymentMethodDetailsBancontact: Codable {
+public final class PaymentMethodDetailsBancontact: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Name of the bank associated with the bank account.
@@ -18031,7 +18031,7 @@ public struct PaymentMethodDetailsBancontact: Codable {
     public var verifiedName: String?
 
     /// The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-    public struct GeneratedSepaDebit: Codable {
+    public final class GeneratedSepaDebit: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -18054,7 +18054,7 @@ public struct PaymentMethodDetailsBancontact: Codable {
     }
 
     /// The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-    public struct GeneratedSepaDebitMandate: Codable {
+    public final class GeneratedSepaDebitMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -18109,7 +18109,7 @@ public struct PaymentMethodDetailsBancontact: Codable {
 }
 
 /// Payment_method_details_boleto
-public struct PaymentMethodDetailsBoleto: Codable {
+public final class PaymentMethodDetailsBoleto: Codable {
     /// The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
     public var taxID: String
 
@@ -18123,7 +18123,7 @@ public struct PaymentMethodDetailsBoleto: Codable {
 }
 
 /// Payment_method_details_card
-public struct PaymentMethodDetailsCard: Codable {
+public final class PaymentMethodDetailsCard: Codable {
     /// Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
     public var brand: String?
     /// Check results by Card networks on Card address and CVC at time of payment.
@@ -18154,7 +18154,7 @@ public struct PaymentMethodDetailsCard: Codable {
     public var wallet: Wallet?
 
     /// Check results by Card networks on Card address and CVC at time of payment.
-    public struct Checks: Codable {
+    public final class Checks: Codable {
         /// Payment_method_details_card_checks
         public var paymentMethodDetailsCardChecks: PaymentMethodDetailsCardChecks?
 
@@ -18176,7 +18176,7 @@ public struct PaymentMethodDetailsCard: Codable {
     /// Installment details for this payment (Mexico only).
     /// 
     /// For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
-    public struct Installments: Codable {
+    public final class Installments: Codable {
         /// Payment_method_details_card_installments
         public var paymentMethodDetailsCardInstallments: PaymentMethodDetailsCardInstallments?
 
@@ -18196,7 +18196,7 @@ public struct PaymentMethodDetailsCard: Codable {
     }
 
     /// Populated if this transaction used 3D Secure authentication.
-    public struct ThreeDSecure: Codable {
+    public final class ThreeDSecure: Codable {
         /// Three_d_secure_details
         public var threeDSecureDetails: ThreeDSecureDetails?
 
@@ -18216,7 +18216,7 @@ public struct PaymentMethodDetailsCard: Codable {
     }
 
     /// If this Card is part of a card wallet, this contains the details of the card wallet.
-    public struct Wallet: Codable {
+    public final class Wallet: Codable {
         /// Payment_method_details_card_wallet
         public var paymentMethodDetailsCardWallet: PaymentMethodDetailsCardWallet?
 
@@ -18267,7 +18267,7 @@ public struct PaymentMethodDetailsCard: Codable {
 }
 
 /// Payment_method_details_card_checks
-public struct PaymentMethodDetailsCardChecks: Codable {
+public final class PaymentMethodDetailsCardChecks: Codable {
     /// If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
     public var addressLine1Check: String?
     /// If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -18289,12 +18289,12 @@ public struct PaymentMethodDetailsCardChecks: Codable {
 }
 
 /// Payment_method_details_card_installments
-public struct PaymentMethodDetailsCardInstallments: Codable {
+public final class PaymentMethodDetailsCardInstallments: Codable {
     /// Installment plan selected for the payment.
     public var plan: Plan?
 
     /// Installment plan selected for the payment.
-    public struct Plan: Codable {
+    public final class Plan: Codable {
         /// Payment_method_details_card_installments_plan
         public var paymentMethodDetailsCardInstallmentsPlan: PaymentMethodDetailsCardInstallmentsPlan?
 
@@ -18319,7 +18319,7 @@ public struct PaymentMethodDetailsCardInstallments: Codable {
 }
 
 /// Payment_method_details_card_installments_plan
-public struct PaymentMethodDetailsCardInstallmentsPlan: Codable {
+public final class PaymentMethodDetailsCardInstallmentsPlan: Codable {
     /// For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
     public var count: Int?
     /// For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
@@ -18347,7 +18347,7 @@ public struct PaymentMethodDetailsCardInstallmentsPlan: Codable {
 }
 
 /// Payment_method_details_card_present
-public struct PaymentMethodDetailsCardPresent: Codable {
+public final class PaymentMethodDetailsCardPresent: Codable {
     /// The authorized amount
     public var amountAuthorized: Int?
     /// Card brand. Can be `amex`, `diners`, `discover`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -18391,7 +18391,7 @@ public struct PaymentMethodDetailsCardPresent: Codable {
     }
 
     /// A collection of fields required to be displayed on receipts. Only required for EMV transactions.
-    public struct Receipt: Codable {
+    public final class Receipt: Codable {
         /// Payment_method_details_card_present_receipt
         public var paymentMethodDetailsCardPresentReceipt: PaymentMethodDetailsCardPresentReceipt?
 
@@ -18448,7 +18448,7 @@ public struct PaymentMethodDetailsCardPresent: Codable {
 }
 
 /// Payment_method_details_card_present_receipt
-public struct PaymentMethodDetailsCardPresentReceipt: Codable {
+public final class PaymentMethodDetailsCardPresentReceipt: Codable {
     /// The type of account being debited or credited
     public var accountType: AccountType?
     /// EMV tag 9F26, cryptogram generated by the integrated circuit chip.
@@ -18502,7 +18502,7 @@ public struct PaymentMethodDetailsCardPresentReceipt: Codable {
 }
 
 /// Payment_method_details_card_wallet
-public struct PaymentMethodDetailsCardWallet: Codable {
+public final class PaymentMethodDetailsCardWallet: Codable {
     /// Payment_method_details_card_wallet_amex_express_checkout
     public var amexExpressCheckout: [String: AnyJSON]?
     /// Payment_method_details_card_wallet_apple_pay
@@ -18554,7 +18554,7 @@ public struct PaymentMethodDetailsCardWallet: Codable {
 }
 
 /// Payment_method_details_card_wallet_masterpass
-public struct PaymentMethodDetailsCardWalletMasterpass: Codable {
+public final class PaymentMethodDetailsCardWalletMasterpass: Codable {
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
     public var billingAddress: BillingAddress?
     /// Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
@@ -18565,7 +18565,7 @@ public struct PaymentMethodDetailsCardWalletMasterpass: Codable {
     public var shippingAddress: ShippingAddress?
 
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct BillingAddress: Codable {
+    public final class BillingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -18584,7 +18584,7 @@ public struct PaymentMethodDetailsCardWalletMasterpass: Codable {
     }
 
     /// Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct ShippingAddress: Codable {
+    public final class ShippingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -18618,7 +18618,7 @@ public struct PaymentMethodDetailsCardWalletMasterpass: Codable {
 }
 
 /// Payment_method_details_card_wallet_visa_checkout
-public struct PaymentMethodDetailsCardWalletVisaCheckout: Codable {
+public final class PaymentMethodDetailsCardWalletVisaCheckout: Codable {
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
     public var billingAddress: BillingAddress?
     /// Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
@@ -18629,7 +18629,7 @@ public struct PaymentMethodDetailsCardWalletVisaCheckout: Codable {
     public var shippingAddress: ShippingAddress?
 
     /// Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct BillingAddress: Codable {
+    public final class BillingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -18648,7 +18648,7 @@ public struct PaymentMethodDetailsCardWalletVisaCheckout: Codable {
     }
 
     /// Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct ShippingAddress: Codable {
+    public final class ShippingAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -18682,7 +18682,7 @@ public struct PaymentMethodDetailsCardWalletVisaCheckout: Codable {
 }
 
 /// Payment_method_details_eps
-public struct PaymentMethodDetailsEps: Codable {
+public final class PaymentMethodDetailsEps: Codable {
     /// The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
     public var bank: Bank?
     /// Owner's verified full name. Values are verified or provided by EPS directly
@@ -18733,7 +18733,7 @@ public struct PaymentMethodDetailsEps: Codable {
 }
 
 /// Payment_method_details_fpx
-public struct PaymentMethodDetailsFpx: Codable {
+public final class PaymentMethodDetailsFpx: Codable {
     /// The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
     public var bank: Bank
     /// Unique transaction id generated by FPX for every request from the merchant
@@ -18776,7 +18776,7 @@ public struct PaymentMethodDetailsFpx: Codable {
 }
 
 /// Payment_method_details_giropay
-public struct PaymentMethodDetailsGiropay: Codable {
+public final class PaymentMethodDetailsGiropay: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Name of the bank associated with the bank account.
@@ -18804,7 +18804,7 @@ public struct PaymentMethodDetailsGiropay: Codable {
 }
 
 /// Payment_method_details_grabpay
-public struct PaymentMethodDetailsGrabpay: Codable {
+public final class PaymentMethodDetailsGrabpay: Codable {
     /// Unique transaction id generated by GrabPay
     public var transactionID: String?
 
@@ -18818,7 +18818,7 @@ public struct PaymentMethodDetailsGrabpay: Codable {
 }
 
 /// Payment_method_details_ideal
-public struct PaymentMethodDetailsIdeal: Codable {
+public final class PaymentMethodDetailsIdeal: Codable {
     /// The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
     public var bank: Bank?
     /// The Bank Identifier Code of the customer's bank.
@@ -18868,7 +18868,7 @@ public struct PaymentMethodDetailsIdeal: Codable {
     }
 
     /// The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-    public struct GeneratedSepaDebit: Codable {
+    public final class GeneratedSepaDebit: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -18891,7 +18891,7 @@ public struct PaymentMethodDetailsIdeal: Codable {
     }
 
     /// The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-    public struct GeneratedSepaDebitMandate: Codable {
+    public final class GeneratedSepaDebitMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -18933,7 +18933,7 @@ public struct PaymentMethodDetailsIdeal: Codable {
 }
 
 /// Payment_method_details_interac_present
-public struct PaymentMethodDetailsInteracPresent: Codable {
+public final class PaymentMethodDetailsInteracPresent: Codable {
     /// Card brand. Can be `interac`, `mastercard` or `visa`.
     public var brand: String?
     /// The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
@@ -18975,7 +18975,7 @@ public struct PaymentMethodDetailsInteracPresent: Codable {
     }
 
     /// A collection of fields required to be displayed on receipts. Only required for EMV transactions.
-    public struct Receipt: Codable {
+    public final class Receipt: Codable {
         /// Payment_method_details_interac_present_receipt
         public var paymentMethodDetailsInteracPresentReceipt: PaymentMethodDetailsInteracPresentReceipt?
 
@@ -19030,7 +19030,7 @@ public struct PaymentMethodDetailsInteracPresent: Codable {
 }
 
 /// Payment_method_details_interac_present_receipt
-public struct PaymentMethodDetailsInteracPresentReceipt: Codable {
+public final class PaymentMethodDetailsInteracPresentReceipt: Codable {
     /// The type of account being debited or credited
     public var accountType: AccountType?
     /// EMV tag 9F26, cryptogram generated by the integrated circuit chip.
@@ -19083,7 +19083,7 @@ public struct PaymentMethodDetailsInteracPresentReceipt: Codable {
 }
 
 /// Payment_method_details_klarna
-public struct PaymentMethodDetailsKlarna: Codable {
+public final class PaymentMethodDetailsKlarna: Codable {
     /// The Klarna payment method used for this transaction.
     /// Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments`
     public var paymentMethodCategory: String?
@@ -19103,7 +19103,7 @@ public struct PaymentMethodDetailsKlarna: Codable {
 }
 
 /// Payment_method_details_multibanco
-public struct PaymentMethodDetailsMultibanco: Codable {
+public final class PaymentMethodDetailsMultibanco: Codable {
     /// Entity number associated with this Multibanco payment.
     public var entity: String?
     /// Reference number associated with this Multibanco payment.
@@ -19116,7 +19116,7 @@ public struct PaymentMethodDetailsMultibanco: Codable {
 }
 
 /// Payment_method_details_oxxo
-public struct PaymentMethodDetailsOxxo: Codable {
+public final class PaymentMethodDetailsOxxo: Codable {
     /// OXXO reference number
     public var number: String?
 
@@ -19126,7 +19126,7 @@ public struct PaymentMethodDetailsOxxo: Codable {
 }
 
 /// Payment_method_details_p24
-public struct PaymentMethodDetailsP24: Codable {
+public final class PaymentMethodDetailsP24: Codable {
     /// The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`.
     public var bank: Bank?
     /// Unique reference for this Przelewy24 payment.
@@ -19179,7 +19179,7 @@ public struct PaymentMethodDetailsP24: Codable {
 }
 
 /// Payment_method_details_sepa_debit
-public struct PaymentMethodDetailsSepaDebit: Codable {
+public final class PaymentMethodDetailsSepaDebit: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Branch code of bank associated with the bank account.
@@ -19213,7 +19213,7 @@ public struct PaymentMethodDetailsSepaDebit: Codable {
 }
 
 /// Payment_method_details_sofort
-public struct PaymentMethodDetailsSofort: Codable {
+public final class PaymentMethodDetailsSofort: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Name of the bank associated with the bank account.
@@ -19236,7 +19236,7 @@ public struct PaymentMethodDetailsSofort: Codable {
     public var verifiedName: String?
 
     /// The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-    public struct GeneratedSepaDebit: Codable {
+    public final class GeneratedSepaDebit: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -19259,7 +19259,7 @@ public struct PaymentMethodDetailsSofort: Codable {
     }
 
     /// The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
-    public struct GeneratedSepaDebitMandate: Codable {
+    public final class GeneratedSepaDebitMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -19319,7 +19319,7 @@ public struct PaymentMethodDetailsSofort: Codable {
 }
 
 /// Payment_method_details_wechat_pay
-public struct PaymentMethodDetailsWechatPay: Codable {
+public final class PaymentMethodDetailsWechatPay: Codable {
     /// Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
     public var fingerprint: String?
     /// Transaction ID of this particular WeChat Pay transaction.
@@ -19337,7 +19337,7 @@ public struct PaymentMethodDetailsWechatPay: Codable {
 }
 
 /// Payment_method_eps
-public struct PaymentMethodEps: Codable {
+public final class PaymentMethodEps: Codable {
     /// The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
     public var bank: Bank?
 
@@ -19378,7 +19378,7 @@ public struct PaymentMethodEps: Codable {
 }
 
 /// Payment_method_fpx
-public struct PaymentMethodFpx: Codable {
+public final class PaymentMethodFpx: Codable {
     /// The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, or `pb_enterprise`.
     public var bank: Bank
 
@@ -19413,7 +19413,7 @@ public struct PaymentMethodFpx: Codable {
 }
 
 /// Payment_method_ideal
-public struct PaymentMethodIdeal: Codable {
+public final class PaymentMethodIdeal: Codable {
     /// The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
     public var bank: Bank?
     /// The Bank Identifier Code of the customer's bank, if the bank was provided.
@@ -19460,12 +19460,12 @@ public struct PaymentMethodIdeal: Codable {
 }
 
 /// Payment_method_klarna
-public struct PaymentMethodKlarna: Codable {
+public final class PaymentMethodKlarna: Codable {
     /// The customer's date of birth, if provided.
     public var dob: Dob?
 
     /// The customer's date of birth, if provided.
-    public struct Dob: Codable {
+    public final class Dob: Codable {
         public var paymentFlowsPrivatePaymentMethodsKlarnaDob: PaymentFlowsPrivatePaymentMethodsKlarnaDob?
 
         public init(paymentFlowsPrivatePaymentMethodsKlarnaDob: PaymentFlowsPrivatePaymentMethodsKlarnaDob? = nil) {
@@ -19489,7 +19489,7 @@ public struct PaymentMethodKlarna: Codable {
 }
 
 /// Payment_method_options_afterpay_clearpay
-public struct PaymentMethodOptionsAfterpayClearpay: Codable {
+public final class PaymentMethodOptionsAfterpayClearpay: Codable {
     /// Order identifier shown to the merchant in Afterpay’s online portal. We recommend using a value that helps you answer any questions a customer might have about
     /// the payment. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
     public var reference: String?
@@ -19500,7 +19500,7 @@ public struct PaymentMethodOptionsAfterpayClearpay: Codable {
 }
 
 /// Payment_method_options_bancontact
-public struct PaymentMethodOptionsBancontact: Codable {
+public final class PaymentMethodOptionsBancontact: Codable {
     /// Preferred language of the Bancontact authorization page that the customer is redirected to.
     public var preferredLanguage: PreferredLanguage
 
@@ -19522,7 +19522,7 @@ public struct PaymentMethodOptionsBancontact: Codable {
 }
 
 /// Payment_method_options_boleto
-public struct PaymentMethodOptionsBoleto: Codable {
+public final class PaymentMethodOptionsBoleto: Codable {
     /// The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
     public var expiresAfterDays: Int
 
@@ -19536,7 +19536,7 @@ public struct PaymentMethodOptionsBoleto: Codable {
 }
 
 /// Payment_method_options_card_installments
-public struct PaymentMethodOptionsCardInstallments: Codable {
+public final class PaymentMethodOptionsCardInstallments: Codable {
     /// Installment plans that may be selected for this PaymentIntent.
     public var availablePlans: [PaymentMethodDetailsCardInstallmentsPlan]?
     /// Whether Installments are enabled for this PaymentIntent.
@@ -19545,7 +19545,7 @@ public struct PaymentMethodOptionsCardInstallments: Codable {
     public var plan: Plan?
 
     /// Installment plan selected for this PaymentIntent.
-    public struct Plan: Codable {
+    public final class Plan: Codable {
         /// Payment_method_details_card_installments_plan
         public var paymentMethodDetailsCardInstallmentsPlan: PaymentMethodDetailsCardInstallmentsPlan?
 
@@ -19578,7 +19578,7 @@ public struct PaymentMethodOptionsCardInstallments: Codable {
 }
 
 /// Payment_method_options_klarna
-public struct PaymentMethodOptionsKlarna: Codable {
+public final class PaymentMethodOptionsKlarna: Codable {
     /// Preferred locale of the Klarna checkout page that the customer is redirected to.
     public var preferredLocale: String?
 
@@ -19592,7 +19592,7 @@ public struct PaymentMethodOptionsKlarna: Codable {
 }
 
 /// Payment_method_options_oxxo
-public struct PaymentMethodOptionsOxxo: Codable {
+public final class PaymentMethodOptionsOxxo: Codable {
     /// The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
     public var expiresAfterDays: Int
 
@@ -19606,7 +19606,7 @@ public struct PaymentMethodOptionsOxxo: Codable {
 }
 
 /// Payment_method_options_sofort
-public struct PaymentMethodOptionsSofort: Codable {
+public final class PaymentMethodOptionsSofort: Codable {
     /// Preferred language of the SOFORT authorization page that the customer is redirected to.
     public var preferredLanguage: PreferredLanguage?
 
@@ -19631,7 +19631,7 @@ public struct PaymentMethodOptionsSofort: Codable {
 }
 
 /// Payment_method_options_wechat_pay
-public struct PaymentMethodOptionsWechatPay: Codable {
+public final class PaymentMethodOptionsWechatPay: Codable {
     /// The app ID registered with WeChat Pay. Only required when client is ios or android.
     public var appID: String?
     /// The client type that the end customer will pay from
@@ -19656,7 +19656,7 @@ public struct PaymentMethodOptionsWechatPay: Codable {
 }
 
 /// Payment_method_p24
-public struct PaymentMethodP24: Codable {
+public final class PaymentMethodP24: Codable {
     /// The customer's bank, if provided.
     public var bank: Bank?
 
@@ -19695,7 +19695,7 @@ public struct PaymentMethodP24: Codable {
 }
 
 /// Payment_method_sepa_debit
-public struct PaymentMethodSepaDebit: Codable {
+public final class PaymentMethodSepaDebit: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Branch code of bank associated with the bank account.
@@ -19710,7 +19710,7 @@ public struct PaymentMethodSepaDebit: Codable {
     public var last4: String?
 
     /// Information about the object that generated this PaymentMethod.
-    public struct GeneratedFrom: Codable {
+    public final class GeneratedFrom: Codable {
         public var sepaDebitGeneratedFrom: SepaDebitGeneratedFrom?
 
         public init(sepaDebitGeneratedFrom: SepaDebitGeneratedFrom? = nil) {
@@ -19748,7 +19748,7 @@ public struct PaymentMethodSepaDebit: Codable {
 }
 
 /// Payment_method_sofort
-public struct PaymentMethodSofort: Codable {
+public final class PaymentMethodSofort: Codable {
     /// Two-letter ISO code representing the country the bank account is located in.
     public var country: String?
 
@@ -19757,12 +19757,12 @@ public struct PaymentMethodSofort: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionAfterExpiration: Codable {
+public final class PaymentPagesCheckoutSessionAfterExpiration: Codable {
     /// When set, configuration used to recover the Checkout Session on expiry.
     public var recovery: Recovery?
 
     /// When set, configuration used to recover the Checkout Session on expiry.
-    public struct Recovery: Codable {
+    public final class Recovery: Codable {
         public var paymentPagesCheckoutSessionAfterExpirationRecovery: PaymentPagesCheckoutSessionAfterExpirationRecovery?
 
         public init(paymentPagesCheckoutSessionAfterExpirationRecovery: PaymentPagesCheckoutSessionAfterExpirationRecovery? = nil) {
@@ -19785,7 +19785,7 @@ public struct PaymentPagesCheckoutSessionAfterExpiration: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionAfterExpirationRecovery: Codable {
+public final class PaymentPagesCheckoutSessionAfterExpirationRecovery: Codable {
     /// Enables user redeemable promotion codes on the recovered Checkout Sessions. Defaults to `false`
     public var allowPromotionCodes: Bool
     /// If `true`, a recovery url will be generated to recover this Checkout Session if it
@@ -19812,7 +19812,7 @@ public struct PaymentPagesCheckoutSessionAfterExpirationRecovery: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionAutomaticTax: Codable {
+public final class PaymentPagesCheckoutSessionAutomaticTax: Codable {
     /// Indicates whether automatic tax is enabled for the session
     public var isEnabled: Bool
     /// The status of the most recent automated tax calculation for this session.
@@ -19836,7 +19836,7 @@ public struct PaymentPagesCheckoutSessionAutomaticTax: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionConsent: Codable {
+public final class PaymentPagesCheckoutSessionConsent: Codable {
     /// If `opt_in`, the customer consents to receiving promotional communications
     /// from the merchant about this Checkout Session.
     public var promotions: Promotions?
@@ -19853,7 +19853,7 @@ public struct PaymentPagesCheckoutSessionConsent: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionConsentCollection: Codable {
+public final class PaymentPagesCheckoutSessionConsentCollection: Codable {
     /// If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
     /// Session will determine whether to display an option to opt into promotional communication
     /// from the merchant depending on the customer's locale. Only available to US merchants.
@@ -19871,7 +19871,7 @@ public struct PaymentPagesCheckoutSessionConsentCollection: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionCustomerDetails: Codable {
+public final class PaymentPagesCheckoutSessionCustomerDetails: Codable {
     /// The email associated with the Customer, if one exists, on the Checkout Session at the time of checkout or at time of session expiry.
     /// Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
     public var email: String?
@@ -19904,7 +19904,7 @@ public struct PaymentPagesCheckoutSessionCustomerDetails: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionPhoneNumberCollection: Codable {
+public final class PaymentPagesCheckoutSessionPhoneNumberCollection: Codable {
     /// Indicates whether phone number collection is enabled for the session
     public var isEnabled: Bool
 
@@ -19917,7 +19917,7 @@ public struct PaymentPagesCheckoutSessionPhoneNumberCollection: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionShippingOption: Codable {
+public final class PaymentPagesCheckoutSessionShippingOption: Codable {
     /// A non-negative integer in cents representing how much to charge.
     public var shippingAmount: Int
     /// The shipping rate.
@@ -19959,7 +19959,7 @@ public struct PaymentPagesCheckoutSessionShippingOption: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionTaxID: Codable {
+public final class PaymentPagesCheckoutSessionTaxID: Codable {
     /// The type of the tax ID, one of `eu_vat`, `br_cnpj`, `br_cpf`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, or `unknown`
     public var type: `Type`
     /// The value of the tax ID.
@@ -20017,7 +20017,7 @@ public struct PaymentPagesCheckoutSessionTaxID: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionTaxIDCollection: Codable {
+public final class PaymentPagesCheckoutSessionTaxIDCollection: Codable {
     /// Indicates whether tax ID collection is enabled for the session
     public var isEnabled: Bool
 
@@ -20030,7 +20030,7 @@ public struct PaymentPagesCheckoutSessionTaxIDCollection: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionTotalDetails: Codable {
+public final class PaymentPagesCheckoutSessionTotalDetails: Codable {
     /// This is the sum of all the line item discounts.
     public var amountDiscount: Int
     /// This is the sum of all the line item shipping amounts.
@@ -20054,7 +20054,7 @@ public struct PaymentPagesCheckoutSessionTotalDetails: Codable {
     }
 }
 
-public struct PaymentPagesCheckoutSessionTotalDetailsResourceBreakdown: Codable {
+public final class PaymentPagesCheckoutSessionTotalDetailsResourceBreakdown: Codable {
     /// The aggregated line item discounts.
     public var discounts: [LineItemsDiscountAmount]
     /// The aggregated line item tax amounts by rate.
@@ -20066,7 +20066,7 @@ public struct PaymentPagesCheckoutSessionTotalDetailsResourceBreakdown: Codable 
     }
 }
 
-public struct PaymentPagesPaymentPageResourcesShippingAddressCollection: Codable {
+public final class PaymentPagesPaymentPageResourcesShippingAddressCollection: Codable {
     /// An array of two-letter ISO country codes representing which countries Checkout should provide as options for
     /// shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
     public var allowedCountries: [AllowedCountry]
@@ -20321,7 +20321,7 @@ public struct PaymentPagesPaymentPageResourcesShippingAddressCollection: Codable
 }
 
 /// Polymorphic
-public struct PaymentSource: Codable {
+public final class PaymentSource: Codable {
     public var account: Account?
     public var alipayAccount: AlipayAccount?
     public var bankAccount: BankAccount?
@@ -20443,7 +20443,7 @@ public final class Payout: Codable {
     }
 
     /// ID of the bank account or card the payout was sent to.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var bankAccount: BankAccount?
         public var card: Card?
@@ -20478,7 +20478,7 @@ public final class Payout: Codable {
     }
 
     /// If the payout failed or was canceled, this will be the ID of the balance transaction that reversed the initial balance transaction, and puts the funds from the failed payout back in your balance.
-    public struct FailureBalanceTransaction: Codable {
+    public final class FailureBalanceTransaction: Codable {
         public var string: String?
         public var balanceTransaction: BalanceTransaction?
 
@@ -20506,7 +20506,7 @@ public final class Payout: Codable {
     }
 
     /// If the payout reverses another, this is the ID of the original payout.
-    public struct OriginalPayout: Codable {
+    public final class OriginalPayout: Codable {
         public var string: String?
         public var payout: Payout?
 
@@ -20529,7 +20529,7 @@ public final class Payout: Codable {
     }
 
     /// If the payout was reversed, this is the ID of the payout that reverses this payout.
-    public struct ReversedBy: Codable {
+    public final class ReversedBy: Codable {
         public var string: String?
         public var payout: Payout?
 
@@ -20608,7 +20608,7 @@ public final class Payout: Codable {
     }
 }
 
-public struct Period: Codable {
+public final class Period: Codable {
     /// The end date of this usage period. All usage up to and including this point in time is included.
     public var end: Int?
     /// The start date of this usage period. All usage after this point in time is included.
@@ -20626,7 +20626,7 @@ public struct Period: Codable {
 /// See the [Standard onboarding](https://stripe.com/docs/connect/standard-accounts) or [Express onboarding documentation](https://stripe.com/docs/connect/express-accounts) for information about platform pre-filling and account onboarding steps.
 /// 
 /// Related guide: [Handling Identity Verification with the API](https://stripe.com/docs/connect/identity-verification-api#person-information).
-public struct Person: Codable {
+public final class Person: Codable {
     /// The account the person is associated with.
     public var account: String
     public var address: Address?
@@ -20678,7 +20678,7 @@ public struct Person: Codable {
     public var isSsnLast4Provided: Bool?
     public var verification: LegalEntityPersonVerification?
 
-    public struct AddressKana: Codable {
+    public final class AddressKana: Codable {
         public var legalEntityJapanAddress: LegalEntityJapanAddress?
 
         public init(legalEntityJapanAddress: LegalEntityJapanAddress? = nil) {
@@ -20696,7 +20696,7 @@ public struct Person: Codable {
         }
     }
 
-    public struct AddressKanji: Codable {
+    public final class AddressKanji: Codable {
         public var legalEntityJapanAddress: LegalEntityJapanAddress?
 
         public init(legalEntityJapanAddress: LegalEntityJapanAddress? = nil) {
@@ -20714,7 +20714,7 @@ public struct Person: Codable {
         }
     }
 
-    public struct FutureRequirements: Codable {
+    public final class FutureRequirements: Codable {
         public var personFutureRequirements: PersonFutureRequirements?
 
         public init(personFutureRequirements: PersonFutureRequirements? = nil) {
@@ -20743,7 +20743,7 @@ public struct Person: Codable {
         case `none`
     }
 
-    public struct Requirements: Codable {
+    public final class Requirements: Codable {
         public var personRequirements: PersonRequirements?
 
         public init(personRequirements: PersonRequirements? = nil) {
@@ -20824,7 +20824,7 @@ public struct Person: Codable {
     }
 }
 
-public struct PersonFutureRequirements: Codable {
+public final class PersonFutureRequirements: Codable {
     /// Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
     public var alternatives: [AccountRequirementsAlternative]?
     /// Fields that need to be collected to keep the person's account enabled. If not collected by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
@@ -20857,7 +20857,7 @@ public struct PersonFutureRequirements: Codable {
     }
 }
 
-public struct PersonRelationship: Codable {
+public final class PersonRelationship: Codable {
     /// Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
     public var isDirector: Bool?
     /// Whether the person has significant responsibility to control, manage, or direct the organization.
@@ -20890,7 +20890,7 @@ public struct PersonRelationship: Codable {
     }
 }
 
-public struct PersonRequirements: Codable {
+public final class PersonRequirements: Codable {
     /// Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
     public var alternatives: [AccountRequirementsAlternative]?
     /// Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
@@ -20931,7 +20931,7 @@ public struct PersonRequirements: Codable {
 /// For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
 /// 
 /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-public struct Plan: Codable {
+public final class Plan: Codable {
     /// Whether the plan can be used for new purchases.
     public var isActive: Bool
     /// Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
@@ -21110,7 +21110,7 @@ public struct Plan: Codable {
     }
 }
 
-public struct PlanTier: Codable {
+public final class PlanTier: Codable {
     /// Price for the entire tier.
     public var flatAmount: Int?
     /// Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
@@ -21140,7 +21140,7 @@ public struct PlanTier: Codable {
 }
 
 /// PlatformTax
-public struct PlatformTaxFee: Codable {
+public final class PlatformTaxFee: Codable {
     /// The Connected account that incurred this charge.
     public var account: String
     /// Unique identifier for the object.
@@ -21174,7 +21174,7 @@ public struct PlatformTaxFee: Codable {
     }
 }
 
-public struct PortalBusinessProfile: Codable {
+public final class PortalBusinessProfile: Codable {
     /// The messaging shown to customers in the portal.
     public var headline: String?
     /// A link to the business’s publicly available privacy policy.
@@ -21195,7 +21195,7 @@ public struct PortalBusinessProfile: Codable {
     }
 }
 
-public struct PortalCustomerUpdate: Codable {
+public final class PortalCustomerUpdate: Codable {
     /// The types of customer updates that are supported. When empty, customers are not updateable.
     public var allowedUpdates: [AllowedUpdate]
     /// Whether the feature is enabled.
@@ -21220,7 +21220,7 @@ public struct PortalCustomerUpdate: Codable {
     }
 }
 
-public struct PortalFeatures: Codable {
+public final class PortalFeatures: Codable {
     /// PortalCustomerUpdate
     public var customerUpdate: PortalCustomerUpdate
     /// PortalInvoiceList
@@ -21253,7 +21253,7 @@ public struct PortalFeatures: Codable {
     }
 }
 
-public struct PortalInvoiceList: Codable {
+public final class PortalInvoiceList: Codable {
     /// Whether the feature is enabled.
     public var isEnabled: Bool
 
@@ -21266,7 +21266,7 @@ public struct PortalInvoiceList: Codable {
     }
 }
 
-public struct PortalPaymentMethodUpdate: Codable {
+public final class PortalPaymentMethodUpdate: Codable {
     /// Whether the feature is enabled.
     public var isEnabled: Bool
 
@@ -21279,7 +21279,7 @@ public struct PortalPaymentMethodUpdate: Codable {
     }
 }
 
-public struct PortalSubscriptionCancel: Codable {
+public final class PortalSubscriptionCancel: Codable {
     /// PortalSubscriptionCancellationReason
     public var cancellationReason: PortalSubscriptionCancellationReason
     /// Whether the feature is enabled.
@@ -21317,7 +21317,7 @@ public struct PortalSubscriptionCancel: Codable {
     }
 }
 
-public struct PortalSubscriptionCancellationReason: Codable {
+public final class PortalSubscriptionCancellationReason: Codable {
     /// Whether the feature is enabled.
     public var isEnabled: Bool
     /// Which cancellation reasons will be given as options to the customer.
@@ -21345,7 +21345,7 @@ public struct PortalSubscriptionCancellationReason: Codable {
     }
 }
 
-public struct PortalSubscriptionPause: Codable {
+public final class PortalSubscriptionPause: Codable {
     /// Whether the feature is enabled.
     public var isEnabled: Bool
 
@@ -21358,7 +21358,7 @@ public struct PortalSubscriptionPause: Codable {
     }
 }
 
-public struct PortalSubscriptionUpdate: Codable {
+public final class PortalSubscriptionUpdate: Codable {
     /// The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
     public var defaultAllowedUpdates: [DefaultAllowedUpdate]
     /// Whether the feature is enabled.
@@ -21396,7 +21396,7 @@ public struct PortalSubscriptionUpdate: Codable {
     }
 }
 
-public struct PortalSubscriptionUpdateProduct: Codable {
+public final class PortalSubscriptionUpdateProduct: Codable {
     /// The list of price IDs which, when subscribed to, a subscription can be updated.
     public var prices: [String]
     /// The product ID.
@@ -21414,7 +21414,7 @@ public struct PortalSubscriptionUpdateProduct: Codable {
 /// For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
 /// 
 /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/billing/prices-guide).
-public struct Price: Codable {
+public final class Price: Codable {
     /// Whether the price can be used for new purchases.
     public var isActive: Bool
     /// Describes how to compute the price per period. Either `per_unit` or `tiered`. `per_unit` indicates that the fixed amount (specified in `unit_amount` or `unit_amount_decimal`) will be charged per unit in `quantity` (for prices with `usage_type=licensed`), or per unit of total usage (for prices with `usage_type=metered`). `tiered` indicates that the unit pricing will be computed using a tiering strategy as defined using the `tiers` and `tiers_mode` attributes.
@@ -21599,7 +21599,7 @@ public struct Price: Codable {
     }
 }
 
-public struct PriceTier: Codable {
+public final class PriceTier: Codable {
     /// Price for the entire tier.
     public var flatAmount: Int?
     /// Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
@@ -21633,7 +21633,7 @@ public struct PriceTier: Codable {
 /// They can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Checkout and Subscriptions.
 /// 
 /// Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) or accept [one-time payments with Checkout](https://stripe.com/docs/payments/checkout/client#create-products) and more about [Products and Prices](https://stripe.com/docs/billing/prices-guide)
-public struct Product: Codable {
+public final class Product: Codable {
     /// Whether the product is currently available for purchase.
     public var isActive: Bool
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -21758,7 +21758,7 @@ public struct Product: Codable {
 
 /// A Promotion Code represents a customer-redeemable code for a coupon. It can be used to
 /// create multiple codes for a single coupon.
-public struct PromotionCode: Codable {
+public final class PromotionCode: Codable {
     /// Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid.
     public var isActive: Bool
     /// The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer.
@@ -21853,7 +21853,7 @@ public struct PromotionCode: Codable {
     }
 }
 
-public struct PromotionCodesResourceRestrictions: Codable {
+public final class PromotionCodesResourceRestrictions: Codable {
     /// A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
     public var isFirstTimeTransaction: Bool
     /// Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
@@ -21876,7 +21876,7 @@ public struct PromotionCodesResourceRestrictions: Codable {
 
 /// A Quote is a way to model prices that you'd like to provide to a customer.
 /// Once accepted, it will automatically create an invoice, subscription or subscription schedule.
-public struct Quote: Codable {
+public final class Quote: Codable {
     /// Total before any discounts or taxes are applied.
     public var amountSubtotal: Int
     /// Total after discounts and taxes are applied.
@@ -21977,7 +21977,7 @@ public struct Quote: Codable {
         }
     }
 
-    public struct DefaultTaxRate: Codable {
+    public final class DefaultTaxRate: Codable {
         public var string: String?
         /// Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
         /// 
@@ -22025,7 +22025,7 @@ public struct Quote: Codable {
     }
 
     /// Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
-    public struct FromQuote: Codable {
+    public final class FromQuote: Codable {
         public var quotesResourceFromQuote: QuotesResourceFromQuote?
 
         public init(quotesResourceFromQuote: QuotesResourceFromQuote? = nil) {
@@ -22071,7 +22071,7 @@ public struct Quote: Codable {
     }
 
     /// All invoices will be billed using the specified settings.
-    public struct InvoiceSettings: Codable {
+    public final class InvoiceSettings: Codable {
         public var invoiceSettingQuoteSetting: InvoiceSettingQuoteSetting?
 
         public init(invoiceSettingQuoteSetting: InvoiceSettingQuoteSetting? = nil) {
@@ -22092,7 +22092,7 @@ public struct Quote: Codable {
     /// QuotesResourceListLineItems
     ///
     /// A list of items the customer is being quoted for.
-    public struct LineItems: Codable {
+    public final class LineItems: Codable {
         /// Details about each object.
         public var data: [Item]
         /// True if this list has another page of items after this one that can be fetched.
@@ -22128,7 +22128,7 @@ public struct Quote: Codable {
     }
 
     /// The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
-    public struct OnBehalfOf: Codable {
+    public final class OnBehalfOf: Codable {
         public var string: String?
         public var account: Account?
 
@@ -22205,7 +22205,7 @@ public struct Quote: Codable {
     }
 
     /// The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the invoices.
-    public struct TransferData: Codable {
+    public final class TransferData: Codable {
         public var quotesResourceTransferData: QuotesResourceTransferData?
 
         public init(quotesResourceTransferData: QuotesResourceTransferData? = nil) {
@@ -22296,7 +22296,7 @@ public struct Quote: Codable {
     }
 }
 
-public struct QuotesResourceAutomaticTax: Codable {
+public final class QuotesResourceAutomaticTax: Codable {
     /// Automatically calculate taxes
     public var isEnabled: Bool
     /// The status of the most recent automated tax calculation for this quote.
@@ -22320,13 +22320,13 @@ public struct QuotesResourceAutomaticTax: Codable {
     }
 }
 
-public struct QuotesResourceComputed: Codable {
+public final class QuotesResourceComputed: Codable {
     /// The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
     public var recurring: Recurring?
     public var upfront: QuotesResourceUpfront
 
     /// The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
-    public struct Recurring: Codable {
+    public final class Recurring: Codable {
         public var quotesResourceRecurring: QuotesResourceRecurring?
 
         public init(quotesResourceRecurring: QuotesResourceRecurring? = nil) {
@@ -22350,7 +22350,7 @@ public struct QuotesResourceComputed: Codable {
     }
 }
 
-public struct QuotesResourceFromQuote: Codable {
+public final class QuotesResourceFromQuote: Codable {
     /// Whether this quote is a revision of a different quote.
     public var isRevision: Bool
     /// The quote that was cloned.
@@ -22390,7 +22390,7 @@ public struct QuotesResourceFromQuote: Codable {
     }
 }
 
-public struct QuotesResourceRecurring: Codable {
+public final class QuotesResourceRecurring: Codable {
     /// Total before any discounts or taxes are applied.
     public var amountSubtotal: Int
     /// Total after discounts and taxes are applied.
@@ -22426,7 +22426,7 @@ public struct QuotesResourceRecurring: Codable {
     }
 }
 
-public struct QuotesResourceStatusTransitions: Codable {
+public final class QuotesResourceStatusTransitions: Codable {
     /// The time that the quote was accepted. Measured in seconds since Unix epoch.
     public var acceptedAt: Int?
     /// The time that the quote was canceled. Measured in seconds since Unix epoch.
@@ -22447,7 +22447,7 @@ public struct QuotesResourceStatusTransitions: Codable {
     }
 }
 
-public struct QuotesResourceSubscriptionData: Codable {
+public final class QuotesResourceSubscriptionData: Codable {
     /// When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
     public var effectiveDate: Int?
     /// Integer representing the number of trial period days before the customer is charged for the first time.
@@ -22464,7 +22464,7 @@ public struct QuotesResourceSubscriptionData: Codable {
     }
 }
 
-public struct QuotesResourceTotalDetails: Codable {
+public final class QuotesResourceTotalDetails: Codable {
     /// This is the sum of all the line item discounts.
     public var amountDiscount: Int
     /// This is the sum of all the line item shipping amounts.
@@ -22488,7 +22488,7 @@ public struct QuotesResourceTotalDetails: Codable {
     }
 }
 
-public struct QuotesResourceTotalDetailsResourceBreakdown: Codable {
+public final class QuotesResourceTotalDetailsResourceBreakdown: Codable {
     /// The aggregated line item discounts.
     public var discounts: [LineItemsDiscountAmount]
     /// The aggregated line item tax amounts by rate.
@@ -22500,7 +22500,7 @@ public struct QuotesResourceTotalDetailsResourceBreakdown: Codable {
     }
 }
 
-public struct QuotesResourceTransferData: Codable {
+public final class QuotesResourceTransferData: Codable {
     /// The amount in %s that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
     public var amount: Int?
     /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount will be transferred to the destination.
@@ -22509,7 +22509,7 @@ public struct QuotesResourceTransferData: Codable {
     public var destination: Destination
 
     /// The account where funds from the payment will be transferred to upon payment success.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -22544,7 +22544,7 @@ public struct QuotesResourceTransferData: Codable {
     }
 }
 
-public struct QuotesResourceUpfront: Codable {
+public final class QuotesResourceUpfront: Codable {
     /// Total before any discounts or taxes are applied.
     public var amountSubtotal: Int
     /// Total after discounts and taxes are applied.
@@ -22558,7 +22558,7 @@ public struct QuotesResourceUpfront: Codable {
     /// QuotesResourceListLineItems
     ///
     /// The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
-    public struct LineItems: Codable {
+    public final class LineItems: Codable {
         /// Details about each object.
         public var data: [Item]
         /// True if this list has another page of items after this one that can be fetched.
@@ -22607,7 +22607,7 @@ public struct QuotesResourceUpfront: Codable {
 /// charge may be fraudulent.
 /// 
 /// Related guide: [Early Fraud Warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings).
-public struct RadarEarlyFraudWarning: Codable {
+public final class RadarEarlyFraudWarning: Codable {
     /// An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later.
     public var isActionable: Bool
     /// ID of the charge this early fraud warning is for, optionally expanded.
@@ -22704,7 +22704,7 @@ public struct RadarEarlyFraudWarning: Codable {
 /// Value lists allow you to group values together which can then be referenced in rules.
 /// 
 /// Related guide: [Default Stripe Lists](https://stripe.com/docs/radar/lists#managing-list-items).
-public struct RadarValueList: Codable {
+public final class RadarValueList: Codable {
     /// The name of the value list for use in rules.
     public var alias: String
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -22743,7 +22743,7 @@ public struct RadarValueList: Codable {
     /// RadarListListItemList
     ///
     /// List of items contained within this value list.
-    public struct ListItems: Codable {
+    public final class ListItems: Codable {
         /// Details about each object.
         public var data: [RadarValueListItem]
         /// True if this list has another page of items after this one that can be fetched.
@@ -22810,7 +22810,7 @@ public struct RadarValueList: Codable {
 /// Value list items allow you to add specific values to a given Radar value list, which can then be used in rules.
 /// 
 /// Related guide: [Managing List Items](https://stripe.com/docs/radar/lists#managing-list-items).
-public struct RadarValueListItem: Codable {
+public final class RadarValueListItem: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// The name or email address of the user who added this item to the value list.
@@ -22852,7 +22852,7 @@ public struct RadarValueListItem: Codable {
     }
 }
 
-public struct RadarReviewResourceLocation: Codable {
+public final class RadarReviewResourceLocation: Codable {
     /// The city where the payment originated.
     public var city: String?
     /// Two-letter ISO code representing the country where the payment originated.
@@ -22873,7 +22873,7 @@ public struct RadarReviewResourceLocation: Codable {
     }
 }
 
-public struct RadarReviewResourceSession: Codable {
+public final class RadarReviewResourceSession: Codable {
     /// The browser used in this browser session (e.g., `Chrome`).
     public var browser: String?
     /// Information about the device used for the browser session (e.g., `Samsung SM-G930T`).
@@ -22903,7 +22903,7 @@ public struct RadarReviewResourceSession: Codable {
 /// [Account objects](https://stripe.com/docs/api#account). Stripe accounts that don't already use
 /// recipients can no longer begin doing so. Please use `Account` objects
 /// instead.**
-public struct Recipient: Codable {
+public final class Recipient: Codable {
     /// Hash describing the current account on the recipient, if there is one.
     public var activeAccount: ActiveAccount?
     /// CardList
@@ -22932,7 +22932,7 @@ public struct Recipient: Codable {
     public var type: String
 
     /// Hash describing the current account on the recipient, if there is one.
-    public struct ActiveAccount: Codable {
+    public final class ActiveAccount: Codable {
         public var bankAccount: BankAccount?
 
         public init(bankAccount: BankAccount? = nil) {
@@ -22951,7 +22951,7 @@ public struct Recipient: Codable {
     }
 
     /// CardList
-    public struct Cards: Codable {
+    public final class Cards: Codable {
         public var data: [Card]
         /// True if this list has another page of items after this one that can be fetched.
         public var hasMore: Bool
@@ -22981,7 +22981,7 @@ public struct Recipient: Codable {
     }
 
     /// The default card to use for creating transfers to this recipient.
-    public struct DefaultCard: Codable {
+    public final class DefaultCard: Codable {
         public var string: String?
         public var card: Card?
 
@@ -23004,7 +23004,7 @@ public struct Recipient: Codable {
     }
 
     /// The ID of the [Custom account](https://stripe.com/docs/connect/custom-accounts) this recipient was migrated to. If set, the recipient can no longer be updated, nor can transfers be made to it: use the Custom account instead.
-    public struct MigratedTo: Codable {
+    public final class MigratedTo: Codable {
         public var string: String?
         public var account: Account?
 
@@ -23031,7 +23031,7 @@ public struct Recipient: Codable {
         case recipient
     }
 
-    public struct RolledBackFrom: Codable {
+    public final class RolledBackFrom: Codable {
         public var string: String?
         public var account: Account?
 
@@ -23088,7 +23088,7 @@ public struct Recipient: Codable {
     }
 }
 
-public struct Recurring: Codable {
+public final class Recurring: Codable {
     /// Specifies a usage aggregation strategy for prices of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
     public var aggregateUsage: AggregateUsage?
     /// The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
@@ -23223,7 +23223,7 @@ public final class Refund: Codable {
     }
 
     /// If the refund failed, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction.
-    public struct FailureBalanceTransaction: Codable {
+    public final class FailureBalanceTransaction: Codable {
         public var string: String?
         public var balanceTransaction: BalanceTransaction?
 
@@ -23274,7 +23274,7 @@ public final class Refund: Codable {
     }
 
     /// The transfer reversal that is associated with the refund. Only present if the charge came from another Stripe account. See the Connect documentation for details.
-    public struct SourceTransferReversal: Codable {
+    public final class SourceTransferReversal: Codable {
         public var string: String?
         public var transferReversal: TransferReversal?
 
@@ -23370,7 +23370,7 @@ public final class Refund: Codable {
 /// 
 /// Note that certain report types can only be run based on your live-mode data (not test-mode
 /// data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
-public struct ReportingReportRun: Codable {
+public final class ReportingReportRun: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// If something should go wrong during the run, a message about the failure (populated when
@@ -23404,7 +23404,7 @@ public struct ReportingReportRun: Codable {
 
     /// The file object representing the result of the report run (populated when
     ///  `status=succeeded`).
-    public struct Result: Codable {
+    public final class Result: Codable {
         public var file: File?
 
         public init(file: File? = nil) {
@@ -23459,7 +23459,7 @@ public struct ReportingReportRun: Codable {
 /// 
 /// Note that certain report types can only be run based on your live-mode data (not test-mode
 /// data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
-public struct ReportingReportType: Codable {
+public final class ReportingReportType: Codable {
     /// Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
     public var dataAvailableEnd: Int
     /// Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
@@ -23509,7 +23509,7 @@ public struct ReportingReportType: Codable {
     }
 }
 
-public struct ReserveTransaction: Codable {
+public final class ReserveTransaction: Codable {
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     public var currency: String
@@ -23540,7 +23540,7 @@ public struct ReserveTransaction: Codable {
 /// 
 /// Learn more about [Radar](/radar) and reviewing payments
 /// [here](https://stripe.com/docs/radar/reviews).
-public struct Review: Codable {
+public final class Review: Codable {
     /// The ZIP or postal code of the card used, if applicable.
     public var billingZip: String?
     /// The charge associated with this review.
@@ -23603,7 +23603,7 @@ public struct Review: Codable {
     }
 
     /// Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address.
-    public struct IpAddressLocation: Codable {
+    public final class IpAddressLocation: Codable {
         public var radarReviewResourceLocation: RadarReviewResourceLocation?
 
         public init(radarReviewResourceLocation: RadarReviewResourceLocation? = nil) {
@@ -23656,7 +23656,7 @@ public struct Review: Codable {
     }
 
     /// Information related to the browsing session of the user who initiated the payment.
-    public struct Session: Codable {
+    public final class Session: Codable {
         public var radarReviewResourceSession: RadarReviewResourceSession?
 
         public init(radarReviewResourceSession: RadarReviewResourceSession? = nil) {
@@ -23710,7 +23710,7 @@ public struct Review: Codable {
 }
 
 /// RadarRule
-public struct Rule: Codable {
+public final class Rule: Codable {
     /// The action taken on the payment.
     public var action: String
     /// Unique identifier for the object.
@@ -23729,7 +23729,7 @@ public struct Rule: Codable {
 /// receive a `sigma.scheduled_query_run.created` webhook each time the query
 /// runs. The webhook contains a `ScheduledQueryRun` object, which you can use to
 /// retrieve the query results.
-public struct ScheduledQueryRun: Codable {
+public final class ScheduledQueryRun: Codable {
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
     public var created: Int
     /// When the query was run, Sigma contained a snapshot of your Stripe data at this time.
@@ -23806,7 +23806,7 @@ public struct ScheduledQueryRun: Codable {
     }
 }
 
-public struct SchedulesPhaseAutomaticTax: Codable {
+public final class SchedulesPhaseAutomaticTax: Codable {
     /// Whether Stripe automatically computes tax on invoices created during this phase.
     public var isEnabled: Bool
 
@@ -23820,7 +23820,7 @@ public struct SchedulesPhaseAutomaticTax: Codable {
 }
 
 /// Sepa_debit_generated_from
-public struct SepaDebitGeneratedFrom: Codable {
+public final class SepaDebitGeneratedFrom: Codable {
     /// The ID of the Charge that generated this PaymentMethod, if any.
     public var charge: Charge?
     /// The ID of the SetupAttempt that generated this PaymentMethod, if any.
@@ -23889,7 +23889,7 @@ public struct SepaDebitGeneratedFrom: Codable {
 /// whether that confirmation was successful or unsuccessful. You can use
 /// SetupAttempts to inspect details of a specific attempt at setting up a
 /// payment method using a SetupIntent.
-public struct SetupAttempt: Codable {
+public final class SetupAttempt: Codable {
     /// The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation.
     public var application: Application?
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -23972,7 +23972,7 @@ public struct SetupAttempt: Codable {
     }
 
     /// The value of [on_behalf_of](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-on_behalf_of) on the SetupIntent at the time of this confirmation.
-    public struct OnBehalfOf: Codable {
+    public final class OnBehalfOf: Codable {
         public var string: String?
         public var account: Account?
 
@@ -24018,7 +24018,7 @@ public struct SetupAttempt: Codable {
     }
 
     /// The error encountered during this attempt to confirm the SetupIntent, if any.
-    public struct SetupError: Codable {
+    public final class SetupError: Codable {
         public var apiErrors: APIErrors?
 
         public init(apiErrors: APIErrors? = nil) {
@@ -24092,7 +24092,7 @@ public struct SetupAttempt: Codable {
     }
 }
 
-public struct SetupAttemptPaymentMethodDetails: Codable {
+public final class SetupAttemptPaymentMethodDetails: Codable {
     /// Setup_attempt_payment_method_details_acss_debit
     public var acssDebit: [String: AnyJSON]?
     /// Setup_attempt_payment_method_details_au_becs_debit
@@ -24138,7 +24138,7 @@ public struct SetupAttemptPaymentMethodDetails: Codable {
 }
 
 /// Setup_attempt_payment_method_details_bancontact
-public struct SetupAttemptPaymentMethodDetailsBancontact: Codable {
+public final class SetupAttemptPaymentMethodDetailsBancontact: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Name of the bank associated with the bank account.
@@ -24159,7 +24159,7 @@ public struct SetupAttemptPaymentMethodDetailsBancontact: Codable {
     public var verifiedName: String?
 
     /// The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedSepaDebit: Codable {
+    public final class GeneratedSepaDebit: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -24182,7 +24182,7 @@ public struct SetupAttemptPaymentMethodDetailsBancontact: Codable {
     }
 
     /// The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedSepaDebitMandate: Codable {
+    public final class GeneratedSepaDebitMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -24237,12 +24237,12 @@ public struct SetupAttemptPaymentMethodDetailsBancontact: Codable {
 }
 
 /// Setup_attempt_payment_method_details_card
-public struct SetupAttemptPaymentMethodDetailsCard: Codable {
+public final class SetupAttemptPaymentMethodDetailsCard: Codable {
     /// Populated if this authorization used 3D Secure authentication.
     public var threeDSecure: ThreeDSecure?
 
     /// Populated if this authorization used 3D Secure authentication.
-    public struct ThreeDSecure: Codable {
+    public final class ThreeDSecure: Codable {
         /// Three_d_secure_details
         public var threeDSecureDetails: ThreeDSecureDetails?
 
@@ -24271,12 +24271,12 @@ public struct SetupAttemptPaymentMethodDetailsCard: Codable {
 }
 
 /// Setup_attempt_payment_method_details_card_present
-public struct SetupAttemptPaymentMethodDetailsCardPresent: Codable {
+public final class SetupAttemptPaymentMethodDetailsCardPresent: Codable {
     /// The ID of the Card PaymentMethod which was generated by this SetupAttempt.
     public var generatedCard: GeneratedCard?
 
     /// The ID of the Card PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedCard: Codable {
+    public final class GeneratedCard: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -24308,7 +24308,7 @@ public struct SetupAttemptPaymentMethodDetailsCardPresent: Codable {
 }
 
 /// Setup_attempt_payment_method_details_ideal
-public struct SetupAttemptPaymentMethodDetailsIdeal: Codable {
+public final class SetupAttemptPaymentMethodDetailsIdeal: Codable {
     /// The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, or `van_lanschot`.
     public var bank: Bank?
     /// The Bank Identifier Code of the customer's bank.
@@ -24358,7 +24358,7 @@ public struct SetupAttemptPaymentMethodDetailsIdeal: Codable {
     }
 
     /// The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedSepaDebit: Codable {
+    public final class GeneratedSepaDebit: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -24381,7 +24381,7 @@ public struct SetupAttemptPaymentMethodDetailsIdeal: Codable {
     }
 
     /// The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedSepaDebitMandate: Codable {
+    public final class GeneratedSepaDebitMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -24423,7 +24423,7 @@ public struct SetupAttemptPaymentMethodDetailsIdeal: Codable {
 }
 
 /// Setup_attempt_payment_method_details_sofort
-public struct SetupAttemptPaymentMethodDetailsSofort: Codable {
+public final class SetupAttemptPaymentMethodDetailsSofort: Codable {
     /// Bank code of bank associated with the bank account.
     public var bankCode: String?
     /// Name of the bank associated with the bank account.
@@ -24444,7 +24444,7 @@ public struct SetupAttemptPaymentMethodDetailsSofort: Codable {
     public var verifiedName: String?
 
     /// The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedSepaDebit: Codable {
+    public final class GeneratedSepaDebit: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -24467,7 +24467,7 @@ public struct SetupAttemptPaymentMethodDetailsSofort: Codable {
     }
 
     /// The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt.
-    public struct GeneratedSepaDebitMandate: Codable {
+    public final class GeneratedSepaDebitMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -24543,7 +24543,7 @@ public struct SetupAttemptPaymentMethodDetailsSofort: Codable {
 /// even as regulations change over time.
 /// 
 /// Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents).
-public struct SetupIntent: Codable {
+public final class SetupIntent: Codable {
     /// ID of the Connect application that created the SetupIntent.
     public var application: Application?
     /// Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
@@ -24653,7 +24653,7 @@ public struct SetupIntent: Codable {
     }
 
     /// The error encountered in the previous SetupIntent confirmation.
-    public struct LastSetupError: Codable {
+    public final class LastSetupError: Codable {
         public var apiErrors: APIErrors?
 
         public init(apiErrors: APIErrors? = nil) {
@@ -24672,7 +24672,7 @@ public struct SetupIntent: Codable {
     }
 
     /// The most recent SetupAttempt for this SetupIntent.
-    public struct LatestAttempt: Codable {
+    public final class LatestAttempt: Codable {
         public var string: String?
         public var setupAttempt: SetupAttempt?
 
@@ -24718,7 +24718,7 @@ public struct SetupIntent: Codable {
     }
 
     /// If present, this property tells you what actions you need to take in order for your customer to continue payment setup.
-    public struct NextAction: Codable {
+    public final class NextAction: Codable {
         public var setupIntentNextAction: SetupIntentNextAction?
 
         public init(setupIntentNextAction: SetupIntentNextAction? = nil) {
@@ -24742,7 +24742,7 @@ public struct SetupIntent: Codable {
     }
 
     /// The account (if any) for which the setup is intended.
-    public struct OnBehalfOf: Codable {
+    public final class OnBehalfOf: Codable {
         public var string: String?
         public var account: Account?
 
@@ -24788,7 +24788,7 @@ public struct SetupIntent: Codable {
     }
 
     /// Payment-method-specific configuration for this SetupIntent.
-    public struct PaymentMethodOptions: Codable {
+    public final class PaymentMethodOptions: Codable {
         public var setupIntentPaymentMethodOptions: SetupIntentPaymentMethodOptions?
 
         public init(setupIntentPaymentMethodOptions: SetupIntentPaymentMethodOptions? = nil) {
@@ -24807,7 +24807,7 @@ public struct SetupIntent: Codable {
     }
 
     /// ID of the single_use Mandate generated by the SetupIntent.
-    public struct SingleUseMandate: Codable {
+    public final class SingleUseMandate: Codable {
         public var string: String?
         public var mandate: Mandate?
 
@@ -24888,7 +24888,7 @@ public struct SetupIntent: Codable {
     }
 }
 
-public struct SetupIntentNextAction: Codable {
+public final class SetupIntentNextAction: Codable {
     /// SetupIntentNextActionRedirectToUrl
     public var redirectToURL: SetupIntentNextActionRedirectToURL?
     /// Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
@@ -24913,7 +24913,7 @@ public struct SetupIntentNextAction: Codable {
     }
 }
 
-public struct SetupIntentNextActionRedirectToURL: Codable {
+public final class SetupIntentNextActionRedirectToURL: Codable {
     /// If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
     public var returnURL: String?
     /// The URL you must redirect your customer to in order to authenticate.
@@ -24930,7 +24930,7 @@ public struct SetupIntentNextActionRedirectToURL: Codable {
     }
 }
 
-public struct SetupIntentNextActionVerifyWithMicrodeposits: Codable {
+public final class SetupIntentNextActionVerifyWithMicrodeposits: Codable {
     /// The timestamp when the microdeposits are expected to land.
     public var arrivalDate: Int
     /// The URL for the hosted verification page, which allows customers to verify their bank account.
@@ -24947,7 +24947,7 @@ public struct SetupIntentNextActionVerifyWithMicrodeposits: Codable {
     }
 }
 
-public struct SetupIntentPaymentMethodOptions: Codable {
+public final class SetupIntentPaymentMethodOptions: Codable {
     /// Setup_intent_payment_method_options_acss_debit
     public var acssDebit: SetupIntentPaymentMethodOptionsAcssDebit?
     /// Setup_intent_payment_method_options_card
@@ -24969,7 +24969,7 @@ public struct SetupIntentPaymentMethodOptions: Codable {
 }
 
 /// Setup_intent_payment_method_options_acss_debit
-public struct SetupIntentPaymentMethodOptionsAcssDebit: Codable {
+public final class SetupIntentPaymentMethodOptionsAcssDebit: Codable {
     /// Currency supported by the bank account
     public var currency: Currency?
     /// Setup_intent_payment_method_options_mandate_options_acss_debit
@@ -25004,7 +25004,7 @@ public struct SetupIntentPaymentMethodOptionsAcssDebit: Codable {
 }
 
 /// Setup_intent_payment_method_options_card
-public struct SetupIntentPaymentMethodOptionsCard: Codable {
+public final class SetupIntentPaymentMethodOptionsCard: Codable {
     /// We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     public var requestThreeDSecure: RequestThreeDSecure?
 
@@ -25025,7 +25025,7 @@ public struct SetupIntentPaymentMethodOptionsCard: Codable {
 }
 
 /// Setup_intent_payment_method_options_mandate_options_acss_debit
-public struct SetupIntentPaymentMethodOptionsMandateOptionsAcssDebit: Codable {
+public final class SetupIntentPaymentMethodOptionsMandateOptionsAcssDebit: Codable {
     /// A URL for custom mandate text
     public var customMandateURL: String?
     /// List of Stripe products where this mandate can be selected automatically.
@@ -25073,7 +25073,7 @@ public struct SetupIntentPaymentMethodOptionsMandateOptionsAcssDebit: Codable {
 }
 
 /// Setup_intent_payment_method_options_sepa_debit
-public struct SetupIntentPaymentMethodOptionsSepaDebit: Codable {
+public final class SetupIntentPaymentMethodOptionsSepaDebit: Codable {
     /// Setup_intent_payment_method_options_mandate_options_sepa_debit
     public var mandateOptions: [String: AnyJSON]?
 
@@ -25086,7 +25086,7 @@ public struct SetupIntentPaymentMethodOptionsSepaDebit: Codable {
     }
 }
 
-public struct Shipping: Codable {
+public final class Shipping: Codable {
     public var address: Address?
     /// The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
     public var carrier: String?
@@ -25114,7 +25114,7 @@ public struct Shipping: Codable {
     }
 }
 
-public struct ShippingMethod: Codable {
+public final class ShippingMethod: Codable {
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the line item.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -25164,7 +25164,7 @@ public struct ShippingMethod: Codable {
 
 /// Shipping rates describe the price of shipping presented to your customers and can be
 /// applied to [Checkout Sessions](https://stripe.com/docs/payments/checkout/shipping) to collect shipping costs.
-public struct ShippingRate: Codable {
+public final class ShippingRate: Codable {
     /// Whether the shipping rate can be used for new purchases. Defaults to `true`.
     public var isActive: Bool
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -25191,7 +25191,7 @@ public struct ShippingRate: Codable {
     public var type: `Type`
 
     /// The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
-    public struct DeliveryEstimate: Codable {
+    public final class DeliveryEstimate: Codable {
         public var shippingRateDeliveryEstimate: ShippingRateDeliveryEstimate?
 
         public init(shippingRateDeliveryEstimate: ShippingRateDeliveryEstimate? = nil) {
@@ -25283,14 +25283,14 @@ public struct ShippingRate: Codable {
     }
 }
 
-public struct ShippingRateDeliveryEstimate: Codable {
+public final class ShippingRateDeliveryEstimate: Codable {
     /// The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
     public var maximum: Maximum?
     /// The lower bound of the estimated range. If empty, represents no lower bound.
     public var minimum: Minimum?
 
     /// The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
-    public struct Maximum: Codable {
+    public final class Maximum: Codable {
         public var shippingRateDeliveryEstimateBound: ShippingRateDeliveryEstimateBound?
 
         public init(shippingRateDeliveryEstimateBound: ShippingRateDeliveryEstimateBound? = nil) {
@@ -25309,7 +25309,7 @@ public struct ShippingRateDeliveryEstimate: Codable {
     }
 
     /// The lower bound of the estimated range. If empty, represents no lower bound.
-    public struct Minimum: Codable {
+    public final class Minimum: Codable {
         public var shippingRateDeliveryEstimateBound: ShippingRateDeliveryEstimateBound?
 
         public init(shippingRateDeliveryEstimateBound: ShippingRateDeliveryEstimateBound? = nil) {
@@ -25333,7 +25333,7 @@ public struct ShippingRateDeliveryEstimate: Codable {
     }
 }
 
-public struct ShippingRateDeliveryEstimateBound: Codable {
+public final class ShippingRateDeliveryEstimateBound: Codable {
     /// A unit of time.
     public var unit: Unit
     /// Must be greater than 0.
@@ -25354,7 +25354,7 @@ public struct ShippingRateDeliveryEstimateBound: Codable {
     }
 }
 
-public struct ShippingRateFixedAmount: Codable {
+public final class ShippingRateFixedAmount: Codable {
     /// A non-negative integer in cents representing how much to charge.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -25366,7 +25366,7 @@ public struct ShippingRateFixedAmount: Codable {
     }
 }
 
-public struct SigmaScheduledQueryRunError: Codable {
+public final class SigmaScheduledQueryRunError: Codable {
     /// Information about the run failure.
     public var message: String
 
@@ -25383,7 +25383,7 @@ public struct SigmaScheduledQueryRunError: Codable {
 /// Can also be used to manage inventory.
 /// 
 /// Related guide: [Tax, Shipping, and Inventory](https://stripe.com/docs/orders).
-public struct Sku: Codable {
+public final class Sku: Codable {
     /// Whether the SKU is available for purchase.
     public var isActive: Bool
     /// A dictionary of attributes and values for the attributes defined by the product. If, for example, a product's attributes are `["size", "gender"]`, a valid SKU has the following dictionary of attributes: `{"size": "Medium", "gender": "Unisex"}`.
@@ -25500,7 +25500,7 @@ public struct Sku: Codable {
     }
 }
 
-public struct SkuInventory: Codable {
+public final class SkuInventory: Codable {
     /// The count of inventory available. Will be present if and only if `type` is `finite`.
     public var quantity: Int?
     /// Inventory type. Possible values are `finite`, `bucket` (not quantified), and `infinite`.
@@ -25521,7 +25521,7 @@ public struct SkuInventory: Codable {
 /// attached to customers.
 /// 
 /// Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
-public struct Source: Codable {
+public final class Source: Codable {
     public var achCreditTransfer: SourceTypeAchCreditTransfer?
     public var achDebit: SourceTypeAchDebit?
     public var acssDebit: SourceTypeAcssDebit?
@@ -25584,7 +25584,7 @@ public struct Source: Codable {
     }
 
     /// Information about the owner of the payment instrument that may be used or required by particular source types.
-    public struct Owner: Codable {
+    public final class Owner: Codable {
         public var sourceOwner: SourceOwner?
 
         public init(sourceOwner: SourceOwner? = nil) {
@@ -25705,7 +25705,7 @@ public struct Source: Codable {
     }
 }
 
-public struct SourceCodeVerificationFlow: Codable {
+public final class SourceCodeVerificationFlow: Codable {
     /// The number of attempts remaining to authenticate the source object with a verification code.
     public var attemptsRemaining: Int
     /// The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0).
@@ -25725,7 +25725,7 @@ public struct SourceCodeVerificationFlow: Codable {
 /// Source mandate notifications should be created when a notification related to
 /// a source mandate must be sent to the payer. They will trigger a webhook or
 /// deliver an email to the customer.
-public struct SourceMandateNotification: Codable {
+public final class SourceMandateNotification: Codable {
     /// SourceMandateNotificationAcssDebitData
     public var acssDebit: SourceMandateNotificationAcssDebitData?
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount associated with the mandate notification. The amount is expressed in the currency of the underlying source. Required if the notification type is `debit_initiated`.
@@ -25792,7 +25792,7 @@ public struct SourceMandateNotification: Codable {
     }
 }
 
-public struct SourceMandateNotificationAcssDebitData: Codable {
+public final class SourceMandateNotificationAcssDebitData: Codable {
     /// The statement descriptor associate with the debit.
     public var statementDescriptor: String?
 
@@ -25805,7 +25805,7 @@ public struct SourceMandateNotificationAcssDebitData: Codable {
     }
 }
 
-public struct SourceMandateNotificationBacsDebitData: Codable {
+public final class SourceMandateNotificationBacsDebitData: Codable {
     /// Last 4 digits of the account number associated with the debit.
     public var last4: String?
 
@@ -25814,7 +25814,7 @@ public struct SourceMandateNotificationBacsDebitData: Codable {
     }
 }
 
-public struct SourceMandateNotificationSepaDebitData: Codable {
+public final class SourceMandateNotificationSepaDebitData: Codable {
     /// SEPA creditor ID.
     public var creditorIdentifier: String?
     /// Last 4 digits of the account number associated with the debit.
@@ -25835,7 +25835,7 @@ public struct SourceMandateNotificationSepaDebitData: Codable {
     }
 }
 
-public struct SourceOrder: Codable {
+public final class SourceOrder: Codable {
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
     public var amount: Int
     /// Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -25855,7 +25855,7 @@ public struct SourceOrder: Codable {
     }
 }
 
-public struct SourceOrderItem: Codable {
+public final class SourceOrderItem: Codable {
     /// The amount (price) for this order item.
     public var amount: Int?
     /// This currency of this order item. Required when `amount` is present.
@@ -25879,7 +25879,7 @@ public struct SourceOrderItem: Codable {
     }
 }
 
-public struct SourceOwner: Codable {
+public final class SourceOwner: Codable {
     /// Owner's address.
     public var address: Address?
     /// Owner's email address.
@@ -25917,7 +25917,7 @@ public struct SourceOwner: Codable {
     }
 
     /// Verified owner's address. Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
-    public struct VerifiedAddress: Codable {
+    public final class VerifiedAddress: Codable {
         public var address: Address?
 
         public init(address: Address? = nil) {
@@ -25958,7 +25958,7 @@ public struct SourceOwner: Codable {
     }
 }
 
-public struct SourceReceiverFlow: Codable {
+public final class SourceReceiverFlow: Codable {
     /// The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
     public var address: String?
     /// The total amount that was moved to your balance. This is almost always equal to the amount charged. In rare cases when customers deposit excess funds and we are unable to refund those, those funds get moved to your balance and show up in amount_charged as well. The amount charged is expressed in the source's currency.
@@ -25991,7 +25991,7 @@ public struct SourceReceiverFlow: Codable {
     }
 }
 
-public struct SourceRedirectFlow: Codable {
+public final class SourceRedirectFlow: Codable {
     /// The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
     public var failureReason: String?
     /// The URL you provide to redirect the customer to after they authenticated their payment.
@@ -26020,7 +26020,7 @@ public struct SourceRedirectFlow: Codable {
 /// Customers can be instructed to send any amount, and it can be made up of
 /// multiple transactions. As such, sources can have multiple associated
 /// transactions.
-public struct SourceTransaction: Codable {
+public final class SourceTransaction: Codable {
     /// SourceTransactionAchCreditTransferData
     public var achCreditTransfer: SourceTransactionAchCreditTransferData?
     /// A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the amount your customer has pushed to the receiver.
@@ -26110,7 +26110,7 @@ public struct SourceTransaction: Codable {
     }
 }
 
-public struct SourceTransactionAchCreditTransferData: Codable {
+public final class SourceTransactionAchCreditTransferData: Codable {
     /// Customer data associated with the transfer.
     public var customerData: String?
     /// Bank account fingerprint associated with the transfer.
@@ -26135,7 +26135,7 @@ public struct SourceTransactionAchCreditTransferData: Codable {
     }
 }
 
-public struct SourceTransactionChfCreditTransferData: Codable {
+public final class SourceTransactionChfCreditTransferData: Codable {
     /// Reference associated with the transfer.
     public var reference: String?
     /// Sender's country address.
@@ -26164,7 +26164,7 @@ public struct SourceTransactionChfCreditTransferData: Codable {
     }
 }
 
-public struct SourceTransactionGbpCreditTransferData: Codable {
+public final class SourceTransactionGbpCreditTransferData: Codable {
     /// Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
     public var fingerprint: String?
     /// The credit transfer rails the sender used to push this transfer. The possible rails are: Faster Payments, BACS, CHAPS, and wire transfers. Currently only Faster Payments is supported.
@@ -26201,7 +26201,7 @@ public struct SourceTransactionGbpCreditTransferData: Codable {
     }
 }
 
-public struct SourceTransactionPaperCheckData: Codable {
+public final class SourceTransactionPaperCheckData: Codable {
     /// Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
     public var availableAt: String?
     /// Comma-separated list of invoice IDs associated with the paper check.
@@ -26218,7 +26218,7 @@ public struct SourceTransactionPaperCheckData: Codable {
     }
 }
 
-public struct SourceTransactionSepaCreditTransferData: Codable {
+public final class SourceTransactionSepaCreditTransferData: Codable {
     /// Reference associated with the transfer.
     public var reference: String?
     /// Sender's bank account IBAN.
@@ -26239,7 +26239,7 @@ public struct SourceTransactionSepaCreditTransferData: Codable {
     }
 }
 
-public struct SourceTypeAchCreditTransfer: Codable {
+public final class SourceTypeAchCreditTransfer: Codable {
     public var accountNumber: String?
     public var bankName: String?
     public var fingerprint: String?
@@ -26272,7 +26272,7 @@ public struct SourceTypeAchCreditTransfer: Codable {
     }
 }
 
-public struct SourceTypeAchDebit: Codable {
+public final class SourceTypeAchDebit: Codable {
     public var bankName: String?
     public var country: String?
     public var fingerprint: String?
@@ -26299,7 +26299,7 @@ public struct SourceTypeAchDebit: Codable {
     }
 }
 
-public struct SourceTypeAcssDebit: Codable {
+public final class SourceTypeAcssDebit: Codable {
     public var bankAddressCity: String?
     public var bankAddressLine1: String?
     public var bankAddressLine2: String?
@@ -26338,7 +26338,7 @@ public struct SourceTypeAcssDebit: Codable {
     }
 }
 
-public struct SourceTypeAlipay: Codable {
+public final class SourceTypeAlipay: Codable {
     public var dataString: String?
     public var nativeURL: String?
     public var statementDescriptor: String?
@@ -26356,7 +26356,7 @@ public struct SourceTypeAlipay: Codable {
     }
 }
 
-public struct SourceTypeAuBecsDebit: Codable {
+public final class SourceTypeAuBecsDebit: Codable {
     public var bsbNumber: String?
     public var fingerprint: String?
     public var last4: String?
@@ -26374,7 +26374,7 @@ public struct SourceTypeAuBecsDebit: Codable {
     }
 }
 
-public struct SourceTypeBancontact: Codable {
+public final class SourceTypeBancontact: Codable {
     public var bankCode: String?
     public var bankName: String?
     public var bic: String?
@@ -26401,7 +26401,7 @@ public struct SourceTypeBancontact: Codable {
     }
 }
 
-public struct SourceTypeCard: Codable {
+public final class SourceTypeCard: Codable {
     public var addressLine1Check: String?
     public var addressZipCheck: String?
     public var brand: String?
@@ -26452,7 +26452,7 @@ public struct SourceTypeCard: Codable {
     }
 }
 
-public struct SourceTypeCardPresent: Codable {
+public final class SourceTypeCardPresent: Codable {
     public var applicationCryptogram: String?
     public var applicationPreferredName: String?
     public var authorizationCode: String?
@@ -26530,7 +26530,7 @@ public struct SourceTypeCardPresent: Codable {
     }
 }
 
-public struct SourceTypeEps: Codable {
+public final class SourceTypeEps: Codable {
     public var reference: String?
     public var statementDescriptor: String?
 
@@ -26545,7 +26545,7 @@ public struct SourceTypeEps: Codable {
     }
 }
 
-public struct SourceTypeGiropay: Codable {
+public final class SourceTypeGiropay: Codable {
     public var bankCode: String?
     public var bankName: String?
     public var bic: String?
@@ -26566,7 +26566,7 @@ public struct SourceTypeGiropay: Codable {
     }
 }
 
-public struct SourceTypeIdeal: Codable {
+public final class SourceTypeIdeal: Codable {
     public var bank: String?
     public var bic: String?
     public var ibanLast4: String?
@@ -26587,7 +26587,7 @@ public struct SourceTypeIdeal: Codable {
     }
 }
 
-public struct SourceTypeKlarna: Codable {
+public final class SourceTypeKlarna: Codable {
     public var backgroundImageURL: String?
     public var clientToken: String?
     public var firstName: String?
@@ -26674,7 +26674,7 @@ public struct SourceTypeKlarna: Codable {
     }
 }
 
-public struct SourceTypeMultibanco: Codable {
+public final class SourceTypeMultibanco: Codable {
     public var entity: String?
     public var reference: String?
     public var refundAccountHolderAddressCity: String?
@@ -26713,7 +26713,7 @@ public struct SourceTypeMultibanco: Codable {
     }
 }
 
-public struct SourceTypeP24: Codable {
+public final class SourceTypeP24: Codable {
     public var reference: String?
 
     public init(reference: String? = nil) {
@@ -26721,7 +26721,7 @@ public struct SourceTypeP24: Codable {
     }
 }
 
-public struct SourceTypeSepaDebit: Codable {
+public final class SourceTypeSepaDebit: Codable {
     public var bankCode: String?
     public var branchCode: String?
     public var country: String?
@@ -26751,7 +26751,7 @@ public struct SourceTypeSepaDebit: Codable {
     }
 }
 
-public struct SourceTypeSofort: Codable {
+public final class SourceTypeSofort: Codable {
     public var bankCode: String?
     public var bankName: String?
     public var bic: String?
@@ -26781,7 +26781,7 @@ public struct SourceTypeSofort: Codable {
     }
 }
 
-public struct SourceTypeThreeDSecure: Codable {
+public final class SourceTypeThreeDSecure: Codable {
     public var addressLine1Check: String?
     public var addressZipCheck: String?
     public var isAuthenticated: Bool?
@@ -26841,7 +26841,7 @@ public struct SourceTypeThreeDSecure: Codable {
     }
 }
 
-public struct SourceTypeWechat: Codable {
+public final class SourceTypeWechat: Codable {
     public var prepayID: String?
     public var qrCodeURL: String?
     public var statementDescriptor: String?
@@ -26859,7 +26859,7 @@ public struct SourceTypeWechat: Codable {
     }
 }
 
-public struct StatusTransitions: Codable {
+public final class StatusTransitions: Codable {
     /// The time that the order was canceled.
     public var canceled: Int?
     /// The time that the order was fulfilled.
@@ -26880,7 +26880,7 @@ public struct StatusTransitions: Codable {
 /// Subscriptions allow you to charge a customer on a recurring basis.
 /// 
 /// Related guide: [Creating Subscriptions](https://stripe.com/docs/billing/subscriptions/creating).
-public struct Subscription: Codable {
+public final class Subscription: Codable {
     /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account.
     public var applicationFeePercent: Double?
     /// SubscriptionAutomaticTax
@@ -26965,7 +26965,7 @@ public struct Subscription: Codable {
     public var trialStart: Int?
 
     /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-    public struct BillingThresholds: Codable {
+    public final class BillingThresholds: Codable {
         public var subscriptionBillingThresholds: SubscriptionBillingThresholds?
 
         public init(subscriptionBillingThresholds: SubscriptionBillingThresholds? = nil) {
@@ -27017,7 +27017,7 @@ public struct Subscription: Codable {
     }
 
     /// ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
-    public struct DefaultPaymentMethod: Codable {
+    public final class DefaultPaymentMethod: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -27040,7 +27040,7 @@ public struct Subscription: Codable {
     }
 
     /// ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
-    public struct DefaultSource: Codable {
+    public final class DefaultSource: Codable {
         public var string: String?
         public var alipayAccount: AlipayAccount?
         public var bankAccount: BankAccount?
@@ -27106,7 +27106,7 @@ public struct Subscription: Codable {
     /// SubscriptionItemList
     ///
     /// List of subscription items, each with an attached price.
-    public struct Items: Codable {
+    public final class Items: Codable {
         /// Details about each object.
         public var data: [SubscriptionItem]
         /// True if this list has another page of items after this one that can be fetched.
@@ -27137,7 +27137,7 @@ public struct Subscription: Codable {
     }
 
     /// The most recent invoice this subscription has generated.
-    public struct LatestInvoice: Codable {
+    public final class LatestInvoice: Codable {
         public var string: String?
         public var invoice: Invoice?
 
@@ -27165,7 +27165,7 @@ public struct Subscription: Codable {
     }
 
     /// If specified, payment collection for this subscription will be paused.
-    public struct PauseCollection: Codable {
+    public final class PauseCollection: Codable {
         /// The Pause Collection settings determine how we will pause collection for this subscription and for how long the subscription
         /// should be paused.
         public var subscriptionsResourcePauseCollection: SubscriptionsResourcePauseCollection?
@@ -27186,7 +27186,7 @@ public struct Subscription: Codable {
     }
 
     /// Payment settings passed on to invoices created by the subscription.
-    public struct PaymentSettings: Codable {
+    public final class PaymentSettings: Codable {
         public var subscriptionsResourcePaymentSettings: SubscriptionsResourcePaymentSettings?
 
         public init(subscriptionsResourcePaymentSettings: SubscriptionsResourcePaymentSettings? = nil) {
@@ -27205,7 +27205,7 @@ public struct Subscription: Codable {
     }
 
     /// Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
-    public struct PendingInvoiceItemInterval: Codable {
+    public final class PendingInvoiceItemInterval: Codable {
         public var subscriptionPendingInvoiceItemInterval: SubscriptionPendingInvoiceItemInterval?
 
         public init(subscriptionPendingInvoiceItemInterval: SubscriptionPendingInvoiceItemInterval? = nil) {
@@ -27224,7 +27224,7 @@ public struct Subscription: Codable {
     }
 
     /// You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2).
-    public struct PendingSetupIntent: Codable {
+    public final class PendingSetupIntent: Codable {
         public var string: String?
         public var setupIntent: SetupIntent?
 
@@ -27247,7 +27247,7 @@ public struct Subscription: Codable {
     }
 
     /// If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
-    public struct PendingUpdate: Codable {
+    public final class PendingUpdate: Codable {
         /// Pending Updates store the changes pending from a previous update that will be applied
         /// to the Subscription upon successful payment.
         public var subscriptionsResourcePendingUpdate: SubscriptionsResourcePendingUpdate?
@@ -27268,7 +27268,7 @@ public struct Subscription: Codable {
     }
 
     /// The schedule attached to the subscription
-    public struct Schedule: Codable {
+    public final class Schedule: Codable {
         public var string: String?
         public var subscriptionSchedule: SubscriptionSchedule?
 
@@ -27310,7 +27310,7 @@ public struct Subscription: Codable {
     }
 
     /// The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
-    public struct TransferData: Codable {
+    public final class TransferData: Codable {
         public var subscriptionTransferData: SubscriptionTransferData?
 
         public init(subscriptionTransferData: SubscriptionTransferData? = nil) {
@@ -27407,7 +27407,7 @@ public struct Subscription: Codable {
     }
 }
 
-public struct SubscriptionAutomaticTax: Codable {
+public final class SubscriptionAutomaticTax: Codable {
     /// Whether Stripe automatically computes tax on this subscription.
     public var isEnabled: Bool
 
@@ -27420,7 +27420,7 @@ public struct SubscriptionAutomaticTax: Codable {
     }
 }
 
-public struct SubscriptionBillingThresholds: Codable {
+public final class SubscriptionBillingThresholds: Codable {
     /// Monetary threshold that triggers the subscription to create an invoice
     public var amountGte: Int?
     /// Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
@@ -27439,7 +27439,7 @@ public struct SubscriptionBillingThresholds: Codable {
 
 /// Subscription items allow you to create customer subscriptions with more than
 /// one plan, making it easy to represent complex billing relationships.
-public struct SubscriptionItem: Codable {
+public final class SubscriptionItem: Codable {
     /// Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     public var billingThresholds: BillingThresholds?
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -27465,7 +27465,7 @@ public struct SubscriptionItem: Codable {
     public var taxRates: [TaxRate]?
 
     /// Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-    public struct BillingThresholds: Codable {
+    public final class BillingThresholds: Codable {
         public var subscriptionItemBillingThresholds: SubscriptionItemBillingThresholds?
 
         public init(subscriptionItemBillingThresholds: SubscriptionItemBillingThresholds? = nil) {
@@ -27513,7 +27513,7 @@ public struct SubscriptionItem: Codable {
     }
 }
 
-public struct SubscriptionItemBillingThresholds: Codable {
+public final class SubscriptionItemBillingThresholds: Codable {
     /// Usage threshold that triggers the subscription to create an invoice
     public var usageGte: Int?
 
@@ -27527,7 +27527,7 @@ public struct SubscriptionItemBillingThresholds: Codable {
 }
 
 /// Subscription_payment_method_options_card
-public struct SubscriptionPaymentMethodOptionsCard: Codable {
+public final class SubscriptionPaymentMethodOptionsCard: Codable {
     /// We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     public var requestThreeDSecure: RequestThreeDSecure?
 
@@ -27546,7 +27546,7 @@ public struct SubscriptionPaymentMethodOptionsCard: Codable {
     }
 }
 
-public struct SubscriptionPendingInvoiceItemInterval: Codable {
+public final class SubscriptionPendingInvoiceItemInterval: Codable {
     /// Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
     public var interval: Interval
     /// The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
@@ -27574,7 +27574,7 @@ public struct SubscriptionPendingInvoiceItemInterval: Codable {
 /// A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
 /// 
 /// Related guide: [Subscription Schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
-public struct SubscriptionSchedule: Codable {
+public final class SubscriptionSchedule: Codable {
     /// Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     public var canceledAt: Int?
     /// Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.
@@ -27608,7 +27608,7 @@ public struct SubscriptionSchedule: Codable {
     public var subscription: Subscription?
 
     /// Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`.
-    public struct CurrentPhase: Codable {
+    public final class CurrentPhase: Codable {
         public var subscriptionScheduleCurrentPhase: SubscriptionScheduleCurrentPhase?
 
         public init(subscriptionScheduleCurrentPhase: SubscriptionScheduleCurrentPhase? = nil) {
@@ -27738,7 +27738,7 @@ public struct SubscriptionSchedule: Codable {
 }
 
 /// An Add Invoice Item describes the prices and quantities that will be added as pending invoice items when entering a phase.
-public struct SubscriptionScheduleAddInvoiceItem: Codable {
+public final class SubscriptionScheduleAddInvoiceItem: Codable {
     /// ID of the price used to generate the invoice item.
     public var price: Price
     /// The quantity of the invoice item.
@@ -27793,7 +27793,7 @@ public struct SubscriptionScheduleAddInvoiceItem: Codable {
 }
 
 /// A phase item describes the price and quantity of a phase.
-public struct SubscriptionScheduleConfigurationItem: Codable {
+public final class SubscriptionScheduleConfigurationItem: Codable {
     /// Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     public var billingThresholds: BillingThresholds?
     /// ID of the price to which the customer should be subscribed.
@@ -27804,7 +27804,7 @@ public struct SubscriptionScheduleConfigurationItem: Codable {
     public var taxRates: [TaxRate]?
 
     /// Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-    public struct BillingThresholds: Codable {
+    public final class BillingThresholds: Codable {
         public var subscriptionItemBillingThresholds: SubscriptionItemBillingThresholds?
 
         public init(subscriptionItemBillingThresholds: SubscriptionItemBillingThresholds? = nil) {
@@ -27870,7 +27870,7 @@ public struct SubscriptionScheduleConfigurationItem: Codable {
     }
 }
 
-public struct SubscriptionScheduleCurrentPhase: Codable {
+public final class SubscriptionScheduleCurrentPhase: Codable {
     /// The end of this phase of the subscription schedule.
     public var endDate: Int
     /// The start of this phase of the subscription schedule.
@@ -27888,7 +27888,7 @@ public struct SubscriptionScheduleCurrentPhase: Codable {
 }
 
 /// A phase describes the plans, coupon, and trialing status of a subscription for a predefined time period.
-public struct SubscriptionSchedulePhaseConfiguration: Codable {
+public final class SubscriptionSchedulePhaseConfiguration: Codable {
     /// A list of prices and quantities that will generate invoice items appended to the first invoice for this phase.
     public var addInvoiceItems: [SubscriptionScheduleAddInvoiceItem]
     /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule.
@@ -27929,7 +27929,7 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
     }
 
     /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-    public struct BillingThresholds: Codable {
+    public final class BillingThresholds: Codable {
         public var subscriptionBillingThresholds: SubscriptionBillingThresholds?
 
         public init(subscriptionBillingThresholds: SubscriptionBillingThresholds? = nil) {
@@ -27984,7 +27984,7 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
     }
 
     /// ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
-    public struct DefaultPaymentMethod: Codable {
+    public final class DefaultPaymentMethod: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -28007,7 +28007,7 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
     }
 
     /// The invoice settings applicable during this phase.
-    public struct InvoiceSettings: Codable {
+    public final class InvoiceSettings: Codable {
         public var invoiceSettingSubscriptionScheduleSetting: InvoiceSettingSubscriptionScheduleSetting?
 
         public init(invoiceSettingSubscriptionScheduleSetting: InvoiceSettingSubscriptionScheduleSetting? = nil) {
@@ -28033,7 +28033,7 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
     }
 
     /// The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
-    public struct TransferData: Codable {
+    public final class TransferData: Codable {
         public var subscriptionTransferData: SubscriptionTransferData?
 
         public init(subscriptionTransferData: SubscriptionTransferData? = nil) {
@@ -28090,7 +28090,7 @@ public struct SubscriptionSchedulePhaseConfiguration: Codable {
     }
 }
 
-public struct SubscriptionSchedulesResourceDefaultSettings: Codable {
+public final class SubscriptionSchedulesResourceDefaultSettings: Codable {
     /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the application owner's Stripe account during this phase of the schedule.
     public var applicationFeePercent: Double?
     /// SubscriptionSchedulesResourceDefaultSettingsAutomaticTax
@@ -28115,7 +28115,7 @@ public struct SubscriptionSchedulesResourceDefaultSettings: Codable {
     }
 
     /// Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-    public struct BillingThresholds: Codable {
+    public final class BillingThresholds: Codable {
         public var subscriptionBillingThresholds: SubscriptionBillingThresholds?
 
         public init(subscriptionBillingThresholds: SubscriptionBillingThresholds? = nil) {
@@ -28140,7 +28140,7 @@ public struct SubscriptionSchedulesResourceDefaultSettings: Codable {
     }
 
     /// ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
-    public struct DefaultPaymentMethod: Codable {
+    public final class DefaultPaymentMethod: Codable {
         public var string: String?
         public var paymentMethod: PaymentMethod?
 
@@ -28163,7 +28163,7 @@ public struct SubscriptionSchedulesResourceDefaultSettings: Codable {
     }
 
     /// The subscription schedule's default invoice settings.
-    public struct InvoiceSettings: Codable {
+    public final class InvoiceSettings: Codable {
         public var invoiceSettingSubscriptionScheduleSetting: InvoiceSettingSubscriptionScheduleSetting?
 
         public init(invoiceSettingSubscriptionScheduleSetting: InvoiceSettingSubscriptionScheduleSetting? = nil) {
@@ -28182,7 +28182,7 @@ public struct SubscriptionSchedulesResourceDefaultSettings: Codable {
     }
 
     /// The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
-    public struct TransferData: Codable {
+    public final class TransferData: Codable {
         public var subscriptionTransferData: SubscriptionTransferData?
 
         public init(subscriptionTransferData: SubscriptionTransferData? = nil) {
@@ -28223,7 +28223,7 @@ public struct SubscriptionSchedulesResourceDefaultSettings: Codable {
     }
 }
 
-public struct SubscriptionSchedulesResourceDefaultSettingsAutomaticTax: Codable {
+public final class SubscriptionSchedulesResourceDefaultSettingsAutomaticTax: Codable {
     /// Whether Stripe automatically computes tax on invoices created during this phase.
     public var isEnabled: Bool
 
@@ -28236,14 +28236,14 @@ public struct SubscriptionSchedulesResourceDefaultSettingsAutomaticTax: Codable 
     }
 }
 
-public struct SubscriptionTransferData: Codable {
+public final class SubscriptionTransferData: Codable {
     /// A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice subtotal that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
     public var amountPercent: Double?
     /// The account where funds from the payment will be transferred to upon payment success.
     public var destination: Destination
 
     /// The account where funds from the payment will be transferred to upon payment success.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -28278,7 +28278,7 @@ public struct SubscriptionTransferData: Codable {
 
 /// The Pause Collection settings determine how we will pause collection for this subscription and for how long the subscription
 /// should be paused.
-public struct SubscriptionsResourcePauseCollection: Codable {
+public final class SubscriptionsResourcePauseCollection: Codable {
     /// The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
     public var behavior: Behavior
     /// The time after which the subscription will resume collecting payments.
@@ -28302,7 +28302,7 @@ public struct SubscriptionsResourcePauseCollection: Codable {
     }
 }
 
-public struct SubscriptionsResourcePaymentMethodOptions: Codable {
+public final class SubscriptionsResourcePaymentMethodOptions: Codable {
     /// This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
     public var acssDebit: AcssDebit?
     /// This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
@@ -28311,7 +28311,7 @@ public struct SubscriptionsResourcePaymentMethodOptions: Codable {
     public var card: Card?
 
     /// This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
-    public struct AcssDebit: Codable {
+    public final class AcssDebit: Codable {
         /// Invoice_payment_method_options_acss_debit
         public var invoicePaymentMethodOptionsAcssDebit: InvoicePaymentMethodOptionsAcssDebit?
 
@@ -28331,7 +28331,7 @@ public struct SubscriptionsResourcePaymentMethodOptions: Codable {
     }
 
     /// This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
-    public struct Bancontact: Codable {
+    public final class Bancontact: Codable {
         /// Invoice_payment_method_options_bancontact
         public var invoicePaymentMethodOptionsBancontact: InvoicePaymentMethodOptionsBancontact?
 
@@ -28351,7 +28351,7 @@ public struct SubscriptionsResourcePaymentMethodOptions: Codable {
     }
 
     /// This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
-    public struct Card: Codable {
+    public final class Card: Codable {
         /// Subscription_payment_method_options_card
         public var subscriptionPaymentMethodOptionsCard: SubscriptionPaymentMethodOptionsCard?
 
@@ -28383,14 +28383,14 @@ public struct SubscriptionsResourcePaymentMethodOptions: Codable {
     }
 }
 
-public struct SubscriptionsResourcePaymentSettings: Codable {
+public final class SubscriptionsResourcePaymentSettings: Codable {
     /// Payment-method-specific configuration to provide to invoices created by the subscription.
     public var paymentMethodOptions: PaymentMethodOptions?
     /// The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
     public var paymentMethodTypes: [PaymentMethodType]?
 
     /// Payment-method-specific configuration to provide to invoices created by the subscription.
-    public struct PaymentMethodOptions: Codable {
+    public final class PaymentMethodOptions: Codable {
         public var subscriptionsResourcePaymentMethodOptions: SubscriptionsResourcePaymentMethodOptions?
 
         public init(subscriptionsResourcePaymentMethodOptions: SubscriptionsResourcePaymentMethodOptions? = nil) {
@@ -28438,7 +28438,7 @@ public struct SubscriptionsResourcePaymentSettings: Codable {
 
 /// Pending Updates store the changes pending from a previous update that will be applied
 /// to the Subscription upon successful payment.
-public struct SubscriptionsResourcePendingUpdate: Codable {
+public final class SubscriptionsResourcePendingUpdate: Codable {
     /// If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices.
     public var billingCycleAnchor: Int?
     /// The point after which the changes reflected by this update will be discarded and no longer applied.
@@ -28470,7 +28470,7 @@ public struct SubscriptionsResourcePendingUpdate: Codable {
 /// TaxProductResourceTaxCode
 ///
 /// [Tax codes](https://stripe.com/docs/tax/tax-codes) classify goods and services for tax purposes.
-public struct TaxCode: Codable {
+public final class TaxCode: Codable {
     /// A detailed description of which types of products the tax code represents.
     public var description: String
     /// Unique identifier for the object.
@@ -28493,7 +28493,7 @@ public struct TaxCode: Codable {
     }
 }
 
-public struct TaxDeductedAtSource: Codable {
+public final class TaxDeductedAtSource: Codable {
     /// Unique identifier for the object.
     public var id: String
     /// String representing the object's type. Objects of the same type share the same value.
@@ -28533,7 +28533,7 @@ public struct TaxDeductedAtSource: Codable {
 /// A customer's tax IDs are displayed on invoices and credit notes issued for the customer.
 /// 
 /// Related guide: [Customer Tax Identification Numbers](https://stripe.com/docs/billing/taxes/tax-ids).
-public struct TaxID: Codable {
+public final class TaxID: Codable {
     /// Two-letter ISO code representing the country of the tax ID.
     public var country: String?
     /// Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -28628,7 +28628,7 @@ public struct TaxID: Codable {
     }
 
     /// Tax ID verification information.
-    public struct Verification: Codable {
+    public final class Verification: Codable {
         /// Tax_id_verification
         public var taxIDVerification: TaxIDVerification?
 
@@ -28673,7 +28673,7 @@ public struct TaxID: Codable {
 }
 
 /// Tax_id_verification
-public struct TaxIDVerification: Codable {
+public final class TaxIDVerification: Codable {
     /// Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
     public var status: Status
     /// Verified address.
@@ -28705,7 +28705,7 @@ public struct TaxIDVerification: Codable {
 /// Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
 /// 
 /// Related guide: [Tax Rates](https://stripe.com/docs/billing/taxes/tax-rates).
-public struct TaxRate: Codable {
+public final class TaxRate: Codable {
     /// Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
     public var isActive: Bool
     /// Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -28790,7 +28790,7 @@ public struct TaxRate: Codable {
 /// A Connection Token is used by the Stripe Terminal SDK to connect to a reader.
 /// 
 /// Related guide: [Fleet Management](https://stripe.com/docs/terminal/fleet/locations).
-public struct TerminalConnectionToken: Codable {
+public final class TerminalConnectionToken: Codable {
     /// The id of the location that this connection token is scoped to. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens).
     public var location: String?
     /// String representing the object's type. Objects of the same type share the same value.
@@ -28815,7 +28815,7 @@ public struct TerminalConnectionToken: Codable {
 /// A Location represents a grouping of readers.
 /// 
 /// Related guide: [Fleet Management](https://stripe.com/docs/terminal/fleet/locations).
-public struct TerminalLocation: Codable {
+public final class TerminalLocation: Codable {
     public var address: Address
     /// The display name of the location.
     public var displayName: String
@@ -28857,7 +28857,7 @@ public struct TerminalLocation: Codable {
 /// A Reader represents a physical device for accepting payment details.
 /// 
 /// Related guide: [Connecting to a Reader](https://stripe.com/docs/terminal/payments/connect-reader).
-public struct TerminalReader: Codable {
+public final class TerminalReader: Codable {
     /// The current software version of the reader.
     public var deviceSwVersion: String?
     /// Type of reader, one of `bbpos_chipper2x`, `bbpos_wisepos_e`, or `verifone_P400`.
@@ -28889,7 +28889,7 @@ public struct TerminalReader: Codable {
     }
 
     /// The location identifier of the reader.
-    public struct Location: Codable {
+    public final class Location: Codable {
         public var string: String?
         /// TerminalLocationLocation
         ///
@@ -28953,7 +28953,7 @@ public struct TerminalReader: Codable {
 /// Cardholder authentication via 3D Secure is initiated by creating a `3D Secure`
 /// object. Once the object has been created, you can use it to authenticate the
 /// cardholder and create a charge.
-public struct ThreeDSecure: Codable {
+public final class ThreeDSecure: Codable {
     /// Amount of the charge that you will create when authentication completes.
     public var amount: Int
     /// True if the cardholder went through the authentication flow and their bank indicated that authentication succeeded.
@@ -29007,7 +29007,7 @@ public struct ThreeDSecure: Codable {
 }
 
 /// Three_d_secure_details
-public struct ThreeDSecureDetails: Codable {
+public final class ThreeDSecureDetails: Codable {
     /// For authenticated transactions: how the customer was authenticated by
     /// the issuing bank.
     public var authenticationFlow: AuthenticationFlow?
@@ -29070,7 +29070,7 @@ public struct ThreeDSecureDetails: Codable {
 }
 
 /// Three_d_secure_usage
-public struct ThreeDSecureUsage: Codable {
+public final class ThreeDSecureUsage: Codable {
     /// Whether 3D Secure is supported on this card.
     public var isSupported: Bool
 
@@ -29105,7 +29105,7 @@ public struct ThreeDSecureUsage: Codable {
 /// performs best with integrations that use client-side tokenization.
 /// 
 /// Related guide: [Accept a payment](https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token)
-public struct Token: Codable {
+public final class Token: Codable {
     public var bankAccount: BankAccount?
     public var card: Card?
     /// IP address of the client that generated the token.
@@ -29158,7 +29158,7 @@ public struct Token: Codable {
 /// unique, random ID.
 /// 
 /// Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
-public struct Topup: Codable {
+public final class Topup: Codable {
     /// Amount transferred.
     public var amount: Int
     /// ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up.
@@ -29283,7 +29283,7 @@ public struct Topup: Codable {
 /// [transfer/payout split](https://stripe.com/docs/transfer-payout-split).
 /// 
 /// Related guide: [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/charges-transfers).
-public struct Transfer: Codable {
+public final class Transfer: Codable {
     /// Amount in %s to be transferred.
     public var amount: Int
     /// Amount in %s reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).
@@ -29345,7 +29345,7 @@ public struct Transfer: Codable {
     }
 
     /// ID of the Stripe account the transfer was sent to.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -29368,7 +29368,7 @@ public struct Transfer: Codable {
     }
 
     /// If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
-    public struct DestinationPayment: Codable {
+    public final class DestinationPayment: Codable {
         public var string: String?
         public var charge: Charge?
 
@@ -29398,7 +29398,7 @@ public struct Transfer: Codable {
     /// TransferReversalList
     ///
     /// A list of reversals that have been applied to the transfer.
-    public struct Reversals: Codable {
+    public final class Reversals: Codable {
         /// Details about each object.
         public var data: [TransferReversal]
         /// True if this list has another page of items after this one that can be fetched.
@@ -29429,7 +29429,7 @@ public struct Transfer: Codable {
     }
 
     /// ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance.
-    public struct SourceTransaction: Codable {
+    public final class SourceTransaction: Codable {
         public var string: String?
         public var charge: Charge?
 
@@ -29493,7 +29493,7 @@ public struct Transfer: Codable {
 }
 
 /// Transfer_data
-public struct TransferData: Codable {
+public final class TransferData: Codable {
     /// Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     public var amount: Int?
     /// The account (if any) the payment will be attributed to for tax
@@ -29504,7 +29504,7 @@ public struct TransferData: Codable {
     /// The account (if any) the payment will be attributed to for tax
     /// reporting, and where funds from the payment will be transferred to upon
     /// payment success.
-    public struct Destination: Codable {
+    public final class Destination: Codable {
         public var string: String?
         public var account: Account?
 
@@ -29545,7 +29545,7 @@ public struct TransferData: Codable {
 /// reversal.
 /// 
 /// Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
-public struct TransferReversal: Codable {
+public final class TransferReversal: Codable {
     /// Amount, in %s.
     public var amount: Int
     /// Balance transaction that describes the impact on your account balance.
@@ -29591,7 +29591,7 @@ public struct TransferReversal: Codable {
     }
 
     /// Linked payment refund for the transfer reversal.
-    public struct DestinationPaymentRefund: Codable {
+    public final class DestinationPaymentRefund: Codable {
         public var string: String?
         public var refund: Refund?
 
@@ -29619,7 +29619,7 @@ public struct TransferReversal: Codable {
     }
 
     /// ID of the refund responsible for the transfer reversal.
-    public struct SourceRefund: Codable {
+    public final class SourceRefund: Codable {
         public var string: String?
         public var refund: Refund?
 
@@ -29691,7 +29691,7 @@ public struct TransferReversal: Codable {
     }
 }
 
-public struct TransferSchedule: Codable {
+public final class TransferSchedule: Codable {
     /// The number of days charges for the account will be held before being paid out.
     public var delayDays: Int
     /// How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
@@ -29716,7 +29716,7 @@ public struct TransferSchedule: Codable {
     }
 }
 
-public struct TransformQuantity: Codable {
+public final class TransformQuantity: Codable {
     /// Divide usage by this number.
     public var divideBy: Int
     /// After division, either round the result `up` or `down`.
@@ -29739,7 +29739,7 @@ public struct TransformQuantity: Codable {
     }
 }
 
-public struct TransformUsage: Codable {
+public final class TransformUsage: Codable {
     /// Divide usage by this number.
     public var divideBy: Int
     /// After division, either round the result `up` or `down`.
@@ -29766,7 +29766,7 @@ public struct TransformUsage: Codable {
 /// metered billing of subscription prices.
 /// 
 /// Related guide: [Metered Billing](https://stripe.com/docs/billing/subscriptions/metered-billing).
-public struct UsageRecord: Codable {
+public final class UsageRecord: Codable {
     /// Unique identifier for the object.
     public var id: String
     /// Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -29804,7 +29804,7 @@ public struct UsageRecord: Codable {
     }
 }
 
-public struct UsageRecordSummary: Codable {
+public final class UsageRecordSummary: Codable {
     /// Unique identifier for the object.
     public var id: String
     /// The invoice in which this usage period has been billed for.
@@ -29846,7 +29846,7 @@ public struct UsageRecordSummary: Codable {
 }
 
 /// Verification_session_redaction
-public struct VerificationSessionRedaction: Codable {
+public final class VerificationSessionRedaction: Codable {
     /// Indicates whether this object and its related objects have been redacted or not.
     public var status: Status
 
@@ -29870,7 +29870,7 @@ public struct VerificationSessionRedaction: Codable {
 /// Most users configure webhooks from [the dashboard](https://dashboard.stripe.com/webhooks), which provides a user interface for registering and testing your webhook endpoints.
 /// 
 /// Related guide: [Setting up Webhooks](https://stripe.com/docs/webhooks/configure).
-public struct WebhookEndpoint: Codable {
+public final class WebhookEndpoint: Codable {
     /// The API version events are rendered as for this webhook endpoint.
     public var apiVersion: String?
     /// The ID of the associated Connect application.

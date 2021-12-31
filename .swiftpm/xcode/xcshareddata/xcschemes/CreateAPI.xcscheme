@@ -99,6 +99,10 @@
             argument = "generate ~/Developer/CreateAPI/Tests/CreateAPITests/Specs/github.yaml --output ~/Developer/OctoKit/Sources/OctoKit --verbose --vendor &quot;github&quot; --module &quot;OctoKit&quot; --config ~/Developer/OctoKit/.create-api.yml --measure"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "generate ~/Developer/CreateAPI/Tests/CreateAPITests/Specs/stripe.yaml --output ~/Desktop/measure-stripe/Sources --module &quot;StripeKit&quot; --split --config ~/Desktop/measure-stripe/config.yaml"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
