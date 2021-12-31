@@ -26,8 +26,6 @@ class GenerateBaseTests: XCTestCase {
         let command = try Generate.parse([
             pathForSpec(named: name),
             "--output", temp.url.path,
-            "--strict",
-            // "--single-threaded",
             "--package", package ?? name,
             "--config", self.config(config, ext: "yaml")
         ])

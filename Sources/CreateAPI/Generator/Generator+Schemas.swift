@@ -47,10 +47,10 @@ extension Generator {
                     }
                 }
             } catch {
-                if arguments.isStrict {
-                    lock.sync { declarations[index] = .failure(error) }
-                } else {
+                if arguments.isIgnoringErrors {
                     print("ERROR: Failed to generate entity for \(job.name.rawValue): \(error)")
+                } else {
+                    lock.sync { declarations[index] = .failure(error) }
                 }
             }
         }
@@ -291,12 +291,7 @@ extension Generator {
             do {
                 return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context)
             } catch {
-                if arguments.isStrict {
-                    throw error
-                } else {
-                    print("ERROR: Failed to generate property \"\(key)\" in \"\(type)\". Error: \(error).")
-                    return nil
-                }
+                return try handle(error: "Failed to generate property \"\(key)\" in \"\(type)\". \(error).")
             }
         }
     }

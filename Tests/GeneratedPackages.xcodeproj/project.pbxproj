@@ -127,6 +127,7 @@
 		0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B6277EA83A009130EA /* StripeAPI */; };
 		0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B9277F83BA009130EA /* BoxAPI */; };
 		0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8BC277F85B7009130EA /* AEMAPI */; };
+		0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C5277F8F7F009130EA /* AnchoreAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +197,7 @@
 		0C80E8BB277F85B0009130EA /* AEMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AEMAPI; path = CreateAPITests/Expected/AEMAPI; sourceTree = "<group>"; };
 		0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonOpenSearchAPI; path = CreateAPITests/Expected/AmazonOpenSearchAPI; sourceTree = "<group>"; };
 		0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonMemoryDBAPI; path = CreateAPITests/Expected/AmazonMemoryDBAPI; sourceTree = "<group>"; };
+		0C80E8C4277F8F7A009130EA /* AnchoreAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnchoreAPI; path = CreateAPITests/Expected/AnchoreAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -242,6 +244,7 @@
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
 				0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */,
 				0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */,
+				0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */,
 				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
 				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
 				0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */,
@@ -278,6 +281,7 @@
 				0C80E8BB277F85B0009130EA /* AEMAPI */,
 				0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */,
 				0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */,
+				0C80E8C4277F8F7A009130EA /* AnchoreAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
@@ -451,6 +455,7 @@
 				0C80E8B6277EA83A009130EA /* StripeAPI */,
 				0C80E8B9277F83BA009130EA /* BoxAPI */,
 				0C80E8BC277F85B7009130EA /* AEMAPI */,
+				0C80E8C5277F8F7F009130EA /* AnchoreAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1015,6 +1020,10 @@
 		0C80E8BC277F85B7009130EA /* AEMAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AEMAPI;
+		};
+		0C80E8C5277F8F7F009130EA /* AnchoreAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnchoreAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

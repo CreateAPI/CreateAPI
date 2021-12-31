@@ -102,6 +102,27 @@ final class Generator {
 
         return output
     }
+    
+    // MARK: Errors and Warnings
+
+    func handle(warning message: String) throws {
+        let error = GeneratorError(message)
+        if arguments.isStrict {
+            throw error
+        } else {
+            print("WARNING: \(error)")
+        }
+    }
+    
+    func handle<T>(error message: String) throws -> T? {
+        let error = GeneratorError(message)
+        if arguments.isIgnoringErrors {
+            print("ERROR: \(error)")
+            return nil
+        } else {
+            throw error
+        }
+    }
 }
 
 struct GeneratorError: Error, CustomStringConvertible, LocalizedError {

@@ -29,8 +29,11 @@ struct Generate: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Print additional logging information")
     var verbose = false
     
-    @Flag(help: "Throws an error if it fails to generate any of the constructs from the input spec")
+    @Flag(help: "Turns all warnings into errors")
     var strict = false
+    
+    @Flag(help: "Ignore any errors that happen during code generation")
+    var allowErrors = false
     
     @Flag(help: "Monitor changes to both the spec and the configuration file and automatically re-generated input")
     var watch = false
@@ -193,6 +196,6 @@ struct Generate: ParsableCommand {
         guard let module = (package ?? module).map(ModuleName.init(processing:)) else {
             fatalError("You must provide either `module` or `package`")
         }
-        return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, vendor: vendor, module: module)
+        return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, isIgnoringErrors: allowErrors, vendor: vendor, module: module)
     }
 }

@@ -25,8 +25,8 @@ OPTIONS:
                           for .createAPI file in the current folder. (default: /.create-api.yaml)
   -s, --split             Split output into separate files
   -v, --verbose           Print additional logging information
-  --strict                Throws an error if it fails to generate any of the constructs from
-                          the input spec
+  --strict                Turns all warnings into errors
+  --allowErrors           Ignore any errors that happen during code generation
   --watch                 Monitor changes to both the spec and the configuration file and
                           automatically re-generated input
   --package <package>     Generates a complete package with a given name

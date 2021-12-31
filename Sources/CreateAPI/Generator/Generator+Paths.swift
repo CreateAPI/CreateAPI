@@ -38,10 +38,10 @@ extension Generator {
                 let file = GeneratedFile(name: makeTypeName(job.filename).rawValue, contents: entry)
                 lock.sync { generated[index] = .success(file) }
             } catch {
-                if arguments.isStrict {
-                    lock.sync { generated[index] = .failure(error) }
-                } else {
+                if arguments.isIgnoringErrors {
                     print("ERROR: Failed to generate path for \(job.filename): \(error)")
+                } else {
+                    lock.sync { generated[index] = .failure(error) }
                 }
             }
         }
@@ -318,12 +318,7 @@ extension Generator {
         do {
             return try _makeOperation(path, item, operation, method, style, context, &nestedTypeNames)
         } catch {
-            if arguments.isStrict {
-                throw error
-            } else {
-                print("ERROR: Failed to generate \(method) for \(operation.operationId ?? "\(operation)"): \(error)")
-                return nil
-            }
+            return try handle(error: "Failed to generate \(method) for \(operation.operationId ?? "\(operation)"). \(error)")
         }
     }
     
@@ -510,12 +505,7 @@ extension Generator {
             }
             return property
         } catch {
-            if arguments.isStrict {
-                throw GeneratorError("Failed to generate query parameter \(input.description): \(error)")
-            } else {
-                print("ERROR: Fail to generate query parameter \(input.description)")
-                return nil
-            }
+            return try handle(error: "Failed to generate query parameter \(input.description). \(error)")
         }
     }
     
@@ -683,7 +673,7 @@ extension Generator {
             .bmp, .jpg, .tif, .anyImage, .other("image/jpg"),
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
-            .rar, .tar, .zip, .other("gzip"),
+            .rar, .tar, .zip, .other("gzip"), .other("application/gzip"),
             .pdf,
             .other("application/octet-stream")
         ]) != nil {
@@ -698,11 +688,7 @@ extension Generator {
         if firstContent(for: [.other("application/json-patch+json")]) != nil {
             return GeneratedType(type: TypeName("Data"))
         }
-        if arguments.isStrict {
-            throw GeneratorError("Unknown request body content types: \(request.content.keys)")
-        } else {
-            print("WARNING: Unknown request body content types: \(request.content.keys)")
-        }
+        try handle(warning: "Unknown request body content types: \(request.content.keys), defaulting to Data")
         return makeRequestType(TypeName("Data"))
     }
     
@@ -800,7 +786,7 @@ extension Generator {
             .bmp, .jpg, .tif, .anyImage, .other("image/jpg"),
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
-            .rar, .tar, .zip, .other("gzip"),
+            .rar, .tar, .zip, .other("gzip"), .other("application/gzip"),
             .pdf,
             .other("application/octet-stream")
         ]) != nil {
@@ -815,11 +801,7 @@ extension Generator {
         if firstContent(for: [.other("application/json-patch+json")]) != nil {
             return GeneratedType(type: TypeName("Data"))
         }
-        if arguments.isStrict {
-            throw GeneratorError("Unknown response body content types: \(response.content.keys)")
-        } else {
-            print("WARNING: Unknown response body content types: \(response.content.keys)")
-        }
+        try handle(warning: "Unknown response body content types: \(response.content.keys), defaulting to Data")
         return GeneratedType(type: TypeName("Data"))
     }
         

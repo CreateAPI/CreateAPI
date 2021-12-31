@@ -55,6 +55,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "amazon-memorydb", package: "AmazonMemoryDBAPI")
     }
     
+    func testAnchore() throws {
+        try testSpec(name: "anchore", package: "AnchoreAPI")
+    }
+    
     func testGoogleBooks() throws {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }
