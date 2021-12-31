@@ -1648,7 +1648,7 @@ extension Paths.API.__3.Field {
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(type, forKey: "type")
                 encoder.encode(id, forKey: "id")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(orderBy, forKey: "orderBy")
                 encoder.encode(expand, forKey: "expand")
                 return encoder.items
@@ -2594,7 +2594,7 @@ extension Paths.API.__3 {
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(id, forKey: "id")
                 encoder.encode(isDefault, forKey: "isDefault")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 return encoder.items
             }
         }
@@ -3651,7 +3651,7 @@ extension Paths.API.__3.Groups {
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
                 encoder.encode(accountID, forKey: "accountId")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(exclude, forKey: "exclude")
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(userName, forKey: "userName")
@@ -3748,7 +3748,7 @@ extension Paths.API.__3 {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(isShowAvatar, forKey: "showAvatar")
                 encoder.encode(fieldID, forKey: "fieldId")
@@ -3951,7 +3951,7 @@ extension Paths.API.__3.Issue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(currentJQL, forKey: "currentJQL")
                 encoder.encode(currentIssueKey, forKey: "currentIssueKey")
                 encoder.encode(currentProjectID, forKey: "currentProjectId")
@@ -7549,7 +7549,7 @@ extension Paths.API.__3.Project {
                 encoder.encode(orderBy, forKey: "orderBy")
                 encoder.encode(id, forKey: "id")
                 encoder.encode(keys, forKey: "keys")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(typeKey, forKey: "typeKey")
                 encoder.encode(categoryID, forKey: "categoryId")
                 encoder.encode(action, forKey: "action")
@@ -7908,7 +7908,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
                 encoder.encode(startAt, forKey: "startAt")
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(orderBy, forKey: "orderBy")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 return encoder.items
             }
         }
@@ -8321,7 +8321,7 @@ extension Paths.API.__3.Project.WithProjectIDOrKey {
                 encoder.encode(startAt, forKey: "startAt")
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(orderBy, forKey: "orderBy")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(status, forKey: "status")
                 encoder.encode(expand, forKey: "expand")
                 return encoder.items
@@ -10097,7 +10097,7 @@ extension Paths.API.__3.User.Assignable {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(username, forKey: "username")
                 encoder.encode(accountID, forKey: "accountId")
                 encoder.encode(projectKeys, forKey: "projectKeys")
@@ -10163,7 +10163,7 @@ extension Paths.API.__3.User.Assignable {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(sessionID, forKey: "sessionId")
                 encoder.encode(username, forKey: "username")
                 encoder.encode(accountID, forKey: "accountId")
@@ -10488,7 +10488,7 @@ extension Paths.API.__3.User.Permission {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(username, forKey: "username")
                 encoder.encode(accountID, forKey: "accountId")
                 encoder.encode(permissions, forKey: "permissions")
@@ -10545,7 +10545,7 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(maxResults, forKey: "maxResults")
                 encoder.encode(isShowAvatar, forKey: "showAvatar")
                 encoder.encode(exclude, forKey: "exclude")
@@ -10762,7 +10762,7 @@ extension Paths.API.__3.User {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(username, forKey: "username")
                 encoder.encode(accountID, forKey: "accountId")
                 encoder.encode(startAt, forKey: "startAt")
@@ -10822,7 +10822,7 @@ extension Paths.API.__3.User.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(startAt, forKey: "startAt")
                 encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
@@ -10879,7 +10879,7 @@ extension Paths.API.__3.User.Search.Query {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(startAt, forKey: "startAt")
                 encoder.encode(maxResults, forKey: "maxResults")
                 return encoder.items
@@ -10951,7 +10951,7 @@ extension Paths.API.__3.User.Viewissue {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(username, forKey: "username")
                 encoder.encode(accountID, forKey: "accountId")
                 encoder.encode(issueKey, forKey: "issueKey")

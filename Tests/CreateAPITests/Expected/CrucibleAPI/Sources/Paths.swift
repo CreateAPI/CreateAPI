@@ -52,7 +52,7 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(limit, forKey: "limit")
                 encoder.encode(sortField, forKey: "sort_field")
                 encoder.encode(sortDir, forKey: "sort_dir")

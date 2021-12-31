@@ -6907,7 +6907,7 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(scope, forKey: "scope")
                 encoder.encode(fileExtensions, forKey: "file_extensions", explode: false)
                 encoder.encode(createdAtRange, forKey: "created_at_range", explode: false)

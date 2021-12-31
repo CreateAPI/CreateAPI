@@ -132,7 +132,6 @@ final class Templates {
     }
     
     private func asQuery(_ property: Property, encoderParameters: [String] = []) -> String {
-        let getter = (property.name.rawValue == "query" ? "self." : "") + property.name.rawValue
         var parameters: [String] = []
         if !property.explode && !encoderParameters.contains("explode: false") { parameters.append("explode: false") }
         switch property.style {
@@ -141,7 +140,7 @@ final class Templates {
         case .deepObject: parameters.append("isDeepObject: true")
         default: break // Do nothing
         }
-        parameters = [getter, "forKey: \"\(property.key)\""] + parameters
+        parameters = [property.name.rawValue, "forKey: \"\(property.key)\""] + parameters
         return "encoder.encode(\(parameters.joined(separator: ", ")))"
     }
     

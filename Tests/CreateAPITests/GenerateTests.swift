@@ -87,6 +87,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "marketcheck", package: "MarketcheckAPI")
     }
     
+    func testMicrosoftAppCenter() throws {
+        try testSpec(name: "microsoft-app-center", package: "MicrosoftAppCenterAPI")
+    }
+    
     func testEbayIdentity() throws {
         try testSpec(name: "ebay-identity", package: "EbayIdentityAPI")
     }

@@ -1730,7 +1730,7 @@ extension Paths.Tweets.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder(explode: false)
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(startTime, forKey: "start_time")
                 encoder.encode(endTime, forKey: "end_time")
                 encoder.encode(sinceID, forKey: "since_id")
@@ -1908,7 +1908,7 @@ extension Paths.Tweets.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder(explode: false)
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(startTime, forKey: "start_time")
                 encoder.encode(endTime, forKey: "end_time")
                 encoder.encode(sinceID, forKey: "since_id")
@@ -3042,7 +3042,7 @@ extension Paths.Tweets.Counts {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(startTime, forKey: "start_time")
                 encoder.encode(endTime, forKey: "end_time")
                 encoder.encode(sinceID, forKey: "since_id")
@@ -3105,7 +3105,7 @@ extension Paths.Tweets.Counts {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(startTime, forKey: "start_time")
                 encoder.encode(endTime, forKey: "end_time")
                 encoder.encode(sinceID, forKey: "since_id")
@@ -4007,7 +4007,7 @@ extension Paths.Spaces {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(state, forKey: "state")
                 encoder.encode(maxResults, forKey: "max_results")
                 encoder.encode(spaceFields, forKey: "space.fields", explode: false)

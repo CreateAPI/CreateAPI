@@ -3576,7 +3576,7 @@ extension Paths {
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
                 encoder.encode(sortDir, forKey: "sort_dir")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(sort, forKey: "sort")
                 encoder.encode(count, forKey: "count")
                 encoder.encode(token, forKey: "token")
@@ -3626,7 +3626,7 @@ extension Paths {
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
                 encoder.encode(sortDir, forKey: "sort_dir")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(sort, forKey: "sort")
                 encoder.encode(isHighlight, forKey: "highlight")
                 encoder.encode(count, forKey: "count")
@@ -3676,7 +3676,7 @@ extension Paths {
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
                 encoder.encode(sortDir, forKey: "sort_dir")
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(sort, forKey: "sort")
                 encoder.encode(count, forKey: "count")
                 encoder.encode(token, forKey: "token")

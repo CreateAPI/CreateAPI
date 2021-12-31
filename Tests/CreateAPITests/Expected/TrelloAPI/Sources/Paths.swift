@@ -7183,7 +7183,7 @@ extension Paths {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(idBoards, forKey: "idBoards")
                 encoder.encode(idOrganizations, forKey: "idOrganizations")
                 encoder.encode(idCards, forKey: "idCards")
@@ -7246,7 +7246,7 @@ extension Paths.Search {
 
             public var asQuery: [(String, String?)] {
                 let encoder = URLQueryEncoder()
-                encoder.encode(self.query, forKey: "query")
+                encoder.encode(query, forKey: "query")
                 encoder.encode(limit, forKey: "limit")
                 encoder.encode(idBoard, forKey: "idBoard")
                 encoder.encode(idOrganization, forKey: "idOrganization")
