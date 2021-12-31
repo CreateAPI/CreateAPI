@@ -133,6 +133,7 @@
 		0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */; };
 		0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */; };
 		0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */; };
+		0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D7277F9318009130EA /* MarketcheckAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,6 +209,7 @@
 		0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckLeadAPI; path = CreateAPITests/Expected/ApiDeckLeadAPI; sourceTree = "<group>"; };
 		0C80E8D0277F923B009130EA /* ApiDeckProxyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckProxyAPI; path = CreateAPITests/Expected/ApiDeckProxyAPI; sourceTree = "<group>"; };
 		0C80E8D3277F9283009130EA /* ApiDeckVaultAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckVaultAPI; path = CreateAPITests/Expected/ApiDeckVaultAPI; sourceTree = "<group>"; };
+		0C80E8D6277F9314009130EA /* MarketcheckAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarketcheckAPI; path = CreateAPITests/Expected/MarketcheckAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,6 +256,7 @@
 				0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */,
 				0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */,
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
+				0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */,
 				0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */,
 				0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */,
 				0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */,
@@ -323,6 +326,7 @@
 				0C612E932777B56F008D32A4 /* GoogleBooksAPI */,
 				0C612E832777B56F008D32A4 /* InstagramAPI */,
 				0C612E9E2777B570008D32A4 /* JiraAPI */,
+				0C80E8D6277F9314009130EA /* MarketcheckAPI */,
 				0C612E782777B56E008D32A4 /* NYTArchiveAPI */,
 				0C612E762777B56E008D32A4 /* NYTArticleSearchAPI */,
 				0C612E8F2777B56F008D32A4 /* NYTBooksAPI */,
@@ -481,6 +485,7 @@
 				0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */,
 				0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */,
 				0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */,
+				0C80E8D7277F9318009130EA /* MarketcheckAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1069,6 +1074,10 @@
 		0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApiDeckVaultAPI;
+		};
+		0C80E8D7277F9318009130EA /* MarketcheckAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarketcheckAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

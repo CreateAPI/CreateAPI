@@ -83,6 +83,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }
     
+    func testMarketcheck() throws {
+        try testSpec(name: "marketcheck", package: "MarketcheckAPI")
+    }
+    
     func testTomTom() throws {
         try testSpec(name: "tomtom", package: "TomTomAPI")
     }
