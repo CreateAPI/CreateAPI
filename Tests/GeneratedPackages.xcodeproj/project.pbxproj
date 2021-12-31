@@ -129,6 +129,7 @@
 		0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8BC277F85B7009130EA /* AEMAPI */; };
 		0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C5277F8F7F009130EA /* AnchoreAPI */; };
 		0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */; };
+		0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -200,6 +201,7 @@
 		0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonMemoryDBAPI; path = CreateAPITests/Expected/AmazonMemoryDBAPI; sourceTree = "<group>"; };
 		0C80E8C4277F8F7A009130EA /* AnchoreAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnchoreAPI; path = CreateAPITests/Expected/AnchoreAPI; sourceTree = "<group>"; };
 		0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckAccountingAPI; path = CreateAPITests/Expected/ApiDeckAccountingAPI; sourceTree = "<group>"; };
+		0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckCRMAPI; path = CreateAPITests/Expected/ApiDeckCRMAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +228,7 @@
 				0C612F3C2777B596008D32A4 /* TelegramBotPI in Frameworks */,
 				0C612F342777B595008D32A4 /* SlackAPI in Frameworks */,
 				0C80E30E277D3F29009130EA /* ZoomAPI in Frameworks */,
+				0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */,
 				0C612F142777B594008D32A4 /* petstore-change-filename in Frameworks */,
 				0C612F082777B594008D32A4 /* NYTBooksAPI in Frameworks */,
 				0C612EFE2777B594008D32A4 /* GoogleBooksAPI in Frameworks */,
@@ -286,6 +289,7 @@
 				0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */,
 				0C80E8C4277F8F7A009130EA /* AnchoreAPI */,
 				0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */,
+				0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
@@ -461,6 +465,7 @@
 				0C80E8BC277F85B7009130EA /* AEMAPI */,
 				0C80E8C5277F8F7F009130EA /* AnchoreAPI */,
 				0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */,
+				0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1033,6 +1038,10 @@
 		0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApiDeckAccountingAPI;
+		};
+		0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApiDeckCRMAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
