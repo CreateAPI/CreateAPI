@@ -326,7 +326,8 @@ final class Templates {
     func encode(properties: [Property]) -> String {
         let contents = properties.map {
             let encode = $0.isOptional ? "encodeIfPresent" : "encode"
-            return "try values.\(encode)(\($0.name), forKey: \"\($0.key)\")"
+            let getter = $0.name.rawValue == "values" ? "self.values" : $0.name.rawValue
+            return "try values.\(encode)(\(getter), forKey: \"\($0.key)\")"
         }.joined(separator: "\n")
         
         return """

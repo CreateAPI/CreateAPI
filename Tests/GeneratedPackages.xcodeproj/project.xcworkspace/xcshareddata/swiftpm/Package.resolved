@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/kean/Get",
         "state": {
           "branch": "main",
-          "revision": "e84025190a4d47f3c4535e9983ed7c75a5b2387f",
+          "revision": "afe1abfb9954ba67554d71633bce9c21714f9c4e",
           "version": null
         }
       },
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/kean/HTTPHeaders",
         "state": {
           "branch": "main",
-          "revision": "0bdbd7a48041e319c1ca061d0fd2ebdcb30f02c2",
+          "revision": "75866fb451442fac6deeaeae140958dc8ea94c91",
           "version": null
         }
       },
@@ -33,7 +33,7 @@
         "repositoryURL": "https://github.com/kean/URLQueryEncoder",
         "state": {
           "branch": "main",
-          "revision": "a69397fdb86bb845ee5dc40ebed7d36ad89e16c3",
+          "revision": "4cc975d4d075d0e62699a796a08284e217d4ee93",
           "version": null
         }
       }

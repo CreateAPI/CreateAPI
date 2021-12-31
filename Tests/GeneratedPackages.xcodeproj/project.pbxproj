@@ -139,6 +139,7 @@
 		0C80E8E1277F9823009130EA /* SiriAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E0277F9823009130EA /* SiriAPI */; };
 		0C80E8E4277F987E009130EA /* PowertoolsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E3277F987E009130EA /* PowertoolsAPI */; };
 		0C80E8E7277F98DD009130EA /* AppVeyorAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E6277F98DD009130EA /* AppVeyorAPI */; };
+		0C80E8EA277F9A4A009130EA /* BeezUPAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E9277F9A4A009130EA /* BeezUPAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,6 +221,7 @@
 		0C80E8DF277F981B009130EA /* SiriAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SiriAPI; path = CreateAPITests/Expected/SiriAPI; sourceTree = "<group>"; };
 		0C80E8E2277F9879009130EA /* PowertoolsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PowertoolsAPI; path = CreateAPITests/Expected/PowertoolsAPI; sourceTree = "<group>"; };
 		0C80E8E5277F98D8009130EA /* AppVeyorAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppVeyorAPI; path = CreateAPITests/Expected/AppVeyorAPI; sourceTree = "<group>"; };
+		0C80E8E8277F9A47009130EA /* BeezUPAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BeezUPAPI; path = CreateAPITests/Expected/BeezUPAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,6 +243,7 @@
 				0C612F1A2777B595008D32A4 /* petstore-disable-comments in Frameworks */,
 				0C612EE82777B594008D32A4 /* edgecases-change-access-control in Frameworks */,
 				0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */,
+				0C80E8EA277F9A4A009130EA /* BeezUPAPI in Frameworks */,
 				0C612F042777B594008D32A4 /* NYTArchiveAPI in Frameworks */,
 				0C612EF22777B594008D32A4 /* edgecases-indent-with-two-width-spaces in Frameworks */,
 				0C80E8E7277F98DD009130EA /* AppVeyorAPI in Frameworks */,
@@ -324,6 +327,7 @@
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
 				0C80E8E5277F98D8009130EA /* AppVeyorAPI */,
+				0C80E8E8277F9A47009130EA /* BeezUPAPI */,
 				0C84E3952778121D00609E4A /* BitbucketAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
@@ -511,6 +515,7 @@
 				0C80E8E0277F9823009130EA /* SiriAPI */,
 				0C80E8E3277F987E009130EA /* PowertoolsAPI */,
 				0C80E8E6277F98DD009130EA /* AppVeyorAPI */,
+				0C80E8E9277F9A4A009130EA /* BeezUPAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1123,6 +1128,10 @@
 		0C80E8E6277F98DD009130EA /* AppVeyorAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppVeyorAPI;
+		};
+		0C80E8E9277F9A4A009130EA /* BeezUPAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BeezUPAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
