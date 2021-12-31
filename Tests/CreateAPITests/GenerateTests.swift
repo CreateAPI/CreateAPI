@@ -93,8 +93,7 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "bitbucket", package: "BitbucketAPI")
     }
     
-    // TODO: Add application/json-patch+json support
-    func _testGenerateBox() throws {
+    func testGenerateBox() throws {
         try testSpec(name: "box", package: "BoxAPI")
     }
     

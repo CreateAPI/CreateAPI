@@ -19,6 +19,7 @@ import GrammaticalNumber
 // TODO: Add support for application/json-patch+json
 // TODO: Add an option to put inline responses into separate files
 // TODO: Add support for remaining encoding styles https://swagger.io/docs/specification/serialization/
+// TODO: Add support for application/json-patch+json
 
 extension Generator {
     func paths() throws -> GeneratorOutput {
@@ -679,7 +680,7 @@ extension Generator {
             return makeRequestType(TypeName("String"))
         }
         if firstContent(for: [
-            .bmp, .jpg, .tif, .anyImage,
+            .bmp, .jpg, .tif, .anyImage, .other("image/jpg"),
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
             .rar, .tar, .zip, .other("gzip"),
@@ -693,6 +694,9 @@ extension Generator {
                 return makeRequestType(TypeName("String"))
             }
             return makeRequestType(TypeName("Data"))
+        }
+        if firstContent(for: [.other("application/json-patch+json")]) != nil {
+            return GeneratedType(type: TypeName("Data"))
         }
         if arguments.isStrict {
             throw GeneratorError("Unknown request body content types: \(request.content.keys)")
@@ -793,7 +797,7 @@ extension Generator {
         }
         // TODO: Add support for images as response types
         if firstContent(for: [
-            .bmp, .jpg, .tif, .anyImage,
+            .bmp, .jpg, .tif, .anyImage, .other("image/jpg"),
             .mov, .mp4, .mpg, .anyVideo,
             .mp3, .anyAudio,
             .rar, .tar, .zip, .other("gzip"),
@@ -806,6 +810,9 @@ extension Generator {
             if case .b(let schema) = content.schema, case .string = schema.value {
                 return GeneratedType(type: TypeName("String"))
             }
+            return GeneratedType(type: TypeName("Data"))
+        }
+        if firstContent(for: [.other("application/json-patch+json")]) != nil {
             return GeneratedType(type: TypeName("Data"))
         }
         if arguments.isStrict {

@@ -125,6 +125,7 @@
 		0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C69E09C2779316100A46D93 /* SoundcloudAPI */; };
 		0C80E30E277D3F29009130EA /* ZoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E30D277D3F29009130EA /* ZoomAPI */; };
 		0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B6277EA83A009130EA /* StripeAPI */; };
+		0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B9277F83BA009130EA /* BoxAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,6 +191,7 @@
 		0C612EA02777B570008D32A4 /* OnePasswordAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OnePasswordAPI; path = CreateAPITests/Expected/OnePasswordAPI; sourceTree = "<group>"; };
 		0C69E09B2779315800A46D93 /* SoundcloudAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SoundcloudAPI; path = CreateAPITests/Expected/SoundcloudAPI; sourceTree = "<group>"; };
 		0C80E30C277D3F25009130EA /* ZoomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ZoomAPI; path = CreateAPITests/Expected/ZoomAPI; sourceTree = "<group>"; };
+		0C80E8B8277F83B0009130EA /* BoxAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BoxAPI; path = CreateAPITests/Expected/BoxAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +235,7 @@
 				0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */,
 				0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */,
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
+				0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */,
 				0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */,
 				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
 				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
@@ -329,6 +332,7 @@
 				0C612E742777B56E008D32A4 /* TwitterAPI */,
 				0C612E6C2777B56E008D32A4 /* WikimediaAPI */,
 				0C80E30C277D3F25009130EA /* ZoomAPI */,
+				0C80E8B8277F83B0009130EA /* BoxAPI */,
 				0C612DB82777B098008D32A4 /* Products */,
 				0C612DEA2777B0AC008D32A4 /* Frameworks */,
 			);
@@ -437,6 +441,7 @@
 				0C69E09C2779316100A46D93 /* SoundcloudAPI */,
 				0C80E30D277D3F29009130EA /* ZoomAPI */,
 				0C80E8B6277EA83A009130EA /* StripeAPI */,
+				0C80E8B9277F83BA009130EA /* BoxAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -993,6 +998,10 @@
 		0C80E8B6277EA83A009130EA /* StripeAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StripeAPI;
+		};
+		0C80E8B9277F83BA009130EA /* BoxAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BoxAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
