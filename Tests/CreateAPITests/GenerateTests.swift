@@ -45,6 +45,11 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "aem", package: "AEMAPI")
     }
     
+    // TODO: Add to GeneratedPackages when https://github.com/mattpolzin/OpenAPIKit/issues/251 is addressed
+    func testAmazonOpenSearch() throws {
+        try testSpec(name: "amazon-open-search", package: "AmazonOpenSearchAPI")
+    }
+    
     func testGoogleBooks() throws {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }
