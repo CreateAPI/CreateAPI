@@ -29,7 +29,7 @@ class GenerateBaseTests: XCTestCase {
             "--strict",
             // "--single-threaded",
             "--package", package ?? name,
-            "--config", self.config(config, ext: "yml")
+            "--config", self.config(config, ext: "yaml")
         ])
 
         // WHEN

@@ -31,7 +31,7 @@ final class GenerateTests: GenerateBaseTests {
               enumCases:
                 reactions-+1: "reactionsPlusOne"
                 reactions--1: "reactionsMinusOne"
-            """, ext: "yml")
+            """, ext: "yaml")
         ])
                 
         // WHEN

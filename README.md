@@ -22,7 +22,7 @@ ARGUMENTS:
 OPTIONS:
   --output <output>       The output folder (default: ./.create-api/)
   --config <config>       The path to configuration. If not present, the command will look
-                          for .createAPI file in the current folder. (default: /.create-api.yml)
+                          for .createAPI file in the current folder. (default: /.create-api.yaml)
   -s, --split             Split output into separate files
   -v, --verbose           Print additional logging information
   --strict                Throws an error if it fails to generate any of the constructs from

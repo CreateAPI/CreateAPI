@@ -21,7 +21,7 @@ struct Generate: ParsableCommand {
     var output = "./.create-api/"
     
     @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
-    var config = "/.create-api.yml"
+    var config = "/.create-api.yaml"
     
     @Flag(name: .shortAndLong, help: "Split output into separate files")
     var split = false
@@ -121,7 +121,7 @@ struct Generate: ParsableCommand {
             case "json":
                 options = try JSONDecoder().decode(GenerateOptionsSchema.self, from: data)
             default:
-                throw GeneratorError("The file must have one of the following extensions: `json`, `yml`, `yaml`.")
+                throw GeneratorError("The file must have one of the following extensions: `json`, `yaml`.")
             }
         } catch {
             throw GeneratorError("Failed to read configuration. \(error)")
@@ -152,7 +152,7 @@ struct Generate: ParsableCommand {
                 // JSONDecoder doesn't appear to be thread-safe.
                 spec = try JSONDecoder().decode(OpenAPI.Document.self, from: data)
             default:
-                throw GeneratorError("The file must have one of the following extensions: `json`, `yml`, `yaml`.")
+                throw GeneratorError("The file must have one of the following extensions: `json`, `yaml`.")
             }
         } catch {
             throw GeneratorError("ERROR! The spec is missing or invalid. \(OpenAPI.Error(from: error))")

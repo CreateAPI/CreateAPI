@@ -336,7 +336,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
                     Category.name: title
                     Pet.status: state
                     complete: isDone
-            """, ext: "yml")
+            """, ext: "yaml")
             ])
             
         // WHEN
@@ -504,7 +504,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             entities:
                 isGeneratingCustomCodingKeys: false
-            """, ext: "yml")
+            """, ext: "yaml")
         ])
                 
         // WHEN
@@ -523,7 +523,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             paths:
                 style: operations
-            """, ext: "yml")
+            """, ext: "yaml")
         ])
                 
         // WHEN
