@@ -75,6 +75,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "apideck-proxy", package: "ApiDeckProxyAPI")
     }
     
+    func testApiDeckVault() throws {
+        try testSpec(name: "apideck-vault", package: "ApiDeckVaultAPI")
+    }
+    
     func testGoogleBooks() throws {
         try testSpec(name: "googlebooks", package: "GoogleBooksAPI")
     }

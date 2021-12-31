@@ -132,6 +132,7 @@
 		0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */; };
 		0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */; };
 		0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */; };
+		0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -206,6 +207,7 @@
 		0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckCRMAPI; path = CreateAPITests/Expected/ApiDeckCRMAPI; sourceTree = "<group>"; };
 		0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckLeadAPI; path = CreateAPITests/Expected/ApiDeckLeadAPI; sourceTree = "<group>"; };
 		0C80E8D0277F923B009130EA /* ApiDeckProxyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckProxyAPI; path = CreateAPITests/Expected/ApiDeckProxyAPI; sourceTree = "<group>"; };
+		0C80E8D3277F9283009130EA /* ApiDeckVaultAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckVaultAPI; path = CreateAPITests/Expected/ApiDeckVaultAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -276,6 +278,7 @@
 				0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */,
 				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
+				0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */,
 				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
 				0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */,
 				0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */,
@@ -298,6 +301,7 @@
 				0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */,
 				0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */,
 				0C80E8D0277F923B009130EA /* ApiDeckProxyAPI */,
+				0C80E8D3277F9283009130EA /* ApiDeckVaultAPI */,
 				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
 				0C612E822777B56F008D32A4 /* AsanaAPI */,
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
@@ -476,6 +480,7 @@
 				0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */,
 				0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */,
 				0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */,
+				0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1060,6 +1065,10 @@
 		0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApiDeckProxyAPI;
+		};
+		0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApiDeckVaultAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
