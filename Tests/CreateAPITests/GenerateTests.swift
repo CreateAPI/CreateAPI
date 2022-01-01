@@ -46,6 +46,10 @@ final class GenerateTests: GenerateBaseTests {
     }
     
     // TODO: Add to GeneratedPackages when https://github.com/mattpolzin/OpenAPIKit/issues/251 is addressed
+    //
+    // Fix:
+    //   public struct Date: Codable {
+    //      public var date: Date
     func testAmazonOpenSearch() throws {
         try testSpec(name: "amazon-open-search", package: "AmazonOpenSearchAPI")
     }
