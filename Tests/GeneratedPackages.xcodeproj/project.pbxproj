@@ -159,6 +159,7 @@
 		0CEB95362780D7F4002E02C0 /* EcwidAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95352780D7F4002E02C0 /* EcwidAPI */; };
 		0CEB95392780D833002E02C0 /* CloudmersiveAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95382780D833002E02C0 /* CloudmersiveAPI */; };
 		0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */; };
+		0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953E2780D94D002E02C0 /* PeerTubeAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -261,6 +262,7 @@
 		0CEB95342780D7F0002E02C0 /* EcwidAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EcwidAPI; path = CreateAPITests/Expected/EcwidAPI; sourceTree = "<group>"; };
 		0CEB95372780D82F002E02C0 /* CloudmersiveAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CloudmersiveAPI; path = CreateAPITests/Expected/CloudmersiveAPI; sourceTree = "<group>"; };
 		0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ConfigCatAPI; path = CreateAPITests/Expected/ConfigCatAPI; sourceTree = "<group>"; };
+		0CEB953D2780D949002E02C0 /* PeerTubeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeerTubeAPI; path = CreateAPITests/Expected/PeerTubeAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
 				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
 				0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */,
+				0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */,
 				0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */,
 				0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */,
 				0C612EDC2777B594008D32A4 /* AppStoreConnectAPI in Frameworks */,
@@ -405,6 +408,7 @@
 				0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */,
 				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
+				0CEB953D2780D949002E02C0 /* PeerTubeAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
 				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
 				0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */,
@@ -611,6 +615,7 @@
 				0CEB95352780D7F4002E02C0 /* EcwidAPI */,
 				0CEB95382780D833002E02C0 /* CloudmersiveAPI */,
 				0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */,
+				0CEB953E2780D94D002E02C0 /* PeerTubeAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1303,6 +1308,10 @@
 		0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ConfigCatAPI;
+		};
+		0CEB953E2780D94D002E02C0 /* PeerTubeAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PeerTubeAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

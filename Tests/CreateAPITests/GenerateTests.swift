@@ -154,6 +154,10 @@ final class GenerateTests: GenerateBaseTests {
     func testEcwid() throws {
         try testSpec(name: "ecwid", package: "EcwidAPI")
     }
+    
+    func testPeerTube() throws {
+        try testSpec(name: "peertube", package: "PeerTubeAPI")
+    }
 
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
