@@ -147,6 +147,7 @@
 		0CEB950E2780CC3E002E02C0 /* BrandLoversAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */; };
 		0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95102780CD63002E02C0 /* RocketServicesAPI */; };
 		0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95132780CDD6002E02C0 /* RowshotAPI */; };
+		0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95162780CE0D002E02C0 /* BufferAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -237,6 +238,7 @@
 		0CEB950C2780CC3A002E02C0 /* BrandLoversAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BrandLoversAPI; path = CreateAPITests/Expected/BrandLoversAPI; sourceTree = "<group>"; };
 		0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RocketServicesAPI; path = CreateAPITests/Expected/RocketServicesAPI; sourceTree = "<group>"; };
 		0CEB95122780CDD0002E02C0 /* RowshotAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RowshotAPI; path = CreateAPITests/Expected/RowshotAPI; sourceTree = "<group>"; };
+		0CEB95152780CE09002E02C0 /* BufferAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BufferAPI; path = CreateAPITests/Expected/BufferAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +299,7 @@
 				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
 				0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */,
 				0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */,
+				0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */,
 				0C612EDC2777B594008D32A4 /* AppStoreConnectAPI in Frameworks */,
 				0C612F0E2777B594008D32A4 /* OnePasswordAPI in Frameworks */,
 				0C612EFA2777B594008D32A4 /* edgecases-tabs in Frameworks */,
@@ -354,6 +357,7 @@
 				0C84E3952778121D00609E4A /* BitbucketAPI */,
 				0C80E8F1277F9DFC009130EA /* BillingoAPI */,
 				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
+				0CEB95152780CE09002E02C0 /* BufferAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
@@ -551,6 +555,7 @@
 				0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */,
 				0CEB95102780CD63002E02C0 /* RocketServicesAPI */,
 				0CEB95132780CDD6002E02C0 /* RowshotAPI */,
+				0CEB95162780CE0D002E02C0 /* BufferAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1195,6 +1200,10 @@
 		0CEB95132780CDD6002E02C0 /* RowshotAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RowshotAPI;
+		};
+		0CEB95162780CE0D002E02C0 /* BufferAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BufferAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

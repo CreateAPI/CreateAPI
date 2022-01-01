@@ -103,6 +103,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "billingo", package: "BillingoAPI")
     }
     
+    func testBuffer() throws {
+        try testSpec(name: "buffer", package: "BufferAPI")
+    }
+    
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
     }
