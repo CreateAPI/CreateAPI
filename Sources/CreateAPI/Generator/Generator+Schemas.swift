@@ -255,6 +255,13 @@ extension Generator {
             guard let name = ref.name else {
                 throw GeneratorError("Internal reference name is missing: \(ref)")
             }
+            // Check if the entity is missing
+            if let key = OpenAPI.ComponentKey(rawValue: name) {
+                if spec.components.schemas[key] == nil {
+                    try handle(warning: "A reference \"\(name)\" is missing.")
+                    return .anyJSON
+                }
+            }
             // TODO: Remove duplication
             if !options.rename.entities.isEmpty {
                 if let mapped = options.rename.entities[name] {
