@@ -146,6 +146,7 @@
 		0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950A2780CBCF002E02C0 /* BotifyAPI */; };
 		0CEB950E2780CC3E002E02C0 /* BrandLoversAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */; };
 		0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95102780CD63002E02C0 /* RocketServicesAPI */; };
+		0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95132780CDD6002E02C0 /* RowshotAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -235,6 +236,7 @@
 		0CEB95092780CBC9002E02C0 /* BotifyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BotifyAPI; path = CreateAPITests/Expected/BotifyAPI; sourceTree = "<group>"; };
 		0CEB950C2780CC3A002E02C0 /* BrandLoversAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BrandLoversAPI; path = CreateAPITests/Expected/BrandLoversAPI; sourceTree = "<group>"; };
 		0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RocketServicesAPI; path = CreateAPITests/Expected/RocketServicesAPI; sourceTree = "<group>"; };
+		0CEB95122780CDD0002E02C0 /* RowshotAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RowshotAPI; path = CreateAPITests/Expected/RowshotAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 				0C612F2A2777B595008D32A4 /* petstore-split in Frameworks */,
 				0C612EDE2777B594008D32A4 /* AsanaAPI in Frameworks */,
 				0C612F3A2777B596008D32A4 /* StackExchangeAPI in Frameworks */,
+				0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */,
 				0C612F362777B595008D32A4 /* SpotifyAPI in Frameworks */,
 				0C612F482777B596008D32A4 /* TwitterAPI in Frameworks */,
 				0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */,
@@ -357,6 +360,7 @@
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
 				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
 				0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */,
+				0CEB95122780CDD0002E02C0 /* RowshotAPI */,
 				0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */,
 				0C612E962777B56F008D32A4 /* edgecases-coding-keys */,
 				0C612E6E2777B56E008D32A4 /* edgecases-default */,
@@ -546,6 +550,7 @@
 				0CEB950A2780CBCF002E02C0 /* BotifyAPI */,
 				0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */,
 				0CEB95102780CD63002E02C0 /* RocketServicesAPI */,
+				0CEB95132780CDD6002E02C0 /* RowshotAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1186,6 +1191,10 @@
 		0CEB95102780CD63002E02C0 /* RocketServicesAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RocketServicesAPI;
+		};
+		0CEB95132780CDD6002E02C0 /* RowshotAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RowshotAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
