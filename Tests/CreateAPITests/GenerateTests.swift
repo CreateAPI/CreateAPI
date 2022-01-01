@@ -138,6 +138,10 @@ final class GenerateTests: GenerateBaseTests {
     func testClickSend() throws {
         try testSpec(name: "clicksend", package: "ClickSendAPI")
     }
+    
+    func testClimateFieldView() throws {
+        try testSpec(name: "climate-fieldview", package: "ClimateFieldViewAPI")
+    }
 
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")

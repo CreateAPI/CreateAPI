@@ -155,6 +155,7 @@
 		0CEB952A2780D46D002E02C0 /* CircuitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95292780D46D002E02C0 /* CircuitAPI */; };
 		0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */; };
 		0CEB95302780D74F002E02C0 /* ClickSendAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952F2780D74F002E02C0 /* ClickSendAPI */; };
+		0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -253,6 +254,7 @@
 		0CEB95282780D469002E02C0 /* CircuitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircuitAPI; path = CreateAPITests/Expected/CircuitAPI; sourceTree = "<group>"; };
 		0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CitrixGoToMeetingsAPI; path = CreateAPITests/Expected/CitrixGoToMeetingsAPI; sourceTree = "<group>"; };
 		0CEB952E2780D74B002E02C0 /* ClickSendAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClickSendAPI; path = CreateAPITests/Expected/ClickSendAPI; sourceTree = "<group>"; };
+		0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClimateFieldViewAPI; path = CreateAPITests/Expected/ClimateFieldViewAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +306,7 @@
 				0C612F122777B594008D32A4 /* petstore-base-class in Frameworks */,
 				0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */,
 				0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */,
+				0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */,
 				0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */,
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
 				0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */,
@@ -387,6 +390,7 @@
 				0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */,
 				0CEB952E2780D74B002E02C0 /* ClickSendAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
+				0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */,
 				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
@@ -591,6 +595,7 @@
 				0CEB95292780D46D002E02C0 /* CircuitAPI */,
 				0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */,
 				0CEB952F2780D74F002E02C0 /* ClickSendAPI */,
+				0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1267,6 +1272,10 @@
 		0CEB952F2780D74F002E02C0 /* ClickSendAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ClickSendAPI;
+		};
+		0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ClimateFieldViewAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
