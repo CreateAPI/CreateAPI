@@ -151,6 +151,7 @@
 		0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95192780CE6B002E02C0 /* BulkSMSAPI */; };
 		0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95202780D316002E02C0 /* CallfireAPI */; };
 		0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95232780D38D002E02C0 /* CenitAPI */; };
+		0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,6 +246,7 @@
 		0CEB95182780CE66002E02C0 /* BulkSMSAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BulkSMSAPI; path = CreateAPITests/Expected/BulkSMSAPI; sourceTree = "<group>"; };
 		0CEB951F2780D310002E02C0 /* CallfireAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CallfireAPI; path = CreateAPITests/Expected/CallfireAPI; sourceTree = "<group>"; };
 		0CEB95222780D389002E02C0 /* CenitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CenitAPI; path = CreateAPITests/Expected/CenitAPI; sourceTree = "<group>"; };
+		0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChainGatewayAPI; path = CreateAPITests/Expected/ChainGatewayAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +337,7 @@
 				0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */,
 				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
 				0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */,
+				0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */,
 				0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */,
 				0C612EE62777B594008D32A4 /* EbayFinancesAPI in Frameworks */,
 				0C612EF42777B594008D32A4 /* edgecases-int32-int64 in Frameworks */,
@@ -372,6 +375,7 @@
 				0CEB95222780D389002E02C0 /* CenitAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
+				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
 				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
@@ -571,6 +575,7 @@
 				0CEB95192780CE6B002E02C0 /* BulkSMSAPI */,
 				0CEB95202780D316002E02C0 /* CallfireAPI */,
 				0CEB95232780D38D002E02C0 /* CenitAPI */,
+				0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1231,6 +1236,10 @@
 		0CEB95232780D38D002E02C0 /* CenitAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CenitAPI;
+		};
+		0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ChainGatewayAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
