@@ -91,6 +91,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "botify", package: "BotifyAPI")
     }
     
+    func testBrandLovers() throws {
+        try testSpec(name: "brandlovers", package: "BrandLoversAPI")
+    }
+    
     func testBudgea() throws {
         try testSpec(name: "budgea", package: "BudgeaAPI")
     }

@@ -1,0 +1,2879 @@
+openapi: 3.0.1
+info:
+  title: BrandLovers Marketplace API V1
+  description: 'Allows sellers to: 1) Load products definitions to the BrandLovers
+    marktplace. 2) Receive and update orders status. 3) Receive and update shipping
+    information. 4) Receive and update customer tickets. All requests consume and
+    return application/json content. All request must be authenticated and use HTTPS.'
+  version: 1.0.0
+servers:
+- url: https://api.brandlovers.com/marketplace/v1
+tags:
+- name: products
+  description: Bulk create or query seller products.
+- name: product
+  description: Create, Modify or Read details of a single product
+- name: orders
+  description: Bulk create or query orders
+- name: order
+  description: Modify or read details of a single order
+- name: tickets
+  description: Bulk create or query customer tickets
+- name: ticket
+  description: Modify or read details of a single ticket
+paths:
+  /products:
+    get:
+      tags:
+      - products
+      summary: Returns a list of products loaded into BrandLovers Marketplace
+      description: Get a list of my products loaded into the Marketplace. This dosen't
+        means that products are eligible for sale, just that they are loaded in the
+        database.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of items to retun. Defaults to 100. Max alowed is 200.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductsResponse'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+      security:
+      - authorization: []
+    post:
+      tags:
+      - products
+      summary: Allows new products from the seller to be loaded into the marketplace
+      description: This enpoint to creates new products in the Marketplace using `skuSellerId`
+        as a primary key. This enpoint expects a json document with array of products.
+        The server will load each product as an individual item that can be manipulated
+        using your own `skuSellerId`. All requests to This endpoint are idenpontent
+        with respect of the `skuSellerId`, this means that once a `skuSellerId` is
+        created it cannot be re-created using this tool. In order to update use the
+        PUT method with the correct `skuSellerId`. You can also use the POST /product
+        to create a single product per request
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JSON with a list of new products to be updloaded to the platform
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        200:
+          description: Sucess! Server received your request and will start background
+            processing.
+          content: {}
+        400:
+          description: Bad Request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: products
+  /product/{skuSellerId}:
+    get:
+      tags:
+      - product
+      summary: Returns details of a single product using the seller `skuSellerId`
+      description: Returns detailed information of a single product with the seller
+        `skuSellerId`. This service will return a json document with product detail,
+        status, price, invetory among other infomarion availble in the Brand Lovers
+        marketplace
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: skuSellerId
+        in: path
+        description: SKU ID do Lojista.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProduct'
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+        404:
+          description: Object not found. In general this means a invalid skuSellerId.
+          content: {}
+      security:
+      - authorization: []
+    put:
+      tags:
+      - products
+      summary: Update product details
+      description: Update a single product information such as name, brand, attribute,
+        dimension, etc. Please note that data from your request will be merged with
+        existing data. This allows you to easliy update only certain fields without
+        the need to re-inform the other unchanged fields. For example in order to
+        update just the field `title` simply send just this field with new information,
+        remaining fields will not be changed. In order to erase an item the field
+        must be informed as its default value, for example in order to erase the `videos`
+        field must be sent as videos:[]. The `skuSellerId` field is always mandatory
+        in the path and in the product json Object.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: skuSellerId
+        in: path
+        description: Unique Product Id (SKU) in the seller system that will be updated.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New product information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductUpdate'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+        404:
+          description: Object not found.
+          content: {}
+      security:
+      - authorization: []
+      x-codegen-request-body-name: body
+  /product:
+    post:
+      tags:
+      - product
+      summary: Create a new product to the marketplace
+      description: Use this enpoint to create a single new product to the Marketplace.
+        This enpoint expects a json document with one product. If you whant to upload
+        multiple products in a single API call use POST /products method. The server
+        will load each product as an individual item that can be manipulated using
+        your own `skuSellerId`. This system is idenpontent, this means that once a
+        `skuSellerId` is created it cannot be re-created using this tool. In order
+        to update, edit a product use the PUT method with the correct reference to
+        your `skuSellerId`
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New Produt that will be create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        200:
+          description: Sucess! Server received your request and will start background
+            processing.
+          content: {}
+        400:
+          description: Bad Request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: product
+  /products/status:
+    get:
+      tags:
+      - products
+      summary: Returns seller products status in the marketplace
+      description: Returns a list with seller products status. Please note that this
+        endpoint will not return all details of each product, just the skuSellerId
+        and status. Also please note that this endpoint will return 250 products per
+        call. For full details of a given procuct use GET /product/{skuSellerId}
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number of items to return in this query. Defaults to 250. Maximum
+          1000. Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success fetching results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSellerProductsStatus'
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+    put:
+      tags:
+      - products
+      summary: Bulk enable/disable products in the marketplace
+      description: Bulk enable/disable products in the marketplace. This endpoint
+        requires an array of objects with the seller SKU `skuSellerId` and boolean
+        value that defines if the product is enabled or not for sale. This endpoint
+        can be used to set a single product or many products.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: List of seller products with new status information
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductStatusUpdate'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: body
+  /products/prices:
+    put:
+      tags:
+      - products
+      summary: Allows bulk update of product prices.
+      description: Allows bulk update of product prices. This endpoint expects a json
+        document with an array of products with the `skuSellerId` and the new price.
+        Server will process each new product update individually and will ackwlodge
+        as much updates as possible, even if a single product update fails. After
+        this request you can query product final status with GET /product/status
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Data for bulk product price update
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SellerItemPrices'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: body
+  /products/stocks:
+    put:
+      tags:
+      - products
+      summary: Bulk product stock update
+      description: Bulk product stock update. This endpoint expect a array of products
+        `skuSellerId` with new inventory data
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Array of product SKUs.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductStock'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: body
+  /product/{skuSellerId}/status:
+    put:
+      tags:
+      - product
+      summary: Enable/disable a single product in the Marketplace
+      description: Update product status in the Marketplace. Set to `true` to enable,
+        `false` to disable sale.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: skuSellerId
+        in: path
+        description: Unique Product Id (SKU) in the seller system
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Seller SKU that will be enabled or disabled
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellerItemStatus'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: body
+  /product/{skuSellerId}/stock:
+    put:
+      tags:
+      - product
+      summary: Update a single product stock
+      description: Update a single product inventory information. Products with zero
+        stock will not be eligible for sale.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: skuSellerId
+        in: path
+        description: Unique Product Id (SKU) in the seller system that will be updated
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New product inventory information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stock'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: body
+  /product/{skuSellerId}/prices:
+    put:
+      tags:
+      - product
+      summary: Allows seller to update prices of a single SKU
+      description: Allows seller to set the SKU prices (MSRP and/or offer price).
+        All prices must be informed in cents. No commas or periods are accepeted.
+        For example one dollar should be informed as 100. Same as $1,2345.67 must
+        be informed solely as 1234567
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: skuSellerId
+        in: path
+        description: Product SKU
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JSON document with the SKU price
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPrice'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+      x-codegen-request-body-name: body
+  /products/status/selling:
+    get:
+      tags:
+      - products
+      summary: Returns products that are successfully listed for sale.
+      description: Returns products that are successfully listed for sale.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductsStatusSelling'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders:
+    get:
+      tags:
+      - orders
+      summary: Returns orders details
+      description: Retuns a list of orders associated with this seller. The list is
+        ordered by dateCreated.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/shipments/delivered:
+    get:
+      tags:
+      - orders
+      summary: Returns list of shipments
+      description: Returns list of shipments. By default this will return list of
+        the last shipments ordered by dateCreated, folowed by last update date.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Query by shippment status.
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersShipments'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+    post:
+      tags:
+      - orders
+      summary: Bulk update of order shipments
+      description: Bulk update of order shipments status. This alows to inform multiple
+        shipments status
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JSON body with list of shipments to be updated.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdersShipments'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+      x-codegen-request-body-name: ordersshipments
+  /orders/shipments/shipped:
+    get:
+      tags:
+      - orders
+      summary: Returns a list of shipments shipped
+      description: Returns a list of shipments shipped. By Default returns items ordered
+        by dateCreated folowed by last update
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Product status.
+        schema:
+          type: string
+          enum:
+          - NEW
+          - APPROVED
+          - DECLINED
+          - PENDING
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersShipments'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+    post:
+      tags:
+      - orders
+      summary: Bulk update of order shipments
+      description: Allows bulk updates of orders shippments.
+      requestBody:
+        description: JSON payload with list of shippments of orders.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdersShipments'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+      x-codegen-request-body-name: ordersshipments
+  /orders/status/approved:
+    get:
+      tags:
+      - orders
+      summary: Return list of approved orders
+      description: Returns a list of approved orders. Orders in the `approved` state
+        must be fullfiled imediadetelly.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 100,
+          max 200. Use this in conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/status/canceled:
+    get:
+      tags:
+      - orders
+      summary: Returns lists of canceled orders
+      description: Returns a list with canceled orders. Canceled orders should not
+        be fullfiled.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Default 100,
+          max 250. Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+          default: 100
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/status/delivered:
+    get:
+      tags:
+      - orders
+      summary: Returns a list of orders successfully delivered associated with this
+        seller.
+      description: Returns a list of orders successfully delivered associated with
+        this seller.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/status/new:
+    get:
+      tags:
+      - orders
+      summary: Returns a list of orders flagged as new.
+      description: Returns a list of orders flagged as new. New orders should not
+        be fullfiled until marketplace flags them as approved.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 100.
+          Max 250. Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+          default: 100
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/status/partiallyDelivered:
+    get:
+      tags:
+      - orders
+      summary: Returns a list of partially deliverd orders
+      description: Returns a list of partially deliverd orders. This is a list of
+        orders with items shipped but with not all items ackwlodged as deliverd
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 100.
+          Max 250. Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+          default: 100
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/status/partiallySent:
+    get:
+      tags:
+      - orders
+      summary: Returns a list of orders partially fullfiled
+      description: Returns a list of orders that contain one (or more) items that
+        where not shipped. This will list the entire order as well the items with
+        peding shipment. Use this service to track orders that need to be fullfiled.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 100.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /orders/status/sent:
+    get:
+      tags:
+      - orders
+      summary: Returns a list with orders fully sent
+      description: Returns a list with orders completely fullfiled, this means orders
+        with all items sent. Orders will ordered by dateCreated fowllowed by last
+        update
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrders'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+  /order/{orderId}:
+    get:
+      tags:
+      - order
+      summary: Returns all details of a order
+      description: Returns all details of a single order, including last status, items
+        shipped or not.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: Unique Id of this order.
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+        404:
+          description: Object not found. Was not able to find orderId
+          content: {}
+  /order/{orderId}/shipment/cancel:
+    post:
+      tags:
+      - order
+      summary: Confirm shipment canceletion (when requested by the customer) or failure
+        to deliver
+      description: Confirm shipment canceletion (when requested by the customer) or
+        failure to deliver one shipment
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: Unique Order Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTrackingRefund'
+        required: true
+      responses:
+        200:
+          description: success.
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        404:
+          description: Object not found. Was not able to find orderId
+          content: {}
+      x-codegen-request-body-name: body
+  /order/{orderId}/shipment/delivered:
+    post:
+      tags:
+      - order
+      summary: Confirms that a shipment was delivered
+      description: Confirms that a shipment was delivered. Must inform quantity of
+        successfully deliverd items even if items deliverd was less than the original
+        order
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: Unique Order Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Newshipmentstatus'
+        required: true
+      responses:
+        200:
+          description: Sucess!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        404:
+          description: Object not found. Was not able to find orderId
+          content: {}
+      x-codegen-request-body-name: body
+  /order/{orderId}/shipment/exchange:
+    post:
+      tags:
+      - order
+      summary: Confirm item exchange
+      description: This enpoint to confirm item exchange when failure to deliver or
+        requested by the customer. All customer requests are tracket via trouble tickets
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: Unique Order Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTrackingRefund'
+        required: true
+      responses:
+        200:
+          description: Sucess!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        404:
+          description: Object not found. Was not able to find orderId
+          content: {}
+      x-codegen-request-body-name: body
+  /order/{orderId}/shipment/return:
+    post:
+      tags:
+      - order
+      summary: Confirm order item return and refund
+      description: Use this endpoint to return and refund items froma a order. In
+        order to fully return an order list all items and applicate quantity.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: Order unique Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTrackingRefund'
+        required: true
+      responses:
+        200:
+          description: Sucess!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        404:
+          description: Object not found. Was not able to find orderId
+          content: {}
+      x-codegen-request-body-name: body
+  /order/{orderId}/shipment/sent:
+    post:
+      tags:
+      - order
+      summary: Update new order to include shipment information
+      description: Updates order to include shipment shiped information. This endpoint
+        can be used to include a single or multiple shipments for any give order.
+        In order to inform that all items of a order where shipped list all of them,
+        including applicable quantities in the payload.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: Unique Order Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Newshipmentstatus'
+        required: true
+      responses:
+        200:
+          description: Sucess!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        404:
+          description: Object not found. Was not able to find orderId
+          content: {}
+      x-codegen-request-body-name: body
+  /tickets:
+    get:
+      tags:
+      - tickets
+      summary: Get customers trouble tickets
+      description: Allows seller to receive and status, queries, requests and complaints
+        from customers. As well related messages
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        description: Query by trouble ticket status
+        schema:
+          type: string
+          enum:
+          - OPEN
+          - REOPENED
+          - CLOSED
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTickets'
+        400:
+          description: Bad request.
+          content: {}
+  /ticket:
+    post:
+      tags:
+      - tickets
+      summary: Creates a new trouble ticket
+      description: Use this service to create a new trouble ticket. Use this to include
+        relevant information about the order, comunicate with the customer or marketplace
+        team. Whenever possible message will be pushed to Mobile first. This is the
+        primary mean of comunicaiton with the customer regarding orders, shippments,
+        shippments status. New tickets will be automatically be set to 'OPEN'. Trouble
+        tickets need to be associated with a orderId or customer. New tickets can
+        optionally include a new message.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JSON object with new trouble ticket
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTicket'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+      x-codegen-request-body-name: newTicket
+  /ticket/{ticketId}/messages:
+    get:
+      tags:
+      - tickets
+      summary: Get trouble ticket messages
+      description: Returns trouble ticket history with all messages exchanged. Only
+        tickets related to your seller will be returned. Attempt to read other tickets
+        will return 403 (acess denied).
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: ticketId
+        in: path
+        description: Trouble ticket ID.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Number or items to skip when executing query. List starts at
+          zero. If omitted will default to zero. Use this conjuction with `limit`
+          to paginate across the results.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Number or items to return when executing query. Defaults to 10.
+          Use this conjuction with `offset` to paginate across the results.
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTicketMessages'
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Access denied. You can only access your trouble tickets
+          content: {}
+  /ticket/{ticketId}/message:
+    post:
+      tags:
+      - tickets
+      summary: Add new message to trouble ticket
+      description: Add a new message to this trouble ticket. Messages can be `CUSTOMER`
+        (customer will be able to see it) or `INTERNAL`.
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: ticketId
+        in: path
+        description: Trouble ticket ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New message object to append to trouble ticket.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTicketMessage'
+        required: true
+      responses:
+        200:
+          description: Success!
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        404:
+          description: Object not found.
+          content: {}
+      x-codegen-request-body-name: message
+  /ticket/{ticketId}/status:
+    put:
+      tags:
+      - tickets
+      summary: Update trouble ticket status
+      description: Alows the seller to update the status of a trouble ticket
+      parameters:
+      - name: authorization
+        in: header
+        description: Authorization token. The Authorization token can be found in
+          your Admin console.
+        required: true
+        schema:
+          type: string
+      - name: ticketId
+        in: path
+        description: Trouble ticket unique identification
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New trouble ticket status
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketStatus'
+        required: true
+      responses:
+        200:
+          description: successfully received transaction
+          content: {}
+        400:
+          description: Bad request.
+          content: {}
+        401:
+          description: Access denied. You're not authenticated or token expired. Check
+            your request header the `authorization` field is required.
+          content: {}
+        403:
+          description: Server refused to process your request. Please check the API
+            SLA and reduce number of requests per second.
+          content: {}
+        404:
+          description: Object not found.
+          content: {}
+      x-codegen-request-body-name: body
+components:
+  schemas:
+    Metadata:
+      required:
+      - key
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+          description: JSON attribute key
+        value:
+          type: string
+          description: JSON object value
+    Error:
+      required:
+      - message
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Error type
+        message:
+          type: string
+          description: Friendly message describing the error
+        skuSellerId:
+          type: string
+          description: When applicabe will include `skuSellerId` related to this error
+    GetProductsResponse:
+      type: object
+      properties:
+        skus:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetProduct'
+        metadata:
+          type: array
+          description: Payload with response
+          items:
+            $ref: '#/components/schemas/Metadata'
+    Product:
+      required:
+      - attributes
+      - brand
+      - categories
+      - description
+      - images
+      - price
+      - skuSellerId
+      - stock
+      - title
+      type: object
+      properties:
+        productId:
+          type: string
+          description: Brand Lovers Product ID. Use this to suggest a product association.
+            This field is optional.
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system
+        productGroupId:
+          type: string
+          description: Unique Product Group ID. Products with the same `productGroupId`
+            will be grouped and displayed as a unique entry. Use `productGroupId`
+            to group diferent SKUs that represent diferent colors, sizes, capacities,
+            etc..
+        title:
+          type: string
+          description: Product name as advertised by manufacturer. This how the product
+            will be displayed in the Marketplace
+        description:
+          type: string
+          description: Product description.
+        brand:
+          type: string
+          description: Brand name
+        gtin:
+          type: array
+          description: Array of product EAN and/or ISBN and/or ASIN codes
+          items:
+            type: string
+        categories:
+          type: array
+          description: Array of categories associated with this product
+          items:
+            type: string
+        images:
+          type: array
+          description: List of valid Product image URLs. HTTP or HTTPS are valid.
+            HTTPS is prefered.
+          items:
+            type: string
+        videos:
+          type: array
+          description: List of videos de URLs associated with this product. HTTP or
+            HTTPS are valid. HTTPS is prefered.
+          items:
+            type: string
+        price:
+          $ref: '#/components/schemas/ProductPrice'
+        stock:
+          type: integer
+          description: Number of products availble for sale from the seller. Each
+            new successfull order will automatically reduce the number of products
+            available.
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        giftWrap:
+          $ref: '#/components/schemas/GiftWrap'
+        attributes:
+          type: array
+          description: List of `key` `value` attributes of this product. This is very
+            important for search and SEO optmization. Include all relevant information
+          items:
+            $ref: '#/components/schemas/ProductAttribute'
+    ProductUpdate:
+      required:
+      - skuSellerId
+      type: object
+      properties:
+        productId:
+          type: string
+          description: Brand Lovers Product Id. Use this to recommend a product association
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system
+        productGroupId:
+          type: string
+          description: Unique Product Group ID. Products with the same `productGroupId`
+            will be grouped and displayed as a unique entry. Use `productGroupId`
+            to group diferent SKUs that represent diferent colors, sizes, capacities,
+            etc..
+        title:
+          type: string
+          description: Product name as advertised by manufacturer. This how the product
+            will be displayed in the Marketplace
+        description:
+          type: string
+          description: Product text description.
+        brand:
+          type: string
+          description: Brand name
+        gtin:
+          type: array
+          description: Array of product EAN and/or ISBN and/or ASIN codes
+          items:
+            type: string
+        categories:
+          type: array
+          description: Array of categories associated with this product
+          items:
+            type: string
+        images:
+          type: array
+          description: List of valid Product image URLs. HTTP or HTTPS are valid.
+            HTTPS is prefered.
+          items:
+            type: string
+        videos:
+          type: array
+          description: List of videos de URLs associated with this product. HTTP or
+            HTTPS are valid. HTTPS is prefered.
+          items:
+            type: string
+        price:
+          $ref: '#/components/schemas/ProductPrice'
+        stock:
+          type: integer
+          description: Number of products availble for sale from the seller. Each
+            new successfull order will automatically reduce the number of products
+            available.
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        giftWrap:
+          $ref: '#/components/schemas/GiftWrap'
+        attributes:
+          type: array
+          description: List of `key` `value` attributes of this product. This is very
+            important for search and SEO optmization. Include all relevant information
+          items:
+            $ref: '#/components/schemas/ProductAttribute'
+    GetProduct:
+      required:
+      - attributes
+      - brand
+      - categories
+      - description
+      - images
+      - price
+      - skuSellerId
+      - status
+      - stock
+      - title
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system
+        productGroupId:
+          type: string
+          description: Unique Product Group ID. Products with the same `productGroupId`
+            will be grouped and displayed as a unique entry. Use `productGroupId`
+            to group diferent SKUs that represent diferent colors, sizes, capacities,
+            etc..
+        title:
+          type: string
+          description: Product name as advertised by manufacturer. This how the product
+            will be displayed in the Marketplace
+        description:
+          type: string
+          description: Product text description.
+        brand:
+          type: string
+          description: Brand name
+        gtin:
+          type: array
+          description: Array of product EAN and/or ISBN and/or ASIN codes
+          items:
+            type: string
+        categories:
+          type: array
+          description: Array of categories associated with this product
+          items:
+            type: string
+        images:
+          type: array
+          description: List of valid Product image URLs. HTTP or HTTPS are valid.
+            HTTPS is prefered.
+          items:
+            type: string
+        videos:
+          type: array
+          description: List of videos de URLs associated with this product. HTTP or
+            HTTPS are valid. HTTPS is prefered.
+          items:
+            type: string
+        price:
+          $ref: '#/components/schemas/ProductPrice'
+        stock:
+          type: integer
+          description: Number of products availble for sale from the seller. Each
+            new successfull order will automatically reduce the number of products
+            available.
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        giftWrap:
+          $ref: '#/components/schemas/GiftWrap'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductAttribute'
+        status:
+          type: string
+          description: Product status
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ProductAttribute:
+      required:
+      - name
+      - value
+      type: object
+      properties:
+        name:
+          type: string
+          description: Attribute name
+        value:
+          type: string
+          description: Attribute value
+    Dimensions:
+      required:
+      - height
+      - length
+      - weight
+      - width
+      type: object
+      properties:
+        weight:
+          type: integer
+          description: Product weight in Grams. No commas or periods are accepeted.
+            For example one killo must be informed as 1000. Another example 1 Kilo
+            and 234 grams should be informed solely as 1234
+        length:
+          type: integer
+          description: Product length in millimeters. No commas or periods are accepeted.
+            For example one meter produc must be informed as 1000. Another example
+            1 meter and 23 centimeters should be informed solely as 1230
+        width:
+          type: integer
+          description: Product width in millimeters. No commas or periods are accepeted.
+            For example one meter produc must be informed as 1000. Another example
+            1 meter and 23 centimeters should be informed solely as 1230
+        height:
+          type: integer
+          description: Product height in millimeters. No commas or periods are accepeted.
+            For example one meter produc must be informed as 1000. Another example
+            1 meter and 23 centimeters should be informed solely as 1230
+    GiftWrap:
+      required:
+      - available
+      - value
+      type: object
+      properties:
+        available:
+          type: boolean
+          description: Flag that defines if this product is eligible for giftwrapping
+        value:
+          type: integer
+          description: Amount charged for gift wrap. All prices must be provided in
+            cents. No commas or periods are accepeted. For example one dollar should
+            be informed as 100. $1,2345.67 should be informed solely as 1234567
+        messageSupport:
+          type: boolean
+          description: Flag that defines if seller supports giftwrapp with a message
+    GetOrdersShipments:
+      type: object
+      properties:
+        shipments:
+          type: array
+          description: Order Shippment Status
+          items:
+            $ref: '#/components/schemas/OrderShippmentStatus'
+        metadata:
+          type: array
+          description: Response payload
+          items:
+            $ref: '#/components/schemas/Metadata'
+    OrderShippmentStatus:
+      type: object
+      properties:
+        shipmentId:
+          type: string
+          description: Shippment unique Id
+        trackingUrl:
+          type: string
+          description: Courier tracking URL
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemReference'
+        status:
+          type: string
+          description: Shipment status
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    OrdersShipments:
+      type: object
+      properties:
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderShippment'
+    OrderShippment:
+      type: object
+      properties:
+        order:
+          type: string
+          description: Order unique Id
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemReference'
+        status:
+          type: string
+          description: Shipment status.
+        occurredAt:
+          type: string
+          description: Date that this shippment was shiped
+          format: date-time
+        trackingUrl:
+          type: string
+          description: Courier tracking URL
+        number:
+          type: string
+          description: Courier unique trackign Id associated with this shipment
+        sellerShipmentId:
+          type: string
+          description: Unique Seller shipment Id. This must be unique across all orders
+            and shipments
+        cte:
+          type: string
+          description: Conhecimento de Transporte Eletôniconico
+        courier:
+          $ref: '#/components/schemas/Courier'
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+    OrderItemReference:
+      required:
+      - quantity
+      - skuSellerId
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system. This is the key
+            that defines witch product will be updated
+        quantity:
+          type: integer
+          description: Quantity of items
+    GetSellerProductsStatus:
+      type: object
+      properties:
+        skus:
+          type: array
+          description: Status of the products from the seller
+          items:
+            $ref: '#/components/schemas/GetSellerProductStatus'
+        metadata:
+          type: array
+          description: Response payload
+          items:
+            $ref: '#/components/schemas/Metadata'
+    GetSellerProductStatus:
+      required:
+      - price
+      - skuSellerId
+      - status
+      - stock
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system.
+        status:
+          type: string
+          description: Product status in the marketplace
+        price:
+          $ref: '#/components/schemas/ProductPrice'
+        stock:
+          type: integer
+          description: Number of products availble for sale from the seller. Each
+            new successfull order will automatically reduce the number of products
+            available.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    ProductStatusUpdate:
+      required:
+      - active
+      - skuSellerId
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Seller product unique Id that will be updated
+        active:
+          type: boolean
+          description: Defines if this product is ready for sale. Active `true`, disabled
+            `false`
+    SellerItemStatus:
+      required:
+      - active
+      type: object
+      properties:
+        active:
+          type: boolean
+          description: 'Defines if this product is ready for sale. Active `true`,
+            disabled `false` '
+    SellerItemPrices:
+      required:
+      - price
+      - skuSellerId
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Unique product Id from seller that will be updated
+        price:
+          $ref: '#/components/schemas/ProductPrice'
+    ProductPrice:
+      required:
+      - default
+      - offer
+      type: object
+      properties:
+        default:
+          type: integer
+          description: List price, also known as MSRP (Manufacturer Suggest Retail
+            Price) or the recommended retail price (RRP). All prices must be provided
+            in cents. No commas or periods are accepeted. For example one dollar should
+            be informed as 100. $1,2345.67 should be informed solely as 1234567
+        offer:
+          type: integer
+          description: Product price. This is what will be offered to the customer.
+            All prices must be provided in cents. No commas or periods are accepeted.
+            For example one dollar should be informed as 100. $1,2345.67 should be
+            informed solely as 1234567
+    ProductStock:
+      required:
+      - skuSellerId
+      - stocks
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system
+        stocks:
+          type: array
+          description: Invetory information
+          items:
+            $ref: '#/components/schemas/Stock'
+    Stock:
+      required:
+      - quantity
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: Stock available
+        crossDockingTime:
+          type: integer
+          description: Time it will take to manufacture, prepare or setup this product.
+            Time must be provided in seconds. For example 1 day should be informed
+            as 86400. This time will be included in the product ETA informed to the
+            customer
+    Courier:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Courier name
+        taxID:
+          type: string
+          description: Courier taxId information. For example CNPJ
+    Invoice:
+      required:
+      - accessKey
+      - number
+      - serie
+      type: object
+      properties:
+        cnpj:
+          type: string
+          description: CNPJ responsável pelo envio dos produtos. Pode ser diferente
+            caso a empresa possua diversos Centros de Distribuição (CDs)
+        number:
+          type: string
+          description: Número da Nota Fiscal
+        serie:
+          type: string
+          description: Número de serie da Nota Fiscal
+        issuedAt:
+          type: string
+          description: Data de emissão da Nota Fiscal
+          format: date-time
+        accessKey:
+          type: string
+          description: Número da chave de acesso à nota fiscal. A chave possui 44
+            dígitos e contém todas as informações da DANFE
+        linkXml:
+          type: string
+          description: Url para consulta da NFE
+        linkDanfe:
+          type: string
+          description: Url para consulta da DANFE
+    GetProductsStatusSelling:
+      required:
+      - metadata
+      - sellerItems
+      type: object
+      properties:
+        sellerItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SellerItem'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    SellerItem:
+      required:
+      - attributes
+      - brand
+      - dimensions
+      - images
+      - prices
+      - product
+      - skuSellerId
+      - status
+      - stocks
+      - title
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system
+        title:
+          type: string
+          description: Product name as advertised by manufacturer. This how the product
+            will be displayed in the Marketplace
+        brand:
+          type: string
+          description: Brand name
+        gtin:
+          type: array
+          description: Array of product EAN and/or ISBN and/or ASIN codes
+          items:
+            type: string
+        status:
+          type: array
+          description: Product status for each marketplace that this product is listed
+          items:
+            $ref: '#/components/schemas/SellerItemStatus'
+        prices:
+          type: array
+          description: Price information for each marketplace that this product is
+            listed
+          items:
+            $ref: '#/components/schemas/ProductPrice'
+        stocks:
+          type: array
+          description: Invetory information for each marketplace that this product
+            is listed
+          items:
+            $ref: '#/components/schemas/ControlledStock'
+        urls:
+          type: array
+          description: List of URLs where the product is listed for sale
+          items:
+            $ref: '#/components/schemas/ProductSiteReference'
+        images:
+          type: array
+          description: List of valid Product image URLs.
+          items:
+            $ref: '#/components/schemas/Image'
+        product:
+          $ref: '#/components/schemas/ProductReference'
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        giftWrap:
+          $ref: '#/components/schemas/GiftWrap'
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductAttribute'
+    ProductReference:
+      required:
+      - href
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID do recurso
+        href:
+          type: string
+          description: Link para acesso ao recurso
+    ControlledStock:
+      required:
+      - quantity
+      type: object
+      properties:
+        quantity:
+          type: integer
+          description: Quantity of product available for sale
+        reserved:
+          type: integer
+          description: Locked product invetory for orders that are not approved and
+            are not ready to fullfil.
+        crossDockingTime:
+          type: integer
+          description: Time it will take to manufacture, prepare or setup this product.
+            Time must be provided in seconds. For example 1 day should be informed
+            as 86400. This time will be included in the ETA informed to the customer
+    Image:
+      required:
+      - main
+      - type
+      - url
+      type: object
+      properties:
+        type:
+          type: string
+          description: Image format
+        main:
+          type: boolean
+          description: Sets as main image
+        url:
+          type: string
+          description: Image URL
+    ProductSiteReference:
+      required:
+      - skuSellerId
+      - url
+      type: object
+      properties:
+        skuSellerId:
+          type: string
+          description: Seller unique product Id
+        url:
+          type: string
+          description: Link do produto no site
+    GetOrders:
+      required:
+      - metadata
+      - orders
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    Order:
+      required:
+      - billingAddress
+      - createdAt
+      - customer
+      - freight
+      - items
+      - orderId
+      - orderMarketplaceId
+      - shipments
+      - shippingAddress
+      - status
+      - totalAmount
+      - totalDiscountAmount
+      - totalItemsAmount
+      - totalShippingAmount
+      - updatedAt
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique order Id (related to this seller)
+        orderMarketplaceId:
+          type: string
+          description: Unique Order Id that will be displayed to the customer. This
+            Id is not the same as `orderId`
+        createdAt:
+          type: string
+          description: Date that this order was created
+          format: date-time
+        approvedAt:
+          type: string
+          description: Date that this order was approved for fullfilment
+          format: date-time
+        updatedAt:
+          type: string
+          description: Last update data of this order
+          format: date-time
+        status:
+          type: string
+          description: Order status
+        totalAmount:
+          type: integer
+          description: Order total in cents, this is what the customer will be charged
+            for. No commas or periods are accepeted. For example one dollar should
+            be informed as 100. $1,2345.67 should be informed solely as 1234567
+        totalItemsAmount:
+          type: integer
+          description: Order items total amount in cents. No commas or periods are
+            accepeted. For example one dollar should be informed as 100. $1,2345.67
+            should be informed solely as 1234567
+        totalShippingAmount:
+          type: integer
+          description: Total shipments amount items. No commas or periods are accepeted.
+            For example one dollar should be informed as 100. $1,2345.67 should be
+            informed solely as 1234567
+        totalDiscountAmount:
+          type: integer
+          description: Total order discounts in cents. No commas or periods are accepeted.
+            For example one dollar should be informed as 100. $1,2345.67 should be
+            informed solely as 1234567
+        billingAddress:
+          $ref: '#/components/schemas/Address'
+        customer:
+          $ref: '#/components/schemas/Customer'
+        freight:
+          $ref: '#/components/schemas/Freight'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        shippingAddress:
+          $ref: '#/components/schemas/Address'
+        shipments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Shippment'
+        seller:
+          $ref: '#/components/schemas/Seller'
+    Seller:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Seller unique Id in the Brand Lovers Marketplace
+        name:
+          type: string
+          description: Seller name in the Brand Lovers Marketplace
+    Customer:
+      required:
+      - documentNumber
+      - id
+      - name
+      - phones
+      - type
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer unqiue Id
+        name:
+          type: string
+          description: Customer Name
+        documentNumber:
+          type: string
+          description: Customer tax information
+        type:
+          type: string
+          description: 'Customer type: Enterprise or Consumer'
+        email:
+          type: string
+          description: 'Customer Email (when available). Please note: Email is not
+            a mandatory field'
+        phones:
+          type: array
+          description: Customer phone number
+          items:
+            $ref: '#/components/schemas/Phone'
+    Phone:
+      required:
+      - number
+      - type
+      type: object
+      properties:
+        number:
+          type: string
+          description: Phone number
+        type:
+          type: string
+          description: Phone number type, home, office, mobile, etc
+    OrderItem:
+      required:
+      - freight
+      - id
+      - name
+      - salePrice
+      - sent
+      - skuSellerId
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Id representing this item
+        skuSellerId:
+          type: string
+          description: Unique Product Id (SKU) in the seller system
+        name:
+          type: string
+          description: Product name
+        salePrice:
+          type: integer
+          description: Product unit price
+        sent:
+          type: boolean
+          description: Flag if product was already shipped
+        freight:
+          $ref: '#/components/schemas/Freight'
+        giftWrap:
+          $ref: '#/components/schemas/OrderGiftWrap'
+        promotions:
+          type: array
+          description: Promotions array
+          items:
+            $ref: '#/components/schemas/Promotion'
+    Promotion:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Promotion unique idenfitcation number
+        name:
+          type: string
+          description: Promotion name
+        amount:
+          type: integer
+          description: Total discount in cents. No commas or periods are accepeted.
+            For example one dollar should be informed as 100. $1,2345.67 should be
+            informed solely as 1234567
+        type:
+          type: string
+          description: Promotion type
+    OrderGiftWrap:
+      required:
+      - available
+      - value
+      type: object
+      properties:
+        available:
+          type: boolean
+          description: Defines if giftwrpping is available for this product.
+        value:
+          type: integer
+          description: Amount charged for gift wrap. All prices must be provided in
+            cents. No commas or periods are accepeted. For example one dollar should
+            be informed as 100. $1,2345.67 should be informed solely as 1234567
+        messageSupport:
+          type: boolean
+          description: Defines if giftwrpping is available for this product.
+        giftCard:
+          $ref: '#/components/schemas/GiftCard'
+    GiftCard:
+      required:
+      - from
+      - message
+      - to
+      type: object
+      properties:
+        from:
+          type: string
+          description: Giftcard `from` field
+        to:
+          type: string
+          description: Giftcard `to` field
+        message:
+          type: string
+          description: Giftcard `body` message
+    Freight:
+      required:
+      - additionalInfo
+      - chargedAmount
+      - crossDockingTime
+      - defaultAmount
+      - transitTime
+      type: object
+      properties:
+        defaultAmount:
+          type: integer
+          description: Default value of this shippment.
+        chargedAmount:
+          type: integer
+          description: Shipment cost. Must be informed in cents. No commas or periods
+            are accepeted. For example one dollar should be informed as 100. Same
+            as $1,2345.67 must be informed solely as 1234567
+        transitTime:
+          type: integer
+          description: Deliver time in seconds. Time must be provided in seconds.
+            For example 1 day should be informed as 86400. This time will be included
+            in the product ETA informed to the customer
+        crossDockingTime:
+          type: integer
+          description: Time it will take to manufacture, prepare or setup this product.
+            Time must be provided in seconds. For example 1 day should be informed
+            as 86400. This time will be included in the product ETA informed to the
+            customer
+        additionalInfo:
+          type: string
+          description: Aditional information for the courier
+        type:
+          type: string
+          description: Freight type
+        ETA:
+          type: string
+          description: Estimated time of arrival
+          format: date-time
+        scheduledPeriod:
+          type: string
+          description: Scheduled period
+    Shippment:
+      required:
+      - courier
+      - invoice
+      - items
+      - occurredAt
+      - sellerShipmentId
+      - status
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of items of this shippment
+          items:
+            $ref: '#/components/schemas/OrderItemReference'
+        status:
+          type: string
+          description: Shipment status
+        description:
+          type: string
+          description: Additinal shipment tracking information
+        occurredAt:
+          type: string
+          description: Date time when this shippment happened
+          format: date-time
+        trackingUrl:
+          type: string
+          description: Courier tracking URL
+        number:
+          type: string
+          description: Courier unique trackign Id associated with this shipment
+        id:
+          type: string
+          description: Shipment Id associated with this shippment used to group diferent
+            item or items from a single order
+        sellerShipmentId:
+          type: string
+          description: Unique Seller shipment Id. This must be unique across all orders
+            and shipments
+        cte:
+          type: string
+          description: Conhecimento de Transporte Eletrônico
+        courier:
+          $ref: '#/components/schemas/Courier'
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+    Newshipmentstatus:
+      required:
+      - courier
+      - invoice
+      - items
+      - occurredAt
+      - sellerShipmentId
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of Order IDs of this items from this order that will be
+            updated in this shipment
+          items:
+            type: string
+        occurredAt:
+          type: string
+          description: Data da ocorrência
+          format: date-time
+        trackingUrl:
+          type: string
+          description: Courier tracking URL
+        number:
+          type: string
+          description: Unique id shipment Id in the courier system
+        sellerShipmentId:
+          type: string
+          description: Unique Seller shipment Id. This must be unique across all orders
+            and shipmnents
+        cte:
+          type: string
+          description: Conhecimento do Transporte Eletrônico
+        courier:
+          $ref: '#/components/schemas/Courier'
+        invoice:
+          $ref: '#/components/schemas/Invoice'
+    NewTrackingRefund:
+      required:
+      - info
+      - items
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemReference'
+        info:
+          type: string
+          description: Aditional information about this shippment
+        occurredAt:
+          type: string
+          description: Date time that this was created
+          format: date-time
+        tranckingUrl:
+          type: string
+          description: Courier tracking URL
+        number:
+          type: string
+          description: Tracking Id in the courier
+        sellerShipmentId:
+          type: string
+          description: Unique Seller shipment Id. This must be unique across all orders
+            and shipments
+        cte:
+          type: string
+          description: Conhecimento do Transporte Eletrônico
+        courier:
+          $ref: '#/components/schemas/Courier'
+    Address:
+      required:
+      - address
+      - city
+      - complement
+      - countryId
+      - neighbourhood
+      - number
+      - state
+      - zipCode
+      type: object
+      properties:
+        address:
+          type: string
+          description: Address first line (ave, street name, etc..)
+        number:
+          type: string
+          description: Address number
+        complement:
+          type: string
+          description: Complementary info (aptartament number, building name, suite)
+        neighbourhood:
+          type: string
+          description: Address neighbourhood
+        reference:
+          type: string
+          description: Pontos de referência
+        city:
+          type: string
+          description: City
+        state:
+          type: string
+          description: State
+        countryId:
+          type: string
+          description: 'Contry code using aplpha ISO-3166, Example: BR, US, AR, GB,
+            CN'
+        zipCode:
+          type: string
+          description: Zip Code
+        recipientName:
+          type: string
+          description: Recipient Name
+    NewTicket:
+      required:
+      - body
+      - from
+      - orderId
+      - type
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Unique order Id that this trouble ticket belongs to
+        from:
+          type: string
+          description: Friendly name of the person sending this message, if not provided
+            the seller `name` will be used
+        body:
+          type: string
+          description: Message to the customer
+        message:
+          $ref: '#/components/schemas/NewTicketMessage'
+        type:
+          type: string
+          description: Trouble ticket type.
+        description:
+          type: string
+          description: Trouble ticked brief description
+        customer:
+          $ref: '#/components/schemas/CustomerReference'
+    GetTickets:
+      type: object
+      properties:
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ticket'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    Ticket:
+      type: object
+      properties:
+        ticketId:
+          type: string
+          description: Trouble Ticket unique identification Id
+        status:
+          type: string
+          description: Trouble Ticket status. 'OPEN','CLOSED','REOPENED'
+        type:
+          type: string
+          description: Trouble ticket type.
+        description:
+          type: string
+          description: Trouble ticked brief description
+        createdAt:
+          type: string
+          description: Date time that ticket was created
+          format: date-time
+        updatedAt:
+          type: string
+          description: Date-time with last update of this ticket
+          format: date-time
+        closedAt:
+          type: string
+          description: Date-time when ticket was closed
+          format: date-time
+        priority:
+          type: string
+          description: Trouble ticket priority
+        customer:
+          $ref: '#/components/schemas/CustomerReference'
+        subject:
+          type: string
+          description: Short one line title describing ticket.
+        sla:
+          type: string
+          description: Date-time with a promisse for the customer when this ticket
+            will be resolved
+          format: date-time
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    CustomerReference:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Customer name
+        phoneNumber:
+          type: string
+          description: Customer phone mumber
+    NewTicketMessage:
+      required:
+      - body
+      - visibility
+      type: object
+      properties:
+        visibility:
+          type: string
+          description: Defines if this message is `CUSTOMER` (customer will receive
+            a copy) or `INTERNAL`
+        body:
+          type: string
+          description: Message text
+    GetTicketMessages:
+      required:
+      - metadata
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketMessage'
+        metadata:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metadata'
+    TicketMessage:
+      required:
+      - body
+      - createdAt
+      - id
+      - visibility
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: Date created
+          format: date-time
+        id:
+          type: string
+          description: Trouble Ticket Id.
+        body:
+          type: string
+          description: Message text
+        visibility:
+          type: string
+          description: Defines if this message is `CUSTOMER` (customer will receive
+            a copy) or `INTERNAL`
+    TicketStatus:
+      required:
+      - ticketStatus
+      type: object
+      properties:
+        ticketStatus:
+          type: string
+          description: New trouble ticket status. Valid options are `REOPENED`, `CLOSED`
+  securitySchemes:
+    authorization:
+      type: apiKey
+      description: Authorization token. The Authorization token can be found in your
+        Admin console.
+      name: authorization
+      in: header
