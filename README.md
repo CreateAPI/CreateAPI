@@ -6,7 +6,7 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 
 - **Fast**: processes specs with 100K lines of YAML in less than a second
 - **Smart**: generates Swift code that looks like it's written by hand
-- **Reliable**: tested on 500K lines of publically available OpenAPI specs  producing correct code every time
+- **Reliable**: tested on 1KK lines of publically available OpenAPI specs  producing correct code every time
 - **Customizable**: offers a ton of customization options
 
 > Powered by [OpenAPIKit](https://github.com/mattpolzin/OpenAPIKit)
@@ -175,10 +175,9 @@ If you are using CreateAPI and want your spec to be part of the regression testi
 
 The goal is to completely cover OpenAPI 3.x spec. 
 
-Currency the following features are **note** supported:
+Currency the following features are **not** supported:
 
 - External References
-- `spaceDelimited`, `pipeDelimited`, and `deepObject` query parameters `style` values, form encoding only supports primitive types
 
 Some discrepancies with the OpenAPI spec are by design:
 
