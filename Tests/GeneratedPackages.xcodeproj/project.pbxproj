@@ -160,6 +160,7 @@
 		0CEB95392780D833002E02C0 /* CloudmersiveAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95382780D833002E02C0 /* CloudmersiveAPI */; };
 		0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */; };
 		0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953E2780D94D002E02C0 /* PeerTubeAPI */; };
+		0CEB95422780D9B7002E02C0 /* CredasAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95412780D9B7002E02C0 /* CredasAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -263,6 +264,7 @@
 		0CEB95372780D82F002E02C0 /* CloudmersiveAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CloudmersiveAPI; path = CreateAPITests/Expected/CloudmersiveAPI; sourceTree = "<group>"; };
 		0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ConfigCatAPI; path = CreateAPITests/Expected/ConfigCatAPI; sourceTree = "<group>"; };
 		0CEB953D2780D949002E02C0 /* PeerTubeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeerTubeAPI; path = CreateAPITests/Expected/PeerTubeAPI; sourceTree = "<group>"; };
+		0CEB95402780D9B1002E02C0 /* CredasAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredasAPI; path = CreateAPITests/Expected/CredasAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +357,7 @@
 				0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */,
 				0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */,
 				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
+				0CEB95422780D9B7002E02C0 /* CredasAPI in Frameworks */,
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
 				0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */,
 				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
@@ -400,6 +403,7 @@
 				0CEB95222780D389002E02C0 /* CenitAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0CEB95282780D469002E02C0 /* CircuitAPI */,
+				0CEB95402780D9B1002E02C0 /* CredasAPI */,
 				0CEB95372780D82F002E02C0 /* CloudmersiveAPI */,
 				0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */,
 				0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */,
@@ -616,6 +620,7 @@
 				0CEB95382780D833002E02C0 /* CloudmersiveAPI */,
 				0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */,
 				0CEB953E2780D94D002E02C0 /* PeerTubeAPI */,
+				0CEB95412780D9B7002E02C0 /* CredasAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1312,6 +1317,10 @@
 		0CEB953E2780D94D002E02C0 /* PeerTubeAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PeerTubeAPI;
+		};
+		0CEB95412780D9B7002E02C0 /* CredasAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CredasAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
