@@ -867,7 +867,11 @@ extension Generator {
             case .b(let value):
                 schema = value
             }
-            let property = try makeProperty(key: key, schema: schema, isRequired: schema.required, in: Context(parents: []))
+            var property = try makeProperty(key: key, schema: schema, isRequired: schema.required, in: Context(parents: []))
+            // Avoid generating enums for properties
+            if case .string = schema.value, case .userDefined = property.type {
+                property.type = .builtin("String")
+            }
             return templates.header(for: property, header: header)
         case .b:
             throw GeneratorError("HTTP headers with content map are not supported")
