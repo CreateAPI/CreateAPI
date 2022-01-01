@@ -156,6 +156,7 @@
 		0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */; };
 		0CEB95302780D74F002E02C0 /* ClickSendAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952F2780D74F002E02C0 /* ClickSendAPI */; };
 		0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */; };
+		0CEB95362780D7F4002E02C0 /* EcwidAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95352780D7F4002E02C0 /* EcwidAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -255,6 +256,7 @@
 		0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CitrixGoToMeetingsAPI; path = CreateAPITests/Expected/CitrixGoToMeetingsAPI; sourceTree = "<group>"; };
 		0CEB952E2780D74B002E02C0 /* ClickSendAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClickSendAPI; path = CreateAPITests/Expected/ClickSendAPI; sourceTree = "<group>"; };
 		0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClimateFieldViewAPI; path = CreateAPITests/Expected/ClimateFieldViewAPI; sourceTree = "<group>"; };
+		0CEB95342780D7F0002E02C0 /* EcwidAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EcwidAPI; path = CreateAPITests/Expected/EcwidAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 				0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */,
 				0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */,
 				0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */,
+				0CEB95362780D7F4002E02C0 /* EcwidAPI in Frameworks */,
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
 				0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */,
 				0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */,
@@ -383,6 +386,7 @@
 				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
 				0CEB95152780CE09002E02C0 /* BufferAPI */,
 				0CEB95182780CE66002E02C0 /* BulkSMSAPI */,
+				0CEB95342780D7F0002E02C0 /* EcwidAPI */,
 				0CEB951F2780D310002E02C0 /* CallfireAPI */,
 				0CEB95222780D389002E02C0 /* CenitAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
@@ -596,6 +600,7 @@
 				0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */,
 				0CEB952F2780D74F002E02C0 /* ClickSendAPI */,
 				0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */,
+				0CEB95352780D7F4002E02C0 /* EcwidAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1276,6 +1281,10 @@
 		0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ClimateFieldViewAPI;
+		};
+		0CEB95352780D7F4002E02C0 /* EcwidAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EcwidAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

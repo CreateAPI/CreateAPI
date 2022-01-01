@@ -142,6 +142,10 @@ final class GenerateTests: GenerateBaseTests {
     func testClimateFieldView() throws {
         try testSpec(name: "climate-fieldview", package: "ClimateFieldViewAPI")
     }
+    
+    func testEcwid() throws {
+        try testSpec(name: "ecwid", package: "EcwidAPI")
+    }
 
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
