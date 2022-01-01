@@ -148,6 +148,7 @@
 		0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95102780CD63002E02C0 /* RocketServicesAPI */; };
 		0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95132780CDD6002E02C0 /* RowshotAPI */; };
 		0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95162780CE0D002E02C0 /* BufferAPI */; };
+		0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95192780CE6B002E02C0 /* BulkSMSAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -239,6 +240,7 @@
 		0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RocketServicesAPI; path = CreateAPITests/Expected/RocketServicesAPI; sourceTree = "<group>"; };
 		0CEB95122780CDD0002E02C0 /* RowshotAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RowshotAPI; path = CreateAPITests/Expected/RowshotAPI; sourceTree = "<group>"; };
 		0CEB95152780CE09002E02C0 /* BufferAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BufferAPI; path = CreateAPITests/Expected/BufferAPI; sourceTree = "<group>"; };
+		0CEB95182780CE66002E02C0 /* BulkSMSAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BulkSMSAPI; path = CreateAPITests/Expected/BulkSMSAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 				0C612F222777B595008D32A4 /* petstore-operation-id in Frameworks */,
 				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
 				0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */,
+				0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */,
 				0CEB950E2780CC3E002E02C0 /* BrandLoversAPI in Frameworks */,
 				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
 				0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */,
@@ -358,6 +361,7 @@
 				0C80E8F1277F9DFC009130EA /* BillingoAPI */,
 				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
 				0CEB95152780CE09002E02C0 /* BufferAPI */,
+				0CEB95182780CE66002E02C0 /* BulkSMSAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
@@ -556,6 +560,7 @@
 				0CEB95102780CD63002E02C0 /* RocketServicesAPI */,
 				0CEB95132780CDD6002E02C0 /* RowshotAPI */,
 				0CEB95162780CE0D002E02C0 /* BufferAPI */,
+				0CEB95192780CE6B002E02C0 /* BulkSMSAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1204,6 +1209,10 @@
 		0CEB95162780CE0D002E02C0 /* BufferAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BufferAPI;
+		};
+		0CEB95192780CE6B002E02C0 /* BulkSMSAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BulkSMSAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -630,52 +630,52 @@ extension Paths.Opensearch {
                 }
 
                 public struct UserPoolID: Encodable {
-                    public var userPoolID: AmazonOpenSearchAPI.UserPoolID
+                    public var string: String
                     /// The Cognito user pool ID for OpenSearch Dashboards authentication.
                     public var anyJSON: AnyJSON
 
-                    public init(userPoolID: AmazonOpenSearchAPI.UserPoolID, anyJSON: AnyJSON) {
-                        self.userPoolID = userPoolID
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(userPoolID, forKey: "userPoolID")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
 
                 public struct IdentityPoolId: Encodable {
-                    public var identityPoolID: AmazonOpenSearchAPI.IdentityPoolId
+                    public var string: String
                     /// The Cognito identity pool ID for OpenSearch Dashboards authentication.
                     public var anyJSON: AnyJSON
 
-                    public init(identityPoolID: AmazonOpenSearchAPI.IdentityPoolId, anyJSON: AnyJSON) {
-                        self.identityPoolID = identityPoolID
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(identityPoolID, forKey: "identityPoolID")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
 
                 public struct RoleArn: Encodable {
-                    public var roleArn: AmazonOpenSearchAPI.RoleArn
+                    public var string: String
                     /// The role ARN that provides OpenSearch permissions for accessing Cognito resources.
                     public var anyJSON: AnyJSON
 
-                    public init(roleArn: AmazonOpenSearchAPI.RoleArn, anyJSON: AnyJSON) {
-                        self.roleArn = roleArn
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(roleArn, forKey: "roleArn")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
@@ -718,18 +718,18 @@ extension Paths.Opensearch {
                 }
 
                 public struct KmsKeyID: Encodable {
-                    public var kmsKeyID: AmazonOpenSearchAPI.KmsKeyID
+                    public var string: String
                     /// The KMS key ID for encryption at rest options.
                     public var anyJSON: AnyJSON
 
-                    public init(kmsKeyID: AmazonOpenSearchAPI.KmsKeyID, anyJSON: AnyJSON) {
-                        self.kmsKeyID = kmsKeyID
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(kmsKeyID, forKey: "kmsKeyID")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
@@ -1168,35 +1168,35 @@ extension Paths {
                 public var s3Key: S3Key?
 
                 public struct S3BucketName: Encodable {
-                    public var s3BucketName: AmazonOpenSearchAPI.S3BucketName
+                    public var string: String
                     /// The name of the Amazon S3 bucket containing the package.
                     public var anyJSON: AnyJSON
 
-                    public init(s3BucketName: AmazonOpenSearchAPI.S3BucketName, anyJSON: AnyJSON) {
-                        self.s3BucketName = s3BucketName
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(s3BucketName, forKey: "s3BucketName")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
 
                 public struct S3Key: Encodable {
-                    public var s3Key: AmazonOpenSearchAPI.S3Key
+                    public var string: String
                     /// Key (file name) of the package.
                     public var anyJSON: AnyJSON
 
-                    public init(s3Key: AmazonOpenSearchAPI.S3Key, anyJSON: AnyJSON) {
-                        self.s3Key = s3Key
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(s3Key, forKey: "s3Key")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
@@ -1796,52 +1796,52 @@ extension Paths.Opensearch.Domain.WithDomainName {
                 }
 
                 public struct UserPoolID: Encodable {
-                    public var userPoolID: AmazonOpenSearchAPI.UserPoolID
+                    public var string: String
                     /// The Cognito user pool ID for OpenSearch Dashboards authentication.
                     public var anyJSON: AnyJSON
 
-                    public init(userPoolID: AmazonOpenSearchAPI.UserPoolID, anyJSON: AnyJSON) {
-                        self.userPoolID = userPoolID
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(userPoolID, forKey: "userPoolID")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
 
                 public struct IdentityPoolId: Encodable {
-                    public var identityPoolID: AmazonOpenSearchAPI.IdentityPoolId
+                    public var string: String
                     /// The Cognito identity pool ID for OpenSearch Dashboards authentication.
                     public var anyJSON: AnyJSON
 
-                    public init(identityPoolID: AmazonOpenSearchAPI.IdentityPoolId, anyJSON: AnyJSON) {
-                        self.identityPoolID = identityPoolID
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(identityPoolID, forKey: "identityPoolID")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
 
                 public struct RoleArn: Encodable {
-                    public var roleArn: AmazonOpenSearchAPI.RoleArn
+                    public var string: String
                     /// The role ARN that provides OpenSearch permissions for accessing Cognito resources.
                     public var anyJSON: AnyJSON
 
-                    public init(roleArn: AmazonOpenSearchAPI.RoleArn, anyJSON: AnyJSON) {
-                        self.roleArn = roleArn
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(roleArn, forKey: "roleArn")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
@@ -1884,18 +1884,18 @@ extension Paths.Opensearch.Domain.WithDomainName {
                 }
 
                 public struct KmsKeyID: Encodable {
-                    public var kmsKeyID: AmazonOpenSearchAPI.KmsKeyID
+                    public var string: String
                     /// The KMS key ID for encryption at rest options.
                     public var anyJSON: AnyJSON
 
-                    public init(kmsKeyID: AmazonOpenSearchAPI.KmsKeyID, anyJSON: AnyJSON) {
-                        self.kmsKeyID = kmsKeyID
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(kmsKeyID, forKey: "kmsKeyID")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
@@ -2956,35 +2956,35 @@ extension Paths.Packages {
                 public var s3Key: S3Key?
 
                 public struct S3BucketName: Encodable {
-                    public var s3BucketName: AmazonOpenSearchAPI.S3BucketName
+                    public var string: String
                     /// The name of the Amazon S3 bucket containing the package.
                     public var anyJSON: AnyJSON
 
-                    public init(s3BucketName: AmazonOpenSearchAPI.S3BucketName, anyJSON: AnyJSON) {
-                        self.s3BucketName = s3BucketName
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(s3BucketName, forKey: "s3BucketName")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }
 
                 public struct S3Key: Encodable {
-                    public var s3Key: AmazonOpenSearchAPI.S3Key
+                    public var string: String
                     /// Key (file name) of the package.
                     public var anyJSON: AnyJSON
 
-                    public init(s3Key: AmazonOpenSearchAPI.S3Key, anyJSON: AnyJSON) {
-                        self.s3Key = s3Key
+                    public init(string: String, anyJSON: AnyJSON) {
+                        self.string = string
                         self.anyJSON = anyJSON
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var values = encoder.container(keyedBy: StringCodingKey.self)
-                        try values.encode(s3Key, forKey: "s3Key")
+                        try values.encode(string, forKey: "string")
                         try values.encode(anyJSON, forKey: "anyJSON")
                     }
                 }

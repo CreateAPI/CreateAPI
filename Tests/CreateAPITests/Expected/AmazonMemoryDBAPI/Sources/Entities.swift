@@ -216,48 +216,48 @@ public struct CopySnapshotRequest: Codable {
         }
     }
 
-    public final class TargetBucket: Codable {
-        public var targetBucket: AmazonMemoryDBAPI.TargetBucket
+    public struct TargetBucket: Codable {
+        public var string: String
         /// The Amazon S3 bucket to which the snapshot is exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure MemoryDB has the needed permissions to this S3 bucket. For more information, see <a href="https://docs.aws.amazon.com/MemoryDB/latest/devguide/snapshots-exporting.html">Step 2: Grant MemoryDB Access to Your Amazon S3 Bucket</a>.
         public var anyJSON: AnyJSON
 
-        public init(targetBucket: AmazonMemoryDBAPI.TargetBucket, anyJSON: AnyJSON) {
-            self.targetBucket = targetBucket
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.targetBucket = try values.decode(AmazonMemoryDBAPI.TargetBucket.self, forKey: "targetBucket")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(targetBucket, forKey: "targetBucket")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class KmsKeyID: Codable {
-        public var kmsKeyID: AmazonMemoryDBAPI.KmsKeyID
+    public struct KmsKeyID: Codable {
+        public var string: String
         /// The ID of the KMS key used to encrypt the target snapshot.
         public var anyJSON: AnyJSON
 
-        public init(kmsKeyID: AmazonMemoryDBAPI.KmsKeyID, anyJSON: AnyJSON) {
-            self.kmsKeyID = kmsKeyID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.kmsKeyID = try values.decode(AmazonMemoryDBAPI.KmsKeyID.self, forKey: "kmsKeyID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(kmsKeyID, forKey: "kmsKeyID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -898,25 +898,25 @@ public struct CreateClusterRequest: Codable {
         }
     }
 
-    public final class ACLName: Codable {
-        public var aCLName: AmazonMemoryDBAPI.ACLName
+    public struct ACLName: Codable {
+        public var string: String
         /// The name of the Access Control List to associate with the cluster.
         public var anyJSON: AnyJSON
 
-        public init(aCLName: AmazonMemoryDBAPI.ACLName, anyJSON: AnyJSON) {
-            self.aCLName = aCLName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.aCLName = try values.decode(AmazonMemoryDBAPI.ACLName.self, forKey: "aCLName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(aCLName, forKey: "aCLName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1505,25 +1505,25 @@ public struct CreateUserRequest: Codable {
     public var accessString: AccessString
     public var tags: Tags?
 
-    public final class UserName: Codable {
-        public var userName: AmazonMemoryDBAPI.UserName
+    public struct UserName: Codable {
+        public var string: String
         /// The name of the user. This value must be unique as it also serves as the user identifier.
         public var anyJSON: AnyJSON
 
-        public init(userName: AmazonMemoryDBAPI.UserName, anyJSON: AnyJSON) {
-            self.userName = userName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.userName = try values.decode(AmazonMemoryDBAPI.UserName.self, forKey: "userName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userName, forKey: "userName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1552,25 +1552,25 @@ public struct CreateUserRequest: Codable {
         }
     }
 
-    public final class AccessString: Codable {
-        public var accessString: AmazonMemoryDBAPI.AccessString
+    public struct AccessString: Codable {
+        public var string: String
         /// Access permissions string used for this user.
         public var anyJSON: AnyJSON
 
-        public init(accessString: AmazonMemoryDBAPI.AccessString, anyJSON: AnyJSON) {
-            self.accessString = accessString
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.accessString = try values.decode(AmazonMemoryDBAPI.AccessString.self, forKey: "accessString")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(accessString, forKey: "accessString")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -2033,25 +2033,25 @@ public struct DeleteUserResponse: Codable {
 public struct DeleteUserRequest: Codable {
     public var userName: UserName
 
-    public final class UserName: Codable {
-        public var userName: AmazonMemoryDBAPI.UserName
+    public struct UserName: Codable {
+        public var string: String
         /// The name of the user to delete
         public var anyJSON: AnyJSON
 
-        public init(userName: AmazonMemoryDBAPI.UserName, anyJSON: AnyJSON) {
-            self.userName = userName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.userName = try values.decode(AmazonMemoryDBAPI.UserName.self, forKey: "userName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userName, forKey: "userName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -3776,25 +3776,25 @@ public struct DescribeUsersRequest: Codable {
     public var maxResults: MaxResults?
     public var nextToken: NextToken?
 
-    public final class UserName: Codable {
-        public var userName: AmazonMemoryDBAPI.UserName
+    public struct UserName: Codable {
+        public var string: String
         /// The name of the user
         public var anyJSON: AnyJSON
 
-        public init(userName: AmazonMemoryDBAPI.UserName, anyJSON: AnyJSON) {
-            self.userName = userName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.userName = try values.decode(AmazonMemoryDBAPI.UserName.self, forKey: "userName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userName, forKey: "userName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -4079,25 +4079,25 @@ public struct ListAllowedNodeTypeUpdatesRequest: Codable {
 public struct ListTagsResponse: Codable {
     public var tagList: TagList?
 
-    public final class TagList: Codable {
-        public var tagList: AmazonMemoryDBAPI.TagList
+    public struct TagList: Codable {
+        public var tags: [Tag]
         /// A list of tags as key-value pairs.
         public var anyJSON: AnyJSON
 
-        public init(tagList: AmazonMemoryDBAPI.TagList, anyJSON: AnyJSON) {
-            self.tagList = tagList
+        public init(tags: [Tag], anyJSON: AnyJSON) {
+            self.tags = tags
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.tagList = try values.decode(AmazonMemoryDBAPI.TagList.self, forKey: "tagList")
+            self.tags = try values.decode([Tag].self, forKey: "tags")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(tagList, forKey: "tagList")
+            try values.encode(tags, forKey: "tags")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -4272,25 +4272,25 @@ public struct ResetParameterGroupRequest: Codable {
 public struct TagResourceResponse: Codable {
     public var tagList: TagList?
 
-    public final class TagList: Codable {
-        public var tagList: AmazonMemoryDBAPI.TagList
+    public struct TagList: Codable {
+        public var tags: [Tag]
         /// A list of tags as key-value pairs.
         public var anyJSON: AnyJSON
 
-        public init(tagList: AmazonMemoryDBAPI.TagList, anyJSON: AnyJSON) {
-            self.tagList = tagList
+        public init(tags: [Tag], anyJSON: AnyJSON) {
+            self.tags = tags
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.tagList = try values.decode(AmazonMemoryDBAPI.TagList.self, forKey: "tagList")
+            self.tags = try values.decode([Tag].self, forKey: "tags")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(tagList, forKey: "tagList")
+            try values.encode(tags, forKey: "tags")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -4368,25 +4368,25 @@ public struct TagResourceRequest: Codable {
 public struct UntagResourceResponse: Codable {
     public var tagList: TagList?
 
-    public final class TagList: Codable {
-        public var tagList: AmazonMemoryDBAPI.TagList
+    public struct TagList: Codable {
+        public var tags: [Tag]
         /// The list of tags removed
         public var anyJSON: AnyJSON
 
-        public init(tagList: AmazonMemoryDBAPI.TagList, anyJSON: AnyJSON) {
-            self.tagList = tagList
+        public init(tags: [Tag], anyJSON: AnyJSON) {
+            self.tags = tags
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.tagList = try values.decode(AmazonMemoryDBAPI.TagList.self, forKey: "tagList")
+            self.tags = try values.decode([Tag].self, forKey: "tags")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(tagList, forKey: "tagList")
+            try values.encode(tags, forKey: "tags")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -4935,25 +4935,25 @@ public struct UpdateClusterRequest: Codable {
         }
     }
 
-    public final class ACLName: Codable {
-        public var aCLName: AmazonMemoryDBAPI.ACLName
+    public struct ACLName: Codable {
+        public var string: String
         /// The Access Control List that is associated with the cluster
         public var anyJSON: AnyJSON
 
-        public init(aCLName: AmazonMemoryDBAPI.ACLName, anyJSON: AnyJSON) {
-            self.aCLName = aCLName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.aCLName = try values.decode(AmazonMemoryDBAPI.ACLName.self, forKey: "aCLName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(aCLName, forKey: "aCLName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5254,25 +5254,25 @@ public struct UpdateUserRequest: Codable {
     public var authenticationMode: AuthenticationMode?
     public var accessString: AccessString?
 
-    public final class UserName: Codable {
-        public var userName: AmazonMemoryDBAPI.UserName
+    public struct UserName: Codable {
+        public var string: String
         /// The name of the user
         public var anyJSON: AnyJSON
 
-        public init(userName: AmazonMemoryDBAPI.UserName, anyJSON: AnyJSON) {
-            self.userName = userName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.userName = try values.decode(AmazonMemoryDBAPI.UserName.self, forKey: "userName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userName, forKey: "userName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5301,25 +5301,25 @@ public struct UpdateUserRequest: Codable {
         }
     }
 
-    public final class AccessString: Codable {
-        public var accessString: AmazonMemoryDBAPI.AccessString
+    public struct AccessString: Codable {
+        public var string: String
         /// Access permissions string used for this user.
         public var anyJSON: AnyJSON
 
-        public init(accessString: AmazonMemoryDBAPI.AccessString, anyJSON: AnyJSON) {
-            self.accessString = accessString
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.accessString = try values.decode(AmazonMemoryDBAPI.AccessString.self, forKey: "accessString")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(accessString, forKey: "accessString")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6541,25 +6541,25 @@ public struct Cluster: Codable {
         }
     }
 
-    public final class ACLName: Codable {
-        public var aCLName: AmazonMemoryDBAPI.ACLName
+    public struct ACLName: Codable {
+        public var string: String
         /// The name of the Access Control List associated with this cluster.
         public var anyJSON: AnyJSON
 
-        public init(aCLName: AmazonMemoryDBAPI.ACLName, anyJSON: AnyJSON) {
-            self.aCLName = aCLName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.aCLName = try values.decode(AmazonMemoryDBAPI.ACLName.self, forKey: "aCLName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(aCLName, forKey: "aCLName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }

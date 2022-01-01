@@ -783,25 +783,25 @@ public struct CreateOutboundConnectionResponse: Codable {
         }
     }
 
-    public final class ConnectionAlias: Codable {
-        public var connectionAlias: AmazonOpenSearchAPI.ConnectionAlias
+    public struct ConnectionAlias: Codable {
+        public var string: String
         /// The connection alias provided during the create connection request.
         public var anyJSON: AnyJSON
 
-        public init(connectionAlias: AmazonOpenSearchAPI.ConnectionAlias, anyJSON: AnyJSON) {
-            self.connectionAlias = connectionAlias
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.connectionAlias = try values.decode(AmazonOpenSearchAPI.ConnectionAlias.self, forKey: "connectionAlias")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(connectionAlias, forKey: "connectionAlias")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -829,25 +829,25 @@ public struct CreateOutboundConnectionResponse: Codable {
         }
     }
 
-    public final class ConnectionID: Codable {
-        public var connectionID: AmazonOpenSearchAPI.ConnectionID
+    public struct ConnectionID: Codable {
+        public var string: String
         /// The unique ID for the created outbound connection, which is used for subsequent operations on the connection.
         public var anyJSON: AnyJSON
 
-        public init(connectionID: AmazonOpenSearchAPI.ConnectionID, anyJSON: AnyJSON) {
-            self.connectionID = connectionID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.connectionID = try values.decode(AmazonOpenSearchAPI.ConnectionID.self, forKey: "connectionID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(connectionID, forKey: "connectionID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1136,26 +1136,26 @@ public struct DescribeDomainAutoTunesResponse: Codable {
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// An identifier to allow retrieval of paginated results.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1212,26 +1212,26 @@ public struct DescribeDomainConfigResponse: Codable {
 public struct DescribeDomainsResponse: Codable {
     public var domainStatusList: DomainStatusList
 
-    public final class DomainStatusList: Codable {
+    public struct DomainStatusList: Codable {
         /// A list that contains the status of each requested domain.
-        public var domainStatusList: AmazonOpenSearchAPI.DomainStatusList
+        public var domainStatuses: [DomainStatus]
         /// The status of the domains requested in the <code>DescribeDomains</code> request.
         public var anyJSON: AnyJSON
 
-        public init(domainStatusList: AmazonOpenSearchAPI.DomainStatusList, anyJSON: AnyJSON) {
-            self.domainStatusList = domainStatusList
+        public init(domainStatuses: [DomainStatus], anyJSON: AnyJSON) {
+            self.domainStatuses = domainStatuses
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainStatusList = try values.decode(AmazonOpenSearchAPI.DomainStatusList.self, forKey: "domainStatusList")
+            self.domainStatuses = try values.decode([DomainStatus].self, forKey: "domainStatuses")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainStatusList, forKey: "domainStatusList")
+            try values.encode(domainStatuses, forKey: "domainStatuses")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1273,26 +1273,26 @@ public struct DescribeInboundConnectionsResponse: Codable {
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// If more results are available and NextToken is present, make the next request to the same API with the received NextToken to paginate the remaining results.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1412,26 +1412,26 @@ public struct DescribeOutboundConnectionsResponse: Codable {
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// If more results are available and NextToken is present, make the next request to the same API with the received NextToken to paginate the remaining results.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1452,25 +1452,25 @@ public struct DescribePackagesResponse: Codable {
     public var packageDetailsList: PackageDetailsList?
     public var nextToken: String?
 
-    public final class PackageDetailsList: Codable {
-        public var packageDetailsList: AmazonOpenSearchAPI.PackageDetailsList
+    public struct PackageDetailsList: Codable {
+        public var packageDetails: [PackageDetails]
         /// List of <code>PackageDetails</code> objects.
         public var anyJSON: AnyJSON
 
-        public init(packageDetailsList: AmazonOpenSearchAPI.PackageDetailsList, anyJSON: AnyJSON) {
-            self.packageDetailsList = packageDetailsList
+        public init(packageDetails: [PackageDetails], anyJSON: AnyJSON) {
+            self.packageDetails = packageDetails
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageDetailsList = try values.decode(AmazonOpenSearchAPI.PackageDetailsList.self, forKey: "packageDetailsList")
+            self.packageDetails = try values.decode([PackageDetails].self, forKey: "packageDetails")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageDetailsList, forKey: "packageDetailsList")
+            try values.encode(packageDetails, forKey: "packageDetails")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1552,26 +1552,26 @@ public struct DescribeReservedInstanceOfferingsResponse: Codable {
     public var nextToken: NextToken?
     public var reservedInstanceOfferings: ReservedInstanceOfferings?
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// Provides an identifier to allow retrieval of paginated results.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1751,25 +1751,25 @@ public struct GetPackageVersionHistoryResponse: Codable {
     public var packageVersionHistoryList: PackageVersionHistoryList?
     public var nextToken: String?
 
-    public final class PackageVersionHistoryList: Codable {
-        public var packageVersionHistoryList: AmazonOpenSearchAPI.PackageVersionHistoryList
+    public struct PackageVersionHistoryList: Codable {
+        public var packageVersionHistories: [PackageVersionHistory]
         /// List of <code>PackageVersionHistory</code> objects.
         public var anyJSON: AnyJSON
 
-        public init(packageVersionHistoryList: AmazonOpenSearchAPI.PackageVersionHistoryList, anyJSON: AnyJSON) {
-            self.packageVersionHistoryList = packageVersionHistoryList
+        public init(packageVersionHistories: [PackageVersionHistory], anyJSON: AnyJSON) {
+            self.packageVersionHistories = packageVersionHistories
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageVersionHistoryList = try values.decode(AmazonOpenSearchAPI.PackageVersionHistoryList.self, forKey: "packageVersionHistoryList")
+            self.packageVersionHistories = try values.decode([PackageVersionHistory].self, forKey: "packageVersionHistories")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageVersionHistoryList, forKey: "packageVersionHistoryList")
+            try values.encode(packageVersionHistories, forKey: "packageVersionHistories")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1900,25 +1900,25 @@ public struct GetUpgradeStatusResponse: Codable {
         }
     }
 
-    public final class UpgradeName: Codable {
-        public var upgradeName: AmazonOpenSearchAPI.UpgradeName
+    public struct UpgradeName: Codable {
+        public var string: String
         /// A string that briefly describes the update.
         public var anyJSON: AnyJSON
 
-        public init(upgradeName: AmazonOpenSearchAPI.UpgradeName, anyJSON: AnyJSON) {
-            self.upgradeName = upgradeName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.upgradeName = try values.decode(AmazonOpenSearchAPI.UpgradeName.self, forKey: "upgradeName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(upgradeName, forKey: "upgradeName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -1978,25 +1978,25 @@ public struct ListDomainsForPackageResponse: Codable {
     public var domainPackageDetailsList: DomainPackageDetailsList?
     public var nextToken: String?
 
-    public final class DomainPackageDetailsList: Codable {
-        public var domainPackageDetailsList: AmazonOpenSearchAPI.DomainPackageDetailsList
+    public struct DomainPackageDetailsList: Codable {
+        public var domainPackageDetails: [DomainPackageDetails]
         /// List of <code>DomainPackageDetails</code> objects.
         public var anyJSON: AnyJSON
 
-        public init(domainPackageDetailsList: AmazonOpenSearchAPI.DomainPackageDetailsList, anyJSON: AnyJSON) {
-            self.domainPackageDetailsList = domainPackageDetailsList
+        public init(domainPackageDetails: [DomainPackageDetails], anyJSON: AnyJSON) {
+            self.domainPackageDetails = domainPackageDetails
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainPackageDetailsList = try values.decode(AmazonOpenSearchAPI.DomainPackageDetailsList.self, forKey: "domainPackageDetailsList")
+            self.domainPackageDetails = try values.decode([DomainPackageDetails].self, forKey: "domainPackageDetails")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainPackageDetailsList, forKey: "domainPackageDetailsList")
+            try values.encode(domainPackageDetails, forKey: "domainPackageDetails")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -2033,25 +2033,25 @@ public struct ListPackagesForDomainResponse: Codable {
     public var domainPackageDetailsList: DomainPackageDetailsList?
     public var nextToken: NextToken?
 
-    public final class DomainPackageDetailsList: Codable {
-        public var domainPackageDetailsList: AmazonOpenSearchAPI.DomainPackageDetailsList
+    public struct DomainPackageDetailsList: Codable {
+        public var domainPackageDetails: [DomainPackageDetails]
         /// List of <code>DomainPackageDetails</code> objects.
         public var anyJSON: AnyJSON
 
-        public init(domainPackageDetailsList: AmazonOpenSearchAPI.DomainPackageDetailsList, anyJSON: AnyJSON) {
-            self.domainPackageDetailsList = domainPackageDetailsList
+        public init(domainPackageDetails: [DomainPackageDetails], anyJSON: AnyJSON) {
+            self.domainPackageDetails = domainPackageDetails
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainPackageDetailsList = try values.decode(AmazonOpenSearchAPI.DomainPackageDetailsList.self, forKey: "domainPackageDetailsList")
+            self.domainPackageDetails = try values.decode([DomainPackageDetails].self, forKey: "domainPackageDetails")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainPackageDetailsList, forKey: "domainPackageDetailsList")
+            try values.encode(domainPackageDetails, forKey: "domainPackageDetails")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -2094,26 +2094,26 @@ public struct ListPackagesForDomainResponse: Codable {
 public struct ListTagsResponse: Codable {
     public var tagList: TagList?
 
-    public final class TagList: Codable {
+    public struct TagList: Codable {
         /// A list of <code>Tag</code>.
-        public var tagList: AmazonOpenSearchAPI.TagList
+        public var tags: [Tag]
         /// List of <code>Tag</code> for the requested domain.
         public var anyJSON: AnyJSON
 
-        public init(tagList: AmazonOpenSearchAPI.TagList, anyJSON: AnyJSON) {
-            self.tagList = tagList
+        public init(tags: [Tag], anyJSON: AnyJSON) {
+            self.tags = tags
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.tagList = try values.decode(AmazonOpenSearchAPI.TagList.self, forKey: "tagList")
+            self.tags = try values.decode([Tag].self, forKey: "tags")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(tagList, forKey: "tagList")
+            try values.encode(tags, forKey: "tags")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -2484,25 +2484,25 @@ public struct InboundConnection: Codable {
         }
     }
 
-    public final class ConnectionID: Codable {
-        public var connectionID: AmazonOpenSearchAPI.ConnectionID
+    public struct ConnectionID: Codable {
+        public var string: String
         /// The connection ID for the inbound cross-cluster connection.
         public var anyJSON: AnyJSON
 
-        public init(connectionID: AmazonOpenSearchAPI.ConnectionID, anyJSON: AnyJSON) {
-            self.connectionID = connectionID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.connectionID = try values.decode(AmazonOpenSearchAPI.ConnectionID.self, forKey: "connectionID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(connectionID, forKey: "connectionID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -2753,50 +2753,50 @@ public struct AddTagsRequest: Codable {
     public var arn: Arn
     public var tagList: TagList
 
-    public final class Arn: Codable {
+    public struct Arn: Codable {
         /// The Amazon Resource Name (ARN) of the domain. See <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html" target="_blank">Identifiers for IAM Entities </a> in <i>Using AWS Identity and Access Management</i> for more information.
-        public var arn: AmazonOpenSearchAPI.Arn
+        public var string: String
         /// Specify the <code>ARN</code> of the domain you want to add tags to.
         public var anyJSON: AnyJSON
 
-        public init(arn: AmazonOpenSearchAPI.Arn, anyJSON: AnyJSON) {
-            self.arn = arn
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.arn = try values.decode(AmazonOpenSearchAPI.Arn.self, forKey: "arn")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(arn, forKey: "arn")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class TagList: Codable {
+    public struct TagList: Codable {
         /// A list of <code>Tag</code>.
-        public var tagList: AmazonOpenSearchAPI.TagList
+        public var tags: [Tag]
         /// List of <code>Tag</code> to add to the domain.
         public var anyJSON: AnyJSON
 
-        public init(tagList: AmazonOpenSearchAPI.TagList, anyJSON: AnyJSON) {
-            self.tagList = tagList
+        public init(tags: [Tag], anyJSON: AnyJSON) {
+            self.tags = tags
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.tagList = try values.decode(AmazonOpenSearchAPI.TagList.self, forKey: "tagList")
+            self.tags = try values.decode([Tag].self, forKey: "tags")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(tagList, forKey: "tagList")
+            try values.encode(tags, forKey: "tags")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -2817,25 +2817,25 @@ public struct AdditionalLimit: Codable {
     public var limitName: LimitName?
     public var limitValues: LimitValues?
 
-    public final class LimitName: Codable {
-        public var limitName: AmazonOpenSearchAPI.LimitName
+    public struct LimitName: Codable {
+        public var string: String
         /// Additional limit is specific to a given InstanceType and for each of its <code> <a>InstanceRole</a> </code> etc. <br/> Attributes and their details: <br/> <ul> <li>MaximumNumberOfDataNodesSupported</li> This attribute is present on the master node only to specify how much data nodes up to which given <code> <a>ESPartitionInstanceType</a> </code> can support as master node. <li>MaximumNumberOfDataNodesWithoutMasterNode</li> This attribute is present on data node only to specify how much data nodes of given <code> <a>ESPartitionInstanceType</a> </code> up to which you don't need any master nodes to govern them. </ul>
         public var anyJSON: AnyJSON
 
-        public init(limitName: AmazonOpenSearchAPI.LimitName, anyJSON: AnyJSON) {
-            self.limitName = limitName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.limitName = try values.decode(AmazonOpenSearchAPI.LimitName.self, forKey: "limitName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(limitName, forKey: "limitName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -3354,48 +3354,48 @@ public struct DomainPackageDetails: Codable {
     public var referencePath: ReferencePath?
     public var errorDetails: ErrorDetails?
 
-    public final class PackageID: Codable {
-        public var packageID: AmazonOpenSearchAPI.PackageID
+    public struct PackageID: Codable {
+        public var string: String
         /// The internal ID of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageID: AmazonOpenSearchAPI.PackageID, anyJSON: AnyJSON) {
-            self.packageID = packageID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageID = try values.decode(AmazonOpenSearchAPI.PackageID.self, forKey: "packageID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageID, forKey: "packageID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class PackageName: Codable {
-        public var packageName: AmazonOpenSearchAPI.PackageName
+    public struct PackageName: Codable {
+        public var string: String
         /// User-specified name of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageName: AmazonOpenSearchAPI.PackageName, anyJSON: AnyJSON) {
-            self.packageName = packageName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageName = try values.decode(AmazonOpenSearchAPI.PackageName.self, forKey: "packageName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageName, forKey: "packageName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -3423,49 +3423,49 @@ public struct DomainPackageDetails: Codable {
         }
     }
 
-    public final class LastUpdated: Codable {
-        public var lastUpdated: AmazonOpenSearchAPI.LastUpdated
+    public struct LastUpdated: Codable {
+        public var date: Date
         /// The timestamp of the most recent update to the package association status.
         public var anyJSON: AnyJSON
 
-        public init(lastUpdated: AmazonOpenSearchAPI.LastUpdated, anyJSON: AnyJSON) {
-            self.lastUpdated = lastUpdated
+        public init(date: Date, anyJSON: AnyJSON) {
+            self.date = date
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.lastUpdated = try values.decode(AmazonOpenSearchAPI.LastUpdated.self, forKey: "lastUpdated")
+            self.date = try values.decode(Date.self, forKey: "date")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(lastUpdated, forKey: "lastUpdated")
+            try values.encode(date, forKey: "date")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class DomainName: Codable {
+    public struct DomainName: Codable {
         /// The name of an domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
-        public var domainName: AmazonOpenSearchAPI.DomainName
+        public var string: String
         /// The name of the domain you've associated a package with.
         public var anyJSON: AnyJSON
 
-        public init(domainName: AmazonOpenSearchAPI.DomainName, anyJSON: AnyJSON) {
-            self.domainName = domainName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainName = try values.decode(AmazonOpenSearchAPI.DomainName.self, forKey: "domainName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainName, forKey: "domainName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -3493,25 +3493,25 @@ public struct DomainPackageDetails: Codable {
         }
     }
 
-    public final class ReferencePath: Codable {
-        public var referencePath: AmazonOpenSearchAPI.ReferencePath
+    public struct ReferencePath: Codable {
+        public var string: String
         /// The relative path on Amazon OpenSearch Service nodes, which can be used as synonym_path when the package is a synonym file.
         public var anyJSON: AnyJSON
 
-        public init(referencePath: AmazonOpenSearchAPI.ReferencePath, anyJSON: AnyJSON) {
-            self.referencePath = referencePath
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.referencePath = try values.decode(AmazonOpenSearchAPI.ReferencePath.self, forKey: "referencePath")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(referencePath, forKey: "referencePath")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -3832,25 +3832,25 @@ public struct AutoTuneMaintenanceSchedule: Codable {
     public var duration: Duration?
     public var cronExpressionForRecurrence: CronExpressionForRecurrence?
 
-    public final class StartAt: Codable {
-        public var startAt: AmazonOpenSearchAPI.StartAt
+    public struct StartAt: Codable {
+        public var date: Date
         /// The timestamp at which the Auto-Tune maintenance schedule starts.
         public var anyJSON: AnyJSON
 
-        public init(startAt: AmazonOpenSearchAPI.StartAt, anyJSON: AnyJSON) {
-            self.startAt = startAt
+        public init(date: Date, anyJSON: AnyJSON) {
+            self.date = date
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.startAt = try values.decode(AmazonOpenSearchAPI.StartAt.self, forKey: "startAt")
+            self.date = try values.decode(Date.self, forKey: "date")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(startAt, forKey: "startAt")
+            try values.encode(date, forKey: "date")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -4373,26 +4373,26 @@ public struct AutoTuneOptionsStatus: Codable {
 public struct CancelServiceSoftwareUpdateRequest: Codable {
     public var domainName: DomainName
 
-    public final class DomainName: Codable {
+    public struct DomainName: Codable {
         /// The name of an domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
-        public var domainName: AmazonOpenSearchAPI.DomainName
+        public var string: String
         /// The name of the domain that you want to stop the latest service software update on.
         public var anyJSON: AnyJSON
 
-        public init(domainName: AmazonOpenSearchAPI.DomainName, anyJSON: AnyJSON) {
-            self.domainName = domainName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainName = try values.decode(AmazonOpenSearchAPI.DomainName.self, forKey: "domainName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainName, forKey: "domainName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5010,71 +5010,71 @@ public struct CognitoOptions: Codable {
         }
     }
 
-    public final class UserPoolID: Codable {
-        public var userPoolID: AmazonOpenSearchAPI.UserPoolID
+    public struct UserPoolID: Codable {
+        public var string: String
         /// The Cognito user pool ID for OpenSearch Dashboards authentication.
         public var anyJSON: AnyJSON
 
-        public init(userPoolID: AmazonOpenSearchAPI.UserPoolID, anyJSON: AnyJSON) {
-            self.userPoolID = userPoolID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.userPoolID = try values.decode(AmazonOpenSearchAPI.UserPoolID.self, forKey: "userPoolID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(userPoolID, forKey: "userPoolID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class IdentityPoolId: Codable {
-        public var identityPoolID: AmazonOpenSearchAPI.IdentityPoolId
+    public struct IdentityPoolId: Codable {
+        public var string: String
         /// The Cognito identity pool ID for OpenSearch Dashboards authentication.
         public var anyJSON: AnyJSON
 
-        public init(identityPoolID: AmazonOpenSearchAPI.IdentityPoolId, anyJSON: AnyJSON) {
-            self.identityPoolID = identityPoolID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.identityPoolID = try values.decode(AmazonOpenSearchAPI.IdentityPoolId.self, forKey: "identityPoolID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(identityPoolID, forKey: "identityPoolID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class RoleArn: Codable {
-        public var roleArn: AmazonOpenSearchAPI.RoleArn
+    public struct RoleArn: Codable {
+        public var string: String
         /// The role ARN that provides OpenSearch permissions for accessing Cognito resources.
         public var anyJSON: AnyJSON
 
-        public init(roleArn: AmazonOpenSearchAPI.RoleArn, anyJSON: AnyJSON) {
-            self.roleArn = roleArn
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.roleArn = try values.decode(AmazonOpenSearchAPI.RoleArn.self, forKey: "roleArn")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(roleArn, forKey: "roleArn")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5437,25 +5437,25 @@ public struct EncryptionAtRestOptions: Codable {
         }
     }
 
-    public final class KmsKeyID: Codable {
-        public var kmsKeyID: AmazonOpenSearchAPI.KmsKeyID
+    public struct KmsKeyID: Codable {
+        public var string: String
         /// The KMS key ID for encryption at rest options.
         public var anyJSON: AnyJSON
 
-        public init(kmsKeyID: AmazonOpenSearchAPI.KmsKeyID, anyJSON: AnyJSON) {
-            self.kmsKeyID = kmsKeyID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.kmsKeyID = try values.decode(AmazonOpenSearchAPI.KmsKeyID.self, forKey: "kmsKeyID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(kmsKeyID, forKey: "kmsKeyID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5666,26 +5666,26 @@ public struct CreateDomainRequest: Codable {
     public var tagList: TagList?
     public var autoTuneOptions: AutoTuneOptions?
 
-    public final class DomainName: Codable {
+    public struct DomainName: Codable {
         /// The name of an domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
-        public var domainName: AmazonOpenSearchAPI.DomainName
+        public var string: String
         /// The name of the Amazon OpenSearch Service domain you're creating. Domain names are unique across the domains owned by an account within an AWS region. Domain names must start with a lowercase letter and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
         public var anyJSON: AnyJSON
 
-        public init(domainName: AmazonOpenSearchAPI.DomainName, anyJSON: AnyJSON) {
-            self.domainName = domainName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainName = try values.decode(AmazonOpenSearchAPI.DomainName.self, forKey: "domainName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainName, forKey: "domainName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5905,49 +5905,49 @@ public struct CreateDomainRequest: Codable {
         }
     }
 
-    public final class AdvancedOptions: Codable {
+    public struct AdvancedOptions: Codable {
         /// <p>Exposes select native OpenSearch configuration values from <code>opensearch.yml</code>. Currently, the following advanced options are available: </p> <ul> <li>Option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options" target="_blank">Advanced cluster parameters </a> for more information. </li> <li>Option to specify the percentage of heap space allocated to field data. By default, this setting is unbounded. </li> </ul> <p>For more information, see <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options"> Advanced cluster parameters</a>. </p>
-        public var advancedOptions: AmazonOpenSearchAPI.AdvancedOptions
+        public var stringString: [String: String]
         /// Option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options" target="_blank">Advanced cluster parameters </a> for more information.
         public var anyJSON: AnyJSON
 
-        public init(advancedOptions: AmazonOpenSearchAPI.AdvancedOptions, anyJSON: AnyJSON) {
-            self.advancedOptions = advancedOptions
+        public init(stringString: [String: String], anyJSON: AnyJSON) {
+            self.stringString = stringString
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.advancedOptions = try values.decode(AmazonOpenSearchAPI.AdvancedOptions.self, forKey: "advancedOptions")
+            self.stringString = try values.decode([String: String].self, forKey: "stringString")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(advancedOptions, forKey: "advancedOptions")
+            try values.encode(stringString, forKey: "stringString")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class LogPublishingOptions: Codable {
-        public var logPublishingOptions: AmazonOpenSearchAPI.LogPublishingOptions
+    public struct LogPublishingOptions: Codable {
+        public var stringLogPublishingOption: [String: LogPublishingOption]
         /// Map of <code>LogType</code> and <code>LogPublishingOption</code>, each containing options to publish a given type of OpenSearch log.
         public var anyJSON: AnyJSON
 
-        public init(logPublishingOptions: AmazonOpenSearchAPI.LogPublishingOptions, anyJSON: AnyJSON) {
-            self.logPublishingOptions = logPublishingOptions
+        public init(stringLogPublishingOption: [String: LogPublishingOption], anyJSON: AnyJSON) {
+            self.stringLogPublishingOption = stringLogPublishingOption
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.logPublishingOptions = try values.decode(AmazonOpenSearchAPI.LogPublishingOptions.self, forKey: "logPublishingOptions")
+            self.stringLogPublishingOption = try values.decode([String: LogPublishingOption].self, forKey: "stringLogPublishingOption")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(logPublishingOptions, forKey: "logPublishingOptions")
+            try values.encode(stringLogPublishingOption, forKey: "stringLogPublishingOption")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -5999,26 +5999,26 @@ public struct CreateDomainRequest: Codable {
         }
     }
 
-    public final class TagList: Codable {
+    public struct TagList: Codable {
         /// A list of <code>Tag</code>.
-        public var tagList: AmazonOpenSearchAPI.TagList
+        public var tags: [Tag]
         /// A list of <code>Tag</code> added during domain creation.
         public var anyJSON: AnyJSON
 
-        public init(tagList: AmazonOpenSearchAPI.TagList, anyJSON: AnyJSON) {
-            self.tagList = tagList
+        public init(tags: [Tag], anyJSON: AnyJSON) {
+            self.tags = tags
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.tagList = try values.decode(AmazonOpenSearchAPI.TagList.self, forKey: "tagList")
+            self.tags = try values.decode([Tag].self, forKey: "tags")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(tagList, forKey: "tagList")
+            try values.encode(tags, forKey: "tags")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6112,74 +6112,74 @@ public struct DomainStatus: Codable {
     public var advancedSecurityOptions: AdvancedSecurityOptions?
     public var autoTuneOptions: AutoTuneOptions?
 
-    public final class DomainID: Codable {
+    public struct DomainID: Codable {
         /// Unique identifier for the domain.
-        public var domainID: AmazonOpenSearchAPI.DomainID
+        public var string: String
         /// The unique identifier for the specified domain.
         public var anyJSON: AnyJSON
 
-        public init(domainID: AmazonOpenSearchAPI.DomainID, anyJSON: AnyJSON) {
-            self.domainID = domainID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainID = try values.decode(AmazonOpenSearchAPI.DomainID.self, forKey: "domainID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainID, forKey: "domainID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class DomainName: Codable {
+    public struct DomainName: Codable {
         /// The name of an domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
-        public var domainName: AmazonOpenSearchAPI.DomainName
+        public var string: String
         /// The name of a domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
         public var anyJSON: AnyJSON
 
-        public init(domainName: AmazonOpenSearchAPI.DomainName, anyJSON: AnyJSON) {
-            self.domainName = domainName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainName = try values.decode(AmazonOpenSearchAPI.DomainName.self, forKey: "domainName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainName, forKey: "domainName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class Arn: Codable {
+    public struct Arn: Codable {
         /// The Amazon Resource Name (ARN) of the domain. See <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html" target="_blank">Identifiers for IAM Entities </a> in <i>Using AWS Identity and Access Management</i> for more information.
-        public var arn: AmazonOpenSearchAPI.Arn
+        public var string: String
         /// The Amazon Resource Name (ARN) of a domain. See <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html" target="_blank">IAM identifiers </a> in the <i>AWS Identity and Access Management User Guide</i> for more information.
         public var anyJSON: AnyJSON
 
-        public init(arn: AmazonOpenSearchAPI.Arn, anyJSON: AnyJSON) {
-            self.arn = arn
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.arn = try values.decode(AmazonOpenSearchAPI.Arn.self, forKey: "arn")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(arn, forKey: "arn")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6514,49 +6514,49 @@ public struct DomainStatus: Codable {
         }
     }
 
-    public final class AdvancedOptions: Codable {
+    public struct AdvancedOptions: Codable {
         /// <p>Exposes select native OpenSearch configuration values from <code>opensearch.yml</code>. Currently, the following advanced options are available: </p> <ul> <li>Option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options" target="_blank">Advanced cluster parameters </a> for more information. </li> <li>Option to specify the percentage of heap space allocated to field data. By default, this setting is unbounded. </li> </ul> <p>For more information, see <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options"> Advanced cluster parameters</a>. </p>
-        public var advancedOptions: AmazonOpenSearchAPI.AdvancedOptions
+        public var stringString: [String: String]
         /// The status of the <code>AdvancedOptions</code>.
         public var anyJSON: AnyJSON
 
-        public init(advancedOptions: AmazonOpenSearchAPI.AdvancedOptions, anyJSON: AnyJSON) {
-            self.advancedOptions = advancedOptions
+        public init(stringString: [String: String], anyJSON: AnyJSON) {
+            self.stringString = stringString
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.advancedOptions = try values.decode(AmazonOpenSearchAPI.AdvancedOptions.self, forKey: "advancedOptions")
+            self.stringString = try values.decode([String: String].self, forKey: "stringString")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(advancedOptions, forKey: "advancedOptions")
+            try values.encode(stringString, forKey: "stringString")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class LogPublishingOptions: Codable {
-        public var logPublishingOptions: AmazonOpenSearchAPI.LogPublishingOptions
+    public struct LogPublishingOptions: Codable {
+        public var stringLogPublishingOption: [String: LogPublishingOption]
         /// Log publishing options for the given domain.
         public var anyJSON: AnyJSON
 
-        public init(logPublishingOptions: AmazonOpenSearchAPI.LogPublishingOptions, anyJSON: AnyJSON) {
-            self.logPublishingOptions = logPublishingOptions
+        public init(stringLogPublishingOption: [String: LogPublishingOption], anyJSON: AnyJSON) {
+            self.stringLogPublishingOption = stringLogPublishingOption
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.logPublishingOptions = try values.decode(AmazonOpenSearchAPI.LogPublishingOptions.self, forKey: "logPublishingOptions")
+            self.stringLogPublishingOption = try values.decode([String: LogPublishingOption].self, forKey: "stringLogPublishingOption")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(logPublishingOptions, forKey: "logPublishingOptions")
+            try values.encode(stringLogPublishingOption, forKey: "stringLogPublishingOption")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6773,25 +6773,25 @@ public struct CreateOutboundConnectionRequest: Codable {
         }
     }
 
-    public final class ConnectionAlias: Codable {
-        public var connectionAlias: AmazonOpenSearchAPI.ConnectionAlias
+    public struct ConnectionAlias: Codable {
+        public var string: String
         /// The connection alias used used by the customer for this cross-cluster connection.
         public var anyJSON: AnyJSON
 
-        public init(connectionAlias: AmazonOpenSearchAPI.ConnectionAlias, anyJSON: AnyJSON) {
-            self.connectionAlias = connectionAlias
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.connectionAlias = try values.decode(AmazonOpenSearchAPI.ConnectionAlias.self, forKey: "connectionAlias")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(connectionAlias, forKey: "connectionAlias")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6879,48 +6879,48 @@ public struct PackageSource: Codable {
     public var s3BucketName: S3BucketName?
     public var s3Key: S3Key?
 
-    public final class S3BucketName: Codable {
-        public var s3BucketName: AmazonOpenSearchAPI.S3BucketName
+    public struct S3BucketName: Codable {
+        public var string: String
         /// The name of the Amazon S3 bucket containing the package.
         public var anyJSON: AnyJSON
 
-        public init(s3BucketName: AmazonOpenSearchAPI.S3BucketName, anyJSON: AnyJSON) {
-            self.s3BucketName = s3BucketName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.s3BucketName = try values.decode(AmazonOpenSearchAPI.S3BucketName.self, forKey: "s3BucketName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(s3BucketName, forKey: "s3BucketName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class S3Key: Codable {
-        public var s3Key: AmazonOpenSearchAPI.S3Key
+    public struct S3Key: Codable {
+        public var string: String
         /// Key (file name) of the package.
         public var anyJSON: AnyJSON
 
-        public init(s3Key: AmazonOpenSearchAPI.S3Key, anyJSON: AnyJSON) {
-            self.s3Key = s3Key
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.s3Key = try values.decode(AmazonOpenSearchAPI.S3Key.self, forKey: "s3Key")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(s3Key, forKey: "s3Key")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6943,25 +6943,25 @@ public struct CreatePackageRequest: Codable {
     public var packageDescription: PackageDescription?
     public var packageSource: PackageSource
 
-    public final class PackageName: Codable {
-        public var packageName: AmazonOpenSearchAPI.PackageName
+    public struct PackageName: Codable {
+        public var string: String
         /// Unique identifier for the package.
         public var anyJSON: AnyJSON
 
-        public init(packageName: AmazonOpenSearchAPI.PackageName, anyJSON: AnyJSON) {
-            self.packageName = packageName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageName = try values.decode(AmazonOpenSearchAPI.PackageName.self, forKey: "packageName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageName, forKey: "packageName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -6989,25 +6989,25 @@ public struct CreatePackageRequest: Codable {
         }
     }
 
-    public final class PackageDescription: Codable {
-        public var packageDescription: AmazonOpenSearchAPI.PackageDescription
+    public struct PackageDescription: Codable {
+        public var string: String
         /// Description of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageDescription: AmazonOpenSearchAPI.PackageDescription, anyJSON: AnyJSON) {
-            self.packageDescription = packageDescription
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageDescription = try values.decode(AmazonOpenSearchAPI.PackageDescription.self, forKey: "packageDescription")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageDescription, forKey: "packageDescription")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7063,48 +7063,48 @@ public struct PackageDetails: Codable {
     public var availablePackageVersion: String?
     public var errorDetails: ErrorDetails?
 
-    public final class PackageID: Codable {
-        public var packageID: AmazonOpenSearchAPI.PackageID
+    public struct PackageID: Codable {
+        public var string: String
         /// Internal ID of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageID: AmazonOpenSearchAPI.PackageID, anyJSON: AnyJSON) {
-            self.packageID = packageID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageID = try values.decode(AmazonOpenSearchAPI.PackageID.self, forKey: "packageID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageID, forKey: "packageID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class PackageName: Codable {
-        public var packageName: AmazonOpenSearchAPI.PackageName
+    public struct PackageName: Codable {
+        public var string: String
         /// User-specified name of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageName: AmazonOpenSearchAPI.PackageName, anyJSON: AnyJSON) {
-            self.packageName = packageName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageName = try values.decode(AmazonOpenSearchAPI.PackageName.self, forKey: "packageName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageName, forKey: "packageName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7132,25 +7132,25 @@ public struct PackageDetails: Codable {
         }
     }
 
-    public final class PackageDescription: Codable {
-        public var packageDescription: AmazonOpenSearchAPI.PackageDescription
+    public struct PackageDescription: Codable {
+        public var string: String
         /// User-specified description of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageDescription: AmazonOpenSearchAPI.PackageDescription, anyJSON: AnyJSON) {
-            self.packageDescription = packageDescription
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageDescription = try values.decode(AmazonOpenSearchAPI.PackageDescription.self, forKey: "packageDescription")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageDescription, forKey: "packageDescription")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7178,25 +7178,25 @@ public struct PackageDetails: Codable {
         }
     }
 
-    public final class CreatedAt: Codable {
-        public var createdAt: AmazonOpenSearchAPI.CreatedAt
+    public struct CreatedAt: Codable {
+        public var date: Date
         /// The timestamp of when the package was created.
         public var anyJSON: AnyJSON
 
-        public init(createdAt: AmazonOpenSearchAPI.CreatedAt, anyJSON: AnyJSON) {
-            self.createdAt = createdAt
+        public init(date: Date, anyJSON: AnyJSON) {
+            self.date = date
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.createdAt = try values.decode(AmazonOpenSearchAPI.CreatedAt.self, forKey: "createdAt")
+            self.date = try values.decode(Date.self, forKey: "date")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(createdAt, forKey: "createdAt")
+            try values.encode(date, forKey: "date")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7301,48 +7301,48 @@ public struct OutboundConnection: Codable {
         }
     }
 
-    public final class ConnectionID: Codable {
-        public var connectionID: AmazonOpenSearchAPI.ConnectionID
+    public struct ConnectionID: Codable {
+        public var string: String
         /// The connection ID for the outbound cross-cluster connection.
         public var anyJSON: AnyJSON
 
-        public init(connectionID: AmazonOpenSearchAPI.ConnectionID, anyJSON: AnyJSON) {
-            self.connectionID = connectionID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.connectionID = try values.decode(AmazonOpenSearchAPI.ConnectionID.self, forKey: "connectionID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(connectionID, forKey: "connectionID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class ConnectionAlias: Codable {
-        public var connectionAlias: AmazonOpenSearchAPI.ConnectionAlias
+    public struct ConnectionAlias: Codable {
+        public var string: String
         /// The connection alias for the outbound cross-cluster connection.
         public var anyJSON: AnyJSON
 
-        public init(connectionAlias: AmazonOpenSearchAPI.ConnectionAlias, anyJSON: AnyJSON) {
-            self.connectionAlias = connectionAlias
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.connectionAlias = try values.decode(AmazonOpenSearchAPI.ConnectionAlias.self, forKey: "connectionAlias")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(connectionAlias, forKey: "connectionAlias")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7400,50 +7400,50 @@ public struct DescribeDomainAutoTunesRequest: Codable {
     public var maxResults: MaxResults?
     public var nextToken: NextToken?
 
-    public final class MaxResults: Codable {
+    public struct MaxResults: Codable {
         /// Set this value to limit the number of results returned.
-        public var maxResults: AmazonOpenSearchAPI.MaxResults
+        public var int: Int
         /// Set this value to limit the number of results returned. If not specified, defaults to 100.
         public var anyJSON: AnyJSON
 
-        public init(maxResults: AmazonOpenSearchAPI.MaxResults, anyJSON: AnyJSON) {
-            self.maxResults = maxResults
+        public init(int: Int, anyJSON: AnyJSON) {
+            self.int = int
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.maxResults = try values.decode(AmazonOpenSearchAPI.MaxResults.self, forKey: "maxResults")
+            self.int = try values.decode(Int.self, forKey: "int")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(maxResults, forKey: "maxResults")
+            try values.encode(int, forKey: "int")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// NextToken is sent in case the earlier API call results contain the NextToken. Used for pagination.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7899,50 +7899,50 @@ public struct DescribeInboundConnectionsRequest: Codable {
         }
     }
 
-    public final class MaxResults: Codable {
+    public struct MaxResults: Codable {
         /// Set this value to limit the number of results returned.
-        public var maxResults: AmazonOpenSearchAPI.MaxResults
+        public var int: Int
         /// Set this value to limit the number of results returned. If not specified, defaults to 100.
         public var anyJSON: AnyJSON
 
-        public init(maxResults: AmazonOpenSearchAPI.MaxResults, anyJSON: AnyJSON) {
-            self.maxResults = maxResults
+        public init(int: Int, anyJSON: AnyJSON) {
+            self.int = int
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.maxResults = try values.decode(AmazonOpenSearchAPI.MaxResults.self, forKey: "maxResults")
+            self.int = try values.decode(Int.self, forKey: "int")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(maxResults, forKey: "maxResults")
+            try values.encode(int, forKey: "int")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// If more results are available and NextToken is present, make the next request to the same API with the received NextToken to paginate the remaining results.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -7989,50 +7989,50 @@ public struct DescribeOutboundConnectionsRequest: Codable {
         }
     }
 
-    public final class MaxResults: Codable {
+    public struct MaxResults: Codable {
         /// Set this value to limit the number of results returned.
-        public var maxResults: AmazonOpenSearchAPI.MaxResults
+        public var int: Int
         /// Set this value to limit the number of results returned. If not specified, defaults to 100.
         public var anyJSON: AnyJSON
 
-        public init(maxResults: AmazonOpenSearchAPI.MaxResults, anyJSON: AnyJSON) {
-            self.maxResults = maxResults
+        public init(int: Int, anyJSON: AnyJSON) {
+            self.int = int
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.maxResults = try values.decode(AmazonOpenSearchAPI.MaxResults.self, forKey: "maxResults")
+            self.int = try values.decode(Int.self, forKey: "int")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(maxResults, forKey: "maxResults")
+            try values.encode(int, forKey: "int")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// NextToken is sent in case the earlier API call results contain the NextToken parameter. Used for pagination.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -8086,50 +8086,50 @@ public struct DescribePackagesRequest: Codable {
         }
     }
 
-    public final class MaxResults: Codable {
+    public struct MaxResults: Codable {
         /// Set this value to limit the number of results returned.
-        public var maxResults: AmazonOpenSearchAPI.MaxResults
+        public var int: Int
         /// Limits results to a maximum number of packages.
         public var anyJSON: AnyJSON
 
-        public init(maxResults: AmazonOpenSearchAPI.MaxResults, anyJSON: AnyJSON) {
-            self.maxResults = maxResults
+        public init(int: Int, anyJSON: AnyJSON) {
+            self.int = int
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.maxResults = try values.decode(AmazonOpenSearchAPI.MaxResults.self, forKey: "maxResults")
+            self.int = try values.decode(Int.self, forKey: "int")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(maxResults, forKey: "maxResults")
+            try values.encode(int, forKey: "int")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class NextToken: Codable {
+    public struct NextToken: Codable {
         /// Paginated APIs accept the NextToken input to return the next page of results and provide a NextToken output in the response, which you can use to retrieve more results.
-        public var nextToken: AmazonOpenSearchAPI.NextToken
+        public var string: String
         /// Used for pagination. Only necessary if a previous API call includes a non-null NextToken value. If provided, returns results for the next page.
         public var anyJSON: AnyJSON
 
-        public init(nextToken: AmazonOpenSearchAPI.NextToken, anyJSON: AnyJSON) {
-            self.nextToken = nextToken
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.nextToken = try values.decode(AmazonOpenSearchAPI.NextToken.self, forKey: "nextToken")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(nextToken, forKey: "nextToken")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -8652,26 +8652,26 @@ public struct DomainInfo: Codable {
     public var domainName: DomainName?
     public var engineType: EngineType?
 
-    public final class DomainName: Codable {
+    public struct DomainName: Codable {
         /// The name of an domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
-        public var domainName: AmazonOpenSearchAPI.DomainName
+        public var string: String
         /// The <code>DomainName</code>.
         public var anyJSON: AnyJSON
 
-        public init(domainName: AmazonOpenSearchAPI.DomainName, anyJSON: AnyJSON) {
-            self.domainName = domainName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainName = try values.decode(AmazonOpenSearchAPI.DomainName.self, forKey: "domainName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainName, forKey: "domainName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -9110,71 +9110,71 @@ public struct PackageVersionHistory: Codable {
     public var commitMessage: CommitMessage?
     public var createdAt: CreatedAt?
 
-    public final class PackageVersion: Codable {
-        public var packageVersion: AmazonOpenSearchAPI.PackageVersion
+    public struct PackageVersion: Codable {
+        public var string: String
         /// The package version.
         public var anyJSON: AnyJSON
 
-        public init(packageVersion: AmazonOpenSearchAPI.PackageVersion, anyJSON: AnyJSON) {
-            self.packageVersion = packageVersion
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageVersion = try values.decode(AmazonOpenSearchAPI.PackageVersion.self, forKey: "packageVersion")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageVersion, forKey: "packageVersion")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class CommitMessage: Codable {
-        public var commitMessage: AmazonOpenSearchAPI.CommitMessage
+    public struct CommitMessage: Codable {
+        public var string: String
         /// A message associated with the package version.
         public var anyJSON: AnyJSON
 
-        public init(commitMessage: AmazonOpenSearchAPI.CommitMessage, anyJSON: AnyJSON) {
-            self.commitMessage = commitMessage
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.commitMessage = try values.decode(AmazonOpenSearchAPI.CommitMessage.self, forKey: "commitMessage")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(commitMessage, forKey: "commitMessage")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class CreatedAt: Codable {
-        public var createdAt: AmazonOpenSearchAPI.CreatedAt
+    public struct CreatedAt: Codable {
+        public var date: Date
         /// The timestamp of when the package was created.
         public var anyJSON: AnyJSON
 
-        public init(createdAt: AmazonOpenSearchAPI.CreatedAt, anyJSON: AnyJSON) {
-            self.createdAt = createdAt
+        public init(date: Date, anyJSON: AnyJSON) {
+            self.date = date
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.createdAt = try values.decode(AmazonOpenSearchAPI.CreatedAt.self, forKey: "createdAt")
+            self.date = try values.decode(Date.self, forKey: "date")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(createdAt, forKey: "createdAt")
+            try values.encode(date, forKey: "date")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -9244,26 +9244,26 @@ public struct PurchaseReservedInstanceOfferingRequest: Codable {
         }
     }
 
-    public final class InstanceCount: Codable {
+    public struct InstanceCount: Codable {
         /// The number of EC2 instances in the domain.
-        public var instanceCount: AmazonOpenSearchAPI.InstanceCount
+        public var int: Int
         /// The number of OpenSearch instances to reserve.
         public var anyJSON: AnyJSON
 
-        public init(instanceCount: AmazonOpenSearchAPI.InstanceCount, anyJSON: AnyJSON) {
-            self.instanceCount = instanceCount
+        public init(int: Int, anyJSON: AnyJSON) {
+            self.int = int
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.instanceCount = try values.decode(AmazonOpenSearchAPI.InstanceCount.self, forKey: "instanceCount")
+            self.int = try values.decode(Int.self, forKey: "int")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(instanceCount, forKey: "instanceCount")
+            try values.encode(int, forKey: "int")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -9348,26 +9348,26 @@ public struct RemoveTagsRequest: Codable {
     public var arn: Arn
     public var tagKeys: TagKeys
 
-    public final class Arn: Codable {
+    public struct Arn: Codable {
         /// The Amazon Resource Name (ARN) of the domain. See <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html" target="_blank">Identifiers for IAM Entities </a> in <i>Using AWS Identity and Access Management</i> for more information.
-        public var arn: AmazonOpenSearchAPI.Arn
+        public var string: String
         /// The <code>ARN</code> of the domain from which you want to delete the specified tags.
         public var anyJSON: AnyJSON
 
-        public init(arn: AmazonOpenSearchAPI.Arn, anyJSON: AnyJSON) {
-            self.arn = arn
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.arn = try values.decode(AmazonOpenSearchAPI.Arn.self, forKey: "arn")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(arn, forKey: "arn")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10056,26 +10056,26 @@ public enum ScheduledAutoTuneSeverityType: String, Codable, CaseIterable {
 public struct StartServiceSoftwareUpdateRequest: Codable {
     public var domainName: DomainName
 
-    public final class DomainName: Codable {
+    public struct DomainName: Codable {
         /// The name of an domain. Domain names are unique across the domains owned by an account within an AWS region. Domain names start with a letter or number and can contain the following characters: a-z (lowercase), 0-9, and - (hyphen).
-        public var domainName: AmazonOpenSearchAPI.DomainName
+        public var string: String
         /// The name of the domain that you want to update to the latest service software.
         public var anyJSON: AnyJSON
 
-        public init(domainName: AmazonOpenSearchAPI.DomainName, anyJSON: AnyJSON) {
-            self.domainName = domainName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.domainName = try values.decode(AmazonOpenSearchAPI.DomainName.self, forKey: "domainName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(domainName, forKey: "domainName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10138,25 +10138,25 @@ public struct StorageTypeLimit: Codable {
     public var limitName: LimitName?
     public var limitValues: LimitValues?
 
-    public final class LimitName: Codable {
-        public var limitName: AmazonOpenSearchAPI.LimitName
+    public struct LimitName: Codable {
+        public var string: String
         /// Name of storage limits that are applicable for the given storage type. If <code> <a>StorageType</a> </code> is "ebs", the following storage options are applicable: <ol> <li>MinimumVolumeSize</li> Minimum amount of volume size that is applicable for the given storage type. Can be empty if not applicable. <li>MaximumVolumeSize</li> Maximum amount of volume size that is applicable for the given storage type. Can be empty if not applicable. <li>MaximumIops</li> Maximum amount of Iops that is applicable for given the storage type. Can be empty if not applicable. <li>MinimumIops</li> Minimum amount of Iops that is applicable for given the storage type. Can be empty if not applicable. </ol>
         public var anyJSON: AnyJSON
 
-        public init(limitName: AmazonOpenSearchAPI.LimitName, anyJSON: AnyJSON) {
-            self.limitName = limitName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.limitName = try values.decode(AmazonOpenSearchAPI.LimitName.self, forKey: "limitName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(limitName, forKey: "limitName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10331,26 +10331,26 @@ public struct UpdateDomainConfigRequest: Codable {
         }
     }
 
-    public final class AdvancedOptions: Codable {
+    public struct AdvancedOptions: Codable {
         /// <p>Exposes select native OpenSearch configuration values from <code>opensearch.yml</code>. Currently, the following advanced options are available: </p> <ul> <li>Option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options" target="_blank">Advanced cluster parameters </a> for more information. </li> <li>Option to specify the percentage of heap space allocated to field data. By default, this setting is unbounded. </li> </ul> <p>For more information, see <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options"> Advanced cluster parameters</a>. </p>
-        public var advancedOptions: AmazonOpenSearchAPI.AdvancedOptions
+        public var stringString: [String: String]
         /// Modifies the advanced option to allow references to indices in an HTTP request body. Must be <code>false</code> when configuring access to individual sub-resources. By default, the value is <code>true</code>. See <a href="http://docs.aws.amazon.com/opensearch-service/latest/developerguide/createupdatedomains.html#createdomain-configure-advanced-options" target="_blank">Advanced options </a> for more information.
         public var anyJSON: AnyJSON
 
-        public init(advancedOptions: AmazonOpenSearchAPI.AdvancedOptions, anyJSON: AnyJSON) {
-            self.advancedOptions = advancedOptions
+        public init(stringString: [String: String], anyJSON: AnyJSON) {
+            self.stringString = stringString
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.advancedOptions = try values.decode(AmazonOpenSearchAPI.AdvancedOptions.self, forKey: "advancedOptions")
+            self.stringString = try values.decode([String: String].self, forKey: "stringString")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(advancedOptions, forKey: "advancedOptions")
+            try values.encode(stringString, forKey: "stringString")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10379,25 +10379,25 @@ public struct UpdateDomainConfigRequest: Codable {
         }
     }
 
-    public final class LogPublishingOptions: Codable {
-        public var logPublishingOptions: AmazonOpenSearchAPI.LogPublishingOptions
+    public struct LogPublishingOptions: Codable {
+        public var stringLogPublishingOption: [String: LogPublishingOption]
         /// Map of <code>LogType</code> and <code>LogPublishingOption</code>, each containing options to publish a given type of OpenSearch log.
         public var anyJSON: AnyJSON
 
-        public init(logPublishingOptions: AmazonOpenSearchAPI.LogPublishingOptions, anyJSON: AnyJSON) {
-            self.logPublishingOptions = logPublishingOptions
+        public init(stringLogPublishingOption: [String: LogPublishingOption], anyJSON: AnyJSON) {
+            self.stringLogPublishingOption = stringLogPublishingOption
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.logPublishingOptions = try values.decode(AmazonOpenSearchAPI.LogPublishingOptions.self, forKey: "logPublishingOptions")
+            self.stringLogPublishingOption = try values.decode([String: LogPublishingOption].self, forKey: "stringLogPublishingOption")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(logPublishingOptions, forKey: "logPublishingOptions")
+            try values.encode(stringLogPublishingOption, forKey: "stringLogPublishingOption")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10562,71 +10562,71 @@ public struct UpdatePackageRequest: Codable {
     public var packageDescription: PackageDescription?
     public var commitMessage: CommitMessage?
 
-    public final class PackageID: Codable {
-        public var packageID: AmazonOpenSearchAPI.PackageID
+    public struct PackageID: Codable {
+        public var string: String
         /// The unique identifier for the package.
         public var anyJSON: AnyJSON
 
-        public init(packageID: AmazonOpenSearchAPI.PackageID, anyJSON: AnyJSON) {
-            self.packageID = packageID
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageID = try values.decode(AmazonOpenSearchAPI.PackageID.self, forKey: "packageID")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageID, forKey: "packageID")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class PackageDescription: Codable {
-        public var packageDescription: AmazonOpenSearchAPI.PackageDescription
+    public struct PackageDescription: Codable {
+        public var string: String
         /// A new description of the package.
         public var anyJSON: AnyJSON
 
-        public init(packageDescription: AmazonOpenSearchAPI.PackageDescription, anyJSON: AnyJSON) {
-            self.packageDescription = packageDescription
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.packageDescription = try values.decode(AmazonOpenSearchAPI.PackageDescription.self, forKey: "packageDescription")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(packageDescription, forKey: "packageDescription")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class CommitMessage: Codable {
-        public var commitMessage: AmazonOpenSearchAPI.CommitMessage
+    public struct CommitMessage: Codable {
+        public var string: String
         /// A commit message for the new version which is shown as part of <code>GetPackageVersionHistoryResponse</code>.
         public var anyJSON: AnyJSON
 
-        public init(commitMessage: AmazonOpenSearchAPI.CommitMessage, anyJSON: AnyJSON) {
-            self.commitMessage = commitMessage
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.commitMessage = try values.decode(AmazonOpenSearchAPI.CommitMessage.self, forKey: "commitMessage")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(commitMessage, forKey: "commitMessage")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10723,48 +10723,48 @@ public struct UpgradeHistory: Codable {
     public var upgradeStatus: UpgradeStatus?
     public var stepsList: StepsList?
 
-    public final class UpgradeName: Codable {
-        public var upgradeName: AmazonOpenSearchAPI.UpgradeName
+    public struct UpgradeName: Codable {
+        public var string: String
         /// A string that briefly describes the upgrade.
         public var anyJSON: AnyJSON
 
-        public init(upgradeName: AmazonOpenSearchAPI.UpgradeName, anyJSON: AnyJSON) {
-            self.upgradeName = upgradeName
+        public init(string: String, anyJSON: AnyJSON) {
+            self.string = string
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.upgradeName = try values.decode(AmazonOpenSearchAPI.UpgradeName.self, forKey: "upgradeName")
+            self.string = try values.decode(String.self, forKey: "string")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(upgradeName, forKey: "upgradeName")
+            try values.encode(string, forKey: "string")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
 
-    public final class StartTimestamp: Codable {
-        public var startTimestamp: AmazonOpenSearchAPI.StartTimestamp
+    public struct StartTimestamp: Codable {
+        public var date: Date
         /// UTC timestamp at which the upgrade API call was made in "yyyy-MM-ddTHH:mm:ssZ" format.
         public var anyJSON: AnyJSON
 
-        public init(startTimestamp: AmazonOpenSearchAPI.StartTimestamp, anyJSON: AnyJSON) {
-            self.startTimestamp = startTimestamp
+        public init(date: Date, anyJSON: AnyJSON) {
+            self.date = date
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.startTimestamp = try values.decode(AmazonOpenSearchAPI.StartTimestamp.self, forKey: "startTimestamp")
+            self.date = try values.decode(Date.self, forKey: "date")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(startTimestamp, forKey: "startTimestamp")
+            try values.encode(date, forKey: "date")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }
@@ -10882,25 +10882,25 @@ public struct UpgradeStepItem: Codable {
         }
     }
 
-    public final class Issues: Codable {
-        public var issues: AmazonOpenSearchAPI.Issues
+    public struct Issues: Codable {
+        public var strings: [String]
         /// A list of strings containing detailed information about the errors encountered in a particular step.
         public var anyJSON: AnyJSON
 
-        public init(issues: AmazonOpenSearchAPI.Issues, anyJSON: AnyJSON) {
-            self.issues = issues
+        public init(strings: [String], anyJSON: AnyJSON) {
+            self.strings = strings
             self.anyJSON = anyJSON
         }
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.issues = try values.decode(AmazonOpenSearchAPI.Issues.self, forKey: "issues")
+            self.strings = try values.decode([String].self, forKey: "strings")
             self.anyJSON = try AnyJSON(from: decoder)
         }
 
         public func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
-            try values.encode(issues, forKey: "issues")
+            try values.encode(strings, forKey: "strings")
             try values.encode(anyJSON, forKey: "anyJSON")
         }
     }

@@ -228,14 +228,18 @@ extension Generator {
             // So if you have `typealias Pets = [Pet]`, it'll dereference
             // `Pet` to an `.object`, not a `.reference`.
             if options.isInliningTypealiases, let name = ref.name {
-                // If there is a cycle, it can't be a primitive value (and we must stop recursion)
-                let type = makeTypeName(name)
-                if context.parents.contains(where: { $0.name == type }) {
-                    return .userDefined(name: type.namespace(context.namespace))
-                }
                 // Check if the schema can be expanded into a type identifier
+                let type = makeTypeName(name)
                 if let key = OpenAPI.ComponentKey(rawValue: name),
                    let schema = spec.components.schemas[key] {
+                    // If there is a cycle, it can't be a primitive value (and we must stop recursion)
+                    if context.encountered.contains(key) {
+                        return .userDefined(name: makeTypeName(name).namespace(context.namespace))
+                    }
+                    var context = context
+                    context.encountered.insert(key)
+                    
+                    // No retain cycle - check the reference
                     if let type = try getTypeIdentifier(for: type, schema: schema, context: context) {
                         return type
                     }
