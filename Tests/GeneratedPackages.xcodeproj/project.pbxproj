@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0CEB957F2780E15C002E02C0 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB95622780E15B002E02C0 /* Entities.swift */; };
-		0CEB95802780E15C002E02C0 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB95632780E15B002E02C0 /* Paths.swift */; };
 		0CEB95812780E15C002E02C0 /* petstore-disable-comments in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95642780E15B002E02C0 /* petstore-disable-comments */; };
 		0CEB95822780E15C002E02C0 /* petstore-operation-id in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95652780E15B002E02C0 /* petstore-operation-id */; };
 		0CEB95832780E15C002E02C0 /* petstore-split in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95662780E15B002E02C0 /* petstore-split */; };
@@ -67,8 +65,6 @@
 
 /* Begin PBXFileReference section */
 		0C612E602777B55A008D32A4 /* GeneratedPackages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeneratedPackages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0CEB95622780E15B002E02C0 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
-		0CEB95632780E15B002E02C0 /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		0CEB95642780E15B002E02C0 /* petstore-disable-comments */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-comments"; path = "CreateAPITests/Expected/petstore-disable-comments"; sourceTree = "<group>"; };
 		0CEB95652780E15B002E02C0 /* petstore-operation-id */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-operation-id"; path = "CreateAPITests/Expected/petstore-operation-id"; sourceTree = "<group>"; };
 		0CEB95662780E15B002E02C0 /* petstore-split */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-split"; path = "CreateAPITests/Expected/petstore-split"; sourceTree = "<group>"; };
@@ -159,7 +155,6 @@
 				0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */,
 				0CEB95722780E15C002E02C0 /* petstore-disable-inlining */,
 				0CEB956C2780E15C002E02C0 /* petstore-generate-classes */,
-				0CEB95612780E15B002E02C0 /* petstore-no-package */,
 				0CEB95772780E15C002E02C0 /* petstore-only-schemas */,
 				0CEB95652780E15B002E02C0 /* petstore-operation-id */,
 				0CEB956A2780E15C002E02C0 /* petstore-single-threaded */,
@@ -185,16 +180,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0CEB95612780E15B002E02C0 /* petstore-no-package */ = {
-			isa = PBXGroup;
-			children = (
-				0CEB95622780E15B002E02C0 /* Entities.swift */,
-				0CEB95632780E15B002E02C0 /* Paths.swift */,
-			);
-			name = "petstore-no-package";
-			path = "CreateAPITests/Expected/petstore-no-package";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,8 +317,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CEB95802780E15C002E02C0 /* Paths.swift in Sources */,
-				0CEB957F2780E15C002E02C0 /* Entities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
