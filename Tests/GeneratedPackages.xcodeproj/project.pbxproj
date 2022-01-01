@@ -162,6 +162,7 @@
 		0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953E2780D94D002E02C0 /* PeerTubeAPI */; };
 		0CEB95422780D9B7002E02C0 /* CredasAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95412780D9B7002E02C0 /* CredasAPI */; };
 		0CEB95452780DA89002E02C0 /* Data2CRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95442780DA89002E02C0 /* Data2CRMAPI */; };
+		0CEB95482780DADD002E02C0 /* DataflowKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95472780DADD002E02C0 /* DataflowKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +268,7 @@
 		0CEB953D2780D949002E02C0 /* PeerTubeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeerTubeAPI; path = CreateAPITests/Expected/PeerTubeAPI; sourceTree = "<group>"; };
 		0CEB95402780D9B1002E02C0 /* CredasAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredasAPI; path = CreateAPITests/Expected/CredasAPI; sourceTree = "<group>"; };
 		0CEB95432780DA84002E02C0 /* Data2CRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Data2CRMAPI; path = CreateAPITests/Expected/Data2CRMAPI; sourceTree = "<group>"; };
+		0CEB95462780DADA002E02C0 /* DataflowKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DataflowKit; path = CreateAPITests/Expected/DataflowKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +353,7 @@
 				0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */,
 				0C612F022777B594008D32A4 /* JiraAPI in Frameworks */,
 				0C612F002777B594008D32A4 /* InstagramAPI in Frameworks */,
+				0CEB95482780DADD002E02C0 /* DataflowKit in Frameworks */,
 				0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */,
 				0C612F302777B595008D32A4 /* PostmanAPI in Frameworks */,
 				0C612EEC2777B594008D32A4 /* edgecases-default in Frameworks */,
@@ -415,6 +418,7 @@
 				0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */,
 				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
 				0CEB95432780DA84002E02C0 /* Data2CRMAPI */,
+				0CEB95462780DADA002E02C0 /* DataflowKit */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
 				0CEB953D2780D949002E02C0 /* PeerTubeAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
@@ -626,6 +630,7 @@
 				0CEB953E2780D94D002E02C0 /* PeerTubeAPI */,
 				0CEB95412780D9B7002E02C0 /* CredasAPI */,
 				0CEB95442780DA89002E02C0 /* Data2CRMAPI */,
+				0CEB95472780DADD002E02C0 /* DataflowKit */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1330,6 +1335,10 @@
 		0CEB95442780DA89002E02C0 /* Data2CRMAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Data2CRMAPI;
+		};
+		0CEB95472780DADD002E02C0 /* DataflowKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataflowKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -159,6 +159,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "data2crm", package: "Data2CRMAPI")
     }
     
+    func testDataflowKit() throws {
+        try testSpec(name: "dataflowkit", package: "DataflowKit")
+    }
+    
     func testEcwid() throws {
         try testSpec(name: "ecwid", package: "EcwidAPI")
     }
