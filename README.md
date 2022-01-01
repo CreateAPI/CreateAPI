@@ -167,10 +167,6 @@ comments:
   isCapitalizationEnabled: true
 ```
 
-## Adding Specs
-
-If you are using CreateAPI and want your spec to be part of the regression testing - open a PR adding it to `GenerateTests` test suite and provide your configuration.
-
 ## OpenAPI Support
 
 The goal is to completely cover OpenAPI 3.x spec. 
