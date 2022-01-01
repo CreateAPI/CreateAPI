@@ -143,6 +143,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "climate-fieldview", package: "ClimateFieldViewAPI")
     }
     
+    func testCloudMersive() throws {
+        try testSpec(name: "cloudmersive", package: "CloudmersiveAPI")
+    }
+    
     func testEcwid() throws {
         try testSpec(name: "ecwid", package: "EcwidAPI")
     }
