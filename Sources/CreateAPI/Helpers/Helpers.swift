@@ -45,6 +45,10 @@ extension String {
             return nil
         }
     }
+    
+    var isEscapingNeeded: Bool {
+        contains("\\")
+    }
 }
 
 func concurrentPerform<T>(on array: [T], parallel: Bool, _ work: (Int, T) -> Void) {

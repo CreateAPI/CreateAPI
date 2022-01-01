@@ -57,13 +57,7 @@ final class Templates {
         guard properties.contains(where: { $0.name.rawValue != $0.key }) else {
             return nil
         }
-        let cases: [String] = properties.map {
-            if $0.name.rawValue == $0.key {
-                return "case \($0.name)"
-            } else {
-                return "case \($0.name) = \"\($0.key)\""
-            }
-        }
+        let cases: [String] = properties.map { self.case(name: $0.name.rawValue, value: $0.key) }
         return """
         private enum CodingKeys: String, CodingKey {
         \(cases.joined(separator: "\n").indented)
@@ -87,7 +81,8 @@ final class Templates {
     
     func `case`(name: String, value: String) -> String {
         if name.trimmingCharacters(in: CharacterSet.ticks) != value {
-            return "case \(name) = \"\(value)\""
+            let value = value.isEscapingNeeded ? "#\"\(value)\"#" : "\"\(value)\""
+            return "case \(name) = \(value)"
         } else {
             return "case \(name)"
         }
