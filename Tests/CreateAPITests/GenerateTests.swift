@@ -115,6 +115,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "bulk-sms", package: "BulkSMSAPI")
     }
     
+    func testCallFire() throws {
+        try testSpec(name: "callfire", package: "CallfireAPI")
+    }
+    
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
     }

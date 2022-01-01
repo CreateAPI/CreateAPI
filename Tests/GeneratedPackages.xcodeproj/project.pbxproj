@@ -149,6 +149,7 @@
 		0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95132780CDD6002E02C0 /* RowshotAPI */; };
 		0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95162780CE0D002E02C0 /* BufferAPI */; };
 		0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95192780CE6B002E02C0 /* BulkSMSAPI */; };
+		0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95202780D316002E02C0 /* CallfireAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,6 +242,7 @@
 		0CEB95122780CDD0002E02C0 /* RowshotAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RowshotAPI; path = CreateAPITests/Expected/RowshotAPI; sourceTree = "<group>"; };
 		0CEB95152780CE09002E02C0 /* BufferAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BufferAPI; path = CreateAPITests/Expected/BufferAPI; sourceTree = "<group>"; };
 		0CEB95182780CE66002E02C0 /* BulkSMSAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BulkSMSAPI; path = CreateAPITests/Expected/BulkSMSAPI; sourceTree = "<group>"; };
+		0CEB951F2780D310002E02C0 /* CallfireAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CallfireAPI; path = CreateAPITests/Expected/CallfireAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 				0C612EFC2777B594008D32A4 /* edgecases-yaml-config in Frameworks */,
 				0C612EF02777B594008D32A4 /* edgecases-disable-enums in Frameworks */,
 				0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */,
+				0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */,
 				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
 				0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */,
@@ -362,6 +365,7 @@
 				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
 				0CEB95152780CE09002E02C0 /* BufferAPI */,
 				0CEB95182780CE66002E02C0 /* BulkSMSAPI */,
+				0CEB951F2780D310002E02C0 /* CallfireAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
@@ -561,6 +565,7 @@
 				0CEB95132780CDD6002E02C0 /* RowshotAPI */,
 				0CEB95162780CE0D002E02C0 /* BufferAPI */,
 				0CEB95192780CE6B002E02C0 /* BulkSMSAPI */,
+				0CEB95202780D316002E02C0 /* CallfireAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1213,6 +1218,10 @@
 		0CEB95192780CE6B002E02C0 /* BulkSMSAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BulkSMSAPI;
+		};
+		0CEB95202780D316002E02C0 /* CallfireAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CallfireAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
