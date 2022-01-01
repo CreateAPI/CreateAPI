@@ -513,23 +513,4 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "edgecases-coding-keys")
     }
-    
-    func testGeneratePostmanOperations() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "postman"),
-            "--output", temp.url.path,
-            "--package", "postman-operations",
-            "--config", config("""
-            paths:
-                style: operations
-            """, ext: "yaml")
-        ])
-                
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "postman-operations")
-    }
 }

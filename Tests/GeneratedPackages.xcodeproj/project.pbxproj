@@ -7,270 +7,95 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5EE19A277909B100C94994 /* BitbucketAPI */; };
-		0C612EA12777B570008D32A4 /* SimpleCartAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E672777B56E008D32A4 /* SimpleCartAPI */; };
-		0C612EA22777B570008D32A4 /* petstore-single-threaded in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E682777B56E008D32A4 /* petstore-single-threaded */; };
-		0C612EA32777B570008D32A4 /* petstore-base-class in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E692777B56E008D32A4 /* petstore-base-class */; };
-		0C612EA42777B570008D32A4 /* OctoKit in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E6A2777B56E008D32A4 /* OctoKit */; };
-		0C612EA52777B570008D32A4 /* petstore-split in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E6B2777B56E008D32A4 /* petstore-split */; };
-		0C612EA62777B570008D32A4 /* WikimediaAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E6C2777B56E008D32A4 /* WikimediaAPI */; };
-		0C612EA72777B570008D32A4 /* edgecases-tabs in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E6D2777B56E008D32A4 /* edgecases-tabs */; };
-		0C612EA82777B570008D32A4 /* edgecases-default in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E6E2777B56E008D32A4 /* edgecases-default */; };
-		0C612EA92777B570008D32A4 /* petstore-only-schemas in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E6F2777B56E008D32A4 /* petstore-only-schemas */; };
-		0C612EAA2777B570008D32A4 /* SpotifyAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E702777B56E008D32A4 /* SpotifyAPI */; };
-		0C612EAB2777B570008D32A4 /* NYTCommunityAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E712777B56E008D32A4 /* NYTCommunityAPI */; };
-		0C612EAC2777B570008D32A4 /* edgecases-rename-properties in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E722777B56E008D32A4 /* edgecases-rename-properties */; };
-		0C612EAD2777B570008D32A4 /* SlackAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E732777B56E008D32A4 /* SlackAPI */; };
-		0C612EAE2777B570008D32A4 /* TwitterAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E742777B56E008D32A4 /* TwitterAPI */; };
-		0C612EAF2777B570008D32A4 /* edgecases-disable-acronyms in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E752777B56E008D32A4 /* edgecases-disable-acronyms */; };
-		0C612EB02777B570008D32A4 /* NYTArticleSearchAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E762777B56E008D32A4 /* NYTArticleSearchAPI */; };
-		0C612EB12777B570008D32A4 /* edgecases-int32-int64 in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E772777B56E008D32A4 /* edgecases-int32-int64 */; };
-		0C612EB22777B570008D32A4 /* NYTArchiveAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E782777B56E008D32A4 /* NYTArchiveAPI */; };
-		0C612EB32777B570008D32A4 /* petstore-change-filename in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E792777B56E008D32A4 /* petstore-change-filename */; };
-		0C612EB42777B570008D32A4 /* edgecases-rename in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E7A2777B56E008D32A4 /* edgecases-rename */; };
-		0C612EB52777B570008D32A4 /* petstore-generate-classes in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E7B2777B56E008D32A4 /* petstore-generate-classes */; };
-		0C612EB62777B570008D32A4 /* petstore-some-entities-as-structs in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E7C2777B56E008D32A4 /* petstore-some-entities-as-structs */; };
-		0C612EB72777B570008D32A4 /* petstore-default in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E7D2777B56E008D32A4 /* petstore-default */; };
-		0C612EB82777B570008D32A4 /* CrucibleAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E7E2777B56E008D32A4 /* CrucibleAPI */; };
-		0C612EB92777B570008D32A4 /* TelegramBotPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E7F2777B56E008D32A4 /* TelegramBotPI */; };
-		0C612EBA2777B570008D32A4 /* petstore-no-package in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E802777B56E008D32A4 /* petstore-no-package */; };
-		0C612EBB2777B570008D32A4 /* petstore-disable-comments in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E812777B56F008D32A4 /* petstore-disable-comments */; };
-		0C612EBC2777B570008D32A4 /* AsanaAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E822777B56F008D32A4 /* AsanaAPI */; };
-		0C612EBD2777B570008D32A4 /* InstagramAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E832777B56F008D32A4 /* InstagramAPI */; };
-		0C612EBE2777B570008D32A4 /* edgecases-indent-with-two-width-spaces in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E842777B56F008D32A4 /* edgecases-indent-with-two-width-spaces */; };
-		0C612EBF2777B570008D32A4 /* petstore-operation-id in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E852777B56F008D32A4 /* petstore-operation-id */; };
-		0C612EC02777B570008D32A4 /* edgecases-disable-enums in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E862777B56F008D32A4 /* edgecases-disable-enums */; };
-		0C612EC12777B570008D32A4 /* postman-operations in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E872777B56F008D32A4 /* postman-operations */; };
-		0C612EC22777B570008D32A4 /* petstore-some-entities-as-classes in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E882777B56F008D32A4 /* petstore-some-entities-as-classes */; };
-		0C612EC32777B570008D32A4 /* PlatformAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E892777B56F008D32A4 /* PlatformAPI */; };
-		0C612EC42777B570008D32A4 /* TomTomAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E8A2777B56F008D32A4 /* TomTomAPI */; };
-		0C612EC52777B570008D32A4 /* petstore-custom-imports in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E8B2777B56F008D32A4 /* petstore-custom-imports */; };
-		0C612EC62777B570008D32A4 /* test-query-parameters in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E8C2777B56F008D32A4 /* test-query-parameters */; };
-		0C612EC72777B570008D32A4 /* AppStoreConnectAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */; };
-		0C612EC82777B570008D32A4 /* PostmanAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E8E2777B56F008D32A4 /* PostmanAPI */; };
-		0C612EC92777B570008D32A4 /* NYTBooksAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E8F2777B56F008D32A4 /* NYTBooksAPI */; };
-		0C612ECA2777B570008D32A4 /* petstore-disable-init-with-coder in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E902777B56F008D32A4 /* petstore-disable-init-with-coder */; };
-		0C612ECB2777B570008D32A4 /* EbayFinancesAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E912777B56F008D32A4 /* EbayFinancesAPI */; };
-		0C612ECC2777B570008D32A4 /* edgecases-yaml-config in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E922777B56F008D32A4 /* edgecases-yaml-config */; };
-		0C612ECD2777B570008D32A4 /* GoogleBooksAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E932777B56F008D32A4 /* GoogleBooksAPI */; };
-		0C612ECE2777B570008D32A4 /* TicketmasterAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E942777B56F008D32A4 /* TicketmasterAPI */; };
-		0C612ECF2777B570008D32A4 /* petstore-disable-inlining in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E952777B56F008D32A4 /* petstore-disable-inlining */; };
-		0C612ED02777B570008D32A4 /* edgecases-coding-keys in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E962777B56F008D32A4 /* edgecases-coding-keys */; };
-		0C612ED12777B570008D32A4 /* TrelloAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E972777B56F008D32A4 /* TrelloAPI */; };
-		0C612ED22777B570008D32A4 /* SquareAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E982777B56F008D32A4 /* SquareAPI */; };
-		0C612ED32777B570008D32A4 /* AuthentiqAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E992777B56F008D32A4 /* AuthentiqAPI */; };
-		0C612ED42777B570008D32A4 /* edgecases-change-access-control in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */; };
-		0C612ED52777B570008D32A4 /* StackExchangeAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E9B2777B570008D32A4 /* StackExchangeAPI */; };
-		0C612ED62777B570008D32A4 /* TwilioAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E9C2777B570008D32A4 /* TwilioAPI */; };
-		0C612ED72777B570008D32A4 /* OpenBankingAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E9D2777B570008D32A4 /* OpenBankingAPI */; };
-		0C612ED82777B570008D32A4 /* JiraAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E9E2777B570008D32A4 /* JiraAPI */; };
-		0C612ED92777B570008D32A4 /* CircleCIAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612E9F2777B570008D32A4 /* CircleCIAPI */; };
-		0C612EDA2777B570008D32A4 /* OnePasswordAPI in Resources */ = {isa = PBXBuildFile; fileRef = 0C612EA02777B570008D32A4 /* OnePasswordAPI */; };
-		0C612EDC2777B594008D32A4 /* AppStoreConnectAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EDB2777B594008D32A4 /* AppStoreConnectAPI */; };
-		0C612EDE2777B594008D32A4 /* AsanaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EDD2777B594008D32A4 /* AsanaAPI */; };
-		0C612EE02777B594008D32A4 /* AuthentiqAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EDF2777B594008D32A4 /* AuthentiqAPI */; };
-		0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EE12777B594008D32A4 /* CircleCIAPI */; };
-		0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EE32777B594008D32A4 /* CrucibleAPI */; };
-		0C612EE62777B594008D32A4 /* EbayFinancesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EE52777B594008D32A4 /* EbayFinancesAPI */; };
-		0C612EE82777B594008D32A4 /* edgecases-change-access-control in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EE72777B594008D32A4 /* edgecases-change-access-control */; };
-		0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EE92777B594008D32A4 /* edgecases-coding-keys */; };
-		0C612EEC2777B594008D32A4 /* edgecases-default in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EEB2777B594008D32A4 /* edgecases-default */; };
-		0C612EEE2777B594008D32A4 /* edgecases-disable-acronyms in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EED2777B594008D32A4 /* edgecases-disable-acronyms */; };
-		0C612EF02777B594008D32A4 /* edgecases-disable-enums in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EEF2777B594008D32A4 /* edgecases-disable-enums */; };
-		0C612EF22777B594008D32A4 /* edgecases-indent-with-two-width-spaces in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EF12777B594008D32A4 /* edgecases-indent-with-two-width-spaces */; };
-		0C612EF42777B594008D32A4 /* edgecases-int32-int64 in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EF32777B594008D32A4 /* edgecases-int32-int64 */; };
-		0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EF52777B594008D32A4 /* edgecases-rename */; };
-		0C612EF82777B594008D32A4 /* edgecases-rename-properties in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EF72777B594008D32A4 /* edgecases-rename-properties */; };
-		0C612EFA2777B594008D32A4 /* edgecases-tabs in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EF92777B594008D32A4 /* edgecases-tabs */; };
-		0C612EFC2777B594008D32A4 /* edgecases-yaml-config in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EFB2777B594008D32A4 /* edgecases-yaml-config */; };
-		0C612EFE2777B594008D32A4 /* GoogleBooksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EFD2777B594008D32A4 /* GoogleBooksAPI */; };
-		0C612F002777B594008D32A4 /* InstagramAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612EFF2777B594008D32A4 /* InstagramAPI */; };
-		0C612F022777B594008D32A4 /* JiraAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F012777B594008D32A4 /* JiraAPI */; };
-		0C612F042777B594008D32A4 /* NYTArchiveAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F032777B594008D32A4 /* NYTArchiveAPI */; };
-		0C612F062777B594008D32A4 /* NYTArticleSearchAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F052777B594008D32A4 /* NYTArticleSearchAPI */; };
-		0C612F082777B594008D32A4 /* NYTBooksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F072777B594008D32A4 /* NYTBooksAPI */; };
-		0C612F0A2777B594008D32A4 /* NYTCommunityAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F092777B594008D32A4 /* NYTCommunityAPI */; };
-		0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F0B2777B594008D32A4 /* OctoKit */; };
-		0C612F0E2777B594008D32A4 /* OnePasswordAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F0D2777B594008D32A4 /* OnePasswordAPI */; };
-		0C612F102777B594008D32A4 /* OpenBankingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F0F2777B594008D32A4 /* OpenBankingAPI */; };
-		0C612F122777B594008D32A4 /* petstore-base-class in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F112777B594008D32A4 /* petstore-base-class */; };
-		0C612F142777B594008D32A4 /* petstore-change-filename in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F132777B594008D32A4 /* petstore-change-filename */; };
-		0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F152777B595008D32A4 /* petstore-custom-imports */; };
-		0C612F182777B595008D32A4 /* petstore-default in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F172777B595008D32A4 /* petstore-default */; };
-		0C612F1A2777B595008D32A4 /* petstore-disable-comments in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F192777B595008D32A4 /* petstore-disable-comments */; };
-		0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F1B2777B595008D32A4 /* petstore-disable-inlining */; };
-		0C612F1E2777B595008D32A4 /* petstore-generate-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F1D2777B595008D32A4 /* petstore-generate-classes */; };
-		0C612F202777B595008D32A4 /* petstore-only-schemas in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F1F2777B595008D32A4 /* petstore-only-schemas */; };
-		0C612F222777B595008D32A4 /* petstore-operation-id in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F212777B595008D32A4 /* petstore-operation-id */; };
-		0C612F242777B595008D32A4 /* petstore-single-threaded in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F232777B595008D32A4 /* petstore-single-threaded */; };
-		0C612F262777B595008D32A4 /* petstore-some-entities-as-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F252777B595008D32A4 /* petstore-some-entities-as-classes */; };
-		0C612F282777B595008D32A4 /* petstore-some-entities-as-structs in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F272777B595008D32A4 /* petstore-some-entities-as-structs */; };
-		0C612F2A2777B595008D32A4 /* petstore-split in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F292777B595008D32A4 /* petstore-split */; };
-		0C612F2C2777B595008D32A4 /* PlatformAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F2B2777B595008D32A4 /* PlatformAPI */; };
-		0C612F2E2777B595008D32A4 /* postman-operations in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F2D2777B595008D32A4 /* postman-operations */; };
-		0C612F302777B595008D32A4 /* PostmanAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F2F2777B595008D32A4 /* PostmanAPI */; };
-		0C612F322777B595008D32A4 /* SimpleCartAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F312777B595008D32A4 /* SimpleCartAPI */; };
-		0C612F342777B595008D32A4 /* SlackAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F332777B595008D32A4 /* SlackAPI */; };
-		0C612F362777B595008D32A4 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F352777B595008D32A4 /* SpotifyAPI */; };
-		0C612F382777B596008D32A4 /* SquareAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F372777B596008D32A4 /* SquareAPI */; };
-		0C612F3A2777B596008D32A4 /* StackExchangeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F392777B596008D32A4 /* StackExchangeAPI */; };
-		0C612F3C2777B596008D32A4 /* TelegramBotPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F3B2777B596008D32A4 /* TelegramBotPI */; };
-		0C612F3E2777B596008D32A4 /* test-query-parameters in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F3D2777B596008D32A4 /* test-query-parameters */; };
-		0C612F402777B596008D32A4 /* TicketmasterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F3F2777B596008D32A4 /* TicketmasterAPI */; };
-		0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F412777B596008D32A4 /* TomTomAPI */; };
-		0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F432777B596008D32A4 /* TrelloAPI */; };
-		0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F452777B596008D32A4 /* TwilioAPI */; };
-		0C612F482777B596008D32A4 /* TwitterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F472777B596008D32A4 /* TwitterAPI */; };
-		0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C612F492777B596008D32A4 /* WikimediaAPI */; };
-		0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C69E09C2779316100A46D93 /* SoundcloudAPI */; };
-		0C80E30E277D3F29009130EA /* ZoomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E30D277D3F29009130EA /* ZoomAPI */; };
-		0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B6277EA83A009130EA /* StripeAPI */; };
-		0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8B9277F83BA009130EA /* BoxAPI */; };
-		0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8BC277F85B7009130EA /* AEMAPI */; };
-		0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C5277F8F7F009130EA /* AnchoreAPI */; };
-		0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */; };
-		0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */; };
-		0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */; };
-		0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */; };
-		0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */; };
-		0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8D7277F9318009130EA /* MarketcheckAPI */; };
-		0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DA277F93B9009130EA /* EbayIdentityAPI */; };
-		0C80E8DE277F9477009130EA /* MicrosoftAppCenterAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */; };
-		0C80E8E1277F9823009130EA /* SiriAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E0277F9823009130EA /* SiriAPI */; };
-		0C80E8E4277F987E009130EA /* PowertoolsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E3277F987E009130EA /* PowertoolsAPI */; };
-		0C80E8E7277F98DD009130EA /* AppVeyorAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E6277F98DD009130EA /* AppVeyorAPI */; };
-		0C80E8EA277F9A4A009130EA /* BeezUPAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8E9277F9A4A009130EA /* BeezUPAPI */; };
-		0C80E8ED277F9CC5009130EA /* BudgeaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8EC277F9CC5009130EA /* BudgeaAPI */; };
-		0C80E8F3277F9E03009130EA /* BillingoAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8F2277F9E03009130EA /* BillingoAPI */; };
-		0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */; };
-		0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950A2780CBCF002E02C0 /* BotifyAPI */; };
-		0CEB950E2780CC3E002E02C0 /* BrandLoversAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */; };
-		0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95102780CD63002E02C0 /* RocketServicesAPI */; };
-		0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95132780CDD6002E02C0 /* RowshotAPI */; };
-		0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95162780CE0D002E02C0 /* BufferAPI */; };
-		0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95192780CE6B002E02C0 /* BulkSMSAPI */; };
-		0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95202780D316002E02C0 /* CallfireAPI */; };
-		0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95232780D38D002E02C0 /* CenitAPI */; };
-		0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */; };
-		0CEB952A2780D46D002E02C0 /* CircuitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95292780D46D002E02C0 /* CircuitAPI */; };
-		0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */; };
-		0CEB95302780D74F002E02C0 /* ClickSendAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952F2780D74F002E02C0 /* ClickSendAPI */; };
-		0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */; };
-		0CEB95362780D7F4002E02C0 /* EcwidAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95352780D7F4002E02C0 /* EcwidAPI */; };
-		0CEB95392780D833002E02C0 /* CloudmersiveAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95382780D833002E02C0 /* CloudmersiveAPI */; };
-		0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */; };
-		0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953E2780D94D002E02C0 /* PeerTubeAPI */; };
-		0CEB95422780D9B7002E02C0 /* CredasAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95412780D9B7002E02C0 /* CredasAPI */; };
-		0CEB95452780DA89002E02C0 /* Data2CRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95442780DA89002E02C0 /* Data2CRMAPI */; };
-		0CEB95482780DADD002E02C0 /* DataflowKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95472780DADD002E02C0 /* DataflowKit */; };
-		0CEB954B2780DC26002E02C0 /* DockerEngineAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB954A2780DC26002E02C0 /* DockerEngineAPI */; };
+		0CEB957F2780E15C002E02C0 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB95622780E15B002E02C0 /* Entities.swift */; };
+		0CEB95802780E15C002E02C0 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB95632780E15B002E02C0 /* Paths.swift */; };
+		0CEB95812780E15C002E02C0 /* petstore-disable-comments in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95642780E15B002E02C0 /* petstore-disable-comments */; };
+		0CEB95822780E15C002E02C0 /* petstore-operation-id in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95652780E15B002E02C0 /* petstore-operation-id */; };
+		0CEB95832780E15C002E02C0 /* petstore-split in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95662780E15B002E02C0 /* petstore-split */; };
+		0CEB95842780E15C002E02C0 /* edgecases-disable-enums in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95672780E15B002E02C0 /* edgecases-disable-enums */; };
+		0CEB95852780E15C002E02C0 /* test-query-parameters in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95682780E15B002E02C0 /* test-query-parameters */; };
+		0CEB95862780E15C002E02C0 /* edgecases-change-access-control in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95692780E15C002E02C0 /* edgecases-change-access-control */; };
+		0CEB95872780E15C002E02C0 /* petstore-single-threaded in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956A2780E15C002E02C0 /* petstore-single-threaded */; };
+		0CEB95882780E15C002E02C0 /* edgecases-default in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956B2780E15C002E02C0 /* edgecases-default */; };
+		0CEB95892780E15C002E02C0 /* petstore-generate-classes in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956C2780E15C002E02C0 /* petstore-generate-classes */; };
+		0CEB958A2780E15C002E02C0 /* petstore-custom-imports in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956D2780E15C002E02C0 /* petstore-custom-imports */; };
+		0CEB958B2780E15C002E02C0 /* edgecases-rename in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956E2780E15C002E02C0 /* edgecases-rename */; };
+		0CEB958C2780E15C002E02C0 /* petstore-change-filename in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956F2780E15C002E02C0 /* petstore-change-filename */; };
+		0CEB958D2780E15C002E02C0 /* OctoKit in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95702780E15C002E02C0 /* OctoKit */; };
+		0CEB958E2780E15C002E02C0 /* petstore-some-entities-as-structs in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95712780E15C002E02C0 /* petstore-some-entities-as-structs */; };
+		0CEB958F2780E15C002E02C0 /* petstore-disable-inlining in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95722780E15C002E02C0 /* petstore-disable-inlining */; };
+		0CEB95902780E15C002E02C0 /* petstore-default in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95732780E15C002E02C0 /* petstore-default */; };
+		0CEB95912780E15C002E02C0 /* edgecases-tabs in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95742780E15C002E02C0 /* edgecases-tabs */; };
+		0CEB95922780E15C002E02C0 /* edgecases-int32-int64 in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95752780E15C002E02C0 /* edgecases-int32-int64 */; };
+		0CEB95932780E15C002E02C0 /* petstore-disable-init-with-coder in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */; };
+		0CEB95942780E15C002E02C0 /* petstore-only-schemas in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95772780E15C002E02C0 /* petstore-only-schemas */; };
+		0CEB95952780E15C002E02C0 /* edgecases-yaml-config in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95782780E15C002E02C0 /* edgecases-yaml-config */; };
+		0CEB95962780E15C002E02C0 /* edgecases-disable-acronyms in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95792780E15C002E02C0 /* edgecases-disable-acronyms */; };
+		0CEB95972780E15C002E02C0 /* edgecases-coding-keys in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957A2780E15C002E02C0 /* edgecases-coding-keys */; };
+		0CEB95982780E15C002E02C0 /* edgecases-rename-properties in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957B2780E15C002E02C0 /* edgecases-rename-properties */; };
+		0CEB95992780E15C002E02C0 /* edgecases-indent-with-two-width-spaces in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957C2780E15C002E02C0 /* edgecases-indent-with-two-width-spaces */; };
+		0CEB959A2780E15C002E02C0 /* petstore-base-class in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957D2780E15C002E02C0 /* petstore-base-class */; };
+		0CEB959B2780E15C002E02C0 /* petstore-some-entities-as-classes in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957E2780E15C002E02C0 /* petstore-some-entities-as-classes */; };
+		0CEB959D2780E163002E02C0 /* edgecases-change-access-control in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB959C2780E163002E02C0 /* edgecases-change-access-control */; };
+		0CEB959F2780E163002E02C0 /* edgecases-coding-keys in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB959E2780E163002E02C0 /* edgecases-coding-keys */; };
+		0CEB95A12780E163002E02C0 /* edgecases-default in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A02780E163002E02C0 /* edgecases-default */; };
+		0CEB95A32780E163002E02C0 /* edgecases-disable-acronyms in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A22780E163002E02C0 /* edgecases-disable-acronyms */; };
+		0CEB95A52780E163002E02C0 /* edgecases-disable-enums in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A42780E163002E02C0 /* edgecases-disable-enums */; };
+		0CEB95A72780E163002E02C0 /* edgecases-indent-with-two-width-spaces in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A62780E163002E02C0 /* edgecases-indent-with-two-width-spaces */; };
+		0CEB95A92780E163002E02C0 /* edgecases-int32-int64 in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A82780E163002E02C0 /* edgecases-int32-int64 */; };
+		0CEB95AB2780E163002E02C0 /* edgecases-rename in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95AA2780E163002E02C0 /* edgecases-rename */; };
+		0CEB95AD2780E163002E02C0 /* edgecases-rename-properties in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95AC2780E163002E02C0 /* edgecases-rename-properties */; };
+		0CEB95AF2780E163002E02C0 /* edgecases-tabs in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95AE2780E163002E02C0 /* edgecases-tabs */; };
+		0CEB95B12780E163002E02C0 /* edgecases-yaml-config in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B02780E163002E02C0 /* edgecases-yaml-config */; };
+		0CEB95B32780E163002E02C0 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B22780E163002E02C0 /* OctoKit */; };
+		0CEB95B52780E163002E02C0 /* petstore-base-class in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B42780E163002E02C0 /* petstore-base-class */; };
+		0CEB95B72780E163002E02C0 /* petstore-change-filename in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B62780E163002E02C0 /* petstore-change-filename */; };
+		0CEB95B92780E163002E02C0 /* petstore-custom-imports in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B82780E163002E02C0 /* petstore-custom-imports */; };
+		0CEB95BB2780E163002E02C0 /* petstore-default in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95BA2780E163002E02C0 /* petstore-default */; };
+		0CEB95BD2780E163002E02C0 /* petstore-disable-comments in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95BC2780E163002E02C0 /* petstore-disable-comments */; };
+		0CEB95BF2780E163002E02C0 /* petstore-disable-init-with-coder in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95BE2780E163002E02C0 /* petstore-disable-init-with-coder */; };
+		0CEB95C12780E163002E02C0 /* petstore-disable-inlining in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C02780E163002E02C0 /* petstore-disable-inlining */; };
+		0CEB95C32780E163002E02C0 /* petstore-generate-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C22780E163002E02C0 /* petstore-generate-classes */; };
+		0CEB95C52780E163002E02C0 /* petstore-only-schemas in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C42780E163002E02C0 /* petstore-only-schemas */; };
+		0CEB95C72780E163002E02C0 /* petstore-operation-id in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C62780E163002E02C0 /* petstore-operation-id */; };
+		0CEB95C92780E163002E02C0 /* petstore-single-threaded in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C82780E163002E02C0 /* petstore-single-threaded */; };
+		0CEB95CB2780E163002E02C0 /* petstore-some-entities-as-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95CA2780E163002E02C0 /* petstore-some-entities-as-classes */; };
+		0CEB95CD2780E163002E02C0 /* petstore-some-entities-as-structs in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95CC2780E163002E02C0 /* petstore-some-entities-as-structs */; };
+		0CEB95CF2780E163002E02C0 /* petstore-split in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95CE2780E163002E02C0 /* petstore-split */; };
+		0CEB95D12780E163002E02C0 /* test-query-parameters in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95D02780E163002E02C0 /* test-query-parameters */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C3B597B277C2483004C29CA /* StripeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = StripeAPI; path = CreateAPITests/Expected/StripeAPI; sourceTree = "<group>"; };
 		0C612E602777B55A008D32A4 /* GeneratedPackages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeneratedPackages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C612E672777B56E008D32A4 /* SimpleCartAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SimpleCartAPI; path = CreateAPITests/Expected/SimpleCartAPI; sourceTree = "<group>"; };
-		0C612E682777B56E008D32A4 /* petstore-single-threaded */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-single-threaded"; path = "CreateAPITests/Expected/petstore-single-threaded"; sourceTree = "<group>"; };
-		0C612E692777B56E008D32A4 /* petstore-base-class */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-base-class"; path = "CreateAPITests/Expected/petstore-base-class"; sourceTree = "<group>"; };
-		0C612E6A2777B56E008D32A4 /* OctoKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OctoKit; path = CreateAPITests/Expected/OctoKit; sourceTree = "<group>"; };
-		0C612E6B2777B56E008D32A4 /* petstore-split */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-split"; path = "CreateAPITests/Expected/petstore-split"; sourceTree = "<group>"; };
-		0C612E6C2777B56E008D32A4 /* WikimediaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WikimediaAPI; path = CreateAPITests/Expected/WikimediaAPI; sourceTree = "<group>"; };
-		0C612E6D2777B56E008D32A4 /* edgecases-tabs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-tabs"; path = "CreateAPITests/Expected/edgecases-tabs"; sourceTree = "<group>"; };
-		0C612E6E2777B56E008D32A4 /* edgecases-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-default"; path = "CreateAPITests/Expected/edgecases-default"; sourceTree = "<group>"; };
-		0C612E6F2777B56E008D32A4 /* petstore-only-schemas */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-only-schemas"; path = "CreateAPITests/Expected/petstore-only-schemas"; sourceTree = "<group>"; };
-		0C612E702777B56E008D32A4 /* SpotifyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SpotifyAPI; path = CreateAPITests/Expected/SpotifyAPI; sourceTree = "<group>"; };
-		0C612E712777B56E008D32A4 /* NYTCommunityAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NYTCommunityAPI; path = CreateAPITests/Expected/NYTCommunityAPI; sourceTree = "<group>"; };
-		0C612E722777B56E008D32A4 /* edgecases-rename-properties */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename-properties"; path = "CreateAPITests/Expected/edgecases-rename-properties"; sourceTree = "<group>"; };
-		0C612E732777B56E008D32A4 /* SlackAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SlackAPI; path = CreateAPITests/Expected/SlackAPI; sourceTree = "<group>"; };
-		0C612E742777B56E008D32A4 /* TwitterAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TwitterAPI; path = CreateAPITests/Expected/TwitterAPI; sourceTree = "<group>"; };
-		0C612E752777B56E008D32A4 /* edgecases-disable-acronyms */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-acronyms"; path = "CreateAPITests/Expected/edgecases-disable-acronyms"; sourceTree = "<group>"; };
-		0C612E762777B56E008D32A4 /* NYTArticleSearchAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NYTArticleSearchAPI; path = CreateAPITests/Expected/NYTArticleSearchAPI; sourceTree = "<group>"; };
-		0C612E772777B56E008D32A4 /* edgecases-int32-int64 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-int32-int64"; path = "CreateAPITests/Expected/edgecases-int32-int64"; sourceTree = "<group>"; };
-		0C612E782777B56E008D32A4 /* NYTArchiveAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NYTArchiveAPI; path = CreateAPITests/Expected/NYTArchiveAPI; sourceTree = "<group>"; };
-		0C612E792777B56E008D32A4 /* petstore-change-filename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-filename"; path = "CreateAPITests/Expected/petstore-change-filename"; sourceTree = "<group>"; };
-		0C612E7A2777B56E008D32A4 /* edgecases-rename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename"; path = "CreateAPITests/Expected/edgecases-rename"; sourceTree = "<group>"; };
-		0C612E7B2777B56E008D32A4 /* petstore-generate-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-generate-classes"; path = "CreateAPITests/Expected/petstore-generate-classes"; sourceTree = "<group>"; };
-		0C612E7C2777B56E008D32A4 /* petstore-some-entities-as-structs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-structs"; path = "CreateAPITests/Expected/petstore-some-entities-as-structs"; sourceTree = "<group>"; };
-		0C612E7D2777B56E008D32A4 /* petstore-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-default"; path = "CreateAPITests/Expected/petstore-default"; sourceTree = "<group>"; };
-		0C612E7E2777B56E008D32A4 /* CrucibleAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CrucibleAPI; path = CreateAPITests/Expected/CrucibleAPI; sourceTree = "<group>"; };
-		0C612E7F2777B56E008D32A4 /* TelegramBotPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TelegramBotPI; path = CreateAPITests/Expected/TelegramBotPI; sourceTree = "<group>"; };
-		0C612E802777B56E008D32A4 /* petstore-no-package */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "petstore-no-package"; path = "CreateAPITests/Expected/petstore-no-package"; sourceTree = "<group>"; };
-		0C612E812777B56F008D32A4 /* petstore-disable-comments */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-comments"; path = "CreateAPITests/Expected/petstore-disable-comments"; sourceTree = "<group>"; };
-		0C612E822777B56F008D32A4 /* AsanaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AsanaAPI; path = CreateAPITests/Expected/AsanaAPI; sourceTree = "<group>"; };
-		0C612E832777B56F008D32A4 /* InstagramAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = InstagramAPI; path = CreateAPITests/Expected/InstagramAPI; sourceTree = "<group>"; };
-		0C612E842777B56F008D32A4 /* edgecases-indent-with-two-width-spaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-indent-with-two-width-spaces"; path = "CreateAPITests/Expected/edgecases-indent-with-two-width-spaces"; sourceTree = "<group>"; };
-		0C612E852777B56F008D32A4 /* petstore-operation-id */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-operation-id"; path = "CreateAPITests/Expected/petstore-operation-id"; sourceTree = "<group>"; };
-		0C612E862777B56F008D32A4 /* edgecases-disable-enums */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-enums"; path = "CreateAPITests/Expected/edgecases-disable-enums"; sourceTree = "<group>"; };
-		0C612E872777B56F008D32A4 /* postman-operations */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "postman-operations"; path = "CreateAPITests/Expected/postman-operations"; sourceTree = "<group>"; };
-		0C612E882777B56F008D32A4 /* petstore-some-entities-as-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-classes"; path = "CreateAPITests/Expected/petstore-some-entities-as-classes"; sourceTree = "<group>"; };
-		0C612E892777B56F008D32A4 /* PlatformAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PlatformAPI; path = CreateAPITests/Expected/PlatformAPI; sourceTree = "<group>"; };
-		0C612E8A2777B56F008D32A4 /* TomTomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TomTomAPI; path = CreateAPITests/Expected/TomTomAPI; sourceTree = "<group>"; };
-		0C612E8B2777B56F008D32A4 /* petstore-custom-imports */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-custom-imports"; path = "CreateAPITests/Expected/petstore-custom-imports"; sourceTree = "<group>"; };
-		0C612E8C2777B56F008D32A4 /* test-query-parameters */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "test-query-parameters"; path = "CreateAPITests/Expected/test-query-parameters"; sourceTree = "<group>"; };
-		0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppStoreConnectAPI; path = CreateAPITests/Expected/AppStoreConnectAPI; sourceTree = "<group>"; };
-		0C612E8E2777B56F008D32A4 /* PostmanAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PostmanAPI; path = CreateAPITests/Expected/PostmanAPI; sourceTree = "<group>"; };
-		0C612E8F2777B56F008D32A4 /* NYTBooksAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NYTBooksAPI; path = CreateAPITests/Expected/NYTBooksAPI; sourceTree = "<group>"; };
-		0C612E902777B56F008D32A4 /* petstore-disable-init-with-coder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-init-with-coder"; path = "CreateAPITests/Expected/petstore-disable-init-with-coder"; sourceTree = "<group>"; };
-		0C612E912777B56F008D32A4 /* EbayFinancesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EbayFinancesAPI; path = CreateAPITests/Expected/EbayFinancesAPI; sourceTree = "<group>"; };
-		0C612E922777B56F008D32A4 /* edgecases-yaml-config */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-yaml-config"; path = "CreateAPITests/Expected/edgecases-yaml-config"; sourceTree = "<group>"; };
-		0C612E932777B56F008D32A4 /* GoogleBooksAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GoogleBooksAPI; path = CreateAPITests/Expected/GoogleBooksAPI; sourceTree = "<group>"; };
-		0C612E942777B56F008D32A4 /* TicketmasterAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TicketmasterAPI; path = CreateAPITests/Expected/TicketmasterAPI; sourceTree = "<group>"; };
-		0C612E952777B56F008D32A4 /* petstore-disable-inlining */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-inlining"; path = "CreateAPITests/Expected/petstore-disable-inlining"; sourceTree = "<group>"; };
-		0C612E962777B56F008D32A4 /* edgecases-coding-keys */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-coding-keys"; path = "CreateAPITests/Expected/edgecases-coding-keys"; sourceTree = "<group>"; };
-		0C612E972777B56F008D32A4 /* TrelloAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TrelloAPI; path = CreateAPITests/Expected/TrelloAPI; sourceTree = "<group>"; };
-		0C612E982777B56F008D32A4 /* SquareAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SquareAPI; path = CreateAPITests/Expected/SquareAPI; sourceTree = "<group>"; };
-		0C612E992777B56F008D32A4 /* AuthentiqAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AuthentiqAPI; path = CreateAPITests/Expected/AuthentiqAPI; sourceTree = "<group>"; };
-		0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-change-access-control"; path = "CreateAPITests/Expected/edgecases-change-access-control"; sourceTree = "<group>"; };
-		0C612E9B2777B570008D32A4 /* StackExchangeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = StackExchangeAPI; path = CreateAPITests/Expected/StackExchangeAPI; sourceTree = "<group>"; };
-		0C612E9C2777B570008D32A4 /* TwilioAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = TwilioAPI; path = CreateAPITests/Expected/TwilioAPI; sourceTree = "<group>"; };
-		0C612E9D2777B570008D32A4 /* OpenBankingAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OpenBankingAPI; path = CreateAPITests/Expected/OpenBankingAPI; sourceTree = "<group>"; };
-		0C612E9E2777B570008D32A4 /* JiraAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = JiraAPI; path = CreateAPITests/Expected/JiraAPI; sourceTree = "<group>"; };
-		0C612E9F2777B570008D32A4 /* CircleCIAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircleCIAPI; path = CreateAPITests/Expected/CircleCIAPI; sourceTree = "<group>"; };
-		0C612EA02777B570008D32A4 /* OnePasswordAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OnePasswordAPI; path = CreateAPITests/Expected/OnePasswordAPI; sourceTree = "<group>"; };
-		0C69E09B2779315800A46D93 /* SoundcloudAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SoundcloudAPI; path = CreateAPITests/Expected/SoundcloudAPI; sourceTree = "<group>"; };
-		0C80E30C277D3F25009130EA /* ZoomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ZoomAPI; path = CreateAPITests/Expected/ZoomAPI; sourceTree = "<group>"; };
-		0C80E8B8277F83B0009130EA /* BoxAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BoxAPI; path = CreateAPITests/Expected/BoxAPI; sourceTree = "<group>"; };
-		0C80E8BB277F85B0009130EA /* AEMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AEMAPI; path = CreateAPITests/Expected/AEMAPI; sourceTree = "<group>"; };
-		0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonOpenSearchAPI; path = CreateAPITests/Expected/AmazonOpenSearchAPI; sourceTree = "<group>"; };
-		0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AmazonMemoryDBAPI; path = CreateAPITests/Expected/AmazonMemoryDBAPI; sourceTree = "<group>"; };
-		0C80E8C4277F8F7A009130EA /* AnchoreAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AnchoreAPI; path = CreateAPITests/Expected/AnchoreAPI; sourceTree = "<group>"; };
-		0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckAccountingAPI; path = CreateAPITests/Expected/ApiDeckAccountingAPI; sourceTree = "<group>"; };
-		0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckCRMAPI; path = CreateAPITests/Expected/ApiDeckCRMAPI; sourceTree = "<group>"; };
-		0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckLeadAPI; path = CreateAPITests/Expected/ApiDeckLeadAPI; sourceTree = "<group>"; };
-		0C80E8D0277F923B009130EA /* ApiDeckProxyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckProxyAPI; path = CreateAPITests/Expected/ApiDeckProxyAPI; sourceTree = "<group>"; };
-		0C80E8D3277F9283009130EA /* ApiDeckVaultAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ApiDeckVaultAPI; path = CreateAPITests/Expected/ApiDeckVaultAPI; sourceTree = "<group>"; };
-		0C80E8D6277F9314009130EA /* MarketcheckAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MarketcheckAPI; path = CreateAPITests/Expected/MarketcheckAPI; sourceTree = "<group>"; };
-		0C80E8D9277F93B1009130EA /* EbayIdentityAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EbayIdentityAPI; path = CreateAPITests/Expected/EbayIdentityAPI; sourceTree = "<group>"; };
-		0C80E8DC277F9471009130EA /* MicrosoftAppCenterAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MicrosoftAppCenterAPI; path = CreateAPITests/Expected/MicrosoftAppCenterAPI; sourceTree = "<group>"; };
-		0C80E8DF277F981B009130EA /* SiriAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SiriAPI; path = CreateAPITests/Expected/SiriAPI; sourceTree = "<group>"; };
-		0C80E8E2277F9879009130EA /* PowertoolsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PowertoolsAPI; path = CreateAPITests/Expected/PowertoolsAPI; sourceTree = "<group>"; };
-		0C80E8E5277F98D8009130EA /* AppVeyorAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = AppVeyorAPI; path = CreateAPITests/Expected/AppVeyorAPI; sourceTree = "<group>"; };
-		0C80E8E8277F9A47009130EA /* BeezUPAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BeezUPAPI; path = CreateAPITests/Expected/BeezUPAPI; sourceTree = "<group>"; };
-		0C80E8EB277F9CBF009130EA /* BudgeaAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BudgeaAPI; path = CreateAPITests/Expected/BudgeaAPI; sourceTree = "<group>"; };
-		0C80E8F1277F9DFC009130EA /* BillingoAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BillingoAPI; path = CreateAPITests/Expected/BillingoAPI; sourceTree = "<group>"; };
-		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
-		0CBD8051277F9F1A00F2D9EC /* IBMContainersAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IBMContainersAPI; path = CreateAPITests/Expected/IBMContainersAPI; sourceTree = "<group>"; };
-		0CEB95092780CBC9002E02C0 /* BotifyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BotifyAPI; path = CreateAPITests/Expected/BotifyAPI; sourceTree = "<group>"; };
-		0CEB950C2780CC3A002E02C0 /* BrandLoversAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BrandLoversAPI; path = CreateAPITests/Expected/BrandLoversAPI; sourceTree = "<group>"; };
-		0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RocketServicesAPI; path = CreateAPITests/Expected/RocketServicesAPI; sourceTree = "<group>"; };
-		0CEB95122780CDD0002E02C0 /* RowshotAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RowshotAPI; path = CreateAPITests/Expected/RowshotAPI; sourceTree = "<group>"; };
-		0CEB95152780CE09002E02C0 /* BufferAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BufferAPI; path = CreateAPITests/Expected/BufferAPI; sourceTree = "<group>"; };
-		0CEB95182780CE66002E02C0 /* BulkSMSAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BulkSMSAPI; path = CreateAPITests/Expected/BulkSMSAPI; sourceTree = "<group>"; };
-		0CEB951F2780D310002E02C0 /* CallfireAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CallfireAPI; path = CreateAPITests/Expected/CallfireAPI; sourceTree = "<group>"; };
-		0CEB95222780D389002E02C0 /* CenitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CenitAPI; path = CreateAPITests/Expected/CenitAPI; sourceTree = "<group>"; };
-		0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChainGatewayAPI; path = CreateAPITests/Expected/ChainGatewayAPI; sourceTree = "<group>"; };
-		0CEB95282780D469002E02C0 /* CircuitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircuitAPI; path = CreateAPITests/Expected/CircuitAPI; sourceTree = "<group>"; };
-		0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CitrixGoToMeetingsAPI; path = CreateAPITests/Expected/CitrixGoToMeetingsAPI; sourceTree = "<group>"; };
-		0CEB952E2780D74B002E02C0 /* ClickSendAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClickSendAPI; path = CreateAPITests/Expected/ClickSendAPI; sourceTree = "<group>"; };
-		0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClimateFieldViewAPI; path = CreateAPITests/Expected/ClimateFieldViewAPI; sourceTree = "<group>"; };
-		0CEB95342780D7F0002E02C0 /* EcwidAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EcwidAPI; path = CreateAPITests/Expected/EcwidAPI; sourceTree = "<group>"; };
-		0CEB95372780D82F002E02C0 /* CloudmersiveAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CloudmersiveAPI; path = CreateAPITests/Expected/CloudmersiveAPI; sourceTree = "<group>"; };
-		0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ConfigCatAPI; path = CreateAPITests/Expected/ConfigCatAPI; sourceTree = "<group>"; };
-		0CEB953D2780D949002E02C0 /* PeerTubeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeerTubeAPI; path = CreateAPITests/Expected/PeerTubeAPI; sourceTree = "<group>"; };
-		0CEB95402780D9B1002E02C0 /* CredasAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredasAPI; path = CreateAPITests/Expected/CredasAPI; sourceTree = "<group>"; };
-		0CEB95432780DA84002E02C0 /* Data2CRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Data2CRMAPI; path = CreateAPITests/Expected/Data2CRMAPI; sourceTree = "<group>"; };
-		0CEB95462780DADA002E02C0 /* DataflowKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DataflowKit; path = CreateAPITests/Expected/DataflowKit; sourceTree = "<group>"; };
-		0CEB95492780DC21002E02C0 /* DockerEngineAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DockerEngineAPI; path = CreateAPITests/Expected/DockerEngineAPI; sourceTree = "<group>"; };
+		0CEB95622780E15B002E02C0 /* Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		0CEB95632780E15B002E02C0 /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
+		0CEB95642780E15B002E02C0 /* petstore-disable-comments */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-comments"; path = "CreateAPITests/Expected/petstore-disable-comments"; sourceTree = "<group>"; };
+		0CEB95652780E15B002E02C0 /* petstore-operation-id */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-operation-id"; path = "CreateAPITests/Expected/petstore-operation-id"; sourceTree = "<group>"; };
+		0CEB95662780E15B002E02C0 /* petstore-split */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-split"; path = "CreateAPITests/Expected/petstore-split"; sourceTree = "<group>"; };
+		0CEB95672780E15B002E02C0 /* edgecases-disable-enums */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-enums"; path = "CreateAPITests/Expected/edgecases-disable-enums"; sourceTree = "<group>"; };
+		0CEB95682780E15B002E02C0 /* test-query-parameters */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "test-query-parameters"; path = "CreateAPITests/Expected/test-query-parameters"; sourceTree = "<group>"; };
+		0CEB95692780E15C002E02C0 /* edgecases-change-access-control */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-change-access-control"; path = "CreateAPITests/Expected/edgecases-change-access-control"; sourceTree = "<group>"; };
+		0CEB956A2780E15C002E02C0 /* petstore-single-threaded */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-single-threaded"; path = "CreateAPITests/Expected/petstore-single-threaded"; sourceTree = "<group>"; };
+		0CEB956B2780E15C002E02C0 /* edgecases-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-default"; path = "CreateAPITests/Expected/edgecases-default"; sourceTree = "<group>"; };
+		0CEB956C2780E15C002E02C0 /* petstore-generate-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-generate-classes"; path = "CreateAPITests/Expected/petstore-generate-classes"; sourceTree = "<group>"; };
+		0CEB956D2780E15C002E02C0 /* petstore-custom-imports */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-custom-imports"; path = "CreateAPITests/Expected/petstore-custom-imports"; sourceTree = "<group>"; };
+		0CEB956E2780E15C002E02C0 /* edgecases-rename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename"; path = "CreateAPITests/Expected/edgecases-rename"; sourceTree = "<group>"; };
+		0CEB956F2780E15C002E02C0 /* petstore-change-filename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-filename"; path = "CreateAPITests/Expected/petstore-change-filename"; sourceTree = "<group>"; };
+		0CEB95702780E15C002E02C0 /* OctoKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OctoKit; path = CreateAPITests/Expected/OctoKit; sourceTree = "<group>"; };
+		0CEB95712780E15C002E02C0 /* petstore-some-entities-as-structs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-structs"; path = "CreateAPITests/Expected/petstore-some-entities-as-structs"; sourceTree = "<group>"; };
+		0CEB95722780E15C002E02C0 /* petstore-disable-inlining */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-inlining"; path = "CreateAPITests/Expected/petstore-disable-inlining"; sourceTree = "<group>"; };
+		0CEB95732780E15C002E02C0 /* petstore-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-default"; path = "CreateAPITests/Expected/petstore-default"; sourceTree = "<group>"; };
+		0CEB95742780E15C002E02C0 /* edgecases-tabs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-tabs"; path = "CreateAPITests/Expected/edgecases-tabs"; sourceTree = "<group>"; };
+		0CEB95752780E15C002E02C0 /* edgecases-int32-int64 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-int32-int64"; path = "CreateAPITests/Expected/edgecases-int32-int64"; sourceTree = "<group>"; };
+		0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-init-with-coder"; path = "CreateAPITests/Expected/petstore-disable-init-with-coder"; sourceTree = "<group>"; };
+		0CEB95772780E15C002E02C0 /* petstore-only-schemas */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-only-schemas"; path = "CreateAPITests/Expected/petstore-only-schemas"; sourceTree = "<group>"; };
+		0CEB95782780E15C002E02C0 /* edgecases-yaml-config */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-yaml-config"; path = "CreateAPITests/Expected/edgecases-yaml-config"; sourceTree = "<group>"; };
+		0CEB95792780E15C002E02C0 /* edgecases-disable-acronyms */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-acronyms"; path = "CreateAPITests/Expected/edgecases-disable-acronyms"; sourceTree = "<group>"; };
+		0CEB957A2780E15C002E02C0 /* edgecases-coding-keys */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-coding-keys"; path = "CreateAPITests/Expected/edgecases-coding-keys"; sourceTree = "<group>"; };
+		0CEB957B2780E15C002E02C0 /* edgecases-rename-properties */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename-properties"; path = "CreateAPITests/Expected/edgecases-rename-properties"; sourceTree = "<group>"; };
+		0CEB957C2780E15C002E02C0 /* edgecases-indent-with-two-width-spaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-indent-with-two-width-spaces"; path = "CreateAPITests/Expected/edgecases-indent-with-two-width-spaces"; sourceTree = "<group>"; };
+		0CEB957D2780E15C002E02C0 /* petstore-base-class */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-base-class"; path = "CreateAPITests/Expected/petstore-base-class"; sourceTree = "<group>"; };
+		0CEB957E2780E15C002E02C0 /* petstore-some-entities-as-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-classes"; path = "CreateAPITests/Expected/petstore-some-entities-as-classes"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,105 +103,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80E8E1277F9823009130EA /* SiriAPI in Frameworks */,
-				0C612F382777B596008D32A4 /* SquareAPI in Frameworks */,
-				0C612EEE2777B594008D32A4 /* edgecases-disable-acronyms in Frameworks */,
-				0C612F242777B595008D32A4 /* petstore-single-threaded in Frameworks */,
-				0C80E8DE277F9477009130EA /* MicrosoftAppCenterAPI in Frameworks */,
-				0C612EF82777B594008D32A4 /* edgecases-rename-properties in Frameworks */,
-				0C612F2C2777B595008D32A4 /* PlatformAPI in Frameworks */,
-				0C612F102777B594008D32A4 /* OpenBankingAPI in Frameworks */,
-				0C612F262777B595008D32A4 /* petstore-some-entities-as-classes in Frameworks */,
-				0C612F3E2777B596008D32A4 /* test-query-parameters in Frameworks */,
-				0C612F1A2777B595008D32A4 /* petstore-disable-comments in Frameworks */,
-				0C612EE82777B594008D32A4 /* edgecases-change-access-control in Frameworks */,
-				0C80E8C9277F9154009130EA /* ApiDeckAccountingAPI in Frameworks */,
-				0C80E8EA277F9A4A009130EA /* BeezUPAPI in Frameworks */,
-				0C612F042777B594008D32A4 /* NYTArchiveAPI in Frameworks */,
-				0C612EF22777B594008D32A4 /* edgecases-indent-with-two-width-spaces in Frameworks */,
-				0C80E8E7277F98DD009130EA /* AppVeyorAPI in Frameworks */,
-				0C612EE02777B594008D32A4 /* AuthentiqAPI in Frameworks */,
-				0C612F2E2777B595008D32A4 /* postman-operations in Frameworks */,
-				0C612F3C2777B596008D32A4 /* TelegramBotPI in Frameworks */,
-				0C612F342777B595008D32A4 /* SlackAPI in Frameworks */,
-				0C80E30E277D3F29009130EA /* ZoomAPI in Frameworks */,
-				0C80E8CC277F91AA009130EA /* ApiDeckCRMAPI in Frameworks */,
-				0C80E8F3277F9E03009130EA /* BillingoAPI in Frameworks */,
-				0C612F142777B594008D32A4 /* petstore-change-filename in Frameworks */,
-				0C612F082777B594008D32A4 /* NYTBooksAPI in Frameworks */,
-				0C612EFE2777B594008D32A4 /* GoogleBooksAPI in Frameworks */,
-				0C612F2A2777B595008D32A4 /* petstore-split in Frameworks */,
-				0C612EDE2777B594008D32A4 /* AsanaAPI in Frameworks */,
-				0C612F3A2777B596008D32A4 /* StackExchangeAPI in Frameworks */,
-				0CEB95142780CDD6002E02C0 /* RowshotAPI in Frameworks */,
-				0C612F362777B595008D32A4 /* SpotifyAPI in Frameworks */,
-				0C612F482777B596008D32A4 /* TwitterAPI in Frameworks */,
-				0C80E8BD277F85B7009130EA /* AEMAPI in Frameworks */,
-				0C612F202777B595008D32A4 /* petstore-only-schemas in Frameworks */,
-				0C612F1E2777B595008D32A4 /* petstore-generate-classes in Frameworks */,
-				0C612F322777B595008D32A4 /* SimpleCartAPI in Frameworks */,
-				0C612F402777B596008D32A4 /* TicketmasterAPI in Frameworks */,
-				0CEB95302780D74F002E02C0 /* ClickSendAPI in Frameworks */,
-				0C612F0A2777B594008D32A4 /* NYTCommunityAPI in Frameworks */,
-				0C612F062777B594008D32A4 /* NYTArticleSearchAPI in Frameworks */,
-				0C612F122777B594008D32A4 /* petstore-base-class in Frameworks */,
-				0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */,
-				0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */,
-				0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */,
-				0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */,
-				0CEB95362780D7F4002E02C0 /* EcwidAPI in Frameworks */,
-				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
-				0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */,
-				0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */,
-				0CEB952A2780D46D002E02C0 /* CircuitAPI in Frameworks */,
-				0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */,
-				0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */,
-				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
-				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
-				0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */,
-				0CEB95452780DA89002E02C0 /* Data2CRMAPI in Frameworks */,
-				0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */,
-				0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */,
-				0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */,
-				0C612EDC2777B594008D32A4 /* AppStoreConnectAPI in Frameworks */,
-				0C612F0E2777B594008D32A4 /* OnePasswordAPI in Frameworks */,
-				0CEB954B2780DC26002E02C0 /* DockerEngineAPI in Frameworks */,
-				0C612EFA2777B594008D32A4 /* edgecases-tabs in Frameworks */,
-				0C80E8E4277F987E009130EA /* PowertoolsAPI in Frameworks */,
-				0C612F222777B595008D32A4 /* petstore-operation-id in Frameworks */,
-				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
-				0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */,
-				0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */,
-				0CEB950E2780CC3E002E02C0 /* BrandLoversAPI in Frameworks */,
-				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
-				0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */,
-				0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */,
-				0C612F282777B595008D32A4 /* petstore-some-entities-as-structs in Frameworks */,
-				0C80E8ED277F9CC5009130EA /* BudgeaAPI in Frameworks */,
-				0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */,
-				0C612F022777B594008D32A4 /* JiraAPI in Frameworks */,
-				0C612F002777B594008D32A4 /* InstagramAPI in Frameworks */,
-				0CEB95482780DADD002E02C0 /* DataflowKit in Frameworks */,
-				0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */,
-				0C612F302777B595008D32A4 /* PostmanAPI in Frameworks */,
-				0C612EEC2777B594008D32A4 /* edgecases-default in Frameworks */,
-				0C612EFC2777B594008D32A4 /* edgecases-yaml-config in Frameworks */,
-				0C612EF02777B594008D32A4 /* edgecases-disable-enums in Frameworks */,
-				0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */,
-				0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */,
-				0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */,
-				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
-				0CEB95422780D9B7002E02C0 /* CredasAPI in Frameworks */,
-				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
-				0C80E8D5277F928B009130EA /* ApiDeckVaultAPI in Frameworks */,
-				0C612EF62777B594008D32A4 /* edgecases-rename in Frameworks */,
-				0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */,
-				0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */,
-				0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */,
-				0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */,
-				0C612EE62777B594008D32A4 /* EbayFinancesAPI in Frameworks */,
-				0CEB95392780D833002E02C0 /* CloudmersiveAPI in Frameworks */,
-				0C612EF42777B594008D32A4 /* edgecases-int32-int64 in Frameworks */,
+				0CEB95B32780E163002E02C0 /* OctoKit in Frameworks */,
+				0CEB95B52780E163002E02C0 /* petstore-base-class in Frameworks */,
+				0CEB95BF2780E163002E02C0 /* petstore-disable-init-with-coder in Frameworks */,
+				0CEB95CF2780E163002E02C0 /* petstore-split in Frameworks */,
+				0CEB95A52780E163002E02C0 /* edgecases-disable-enums in Frameworks */,
+				0CEB95B12780E163002E02C0 /* edgecases-yaml-config in Frameworks */,
+				0CEB95C52780E163002E02C0 /* petstore-only-schemas in Frameworks */,
+				0CEB95AB2780E163002E02C0 /* edgecases-rename in Frameworks */,
+				0CEB95A32780E163002E02C0 /* edgecases-disable-acronyms in Frameworks */,
+				0CEB95A72780E163002E02C0 /* edgecases-indent-with-two-width-spaces in Frameworks */,
+				0CEB95AD2780E163002E02C0 /* edgecases-rename-properties in Frameworks */,
+				0CEB95CB2780E163002E02C0 /* petstore-some-entities-as-classes in Frameworks */,
+				0CEB95BB2780E163002E02C0 /* petstore-default in Frameworks */,
+				0CEB95C72780E163002E02C0 /* petstore-operation-id in Frameworks */,
+				0CEB95AF2780E163002E02C0 /* edgecases-tabs in Frameworks */,
+				0CEB95B72780E163002E02C0 /* petstore-change-filename in Frameworks */,
+				0CEB95C92780E163002E02C0 /* petstore-single-threaded in Frameworks */,
+				0CEB95C12780E163002E02C0 /* petstore-disable-inlining in Frameworks */,
+				0CEB95D12780E163002E02C0 /* test-query-parameters in Frameworks */,
+				0CEB95A12780E163002E02C0 /* edgecases-default in Frameworks */,
+				0CEB95C32780E163002E02C0 /* petstore-generate-classes in Frameworks */,
+				0CEB95B92780E163002E02C0 /* petstore-custom-imports in Frameworks */,
+				0CEB95A92780E163002E02C0 /* edgecases-int32-int64 in Frameworks */,
+				0CEB959D2780E163002E02C0 /* edgecases-change-access-control in Frameworks */,
+				0CEB95CD2780E163002E02C0 /* petstore-some-entities-as-structs in Frameworks */,
+				0CEB95BD2780E163002E02C0 /* petstore-disable-comments in Frameworks */,
+				0CEB959F2780E163002E02C0 /* edgecases-coding-keys in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,109 +139,34 @@
 		0C612D6D2777AFD5008D32A4 = {
 			isa = PBXGroup;
 			children = (
-				0C80E8BB277F85B0009130EA /* AEMAPI */,
-				0C80E8C1277F8A86009130EA /* AmazonMemoryDBAPI */,
-				0C80E8BE277F8734009130EA /* AmazonOpenSearchAPI */,
-				0C80E8C4277F8F7A009130EA /* AnchoreAPI */,
-				0C80E8C7277F9116009130EA /* ApiDeckAccountingAPI */,
-				0C80E8CA277F91A3009130EA /* ApiDeckCRMAPI */,
-				0C80E8CD277F91F6009130EA /* ApiDeckLeadAPI */,
-				0C80E8D0277F923B009130EA /* ApiDeckProxyAPI */,
-				0C80E8D3277F9283009130EA /* ApiDeckVaultAPI */,
-				0C612E8D2777B56F008D32A4 /* AppStoreConnectAPI */,
-				0C612E822777B56F008D32A4 /* AsanaAPI */,
-				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
-				0C80E8E5277F98D8009130EA /* AppVeyorAPI */,
-				0C80E8E8277F9A47009130EA /* BeezUPAPI */,
-				0CEB95092780CBC9002E02C0 /* BotifyAPI */,
-				0CEB950C2780CC3A002E02C0 /* BrandLoversAPI */,
-				0C84E3952778121D00609E4A /* BitbucketAPI */,
-				0C80E8F1277F9DFC009130EA /* BillingoAPI */,
-				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
-				0CEB95152780CE09002E02C0 /* BufferAPI */,
-				0CEB95182780CE66002E02C0 /* BulkSMSAPI */,
-				0CEB95342780D7F0002E02C0 /* EcwidAPI */,
-				0CEB951F2780D310002E02C0 /* CallfireAPI */,
-				0CEB95222780D389002E02C0 /* CenitAPI */,
-				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
-				0CEB95282780D469002E02C0 /* CircuitAPI */,
-				0CEB95402780D9B1002E02C0 /* CredasAPI */,
-				0CEB95372780D82F002E02C0 /* CloudmersiveAPI */,
-				0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */,
-				0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */,
-				0CEB952E2780D74B002E02C0 /* ClickSendAPI */,
-				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
-				0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */,
-				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
-				0CEB95432780DA84002E02C0 /* Data2CRMAPI */,
-				0CEB95462780DADA002E02C0 /* DataflowKit */,
-				0CEB95492780DC21002E02C0 /* DockerEngineAPI */,
-				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
-				0CEB953D2780D949002E02C0 /* PeerTubeAPI */,
-				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
-				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
-				0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */,
-				0CEB95122780CDD0002E02C0 /* RowshotAPI */,
-				0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */,
-				0C612E962777B56F008D32A4 /* edgecases-coding-keys */,
-				0C612E6E2777B56E008D32A4 /* edgecases-default */,
-				0C612E752777B56E008D32A4 /* edgecases-disable-acronyms */,
-				0C612E862777B56F008D32A4 /* edgecases-disable-enums */,
-				0C612E842777B56F008D32A4 /* edgecases-indent-with-two-width-spaces */,
-				0C612E772777B56E008D32A4 /* edgecases-int32-int64 */,
-				0C612E7A2777B56E008D32A4 /* edgecases-rename */,
-				0C612E722777B56E008D32A4 /* edgecases-rename-properties */,
-				0C612E6D2777B56E008D32A4 /* edgecases-tabs */,
-				0C612E922777B56F008D32A4 /* edgecases-yaml-config */,
-				0C612E932777B56F008D32A4 /* GoogleBooksAPI */,
-				0C612E832777B56F008D32A4 /* InstagramAPI */,
-				0C612E9E2777B570008D32A4 /* JiraAPI */,
-				0C80E8D6277F9314009130EA /* MarketcheckAPI */,
-				0C80E8DC277F9471009130EA /* MicrosoftAppCenterAPI */,
-				0C80E8DF277F981B009130EA /* SiriAPI */,
-				0CBD8051277F9F1A00F2D9EC /* IBMContainersAPI */,
-				0C612E782777B56E008D32A4 /* NYTArchiveAPI */,
-				0C612E762777B56E008D32A4 /* NYTArticleSearchAPI */,
-				0C612E8F2777B56F008D32A4 /* NYTBooksAPI */,
-				0C612E712777B56E008D32A4 /* NYTCommunityAPI */,
-				0C612E6A2777B56E008D32A4 /* OctoKit */,
-				0C612EA02777B570008D32A4 /* OnePasswordAPI */,
-				0C612E9D2777B570008D32A4 /* OpenBankingAPI */,
-				0C612E692777B56E008D32A4 /* petstore-base-class */,
-				0C612E792777B56E008D32A4 /* petstore-change-filename */,
-				0C612E8B2777B56F008D32A4 /* petstore-custom-imports */,
-				0C612E7D2777B56E008D32A4 /* petstore-default */,
-				0C612E812777B56F008D32A4 /* petstore-disable-comments */,
-				0C612E902777B56F008D32A4 /* petstore-disable-init-with-coder */,
-				0C612E952777B56F008D32A4 /* petstore-disable-inlining */,
-				0C612E7B2777B56E008D32A4 /* petstore-generate-classes */,
-				0C612E802777B56E008D32A4 /* petstore-no-package */,
-				0C612E6F2777B56E008D32A4 /* petstore-only-schemas */,
-				0C612E852777B56F008D32A4 /* petstore-operation-id */,
-				0C612E682777B56E008D32A4 /* petstore-single-threaded */,
-				0C612E882777B56F008D32A4 /* petstore-some-entities-as-classes */,
-				0C612E7C2777B56E008D32A4 /* petstore-some-entities-as-structs */,
-				0C612E6B2777B56E008D32A4 /* petstore-split */,
-				0C3B597B277C2483004C29CA /* StripeAPI */,
-				0C612E892777B56F008D32A4 /* PlatformAPI */,
-				0C612E872777B56F008D32A4 /* postman-operations */,
-				0C612E8E2777B56F008D32A4 /* PostmanAPI */,
-				0C612E672777B56E008D32A4 /* SimpleCartAPI */,
-				0C612E732777B56E008D32A4 /* SlackAPI */,
-				0C612E702777B56E008D32A4 /* SpotifyAPI */,
-				0C612E982777B56F008D32A4 /* SquareAPI */,
-				0C612E9B2777B570008D32A4 /* StackExchangeAPI */,
-				0C69E09B2779315800A46D93 /* SoundcloudAPI */,
-				0C612E7F2777B56E008D32A4 /* TelegramBotPI */,
-				0C612E8C2777B56F008D32A4 /* test-query-parameters */,
-				0C612E942777B56F008D32A4 /* TicketmasterAPI */,
-				0C612E8A2777B56F008D32A4 /* TomTomAPI */,
-				0C612E972777B56F008D32A4 /* TrelloAPI */,
-				0C612E9C2777B570008D32A4 /* TwilioAPI */,
-				0C612E742777B56E008D32A4 /* TwitterAPI */,
-				0C612E6C2777B56E008D32A4 /* WikimediaAPI */,
-				0C80E30C277D3F25009130EA /* ZoomAPI */,
-				0C80E8B8277F83B0009130EA /* BoxAPI */,
+				0CEB95692780E15C002E02C0 /* edgecases-change-access-control */,
+				0CEB957A2780E15C002E02C0 /* edgecases-coding-keys */,
+				0CEB956B2780E15C002E02C0 /* edgecases-default */,
+				0CEB95792780E15C002E02C0 /* edgecases-disable-acronyms */,
+				0CEB95672780E15B002E02C0 /* edgecases-disable-enums */,
+				0CEB957C2780E15C002E02C0 /* edgecases-indent-with-two-width-spaces */,
+				0CEB95752780E15C002E02C0 /* edgecases-int32-int64 */,
+				0CEB956E2780E15C002E02C0 /* edgecases-rename */,
+				0CEB957B2780E15C002E02C0 /* edgecases-rename-properties */,
+				0CEB95742780E15C002E02C0 /* edgecases-tabs */,
+				0CEB95782780E15C002E02C0 /* edgecases-yaml-config */,
+				0CEB95702780E15C002E02C0 /* OctoKit */,
+				0CEB957D2780E15C002E02C0 /* petstore-base-class */,
+				0CEB956F2780E15C002E02C0 /* petstore-change-filename */,
+				0CEB956D2780E15C002E02C0 /* petstore-custom-imports */,
+				0CEB95732780E15C002E02C0 /* petstore-default */,
+				0CEB95642780E15B002E02C0 /* petstore-disable-comments */,
+				0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */,
+				0CEB95722780E15C002E02C0 /* petstore-disable-inlining */,
+				0CEB956C2780E15C002E02C0 /* petstore-generate-classes */,
+				0CEB95612780E15B002E02C0 /* petstore-no-package */,
+				0CEB95772780E15C002E02C0 /* petstore-only-schemas */,
+				0CEB95652780E15B002E02C0 /* petstore-operation-id */,
+				0CEB956A2780E15C002E02C0 /* petstore-single-threaded */,
+				0CEB957E2780E15C002E02C0 /* petstore-some-entities-as-classes */,
+				0CEB95712780E15C002E02C0 /* petstore-some-entities-as-structs */,
+				0CEB95662780E15B002E02C0 /* petstore-split */,
+				0CEB95682780E15B002E02C0 /* test-query-parameters */,
 				0C612DB82777B098008D32A4 /* Products */,
 				0C612DEA2777B0AC008D32A4 /* Frameworks */,
 			);
@@ -507,6 +185,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0CEB95612780E15B002E02C0 /* petstore-no-package */ = {
+			isa = PBXGroup;
+			children = (
+				0CEB95622780E15B002E02C0 /* Entities.swift */,
+				0CEB95632780E15B002E02C0 /* Paths.swift */,
+			);
+			name = "petstore-no-package";
+			path = "CreateAPITests/Expected/petstore-no-package";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -537,105 +225,33 @@
 			);
 			name = GeneratedPackages;
 			packageProductDependencies = (
-				0C612EDB2777B594008D32A4 /* AppStoreConnectAPI */,
-				0C612EDD2777B594008D32A4 /* AsanaAPI */,
-				0C612EDF2777B594008D32A4 /* AuthentiqAPI */,
-				0C612EE12777B594008D32A4 /* CircleCIAPI */,
-				0C612EE32777B594008D32A4 /* CrucibleAPI */,
-				0C612EE52777B594008D32A4 /* EbayFinancesAPI */,
-				0C612EE72777B594008D32A4 /* edgecases-change-access-control */,
-				0C612EE92777B594008D32A4 /* edgecases-coding-keys */,
-				0C612EEB2777B594008D32A4 /* edgecases-default */,
-				0C612EED2777B594008D32A4 /* edgecases-disable-acronyms */,
-				0C612EEF2777B594008D32A4 /* edgecases-disable-enums */,
-				0C612EF12777B594008D32A4 /* edgecases-indent-with-two-width-spaces */,
-				0C612EF32777B594008D32A4 /* edgecases-int32-int64 */,
-				0C612EF52777B594008D32A4 /* edgecases-rename */,
-				0C612EF72777B594008D32A4 /* edgecases-rename-properties */,
-				0C612EF92777B594008D32A4 /* edgecases-tabs */,
-				0C612EFB2777B594008D32A4 /* edgecases-yaml-config */,
-				0C612EFD2777B594008D32A4 /* GoogleBooksAPI */,
-				0C612EFF2777B594008D32A4 /* InstagramAPI */,
-				0C612F012777B594008D32A4 /* JiraAPI */,
-				0C612F032777B594008D32A4 /* NYTArchiveAPI */,
-				0C612F052777B594008D32A4 /* NYTArticleSearchAPI */,
-				0C612F072777B594008D32A4 /* NYTBooksAPI */,
-				0C612F092777B594008D32A4 /* NYTCommunityAPI */,
-				0C612F0B2777B594008D32A4 /* OctoKit */,
-				0C612F0D2777B594008D32A4 /* OnePasswordAPI */,
-				0C612F0F2777B594008D32A4 /* OpenBankingAPI */,
-				0C612F112777B594008D32A4 /* petstore-base-class */,
-				0C612F132777B594008D32A4 /* petstore-change-filename */,
-				0C612F152777B595008D32A4 /* petstore-custom-imports */,
-				0C612F172777B595008D32A4 /* petstore-default */,
-				0C612F192777B595008D32A4 /* petstore-disable-comments */,
-				0C612F1B2777B595008D32A4 /* petstore-disable-inlining */,
-				0C612F1D2777B595008D32A4 /* petstore-generate-classes */,
-				0C612F1F2777B595008D32A4 /* petstore-only-schemas */,
-				0C612F212777B595008D32A4 /* petstore-operation-id */,
-				0C612F232777B595008D32A4 /* petstore-single-threaded */,
-				0C612F252777B595008D32A4 /* petstore-some-entities-as-classes */,
-				0C612F272777B595008D32A4 /* petstore-some-entities-as-structs */,
-				0C612F292777B595008D32A4 /* petstore-split */,
-				0C612F2B2777B595008D32A4 /* PlatformAPI */,
-				0C612F2D2777B595008D32A4 /* postman-operations */,
-				0C612F2F2777B595008D32A4 /* PostmanAPI */,
-				0C612F312777B595008D32A4 /* SimpleCartAPI */,
-				0C612F332777B595008D32A4 /* SlackAPI */,
-				0C612F352777B595008D32A4 /* SpotifyAPI */,
-				0C612F372777B596008D32A4 /* SquareAPI */,
-				0C612F392777B596008D32A4 /* StackExchangeAPI */,
-				0C612F3B2777B596008D32A4 /* TelegramBotPI */,
-				0C612F3D2777B596008D32A4 /* test-query-parameters */,
-				0C612F3F2777B596008D32A4 /* TicketmasterAPI */,
-				0C612F412777B596008D32A4 /* TomTomAPI */,
-				0C612F432777B596008D32A4 /* TrelloAPI */,
-				0C612F452777B596008D32A4 /* TwilioAPI */,
-				0C612F472777B596008D32A4 /* TwitterAPI */,
-				0C612F492777B596008D32A4 /* WikimediaAPI */,
-				0C5EE19A277909B100C94994 /* BitbucketAPI */,
-				0C69E09C2779316100A46D93 /* SoundcloudAPI */,
-				0C80E30D277D3F29009130EA /* ZoomAPI */,
-				0C80E8B6277EA83A009130EA /* StripeAPI */,
-				0C80E8B9277F83BA009130EA /* BoxAPI */,
-				0C80E8BC277F85B7009130EA /* AEMAPI */,
-				0C80E8C5277F8F7F009130EA /* AnchoreAPI */,
-				0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */,
-				0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */,
-				0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */,
-				0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */,
-				0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */,
-				0C80E8D7277F9318009130EA /* MarketcheckAPI */,
-				0C80E8DA277F93B9009130EA /* EbayIdentityAPI */,
-				0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */,
-				0C80E8E0277F9823009130EA /* SiriAPI */,
-				0C80E8E3277F987E009130EA /* PowertoolsAPI */,
-				0C80E8E6277F98DD009130EA /* AppVeyorAPI */,
-				0C80E8E9277F9A4A009130EA /* BeezUPAPI */,
-				0C80E8EC277F9CC5009130EA /* BudgeaAPI */,
-				0C80E8F2277F9E03009130EA /* BillingoAPI */,
-				0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */,
-				0CEB950A2780CBCF002E02C0 /* BotifyAPI */,
-				0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */,
-				0CEB95102780CD63002E02C0 /* RocketServicesAPI */,
-				0CEB95132780CDD6002E02C0 /* RowshotAPI */,
-				0CEB95162780CE0D002E02C0 /* BufferAPI */,
-				0CEB95192780CE6B002E02C0 /* BulkSMSAPI */,
-				0CEB95202780D316002E02C0 /* CallfireAPI */,
-				0CEB95232780D38D002E02C0 /* CenitAPI */,
-				0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */,
-				0CEB95292780D46D002E02C0 /* CircuitAPI */,
-				0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */,
-				0CEB952F2780D74F002E02C0 /* ClickSendAPI */,
-				0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */,
-				0CEB95352780D7F4002E02C0 /* EcwidAPI */,
-				0CEB95382780D833002E02C0 /* CloudmersiveAPI */,
-				0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */,
-				0CEB953E2780D94D002E02C0 /* PeerTubeAPI */,
-				0CEB95412780D9B7002E02C0 /* CredasAPI */,
-				0CEB95442780DA89002E02C0 /* Data2CRMAPI */,
-				0CEB95472780DADD002E02C0 /* DataflowKit */,
-				0CEB954A2780DC26002E02C0 /* DockerEngineAPI */,
+				0CEB959C2780E163002E02C0 /* edgecases-change-access-control */,
+				0CEB959E2780E163002E02C0 /* edgecases-coding-keys */,
+				0CEB95A02780E163002E02C0 /* edgecases-default */,
+				0CEB95A22780E163002E02C0 /* edgecases-disable-acronyms */,
+				0CEB95A42780E163002E02C0 /* edgecases-disable-enums */,
+				0CEB95A62780E163002E02C0 /* edgecases-indent-with-two-width-spaces */,
+				0CEB95A82780E163002E02C0 /* edgecases-int32-int64 */,
+				0CEB95AA2780E163002E02C0 /* edgecases-rename */,
+				0CEB95AC2780E163002E02C0 /* edgecases-rename-properties */,
+				0CEB95AE2780E163002E02C0 /* edgecases-tabs */,
+				0CEB95B02780E163002E02C0 /* edgecases-yaml-config */,
+				0CEB95B22780E163002E02C0 /* OctoKit */,
+				0CEB95B42780E163002E02C0 /* petstore-base-class */,
+				0CEB95B62780E163002E02C0 /* petstore-change-filename */,
+				0CEB95B82780E163002E02C0 /* petstore-custom-imports */,
+				0CEB95BA2780E163002E02C0 /* petstore-default */,
+				0CEB95BC2780E163002E02C0 /* petstore-disable-comments */,
+				0CEB95BE2780E163002E02C0 /* petstore-disable-init-with-coder */,
+				0CEB95C02780E163002E02C0 /* petstore-disable-inlining */,
+				0CEB95C22780E163002E02C0 /* petstore-generate-classes */,
+				0CEB95C42780E163002E02C0 /* petstore-only-schemas */,
+				0CEB95C62780E163002E02C0 /* petstore-operation-id */,
+				0CEB95C82780E163002E02C0 /* petstore-single-threaded */,
+				0CEB95CA2780E163002E02C0 /* petstore-some-entities-as-classes */,
+				0CEB95CC2780E163002E02C0 /* petstore-some-entities-as-structs */,
+				0CEB95CE2780E163002E02C0 /* petstore-split */,
+				0CEB95D02780E163002E02C0 /* test-query-parameters */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -679,64 +295,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C612EB72777B570008D32A4 /* petstore-default in Resources */,
-				0C612ECE2777B570008D32A4 /* TicketmasterAPI in Resources */,
-				0C612EA72777B570008D32A4 /* edgecases-tabs in Resources */,
-				0C612ED02777B570008D32A4 /* edgecases-coding-keys in Resources */,
-				0C612EC12777B570008D32A4 /* postman-operations in Resources */,
-				0C612EB92777B570008D32A4 /* TelegramBotPI in Resources */,
-				0C612ECF2777B570008D32A4 /* petstore-disable-inlining in Resources */,
-				0C612ED82777B570008D32A4 /* JiraAPI in Resources */,
-				0C612ED42777B570008D32A4 /* edgecases-change-access-control in Resources */,
-				0C612EC72777B570008D32A4 /* AppStoreConnectAPI in Resources */,
-				0C612EA42777B570008D32A4 /* OctoKit in Resources */,
-				0C612ED72777B570008D32A4 /* OpenBankingAPI in Resources */,
-				0C612EB02777B570008D32A4 /* NYTArticleSearchAPI in Resources */,
-				0C612EAA2777B570008D32A4 /* SpotifyAPI in Resources */,
-				0C612EBF2777B570008D32A4 /* petstore-operation-id in Resources */,
-				0C612EA12777B570008D32A4 /* SimpleCartAPI in Resources */,
-				0C612EB82777B570008D32A4 /* CrucibleAPI in Resources */,
-				0C612EA22777B570008D32A4 /* petstore-single-threaded in Resources */,
-				0C612ECC2777B570008D32A4 /* edgecases-yaml-config in Resources */,
-				0C612EC32777B570008D32A4 /* PlatformAPI in Resources */,
-				0C612EA52777B570008D32A4 /* petstore-split in Resources */,
-				0C612EC82777B570008D32A4 /* PostmanAPI in Resources */,
-				0C612EC62777B570008D32A4 /* test-query-parameters in Resources */,
-				0C612EA92777B570008D32A4 /* petstore-only-schemas in Resources */,
-				0C612EAE2777B570008D32A4 /* TwitterAPI in Resources */,
-				0C612EC42777B570008D32A4 /* TomTomAPI in Resources */,
-				0C612EB42777B570008D32A4 /* edgecases-rename in Resources */,
-				0C612ED12777B570008D32A4 /* TrelloAPI in Resources */,
-				0C612ECA2777B570008D32A4 /* petstore-disable-init-with-coder in Resources */,
-				0C612EA62777B570008D32A4 /* WikimediaAPI in Resources */,
-				0C612EB32777B570008D32A4 /* petstore-change-filename in Resources */,
-				0C612EAD2777B570008D32A4 /* SlackAPI in Resources */,
-				0C612EC02777B570008D32A4 /* edgecases-disable-enums in Resources */,
-				0C612EAF2777B570008D32A4 /* edgecases-disable-acronyms in Resources */,
-				0C612EB62777B570008D32A4 /* petstore-some-entities-as-structs in Resources */,
-				0C612ED92777B570008D32A4 /* CircleCIAPI in Resources */,
-				0C612EBC2777B570008D32A4 /* AsanaAPI in Resources */,
-				0C612ED52777B570008D32A4 /* StackExchangeAPI in Resources */,
-				0C612EB22777B570008D32A4 /* NYTArchiveAPI in Resources */,
-				0C612EBE2777B570008D32A4 /* edgecases-indent-with-two-width-spaces in Resources */,
-				0C612EA32777B570008D32A4 /* petstore-base-class in Resources */,
-				0C612ED32777B570008D32A4 /* AuthentiqAPI in Resources */,
-				0C612EB12777B570008D32A4 /* edgecases-int32-int64 in Resources */,
-				0C612EC22777B570008D32A4 /* petstore-some-entities-as-classes in Resources */,
-				0C612ECB2777B570008D32A4 /* EbayFinancesAPI in Resources */,
-				0C612EAB2777B570008D32A4 /* NYTCommunityAPI in Resources */,
-				0C612EC92777B570008D32A4 /* NYTBooksAPI in Resources */,
-				0C612EBD2777B570008D32A4 /* InstagramAPI in Resources */,
-				0C612EC52777B570008D32A4 /* petstore-custom-imports in Resources */,
-				0C612EBA2777B570008D32A4 /* petstore-no-package in Resources */,
-				0C612ED22777B570008D32A4 /* SquareAPI in Resources */,
-				0C612EAC2777B570008D32A4 /* edgecases-rename-properties in Resources */,
-				0C612ECD2777B570008D32A4 /* GoogleBooksAPI in Resources */,
-				0C612EBB2777B570008D32A4 /* petstore-disable-comments in Resources */,
-				0C612ED62777B570008D32A4 /* TwilioAPI in Resources */,
-				0C612EB52777B570008D32A4 /* petstore-generate-classes in Resources */,
-				0C612EA82777B570008D32A4 /* edgecases-default in Resources */,
-				0C612EDA2777B570008D32A4 /* OnePasswordAPI in Resources */,
+				0CEB95992780E15C002E02C0 /* edgecases-indent-with-two-width-spaces in Resources */,
+				0CEB95812780E15C002E02C0 /* petstore-disable-comments in Resources */,
+				0CEB95842780E15C002E02C0 /* edgecases-disable-enums in Resources */,
+				0CEB95952780E15C002E02C0 /* edgecases-yaml-config in Resources */,
+				0CEB95972780E15C002E02C0 /* edgecases-coding-keys in Resources */,
+				0CEB95852780E15C002E02C0 /* test-query-parameters in Resources */,
+				0CEB95872780E15C002E02C0 /* petstore-single-threaded in Resources */,
+				0CEB95822780E15C002E02C0 /* petstore-operation-id in Resources */,
+				0CEB958D2780E15C002E02C0 /* OctoKit in Resources */,
+				0CEB95912780E15C002E02C0 /* edgecases-tabs in Resources */,
+				0CEB95962780E15C002E02C0 /* edgecases-disable-acronyms in Resources */,
+				0CEB95942780E15C002E02C0 /* petstore-only-schemas in Resources */,
+				0CEB95832780E15C002E02C0 /* petstore-split in Resources */,
+				0CEB958B2780E15C002E02C0 /* edgecases-rename in Resources */,
+				0CEB959A2780E15C002E02C0 /* petstore-base-class in Resources */,
+				0CEB95902780E15C002E02C0 /* petstore-default in Resources */,
+				0CEB958E2780E15C002E02C0 /* petstore-some-entities-as-structs in Resources */,
+				0CEB958C2780E15C002E02C0 /* petstore-change-filename in Resources */,
+				0CEB95922780E15C002E02C0 /* edgecases-int32-int64 in Resources */,
+				0CEB958A2780E15C002E02C0 /* petstore-custom-imports in Resources */,
+				0CEB95862780E15C002E02C0 /* edgecases-change-access-control in Resources */,
+				0CEB95932780E15C002E02C0 /* petstore-disable-init-with-coder in Resources */,
+				0CEB95892780E15C002E02C0 /* petstore-generate-classes in Resources */,
+				0CEB958F2780E15C002E02C0 /* petstore-disable-inlining in Resources */,
+				0CEB95982780E15C002E02C0 /* edgecases-rename-properties in Resources */,
+				0CEB959B2780E15C002E02C0 /* petstore-some-entities-as-classes in Resources */,
+				0CEB95882780E15C002E02C0 /* edgecases-default in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +332,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CEB95802780E15C002E02C0 /* Paths.swift in Sources */,
+				0CEB957F2780E15C002E02C0 /* Entities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -953,401 +540,113 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0C5EE19A277909B100C94994 /* BitbucketAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BitbucketAPI;
-		};
-		0C612EDB2777B594008D32A4 /* AppStoreConnectAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AppStoreConnectAPI;
-		};
-		0C612EDD2777B594008D32A4 /* AsanaAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AsanaAPI;
-		};
-		0C612EDF2777B594008D32A4 /* AuthentiqAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AuthentiqAPI;
-		};
-		0C612EE12777B594008D32A4 /* CircleCIAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CircleCIAPI;
-		};
-		0C612EE32777B594008D32A4 /* CrucibleAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CrucibleAPI;
-		};
-		0C612EE52777B594008D32A4 /* EbayFinancesAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EbayFinancesAPI;
-		};
-		0C612EE72777B594008D32A4 /* edgecases-change-access-control */ = {
+		0CEB959C2780E163002E02C0 /* edgecases-change-access-control */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-change-access-control";
 		};
-		0C612EE92777B594008D32A4 /* edgecases-coding-keys */ = {
+		0CEB959E2780E163002E02C0 /* edgecases-coding-keys */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-coding-keys";
 		};
-		0C612EEB2777B594008D32A4 /* edgecases-default */ = {
+		0CEB95A02780E163002E02C0 /* edgecases-default */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-default";
 		};
-		0C612EED2777B594008D32A4 /* edgecases-disable-acronyms */ = {
+		0CEB95A22780E163002E02C0 /* edgecases-disable-acronyms */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-disable-acronyms";
 		};
-		0C612EEF2777B594008D32A4 /* edgecases-disable-enums */ = {
+		0CEB95A42780E163002E02C0 /* edgecases-disable-enums */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-disable-enums";
 		};
-		0C612EF12777B594008D32A4 /* edgecases-indent-with-two-width-spaces */ = {
+		0CEB95A62780E163002E02C0 /* edgecases-indent-with-two-width-spaces */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-indent-with-two-width-spaces";
 		};
-		0C612EF32777B594008D32A4 /* edgecases-int32-int64 */ = {
+		0CEB95A82780E163002E02C0 /* edgecases-int32-int64 */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-int32-int64";
 		};
-		0C612EF52777B594008D32A4 /* edgecases-rename */ = {
+		0CEB95AA2780E163002E02C0 /* edgecases-rename */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-rename";
 		};
-		0C612EF72777B594008D32A4 /* edgecases-rename-properties */ = {
+		0CEB95AC2780E163002E02C0 /* edgecases-rename-properties */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-rename-properties";
 		};
-		0C612EF92777B594008D32A4 /* edgecases-tabs */ = {
+		0CEB95AE2780E163002E02C0 /* edgecases-tabs */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-tabs";
 		};
-		0C612EFB2777B594008D32A4 /* edgecases-yaml-config */ = {
+		0CEB95B02780E163002E02C0 /* edgecases-yaml-config */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-yaml-config";
 		};
-		0C612EFD2777B594008D32A4 /* GoogleBooksAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GoogleBooksAPI;
-		};
-		0C612EFF2777B594008D32A4 /* InstagramAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = InstagramAPI;
-		};
-		0C612F012777B594008D32A4 /* JiraAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = JiraAPI;
-		};
-		0C612F032777B594008D32A4 /* NYTArchiveAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NYTArchiveAPI;
-		};
-		0C612F052777B594008D32A4 /* NYTArticleSearchAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NYTArticleSearchAPI;
-		};
-		0C612F072777B594008D32A4 /* NYTBooksAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NYTBooksAPI;
-		};
-		0C612F092777B594008D32A4 /* NYTCommunityAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = NYTCommunityAPI;
-		};
-		0C612F0B2777B594008D32A4 /* OctoKit */ = {
+		0CEB95B22780E163002E02C0 /* OctoKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OctoKit;
 		};
-		0C612F0D2777B594008D32A4 /* OnePasswordAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = OnePasswordAPI;
-		};
-		0C612F0F2777B594008D32A4 /* OpenBankingAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = OpenBankingAPI;
-		};
-		0C612F112777B594008D32A4 /* petstore-base-class */ = {
+		0CEB95B42780E163002E02C0 /* petstore-base-class */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-base-class";
 		};
-		0C612F132777B594008D32A4 /* petstore-change-filename */ = {
+		0CEB95B62780E163002E02C0 /* petstore-change-filename */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-change-filename";
 		};
-		0C612F152777B595008D32A4 /* petstore-custom-imports */ = {
+		0CEB95B82780E163002E02C0 /* petstore-custom-imports */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-custom-imports";
 		};
-		0C612F172777B595008D32A4 /* petstore-default */ = {
+		0CEB95BA2780E163002E02C0 /* petstore-default */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-default";
 		};
-		0C612F192777B595008D32A4 /* petstore-disable-comments */ = {
+		0CEB95BC2780E163002E02C0 /* petstore-disable-comments */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-disable-comments";
 		};
-		0C612F1B2777B595008D32A4 /* petstore-disable-inlining */ = {
+		0CEB95BE2780E163002E02C0 /* petstore-disable-init-with-coder */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "petstore-disable-init-with-coder";
+		};
+		0CEB95C02780E163002E02C0 /* petstore-disable-inlining */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-disable-inlining";
 		};
-		0C612F1D2777B595008D32A4 /* petstore-generate-classes */ = {
+		0CEB95C22780E163002E02C0 /* petstore-generate-classes */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-generate-classes";
 		};
-		0C612F1F2777B595008D32A4 /* petstore-only-schemas */ = {
+		0CEB95C42780E163002E02C0 /* petstore-only-schemas */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-only-schemas";
 		};
-		0C612F212777B595008D32A4 /* petstore-operation-id */ = {
+		0CEB95C62780E163002E02C0 /* petstore-operation-id */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-operation-id";
 		};
-		0C612F232777B595008D32A4 /* petstore-single-threaded */ = {
+		0CEB95C82780E163002E02C0 /* petstore-single-threaded */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-single-threaded";
 		};
-		0C612F252777B595008D32A4 /* petstore-some-entities-as-classes */ = {
+		0CEB95CA2780E163002E02C0 /* petstore-some-entities-as-classes */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-some-entities-as-classes";
 		};
-		0C612F272777B595008D32A4 /* petstore-some-entities-as-structs */ = {
+		0CEB95CC2780E163002E02C0 /* petstore-some-entities-as-structs */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-some-entities-as-structs";
 		};
-		0C612F292777B595008D32A4 /* petstore-split */ = {
+		0CEB95CE2780E163002E02C0 /* petstore-split */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-split";
 		};
-		0C612F2B2777B595008D32A4 /* PlatformAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PlatformAPI;
-		};
-		0C612F2D2777B595008D32A4 /* postman-operations */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "postman-operations";
-		};
-		0C612F2F2777B595008D32A4 /* PostmanAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PostmanAPI;
-		};
-		0C612F312777B595008D32A4 /* SimpleCartAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SimpleCartAPI;
-		};
-		0C612F332777B595008D32A4 /* SlackAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SlackAPI;
-		};
-		0C612F352777B595008D32A4 /* SpotifyAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SpotifyAPI;
-		};
-		0C612F372777B596008D32A4 /* SquareAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SquareAPI;
-		};
-		0C612F392777B596008D32A4 /* StackExchangeAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StackExchangeAPI;
-		};
-		0C612F3B2777B596008D32A4 /* TelegramBotPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TelegramBotPI;
-		};
-		0C612F3D2777B596008D32A4 /* test-query-parameters */ = {
+		0CEB95D02780E163002E02C0 /* test-query-parameters */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "test-query-parameters";
-		};
-		0C612F3F2777B596008D32A4 /* TicketmasterAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TicketmasterAPI;
-		};
-		0C612F412777B596008D32A4 /* TomTomAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TomTomAPI;
-		};
-		0C612F432777B596008D32A4 /* TrelloAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TrelloAPI;
-		};
-		0C612F452777B596008D32A4 /* TwilioAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TwilioAPI;
-		};
-		0C612F472777B596008D32A4 /* TwitterAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TwitterAPI;
-		};
-		0C612F492777B596008D32A4 /* WikimediaAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = WikimediaAPI;
-		};
-		0C69E09C2779316100A46D93 /* SoundcloudAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SoundcloudAPI;
-		};
-		0C80E30D277D3F29009130EA /* ZoomAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ZoomAPI;
-		};
-		0C80E8B6277EA83A009130EA /* StripeAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StripeAPI;
-		};
-		0C80E8B9277F83BA009130EA /* BoxAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BoxAPI;
-		};
-		0C80E8BC277F85B7009130EA /* AEMAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AEMAPI;
-		};
-		0C80E8C5277F8F7F009130EA /* AnchoreAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AnchoreAPI;
-		};
-		0C80E8C8277F9154009130EA /* ApiDeckAccountingAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApiDeckAccountingAPI;
-		};
-		0C80E8CB277F91AA009130EA /* ApiDeckCRMAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApiDeckCRMAPI;
-		};
-		0C80E8CE277F91FC009130EA /* ApiDeckLeadAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApiDeckLeadAPI;
-		};
-		0C80E8D1277F9244009130EA /* ApiDeckProxyAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApiDeckProxyAPI;
-		};
-		0C80E8D4277F928B009130EA /* ApiDeckVaultAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApiDeckVaultAPI;
-		};
-		0C80E8D7277F9318009130EA /* MarketcheckAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MarketcheckAPI;
-		};
-		0C80E8DA277F93B9009130EA /* EbayIdentityAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EbayIdentityAPI;
-		};
-		0C80E8DD277F9477009130EA /* MicrosoftAppCenterAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MicrosoftAppCenterAPI;
-		};
-		0C80E8E0277F9823009130EA /* SiriAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SiriAPI;
-		};
-		0C80E8E3277F987E009130EA /* PowertoolsAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PowertoolsAPI;
-		};
-		0C80E8E6277F98DD009130EA /* AppVeyorAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AppVeyorAPI;
-		};
-		0C80E8E9277F9A4A009130EA /* BeezUPAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BeezUPAPI;
-		};
-		0C80E8EC277F9CC5009130EA /* BudgeaAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BudgeaAPI;
-		};
-		0C80E8F2277F9E03009130EA /* BillingoAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BillingoAPI;
-		};
-		0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = IBMContainersAPI;
-		};
-		0CEB950A2780CBCF002E02C0 /* BotifyAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BotifyAPI;
-		};
-		0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BrandLoversAPI;
-		};
-		0CEB95102780CD63002E02C0 /* RocketServicesAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RocketServicesAPI;
-		};
-		0CEB95132780CDD6002E02C0 /* RowshotAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RowshotAPI;
-		};
-		0CEB95162780CE0D002E02C0 /* BufferAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BufferAPI;
-		};
-		0CEB95192780CE6B002E02C0 /* BulkSMSAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BulkSMSAPI;
-		};
-		0CEB95202780D316002E02C0 /* CallfireAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CallfireAPI;
-		};
-		0CEB95232780D38D002E02C0 /* CenitAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CenitAPI;
-		};
-		0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ChainGatewayAPI;
-		};
-		0CEB95292780D46D002E02C0 /* CircuitAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CircuitAPI;
-		};
-		0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CitrixGoToMeetingsAPI;
-		};
-		0CEB952F2780D74F002E02C0 /* ClickSendAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ClickSendAPI;
-		};
-		0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ClimateFieldViewAPI;
-		};
-		0CEB95352780D7F4002E02C0 /* EcwidAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = EcwidAPI;
-		};
-		0CEB95382780D833002E02C0 /* CloudmersiveAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CloudmersiveAPI;
-		};
-		0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ConfigCatAPI;
-		};
-		0CEB953E2780D94D002E02C0 /* PeerTubeAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PeerTubeAPI;
-		};
-		0CEB95412780D9B7002E02C0 /* CredasAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CredasAPI;
-		};
-		0CEB95442780DA89002E02C0 /* Data2CRMAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Data2CRMAPI;
-		};
-		0CEB95472780DADD002E02C0 /* DataflowKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DataflowKit;
-		};
-		0CEB954A2780DC26002E02C0 /* DockerEngineAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DockerEngineAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
