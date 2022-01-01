@@ -146,7 +146,11 @@ final class GenerateTests: GenerateBaseTests {
     func testCloudMersive() throws {
         try testSpec(name: "cloudmersive", package: "CloudmersiveAPI")
     }
-    
+        
+    func testConfigCat() throws {
+        try testSpec(name: "config-cat", package: "ConfigCatAPI")
+    }
+
     func testEcwid() throws {
         try testSpec(name: "ecwid", package: "EcwidAPI")
     }

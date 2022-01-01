@@ -158,6 +158,7 @@
 		0CEB95332780D7A0002E02C0 /* ClimateFieldViewAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */; };
 		0CEB95362780D7F4002E02C0 /* EcwidAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95352780D7F4002E02C0 /* EcwidAPI */; };
 		0CEB95392780D833002E02C0 /* CloudmersiveAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95382780D833002E02C0 /* CloudmersiveAPI */; };
+		0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +260,7 @@
 		0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ClimateFieldViewAPI; path = CreateAPITests/Expected/ClimateFieldViewAPI; sourceTree = "<group>"; };
 		0CEB95342780D7F0002E02C0 /* EcwidAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EcwidAPI; path = CreateAPITests/Expected/EcwidAPI; sourceTree = "<group>"; };
 		0CEB95372780D82F002E02C0 /* CloudmersiveAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CloudmersiveAPI; path = CreateAPITests/Expected/CloudmersiveAPI; sourceTree = "<group>"; };
+		0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ConfigCatAPI; path = CreateAPITests/Expected/ConfigCatAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +358,7 @@
 				0C612F462777B596008D32A4 /* TwilioAPI in Frameworks */,
 				0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */,
 				0C80E8CF277F91FC009130EA /* ApiDeckLeadAPI in Frameworks */,
+				0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */,
 				0C612EE62777B594008D32A4 /* EbayFinancesAPI in Frameworks */,
 				0CEB95392780D833002E02C0 /* CloudmersiveAPI in Frameworks */,
 				0C612EF42777B594008D32A4 /* edgecases-int32-int64 in Frameworks */,
@@ -395,6 +398,7 @@
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0CEB95282780D469002E02C0 /* CircuitAPI */,
 				0CEB95372780D82F002E02C0 /* CloudmersiveAPI */,
+				0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */,
 				0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */,
 				0CEB952E2780D74B002E02C0 /* ClickSendAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
@@ -606,6 +610,7 @@
 				0CEB95322780D7A0002E02C0 /* ClimateFieldViewAPI */,
 				0CEB95352780D7F4002E02C0 /* EcwidAPI */,
 				0CEB95382780D833002E02C0 /* CloudmersiveAPI */,
+				0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1294,6 +1299,10 @@
 		0CEB95382780D833002E02C0 /* CloudmersiveAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CloudmersiveAPI;
+		};
+		0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ConfigCatAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
