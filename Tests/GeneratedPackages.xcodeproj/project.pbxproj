@@ -143,6 +143,7 @@
 		0C80E8ED277F9CC5009130EA /* BudgeaAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8EC277F9CC5009130EA /* BudgeaAPI */; };
 		0C80E8F3277F9E03009130EA /* BillingoAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0C80E8F2277F9E03009130EA /* BillingoAPI */; };
 		0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */; };
+		0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950A2780CBCF002E02C0 /* BotifyAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -229,6 +230,7 @@
 		0C80E8F1277F9DFC009130EA /* BillingoAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BillingoAPI; path = CreateAPITests/Expected/BillingoAPI; sourceTree = "<group>"; };
 		0C84E3952778121D00609E4A /* BitbucketAPI */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BitbucketAPI; path = CreateAPITests/Expected/BitbucketAPI; sourceTree = "<group>"; };
 		0CBD8051277F9F1A00F2D9EC /* IBMContainersAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IBMContainersAPI; path = CreateAPITests/Expected/IBMContainersAPI; sourceTree = "<group>"; };
+		0CEB95092780CBC9002E02C0 /* BotifyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BotifyAPI; path = CreateAPITests/Expected/BotifyAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +295,7 @@
 				0C80E8E4277F987E009130EA /* PowertoolsAPI in Frameworks */,
 				0C612F222777B595008D32A4 /* petstore-operation-id in Frameworks */,
 				0C612F182777B595008D32A4 /* petstore-default in Frameworks */,
+				0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */,
 				0C612F1C2777B595008D32A4 /* petstore-disable-inlining in Frameworks */,
 				0C80E8D2277F9244009130EA /* ApiDeckProxyAPI in Frameworks */,
 				0C80E8DB277F93B9009130EA /* EbayIdentityAPI in Frameworks */,
@@ -337,6 +340,7 @@
 				0C612E992777B56F008D32A4 /* AuthentiqAPI */,
 				0C80E8E5277F98D8009130EA /* AppVeyorAPI */,
 				0C80E8E8277F9A47009130EA /* BeezUPAPI */,
+				0CEB95092780CBC9002E02C0 /* BotifyAPI */,
 				0C84E3952778121D00609E4A /* BitbucketAPI */,
 				0C80E8F1277F9DFC009130EA /* BillingoAPI */,
 				0C80E8EB277F9CBF009130EA /* BudgeaAPI */,
@@ -531,6 +535,7 @@
 				0C80E8EC277F9CC5009130EA /* BudgeaAPI */,
 				0C80E8F2277F9E03009130EA /* BillingoAPI */,
 				0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */,
+				0CEB950A2780CBCF002E02C0 /* BotifyAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1159,6 +1164,10 @@
 		0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = IBMContainersAPI;
+		};
+		0CEB950A2780CBCF002E02C0 /* BotifyAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BotifyAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
