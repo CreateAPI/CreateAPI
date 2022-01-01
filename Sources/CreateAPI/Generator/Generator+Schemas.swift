@@ -33,10 +33,11 @@ extension Generator {
     }
     
     private func _schemas() throws -> GeneratorOutput {
-        let jobs = makeJobs()
+        let jobs = try makeJobs()
         var declarations = Array<Result<Declaration, Error>?>(repeating: nil, count: jobs.count)
         topLevelTypes = Set(jobs.map(\.name))
         let lock = NSLock()
+        
         concurrentPerform(on: jobs, parallel: arguments.isParallel) { index, job in
             let job = jobs[index]
 
@@ -72,8 +73,9 @@ extension Generator {
         )
     }
     
-    private func makeJobs() -> [Job] {
+    private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
+        var encountered = Set<TypeName>()
         for (key, schema) in spec.components.schemas {
             guard let name = getTypeName(for: key),
                   !options.entities.skip.contains(name.rawValue) else {
@@ -83,7 +85,12 @@ extension Generator {
                 continue
             }
             let job = Job(name: name, schema: schema)
-            jobs.append(job)
+            if encountered.contains(job.name) {
+                try handle(warning: "Duplicated type name: \(job.name), skipping")
+            } else {
+                encountered.insert(job.name)
+                jobs.append(job)
+            }
         }
         return jobs
     }
