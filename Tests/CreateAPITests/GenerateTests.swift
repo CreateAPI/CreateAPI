@@ -155,6 +155,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "config-cat", package: "ConfigCatAPI")
     }
 
+    func testData2CRM() throws {
+        try testSpec(name: "data2crm", package: "Data2CRMAPI")
+    }
+    
     func testEcwid() throws {
         try testSpec(name: "ecwid", package: "EcwidAPI")
     }

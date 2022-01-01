@@ -161,6 +161,7 @@
 		0CEB953C2780D8D7002E02C0 /* ConfigCatAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */; };
 		0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB953E2780D94D002E02C0 /* PeerTubeAPI */; };
 		0CEB95422780D9B7002E02C0 /* CredasAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95412780D9B7002E02C0 /* CredasAPI */; };
+		0CEB95452780DA89002E02C0 /* Data2CRMAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95442780DA89002E02C0 /* Data2CRMAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -265,6 +266,7 @@
 		0CEB953A2780D8D2002E02C0 /* ConfigCatAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ConfigCatAPI; path = CreateAPITests/Expected/ConfigCatAPI; sourceTree = "<group>"; };
 		0CEB953D2780D949002E02C0 /* PeerTubeAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PeerTubeAPI; path = CreateAPITests/Expected/PeerTubeAPI; sourceTree = "<group>"; };
 		0CEB95402780D9B1002E02C0 /* CredasAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredasAPI; path = CreateAPITests/Expected/CredasAPI; sourceTree = "<group>"; };
+		0CEB95432780DA84002E02C0 /* Data2CRMAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Data2CRMAPI; path = CreateAPITests/Expected/Data2CRMAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +330,7 @@
 				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
 				0C612EE42777B594008D32A4 /* CrucibleAPI in Frameworks */,
 				0C80E8B7277EA83A009130EA /* StripeAPI in Frameworks */,
+				0CEB95452780DA89002E02C0 /* Data2CRMAPI in Frameworks */,
 				0CEB953F2780D94D002E02C0 /* PeerTubeAPI in Frameworks */,
 				0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */,
 				0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */,
@@ -411,6 +414,7 @@
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0CEB95312780D79C002E02C0 /* ClimateFieldViewAPI */,
 				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
+				0CEB95432780DA84002E02C0 /* Data2CRMAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
 				0CEB953D2780D949002E02C0 /* PeerTubeAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
@@ -621,6 +625,7 @@
 				0CEB953B2780D8D7002E02C0 /* ConfigCatAPI */,
 				0CEB953E2780D94D002E02C0 /* PeerTubeAPI */,
 				0CEB95412780D9B7002E02C0 /* CredasAPI */,
+				0CEB95442780DA89002E02C0 /* Data2CRMAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1321,6 +1326,10 @@
 		0CEB95412780D9B7002E02C0 /* CredasAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CredasAPI;
+		};
+		0CEB95442780DA89002E02C0 /* Data2CRMAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data2CRMAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
