@@ -127,6 +127,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "chain-gateway", package: "ChainGatewayAPI")
     }
     
+    func testCircuit() throws {
+        try testSpec(name: "circuit", package: "CircuitAPI")
+    }
+    
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
     }

@@ -152,6 +152,7 @@
 		0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95202780D316002E02C0 /* CallfireAPI */; };
 		0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95232780D38D002E02C0 /* CenitAPI */; };
 		0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */; };
+		0CEB952A2780D46D002E02C0 /* CircuitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95292780D46D002E02C0 /* CircuitAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -247,6 +248,7 @@
 		0CEB951F2780D310002E02C0 /* CallfireAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CallfireAPI; path = CreateAPITests/Expected/CallfireAPI; sourceTree = "<group>"; };
 		0CEB95222780D389002E02C0 /* CenitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CenitAPI; path = CreateAPITests/Expected/CenitAPI; sourceTree = "<group>"; };
 		0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChainGatewayAPI; path = CreateAPITests/Expected/ChainGatewayAPI; sourceTree = "<group>"; };
+		0CEB95282780D469002E02C0 /* CircuitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircuitAPI; path = CreateAPITests/Expected/CircuitAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +303,7 @@
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
 				0C80E8D8277F9318009130EA /* MarketcheckAPI in Frameworks */,
 				0C80E8BA277F83BA009130EA /* BoxAPI in Frameworks */,
+				0CEB952A2780D46D002E02C0 /* CircuitAPI in Frameworks */,
 				0C612F4A2777B596008D32A4 /* WikimediaAPI in Frameworks */,
 				0C80E8C6277F8F7F009130EA /* AnchoreAPI in Frameworks */,
 				0C612EEA2777B594008D32A4 /* edgecases-coding-keys in Frameworks */,
@@ -374,6 +377,7 @@
 				0CEB951F2780D310002E02C0 /* CallfireAPI */,
 				0CEB95222780D389002E02C0 /* CenitAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
+				0CEB95282780D469002E02C0 /* CircuitAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
@@ -576,6 +580,7 @@
 				0CEB95202780D316002E02C0 /* CallfireAPI */,
 				0CEB95232780D38D002E02C0 /* CenitAPI */,
 				0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */,
+				0CEB95292780D46D002E02C0 /* CircuitAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1240,6 +1245,10 @@
 		0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ChainGatewayAPI;
+		};
+		0CEB95292780D46D002E02C0 /* CircuitAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CircuitAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
