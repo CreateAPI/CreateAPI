@@ -131,6 +131,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "circuit", package: "CircuitAPI")
     }
     
+    func testCitrixGoToMeeting() throws {
+        try testSpec(name: "citrix-gotomeetings", package: "CitrixGoToMeetingsAPI")
+    }
+    
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
     }

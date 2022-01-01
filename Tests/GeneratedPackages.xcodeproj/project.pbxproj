@@ -153,6 +153,7 @@
 		0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95232780D38D002E02C0 /* CenitAPI */; };
 		0CEB95272780D3DF002E02C0 /* ChainGatewayAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */; };
 		0CEB952A2780D46D002E02C0 /* CircuitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95292780D46D002E02C0 /* CircuitAPI */; };
+		0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -249,6 +250,7 @@
 		0CEB95222780D389002E02C0 /* CenitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CenitAPI; path = CreateAPITests/Expected/CenitAPI; sourceTree = "<group>"; };
 		0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ChainGatewayAPI; path = CreateAPITests/Expected/ChainGatewayAPI; sourceTree = "<group>"; };
 		0CEB95282780D469002E02C0 /* CircuitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircuitAPI; path = CreateAPITests/Expected/CircuitAPI; sourceTree = "<group>"; };
+		0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CitrixGoToMeetingsAPI; path = CreateAPITests/Expected/CitrixGoToMeetingsAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 				0C612EFC2777B594008D32A4 /* edgecases-yaml-config in Frameworks */,
 				0C612EF02777B594008D32A4 /* edgecases-disable-enums in Frameworks */,
 				0C69E09D2779316100A46D93 /* SoundcloudAPI in Frameworks */,
+				0CEB952D2780D501002E02C0 /* CitrixGoToMeetingsAPI in Frameworks */,
 				0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */,
 				0C612EE22777B594008D32A4 /* CircleCIAPI in Frameworks */,
 				0C612F162777B595008D32A4 /* petstore-custom-imports in Frameworks */,
@@ -378,6 +381,7 @@
 				0CEB95222780D389002E02C0 /* CenitAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0CEB95282780D469002E02C0 /* CircuitAPI */,
+				0CEB952B2780D4FB002E02C0 /* CitrixGoToMeetingsAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0CEB95252780D3DB002E02C0 /* ChainGatewayAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
@@ -581,6 +585,7 @@
 				0CEB95232780D38D002E02C0 /* CenitAPI */,
 				0CEB95262780D3DF002E02C0 /* ChainGatewayAPI */,
 				0CEB95292780D46D002E02C0 /* CircuitAPI */,
+				0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1249,6 +1254,10 @@
 		0CEB95292780D46D002E02C0 /* CircuitAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CircuitAPI;
+		};
+		0CEB952C2780D501002E02C0 /* CitrixGoToMeetingsAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CitrixGoToMeetingsAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
