@@ -150,6 +150,7 @@
 		0CEB95172780CE0D002E02C0 /* BufferAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95162780CE0D002E02C0 /* BufferAPI */; };
 		0CEB951A2780CE6B002E02C0 /* BulkSMSAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95192780CE6B002E02C0 /* BulkSMSAPI */; };
 		0CEB95212780D316002E02C0 /* CallfireAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95202780D316002E02C0 /* CallfireAPI */; };
+		0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95232780D38D002E02C0 /* CenitAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -243,6 +244,7 @@
 		0CEB95152780CE09002E02C0 /* BufferAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BufferAPI; path = CreateAPITests/Expected/BufferAPI; sourceTree = "<group>"; };
 		0CEB95182780CE66002E02C0 /* BulkSMSAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BulkSMSAPI; path = CreateAPITests/Expected/BulkSMSAPI; sourceTree = "<group>"; };
 		0CEB951F2780D310002E02C0 /* CallfireAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CallfireAPI; path = CreateAPITests/Expected/CallfireAPI; sourceTree = "<group>"; };
+		0CEB95222780D389002E02C0 /* CenitAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CenitAPI; path = CreateAPITests/Expected/CenitAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +323,7 @@
 				0C5EE19B277909B100C94994 /* BitbucketAPI in Frameworks */,
 				0C612F022777B594008D32A4 /* JiraAPI in Frameworks */,
 				0C612F002777B594008D32A4 /* InstagramAPI in Frameworks */,
+				0CEB95242780D38D002E02C0 /* CenitAPI in Frameworks */,
 				0C612F302777B595008D32A4 /* PostmanAPI in Frameworks */,
 				0C612EEC2777B594008D32A4 /* edgecases-default in Frameworks */,
 				0C612EFC2777B594008D32A4 /* edgecases-yaml-config in Frameworks */,
@@ -366,6 +369,7 @@
 				0CEB95152780CE09002E02C0 /* BufferAPI */,
 				0CEB95182780CE66002E02C0 /* BulkSMSAPI */,
 				0CEB951F2780D310002E02C0 /* CallfireAPI */,
+				0CEB95222780D389002E02C0 /* CenitAPI */,
 				0C612E9F2777B570008D32A4 /* CircleCIAPI */,
 				0C612E7E2777B56E008D32A4 /* CrucibleAPI */,
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
@@ -566,6 +570,7 @@
 				0CEB95162780CE0D002E02C0 /* BufferAPI */,
 				0CEB95192780CE6B002E02C0 /* BulkSMSAPI */,
 				0CEB95202780D316002E02C0 /* CallfireAPI */,
+				0CEB95232780D38D002E02C0 /* CenitAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1222,6 +1227,10 @@
 		0CEB95202780D316002E02C0 /* CallfireAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CallfireAPI;
+		};
+		0CEB95232780D38D002E02C0 /* CenitAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CenitAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

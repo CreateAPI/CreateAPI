@@ -119,6 +119,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "callfire", package: "CallfireAPI")
     }
     
+    func testCenit() throws {
+        try testSpec(name: "cenit", package: "CenitAPI")
+    }
+    
     func testRocketServices() throws {
         try testSpec(name: "rocket-services", package: "RocketServicesAPI")
     }
