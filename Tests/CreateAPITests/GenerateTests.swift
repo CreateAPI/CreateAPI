@@ -163,6 +163,10 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "dataflowkit", package: "DataflowKit")
     }
     
+    func testDockerEngine() throws {
+        try testSpec(name: "docker-engine", package: "DockerEngineAPI")
+    }
+    
     func testEcwid() throws {
         try testSpec(name: "ecwid", package: "EcwidAPI")
     }
