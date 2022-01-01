@@ -145,6 +145,7 @@
 		0CBD8053277F9F2000F2D9EC /* IBMContainersAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */; };
 		0CEB950B2780CBCF002E02C0 /* BotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950A2780CBCF002E02C0 /* BotifyAPI */; };
 		0CEB950E2780CC3E002E02C0 /* BrandLoversAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */; };
+		0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95102780CD63002E02C0 /* RocketServicesAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -233,6 +234,7 @@
 		0CBD8051277F9F1A00F2D9EC /* IBMContainersAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = IBMContainersAPI; path = CreateAPITests/Expected/IBMContainersAPI; sourceTree = "<group>"; };
 		0CEB95092780CBC9002E02C0 /* BotifyAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BotifyAPI; path = CreateAPITests/Expected/BotifyAPI; sourceTree = "<group>"; };
 		0CEB950C2780CC3A002E02C0 /* BrandLoversAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BrandLoversAPI; path = CreateAPITests/Expected/BrandLoversAPI; sourceTree = "<group>"; };
+		0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RocketServicesAPI; path = CreateAPITests/Expected/RocketServicesAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 				0C612F0A2777B594008D32A4 /* NYTCommunityAPI in Frameworks */,
 				0C612F062777B594008D32A4 /* NYTArticleSearchAPI in Frameworks */,
 				0C612F122777B594008D32A4 /* petstore-base-class in Frameworks */,
+				0CEB95112780CD63002E02C0 /* RocketServicesAPI in Frameworks */,
 				0C612F0C2777B594008D32A4 /* OctoKit in Frameworks */,
 				0C612F422777B596008D32A4 /* TomTomAPI in Frameworks */,
 				0C612F442777B596008D32A4 /* TrelloAPI in Frameworks */,
@@ -353,6 +356,7 @@
 				0C80E8E2277F9879009130EA /* PowertoolsAPI */,
 				0C612E912777B56F008D32A4 /* EbayFinancesAPI */,
 				0C80E8D9277F93B1009130EA /* EbayIdentityAPI */,
+				0CEB950F2780CD5E002E02C0 /* RocketServicesAPI */,
 				0C612E9A2777B56F008D32A4 /* edgecases-change-access-control */,
 				0C612E962777B56F008D32A4 /* edgecases-coding-keys */,
 				0C612E6E2777B56E008D32A4 /* edgecases-default */,
@@ -541,6 +545,7 @@
 				0CBD8052277F9F2000F2D9EC /* IBMContainersAPI */,
 				0CEB950A2780CBCF002E02C0 /* BotifyAPI */,
 				0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */,
+				0CEB95102780CD63002E02C0 /* RocketServicesAPI */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -1177,6 +1182,10 @@
 		0CEB950D2780CC3E002E02C0 /* BrandLoversAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BrandLoversAPI;
+		};
+		0CEB95102780CD63002E02C0 /* RocketServicesAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RocketServicesAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
