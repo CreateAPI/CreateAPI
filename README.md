@@ -5,7 +5,7 @@
 Delightful code generation for OpenAPI specs for Swift written in Swift. 
 
 - **Fast**: processes specs with 100K lines of YAML in less than a second
-- **Smart**: generates Swift code that looks like it's written by hand
+- **Smart**: generates Swift code that looks like it's carefully written by hand
 - **Reliable**: tested on 1KK lines of publically available OpenAPI specs  producing correct code every time
 - **Customizable**: offers a ton of customization options
 
