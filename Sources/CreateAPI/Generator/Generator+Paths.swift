@@ -63,7 +63,7 @@ extension Generator {
         switch job {
         case let job as JobRest: return try makePath(job: job)
         case let job as JobOperation: return try makePath(job: job)
-        default: fatalError("Unsupporeted job")
+        default: fatalError("Unsupported job")
         }
     }
 
