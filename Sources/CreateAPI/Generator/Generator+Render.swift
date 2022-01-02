@@ -32,7 +32,7 @@ extension Generator {
         let isStruct: Bool
         if decl.type == .oneOf {
             isStruct = false
-        } else if hasRefeferencesToItself(decl) {
+        } else if options.entities.isGeneratingStructs && hasRefeferencesToItself(decl) {
             isStruct = false
         } else {
             isStruct = (options.entities.isGeneratingStructs && !options.entities.entitiesGeneratedAsClasses.contains(decl.name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(decl.name.rawValue))
