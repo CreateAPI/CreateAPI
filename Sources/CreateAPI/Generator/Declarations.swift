@@ -198,13 +198,14 @@ final class EntityDeclaration: Declaration {
     
     var protocols = Protocols()
     var properties: [Property] = []
+    var isRenderedAsStruct = false
     weak var parent: EntityDeclaration?
     
     var nested: [Declaration] {
         properties.compactMap { $0.nested }
     }
     
-    init(name: TypeName, type: EntityType, metadata: DeclarationMetadata, isForm: Bool, parent: EntityDeclaration?) {
+    init(name: TypeName, type: EntityType, metadata: DeclarationMetadata, isForm: Bool, parent: EntityDeclaration? = nil) {
         self.name = name
         self.type = type
         self.metadata = metadata

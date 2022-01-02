@@ -410,12 +410,6 @@ extension Generator {
             try makeQueryParameter(for: $0, context: context)
         }.removingDuplicates(by: \.name)
         if !query.isEmpty {
-            var contents: [String] = []
-            // TODO: use EntityDeclaration
-            contents += [query.map { templates.property($0, isReadonly: false) } .joined(separator: "\n")]
-            contents += query.compactMap(\.nested).map(render)
-            contents += [templates.initializer(properties: query)]
-            contents += [templates.asQuery(properties: query)]
             let type = makeNestedTypeName("Parameters")
             // TODO: Relax the restriction for `operations` style
             if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold, (style == .rest || query.allSatisfy { $0.nested == nil }) {
@@ -441,9 +435,12 @@ extension Generator {
                 let isOptional = query.allSatisfy { $0.isOptional }
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
                 call.append("query: parameters\(isOptional ? "?" : "").asQuery")
-                // TODO: Use EntityDeclaration
-                #warning("TODO: Use EntityDeclaration and remove templates.entity")
-                nested.append(AnyDeclaration(name: type, rawValue: templates.entity(name: type, contents: contents, protocols: [])))
+
+                let entity = EntityDeclaration(name: type, type: .object, metadata: .init(nil), isForm: true)
+                entity.isRenderedAsStruct = true
+                entity.properties = query
+                nested.append(entity)
+
                 setNeedsQuery()
             }
         }

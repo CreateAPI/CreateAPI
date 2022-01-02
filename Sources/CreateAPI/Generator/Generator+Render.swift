@@ -133,7 +133,7 @@ extension Generator {
             return false
         } else if options.entities.entitiesGeneratedAsClasses.contains(decl.name.rawValue) {
             return false
-        } else if options.entities.entitiesGeneratedAsStructs.contains(decl.name.rawValue) {
+        } else if decl.isRenderedAsStruct || options.entities.entitiesGeneratedAsStructs.contains(decl.name.rawValue) {
             return true
         } else if options.entities.isGeneratingStructs && hasRefeferencesToItself(decl) {
             return false
