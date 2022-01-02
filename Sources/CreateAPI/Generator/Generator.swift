@@ -23,7 +23,7 @@ final class Generator {
     var isNaiveDateNeeded = false
     var needsEncodable = Set<TypeName>()
     var topLevelTypes = Set<TypeName>()
-    var generatedEntities: [TypeName: EntityDeclaration] = [:]
+    var generatedSchemas: [TypeName: EntityDeclaration] = [:]
     var pathsContainingRequestType: [String] = []
     let lock = NSLock()
     

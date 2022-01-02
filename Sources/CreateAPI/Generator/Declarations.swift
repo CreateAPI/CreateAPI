@@ -4,6 +4,8 @@
 
 import Foundation
 import OpenAPIKit30
+import Darwin
+import AppKit
 
 // - note: Currently doesn't contain namespaces or parents names. These are
 // mananged separately.
@@ -22,6 +24,8 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
     var isBool: Bool { builtinTypeName == "Bool" }
     var isVoid: Bool { builtinTypeName == "Void" }
     var isString: Bool { builtinTypeName == "String" }
+    
+    static let allGeneratedBuiltinTypes = Set<TypeName>(["String", "Bool", "Double", "Int", "Int32", "Int64", "Date", "URL", "Data"].map(TypeName.init))
     
     var isArray: Bool {
         if case .array = self { return true } else { return false }

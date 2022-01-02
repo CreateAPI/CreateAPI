@@ -55,11 +55,10 @@ extension Generator {
                 }
             }
         }
-        // Pre-process generated entities before rendering.
-        for result in declarations.compactMap({ $0 }) {
-            let entity = try result.get()
-            generatedEntities[entity.name] = entity as? EntityDeclaration
-        }
+
+        // Preprocess before rendering.
+        try preprocess(declarations: declarations.compactMap { $0 })
+
         // Render entities as a final phase
         let files: [GeneratedFile] = try zip(jobs, declarations).map { job, result in
             guard let entity = try result?.get() else { return nil }
@@ -71,6 +70,14 @@ extension Generator {
             files: files,
             extensions: makeExtensions()
         )
+    }
+    
+    private func preprocess(declarations: [Result<Declaration, Error>]) throws {
+        // Create an index of all generated entities.
+        for result in declarations {
+            let entity = try result.get()
+            generatedSchemas[entity.name] = entity as? EntityDeclaration
+        }
     }
     
     private func makeJobs() throws -> [Job] {

@@ -25,18 +25,10 @@ extension Generator {
     }
     
     private func render(_ decl: EntityDeclaration) -> String {
-        let properties: [Property] = decl.properties
-            .map {
-                // This handles a scenario where a nested entity has a reference
-                // to one of the top-level types with the same name as the entity.
-                if $0.type.name == decl.name && $0.nested == nil, decl.parent != nil {
-                    var property = $0
-                    property.type = .builtin(name: $0.type.identifier(namespace: arguments.module.rawValue)) // TODO: Refactor
-                    return property
-                }
-                return $0
-            }
-        
+        var properties = decl.properties
+        addNamespacesForConflictsWithNestedTypes(properties: &properties, decl: decl)
+        addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
+
         var contents: [String] = []
         switch decl.type {
         case .object, .allOf, .anyOf:
@@ -170,10 +162,62 @@ extension Generator {
                 default:
                     break
                 }
-            } else if let entity = generatedEntities[property.type.elementType.name] {
+            } else if let entity = generatedSchemas[property.type.elementType.name] {
                 properties += entity.properties
             }
         }
         return false
+    }
+    
+    // MARK: Preprocessing
+    
+    // Handles a scenario where a nested entity has a reference to one of the
+    // top-level types with the same name as the entity.
+    private func addNamespacesForConflictsWithNestedTypes(properties: inout [Property], decl: EntityDeclaration) {
+        for index in properties.indices {
+            let property = properties[index]
+            if property.type.name == decl.name && property.nested == nil, decl.parent != nil {
+                properties[index].type = .builtin(name: property.type.identifier(namespace: arguments.module.rawValue)) // TODO: Refactor
+            }
+        }
+    }
+    
+    // Handles a scenario where one of the generated entites (top-level or nested)
+    // overrides one of the built-in types.
+    private func addNamespacesForConflictsWithBuiltinTypes(properties: inout [Property], decl: EntityDeclaration) {
+        for index in properties.indices {
+            guard case .builtin(let type) = properties[index].type.elementType else {
+                continue
+            }
+            guard TypeIdentifier.allGeneratedBuiltinTypes.contains(type) else {
+                continue
+            }
+            if generatedSchemas[type] != nil || decl.isOverriding(type: type) {
+                properties[index].type = .builtin("\(namespace(for: type)).\(type)")
+                
+            }
+        }
+    }
+}
+
+private extension EntityDeclaration {
+    func isOverriding(type: TypeName) -> Bool {
+        if name == type {
+            return true
+        }
+        if nested.contains(where: { $0.name == type }) {
+            return true
+        }
+        guard let parent = self.parent else {
+            return false
+        }
+        return parent.isOverriding(type: type)
+    }
+}
+
+private func namespace(for builtinType: TypeName) -> String {
+    switch builtinType.rawValue {
+    case "Date", "URL", "Data": return "Foundation"
+    default: return "Swift"
     }
 }
