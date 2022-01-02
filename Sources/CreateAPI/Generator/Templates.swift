@@ -29,7 +29,7 @@ final class Templates {
         let isStruct = (options.entities.isGeneratingStructs && !options.entities.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(name.rawValue))
         return isStruct ? self.struct(name: name, contents: contents, protocols: protocols) : self.class(name: name, contents: contents, protocols: protocols)
     }
-    
+
     func `struct`(name: TypeName, contents: [String], protocols: Protocols) -> String {
         let lhs = [options.access, "struct", name.rawValue].compactMap { $0 }
         let rhs = protocols.sorted()
@@ -336,20 +336,22 @@ final class Templates {
     // MARK: Properties
     
     /// Generates a list of properties.
-    func properties(_ properties: [Property]) -> String {
-        properties.map(property).joined(separator: "\n")
+    func properties(_ properties: [Property], isReadonly: Bool) -> String {
+        properties
+            .map { property($0, isReadonly: isReadonly) }
+            .joined(separator: "\n")
     }
     
     /// Generates a property with comments and everything.
     ///
     ///     public var files: [Files]?
-    func property(_ property: Property) -> String {
+    func property(_ property: Property, isReadonly: Bool) -> String {
         var output = ""
         if let metadata = property.metadata {
             output += comments(for: metadata, name: property.name.rawValue, isProperty: true)
         }
         let isOptional = property.isOptional && property.defaultValue == nil
-        output += "\(access)var \(property.name): \(property.type)\(isOptional ? "?" : "")"
+        output += "\(access)\(isReadonly ? "let" : "var") \(property.name): \(property.type)\(isOptional ? "?" : "")"
         return output
     }
     

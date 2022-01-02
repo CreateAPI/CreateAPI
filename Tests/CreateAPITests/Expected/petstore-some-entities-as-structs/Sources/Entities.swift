@@ -9,10 +9,10 @@ import Foundation
 ///
 /// A pet description
 public final class Pet: Codable {
-    public var id: Int
+    public let id: Int
     /// Example: "Buddy"
-    public var name: String
-    public var tag: String?
+    public let name: String
+    public let tag: String?
 
     public init(id: Int, name: String, tag: String? = nil) {
         self.id = id
@@ -22,7 +22,7 @@ public final class Pet: Codable {
 }
 
 public final class Store: Codable {
-    public var pets: [Pet]
+    public let pets: [Pet]
 
     public init(pets: [Pet]) {
         self.pets = pets

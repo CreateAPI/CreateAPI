@@ -137,7 +137,7 @@ public struct Return: Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case `return` = "return"
+        case `return`
     }
 }
 
@@ -175,7 +175,7 @@ public struct __200Response: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case name
-        case `class` = "class"
+        case `class`
     }
 }
 
@@ -497,7 +497,7 @@ public struct ContainerA: Codable {
             }
 
             private enum CodingKeys: String, CodingKey {
-                case `enum` = "enum"
+                case `enum`
                 case renameMe = "rename-me"
             }
         }
@@ -509,7 +509,7 @@ public struct ContainerA: Codable {
         }
 
         private enum CodingKeys: String, CodingKey {
-            case `enum` = "enum"
+            case `enum`
             case renameMe = "rename-me"
             case child
         }
@@ -539,7 +539,7 @@ public struct ContainerB: Codable {
             }
 
             private enum CodingKeys: String, CodingKey {
-                case `enum` = "enum"
+                case `enum`
                 case renameMe = "rename-me"
             }
         }
@@ -551,7 +551,7 @@ public struct ContainerB: Codable {
         }
 
         private enum CodingKeys: String, CodingKey {
-            case `enum` = "enum"
+            case `enum`
             case renameMe = "rename-me"
             case child
         }
@@ -575,7 +575,7 @@ public struct ContainerC: Codable {
         }
 
         private enum CodingKeys: String, CodingKey {
-            case `enum` = "enum"
+            case `enum`
             case renameMe = "rename-me"
         }
     }

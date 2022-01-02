@@ -29,10 +29,19 @@ extension Generator {
         addNamespacesForConflictsWithNestedTypes(properties: &properties, decl: decl)
         addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
 
+        let isStruct: Bool
+        if decl.type == .oneOf {
+            isStruct = false
+        } else if hasRefeferencesToItself(decl) {
+            isStruct = false
+        } else {
+            isStruct = (options.entities.isGeneratingStructs && !options.entities.entitiesGeneratedAsClasses.contains(decl.name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(decl.name.rawValue))
+        }
+        
         var contents: [String] = []
         switch decl.type {
         case .object, .allOf, .anyOf:
-            contents.append(templates.properties(properties))
+            contents.append(templates.properties(properties, isReadonly: !isStruct))
             contents += decl.nested.map(render)
             if options.entities.isGeneratingInitializers {
                 contents.append(templates.initializer(properties: properties))
@@ -109,11 +118,12 @@ extension Generator {
         let entity: String
         if decl.type == .oneOf {
             entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
-        } else if hasRefeferencesToItself(decl) {
-            // Struct can't have references to itself
-            entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
         } else {
-            entity = templates.entity(name: decl.name, contents: contents, protocols: decl.protocols)
+            if isStruct {
+                entity = templates.struct(name: decl.name, contents: contents, protocols: decl.protocols)
+            } else {
+                entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
+            }
         }
         return templates.comments(for: decl.metadata, name: decl.name.rawValue) + entity
     }

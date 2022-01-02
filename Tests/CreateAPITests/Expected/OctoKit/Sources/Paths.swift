@@ -2420,7 +2420,7 @@ extension Paths {
             private enum CodingKeys: String, CodingKey {
                 case description
                 case files
-                case `public` = "public"
+                case `public`
             }
         }
     }

@@ -22,7 +22,7 @@ public struct Pet: Codable {
 }
 
 public final class Store: Codable {
-    public var pets: [Pet]
+    public let pets: [Pet]
 
     public init(pets: [Pet]) {
         self.pets = pets

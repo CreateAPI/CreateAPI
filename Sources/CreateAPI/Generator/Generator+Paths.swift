@@ -411,7 +411,8 @@ extension Generator {
         }.removingDuplicates(by: \.name)
         if !query.isEmpty {
             var contents: [String] = []
-            contents += [query.map(templates.property).joined(separator: "\n")]
+            // TODO: use EntityDeclaration
+            contents += [query.map { templates.property($0, isReadonly: false) } .joined(separator: "\n")]
             contents += query.compactMap(\.nested).map(render)
             contents += [templates.initializer(properties: query)]
             contents += [templates.asQuery(properties: query)]
@@ -441,6 +442,7 @@ extension Generator {
                 parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
                 call.append("query: parameters\(isOptional ? "?" : "").asQuery")
                 // TODO: Use EntityDeclaration
+                #warning("TODO: Use EntityDeclaration and remove templates.entity")
                 nested.append(AnyDeclaration(name: type, rawValue: templates.entity(name: type, contents: contents, protocols: [])))
                 setNeedsQuery()
             }
