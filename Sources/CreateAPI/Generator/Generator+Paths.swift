@@ -62,7 +62,8 @@ extension Generator {
     
     // Generate code for the given (sub)path.
     private final class JobGenerateRest: Job {
-        let type: TypeName
+        let types: [TypeName]
+        var type: TypeName { types.last! }
         let component: String
         let path: OpenAPI.Path // Can be sub-path too
         let components: [String]
@@ -71,10 +72,10 @@ extension Generator {
         let commonIndices: Int
         
         var isTopLevel: Bool { components.count == 1 }
-        var filename: String { path.rawValue }
+        var filename: String { "Paths" + types.map(\.rawValue).joined(separator: "-") }
         
-        init(type: TypeName, component: String, path: OpenAPI.Path, components: [String], isSubpath: Bool, item: OpenAPI.PathItem, commonIndices: Int) {
-            self.type = type
+        init(types: [TypeName], component: String, path: OpenAPI.Path, components: [String], isSubpath: Bool, item: OpenAPI.PathItem, commonIndices: Int) {
+            self.types = types
             self.component = component
             self.path = path
             self.components = components
@@ -125,7 +126,7 @@ extension Generator {
                     generatedNames[typesKey] = 1
                 }
                 
-                let job = JobGenerateRest(type: types.last!, component: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
+                let job = JobGenerateRest(types: types, component: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
                 jobs.append(job)
             }
         }
