@@ -751,7 +751,7 @@ extension Generator {
         if firstContent(for: [.other("application/json-patch+json")]) != nil {
             return BodyType("Data") // Currently isn't supported
         }
-        try handle(warning: "Unknown body content types: \(content.keys), defaulting to Data")
+        try handle(warning: "Unknown body content types: \(content.keys), defaulting to Data. Use paths.overridenBodyTypes to add support for your content types.")
         return BodyType("Data")
     }
         
