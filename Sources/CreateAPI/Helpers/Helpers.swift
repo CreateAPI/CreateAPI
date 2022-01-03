@@ -149,3 +149,22 @@ struct NameDeduplicator {
         return add(name: name)
     }
 }
+
+final class Cache<Key: Hashable, Value> {
+    private var values: [Key: Value] = [:]
+    private let lock = NSLock()
+    
+    subscript(key: Key) -> Value? {
+        get {
+            lock.lock()
+            let value = values[key]
+            lock.unlock()
+            return value
+        }
+        set {
+            lock.lock()
+            values[key] = newValue
+            lock.unlock()
+        }
+    }
+}

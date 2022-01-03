@@ -460,7 +460,7 @@ extension Generator {
                 return try makeProperties(for: name, object: details, context: context)
             case .reference(let info,_ ):
                 if options.entities.isInliningPropertiesFromReferencedSchemas,
-                   let schema = try? info.dereferenced(in: spec.components),
+                   let schema = dereferencedCoreContext(for: info),
                    case .object(_, let details) = schema.jsonSchema.value {
                     return try makeProperties(for: name, object: details, context: context)
                 } else {
@@ -650,7 +650,7 @@ extension Generator {
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
-            let info = (try? reference.dereferenced(in: spec.components))?.coreContext
+            let info = dereferencedCoreContext(for: reference)?.coreContext
             let type = try getTypeIdentifier(for: makeTypeName(key), schema: schema, context: context) ?? .userDefined(name: TypeName(reference.name ?? ""))
             return property(type: type, info: info, nested: nil)
         }
@@ -659,5 +659,15 @@ extension Generator {
         case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
         default: return try makeSimpleProperty()
         }
+    }
+    
+    private func dereferencedCoreContext(for reference: JSONReference<JSONSchema>) -> DereferencedJSONSchema? {
+        let key = reference.absoluteString
+        if let value = dereferencedContexts[key] {
+            return value
+        }
+        let value = (try? reference.dereferenced(in: spec.components))
+        dereferencedContexts[key] = value
+        return value
     }
 }
