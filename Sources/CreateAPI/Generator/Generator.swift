@@ -27,9 +27,6 @@ final class Generator {
     var pathsContainingRequestType: [String] = []
     let lock = NSLock()
     
-    // Caches
-    let dereferencedContexts = Cache<String, DereferencedJSONSchema?>()
-    
     private var startTime: CFAbsoluteTime?
     
     init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {

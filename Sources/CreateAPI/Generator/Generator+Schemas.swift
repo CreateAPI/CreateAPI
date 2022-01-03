@@ -460,8 +460,8 @@ extension Generator {
                 return try makeProperties(for: name, object: details, context: context)
             case .reference(let info,_ ):
                 if options.entities.isInliningPropertiesFromReferencedSchemas,
-                   let schema = dereferencedCoreContext(for: info),
-                   case .object(_, let details) = schema.jsonSchema.value {
+                   let schema = getSchema(for: info),
+                   case .object(_, let details) = schema.value {
                     return try makeProperties(for: name, object: details, context: context)
                 } else {
                     return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
@@ -650,7 +650,7 @@ extension Generator {
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
-            let info = dereferencedCoreContext(for: reference)?.coreContext
+            let info = getSchema(for: reference)?.coreContext
             let type = try getTypeIdentifier(for: makeTypeName(key), schema: schema, context: context) ?? .userDefined(name: TypeName(reference.name ?? ""))
             return property(type: type, info: info, nested: nil)
         }
@@ -661,13 +661,11 @@ extension Generator {
         }
     }
     
-    private func dereferencedCoreContext(for reference: JSONReference<JSONSchema>) -> DereferencedJSONSchema? {
-        let key = reference.absoluteString
-        if let value = dereferencedContexts[key] {
-            return value
+    private func getSchema(for reference: JSONReference<JSONSchema>) -> JSONSchema? {
+        guard let key = OpenAPI.ComponentKey(rawValue: reference.name ?? "") else {
+            return nil
         }
-        let value = (try? reference.dereferenced(in: spec.components))
-        dereferencedContexts[key] = value
-        return value
+        // We don't need to dereference the whole thing (including all properties).
+        return spec.components.schemas[key]
     }
 }
