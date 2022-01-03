@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "edgecases-coding-keys",
-    platforms: [.iOS(.v15), .macCatalyst(.v15), .macOS(.v12), .watchOS(.v8), .tvOS(.v15)],
+    platforms: [.iOS(.v13), .macCatalyst(.v13), .macOS(.v10_15), .watchOS(.v6), .tvOS(.v13)],
     products: [
         .library(name: "edgecases-coding-keys", targets: ["edgecases-coding-keys"]),
     ],
