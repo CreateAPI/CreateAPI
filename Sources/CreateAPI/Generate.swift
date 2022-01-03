@@ -32,6 +32,9 @@ struct Generate: ParsableCommand {
     @Flag(help: "Turns all warnings into errors")
     var strict = false
     
+    @Flag(name: .shortAndLong, help: "Removes the output folder before continuing")
+    var clean = false
+    
     @Flag(help: "Ignore any errors that happen during code generation")
     var allowErrors = false
     
@@ -87,6 +90,7 @@ struct Generate: ParsableCommand {
         let schemas = generate.contains("entities") ? try generator.schemas() : nil
         
         let outputURL = URL(filePath: output)
+        if clean { try? FileManager.default.removeItem(at: outputURL) }
         let sourceURL = package.map { outputURL.appending(path: "\($0)/Sources/") } ?? outputURL
         
         let benchmark = Benchmark(name: "Write output files")
