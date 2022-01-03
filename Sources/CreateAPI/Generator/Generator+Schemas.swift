@@ -16,13 +16,9 @@ import AppKit
 // TODO: Add an option to hide `anyJSON`
 // TODO: Generate IDs with phantom types
 // TODO: Add `byte` and `binary` string formats support
-// TODO: Add an option to generate CodingKeys instead of using Strings
 // TODO: Clarify intentions behind `properties` mixed with `anyOf` https://github.com/github/rest-api-description/discussions/805
-// TODO: Improve `anyOf` support
 // TODO: `entitiesGeneratedAsClasses` - add support for nesting
-// TODO: `makeAllOf` to support custom coding keys
 // TODO: Remove StringCodingKeys when they are not needed
-// TODO: Support comments in typealiases
 
 extension Generator {
     func schemas() throws -> GeneratorOutput {
@@ -229,55 +225,58 @@ extension Generator {
         return .builtin("String")
     }
 
-    // TODO: This can be dramatically simplified, use makeDeclaration for schema instead
     private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeIdentifier {
         switch reference {
         case .internal(let ref):
-            if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
-                let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
-                return .userDefined(name: replacement.namespace(context.namespace))
-            }
-            // Note: while dereferencing, it does it recursively.
-            // So if you have `typealias Pets = [Pet]`, it'll dereference
-            // `Pet` to an `.object`, not a `.reference`.
-            if options.isInliningTypealiases, let name = ref.name {
-                // Check if the schema can be expanded into a type identifier
-                let type = makeTypeName(name)
-                if let key = OpenAPI.ComponentKey(rawValue: name),
-                   let schema = spec.components.schemas[key] {
-                    // If there is a cycle, it can't be a primitive value (and we must stop recursion)
-                    if context.encountered.contains(key) {
-                        return .userDefined(name: makeTypeName(name).namespace(context.namespace))
-                    }
-                    var context = context
-                    context.encountered.insert(key)
-                    
-                    // No retain cycle - check the reference
-                    if let type = try getTypeIdentifier(for: type, schema: schema, context: context) {
-                        return type
-                    }
-                }
-            }
-            guard let name = ref.name else {
-                throw GeneratorError("Internal reference name is missing: \(ref)")
-            }
-            // Check if the entity is missing
-            if let key = OpenAPI.ComponentKey(rawValue: name) {
-                if spec.components.schemas[key] == nil {
-                    try handle(warning: "A reference \"\(name)\" is missing.")
-                    return .anyJSON
-                }
-            }
-            // TODO: Remove duplication
-            if !options.rename.entities.isEmpty {
-                if let mapped = options.rename.entities[name] {
-                    return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
-                }
-            }
-            return .userDefined(name: makeTypeName(name).namespace(context.namespace))
+            return try getReferenceType(ref, context: context)
         case .external(let url):
             throw GeneratorError("External references are not supported: \(url)")
         }
+    }
+    
+    private func getReferenceType(_ ref: JSONReference<JSONSchema>.InternalReference, context: Context) throws -> TypeIdentifier {
+        if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
+            let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
+            return .userDefined(name: replacement.namespace(context.namespace))
+        }
+        // Note: while dereferencing, it does it recursively.
+        // So if you have `typealias Pets = [Pet]`, it'll dereference
+        // `Pet` to an `.object`, not a `.reference`.
+        if options.isInliningTypealiases, let name = ref.name {
+            // Check if the schema can be expanded into a type identifier
+            let type = makeTypeName(name)
+            if let key = OpenAPI.ComponentKey(rawValue: name),
+               let schema = spec.components.schemas[key] {
+                // If there is a cycle, it can't be a primitive value (and we must stop recursion)
+                if context.encountered.contains(key) {
+                    return .userDefined(name: makeTypeName(name).namespace(context.namespace))
+                }
+                var context = context
+                context.encountered.insert(key)
+                
+                // No retain cycle - check the reference
+                if let type = try getTypeIdentifier(for: type, schema: schema, context: context) {
+                    return type
+                }
+            }
+        }
+        guard let name = ref.name else {
+            throw GeneratorError("Internal reference name is missing: \(ref)")
+        }
+        // Check if the entity is missing
+        if let key = OpenAPI.ComponentKey(rawValue: name) {
+            if spec.components.schemas[key] == nil {
+                try handle(warning: "A reference \"\(name)\" is missing.")
+                return .anyJSON
+            }
+        }
+        // TODO: Remove duplication
+        if !options.rename.entities.isEmpty {
+            if let mapped = options.rename.entities[name] {
+                return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
+            }
+        }
+        return .userDefined(name: makeTypeName(name).namespace(context.namespace))
     }
     
     // MARK: - Object
