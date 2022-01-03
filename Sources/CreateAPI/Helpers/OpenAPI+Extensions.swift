@@ -44,6 +44,17 @@ extension Either where A == JSONReference<OpenAPI.Request>, B == OpenAPI.Request
     }
 }
 
+extension Either where A == JSONReference<OpenAPI.Header>, B == OpenAPI.Header {
+    func unwrapped(in spec: OpenAPI.Document) throws -> OpenAPI.Header {
+        switch self {
+        case .a(let reference):
+            return try reference.dereferenced(in: spec.components).underlyingHeader
+        case .b(let value):
+            return value
+        }
+    }
+}
+
 extension OpenAPI.Parameter {
     func unwrapped(in spec: OpenAPI.Document) throws -> OpenAPI.Parameter.SchemaContext {
         switch schemaOrContent {
@@ -52,6 +63,15 @@ extension OpenAPI.Parameter {
         case .b:
             throw GeneratorError("Parameter content map not supported for parameter: \(name)")
         }
+    }
+}
+
+extension OpenAPI.Operation {
+    var firstSuccessfulResponse: Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>? {
+        guard responses.count > 1 else {
+            return responses.first { $0.key == .default || $0.key.isSuccess }?.value
+        }
+        return responses.first { $0.key.isSuccess }?.value
     }
 }
 

@@ -6,20 +6,11 @@ import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
 
-// TODO: Support parameter reuse
-// TODO: Support responses reuse
-// TODO: Improve how paths are generated (do it based on keys)
 // TODO: Add support for common parameters and HTTP header parameteres
-// TODO: Add an option to generate a plain list of APIs instead of REST namespaces
-// TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
-// TODO: Add a way to extend supported content types
-// TODO: Add proper support for multipart form data
+// TODO: Add support for multipart form data (currently defaults to `Data`)
 // TODO: Add support for inlining body with `x-www-form-urlencoded` encoding
-// TODO: Split operations in separate files
-// TODO: Add support for application/json-patch+json
-// TODO: Add an option to put inline responses into separate files
-// TODO: Add support for remaining encoding styles https://swagger.io/docs/specification/serialization/
-// TODO: Add support for application/json-patch+json
+// TODO: Add support for `application/json-patch+json`
+// TODO: Add in documentation additional context, e.g. "only values from 100 to 500"
 
 extension Generator {
     func paths() throws -> GeneratorOutput {
@@ -61,8 +52,8 @@ extension Generator {
     
     private func makeEntry(for job: Job) throws -> String {
         switch job {
-        case let job as JobRest: return try makePath(job: job)
-        case let job as JobOperation: return try makePath(job: job)
+        case let job as JobGenerateRest: return try makePath(job: job)
+        case let job as JobGenerateOperation: return try makePath(job: job)
         default: fatalError("Unsupported job")
         }
     }
@@ -70,7 +61,7 @@ extension Generator {
     // MARK: - Jobs (Rest)
     
     // Generate code for the given (sub)path.
-    private final class JobRest: Job {
+    private final class JobGenerateRest: Job {
         let type: TypeName
         let component: String
         let path: OpenAPI.Path // Can be sub-path too
@@ -94,17 +85,17 @@ extension Generator {
     }
     
     // Make all jobs upfront so we could then parallelize code generation
-    private func makeJobsRest() -> [JobRest] {
+    private func makeJobsRest() -> [JobGenerateRest] {
         guard !spec.paths.isEmpty else { return [] }
         
         let commonIndices = findCommonIndiciesCount()
-    
-        // Generate jobs
-        var jobs: [JobRest] = []
+
+        var jobs: [JobGenerateRest] = []
         var encountered = Set<OpenAPI.Path>()
         var generatedNames: [String: Int] = [:]
         for path in spec.paths {
             guard !options.paths.skip.contains(path.key.rawValue) else {
+                verbose("Skipping path: \(path.key.rawValue)")
                 continue
             }
             let components = path.key.components.isEmpty ? [""] : path.key.components
@@ -117,18 +108,15 @@ extension Generator {
                 if isSubpath && spec.paths.contains(key: subpath) {
                     continue // Will be generated when the full path is encountered
                 }
+
                 guard !encountered.contains(subpath) else { continue }
                 encountered.insert(subpath)
 
-                // TODO: Refator (add componnet to handle type name like this
-                // Handles the scenario with paths that result in a conflicting names, e.g.
-                // - /repositories/{repo_slug}/pipelines_config
-                // - /repositories/{repo_slug}/pipelines-config
-                // (from Bitbucket spec)
+                // Find duplicated type names generated for different paths,
+                // e.g. /last-names and /last_names (yes, some specs have that)
                 var types = subpath.components.map(makePathName)
                 let typesKey = types.map(\.rawValue).joined(separator: ".")
                 if let count = generatedNames[typesKey] {
-                    // TODO: Handle more than just one conflict
                     if let last = types.popLast() {
                         types.append(last.appending("\(count + 1)"))
                     }
@@ -137,7 +125,7 @@ extension Generator {
                     generatedNames[typesKey] = 1
                 }
                 
-                let job = JobRest(type: types.last!, component: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
+                let job = JobGenerateRest(type: types.last!, component: components[index], path: subpath, components: Array(components[commonIndices...index]), isSubpath: isSubpath, item: path.value, commonIndices: commonIndices)
                 jobs.append(job)
             }
         }
@@ -149,23 +137,21 @@ extension Generator {
     
     // Add `Get.Request` instead of just `Request` in paths that themselve
     // define a `Request` type (to avoid conflicts).
-    private func addGetPrefixIfNeeded(for jobs: [JobRest]) {
+    private func addGetPrefixIfNeeded(for jobs: [JobGenerateRest]) {
         // Figure out what subpaths contain "Request" type
-        for job in jobs {
-            if job.type.rawValue == "Request" {
-                let path = job.components.dropLast().joined(separator: "/")
-                pathsContainingRequestType.append(path)
-            }
+        for job in jobs where job.type.rawValue == "Request" {
+            let path = job.components.dropLast().joined(separator: "/")
+            pathsContainingRequestType.append(path)
         }
     }
     
     private func needsGetPrefix(for path: OpenAPI.Path) -> Bool {
-        pathsContainingRequestType.contains(where: {
+        pathsContainingRequestType.contains {
             path.components.joined(separator: "/").hasPrefix($0)
-        })
+        }
     }
     
-    // TODO: Improve this logic
+    // TODO: Make it smarter: skip intermediate path components too
     private func findCommonIndiciesCount() -> Int {
         guard options.paths.isRemovingRedundantPaths else {
             return 0
@@ -194,14 +180,14 @@ extension Generator {
     
     // MARK: - Jobs (Operation)
     
-    private struct JobOperation: Job {
+    private struct JobGenerateOperation: Job {
         let path: OpenAPI.Path
         let item: OpenAPI.PathItem
         let method: String
         let operation: OpenAPI.Operation
         var filename: String
     }
-    
+
     private func getOperationId(for operation: OpenAPI.Operation) -> String {
         if !options.rename.operations.isEmpty, let name = options.rename.operations[operation.operationId ?? ""] {
             return name
@@ -209,10 +195,10 @@ extension Generator {
         return operation.operationId ?? ""
     }
  
-    private func makeJobsOperations() -> [JobOperation] {
-        spec.paths.flatMap { path, item -> [JobOperation] in
+    private func makeJobsOperations() -> [JobGenerateOperation] {
+        spec.paths.flatMap { path, item -> [JobGenerateOperation] in
             item.allOperations.map { method, operation in
-                JobOperation(path: path, item: item, method: method, operation: operation, filename: getOperationId(for: operation))
+                JobGenerateOperation(path: path, item: item, method: method, operation: operation, filename: getOperationId(for: operation))
             }
         }
     }
@@ -229,12 +215,8 @@ extension Generator {
     
     private func makeImports() -> [String] {
         var imports = options.paths.imports
-        if isHTTPHeadersDependencyNeeded {
-            imports.insert("HTTPHeaders")
-        }
-        if isQueryEncoderNeeded {
-            imports.insert("URLQueryEncoder")
-        }
+        if isHTTPHeadersDependencyNeeded { imports.insert("HTTPHeaders") }
+        if isQueryEncoderNeeded { imports.insert("URLQueryEncoder") }
         return imports.sorted()
     }
     
@@ -249,14 +231,14 @@ extension Generator {
     
     // MARK: - Paths (Rest)
     
-    private func makePath(job: JobRest) throws -> String {
+    private func makePath(job: JobGenerateRest) throws -> String {
         let parameterName = getPathParameterName(from: job.component)
     
         let parents = Array(job.components.dropLast().map(makePathName))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
-        let context = Context(parents: [], namespace: arguments.module.rawValue)
-        let operations = job.isSubpath ? [] : try makeOperations(for: job.path, item: job.item, style: .rest, context: context)
+        let context = Context(namespace: arguments.module.rawValue)
+        let operations = job.isSubpath ? [] : try makeOperations(for: job.path, item: job.item, context: context)
         let generatedType = templates.pathEntity(name: job.type.rawValue, subpath: job.path.rawValue, operations: operations)
         
         let parameter = try parameterName.map { try getPathParameter(item: job.item, name: $0) }
@@ -284,11 +266,10 @@ extension Generator {
     
     // MARK: - Path Parameters
     
-    // TODO: Refactor
     private func getPathParameter(item: OpenAPI.PathItem, name: String) throws -> PathParameter {
         let parameters = item.parameters.isEmpty ? (item.allOperations.first?.1.parameters ?? []) : item.parameters
-        let parameter = parameters
-            .compactMap { try? $0.unwrapped(in: spec) }
+        let parameter = try parameters
+            .map { try $0.unwrapped(in: spec) }
             .first { $0.context.inPath && $0.name == name }
         let type: TypeName
         if let parameter = parameter {
@@ -318,19 +299,20 @@ extension Generator {
     }
         
     private func getPathParameterName(from component: String) -> String? {
-        guard let from = component.firstIndex(of: "{"), let to = component.firstIndex(of: "}") else {
-            return nil
-        }
+        guard let from = component.firstIndex(of: "{"),
+              let to = component.firstIndex(of: "}") else {
+                  return nil
+              }
         return String(component[component.index(after: from)..<to])
     }
     
     // MARK: - Paths (Operation)
     
-    private func makePath(job: JobOperation) throws -> String {
+    private func makePath(job: JobGenerateOperation) throws -> String {
         let context = Context(namespace: arguments.module.rawValue)
-        // TODO: Add non-strict version
         var nestedTypeNames = Set<TypeName>()
-        guard let entry = try makeOperation(job.path, job.item, job.operation, job.method, .operations, context, &nestedTypeNames) else {
+        let task = GenerateOperationTask(path: job.path, item: job.item, method: job.method, operation: job.operation, operationId: getOperationId(for: job.operation), options: options)
+        guard let entry = try makeOperation(task: task, context, &nestedTypeNames) else {
             throw GeneratorError("Failed to generate operation")
         }
         return templates.extensionOf("Paths", contents: entry)
@@ -338,185 +320,172 @@ extension Generator {
     
     // MARK: - Operations
 
-    private func makeOperations(for path: OpenAPI.Path, item: OpenAPI.PathItem, style: GenerateOptions.PathsStyle, context: Context) throws -> [String] {
-        var nestedTypeNames = Set<TypeName>()
-        return try item.allOperations.map { method, operation in
-            try makeOperation(path, item, operation, method, style, context, &nestedTypeNames)
-        }.compactMap { $0 }
-    }
-
-    private func makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String? {
-        do {
-            return try _makeOperation(path, item, operation, method, style, context, &nestedTypeNames)
-        } catch {
-            return try handle(error: "Failed to generate \(method) for \(operation.operationId ?? "\(operation)"). \(error)")
+    private final class GenerateOperationTask {
+        let path: OpenAPI.Path
+        let item: OpenAPI.PathItem
+        let method: String
+        let operation: OpenAPI.Operation
+        let operationId: String
+        let options: GenerateOptions
+        
+        init(path: OpenAPI.Path, item: OpenAPI.PathItem, method: String, operation: OpenAPI.Operation, operationId: String, options: GenerateOptions) {
+            self.path = path
+            self.item = item
+            self.method = method
+            self.operation = operation
+            self.operationId = operationId
+            self.options = options
+        }
+        
+        func makeNestedTypeName(_ appending: String) -> TypeName {
+            switch options.paths.style {
+            case .operations:
+                return TypeName(processing: operationId, options: options).appending(appending)
+            case .rest:
+                return TypeName("\(method.capitalizingFirstLetter())\(appending)")
+            }
         }
     }
     
-    private func _makeOperation(_ path: OpenAPI.Path, _ item: OpenAPI.PathItem, _ operation: OpenAPI.Operation, _ method: String, _ style: GenerateOptions.PathsStyle, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String {
-        let operationId = getOperationId(for: operation)
-        if style == .operations, operationId.isEmpty {
+    private func makeOperations(for path: OpenAPI.Path, item: OpenAPI.PathItem, context: Context) throws -> [String] {
+        var nestedTypeNames = Set<TypeName>()
+        return try item.allOperations.map { method, operation in
+            let task = GenerateOperationTask(path: path, item: item, method: method, operation: operation, operationId: getOperationId(for: operation), options: options)
+            return try makeOperation(task: task, context, &nestedTypeNames)
+        }.compactMap { $0 }
+    }
+
+    private func makeOperation(task: GenerateOperationTask, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String? {
+        do {
+            return try _makeOperation(task, context, &nestedTypeNames)
+        } catch {
+            return try handle(error: "Failed to generate \(task.method) for \(task.operation). \(error)")
+        }
+    }
+
+    private func _makeOperation(_ task: GenerateOperationTask, _ context: Context, _ nestedTypeNames: inout Set<TypeName>) throws -> String {
+        let style = options.paths.style
+        if style == .operations, task.operationId.isEmpty {
             throw GeneratorError("OperationId is invalid or missing")
         }
         
-        var nested: [Declaration] = []
         var parameters: [String] = []
         var call: [String] = []
-        var containsParameterNamedPath = false
+        var nested: [Declaration] = []
         
-        func makeNestedTypeName(_ appending: String) -> TypeName {
-            switch style {
-            case .operations: return makeTypeName(operationId).appending(appending)
-            case .rest: return TypeName("\(method.capitalizingFirstLetter())\(appending)")
-            }
-        }
-        
-        // Path parameters (operation only)
+        // Add `path` parameter to the call
         switch style {
         case .operations:
-            // TODO: What if parameters are common?
-            var path = path.rawValue
-            let pathParameters = try getPathParameters(for: item, operation)
-            for parameter in pathParameters {
+            var path = task.path.rawValue
+            for parameter in try getPathParameters(for: task.item, task.operation) {
                 if let range = path.range(of: "{\(parameter.key)}") {
                     path.replaceSubrange(range, with: "\\(" + parameter.name.rawValue + ")")
                     parameters.append("\(parameter.name): \(parameter.type)")
                 }
             }
             if path.contains("{") {
-                throw GeneratorError("One or more path parameters for \(operationId) is missing")
+                throw GeneratorError("One or more path parameters for \(task.operationId) is missing")
             }
             call.append("\"\(path)\"")
         case .rest:
             call.append("path") // Already provided by the wrapping type
         }
 
-        // Response type and headers
-        let responseType: String
-        var responseHeaders: String?
-        if let response = getSuccessfulResponse(for: operation) {
-            let responseValue = try makeResponse(for: response, nestedTypeName: makeNestedTypeName("Response"), context: context)
-            responseType = responseValue.type.rawValue
-            if let value = responseValue.nested {
-                nested.append(value)
-            }
-            responseHeaders = try? makeHeaders(for: response, name: makeNestedTypeName("ResponseHeaders").rawValue)
-        } else {
-            responseType = "Void"
+        // Response type
+        let response = try makeResponse(for: task, context: context)
+        if let value = response.nested { nested.append(value) }
+        
+        // Response headers
+        if let headers = try makeResponseHeaders(for: task) {
+            nested.append(headers)
         }
         
         // Query parameters
-        let query = try operation.parameters.compactMap {
+        let query = try task.operation.parameters.compactMap {
             try makeQueryParameter(for: $0, context: context)
         }.removingDuplicates(by: \.name)
-        if !query.isEmpty {
-            let type = makeNestedTypeName("Parameters")
-            // TODO: Relax the restriction for `operations` style
-            if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold, (style == .rest || query.allSatisfy { $0.nested == nil }) {
-                for item in query {
-                    parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
-                    if item.name.rawValue == "path" {
-                        containsParameterNamedPath = true
-                    }
-                }
-                if query.count < 3, query.allSatisfy({ $0.type.isString && !$0.isOptional }) {
-                    let pairs = query.map { "(\"\($0.key)\", \($0.name))" }
-                    call.append("query: [\(pairs.joined(separator: ", "))]")
-                } else {
-                    let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
-                    let initName = "make\(makeNestedTypeName("Query"))"
-                    let initalizer = "\(initName)(\(initArgs))"
-                    call.append("query: \(initalizer)")
-                    nested.append(AnyDeclaration(name: TypeName(initName), rawValue: templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations)))
-                    nested += query.compactMap { $0.nested }
-                    setNeedsQuery()
-                }
+        if query.isEmpty {
+            // Do nothing
+        } else if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold && (style == .rest || query.allSatisfy { $0.nested == nil }) {
+            for item in query {
+                parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
+            }
+            if query.count < 3, query.allSatisfy({ ["String", "Int", "Double", "Bool"].contains($0.type.name.rawValue) && !$0.isOptional }) {
+                call.append("query: \(templates.asKeyValuePairs(query))")
             } else {
-                let isOptional = query.allSatisfy { $0.isOptional }
-                parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
-                call.append("query: parameters\(isOptional ? "?" : "").asQuery")
-
-                let entity = EntityDeclaration(name: type, type: .object, metadata: .init(nil), isForm: true)
-                entity.isRenderedAsStruct = true
-                entity.properties = query
-                nested.append(entity)
-
+                // Skip creatning nested entity, and add simple make*Query method instead
+                let initArgs = query.map { "\($0.name)" }.joined(separator: ", ")
+                let initName = "make\(task.makeNestedTypeName("Query"))"
+                let initalizer = "\(initName)(\(initArgs))"
+                call.append("query: \(initalizer)")
+                nested.append(AnyDeclaration(name: TypeName(initName), rawValue: templates.asQueryInline(name: initName, properties: query, isStatic: style == .operations)))
+                nested += query.compactMap { $0.nested } // Add nested types directly
                 setNeedsQuery()
             }
+        } else {
+            // Add full `\(Method)Parameters` entity
+            let type = task.makeNestedTypeName("Parameters")
+            
+            let isOptional = query.allSatisfy { $0.isOptional }
+            parameters.append("parameters: \(type)\(isOptional ? "? = nil" : "")")
+            call.append("query: parameters\(isOptional ? "?" : "").asQuery")
+            
+            let entity = EntityDeclaration(name: type, type: .object, metadata: .init(nil), isForm: true)
+            entity.isRenderedAsStruct = true
+            entity.properties = query
+            nested.append(entity)
+            
+            setNeedsQuery()
         }
         
         // Request body
-        if let requestBody = operation.requestBody, method != "get" {
-            let requestBody = try makeRequestBodyType(for: requestBody, method: method, nestedTypeName: makeNestedTypeName("Request"), context: context)
-            // TODO: Refactor
-            if requestBody.type.rawValue != "Void" {
-                if options.paths.isInliningSimpleRequests,
-                   let entity = (requestBody.nested as? EntityDeclaration),
-                   entity.properties.count == 1,
-                   !entity.isForm,
-                   !parameters.contains(where: { $0.hasPrefix(entity.properties[0].name.rawValue + ":") })  { // See Spotify spec
-                    // Inline simple request types (types that only have N properties):
-                    //
-                    // public func post(body: PostRequest) -> Request<github.Reaction>
-                    //   .post(path, body)
-                    //
-                    //   becomes
-                    //
-                    // public func post(accessToken: String) -> Request<github.Reaction>
-                    //   .post(path, PostRequest(accessToken: accessToken)
-                    //
-                    // If the property is using a type nested inside the request type, add a "namespace".
-                    let property = entity.properties[0]
-                    if entity.isNested(property.type.elementType) {
-                        parameters.append("\(property.name): \(property.type.identifier(namespace: entity.name.rawValue))\(property.isOptional ? "? = nil" : "")")
-                        call.append("body: \(entity.name)(\(property.name): \(property.name))")
-                        if let value = requestBody.nested {
-                            nested.append(value)
-                        }
-                    } else {
-                        parameters.append("\(property.name): \(property.type)\(property.isOptional ? "? = nil" : "")")
-                        call.append("body: [\"\(property.key)\": \(property.name)]")
-                        // Don't need to add a nested type
-                    }
+        if let requestBody = task.operation.requestBody, task.method != "get" {
+            let requestBody = try makeRequestBodyType(for: requestBody, method: task.method, nestedTypeName: task.makeNestedTypeName("Request"), context: context)
+            if requestBody.type.rawValue == "Void" {
+                // Do nothing
+            } else if options.paths.isInliningSimpleRequests,
+                      let entity = (requestBody.nested as? EntityDeclaration),
+                      entity.properties.count == 1,
+                      !entity.isForm,
+                      !parameters.contains(where: { $0.hasPrefix(entity.properties[0].name.rawValue + ":") })  {
+                let property = entity.properties[0]
+                if entity.isNested(property.type.elementType) {
+                    parameters.append("\(property.name): \(property.type.identifier(namespace: entity.name.rawValue))\(property.isOptional ? "? = nil" : "")")
+                    call.append("body: \(entity.name)(\(property.name): \(property.name))")
+                    if let value = requestBody.nested { nested.append(value) }
                 } else {
-                    parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
-                    if let entity = (requestBody.nested as? EntityDeclaration), entity.isForm {
-                        if requestBody.isOptional {
-                            call.append("body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery")
-                        } else {
-                            call.append("body: URLQueryEncoder.encode(body).percentEncodedQuery")
-                        }
-                    } else {
-                        call.append("body: body")
-                    }
-                    if let value = requestBody.nested {
-                        nested.append(value)
-                    }
+                    parameters.append("\(property.name): \(property.type)\(property.isOptional ? "? = nil" : "")")
+                    call.append("body: [\"\(property.key)\": \(property.name)]")
                 }
+            } else {
+                parameters.append("_ body: \(requestBody.type)\(requestBody.isOptional ? "? = nil" : "")")
+                if let entity = (requestBody.nested as? EntityDeclaration), entity.isForm {
+                    call.append("body: \(templates.asURLEncodedBody(name: "body", requestBody.isOptional))")
+                } else {
+                    call.append("body: body")
+                }
+                if let value = requestBody.nested { nested.append(value) }
             }
         }
 
-        // TODO: refactor
-        if containsParameterNamedPath && call.first == "path" {
+        // Add disambiguation for `path` (property vs argument name)
+        if call.first == "path" && parameters.contains(where: { $0.hasPrefix("path:")}) {
             call[0] = "self.path"
         }
 
         // Finally, generate the output
-        var contents = ".\(method)(\(call.joined(separator: ", ")))"
-        if options.paths.isAddingOperationIds, !operationId.isEmpty {
+        var contents = ".\(task.method)(\(call.joined(separator: ", ")))"
+
+        // Add `.id`
+        if options.paths.isAddingOperationIds, !task.operationId.isEmpty {
             setNeedsRequestOperationIdExtension()
-            contents += ".id(\"\(operationId)\")"
+            contents += ".id(\"\(task.operationId)\")"
         }
 
-        var output = templates.comments(for: .init(operation), name: "")
-        let methodName = style == .operations ? makePropertyName(operationId).rawValue : method
-        let prefix = needsGetPrefix(for: path) ? "Get." : ""
-        output += templates.methodOrProperty(name: methodName, parameters: parameters, returning: "\(prefix)Request<\(responseType)>", contents: contents, isStatic: style == .operations)
-        if let headers = responseHeaders {
-            output += "\n\n"
-            output += headers
-            setNeedsHTTPHeadersDependency()
-        }
+        var output = templates.comments(for: .init(task.operation), name: "")
+        let methodName = style == .operations ? makePropertyName(task.operationId).rawValue : task.method
+        let prefix = needsGetPrefix(for: task.path) ? "Get." : ""
+        output += templates.methodOrProperty(name: methodName, parameters: parameters, returning: "\(prefix)Request<\(response.type)>", contents: contents, isStatic: style == .operations)
         for value in nested where !nestedTypeNames.contains(value.name) {
             nestedTypeNames.insert(value.name)
             output += "\n\n"
@@ -539,9 +508,7 @@ extension Generator {
             return try handle(error: "Failed to generate query parameter \(input.description). \(error)")
         }
     }
-    
-    // TODO: Improve inlining, e.g. "query: [("page": "2")]"
-    // TODO: Remove asQuery if default parameters are used
+
     private func _makeQueryParameter(for input: Either<JSONReference<OpenAPI.Parameter>, OpenAPI.Parameter>, context: Context) throws -> Property? {
         let parameter = try input.unwrapped(in: spec)
         guard parameter.context.inQuery else {
@@ -645,103 +612,27 @@ extension Generator {
     
     private typealias RequestBody = Either<JSONReference<OpenAPI.Request>, OpenAPI.Request>
 
-    // TODO: Add application/x-www-form-urlencoded support
-    // TODO: Add uploads support
-    private func makeRequestBodyType(for requestBody: RequestBody, method: String, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
+    private func makeRequestBodyType(for requestBody: RequestBody, method: String, nestedTypeName: TypeName, context: Context) throws -> BodyType {
         var context = context
         context.isDecodableNeeded = false
         context.isPatch = method == "patch"
         
         let request = try requestBody.unwrapped(in: spec)
         
-        func firstContent(for keys: [OpenAPI.ContentType]) -> (OpenAPI.Content, OpenAPI.ContentType)? {
-            getFirstContent(for: keys, from: request.content)
-        }
-        
-        if request.content.values.isEmpty {
-            return GeneratedType(type: TypeName("Void"))
-        }
-        
-        func makeRequestType(_ type: TypeName, nested: Declaration? = nil) -> GeneratedType {
-            GeneratedType(type: type, nested: nested, isOptional: !(requestBody.requestValue?.required ?? true))
-        }
-        
-        if let (content, contentType) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .other("application/json"), .form]) {
-            let schema: JSONSchema
-            switch content.schema {
-            case .a(let reference):
-                schema = JSONSchema.reference(reference)
-            case .b(let value):
-                switch value {
-                case .string:
-                    return makeRequestType(TypeName("String"))
-                case .integer, .boolean:
-                    return makeRequestType(TypeName("Data"))
-                default:
-                    schema = value
-                }
-            default:
-                return GeneratedType(type: TypeName("String"))
-            }
-            if contentType == .form {
-                setNeedsQuery()
-                context.isFormEncoding = true
-            }
-            let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
-            setNeedsEncodable(for: property.type)
-            return makeRequestType(property.type.name, nested: property.nested)
-        }
-        if firstContent(for: [.multipartForm]) != nil {
-            return makeRequestType(TypeName("Data"))
-        }
-        if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
-            return makeRequestType(TypeName("String"))
-        }
-        if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml"), .other("text/xml"), .other("plain/text")]) != nil {
-            return makeRequestType(TypeName("String"))
-        }
-        if firstContent(for: [
-            .bmp, .jpg, .tif, .anyImage, .other("image/jpg"),
-            .mov, .mp4, .mpg, .anyVideo,
-            .mp3, .anyAudio,
-            .rar, .tar, .zip, .other("gzip"), .other("application/gzip"),
-            .pdf,
-            .other("application/octet-stream")
-        ]) != nil {
-            return makeRequestType(TypeName("Data"))
-        }
-        if let (content, _) = firstContent(for: [.any]) {
-            if case .b(let schema) = content.schema, case .string = schema.value {
-                return makeRequestType(TypeName("String"))
-            }
-            return makeRequestType(TypeName("Data"))
-        }
-        if firstContent(for: [.other("application/json-patch+json")]) != nil {
-            return GeneratedType(type: TypeName("Data"))
-        }
-        try handle(warning: "Unknown request body content types: \(request.content.keys), defaulting to Data")
-        return makeRequestType(TypeName("Data"))
+        var type = try makeBodyType(for: request.content, nestedTypeName: nestedTypeName, context: context)
+        type.isOptional = !(requestBody.requestValue?.required ?? true)
+        return type
     }
     
     // MARK: - Response Body
-        
-    private typealias Response = Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
-
-    // Only generate successfull responses.
-    private func getSuccessfulResponse(for operation: OpenAPI.Operation) -> Response? {
-        guard operation.responses.count > 1 else {
-            return operation.responses.first { $0.key == .default || $0.key.isSuccess }?.value
-        }
-        return operation.responses.first { $0.key.isSuccess }?.value
-    }
     
-    private struct GeneratedType {
-        var type: TypeName
-        var nested: Declaration?
-        var isOptional = false
-    }
-
-    private func makeResponse(for response: Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
+    private typealias Response = Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>
+    
+    private func makeResponse(for task: GenerateOperationTask, context: Context) throws -> BodyType {
+        guard let response = task.operation.firstSuccessfulResponse else {
+            return BodyType("Void")
+        }
+        
         var context = context
         context.isEncodableNeeded = false
         
@@ -753,8 +644,8 @@ extension Generator {
                 guard let name = reference.name else {
                     throw GeneratorError("Response reference name is missing")
                 }
-                if let rename = options.paths.overrideResponses[name] {
-                    return GeneratedType(type: TypeName(rename))
+                if let rename = options.paths.overridenResponses[name] {
+                    return BodyType(type: TypeName(rename))
                 }
                 guard let key = OpenAPI.ComponentKey(rawValue: name), let value = spec.components.responses[key] else {
                     throw GeneratorError("Failed to find a response body")
@@ -767,52 +658,80 @@ extension Generator {
             schema = value
         }
         
-        return try makeResponse(for: schema, nestedTypeName: nestedTypeName, context: context)
+        let type = task.makeNestedTypeName("Response")
+        return try makeBodyType(for: schema.content, nestedTypeName: type, context: context)
     }
     
-    private func getFirstContent(for keys: [OpenAPI.ContentType], from map: OpenAPI.Content.Map) -> (OpenAPI.Content, OpenAPI.ContentType)? {
-        for key in keys {
-            if let content = map.first(where: { $0.key.typeAndSubtype == key.typeAndSubtype }) {
-                return (content.value, content.key)
+    // MARK: - (Any) Body
+    
+    private struct BodyType {
+        var type: TypeName
+        var nested: Declaration?
+        var isOptional = false
+        
+        init(_ name: String) {
+            self.type = TypeName(name)
+        }
+        
+        init(type: TypeName, nested: Declaration? = nil) {
+            self.type = type
+            self.nested = nested
+        }
+    }
+
+    private func makeBodyType(for content: OpenAPI.Content.Map, nestedTypeName: TypeName, context: Context) throws -> BodyType {
+        if content.values.isEmpty {
+            return BodyType("Void")
+        }
+        
+        if !options.paths.overridenBodyTypes.isEmpty {
+            for key in content.keys {
+                if let type = options.paths.overridenBodyTypes[key.rawValue] {
+                    return BodyType(type)
+                }
             }
         }
-        return nil
-    }
-    
-    private func makeResponse(for response: OpenAPI.Response, nestedTypeName: TypeName, context: Context) throws -> GeneratedType {
+        
         func firstContent(for keys: [OpenAPI.ContentType]) -> (OpenAPI.Content, OpenAPI.ContentType)? {
-            getFirstContent(for: keys, from: response.content)
+            for key in keys {
+                if let content = content.first(where: { $0.key.typeAndSubtype == key.typeAndSubtype }) {
+                    return (content.value, content.key)
+                }
+            }
+            return nil
         }
-        if response.content.isEmpty {
-            return GeneratedType(type: TypeName("Void"))
-        }
-        if let (content, _) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .other("application/json")]) {
+        
+        if let (content, contentType) = firstContent(for: [.json, .jsonapi, .other("application/scim+json"), .other("application/json"), .form]) {
             let schema: JSONSchema
             switch content.schema {
             case .a(let reference):
                 schema = JSONSchema.reference(reference)
             case .b(let value):
                 switch value {
-                case .string:
-                    return GeneratedType(type: TypeName("String"))
-                case .integer, .boolean:
-                    return GeneratedType(type: TypeName("Data"))
-                default:
-                    schema = value
+                case .string: return BodyType("String")
+                case .integer, .boolean: return BodyType("Data")
+                default: schema = value
                 }
             default:
-                return GeneratedType(type: TypeName("String"))
+                return BodyType("String")
+            }
+            var context = context
+            if contentType == .form {
+                setNeedsQuery()
+                context.isFormEncoding = true
             }
             let property = try makeProperty(key: nestedTypeName.rawValue, schema: schema, isRequired: true, in: context)
-            return GeneratedType(type: property.type.name, nested: property.nested)
+            if contentType != .form {
+                setNeedsEncodable(for: property.type)
+            }
+            return BodyType(type: property.type.name, nested: property.nested)
         }
-        if arguments.vendor == "github", firstContent(for: [.other("application/octocat-stream")]) != nil {
-            return GeneratedType(type: TypeName("String"))
+        if firstContent(for: [.multipartForm]) != nil {
+            return BodyType("Data") // Currently isn't supported
         }
         if firstContent(for: [.css, .csv, .form, .html, .javascript, .txt, .xml, .yaml, .anyText, .other("application/jwt"), .other("image/svg+xml"), .other("text/xml"), .other("plain/text")]) != nil {
-            return GeneratedType(type: TypeName("String"))
+            return BodyType("String")
         }
-        // TODO: Add support for images as response types
         if firstContent(for: [
             .bmp, .jpg, .tif, .anyImage, .other("image/jpg"),
             .mov, .mp4, .mpg, .anyVideo,
@@ -821,52 +740,45 @@ extension Generator {
             .pdf,
             .other("application/octet-stream")
         ]) != nil {
-            return GeneratedType(type: TypeName("Data"))
+            return BodyType("Data")
         }
         if let (content, _) = firstContent(for: [.any]) {
             if case .b(let schema) = content.schema, case .string = schema.value {
-                return GeneratedType(type: TypeName("String"))
+                return BodyType("String")
             }
-            return GeneratedType(type: TypeName("Data"))
+            return BodyType("Data")
         }
         if firstContent(for: [.other("application/json-patch+json")]) != nil {
-            return GeneratedType(type: TypeName("Data"))
+            return BodyType("Data") // Currently isn't supported
         }
-        try handle(warning: "Unknown response body content types: \(response.content.keys), defaulting to Data")
-        return GeneratedType(type: TypeName("Data"))
+        try handle(warning: "Unknown body content types: \(content.keys), defaulting to Data")
+        return BodyType("Data")
     }
         
     // MARK: - Response Headers
 
-    private func makeHeaders(for response: Response, name: String) throws -> String? {
-        guard options.paths.isGeneratingResponseHeaders, let headers = response.responseValue?.headers else {
+    private func makeResponseHeaders(for task: GenerateOperationTask) throws -> Declaration? {
+        guard options.paths.isGeneratingResponseHeaders,
+              let response = task.operation.firstSuccessfulResponse,
+              let headers = response.responseValue?.headers else {
             return nil
         }
-        let contents: [String] = try headers.map { try makeHeader(key: $0, header: $1) }
+        let contents = try headers.map(makeHeader)
         guard !contents.isEmpty else {
             return nil
         }
-        return templates.headers(name: name, contents: contents.joined(separator: "\n"))
+        setNeedsHTTPHeadersDependency()
+        let name = task.makeNestedTypeName("ResponseHeaders")
+        let raw = templates.headers(name: name.rawValue, contents: contents.joined(separator: "\n"))
+        return AnyDeclaration(name: name, rawValue: raw)
     }
     
-    private func makeHeader(key: String, header input: Either<JSONReference<OpenAPI.Header>, OpenAPI.Header>) throws -> String {
-        let header: OpenAPI.Header
-        switch input {
-        case .a(let reference):
-            header = try reference.dereferenced(in: spec.components).underlyingHeader
-        case .b(let value):
-            header = value
-        }
+    private func makeHeader(key: String, header: Either<JSONReference<OpenAPI.Header>, OpenAPI.Header>) throws -> String {
+        let header = try header.unwrapped(in: spec)
         switch header.schemaOrContent {
         case .a(let value):
-            let schema: JSONSchema
-            switch value.schema {
-            case .a(let reference):
-                schema = try reference.dereferenced(in: spec.components).jsonSchema
-            case .b(let value):
-                schema = value
-            }
-            var property = try makeProperty(key: key, schema: schema, isRequired: schema.required, in: Context(parents: []))
+            let schema = try value.schema.unwrapped(in: spec)
+            var property = try makeProperty(key: key, schema: schema, isRequired: schema.required, in: Context())
             // Avoid generating enums for properties
             if case .string = schema.value, case .userDefined = property.type {
                 property.type = .builtin("String")
@@ -878,6 +790,6 @@ extension Generator {
     }
 }
 
-protocol Job {
+private protocol Job {
     var filename: String { get }
 }

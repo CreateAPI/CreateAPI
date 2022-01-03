@@ -82,7 +82,8 @@ final class GenerateOptions {
         var isGeneratingResponseHeaders: Bool
         var isAddingOperationIds: Bool
         var imports: Set<String>
-        var overrideResponses: [String: String]
+        var overridenResponses: [String: String]
+        var overridenBodyTypes: [String: String]
         var isInliningSimpleRequests: Bool
         var isInliningSimpleQueryParameters: Bool
         var simpleQueryParametersThreshold: Int
@@ -97,7 +98,8 @@ final class GenerateOptions {
             self.isGeneratingResponseHeaders = options?.isGeneratingResponseHeaders ?? true
             self.isAddingOperationIds = options?.isAddingOperationIds ?? false
             self.imports = Set(options?.imports ?? ["Get"])
-            self.overrideResponses = options?.overrideResponses ?? [:]
+            self.overridenResponses = options?.overridenResponses ?? [:]
+            self.overridenBodyTypes = options?.overridenBodyTypes ?? [:]
             self.isInliningSimpleRequests = options?.isInliningSimpleRequests ?? true
             self.isInliningSimpleQueryParameters = options?.isInliningSimpleQueryParameters ?? true
             self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
@@ -219,7 +221,8 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingResponseHeaders: Bool?
         var isAddingOperationIds: Bool?
         var imports: [String]?
-        var overrideResponses: [String: String]?
+        var overridenResponses: [String: String]?
+        var overridenBodyTypes: [String: String]?
         var isInliningSimpleRequests: Bool?
         var isInliningSimpleQueryParameters: Bool?
         var simpleQueryParametersThreshold: Int?

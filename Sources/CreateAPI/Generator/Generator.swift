@@ -75,6 +75,11 @@ final class Generator {
     
     // MARK: Misc
     
+    func verbose(_ message: @autoclosure () -> String) {
+        guard arguments.isVerbose else { return }
+        print(message())
+    }
+    
     var fileHeader: String {
         if let header = options.fileHeader {
             return header

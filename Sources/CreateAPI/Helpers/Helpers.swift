@@ -148,9 +148,13 @@ struct NameDeduplicator {
         let name = name + "\(count + 1)"
         return add(name: name)
     }
+    
+    mutating func add(name: TypeName) -> TypeName {
+        TypeName(add(name: name.rawValue))
+    }
 }
 
-final class Cache<Key: Hashable, Value> {
+final class ThreadSafeDictionary<Key: Hashable, Value> {
     private var values: [Key: Value] = [:]
     private let lock = NSLock()
     

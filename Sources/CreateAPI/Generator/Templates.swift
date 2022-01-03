@@ -181,6 +181,24 @@ final class Templates {
         }
         """
     }
+    
+    /// Example:
+    ///
+    ///     [("token": accessToken)]
+    func asKeyValuePairs(_ properties: [Property]) -> String {
+        let pairs: [String] = properties.map {
+            let value = $0.type.isString ? $0.name.rawValue : "String(\($0.name))"
+            return "(\"\($0.key)\", \(value))" }
+        return "[\(pairs.joined(separator: ", "))]"
+    }
+    
+    func asURLEncodedBody(name: String, _ isOptional: Bool) -> String {
+        if isOptional {
+            return "\(name).map(URLQueryEncoder.encode)?.percentEncodedQuery"
+        } else {
+            return "URLQueryEncoder.encode(\(name)).percentEncodedQuery"
+        }
+    }
 
     // MARK: Init
     
