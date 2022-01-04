@@ -13,6 +13,22 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 
 Status: **pre-release**
 
+## Installation
+
+### Make
+
+```bash
+git clone https://github.com/kean/CreateAPI.git
+cd CreateAPI
+make install
+```
+
+Usage:
+
+```bash
+create-api generate -h
+```
+
 ## Arguments
 
 ```
