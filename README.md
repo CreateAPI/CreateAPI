@@ -11,8 +11,6 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 
 > Powered by [OpenAPIKit](https://github.com/mattpolzin/OpenAPIKit)
 
-Status: **pre-release**
-
 ## Installation
 
 ### Make
