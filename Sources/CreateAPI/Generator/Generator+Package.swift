@@ -4,14 +4,13 @@
 
 import Foundation
 
-#warning("TODO: Update to latest releases")
 extension Generator {
     func makePackageFile(name: String) -> String {
         let packages: String = [
-            #".package(url: "https://github.com/kean/Get", branch: "main")"#,
-            isHTTPHeadersDependencyNeeded ? #".package(url: "https://github.com/kean/HTTPHeaders", branch: "main")"# : nil,
-            isNaiveDateNeeded ? #".package(url: "https://github.com/kean/NaiveDate", branch: "master")"# : nil,
-            isQueryEncoderNeeded ? #".package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")"# : nil,
+            #".package(url: "https://github.com/kean/Get", from: "0.3.1")"#,
+            isHTTPHeadersDependencyNeeded ? #".package(url: "https://github.com/kean/HTTPHeaders", from: "0.1.0")"# : nil,
+            isNaiveDateNeeded ? #".package(url: "https://github.com/kean/NaiveDate", from: "1.0.0")"# : nil,
+            isQueryEncoderNeeded ? #".package(url: "https://github.com/kean/URLQueryEncoder", branch: "0.2.0")"# : nil,
                 
         ].compactMap { $0 }.joined(separator: ", \n")
         

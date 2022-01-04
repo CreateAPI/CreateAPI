@@ -377,7 +377,7 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook)
-        public var post: Request<Void> {
+        public var post: Request<[String: AnyJSON]> {
             .post(path)
         }
     }
@@ -1672,10 +1672,6 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Double
             public var runners: [OctoKit.Runner]
@@ -1689,6 +1685,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 case totalCount = "total_count"
                 case runners
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -1765,10 +1765,6 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Double?
             public var runners: [OctoKit.Runner]?
@@ -1782,6 +1778,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 case totalCount = "total_count"
                 case runners
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -2863,10 +2863,6 @@ extension Paths.Installation {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var repositories: [OctoKit.Repository]
@@ -2884,6 +2880,10 @@ extension Paths.Installation {
                 case repositories
                 case repositorySelection = "repository_selection"
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -4470,10 +4470,6 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Double
             public var runners: [OctoKit.Runner]
@@ -4487,6 +4483,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 case totalCount = "total_count"
                 case runners
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -4571,10 +4571,6 @@ extension Paths.Orgs.WithOrg.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var runners: [OctoKit.Runner]
@@ -4588,6 +4584,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 case totalCount = "total_count"
                 case runners
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -4891,10 +4891,6 @@ extension Paths.Orgs.WithOrg.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var secrets: [OctoKit.OrganizationActionsSecret]
@@ -4908,6 +4904,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 case totalCount = "total_count"
                 case secrets
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -5792,7 +5792,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
         /// Redeliver a delivery for a webhook configured in an organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook)
-        public var post: Request<Void> {
+        public var post: Request<[String: AnyJSON]> {
             .post(path)
         }
     }
@@ -5858,10 +5858,6 @@ extension Paths.Orgs.WithOrg {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var installations: [OctoKit.Installation]
@@ -5875,6 +5871,10 @@ extension Paths.Orgs.WithOrg {
                 case totalCount = "total_count"
                 case installations
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -9477,10 +9477,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var artifacts: [OctoKit.Artifact]
@@ -9494,6 +9490,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 case totalCount = "total_count"
                 case artifacts
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -9719,10 +9719,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var runners: [OctoKit.Runner]
@@ -9736,6 +9732,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 case totalCount = "total_count"
                 case runners
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -10045,10 +10045,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var workflowRuns: [OctoKit.WorkflowRun]
@@ -10062,6 +10058,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 case totalCount = "total_count"
                 case workflowRuns = "workflow_runs"
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {
@@ -10214,10 +10214,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var artifacts: [OctoKit.Artifact]
@@ -10231,6 +10227,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 case totalCount = "total_count"
                 case artifacts
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -10300,10 +10300,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var jobs: [OctoKit.Job]
@@ -10317,6 +10313,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
                 case totalCount = "total_count"
                 case jobs
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -10389,10 +10389,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var jobs: [OctoKit.Job]
@@ -10406,6 +10402,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 case totalCount = "total_count"
                 case jobs
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {
@@ -10596,10 +10596,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var secrets: [OctoKit.ActionsSecret]
@@ -10613,6 +10609,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 case totalCount = "total_count"
                 case secrets
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -10791,10 +10791,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var workflows: [OctoKit.Workflow]
@@ -10808,6 +10804,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 case totalCount = "total_count"
                 case workflows
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -10939,10 +10939,6 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var workflowRuns: [OctoKit.WorkflowRun]
@@ -10956,6 +10952,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
                 case totalCount = "total_count"
                 case workflowRuns = "workflow_runs"
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {
@@ -12795,10 +12795,6 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var checkRuns: [OctoKit.CheckRun]
@@ -12812,6 +12808,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
                 case totalCount = "total_count"
                 case checkRuns = "check_runs"
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {
@@ -14098,10 +14098,6 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var checkRuns: [OctoKit.CheckRun]
@@ -14115,6 +14111,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 case totalCount = "total_count"
                 case checkRuns = "check_runs"
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {
@@ -14179,10 +14179,6 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var checkSuites: [OctoKit.CheckSuite]
@@ -14196,6 +14192,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 case totalCount = "total_count"
                 case checkSuites = "check_suites"
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {
@@ -16229,7 +16229,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries.WithDeliver
         /// Redeliver a webhook delivery for a webhook configured in a repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#redeliver-a-delivery-for-a-repository-webhook)
-        public var post: Request<Void> {
+        public var post: Request<[String: AnyJSON]> {
             .post(path)
         }
     }
@@ -17965,7 +17965,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Enable Git LFS for a repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository)
-        public var put: Request<Void> {
+        public var put: Request<[String: AnyJSON]> {
             .put(path)
         }
 
@@ -20398,10 +20398,6 @@ extension Paths.Repos.WithOwner.WithRepo {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var simpleUsers: [OctoKit.SimpleUser]?
             public var stargazers: [OctoKit.Stargazer]?
@@ -20416,6 +20412,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.simpleUsers = try? container.decode([OctoKit.SimpleUser].self)
                 self.stargazers = try? container.decode([OctoKit.Stargazer].self)
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -21233,10 +21233,6 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var secrets: [OctoKit.ActionsSecret]
@@ -21250,6 +21246,10 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
                 case totalCount = "total_count"
                 case secrets
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -24457,10 +24457,6 @@ extension Paths.User.Codespaces {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var secrets: [OctoKit.CodespacesSecret]
@@ -24474,6 +24470,10 @@ extension Paths.User.Codespaces {
                 case totalCount = "total_count"
                 case secrets
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -24754,7 +24754,7 @@ extension Paths.User.Codespaces {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user)
-        public var delete: Request<Void> {
+        public var delete: Request<[String: AnyJSON]> {
             .delete(path)
         }
     }
@@ -25197,10 +25197,6 @@ extension Paths.User {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var installations: [OctoKit.Installation]
@@ -25214,6 +25210,10 @@ extension Paths.User {
                 case totalCount = "total_count"
                 case installations
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -25260,10 +25260,6 @@ extension Paths.User.Installations.WithInstallationID {
             .get(path, query: makeGetQuery(perPage, page))
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var totalCount: Int
             public var repositorySelection: String?
@@ -25280,6 +25276,10 @@ extension Paths.User.Installations.WithInstallationID {
                 case repositorySelection = "repository_selection"
                 case repositories
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -27663,10 +27663,6 @@ extension Paths.Users.WithUsername {
             .get(path, query: parameters?.asQuery)
         }
 
-        public enum GetResponseHeaders {
-            public static let link = HTTPHeader<String>(field: "Link")
-        }
-
         public struct GetResponse: Decodable {
             public var starredRepositories: [OctoKit.StarredRepository]?
             public var repositories: [OctoKit.Repository]?
@@ -27681,6 +27677,10 @@ extension Paths.Users.WithUsername {
                 self.starredRepositories = try? container.decode([OctoKit.StarredRepository].self)
                 self.repositories = try? container.decode([OctoKit.Repository].self)
             }
+        }
+
+        public enum GetResponseHeaders {
+            public static let link = HTTPHeader<String>(field: "Link")
         }
 
         public struct GetParameters {

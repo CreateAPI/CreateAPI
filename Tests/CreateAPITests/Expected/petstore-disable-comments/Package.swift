@@ -10,9 +10,9 @@ let package = Package(
         .library(name: "petstore-disable-comments", targets: ["petstore-disable-comments"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", branch: "main"), 
-        .package(url: "https://github.com/kean/HTTPHeaders", branch: "main"), 
-        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")
+        .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
+        .package(url: "https://github.com/kean/HTTPHeaders", from: "0.1.0"), 
+        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "0.2.0")
     ],
     targets: [
         .target(name: "petstore-disable-comments", dependencies: [

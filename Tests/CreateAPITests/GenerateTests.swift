@@ -27,6 +27,8 @@ final class GenerateTests: GenerateBaseTests {
             paths:
               overrideResponses:
                 accepted: "Void"
+              overridenBodyTypes:
+                application/octocat-stream: String
             rename:
               enumCases:
                 reactions-+1: "reactionsPlusOne"

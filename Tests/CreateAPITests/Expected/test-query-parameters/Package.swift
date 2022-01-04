@@ -10,8 +10,8 @@ let package = Package(
         .library(name: "test-query-parameters", targets: ["test-query-parameters"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", branch: "main"), 
-        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "main")
+        .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
+        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "0.2.0")
     ],
     targets: [
         .target(name: "test-query-parameters", dependencies: [
