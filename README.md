@@ -11,34 +11,6 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 
 > Powered by [OpenAPIKit](https://github.com/mattpolzin/OpenAPIKit)
 
-## Installation
-
-### [Mint](https://github.com/yonaskolb/Mint)
-
-```bash
-mint install kean/CreateAPI
-```
-
-Usage:
-
-```bash
-mint run CreateAPI create-api generate -h
-```
-
-### Make
-
-```bash
-git clone https://github.com/kean/CreateAPI.git
-cd CreateAPI
-make install
-```
-
-Usage:
-
-```bash
-create-api generate -h
-```
-
 ## Arguments
 
 ```
@@ -210,3 +182,32 @@ Upcoming:
 
 - An improved way to generate patch parameters. Support for [JSON Patch](http://jsonpatch.com).
 - OpenAPI 3.1 support.
+
+## Installation
+
+### [Mint](https://github.com/yonaskolb/Mint)
+
+```bash
+mint install kean/CreateAPI
+```
+
+Usage:
+
+```bash
+mint run CreateAPI create-api generate -h
+```
+
+### Make
+
+```bash
+git clone https://github.com/kean/CreateAPI.git
+cd CreateAPI
+make install
+```
+
+Usage:
+
+```bash
+create-api generate -h
+```
+
