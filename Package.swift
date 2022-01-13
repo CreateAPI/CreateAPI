@@ -6,6 +6,9 @@ import PackageDescription
 let package = Package(
     name: "CreateAPI",
     platforms: [.macOS(.v10_15)],
+    products: [
+        .executable(name: "create-api", targets: ["CreateAPI"])
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
         .package(url: "https://github.com/kean/OpenAPIKit", branch: "create-api"),

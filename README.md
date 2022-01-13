@@ -13,6 +13,18 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 
 ## Installation
 
+### [Mint](https://github.com/yonaskolb/Mint)
+
+```bash
+mint install kean/CreateAPI
+```
+
+Usage:
+
+```bash
+mint run CreateAPI create-api generate -h
+```
+
 ### Make
 
 ```bash
