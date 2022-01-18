@@ -87,7 +87,7 @@ entities:
   # Generate the following entities as classes
   entitiesGeneratedAsClasses: []
   # Generate the following entities as structs
-  entitiesGeneratedAsClasses: []
+  entitiesGeneratedAsStructs: []
   # Makes classes final
   isMakingClassesFinal: true
   # Base class for entities generated as classes
