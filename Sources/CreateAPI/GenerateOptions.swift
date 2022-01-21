@@ -54,7 +54,8 @@ final class GenerateOptions {
         var isAddingDefaultValues: Bool
         var isInliningPropertiesFromReferencedSchemas: Bool
         var isAdditionalPropertiesOnByDefault: Bool
-        var skip: Set<String>
+        var exclude: Set<String>
+        var include: Set<String>
         
         init(_ options: GenerateOptionsSchema.Entities?) {
             self.isGeneratingStructs = options?.isGeneratingStructs ?? true
@@ -72,7 +73,8 @@ final class GenerateOptions {
             self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
             self.isInliningPropertiesFromReferencedSchemas = options?.isInliningPropertiesFromReferencedSchemas ?? false
             self.isAdditionalPropertiesOnByDefault = options?.isAdditionalPropertiesOnByDefault ?? true
-            self.skip = Set(options?.skip ?? [])
+            self.exclude = Set(options?.exclude ?? [])
+            self.include = Set(options?.include ?? [])
         }
     }
     
@@ -121,6 +123,8 @@ final class GenerateOptions {
         var entities: [String: String]
         var operations: [String: String]
         var collectionElements: [String: String]
+        var entityPrefix: String?
+        var entitySuffix: String?
         
         init(_ options: GenerateOptionsSchema.Rename?) {
             self.properties = options?.properties ?? [:]
@@ -129,6 +133,8 @@ final class GenerateOptions {
             self.entities = options?.entities ?? [:]
             self.operations = options?.operations ?? [:]
             self.collectionElements = options?.collectionElements ?? [:]
+            self.entityPrefix = options?.entityPrefix
+            self.entitySuffix = options?.entitySuffix
         }
     }
     
@@ -212,7 +218,8 @@ final class GenerateOptionsSchema: Decodable {
         var isAddingDefaultValues: Bool?
         var isInliningPropertiesFromReferencedSchemas: Bool?
         var isAdditionalPropertiesOnByDefault: Bool?
-        var skip: [String]?
+        var exclude: [String]?
+        var include: [String]?
     }
     
     struct Paths: Decodable {
@@ -238,6 +245,8 @@ final class GenerateOptionsSchema: Decodable {
         var entities: [String: String]?
         var operations: [String: String]?
         var collectionElements: [String: String]?
+        var entityPrefix: String?
+        var entitySuffix: String?
     }
     
     struct Comments: Decodable {
