@@ -86,7 +86,7 @@ extension Generator {
                 continue
             }
             if !options.entities.include.isEmpty {
-                guard !options.entities.include.contains(name.rawValue) else {
+                guard options.entities.include.contains(name.rawValue) else {
                     continue
                 }
             } else {
