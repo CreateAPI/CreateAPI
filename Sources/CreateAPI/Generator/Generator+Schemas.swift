@@ -78,14 +78,26 @@ extension Generator {
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
+        guard !(!options.entities.exclude.isEmpty && !options.entities.include.isEmpty) else {
+            throw GeneratorError("`exclude` and `include` can't be used together")
+        }
         for (key, schema) in spec.components.schemas {
-            guard let name = getTypeName(for: key),
-                  !options.entities.skip.contains(name.rawValue) else {
-                if arguments.isVerbose {
-                    print("Skipping generation for \(key.rawValue)")
-                }
+            guard let name = getTypeName(for: key) else {
                 continue
             }
+            if !options.entities.include.isEmpty {
+                guard !options.entities.include.contains(name.rawValue) else {
+                    continue
+                }
+            } else {
+                guard !options.entities.exclude.contains(name.rawValue) else {
+                    if arguments.isVerbose {
+                        print("Skipping generation for \(key.rawValue)")
+                    }
+                    continue
+                }
+            }
+            
             let job = Job(name: name, schema: schema)
             if encountered.contains(job.name) {
                 try handle(warning: "Duplicated type name: \(job.name), skipping")
