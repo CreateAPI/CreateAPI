@@ -90,7 +90,7 @@ extension Generator {
                     continue
                 }
             } else {
-                guard options.entities.exclude.contains(name.rawValue) else {
+                guard !options.entities.exclude.contains(name.rawValue) else {
                     if arguments.isVerbose {
                         print("Skipping generation for \(key.rawValue)")
                     }
