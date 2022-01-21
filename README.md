@@ -24,6 +24,7 @@ OPTIONS:
   -s, --split             Split output into separate files
   -v, --verbose           Print additional logging information
   --strict                Turns all warnings into errors
+  --clean                 Removes the output folder before continuing
   --allowErrors           Ignore any errors that happen during code generation
   --watch                 Monitor changes to both the spec and the configuration file and
                           automatically re-generated input
