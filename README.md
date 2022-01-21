@@ -80,8 +80,11 @@ isSwiftLintDisabled: true
 fileHeader: null
 
 entities:
-  # Skipped entities, e.g. ["SimpleUser"]
-  skip: []
+  # Excluded entities, e.g. ["SimpleUser"]
+  # `exclude` and `include` can't be used together
+  exclude: []
+  # Included entities, e.g. ["SimpleUser"]
+  include: []
   # Generates entities as structs
   isGeneratingStructs: true
   # Generate the following entities as classes
