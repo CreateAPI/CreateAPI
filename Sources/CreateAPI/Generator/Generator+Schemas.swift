@@ -86,8 +86,6 @@ extension Generator {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
                 throw GeneratorError("`placeholder` format is not correct")
             }
-            options.entities.include.map { placeholder.replacingOccurrences(of: "*", with: $0) }
-            options.entities.exclude.map { placeholder.replacingOccurrences(of: "*", with: $0) }
             shouldApplyPlaceholder = true
         }
         for (key, schema) in spec.components.schemas {
@@ -171,7 +169,6 @@ extension Generator {
                 return makeTypeName(name)
             }
         } else {
-            print("Skipping generation for \(key.rawValue)")
             return nil
         }
     }
