@@ -91,7 +91,7 @@ extension Generator {
             shouldApplyPlaceholder = true
         }
         for (key, schema) in spec.components.schemas {
-            guard let name = try getTypeName(for: key, shouldApplyPlaceholder: shouldApplyPlaceholder) else {
+            guard let name = getTypeName(for: key, shouldApplyPlaceholder: shouldApplyPlaceholder) else {
                 continue
             }
 
@@ -139,7 +139,7 @@ extension Generator {
     }
     
     /// Return `nil` to skip generation.
-    private func getTypeName(for key: OpenAPI.ComponentKey, shouldApplyPlaceholder: Bool) throws -> TypeName? {
+    private func getTypeName(for key: OpenAPI.ComponentKey, shouldApplyPlaceholder: Bool) -> TypeName? {
         var name: String? {
             if arguments.vendor == "github" {
                 // This makes sense only for the GitHub API spec where types like
