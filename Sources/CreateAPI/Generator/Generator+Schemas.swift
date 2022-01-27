@@ -81,6 +81,8 @@ extension Generator {
         guard !(!options.entities.exclude.isEmpty && !options.entities.include.isEmpty) else {
             throw GeneratorError("`exclude` and `include` can't be used together")
         }
+        var entitiesToInclude = options.entities.include
+        var entitiesToExclude = options.entities.exclude
         var shouldApplyPlaceholder: Bool = false
         if let placeholder = options.entities.namePlaceholder {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
