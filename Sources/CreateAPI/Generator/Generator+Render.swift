@@ -94,7 +94,11 @@ extension Generator {
                 }
             case .oneOf:
                 if decl.protocols.isDecodable {
-                    contents.append(templates.initFromDecoderOneOf(properties: properties))
+                    if let discriminator = decl.discriminator {
+                        contents.append(templates.initFromDecoderOneOfWithDiscriminator(properties: properties, discriminator: discriminator))
+                    } else {
+                        contents.append(templates.initFromDecoderOneOf(properties: properties))
+                    }
                 }
                 if decl.protocols.isEncodable {
                     contents.append(templates.encodeOneOf(properties: properties))

@@ -307,6 +307,42 @@ final class Templates {
         }
         """
     }
+
+    func initFromDecoderOneOfWithDiscriminator(properties: [Property], discriminator: Discriminator) -> String {
+        var statements = ""
+        for property in properties {
+            if let correspondingMapping = discriminator.mapping.first(where: { $1 == property.type}) {
+                statements += """
+
+                case .some(let inner) where inner.\(discriminator.propertyName) == \"\(correspondingMapping.key)\":
+                    self = .\(property.name)(try container.decode(\(property.type).self))
+                """
+            } else {
+                continue
+            }
+        }
+        
+        statements += """
+        
+        default:
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to initialize `oneOf`")
+        }
+        """
+        
+        return """
+        \(access)init(from decoder: Decoder) throws {
+            
+            struct Discriminator: Decodable {
+                let \(discriminator.propertyName): String
+            }
+
+            let container = try decoder.singleValueContainer()
+
+            switch try? container.decode(Discriminator.self) {
+        \(statements.indented)
+        }
+        """
+    }    
     
     func encodeOneOf(properties: [Property]) -> String {
         let statements = properties.map {

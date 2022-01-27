@@ -409,10 +409,40 @@ extension Generator {
         }
     }
 
+    private func makeDiscriminator(info: JSONSchemaContext, context: Context) -> Discriminator? {
+        if let discriminator = info.discriminator {
+            var mapping: [String: TypeIdentifier] = [:]
+
+            if let innerMapping = discriminator.mapping {
+                
+                // TODO: Use type name machinery instead
+                mapping = innerMapping.mapValues { value in 
+                    return .userDefined(
+                        name: makeTypeName(String(value.dropFirst("#/components/schemas/".count)))
+                    )
+                }
+            }
+
+            return .init(
+                propertyName: discriminator.propertyName,
+                mapping: mapping
+            )
+        }
+
+        return .none
+    }
+
     // MARK: - oneOf/anyOf/allOf
     
     private func makeEntity(name: TypeName, type: EntityType, info: JSONSchemaContext, context: Context) -> (EntityDeclaration, Context) {
-        let entity = EntityDeclaration(name: name, type: type, metadata: DeclarationMetadata(info), isForm: context.isFormEncoding, parent: context.parents.last)
+        let entity = EntityDeclaration(
+            name: name, 
+            type: type, 
+            metadata: DeclarationMetadata(info), 
+            isForm: context.isFormEncoding,
+            discriminator: makeDiscriminator(info: info, context: context),
+            parent: context.parents.last
+        )
         let context = context.map { $0.parents.append(entity) }
         return (entity, context)
     }
