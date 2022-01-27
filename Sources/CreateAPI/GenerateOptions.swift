@@ -125,6 +125,7 @@ final class GenerateOptions {
         var entities: [String: String]
         var operations: [String: String]
         var collectionElements: [String: String]
+        var entityPlaceholder: String?
         
         init(_ options: GenerateOptionsSchema.Rename?) {
             self.properties = options?.properties ?? [:]
@@ -133,6 +134,7 @@ final class GenerateOptions {
             self.entities = options?.entities ?? [:]
             self.operations = options?.operations ?? [:]
             self.collectionElements = options?.collectionElements ?? [:]
+            self.entityPlaceholder = options?.entityPlaceholder
         }
     }
     
@@ -244,6 +246,7 @@ final class GenerateOptionsSchema: Decodable {
         var entities: [String: String]?
         var operations: [String: String]?
         var collectionElements: [String: String]?
+        var entityPlaceholder: String?
     }
     
     struct Comments: Decodable {

@@ -79,7 +79,7 @@ extension Generator {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
         for (key, schema) in spec.components.schemas {
-            guard let name = getTypeName(for: key) else {
+            guard let name = try getTypeName(for: key) else {
                 continue
             }
 
@@ -127,29 +127,43 @@ extension Generator {
     }
     
     /// Return `nil` to skip generation.
-    private func getTypeName(for key: OpenAPI.ComponentKey) -> TypeName? {
-        if arguments.vendor == "github" {
-            // This makes sense only for the GitHub API spec where types like
-            // `simple-user` and `nullable-simple-user` exist which are duplicate
-            // and the only different is that the latter is nullable.
-            if key.rawValue.hasPrefix("nullable-") {
-                let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
-                if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
-                   spec.components.schemas[counterpartKey] != nil {
-                    return nil
-                } else {
-                    // Some types in GitHub specs are only defined once as Nullable
-                    return makeTypeName(counterpart)
+    private func getTypeName(for key: OpenAPI.ComponentKey) throws -> TypeName? {
+        var name: String? {
+            if arguments.vendor == "github" {
+                // This makes sense only for the GitHub API spec where types like
+                // `simple-user` and `nullable-simple-user` exist which are duplicate
+                // and the only different is that the latter is nullable.
+                if key.rawValue.hasPrefix("nullable-") {
+                    let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
+                    if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
+                       spec.components.schemas[counterpartKey] != nil {
+                        return nil
+                    } else {
+                        // Some types in GitHub specs are only defined once as Nullable
+                        return counterpart
+                    }
                 }
             }
-        }
-        if !options.rename.entities.isEmpty {
-            let name = makeTypeName(key.rawValue)
-            if let mapped = options.rename.entities[name.rawValue] {
-                return TypeName(mapped)
+            if !options.rename.entities.isEmpty {
+                let name = makeTypeName(key.rawValue)
+                if let mapped = options.rename.entities[name.rawValue] {
+                    return mapped
+                }
             }
+            return key.rawValue
         }
-        return makeTypeName(key.rawValue)
+        if let name = name {
+            if let placeholder = options.rename.entityPlaceholder {
+                guard placeholder.filter({ $0 == "*" }).count == 1 else {
+                    throw GeneratorError("entityPlaceholder format is wrong")
+                }
+                return makeTypeName(placeholder.replacingOccurrences(of: "*", with: name))
+            } else {
+                return makeTypeName(name)
+            }
+        } else {
+            return nil
+        }
     }
 
     // MARK: - Declarations
