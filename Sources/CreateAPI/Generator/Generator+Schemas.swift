@@ -82,7 +82,7 @@ extension Generator {
             throw GeneratorError("`exclude` and `include` can't be used together")
         }
         var shouldApplyPlaceholder: Bool = false
-        if let placeholder = options.entities.placeholder {
+        if let placeholder = options.entities.namePlaceholder {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
                 throw GeneratorError("`placeholder` format is not correct")
             }
@@ -163,7 +163,7 @@ extension Generator {
             return key.rawValue
         }
         if let name = name {
-            if let placeholder = options.entities.placeholder, shouldApplyPlaceholder {
+            if let placeholder = options.entities.namePlaceholder, shouldApplyPlaceholder {
                 return makeTypeName(placeholder.replacingOccurrences(of: "*", with: name))
             } else {
                 return makeTypeName(name)

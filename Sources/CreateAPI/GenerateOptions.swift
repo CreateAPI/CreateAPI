@@ -56,7 +56,7 @@ final class GenerateOptions {
         var isAdditionalPropertiesOnByDefault: Bool
         var exclude: Set<String>
         var include: Set<String>
-        var placeholder: String?
+        var namePlaceholder: String?
         
         init(_ options: GenerateOptionsSchema.Entities?) {
             self.isGeneratingStructs = options?.isGeneratingStructs ?? true
@@ -76,7 +76,7 @@ final class GenerateOptions {
             self.isAdditionalPropertiesOnByDefault = options?.isAdditionalPropertiesOnByDefault ?? true
             self.exclude = Set(options?.exclude ?? [])
             self.include = Set(options?.include ?? [])
-            self.placeholder = options?.placeholder
+            self.namePlaceholder = options?.namePlaceholder
         }
     }
     
@@ -220,7 +220,7 @@ final class GenerateOptionsSchema: Decodable {
         var isAdditionalPropertiesOnByDefault: Bool?
         var exclude: [String]?
         var include: [String]?
-        var placeholder: String?
+        var namePlaceholder: String?
     }
     
     struct Paths: Decodable {
