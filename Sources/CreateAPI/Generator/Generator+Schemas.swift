@@ -231,7 +231,10 @@ extension Generator {
             setNaiveDateNeeded()
             return .builtin("NaiveDate")
         }
-        case .other(let other): if other == "uri" { return .builtin("URL") }
+        case .other(let other) where other == "uri": 
+            return .builtin("URL")
+        case .other(let other) where other == "uuid":
+            return .builtin("UUID")
         default: break
         }
         return .builtin("String")
