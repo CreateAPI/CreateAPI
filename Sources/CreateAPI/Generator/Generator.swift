@@ -39,11 +39,7 @@ final class Generator {
     // MARK: Misc
     
     func makePropertyName(_ rawValue: String) -> PropertyName {
-        var name = rawValue
-        if let placeholder = options.entities.namePlaceholder {
-            name = placeholder.replacingOccurrences(of: "*", with: name)
-        }
-        return PropertyName(processing: name, options: options)
+        PropertyName(processing: rawValue, options: options)
     }
     
     func makeTypeName(_ rawValue: String) -> TypeName {
