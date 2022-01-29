@@ -386,10 +386,10 @@ public struct FormatTest: Codable {
     public var binary: String?
     public var date: NaiveDate
     public var dateTime: Date?
-    public var uuid: String?
+    public var uuid: UUID?
     public var password: String
 
-    public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: String? = nil, password: String) {
+    public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64
@@ -418,7 +418,7 @@ public struct FormatTest: Codable {
         self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
         self.date = try values.decode(NaiveDate.self, forKey: "date")
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
-        self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
+        self.uuid = try values.decodeIfPresent(UUID.self, forKey: "uuid")
         self.password = try values.decode(String.self, forKey: "password")
     }
 
@@ -505,11 +505,11 @@ public struct AdditionalPropertiesClass: Codable {
 }
 
 public struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
-    public var uuid: String?
+    public var uuid: UUID?
     public var dateTime: Date?
     public var map: [String: Animal]?
 
-    public init(uuid: String? = nil, dateTime: Date? = nil, map: [String: Animal]? = nil) {
+    public init(uuid: UUID? = nil, dateTime: Date? = nil, map: [String: Animal]? = nil) {
         self.uuid = uuid
         self.dateTime = dateTime
         self.map = map
@@ -517,7 +517,7 @@ public struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.uuid = try values.decodeIfPresent(String.self, forKey: "uuid")
+        self.uuid = try values.decodeIfPresent(UUID.self, forKey: "uuid")
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
         self.map = try values.decodeIfPresent([String: Animal].self, forKey: "map")
     }
