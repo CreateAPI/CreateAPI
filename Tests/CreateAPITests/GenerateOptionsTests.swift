@@ -513,19 +513,4 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "edgecases-coding-keys")
     }
-    
-    func testUber() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "uber"),
-            "--output", temp.url.path,
-            "--package", "uber"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "uber")
-    }
 }

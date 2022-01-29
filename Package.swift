@@ -7,7 +7,7 @@ let package = Package(
     name: "CreateAPI",
     platforms: [.macOS(.v10_15)],
     products: [
-        .executable(name: "create-api", targets: ["CreateAPI"])
+        .executable(name: "create-api", targets: ["create-api"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
@@ -18,20 +18,20 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "CreateAPI",
+            name: "create-api",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "Yams"),
                 .product(name: "GrammaticalNumber", package: "GrammaticalNumber"),
                 .product(name: "FileWatcher", package: "FileWatcher")
-            ]
+            ],
+            path: "Sources/CreateAPI"
         ),
         .testTarget(
-            name: "CreateAPITests",
-            dependencies: [
-                "CreateAPI"
-            ],
+            name: "create-api-tests",
+            dependencies: ["create-api"],
+            path: "Tests/CreateAPITests",
             resources: [.copy("Expected"), .copy("Specs")]
         )
     ]
