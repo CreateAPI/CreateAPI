@@ -313,9 +313,8 @@ final class Templates {
         for property in properties {
             if let correspondingMapping = discriminator.mapping.first(where: { $1 == property.type}) {
                 statements += """
+                case \"\(correspondingMapping.key)\": self = .\(property.name)(try container.decode(\(property.type).self))
 
-                case .some(let inner) where inner.\(discriminator.propertyName) == \"\(correspondingMapping.key)\":
-                    self = .\(property.name)(try container.decode(\(property.type).self))
                 """
             } else {
                 continue
@@ -338,7 +337,7 @@ final class Templates {
 
             let container = try decoder.singleValueContainer()
 
-            switch try? container.decode(Discriminator.self) {
+            switch (try container.decode(Discriminator.self)).\(discriminator.propertyName) {
         \(statements.indented)
         }
         """
