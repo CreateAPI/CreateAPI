@@ -4,7 +4,7 @@
 
 import XCTest
 import class Foundation.Bundle
-@testable import CreateAPI
+@testable import create_api
 import Yams
 
 final class HelpersTests: XCTestCase {    

@@ -92,7 +92,8 @@ final class GenerateOptions {
         // TODO: Replace this with a better solution for patch params
         var isMakingOptionalPatchParametersDoubleOptional: Bool
         var isRemovingRedundantPaths: Bool
-        var skip: Set<String>
+        var exclude: Set<String>
+        var include: Set<String>
         
         init(_ options: GenerateOptionsSchema.Paths?) {
             self.style = options?.style ?? .rest
@@ -107,7 +108,8 @@ final class GenerateOptions {
             self.simpleQueryParametersThreshold = options?.simpleQueryParametersThreshold ?? 2
             self.isRemovingRedundantPaths = options?.isRemovingRedundantPaths ?? true
             self.isMakingOptionalPatchParametersDoubleOptional = options?.isMakingOptionalPatchParametersDoubleOptional ?? false
-            self.skip = Set(options?.skip ?? [])
+            self.include = Set(options?.include ?? [])
+            self.exclude = Set(options?.exclude ?? [])
         }
     }
     
@@ -231,7 +233,8 @@ final class GenerateOptionsSchema: Decodable {
         var simpleQueryParametersThreshold: Int?
         var isMakingOptionalPatchParametersDoubleOptional: Bool?
         var isRemovingRedundantPaths: Bool?
-        var skip: [String]?
+        var exclude: [String]?
+        var include: [String]?
     }
 
     struct Rename: Decodable {

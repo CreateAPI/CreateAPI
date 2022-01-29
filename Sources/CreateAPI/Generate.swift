@@ -64,7 +64,6 @@ struct Generate: ParsableCommand {
 
     func run() throws {
         Benchmark.isEnabled = measure
-        try validateOptions()
         if watch {
             _ = try Watcher(paths: [config, input], run: _run)
             RunLoop.main.run()
@@ -83,6 +82,7 @@ struct Generate: ParsableCommand {
     private func actuallyRun() throws {
         let spec = try parseInputSpec()
         let options = try readOptions()
+        try validateOptions(options: options)
         
         let generator = Generator(spec: spec, options: options, arguments: arguments)
         // IMPORTANT: Paths needs to be generated before schemes.
@@ -106,12 +106,18 @@ struct Generate: ParsableCommand {
         benchmark.stop()
     }
         
-    private func validateOptions() throws {
+    private func validateOptions(options: GenerateOptions) throws {
         if module != nil && package != nil {
             throw GeneratorError("`module` and `package` parameters are mutually exclusive")
         }
         if package == nil && module == nil {
             throw GeneratorError("You must provide either `module` or `package`")
+        }
+        if !options.entities.exclude.isEmpty && !options.entities.include.isEmpty {
+            throw GeneratorError("`exclude` and `include` can't be used together")
+        }
+        if !options.paths.exclude.isEmpty && !options.paths.include.isEmpty {
+            throw GeneratorError("`exclude` and `include` can't be used together")
         }
     }
     

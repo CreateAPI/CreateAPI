@@ -4,7 +4,7 @@
 
 import XCTest
 import OpenAPIKit30
-@testable import CreateAPI
+@testable import create_api
 
 final class GenerateFeaturesTests: GenerateBaseTests {    
     func testQueryParameters() throws {

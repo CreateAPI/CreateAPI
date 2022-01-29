@@ -95,7 +95,7 @@ extension Generator {
         var encountered = Set<OpenAPI.Path>()
         var generatedNames: [String: Int] = [:]
         for path in spec.paths {
-            guard !options.paths.skip.contains(path.key.rawValue) else {
+            guard shouldGenerate(path: path.key.rawValue) else {
                 verbose("Skipping path: \(path.key.rawValue)")
                 continue
             }
@@ -134,6 +134,16 @@ extension Generator {
         addGetPrefixIfNeeded(for: jobs)
         
         return jobs
+    }
+    
+    private func shouldGenerate(path: String) -> Bool {
+        if !options.paths.include.isEmpty {
+            return options.paths.include.contains(path)
+        }
+        if !options.paths.exclude.isEmpty {
+            return !options.paths.exclude.contains(path)
+        }
+        return true
     }
     
     // Add `Get.Request` instead of just `Request` in paths that themselve
@@ -198,7 +208,11 @@ extension Generator {
  
     private func makeJobsOperations() -> [JobGenerateOperation] {
         spec.paths.flatMap { path, item -> [JobGenerateOperation] in
-            item.allOperations.map { method, operation in
+            guard shouldGenerate(path: path.rawValue) else {
+                verbose("Skipping path: \(path.rawValue)")
+                return []
+            }
+            return item.allOperations.map { method, operation in
                 JobGenerateOperation(path: path, item: item, method: method, operation: operation, filename: getOperationId(for: operation))
             }
         }

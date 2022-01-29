@@ -4,7 +4,7 @@
 
 import XCTest
 import OpenAPIKit30
-@testable import CreateAPI
+@testable import create_api
 
 final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreOnlySchemas() throws {
@@ -512,5 +512,20 @@ final class GenerateOptionsTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "edgecases-coding-keys")
+    }
+    
+    func testUber() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "uber"),
+            "--output", temp.url.path,
+            "--package", "uber"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "uber")
     }
 }
