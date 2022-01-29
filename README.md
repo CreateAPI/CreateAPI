@@ -112,8 +112,11 @@ entities:
   isAdditionalPropertiesOnByDefault: true
 
 paths:
-  # Skipped paths, e.g. ["/gists/{gist_id}/commits"]
-  skip: []
+  # Excluded paths, e.g. ["/gists/{gist_id}/commits"]
+  # `exclude` and `include` can't be used together
+  exclude: []
+  # Included paths, e.g. ["/gists/{gist_id}/commits"]
+  include: []
   # Available options:
   #   - "rest" - generate structs to represent path components
   #   - "operations" - generate a plain list of operatinos
