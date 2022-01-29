@@ -272,10 +272,10 @@ import NaiveDate
     var binary: String?
     var date: NaiveDate
     var dateTime: Date?
-    var uuid: String?
+    var uuid: UUID?
     var password: String
 
-    init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: String? = nil, password: String) {
+    init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64
@@ -341,11 +341,11 @@ enum EnumClass: String, Codable, CaseIterable {
 }
 
  struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
-    var uuid: String?
+    var uuid: UUID?
     var dateTime: Date?
     var map: [String: Animal]?
 
-    init(uuid: String? = nil, dateTime: Date? = nil, map: [String: Animal]? = nil) {
+    init(uuid: UUID? = nil, dateTime: Date? = nil, map: [String: Animal]? = nil) {
         self.uuid = uuid
         self.dateTime = dateTime
         self.map = map
