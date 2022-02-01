@@ -78,9 +78,6 @@ extension Generator {
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
-        guard !(!options.entities.exclude.isEmpty && !options.entities.include.isEmpty) else {
-            throw GeneratorError("`exclude` and `include` can't be used together")
-        }
         if let placeholder = options.entities.namePlaceholder {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
                 throw GeneratorError("`placeholder` format is not correct")
