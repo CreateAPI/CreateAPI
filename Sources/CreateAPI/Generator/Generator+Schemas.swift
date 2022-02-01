@@ -78,8 +78,18 @@ extension Generator {
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
+        guard !(!options.entities.exclude.isEmpty && !options.entities.include.isEmpty) else {
+            throw GeneratorError("`exclude` and `include` can't be used together")
+        }
+        var shouldApplyPlaceholder: Bool = false
+        if let placeholder = options.entities.placeholder {
+            guard placeholder.filter({ $0 == "*" }).count == 1 else {
+                throw GeneratorError("`placeholder` format is not correct")
+            }
+            shouldApplyPlaceholder = true
+        }
         for (key, schema) in spec.components.schemas {
-            guard let name = try getTypeName(for: key) else {
+            guard let name = try getTypeName(for: key, shouldApplyPlaceholder: shouldApplyPlaceholder) else {
                 continue
             }
 
@@ -127,7 +137,7 @@ extension Generator {
     }
     
     /// Return `nil` to skip generation.
-    private func getTypeName(for key: OpenAPI.ComponentKey) throws -> TypeName? {
+    private func getTypeName(for key: OpenAPI.ComponentKey, shouldApplyPlaceholder: Bool) throws -> TypeName? {
         var name: String? {
             if arguments.vendor == "github" {
                 // This makes sense only for the GitHub API spec where types like
@@ -153,10 +163,7 @@ extension Generator {
             return key.rawValue
         }
         if let name = name {
-            if let placeholder = options.rename.entityPlaceholder {
-                guard placeholder.filter({ $0 == "*" }).count == 1 else {
-                    throw GeneratorError("entityPlaceholder format is wrong")
-                }
+            if let placeholder = options.entities.placeholder, shouldApplyPlaceholder {
                 return makeTypeName(placeholder.replacingOccurrences(of: "*", with: name))
             } else {
                 return makeTypeName(name)

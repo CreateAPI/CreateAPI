@@ -56,6 +56,7 @@ final class GenerateOptions {
         var isAdditionalPropertiesOnByDefault: Bool
         var exclude: Set<String>
         var include: Set<String>
+        var placeholder: String?
         
         init(_ options: GenerateOptionsSchema.Entities?) {
             self.isGeneratingStructs = options?.isGeneratingStructs ?? true
@@ -75,6 +76,7 @@ final class GenerateOptions {
             self.isAdditionalPropertiesOnByDefault = options?.isAdditionalPropertiesOnByDefault ?? true
             self.exclude = Set(options?.exclude ?? [])
             self.include = Set(options?.include ?? [])
+            self.placeholder = options?.placeholder
         }
     }
     
@@ -125,7 +127,6 @@ final class GenerateOptions {
         var entities: [String: String]
         var operations: [String: String]
         var collectionElements: [String: String]
-        var entityPlaceholder: String?
         
         init(_ options: GenerateOptionsSchema.Rename?) {
             self.properties = options?.properties ?? [:]
@@ -134,7 +135,6 @@ final class GenerateOptions {
             self.entities = options?.entities ?? [:]
             self.operations = options?.operations ?? [:]
             self.collectionElements = options?.collectionElements ?? [:]
-            self.entityPlaceholder = options?.entityPlaceholder
         }
     }
     
@@ -220,6 +220,7 @@ final class GenerateOptionsSchema: Decodable {
         var isAdditionalPropertiesOnByDefault: Bool?
         var exclude: [String]?
         var include: [String]?
+        var placeholder: String?
     }
     
     struct Paths: Decodable {
@@ -246,7 +247,6 @@ final class GenerateOptionsSchema: Decodable {
         var entities: [String: String]?
         var operations: [String: String]?
         var collectionElements: [String: String]?
-        var entityPlaceholder: String?
     }
     
     struct Comments: Decodable {
