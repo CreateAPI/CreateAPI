@@ -303,15 +303,15 @@ extension Generator {
         }
         var typeName = referenceName
         // Check if the entity is missing
-        if let key = OpenAPI.ComponentKey(rawValue: name) {
+        if let key = OpenAPI.ComponentKey(rawValue: typeName) {
             if spec.components.schemas[key] == nil {
-                try handle(warning: "A reference \"\(name)\" is missing.")
+                try handle(warning: "A reference \"\(typeName)\" is missing.")
                 return .anyJSON
             }
         }
         // TODO: Remove duplication
         if !options.rename.entities.isEmpty {
-            if let mapped = options.rename.entities[name] {
+            if let mapped = options.rename.entities[typeName] {
                 typeName = mapped
             }
         }
@@ -319,7 +319,7 @@ extension Generator {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
                 throw GeneratorError("`placeholder` format is not correct")
             }
-            typeName = placeholder.replacingOccurrences(of: "*", with: name)
+            typeName = placeholder.replacingOccurrences(of: "*", with: typeName)
         }
         
         return .userDefined(name: makeTypeName(typeName).namespace(context.namespace))
