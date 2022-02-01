@@ -81,17 +81,13 @@ extension Generator {
         guard !(!options.entities.exclude.isEmpty && !options.entities.include.isEmpty) else {
             throw GeneratorError("`exclude` and `include` can't be used together")
         }
-        var entitiesToInclude = options.entities.include
-        var entitiesToExclude = options.entities.exclude
-        var shouldApplyPlaceholder: Bool = false
         if let placeholder = options.entities.namePlaceholder {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
                 throw GeneratorError("`placeholder` format is not correct")
             }
-            shouldApplyPlaceholder = true
         }
         for (key, schema) in spec.components.schemas {
-            guard let name = getTypeName(for: key, shouldApplyPlaceholder: shouldApplyPlaceholder) else {
+            guard let name = getTypeName(for: key) else {
                 continue
             }
 
@@ -112,11 +108,25 @@ extension Generator {
     }
     
     private func shouldGenerate(name: String) -> Bool {
-        if !options.entities.include.isEmpty {
-            return options.paths.include.contains(name)
+        var entitiesToInclude: Set<String> {
+            if let placeholder = options.entities.namePlaceholder {
+                return Set(options.entities.include.map { placeholder.replacingOccurrences(of: "*", with: $0) })
+            } else {
+                return options.entities.include
+            }
         }
-        if !options.entities.exclude.isEmpty {
-            return !options.paths.exclude.contains(name)
+        var entitiesToExclude: Set<String> {
+            if let placeholder = options.entities.namePlaceholder {
+                return Set(options.entities.exclude.map { placeholder.replacingOccurrences(of: "*", with: $0) })
+            } else {
+                return options.entities.exclude
+            }
+        }
+        if !entitiesToInclude.isEmpty {
+            return entitiesToInclude.contains(name)
+        }
+        if !entitiesToExclude.isEmpty {
+            return !entitiesToExclude.contains(name)
         }
         return true
     }
@@ -139,7 +149,7 @@ extension Generator {
     }
     
     /// Return `nil` to skip generation.
-    private func getTypeName(for key: OpenAPI.ComponentKey, shouldApplyPlaceholder: Bool) -> TypeName? {
+    private func getTypeName(for key: OpenAPI.ComponentKey) -> TypeName? {
         var name: String? {
             if arguments.vendor == "github" {
                 // This makes sense only for the GitHub API spec where types like
@@ -165,7 +175,7 @@ extension Generator {
             return key.rawValue
         }
         if let name = name {
-            if let placeholder = options.entities.namePlaceholder, shouldApplyPlaceholder {
+            if let placeholder = options.entities.namePlaceholder {
                 return makeTypeName(placeholder.replacingOccurrences(of: "*", with: name))
             } else {
                 return makeTypeName(name)
