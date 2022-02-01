@@ -303,28 +303,28 @@ extension Generator {
         guard let referenceName = ref.name else {
             throw GeneratorError("Internal reference name is missing: \(ref)")
         }
-        var typeName = referenceName
+        var name = referenceName
         // Check if the entity is missing
-        if let key = OpenAPI.ComponentKey(rawValue: typeName) {
+        if let key = OpenAPI.ComponentKey(rawValue: name) {
             if spec.components.schemas[key] == nil {
-                try handle(warning: "A reference \"\(typeName)\" is missing.")
+                try handle(warning: "A reference \"\(name)\" is missing.")
                 return .anyJSON
             }
         }
         // TODO: Remove duplication
         if !options.rename.entities.isEmpty {
-            if let mapped = options.rename.entities[typeName] {
-                typeName = mapped
+            if let mapped = options.rename.entities[name] {
+                name = mapped
             }
         }
         if let placeholder = options.entities.namePlaceholder {
             guard placeholder.filter({ $0 == "*" }).count == 1 else {
                 throw GeneratorError("`placeholder` format is not correct")
             }
-            typeName = placeholder.replacingOccurrences(of: "*", with: typeName)
+            name = placeholder.replacingOccurrences(of: "*", with: name)
         }
         
-        return .userDefined(name: makeTypeName(typeName).namespace(context.namespace))
+        return .userDefined(name: makeTypeName(name).namespace(context.namespace))
     }
     
     // MARK: - Object
