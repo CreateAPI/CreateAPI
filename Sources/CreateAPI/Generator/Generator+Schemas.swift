@@ -229,6 +229,7 @@ extension Generator {
         }
     }
     
+    
     func getTypeIdentifier(for name: TypeName, schema: JSONSchema, context: Context) throws -> TypeIdentifier? {
         var context = context
         context.isInlinableTypeCheck = true
@@ -298,9 +299,10 @@ extension Generator {
                 }
             }
         }
-        guard let name = ref.name else {
+        guard let referenceName = ref.name else {
             throw GeneratorError("Internal reference name is missing: \(ref)")
         }
+        var typeName = referenceName
         // Check if the entity is missing
         if let key = OpenAPI.ComponentKey(rawValue: name) {
             if spec.components.schemas[key] == nil {
@@ -311,10 +313,17 @@ extension Generator {
         // TODO: Remove duplication
         if !options.rename.entities.isEmpty {
             if let mapped = options.rename.entities[name] {
-                return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
+                typeName = mapped
             }
         }
-        return .userDefined(name: makeTypeName(name).namespace(context.namespace))
+        if let placeholder = options.entities.namePlaceholder {
+            guard placeholder.filter({ $0 == "*" }).count == 1 else {
+                throw GeneratorError("`placeholder` format is not correct")
+            }
+            typeName = placeholder.replacingOccurrences(of: "*", with: name)
+        }
+        
+        return .userDefined(name: makeTypeName(typeName).namespace(context.namespace))
     }
     
     // MARK: - Object
