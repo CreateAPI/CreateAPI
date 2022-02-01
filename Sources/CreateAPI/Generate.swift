@@ -119,6 +119,11 @@ struct Generate: ParsableCommand {
         if !options.paths.exclude.isEmpty && !options.paths.include.isEmpty {
             throw GeneratorError("`exclude` and `include` can't be used together")
         }
+        if let placeholder = options.entities.namePlaceholder {
+            guard placeholder.filter({ $0 == "*" }).count == 1 else {
+                throw GeneratorError("`placeholder` format is not correct")
+            }
+        }
     }
     
     private func readOptions() throws -> GenerateOptions {

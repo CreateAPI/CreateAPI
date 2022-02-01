@@ -78,11 +78,6 @@ extension Generator {
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
-        if let placeholder = options.entities.namePlaceholder {
-            guard placeholder.filter({ $0 == "*" }).count == 1 else {
-                throw GeneratorError("`placeholder` format is not correct")
-            }
-        }
         for (key, schema) in spec.components.schemas {
             guard let name = getTypeName(for: key) else {
                 continue
