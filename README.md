@@ -110,6 +110,8 @@ entities:
   isInliningPropertiesFromReferencedSchemas: false
   # Changes how unspecified additional properties are interpreted
   isAdditionalPropertiesOnByDefault: true
+  # Apply placeholder for entity names, e.g. "*Generated" will be "EntityGenerated" 
+  namePlaceholder: null
 
 paths:
   # Excluded paths, e.g. ["/gists/{gist_id}/commits"]
