@@ -229,7 +229,6 @@ extension Generator {
         }
     }
     
-    
     func getTypeIdentifier(for name: TypeName, schema: JSONSchema, context: Context) throws -> TypeIdentifier? {
         var context = context
         context.isInlinableTypeCheck = true
