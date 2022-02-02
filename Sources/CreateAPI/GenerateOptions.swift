@@ -56,7 +56,6 @@ final class GenerateOptions {
         var isAdditionalPropertiesOnByDefault: Bool
         var exclude: Set<String>
         var include: Set<String>
-        var namePlaceholder: String?
         
         init(_ options: GenerateOptionsSchema.Entities?) {
             self.isGeneratingStructs = options?.isGeneratingStructs ?? true
@@ -76,7 +75,6 @@ final class GenerateOptions {
             self.isAdditionalPropertiesOnByDefault = options?.isAdditionalPropertiesOnByDefault ?? true
             self.exclude = Set(options?.exclude ?? [])
             self.include = Set(options?.include ?? [])
-            self.namePlaceholder = options?.namePlaceholder
         }
     }
     
@@ -266,6 +264,7 @@ struct GenerateArguments {
     let isIgnoringErrors: Bool
     let vendor: String?
     let module: ModuleName
+    let entityNameTemplate: String
 }
 
 private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]

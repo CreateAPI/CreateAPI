@@ -56,6 +56,9 @@ struct Generate: ParsableCommand {
     @Option(help: "Example: \"%0.generated.swift\" will produce files with the following names: \"Paths.generated.swift\".")
     var filenameTemplate: String = "%0.swift"
 
+    @Option(help: "Example: \"%0Generated\" will produce files with the following names: \"EntityGenerated\".")
+    var entitynameTemplate: String = "%0"
+
     @Flag(help: "By default, saturates all available threads. Pass this option to turn all parallelization off.")
     var singleThreaded = false
     
@@ -82,6 +85,7 @@ struct Generate: ParsableCommand {
     private func actuallyRun() throws {
         let spec = try parseInputSpec()
         let options = try readOptions()
+        applyTemplateToEntityIncludeAndExclude(options: options)
         try validateOptions(options: options)
         
         let generator = Generator(spec: spec, options: options, arguments: arguments)
@@ -119,11 +123,6 @@ struct Generate: ParsableCommand {
         if !options.paths.exclude.isEmpty && !options.paths.include.isEmpty {
             throw GeneratorError("`exclude` and `include` can't be used together")
         }
-        if let placeholder = options.entities.namePlaceholder {
-            guard placeholder.filter({ $0 == "*" }).count == 1 else {
-                throw GeneratorError("`placeholder` format is not correct")
-            }
-        }
     }
     
     private func readOptions() throws -> GenerateOptions {
@@ -144,7 +143,13 @@ struct Generate: ParsableCommand {
         } catch {
             throw GeneratorError("Failed to read configuration. \(error)")
         }
+        
         return GenerateOptions(options)
+    }
+    
+    private func applyTemplateToEntityIncludeAndExclude(options: GenerateOptions) {
+        options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
+        options.entities.exclude = Set(options.entities.exclude.map { Template(arguments.entityNameTemplate).substitute($0) })
     }
     
     private func parseInputSpec() throws -> OpenAPI.Document {
@@ -211,6 +216,6 @@ struct Generate: ParsableCommand {
         guard let module = (package ?? module).map(ModuleName.init(processing:)) else {
             fatalError("You must provide either `module` or `package`")
         }
-        return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, isIgnoringErrors: allowErrors, vendor: vendor, module: module)
+        return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, isIgnoringErrors: allowErrors, vendor: vendor, module: module, entityNameTemplate: entitynameTemplate)
     }
 }

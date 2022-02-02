@@ -78,6 +78,7 @@ extension Generator {
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
+        
         for (key, schema) in spec.components.schemas {
             guard let name = getTypeName(for: key) else {
                 continue
@@ -100,25 +101,11 @@ extension Generator {
     }
     
     private func shouldGenerate(name: String) -> Bool {
-        var entitiesToInclude: Set<String> {
-            if let placeholder = options.entities.namePlaceholder {
-                return Set(options.entities.include.map { placeholder.replacingOccurrences(of: "*", with: $0) })
-            } else {
-                return options.entities.include
-            }
+        if !options.entities.include.isEmpty {
+            return options.entities.include.contains(name)
         }
-        var entitiesToExclude: Set<String> {
-            if let placeholder = options.entities.namePlaceholder {
-                return Set(options.entities.exclude.map { placeholder.replacingOccurrences(of: "*", with: $0) })
-            } else {
-                return options.entities.exclude
-            }
-        }
-        if !entitiesToInclude.isEmpty {
-            return entitiesToInclude.contains(name)
-        }
-        if !entitiesToExclude.isEmpty {
-            return !entitiesToExclude.contains(name)
+        if !options.entities.exclude.isEmpty {
+            return !options.entities.exclude.contains(name)
         }
         return true
     }
@@ -167,11 +154,7 @@ extension Generator {
             return key.rawValue
         }
         if let name = name {
-            if let placeholder = options.entities.namePlaceholder {
-                return makeTypeName(placeholder.replacingOccurrences(of: "*", with: name))
-            } else {
-                return makeTypeName(name)
-            }
+            return makeTypeName(Template(arguments.entityNameTemplate).substitute(name))
         } else {
             return nil
         }
@@ -317,13 +300,7 @@ extension Generator {
                 name = mapped
             }
         }
-        if let placeholder = options.entities.namePlaceholder {
-            guard placeholder.filter({ $0 == "*" }).count == 1 else {
-                throw GeneratorError("`placeholder` format is not correct")
-            }
-            name = placeholder.replacingOccurrences(of: "*", with: name)
-        }
-        
+        name = Template(arguments.entityNameTemplate).substitute(name)
         return .userDefined(name: makeTypeName(name).namespace(context.namespace))
     }
     
