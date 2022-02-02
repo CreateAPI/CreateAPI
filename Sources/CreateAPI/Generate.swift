@@ -56,7 +56,7 @@ struct Generate: ParsableCommand {
     @Option(help: "Example: \"%0.generated.swift\" will produce files with the following names: \"Paths.generated.swift\".")
     var filenameTemplate: String = "%0.swift"
 
-    @Option(help: "Example: \"%0Generated\" will produce files with the following names: \"EntityGenerated\".")
+    @Option(help: "Example: \"%0Generated\" will produce entities with the following names: \"EntityGenerated\".")
     var entitynameTemplate: String = "%0"
 
     @Flag(help: "By default, saturates all available threads. Pass this option to turn all parallelization off.")
