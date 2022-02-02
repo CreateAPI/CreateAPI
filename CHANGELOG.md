@@ -1,5 +1,11 @@
 # CreateAPI 0.x
 
+## CreateAPI 0.0.3
+
+*Feb 2, 2022*
+
+- Fix an issue with `entities.include` not being used correctly
+
 ## CreateAPI 0.0.2
 
 *Jan 29, 2022*
