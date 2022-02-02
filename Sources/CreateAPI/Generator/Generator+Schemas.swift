@@ -100,11 +100,11 @@ extension Generator {
     }
     
     private func shouldGenerate(name: String) -> Bool {
-        if !options.paths.include.isEmpty {
-            return options.entities.include.contains(name)
+        if !options.entities.include.isEmpty {
+            return options.paths.include.contains(name)
         }
-        if !options.paths.exclude.isEmpty {
-            return !options.entities.exclude.contains(name)
+        if !options.entities.exclude.isEmpty {
+            return !options.paths.exclude.contains(name)
         }
         return true
     }
