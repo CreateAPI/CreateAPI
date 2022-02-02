@@ -218,7 +218,6 @@ final class GenerateOptionsSchema: Decodable {
         var isAdditionalPropertiesOnByDefault: Bool?
         var exclude: [String]?
         var include: [String]?
-        var namePlaceholder: String?
     }
     
     struct Paths: Decodable {
