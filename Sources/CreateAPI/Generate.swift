@@ -143,7 +143,6 @@ struct Generate: ParsableCommand {
         } catch {
             throw GeneratorError("Failed to read configuration. \(error)")
         }
-        
         return GenerateOptions(options)
     }
     

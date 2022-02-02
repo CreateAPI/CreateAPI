@@ -78,7 +78,6 @@ extension Generator {
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
-        
         for (key, schema) in spec.components.schemas {
             guard let name = getTypeName(for: key) else {
                 continue
