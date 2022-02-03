@@ -1,0 +1,55 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Discriminator
+
+paths:
+  /container:
+    get:
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Container"
+components:
+  schemas:
+    A:
+      type: object
+      required:
+        - kind
+      properties:
+        kind:
+          type: string
+    B:
+      type: object
+      required:
+        - kind
+      properties:
+        kind:
+          type: string
+    C:
+      type: object
+      required:
+        - kind
+      properties:
+        kind:
+          type: string
+
+    Container:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/A"
+            - $ref: "#/components/schemas/B"
+            - $ref: "#/components/schemas/C"
+          discriminator:
+            propertyName: kind
+            mapping:
+              a: "#/components/schemas/A"
+              b: "#/components/schemas/B"
+              c: "#/components/schemas/C"

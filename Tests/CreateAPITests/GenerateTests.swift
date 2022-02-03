@@ -14,6 +14,10 @@ final class GenerateTests: GenerateBaseTests {
     func testEdgecases() throws {
         try testSpec(name: "edgecases", package: "edgecases-default")
     }
+
+    func testDiscriminator() throws {
+        try testSpec(name: "discriminator", package: "discriminator")
+    }    
     
     func testGitHub() throws {
         // GIVEN

@@ -198,6 +198,8 @@ final class EntityDeclaration: Declaration {
     
     var protocols = Protocols()
     var properties: [Property] = []
+    var discriminator: Discriminator?
+
     var isRenderedAsStruct = false
     weak var parent: EntityDeclaration?
     
@@ -205,11 +207,12 @@ final class EntityDeclaration: Declaration {
         properties.compactMap { $0.nested }
     }
     
-    init(name: TypeName, type: EntityType, metadata: DeclarationMetadata, isForm: Bool, parent: EntityDeclaration? = nil) {
+    init(name: TypeName, type: EntityType, metadata: DeclarationMetadata, isForm: Bool, discriminator: Discriminator? = nil, parent: EntityDeclaration? = nil) {
         self.name = name
         self.type = type
         self.metadata = metadata
         self.isForm = isForm
+        self.discriminator = discriminator
         self.parent = parent
     }
     
@@ -238,6 +241,11 @@ struct TypealiasDeclaration: Declaration {
     let name: TypeName
     var type: TypeIdentifier
     var nested: Declaration?
+}
+
+struct Discriminator {
+    let propertyName: String
+    let mapping: [String: TypeIdentifier]
 }
 
 struct DeclarationMetadata {
