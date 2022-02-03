@@ -45,13 +45,11 @@ public struct Container: Codable {
 
             let container = try decoder.singleValueContainer()
 
-            switch try? container.decode(Discriminator.self) {
-            case .some(let inner) where inner.kind == "a":
-                self = .a(try container.decode(A.self))
-            case .some(let inner) where inner.kind == "b":
-                self = .b(try container.decode(B.self))
-            case .some(let inner) where inner.kind == "c":
-                self = .c(try container.decode(C.self))
+            switch (try container.decode(Discriminator.self)).kind {
+            case "a": self = .a(try container.decode(A.self))
+            case "b": self = .b(try container.decode(B.self))
+            case "c": self = .c(try container.decode(C.self))
+
             default:
                 throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to initialize `oneOf`")
             }
