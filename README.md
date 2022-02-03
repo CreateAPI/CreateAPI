@@ -110,7 +110,9 @@ entities:
   isInliningPropertiesFromReferencedSchemas: false
   # Changes how unspecified additional properties are interpreted
   isAdditionalPropertiesOnByDefault: true
-
+  # Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
+  isStrippingParentNameInNestedObjects: false
+  
 paths:
   # Excluded paths, e.g. ["/gists/{gist_id}/commits"]
   # `exclude` and `include` can't be used together

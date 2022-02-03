@@ -54,6 +54,7 @@ final class GenerateOptions {
         var isAddingDefaultValues: Bool
         var isInliningPropertiesFromReferencedSchemas: Bool
         var isAdditionalPropertiesOnByDefault: Bool
+        var isStrippingParentNameInNestedObjects: Bool
         var exclude: Set<String>
         var include: Set<String>
         
@@ -73,6 +74,7 @@ final class GenerateOptions {
             self.isAddingDefaultValues = options?.isAddingDefaultValues ?? true
             self.isInliningPropertiesFromReferencedSchemas = options?.isInliningPropertiesFromReferencedSchemas ?? false
             self.isAdditionalPropertiesOnByDefault = options?.isAdditionalPropertiesOnByDefault ?? true
+            self.isStrippingParentNameInNestedObjects = options?.isStrippingParentNameInNestedObjects ?? false
             self.exclude = Set(options?.exclude ?? [])
             self.include = Set(options?.include ?? [])
         }
@@ -216,6 +218,7 @@ final class GenerateOptionsSchema: Decodable {
         var isAddingDefaultValues: Bool?
         var isInliningPropertiesFromReferencedSchemas: Bool?
         var isAdditionalPropertiesOnByDefault: Bool?
+        var isStrippingParentNameInNestedObjects: Bool?
         var exclude: [String]?
         var include: [String]?
     }

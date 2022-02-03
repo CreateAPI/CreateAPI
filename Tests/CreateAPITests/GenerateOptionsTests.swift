@@ -513,4 +513,38 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "edgecases-coding-keys")
     }
+
+    func testStripNamePrefixNestedObjectsEnabled() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "strip-parent-name-nested-objects"),
+            "--output", temp.url.path,
+            "--package", "strip-parent-name-nested-objects-enabled",
+            "--config", config("""
+            entities:
+                isStrippingParentNameInNestedObjects: true
+            """, ext: "yaml")
+        ])
+                
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "strip-parent-name-nested-objects-enabled")
+    }  
+
+    func testStripNamePrefixNestedObjects() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "strip-parent-name-nested-objects"),
+            "--output", temp.url.path,
+            "--package", "strip-parent-name-nested-objects-default"
+        ])
+                
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "strip-parent-name-nested-objects-default")
+    }        
 }
