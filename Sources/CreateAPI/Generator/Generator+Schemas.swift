@@ -409,17 +409,22 @@ extension Generator {
         }
     }
 
-    private func makeDiscriminator(info: JSONSchemaContext, context: Context) -> Discriminator? {
+    private func makeDiscriminator(info: JSONSchemaContext, context: Context) throws -> Discriminator? {
         if let discriminator = info.discriminator {
             var mapping: [String: TypeIdentifier] = [:]
 
             if let innerMapping = discriminator.mapping {
-                
-                // TODO: Use type name machinery instead
-                mapping = innerMapping.mapValues { value in 
-                    return .userDefined(
-                        name: makeTypeName(String(value.dropFirst("#/components/schemas/".count)))
-                    )
+                for (key, value) in innerMapping {
+                    let stripped = String(value.dropFirst("#/components/schemas/".count))
+                    guard let componentKey = OpenAPI.ComponentKey(rawValue: stripped) else {
+                        throw GeneratorError("Encountered invalid type name \"\(value)\" while constructing discriminator")
+                    }
+
+                    if let name = getTypeName(for: componentKey) {
+                        mapping[key] = .userDefined(name: name)
+                    } else {
+                        try handle(warning: "Mapping \"\(key)\" has no matching type")
+                    }
                 }
             }
 
@@ -440,7 +445,6 @@ extension Generator {
             type: type, 
             metadata: DeclarationMetadata(info), 
             isForm: context.isFormEncoding,
-            discriminator: makeDiscriminator(info: info, context: context),
             parent: context.parents.last
         )
         let context = context.map { $0.parents.append(entity) }
@@ -468,6 +472,8 @@ extension Generator {
             return protocols
         }()
         
+        entity.discriminator = try makeDiscriminator(info: info, context: context)
+
         // Covers a weird case encountered in open-banking.yaml spec (xml-sct schema)
         // TODO: We can potentially inline this instead of creating a typealias
         if entity.properties.count == 1, entity.properties[0].nested == nil {
