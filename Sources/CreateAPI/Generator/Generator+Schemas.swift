@@ -651,7 +651,50 @@ extension Generator {
     // MARK: - Property
     
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
-        let propertyName = makePropertyName(key)
+        let propertyName: PropertyName
+
+        /**
+        Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of 
+        nested references.
+
+        Given:
+
+        ```
+        Parent
+        ├── ParentA
+        └── ParentB
+        ```
+
+        Disabled:
+
+        ```swift
+        public enum Parent: Codable {
+            case parentA(ParentA)
+            case parentB(ParentB)
+        }
+        ``` 
+
+        Enabled:
+
+        ```swift
+        public enum Parent: Codable {
+            case a(ParentA)
+            case b(ParentB)
+        }
+        ``` 
+
+        */
+        if options.entities.isStrippingParentNameInNestedObjects,
+            case .reference(let ref, _) = schema.value, 
+            let parentName = context.parents.first?.name.rawValue,
+            let ownName = ref.name {
+
+            let prefix = ownName.commonPrefix(with: parentName)
+
+            propertyName = makePropertyName(String(ownName.dropFirst(prefix.count)))
+        } else {
+            propertyName = makePropertyName(key)
+        }
         
         func makeName(for name: PropertyName, type: TypeIdentifier? = nil) -> PropertyName {
             if !options.rename.properties.isEmpty {

@@ -1,0 +1,43 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Strip Parent Name Nested Objects
+
+paths:
+  /container:
+    get:
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Container"
+components:
+  schemas:
+    ContainerA:
+      type: object
+      properties:
+        a:
+          type: string
+    ContainerB:
+      type: object
+      properties:
+        b:
+          type: string
+    ContainerC:
+      type: object
+      properties:
+        c:
+          type: string
+
+    Container:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/ContainerA"
+            - $ref: "#/components/schemas/ContainerB"
+            - $ref: "#/components/schemas/ContainerC"
