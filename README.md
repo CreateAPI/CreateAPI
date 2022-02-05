@@ -100,6 +100,10 @@ entities:
   protocols: ["Codable"]
   # Generate initializers for all entities
   isGeneratingInitializers: true
+  # If disabled, will use let properties in struct entities
+  isGeneratingMutableStructProperties: false
+  # If disabled, will use let properties in class entities
+  isGeneratingMutableClassProperties: false
   # If disabled, will use strings as coding keys
   isGeneratingCustomCodingKeys: true
   # By default, the order matches the order in the spec
