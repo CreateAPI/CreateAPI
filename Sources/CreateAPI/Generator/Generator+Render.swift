@@ -30,11 +30,12 @@ extension Generator {
         addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
 
         let isStruct = shouldGenerateStruct(for: decl)
+        let isReadOnly = isStruct ? !options.entities.isGeneratingMutableStructProperties : !options.entities.isGeneratingMutableClassProperties
         
         var contents: [String] = []
         switch decl.type {
         case .object, .allOf, .anyOf:
-            contents.append(templates.properties(properties, isReadonly: !isStruct))
+            contents.append(templates.properties(properties, isReadonly: isReadOnly))
             contents += decl.nested.map(render)
             if options.entities.isGeneratingInitializers {
                 contents.append(templates.initializer(properties: properties))

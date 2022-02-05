@@ -283,6 +283,56 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "petstore-disable-inlining")
     }
+    
+    func testPetstoreDisableMutableProperties() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--generate", "entities",
+            "--output", temp.url.path,
+            "--package", "petstore-disable-mutable-properties",
+            "--config", config("""
+            {
+                "entities": {
+                    "entitiesGeneratedAsClasses": ["Store"],
+                    "isGeneratingMutableClassProperties": false,
+                    "isGeneratingMutableStructProperties": false
+                }
+            }
+            """)
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-disable-mutable-properties")
+    }
+    
+    func testPetstoreEnableMutableProperties() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--generate", "entities",
+            "--output", temp.url.path,
+            "--package", "petstore-enable-mutable-properties",
+            "--config", config("""
+            {
+                "entities": {
+                    "entitiesGeneratedAsClasses": ["Store"],
+                    "isGeneratingMutableClassProperties": true,
+                    "isGeneratingMutableStructProperties": true
+                }
+            }
+            """)
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-enable-mutable-properties")
+    }
 
         
     func testEdgecasesRenamePrperties() throws {
