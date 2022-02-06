@@ -128,28 +128,35 @@ extension Generator {
     
     /// Return `nil` to skip generation.
     private func getTypeName(for key: OpenAPI.ComponentKey) -> TypeName? {
-        if arguments.vendor == "github" {
-            // This makes sense only for the GitHub API spec where types like
-            // `simple-user` and `nullable-simple-user` exist which are duplicate
-            // and the only different is that the latter is nullable.
-            if key.rawValue.hasPrefix("nullable-") {
-                let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
-                if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
-                   spec.components.schemas[counterpartKey] != nil {
-                    return nil
-                } else {
-                    // Some types in GitHub specs are only defined once as Nullable
-                    return makeTypeName(counterpart)
+        var name: String? {
+            if arguments.vendor == "github" {
+                // This makes sense only for the GitHub API spec where types like
+                // `simple-user` and `nullable-simple-user` exist which are duplicate
+                // and the only different is that the latter is nullable.
+                if key.rawValue.hasPrefix("nullable-") {
+                    let counterpart = key.rawValue.replacingOccurrences(of: "nullable-", with: "")
+                    if let counterpartKey = OpenAPI.ComponentKey(rawValue: counterpart),
+                       spec.components.schemas[counterpartKey] != nil {
+                        return nil
+                    } else {
+                        // Some types in GitHub specs are only defined once as Nullable
+                        return counterpart
+                    }
                 }
             }
-        }
-        if !options.rename.entities.isEmpty {
-            let name = makeTypeName(key.rawValue)
-            if let mapped = options.rename.entities[name.rawValue] {
-                return TypeName(mapped)
+            if !options.rename.entities.isEmpty {
+                let name = makeTypeName(key.rawValue)
+                if let mapped = options.rename.entities[name.rawValue] {
+                    return mapped
+                }
             }
+            return key.rawValue
         }
-        return makeTypeName(key.rawValue)
+        if let name = name {
+            return makeTypeName(Template(arguments.entityNameTemplate).substitute(name))
+        } else {
+            return nil
+        }
     }
 
     // MARK: - Declarations
@@ -275,9 +282,10 @@ extension Generator {
                 }
             }
         }
-        guard let name = ref.name else {
+        guard let referenceName = ref.name else {
             throw GeneratorError("Internal reference name is missing: \(ref)")
         }
+        var name = referenceName
         // Check if the entity is missing
         if let key = OpenAPI.ComponentKey(rawValue: name) {
             if spec.components.schemas[key] == nil {
@@ -288,9 +296,10 @@ extension Generator {
         // TODO: Remove duplication
         if !options.rename.entities.isEmpty {
             if let mapped = options.rename.entities[name] {
-                return .userDefined(name: TypeName(mapped.namespace(context.namespace)))
+                name = mapped
             }
         }
+        name = Template(arguments.entityNameTemplate).substitute(name)
         return .userDefined(name: makeTypeName(name).namespace(context.namespace))
     }
     

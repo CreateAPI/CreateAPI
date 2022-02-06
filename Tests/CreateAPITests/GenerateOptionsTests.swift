@@ -39,6 +39,22 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "petstore-change-filename")
     }
     
+    func testPetsStoreChangeEntityname() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-change-entityname",
+            "--entityname-template", "%0Generated"
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-change-entityname")
+    }
+    
     func testPestoreSingleThreaded() throws {
         // GIVEN
         let command = try Generate.parse([

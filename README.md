@@ -35,6 +35,9 @@ OPTIONS:
   --filename-template <filename-template>
                           Example: "%0.generated.swift" will produce files with the following names:
                           "Paths.generated.swift". (default: %0.swift)
+  --entityname-template <entityName-template>
+                          Example: "%0Generated" will produce entities with the following names:
+                          "EntityGenerated". (default: %0)
   --single-threaded       By default, saturates all available threads. Pass this option
                           to turn all parallelization off.
   --measure               Measure performance of individual operations

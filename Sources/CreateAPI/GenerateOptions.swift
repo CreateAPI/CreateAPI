@@ -272,6 +272,7 @@ struct GenerateArguments {
     let isIgnoringErrors: Bool
     let vendor: String?
     let module: ModuleName
+    let entityNameTemplate: String
 }
 
 private let acronyms = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]
