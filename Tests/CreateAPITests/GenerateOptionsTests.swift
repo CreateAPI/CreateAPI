@@ -112,6 +112,9 @@ final class GenerateOptionsTests: GenerateBaseTests {
             {
                 "paths": {
                     "imports": ["Get", "HTTPHeaders", "CoreData"]
+                },
+                "entities": {
+                    "imports": ["CoreLocation"]
                 }
             }
             """)

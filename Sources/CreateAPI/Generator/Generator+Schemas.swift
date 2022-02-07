@@ -61,7 +61,7 @@ extension Generator {
         }.compactMap { $0 }
    
         return GeneratorOutput(
-            header: fileHeader,
+            header: makeHeader(imports: options.entities.imports),
             files: files,
             extensions: makeExtensions()
         )

@@ -37,7 +37,7 @@ extension Generator {
             }
         }
         return GeneratorOutput(
-            header: makeHeader(),
+            header: makeHeader(imports: makePathImports()),
             files: try generated.compactMap { $0 }.map { try $0.get() },
             extensions: makeExtensions()
         )
@@ -220,19 +220,11 @@ extension Generator {
     
     // MARK: - Misc
     
-    private func makeHeader() -> String {
-        var header = fileHeader
-        for value in makeImports().sorted() {
-            header += "\nimport \(value)"
-        }
-        return header
-    }
-    
-    private func makeImports() -> [String] {
+    private func makePathImports() -> Set<String> {
         var imports = options.paths.imports
         if isHTTPHeadersDependencyNeeded { imports.insert("HTTPHeaders") }
         if isQueryEncoderNeeded { imports.insert("URLQueryEncoder") }
-        return imports.sorted()
+        return imports
     }
     
     private func makeExtensions() -> GeneratedFile? {
