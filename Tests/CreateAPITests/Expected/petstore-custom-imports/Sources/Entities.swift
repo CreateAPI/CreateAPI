@@ -4,6 +4,7 @@
 // swiftlint:disable all
 
 import Foundation
+import CoreLocation
 
 /// A pet title
 ///

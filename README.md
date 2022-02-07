@@ -120,6 +120,9 @@ entities:
   # Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
   isStrippingParentNameInNestedObjects: false
   
+  # The types to import in the entities, by default empty
+  imports: ["CoreLocation"]
+  
 paths:
   # Excluded paths, e.g. ["/gists/{gist_id}/commits"]
   # `exclude` and `include` can't be used together

@@ -46,6 +46,14 @@ final class Generator {
         TypeName(processing: rawValue, options: options)
     }
     
+    func makeHeader(imports: Set<String>) -> String {
+        var header = fileHeader
+        for value in imports.sorted() {
+            header += "\nimport \(value)"
+        }
+        return header
+    }
+    
     // MARK: State
     
     func setNeedsAnyJson() {

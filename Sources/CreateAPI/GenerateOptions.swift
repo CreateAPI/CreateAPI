@@ -41,6 +41,7 @@ final class GenerateOptions {
         var isGeneratingStructs: Bool
         var entitiesGeneratedAsClasses: Set<String>
         var entitiesGeneratedAsStructs: Set<String>
+        var imports: Set<String>
         var isMakingClassesFinal: Bool
         var baseClass: String?
         var protocols: Set<String>
@@ -64,6 +65,7 @@ final class GenerateOptions {
             self.isGeneratingStructs = options?.isGeneratingStructs ?? true
             self.entitiesGeneratedAsClasses = Set(options?.entitiesGeneratedAsClasses ?? [])
             self.entitiesGeneratedAsStructs = Set(options?.entitiesGeneratedAsStructs ?? [])
+            self.imports = Set(options?.imports ?? [])
             self.isMakingClassesFinal = options?.isMakingClassesFinal ?? true
             self.baseClass = options?.baseClass
             self.protocols = Set(options?.protocols ?? ["Codable"])
@@ -210,6 +212,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingStructs: Bool?
         var entitiesGeneratedAsClasses: [String]?
         var entitiesGeneratedAsStructs: [String]?
+        var imports: Set<String>?
         var isMakingClassesFinal: Bool?
         var isGeneratingMutableClassProperties: Bool?
         var isGeneratingMutableStructProperties: Bool?
