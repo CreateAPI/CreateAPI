@@ -353,6 +353,51 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "petstore-enable-mutable-properties")
     }
 
+    func testPetstoreChangeNamespaceWhenRestStyle() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-change-namespace-when-rest-style",
+            "--config", config("""
+            {
+                "paths": {
+                    "style": "rest",
+                    "namespace": "Namespace",
+                }
+            }
+            """)
+        ])
+
+        // WHEN
+        try command.run()
+
+        // THEN
+        try compare(package: "petstore-change-namespace-when-rest-style")
+    }
+
+    func testPetstoreChangeNamespaceWhenOperationsStyle() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore"),
+            "--output", temp.url.path,
+            "--package", "petstore-change-namespace-when-operations-style",
+            "--config", config("""
+            {
+                "paths": {
+                    "style": "operations",
+                    "namespace": "Namespace",
+                }
+            }
+            """)
+        ])
+
+        // WHEN
+        try command.run()
+
+        // THEN
+        try compare(package: "petstore-change-namespace-when-operations-style")
+    }
         
     func testEdgecasesRenamePrperties() throws {
         // GIVEN
