@@ -322,7 +322,7 @@ extension Generator {
         guard let entry = try makeOperation(task: task, context, &nestedTypeNames) else {
             throw GeneratorError("Failed to generate operation")
         }
-        return templates.extensionOf("Paths", contents: entry)
+        return templates.extensionOf(options.paths.namespace, contents: entry)
     }
     
     // MARK: - Operations
