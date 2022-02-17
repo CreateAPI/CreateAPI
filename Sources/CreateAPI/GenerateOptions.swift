@@ -19,7 +19,7 @@ final class GenerateOptions {
     var isNaiveDateEnabled: Bool
     var isUsingIntegersWithPredefinedCapacity: Bool
     var isSwiftLintDisabled: Bool
-    var fileHeader: String?
+    var fileHeaderComment: String?
     
     var entities: Entities
     var paths: Paths
@@ -181,7 +181,7 @@ final class GenerateOptions {
         self.isNaiveDateEnabled = options.isNaiveDateEnabled ?? true
         self.isUsingIntegersWithPredefinedCapacity = options.isUsingIntegersWithPredefinedCapacity ?? false
         self.isSwiftLintDisabled = options.isSwiftLintDisabled ?? true
-        self.fileHeader = options.fileHeader
+        self.fileHeaderComment = options.fileHeaderComment
     }
 }
 
@@ -201,7 +201,7 @@ final class GenerateOptionsSchema: Decodable {
     var isNaiveDateEnabled: Bool?
     var isUsingIntegersWithPredefinedCapacity: Bool?
     var isSwiftLintDisabled: Bool?
-    var fileHeader: String?
+    var fileHeaderComment: String?
     
     var entities: Entities?
     var paths: Paths?
