@@ -268,14 +268,14 @@ import NaiveDate
     var float: Double?
     var double: Double?
     var string: String?
-    var byte: String
+    var byte: Data
     var binary: String?
     var date: NaiveDate
     var dateTime: Date?
     var uuid: UUID?
     var password: String
 
-    init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
+    init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: Data, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64

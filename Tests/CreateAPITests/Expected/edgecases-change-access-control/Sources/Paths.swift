@@ -435,7 +435,7 @@ extension Paths {
             /// None
             var patternWithoutDelimiter: String
             /// None
-            var byte: String
+            var byte: Data
             /// None
             var binary: String?
             /// None
@@ -447,7 +447,7 @@ extension Paths {
             /// None
             var callback: String?
 
-            init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
+            init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: Data, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
                 self.integer = integer
                 self.int32 = int32
                 self.int64 = int64
