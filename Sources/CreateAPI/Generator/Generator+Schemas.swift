@@ -315,7 +315,7 @@ extension Generator {
 
         var (entity, context) = makeEntity(name: name, type: .object, info: info, context: context)
         context.objectSchema = details
-        entity.properties = try makeProperties(for: name, object: details, context: context)
+        entity.properties = try makeInlineProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
         entity.protocols = getProtocols(for: name, context: context)
@@ -331,14 +331,14 @@ extension Generator {
         return protocols
     }
     
-    private func makeProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
+    private func makeInlineProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
         var keys = object.properties.keys
         if options.entities.isSortingPropertiesAlphabetically { keys.sort() }
         return try keys.compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
-                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context)
+                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context, isInlined: true)
             } catch {
                 return try handle(error: "Failed to generate property \"\(key)\" in \"\(type)\". \(error).")
             }
@@ -517,17 +517,17 @@ extension Generator {
             switch schema.value {
             case .object(_, let details):
                 // Inline properties for nested objects (different from other OpenAPI constructs)
-                return try makeProperties(for: name, object: details, context: context)
+                return try makeInlineProperties(for: name, object: details, context: context)
             case .reference(let info,_ ):
                 if options.entities.isInliningPropertiesFromReferencedSchemas,
                    let schema = getSchema(for: info),
                    case .object(_, let details) = schema.value {
-                    return try makeProperties(for: name, object: details, context: context)
+                    return try makeInlineProperties(for: name, object: details, context: context)
                 } else {
                     return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
                 }
             default:
-                return [try makeProperty(key: type, schema: schema, isRequired: true, in: context)]
+                return [try makeProperty(key: type, schema: schema, isRequired: true, in: context, isInlined: true)]
             }
         }.removingDuplicates(by: \.name)
         
@@ -661,7 +661,7 @@ extension Generator {
     
     // MARK: - Property
     
-    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context) throws -> Property {
+    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool = false) throws -> Property {
         let propertyName: PropertyName
 
         /**
@@ -736,7 +736,7 @@ extension Generator {
                     defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
                 }
             }
-            return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested)
+            return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested, isInlined: isInlined)
         }
 
         // TOOD: This can be done faster for primitive types (no makeTypeName)
