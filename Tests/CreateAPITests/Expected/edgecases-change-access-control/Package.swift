@@ -13,7 +13,7 @@ let package = Package(
         .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
         .package(url: "https://github.com/kean/HTTPHeaders", from: "0.1.0"), 
         .package(url: "https://github.com/kean/NaiveDate", from: "1.0.0"), 
-        .package(url: "https://github.com/kean/URLQueryEncoder", branch: "0.2.0")
+        .package(url: "https://github.com/kean/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
         .target(name: "edgecases-change-access-control", dependencies: [
