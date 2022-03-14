@@ -382,14 +382,14 @@ public struct FormatTest: Codable {
     public var float: Double?
     public var double: Double?
     public var string: String?
-    public var byte: String
+    public var byte: Data
     public var binary: String?
     public var date: NaiveDate
     public var dateTime: Date?
     public var uuid: UUID?
     public var password: String
 
-    public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: String, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
+    public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double? = nil, string: String? = nil, byte: Data, binary: String? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64
@@ -414,7 +414,7 @@ public struct FormatTest: Codable {
         self.float = try values.decodeIfPresent(Double.self, forKey: "float")
         self.double = try values.decodeIfPresent(Double.self, forKey: "double")
         self.string = try values.decodeIfPresent(String.self, forKey: "string")
-        self.byte = try values.decode(String.self, forKey: "byte")
+        self.byte = try values.decode(Data.self, forKey: "byte")
         self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
         self.date = try values.decode(NaiveDate.self, forKey: "date")
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
