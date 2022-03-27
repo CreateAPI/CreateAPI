@@ -249,7 +249,7 @@ final class Templates {
     ///
     ///     self.animal = try Animal(from: decoder)
     func decodeFromDecoder(property: Property) -> String {
-        "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
+        "self.\(property.name.accessor) = try\(property.isOptional ? "?" : "") \(property.type)(from: decoder)"
     }
     
     func initFromDecoder(properties: [Property], isUsingCodingKeys: Bool) -> String {
