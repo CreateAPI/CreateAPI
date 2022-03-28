@@ -159,7 +159,7 @@ struct Property {
     // A nested declaration required used as a property type
     var nested: Declaration?
     // If the schema is inlined by `allOf`. This is currently used only for the generation of decoders.
-    var isInlined: Bool
+    var isInlined: Bool?
 }
 
 protocol Declaration {

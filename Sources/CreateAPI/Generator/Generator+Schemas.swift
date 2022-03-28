@@ -661,7 +661,7 @@ extension Generator {
     
     // MARK: - Property
     
-    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool = false) throws -> Property {
+    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool? = nil) throws -> Property {
         let propertyName: PropertyName
 
         /**
