@@ -311,22 +311,26 @@ public struct ClassModel: Codable {
 public struct Dog: Codable {
     public var animal: Animal
     public var breed: String?
+    public var image: Image?
 
-    public init(animal: Animal, breed: String? = nil) {
+    public init(animal: Animal, breed: String? = nil, image: Image? = nil) {
         self.animal = animal
         self.breed = breed
+        self.image = image
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
         self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
+        self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encode(animal, forKey: "animal")
         try values.encodeIfPresent(breed, forKey: "breed")
+        try values.encodeIfPresent(image, forKey: "image")
     }
 }
 
@@ -371,6 +375,28 @@ public struct Animal: Codable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encode(className, forKey: "className")
         try values.encodeIfPresent(color, forKey: "color")
+    }
+}
+
+public struct Image: Codable {
+    public var id: AnyJSON
+    public var url: AnyJSON
+
+    public init(id: AnyJSON, url: AnyJSON) {
+        self.id = id
+        self.url = url
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(AnyJSON.self, forKey: "id")
+        self.url = try values.decode(AnyJSON.self, forKey: "url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(url, forKey: "url")
     }
 }
 

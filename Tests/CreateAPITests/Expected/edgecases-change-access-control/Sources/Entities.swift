@@ -209,22 +209,26 @@ import NaiveDate
  struct Dog: Codable {
     var animal: Animal
     var breed: String?
+    var image: Image?
 
-    init(animal: Animal, breed: String? = nil) {
+    init(animal: Animal, breed: String? = nil, image: Image? = nil) {
         self.animal = animal
         self.breed = breed
+        self.image = image
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
         self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
+        self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }
 
     func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encode(animal, forKey: "animal")
         try values.encodeIfPresent(breed, forKey: "breed")
+        try values.encodeIfPresent(image, forKey: "image")
     }
 }
 
@@ -257,6 +261,16 @@ import NaiveDate
     init(className: String, color: String? = nil) {
         self.className = className
         self.color = color
+    }
+}
+
+ struct Image: Codable {
+    var id: AnyJSON
+    var url: AnyJSON
+
+    init(id: AnyJSON, url: AnyJSON) {
+        self.id = id
+        self.url = url
     }
 }
 
