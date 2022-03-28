@@ -982,6 +982,8 @@ components:
           properties:
             breed:
               type: string
+            image:
+              $ref: "#/components/schemas/Image"
     Cat:
       allOf:
         - $ref: "#/components/schemas/Animal"
@@ -1001,6 +1003,15 @@ components:
         color:
           type: string
           default: red
+    Image:
+      type: object
+      required:
+        - id
+        - url
+      id:
+        - type: string
+      url:
+        - type: string
     AnimalFarm:
       type: array
       items:
