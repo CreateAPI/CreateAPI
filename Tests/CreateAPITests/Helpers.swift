@@ -16,13 +16,8 @@ func fileExists(named name: String, ext: String) -> Bool {
     Bundle.module.url(forResource: name, withExtension: ext) != nil
 }
 
-func pathForSpec(named name: String) -> String {
-    Bundle.module.url(forResource: name, withExtension: "yaml", subdirectory: "Specs")!.path
-}
-
-func spec(named name: String) -> OpenAPI.Document {
-    let data = file(named: name, ext: "yaml")
-    return try! YAMLDecoder().decode(OpenAPI.Document.self, from: data)
+func pathForSpec(named name: String, ext: String) -> String {
+    Bundle.module.url(forResource: name, withExtension: ext, subdirectory: "Specs")!.path
 }
 
 func generated(named name: String) -> String {
