@@ -21,7 +21,7 @@
       },
       {
         "package": "OpenAPIKit",
-        "repositoryURL": "https://github.com/kean/OpenAPIKit",
+        "repositoryURL": "https://github.com/CreateAPI/OpenAPIKit",
         "state": {
           "branch": "create-api",
           "revision": "6eb4baa0abbece9746f6f01837381e5c9999b373",
@@ -39,7 +39,7 @@
       },
       {
         "package": "Yams",
-        "repositoryURL": "https://github.com/kean/Yams.git",
+        "repositoryURL": "https://github.com/CreateAPI/Yams",
         "state": {
           "branch": "main",
           "revision": "3357d51e5621e3ccfba1acbf9d7b5d0e1cfa59f8",
