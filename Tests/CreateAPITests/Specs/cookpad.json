@@ -1,0 +1,374 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Global Mobile Hiring",
+    "description": "An API to facilitate the hiring process for mobile teams at Cookpad Global.\n\nWant to apply? Visit [cookpadteam.com/careers](https://www.cookpadteam.com/careers) for more."
+  },
+  "servers": [
+    {
+      "url": "https://cookpad.github.io/global-mobile-hiring"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Collections",
+      "description": "Curated collections of the best Recipe content."
+    },
+    {
+      "name": "Recipes",
+      "description": "Access to specific Recipe content."
+    }
+  ],
+  "paths": {
+    "/api/collections/": {
+      "get": {
+        "tags": [
+          "Collections"
+        ],
+        "operationId": "getAllCollections",
+        "summary": "All Collections",
+        "description": "Returns an array of all Collection models in display order.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Collection"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/collections/{id}/": {
+      "get": {
+        "tags": [
+          "Collections"
+        ],
+        "operationId": "getCollection",
+        "summary": "Find a Collection by ID",
+        "description": "Returns a single Collection model associated with the given identifier.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collection"
+                }
+              }
+            },
+            "links": {
+              "recipes": {
+                "operationId": "getCollectionRecipes",
+                "description": "Find Recipes within this Collection.",
+                "parameters": {
+                  "id": "$request.path.id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A Collection with this ID does not exist."
+          }
+        }
+      }
+    },
+    "/api/collections/{id}/recipes/": {
+      "get": {
+        "tags": [
+          "Collections"
+        ],
+        "operationId": "getCollectionRecipes",
+        "summary": "Find Recipes in a Collection",
+        "description": "Returns an ordered array of Recipe models in the given Collection.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A Collection with this ID does not exist."
+          }
+        }
+      }
+    },
+    "/api/recipes/": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "operationId": "getAllRecipes",
+        "summary": "All Recipes",
+        "description": "Returns an array of all Recipe models in order of most recently published.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recipes/{id}/": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "operationId": "getRecipe",
+        "summary": "Find a Recipe by ID",
+        "description": "Returns a specific Recipe model with the given identifier.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ResourceID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The JSON response sent upon a successful query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A Recipe with this ID does not exist."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Collection": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "recipe_count",
+          "preview_image_urls"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The unique collection identifier.",
+            "nullable": false,
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the collection.",
+            "nullable": false,
+            "example": "BBQ Classics"
+          },
+          "description": {
+            "type": "string",
+            "description": "A longer description of the collection.",
+            "nullable": false,
+            "example": "The sun is shining? The BBQ is out? Check out this collection of recipes for the perfect summer BBQ."
+          },
+          "recipe_count": {
+            "type": "integer",
+            "description": "The number of recipes in this collection.",
+            "nullable": false,
+            "example": 27
+          },
+          "preview_image_urls": {
+            "type": "array",
+            "description": "URLs to images for up to a maximum of four recipes in the collection.",
+            "nullable": false,
+            "items": {
+              "type": "string",
+              "nullable": false,
+              "format": "uri"
+            },
+            "example": [
+              "https://img-global.cpcdn.com/recipes/65555efe64df98ce/m/photo.jpg"
+            ]
+          }
+        }
+      },
+      "Recipe": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "story",
+          "image_url",
+          "published_at",
+          "user",
+          "ingredients",
+          "steps"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The unique recipe identifier.",
+            "nullable": false,
+            "example": 2380570
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the recipe.",
+            "nullable": false,
+            "example": "BBQ Sticky Ribs"
+          },
+          "story": {
+            "type": "string",
+            "description": "The story behind the recipe.",
+            "nullable": false,
+            "example": "Pork ribs marinated overnight in a sweet barbecue sauce slowly cooked and finished off on a BBQ"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "A URL to the main image of the recipe, or null if one was not specified.",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://img-global.cpcdn.com/recipes/65555efe64df98ce/m/photo.jpg"
+          },
+          "published_at": {
+            "type": "string",
+            "description": " The date that the recipe was published in ISO8601 format.",
+            "nullable": false,
+            "format": "date-time",
+            "example": "2017-07-05T02:34:00+00:00"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "ingredients": {
+            "type": "array",
+            "description": "An array of ingredients used within the recipe.",
+            "nullable": false,
+            "items": {
+              "type": "string",
+              "nullable": false
+            },
+            "example": [
+              "2 kg pork ribs",
+              "400 g chopped tomatoes",
+              "5 garlic cloves",
+              "100 g soft brown sugar",
+              "75 ml maple syrup",
+              "150 ml ketchup",
+              "150 ml BBQ sauce",
+              "150 ml Honey Jack Daniels whiskey",
+              "50 ml cider vinegar",
+              "2 tbsp black treacle",
+              "3 tbsp soy sauce",
+              "2 tbsp Worcestershire sauce"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "description": "An array of steps to follow within the recipe.",
+            "nullable": false,
+            "items": {
+              "$ref": "#/components/schemas/Step"
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "name",
+          "image_url"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the user.",
+            "nullable": false,
+            "example": "Liam Nichols"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "A URL to the user profile image, or null if one was not specified.",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://img-global.cpcdn.com/users/f34ef79fabdb58a4/m/photo.jpg"
+          }
+        }
+      },
+      "Step": {
+        "type": "object",
+        "required": [
+          "description",
+          "image_urls"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "The instructions for the step.",
+            "nullable": false,
+            "example": "Crush the garlic cloves and add all ingredients apart from the ribs into a pan"
+          },
+          "image_urls": {
+            "type": "array",
+            "description": "An array of up to three image URLs associated with the step.",
+            "nullable": false,
+            "items": {
+              "type": "string",
+              "nullable": false,
+              "format": "uri"
+            },
+            "example": [
+              "https://img-global.cpcdn.com/steps/0606534c251df2e5/m/photo.jpg"
+            ]
+          }
+        }
+      }
+    },
+    "parameters": {
+      "ResourceID": {
+        "name": "id",
+        "in": "path",
+        "description": "The unique identifier of the resource to fetch.",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

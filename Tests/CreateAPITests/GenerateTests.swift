@@ -46,4 +46,8 @@ final class GenerateTests: GenerateBaseTests {
         // THEN
         try compare(package: "OctoKit")
     }
+
+    func testCookpad() throws {
+        try testSpec(name: "cookpad", ext: "json")
+    }
 }
