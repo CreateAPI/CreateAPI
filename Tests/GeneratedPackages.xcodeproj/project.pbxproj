@@ -7,91 +7,118 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0CEB95812780E15C002E02C0 /* petstore-disable-comments in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95642780E15B002E02C0 /* petstore-disable-comments */; };
-		0CEB95822780E15C002E02C0 /* petstore-operation-id in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95652780E15B002E02C0 /* petstore-operation-id */; };
-		0CEB95832780E15C002E02C0 /* petstore-split in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95662780E15B002E02C0 /* petstore-split */; };
-		0CEB95842780E15C002E02C0 /* edgecases-disable-enums in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95672780E15B002E02C0 /* edgecases-disable-enums */; };
-		0CEB95852780E15C002E02C0 /* test-query-parameters in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95682780E15B002E02C0 /* test-query-parameters */; };
-		0CEB95862780E15C002E02C0 /* edgecases-change-access-control in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95692780E15C002E02C0 /* edgecases-change-access-control */; };
-		0CEB95872780E15C002E02C0 /* petstore-single-threaded in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956A2780E15C002E02C0 /* petstore-single-threaded */; };
-		0CEB95882780E15C002E02C0 /* edgecases-default in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956B2780E15C002E02C0 /* edgecases-default */; };
-		0CEB95892780E15C002E02C0 /* petstore-generate-classes in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956C2780E15C002E02C0 /* petstore-generate-classes */; };
-		0CEB958A2780E15C002E02C0 /* petstore-custom-imports in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956D2780E15C002E02C0 /* petstore-custom-imports */; };
-		0CEB958B2780E15C002E02C0 /* edgecases-rename in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956E2780E15C002E02C0 /* edgecases-rename */; };
-		0CEB958C2780E15C002E02C0 /* petstore-change-filename in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB956F2780E15C002E02C0 /* petstore-change-filename */; };
-		0CEB958D2780E15C002E02C0 /* OctoKit in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95702780E15C002E02C0 /* OctoKit */; };
-		0CEB958E2780E15C002E02C0 /* petstore-some-entities-as-structs in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95712780E15C002E02C0 /* petstore-some-entities-as-structs */; };
-		0CEB958F2780E15C002E02C0 /* petstore-disable-inlining in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95722780E15C002E02C0 /* petstore-disable-inlining */; };
-		0CEB95902780E15C002E02C0 /* petstore-default in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95732780E15C002E02C0 /* petstore-default */; };
-		0CEB95912780E15C002E02C0 /* edgecases-tabs in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95742780E15C002E02C0 /* edgecases-tabs */; };
-		0CEB95922780E15C002E02C0 /* edgecases-int32-int64 in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95752780E15C002E02C0 /* edgecases-int32-int64 */; };
-		0CEB95932780E15C002E02C0 /* petstore-disable-init-with-coder in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */; };
-		0CEB95942780E15C002E02C0 /* petstore-only-schemas in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95772780E15C002E02C0 /* petstore-only-schemas */; };
-		0CEB95952780E15C002E02C0 /* edgecases-yaml-config in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95782780E15C002E02C0 /* edgecases-yaml-config */; };
-		0CEB95962780E15C002E02C0 /* edgecases-disable-acronyms in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB95792780E15C002E02C0 /* edgecases-disable-acronyms */; };
-		0CEB95972780E15C002E02C0 /* edgecases-coding-keys in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957A2780E15C002E02C0 /* edgecases-coding-keys */; };
-		0CEB95982780E15C002E02C0 /* edgecases-rename-properties in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957B2780E15C002E02C0 /* edgecases-rename-properties */; };
-		0CEB95992780E15C002E02C0 /* edgecases-indent-with-two-width-spaces in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957C2780E15C002E02C0 /* edgecases-indent-with-two-width-spaces */; };
-		0CEB959A2780E15C002E02C0 /* petstore-base-class in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957D2780E15C002E02C0 /* petstore-base-class */; };
-		0CEB959B2780E15C002E02C0 /* petstore-some-entities-as-classes in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB957E2780E15C002E02C0 /* petstore-some-entities-as-classes */; };
-		0CEB959D2780E163002E02C0 /* edgecases-change-access-control in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB959C2780E163002E02C0 /* edgecases-change-access-control */; };
-		0CEB959F2780E163002E02C0 /* edgecases-coding-keys in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB959E2780E163002E02C0 /* edgecases-coding-keys */; };
-		0CEB95A12780E163002E02C0 /* edgecases-default in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A02780E163002E02C0 /* edgecases-default */; };
-		0CEB95A32780E163002E02C0 /* edgecases-disable-acronyms in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A22780E163002E02C0 /* edgecases-disable-acronyms */; };
-		0CEB95A52780E163002E02C0 /* edgecases-disable-enums in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A42780E163002E02C0 /* edgecases-disable-enums */; };
-		0CEB95A72780E163002E02C0 /* edgecases-indent-with-two-width-spaces in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A62780E163002E02C0 /* edgecases-indent-with-two-width-spaces */; };
-		0CEB95A92780E163002E02C0 /* edgecases-int32-int64 in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95A82780E163002E02C0 /* edgecases-int32-int64 */; };
-		0CEB95AB2780E163002E02C0 /* edgecases-rename in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95AA2780E163002E02C0 /* edgecases-rename */; };
-		0CEB95AD2780E163002E02C0 /* edgecases-rename-properties in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95AC2780E163002E02C0 /* edgecases-rename-properties */; };
-		0CEB95AF2780E163002E02C0 /* edgecases-tabs in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95AE2780E163002E02C0 /* edgecases-tabs */; };
-		0CEB95B12780E163002E02C0 /* edgecases-yaml-config in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B02780E163002E02C0 /* edgecases-yaml-config */; };
-		0CEB95B32780E163002E02C0 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B22780E163002E02C0 /* OctoKit */; };
-		0CEB95B52780E163002E02C0 /* petstore-base-class in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B42780E163002E02C0 /* petstore-base-class */; };
-		0CEB95B72780E163002E02C0 /* petstore-change-filename in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B62780E163002E02C0 /* petstore-change-filename */; };
-		0CEB95B92780E163002E02C0 /* petstore-custom-imports in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95B82780E163002E02C0 /* petstore-custom-imports */; };
-		0CEB95BB2780E163002E02C0 /* petstore-default in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95BA2780E163002E02C0 /* petstore-default */; };
-		0CEB95BD2780E163002E02C0 /* petstore-disable-comments in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95BC2780E163002E02C0 /* petstore-disable-comments */; };
-		0CEB95BF2780E163002E02C0 /* petstore-disable-init-with-coder in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95BE2780E163002E02C0 /* petstore-disable-init-with-coder */; };
-		0CEB95C12780E163002E02C0 /* petstore-disable-inlining in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C02780E163002E02C0 /* petstore-disable-inlining */; };
-		0CEB95C32780E163002E02C0 /* petstore-generate-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C22780E163002E02C0 /* petstore-generate-classes */; };
-		0CEB95C52780E163002E02C0 /* petstore-only-schemas in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C42780E163002E02C0 /* petstore-only-schemas */; };
-		0CEB95C72780E163002E02C0 /* petstore-operation-id in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C62780E163002E02C0 /* petstore-operation-id */; };
-		0CEB95C92780E163002E02C0 /* petstore-single-threaded in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95C82780E163002E02C0 /* petstore-single-threaded */; };
-		0CEB95CB2780E163002E02C0 /* petstore-some-entities-as-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95CA2780E163002E02C0 /* petstore-some-entities-as-classes */; };
-		0CEB95CD2780E163002E02C0 /* petstore-some-entities-as-structs in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95CC2780E163002E02C0 /* petstore-some-entities-as-structs */; };
-		0CEB95CF2780E163002E02C0 /* petstore-split in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95CE2780E163002E02C0 /* petstore-split */; };
-		0CEB95D12780E163002E02C0 /* test-query-parameters in Frameworks */ = {isa = PBXBuildFile; productRef = 0CEB95D02780E163002E02C0 /* test-query-parameters */; };
+		5353B56027FE1DFC0000D490 /* edgecases-yaml-config in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53827FE1DFB0000D490 /* edgecases-yaml-config */; };
+		5353B56127FE1DFC0000D490 /* edgecases-disable-acronyms in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53927FE1DFB0000D490 /* edgecases-disable-acronyms */; };
+		5353B56227FE1DFC0000D490 /* edgecases-int32-int64 in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53A27FE1DFB0000D490 /* edgecases-int32-int64 */; };
+		5353B56327FE1DFD0000D490 /* edgecases-rename-properties in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53B27FE1DFB0000D490 /* edgecases-rename-properties */; };
+		5353B56427FE1DFD0000D490 /* strip-parent-name-nested-objects-enabled in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53C27FE1DFB0000D490 /* strip-parent-name-nested-objects-enabled */; };
+		5353B56527FE1DFD0000D490 /* petstore-base-class in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53D27FE1DFB0000D490 /* petstore-base-class */; };
+		5353B56627FE1DFD0000D490 /* petstore-custom-imports in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53E27FE1DFB0000D490 /* petstore-custom-imports */; };
+		5353B56727FE1DFD0000D490 /* petstore-change-namespace-when-operations-style in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53F27FE1DFB0000D490 /* petstore-change-namespace-when-operations-style */; };
+		5353B56827FE1DFD0000D490 /* petstore-change-namespace-when-rest-style in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54027FE1DFC0000D490 /* petstore-change-namespace-when-rest-style */; };
+		5353B56927FE1DFD0000D490 /* edgecases-disable-enums in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54127FE1DFC0000D490 /* edgecases-disable-enums */; };
+		5353B56C27FE1DFD0000D490 /* petstore-disable-mutable-properties in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54527FE1DFC0000D490 /* petstore-disable-mutable-properties */; };
+		5353B56D27FE1DFD0000D490 /* edgecases-coding-keys in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54627FE1DFC0000D490 /* edgecases-coding-keys */; };
+		5353B56E27FE1DFD0000D490 /* test-query-parameters in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54727FE1DFC0000D490 /* test-query-parameters */; };
+		5353B57027FE1DFD0000D490 /* petstore-split in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54927FE1DFC0000D490 /* petstore-split */; };
+		5353B57127FE1DFD0000D490 /* edgecases-change-access-control in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54A27FE1DFC0000D490 /* edgecases-change-access-control */; };
+		5353B57227FE1DFD0000D490 /* cookpad in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54B27FE1DFC0000D490 /* cookpad */; };
+		5353B57327FE1DFD0000D490 /* petstore-single-threaded in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54C27FE1DFC0000D490 /* petstore-single-threaded */; };
+		5353B57427FE1DFD0000D490 /* petstore-some-entities-as-classes in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54D27FE1DFC0000D490 /* petstore-some-entities-as-classes */; };
+		5353B57527FE1DFD0000D490 /* edgecases-default in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54E27FE1DFC0000D490 /* edgecases-default */; };
+		5353B57627FE1DFD0000D490 /* petstore-disable-init-with-coder in Resources */ = {isa = PBXBuildFile; fileRef = 5353B54F27FE1DFC0000D490 /* petstore-disable-init-with-coder */; };
+		5353B57727FE1DFD0000D490 /* petstore-some-entities-as-structs in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55027FE1DFC0000D490 /* petstore-some-entities-as-structs */; };
+		5353B57827FE1DFD0000D490 /* strip-parent-name-nested-objects-default in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55127FE1DFC0000D490 /* strip-parent-name-nested-objects-default */; };
+		5353B57927FE1DFD0000D490 /* petstore-generate-classes in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55227FE1DFC0000D490 /* petstore-generate-classes */; };
+		5353B57A27FE1DFD0000D490 /* edgecases-rename in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55327FE1DFC0000D490 /* edgecases-rename */; };
+		5353B57B27FE1DFD0000D490 /* petstore-disable-comments in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55427FE1DFC0000D490 /* petstore-disable-comments */; };
+		5353B57C27FE1DFD0000D490 /* petstore-change-entityname in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55527FE1DFC0000D490 /* petstore-change-entityname */; };
+		5353B57D27FE1DFD0000D490 /* petstore-enable-mutable-properties in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55627FE1DFC0000D490 /* petstore-enable-mutable-properties */; };
+		5353B57E27FE1DFD0000D490 /* petstore-change-filename in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55727FE1DFC0000D490 /* petstore-change-filename */; };
+		5353B57F27FE1DFD0000D490 /* discriminator in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55827FE1DFC0000D490 /* discriminator */; };
+		5353B58027FE1DFD0000D490 /* petstore-default in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55927FE1DFC0000D490 /* petstore-default */; };
+		5353B58127FE1DFD0000D490 /* edgecases-tabs in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55A27FE1DFC0000D490 /* edgecases-tabs */; };
+		5353B58227FE1DFD0000D490 /* petstore-operation-id in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55B27FE1DFC0000D490 /* petstore-operation-id */; };
+		5353B58327FE1DFD0000D490 /* petstore-disable-inlining in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55C27FE1DFC0000D490 /* petstore-disable-inlining */; };
+		5353B58427FE1DFD0000D490 /* petstore-only-schemas in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55D27FE1DFC0000D490 /* petstore-only-schemas */; };
+		5353B58527FE1DFD0000D490 /* OctoKit in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55E27FE1DFC0000D490 /* OctoKit */; };
+		5353B58627FE1DFD0000D490 /* edgecases-indent-with-two-width-spaces in Resources */ = {isa = PBXBuildFile; fileRef = 5353B55F27FE1DFC0000D490 /* edgecases-indent-with-two-width-spaces */; };
+		5353B58827FE1E260000D490 /* cookpad in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B58727FE1E260000D490 /* cookpad */; };
+		5353B58A27FE1E260000D490 /* discriminator in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B58927FE1E260000D490 /* discriminator */; };
+		5353B58C27FE1E260000D490 /* edgecases-change-access-control in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B58B27FE1E260000D490 /* edgecases-change-access-control */; };
+		5353B58E27FE1E260000D490 /* edgecases-coding-keys in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B58D27FE1E260000D490 /* edgecases-coding-keys */; };
+		5353B59027FE1E260000D490 /* edgecases-default in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B58F27FE1E260000D490 /* edgecases-default */; };
+		5353B59227FE1E260000D490 /* edgecases-disable-acronyms in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59127FE1E260000D490 /* edgecases-disable-acronyms */; };
+		5353B59427FE1E260000D490 /* edgecases-disable-enums in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59327FE1E260000D490 /* edgecases-disable-enums */; };
+		5353B59627FE1E260000D490 /* edgecases-indent-with-two-width-spaces in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59527FE1E260000D490 /* edgecases-indent-with-two-width-spaces */; };
+		5353B59827FE1E260000D490 /* edgecases-int32-int64 in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59727FE1E260000D490 /* edgecases-int32-int64 */; };
+		5353B59A27FE1E260000D490 /* edgecases-rename in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59927FE1E260000D490 /* edgecases-rename */; };
+		5353B59C27FE1E260000D490 /* edgecases-rename-properties in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59B27FE1E260000D490 /* edgecases-rename-properties */; };
+		5353B59E27FE1E260000D490 /* edgecases-tabs in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59D27FE1E260000D490 /* edgecases-tabs */; };
+		5353B5A027FE1E260000D490 /* edgecases-yaml-config in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B59F27FE1E260000D490 /* edgecases-yaml-config */; };
+		5353B5A227FE1E260000D490 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5A127FE1E260000D490 /* OctoKit */; };
+		5353B5A427FE1E260000D490 /* petstore-base-class in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5A327FE1E260000D490 /* petstore-base-class */; };
+		5353B5A627FE1E260000D490 /* petstore-change-entityname in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5A527FE1E260000D490 /* petstore-change-entityname */; };
+		5353B5A827FE1E260000D490 /* petstore-change-filename in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5A727FE1E260000D490 /* petstore-change-filename */; };
+		5353B5AA27FE1E260000D490 /* petstore-change-namespace-when-operations-style in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5A927FE1E260000D490 /* petstore-change-namespace-when-operations-style */; };
+		5353B5AC27FE1E260000D490 /* petstore-change-namespace-when-rest-style in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5AB27FE1E260000D490 /* petstore-change-namespace-when-rest-style */; };
+		5353B5AE27FE1E260000D490 /* petstore-custom-imports in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5AD27FE1E260000D490 /* petstore-custom-imports */; };
+		5353B5B027FE1E260000D490 /* petstore-default in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5AF27FE1E260000D490 /* petstore-default */; };
+		5353B5B227FE1E260000D490 /* petstore-disable-comments in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5B127FE1E260000D490 /* petstore-disable-comments */; };
+		5353B5B427FE1E260000D490 /* petstore-disable-init-with-coder in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5B327FE1E260000D490 /* petstore-disable-init-with-coder */; };
+		5353B5B627FE1E260000D490 /* petstore-disable-inlining in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5B527FE1E260000D490 /* petstore-disable-inlining */; };
+		5353B5B827FE1E260000D490 /* petstore-disable-mutable-properties in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5B727FE1E260000D490 /* petstore-disable-mutable-properties */; };
+		5353B5BA27FE1E260000D490 /* petstore-enable-mutable-properties in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5B927FE1E260000D490 /* petstore-enable-mutable-properties */; };
+		5353B5BC27FE1E260000D490 /* petstore-generate-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5BB27FE1E260000D490 /* petstore-generate-classes */; };
+		5353B5BE27FE1E270000D490 /* petstore-only-schemas in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5BD27FE1E270000D490 /* petstore-only-schemas */; };
+		5353B5C027FE1E270000D490 /* petstore-operation-id in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5BF27FE1E270000D490 /* petstore-operation-id */; };
+		5353B5C227FE1E270000D490 /* petstore-single-threaded in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5C127FE1E270000D490 /* petstore-single-threaded */; };
+		5353B5C427FE1E270000D490 /* petstore-some-entities-as-classes in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5C327FE1E270000D490 /* petstore-some-entities-as-classes */; };
+		5353B5C627FE1E270000D490 /* petstore-some-entities-as-structs in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5C527FE1E270000D490 /* petstore-some-entities-as-structs */; };
+		5353B5C827FE1E270000D490 /* petstore-split in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5C727FE1E270000D490 /* petstore-split */; };
+		5353B5CA27FE1E270000D490 /* strip-parent-name-nested-objects-default in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5C927FE1E270000D490 /* strip-parent-name-nested-objects-default */; };
+		5353B5CC27FE1E270000D490 /* strip-parent-name-nested-objects-enabled in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5CB27FE1E270000D490 /* strip-parent-name-nested-objects-enabled */; };
+		5353B5CE27FE1E270000D490 /* test-query-parameters in Frameworks */ = {isa = PBXBuildFile; productRef = 5353B5CD27FE1E270000D490 /* test-query-parameters */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0C612E602777B55A008D32A4 /* GeneratedPackages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeneratedPackages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0CEB95642780E15B002E02C0 /* petstore-disable-comments */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-comments"; path = "CreateAPITests/Expected/petstore-disable-comments"; sourceTree = "<group>"; };
-		0CEB95652780E15B002E02C0 /* petstore-operation-id */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-operation-id"; path = "CreateAPITests/Expected/petstore-operation-id"; sourceTree = "<group>"; };
-		0CEB95662780E15B002E02C0 /* petstore-split */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-split"; path = "CreateAPITests/Expected/petstore-split"; sourceTree = "<group>"; };
-		0CEB95672780E15B002E02C0 /* edgecases-disable-enums */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-enums"; path = "CreateAPITests/Expected/edgecases-disable-enums"; sourceTree = "<group>"; };
-		0CEB95682780E15B002E02C0 /* test-query-parameters */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "test-query-parameters"; path = "CreateAPITests/Expected/test-query-parameters"; sourceTree = "<group>"; };
-		0CEB95692780E15C002E02C0 /* edgecases-change-access-control */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-change-access-control"; path = "CreateAPITests/Expected/edgecases-change-access-control"; sourceTree = "<group>"; };
-		0CEB956A2780E15C002E02C0 /* petstore-single-threaded */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-single-threaded"; path = "CreateAPITests/Expected/petstore-single-threaded"; sourceTree = "<group>"; };
-		0CEB956B2780E15C002E02C0 /* edgecases-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-default"; path = "CreateAPITests/Expected/edgecases-default"; sourceTree = "<group>"; };
-		0CEB956C2780E15C002E02C0 /* petstore-generate-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-generate-classes"; path = "CreateAPITests/Expected/petstore-generate-classes"; sourceTree = "<group>"; };
-		0CEB956D2780E15C002E02C0 /* petstore-custom-imports */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-custom-imports"; path = "CreateAPITests/Expected/petstore-custom-imports"; sourceTree = "<group>"; };
-		0CEB956E2780E15C002E02C0 /* edgecases-rename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename"; path = "CreateAPITests/Expected/edgecases-rename"; sourceTree = "<group>"; };
-		0CEB956F2780E15C002E02C0 /* petstore-change-filename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-filename"; path = "CreateAPITests/Expected/petstore-change-filename"; sourceTree = "<group>"; };
-		0CEB95702780E15C002E02C0 /* OctoKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OctoKit; path = CreateAPITests/Expected/OctoKit; sourceTree = "<group>"; };
-		0CEB95712780E15C002E02C0 /* petstore-some-entities-as-structs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-structs"; path = "CreateAPITests/Expected/petstore-some-entities-as-structs"; sourceTree = "<group>"; };
-		0CEB95722780E15C002E02C0 /* petstore-disable-inlining */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-inlining"; path = "CreateAPITests/Expected/petstore-disable-inlining"; sourceTree = "<group>"; };
-		0CEB95732780E15C002E02C0 /* petstore-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-default"; path = "CreateAPITests/Expected/petstore-default"; sourceTree = "<group>"; };
-		0CEB95742780E15C002E02C0 /* edgecases-tabs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-tabs"; path = "CreateAPITests/Expected/edgecases-tabs"; sourceTree = "<group>"; };
-		0CEB95752780E15C002E02C0 /* edgecases-int32-int64 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-int32-int64"; path = "CreateAPITests/Expected/edgecases-int32-int64"; sourceTree = "<group>"; };
-		0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-init-with-coder"; path = "CreateAPITests/Expected/petstore-disable-init-with-coder"; sourceTree = "<group>"; };
-		0CEB95772780E15C002E02C0 /* petstore-only-schemas */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-only-schemas"; path = "CreateAPITests/Expected/petstore-only-schemas"; sourceTree = "<group>"; };
-		0CEB95782780E15C002E02C0 /* edgecases-yaml-config */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-yaml-config"; path = "CreateAPITests/Expected/edgecases-yaml-config"; sourceTree = "<group>"; };
-		0CEB95792780E15C002E02C0 /* edgecases-disable-acronyms */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-acronyms"; path = "CreateAPITests/Expected/edgecases-disable-acronyms"; sourceTree = "<group>"; };
-		0CEB957A2780E15C002E02C0 /* edgecases-coding-keys */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-coding-keys"; path = "CreateAPITests/Expected/edgecases-coding-keys"; sourceTree = "<group>"; };
-		0CEB957B2780E15C002E02C0 /* edgecases-rename-properties */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename-properties"; path = "CreateAPITests/Expected/edgecases-rename-properties"; sourceTree = "<group>"; };
-		0CEB957C2780E15C002E02C0 /* edgecases-indent-with-two-width-spaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-indent-with-two-width-spaces"; path = "CreateAPITests/Expected/edgecases-indent-with-two-width-spaces"; sourceTree = "<group>"; };
-		0CEB957D2780E15C002E02C0 /* petstore-base-class */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-base-class"; path = "CreateAPITests/Expected/petstore-base-class"; sourceTree = "<group>"; };
-		0CEB957E2780E15C002E02C0 /* petstore-some-entities-as-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-classes"; path = "CreateAPITests/Expected/petstore-some-entities-as-classes"; sourceTree = "<group>"; };
+		5353B53827FE1DFB0000D490 /* edgecases-yaml-config */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-yaml-config"; path = "CreateAPITests/Expected/edgecases-yaml-config"; sourceTree = "<group>"; };
+		5353B53927FE1DFB0000D490 /* edgecases-disable-acronyms */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-acronyms"; path = "CreateAPITests/Expected/edgecases-disable-acronyms"; sourceTree = "<group>"; };
+		5353B53A27FE1DFB0000D490 /* edgecases-int32-int64 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-int32-int64"; path = "CreateAPITests/Expected/edgecases-int32-int64"; sourceTree = "<group>"; };
+		5353B53B27FE1DFB0000D490 /* edgecases-rename-properties */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename-properties"; path = "CreateAPITests/Expected/edgecases-rename-properties"; sourceTree = "<group>"; };
+		5353B53C27FE1DFB0000D490 /* strip-parent-name-nested-objects-enabled */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "strip-parent-name-nested-objects-enabled"; path = "CreateAPITests/Expected/strip-parent-name-nested-objects-enabled"; sourceTree = "<group>"; };
+		5353B53D27FE1DFB0000D490 /* petstore-base-class */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-base-class"; path = "CreateAPITests/Expected/petstore-base-class"; sourceTree = "<group>"; };
+		5353B53E27FE1DFB0000D490 /* petstore-custom-imports */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-custom-imports"; path = "CreateAPITests/Expected/petstore-custom-imports"; sourceTree = "<group>"; };
+		5353B53F27FE1DFB0000D490 /* petstore-change-namespace-when-operations-style */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-namespace-when-operations-style"; path = "CreateAPITests/Expected/petstore-change-namespace-when-operations-style"; sourceTree = "<group>"; };
+		5353B54027FE1DFC0000D490 /* petstore-change-namespace-when-rest-style */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-namespace-when-rest-style"; path = "CreateAPITests/Expected/petstore-change-namespace-when-rest-style"; sourceTree = "<group>"; };
+		5353B54127FE1DFC0000D490 /* edgecases-disable-enums */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-enums"; path = "CreateAPITests/Expected/edgecases-disable-enums"; sourceTree = "<group>"; };
+		5353B54527FE1DFC0000D490 /* petstore-disable-mutable-properties */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-mutable-properties"; path = "CreateAPITests/Expected/petstore-disable-mutable-properties"; sourceTree = "<group>"; };
+		5353B54627FE1DFC0000D490 /* edgecases-coding-keys */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-coding-keys"; path = "CreateAPITests/Expected/edgecases-coding-keys"; sourceTree = "<group>"; };
+		5353B54727FE1DFC0000D490 /* test-query-parameters */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "test-query-parameters"; path = "CreateAPITests/Expected/test-query-parameters"; sourceTree = "<group>"; };
+		5353B54927FE1DFC0000D490 /* petstore-split */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-split"; path = "CreateAPITests/Expected/petstore-split"; sourceTree = "<group>"; };
+		5353B54A27FE1DFC0000D490 /* edgecases-change-access-control */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-change-access-control"; path = "CreateAPITests/Expected/edgecases-change-access-control"; sourceTree = "<group>"; };
+		5353B54B27FE1DFC0000D490 /* cookpad */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = cookpad; path = CreateAPITests/Expected/cookpad; sourceTree = "<group>"; };
+		5353B54C27FE1DFC0000D490 /* petstore-single-threaded */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-single-threaded"; path = "CreateAPITests/Expected/petstore-single-threaded"; sourceTree = "<group>"; };
+		5353B54D27FE1DFC0000D490 /* petstore-some-entities-as-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-classes"; path = "CreateAPITests/Expected/petstore-some-entities-as-classes"; sourceTree = "<group>"; };
+		5353B54E27FE1DFC0000D490 /* edgecases-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-default"; path = "CreateAPITests/Expected/edgecases-default"; sourceTree = "<group>"; };
+		5353B54F27FE1DFC0000D490 /* petstore-disable-init-with-coder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-init-with-coder"; path = "CreateAPITests/Expected/petstore-disable-init-with-coder"; sourceTree = "<group>"; };
+		5353B55027FE1DFC0000D490 /* petstore-some-entities-as-structs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-some-entities-as-structs"; path = "CreateAPITests/Expected/petstore-some-entities-as-structs"; sourceTree = "<group>"; };
+		5353B55127FE1DFC0000D490 /* strip-parent-name-nested-objects-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "strip-parent-name-nested-objects-default"; path = "CreateAPITests/Expected/strip-parent-name-nested-objects-default"; sourceTree = "<group>"; };
+		5353B55227FE1DFC0000D490 /* petstore-generate-classes */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-generate-classes"; path = "CreateAPITests/Expected/petstore-generate-classes"; sourceTree = "<group>"; };
+		5353B55327FE1DFC0000D490 /* edgecases-rename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-rename"; path = "CreateAPITests/Expected/edgecases-rename"; sourceTree = "<group>"; };
+		5353B55427FE1DFC0000D490 /* petstore-disable-comments */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-comments"; path = "CreateAPITests/Expected/petstore-disable-comments"; sourceTree = "<group>"; };
+		5353B55527FE1DFC0000D490 /* petstore-change-entityname */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-entityname"; path = "CreateAPITests/Expected/petstore-change-entityname"; sourceTree = "<group>"; };
+		5353B55627FE1DFC0000D490 /* petstore-enable-mutable-properties */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-enable-mutable-properties"; path = "CreateAPITests/Expected/petstore-enable-mutable-properties"; sourceTree = "<group>"; };
+		5353B55727FE1DFC0000D490 /* petstore-change-filename */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-change-filename"; path = "CreateAPITests/Expected/petstore-change-filename"; sourceTree = "<group>"; };
+		5353B55827FE1DFC0000D490 /* discriminator */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = discriminator; path = CreateAPITests/Expected/discriminator; sourceTree = "<group>"; };
+		5353B55927FE1DFC0000D490 /* petstore-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-default"; path = "CreateAPITests/Expected/petstore-default"; sourceTree = "<group>"; };
+		5353B55A27FE1DFC0000D490 /* edgecases-tabs */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-tabs"; path = "CreateAPITests/Expected/edgecases-tabs"; sourceTree = "<group>"; };
+		5353B55B27FE1DFC0000D490 /* petstore-operation-id */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-operation-id"; path = "CreateAPITests/Expected/petstore-operation-id"; sourceTree = "<group>"; };
+		5353B55C27FE1DFC0000D490 /* petstore-disable-inlining */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-disable-inlining"; path = "CreateAPITests/Expected/petstore-disable-inlining"; sourceTree = "<group>"; };
+		5353B55D27FE1DFC0000D490 /* petstore-only-schemas */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "petstore-only-schemas"; path = "CreateAPITests/Expected/petstore-only-schemas"; sourceTree = "<group>"; };
+		5353B55E27FE1DFC0000D490 /* OctoKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OctoKit; path = CreateAPITests/Expected/OctoKit; sourceTree = "<group>"; };
+		5353B55F27FE1DFC0000D490 /* edgecases-indent-with-two-width-spaces */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-indent-with-two-width-spaces"; path = "CreateAPITests/Expected/edgecases-indent-with-two-width-spaces"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,33 +126,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CEB95B32780E163002E02C0 /* OctoKit in Frameworks */,
-				0CEB95B52780E163002E02C0 /* petstore-base-class in Frameworks */,
-				0CEB95BF2780E163002E02C0 /* petstore-disable-init-with-coder in Frameworks */,
-				0CEB95CF2780E163002E02C0 /* petstore-split in Frameworks */,
-				0CEB95A52780E163002E02C0 /* edgecases-disable-enums in Frameworks */,
-				0CEB95B12780E163002E02C0 /* edgecases-yaml-config in Frameworks */,
-				0CEB95C52780E163002E02C0 /* petstore-only-schemas in Frameworks */,
-				0CEB95AB2780E163002E02C0 /* edgecases-rename in Frameworks */,
-				0CEB95A32780E163002E02C0 /* edgecases-disable-acronyms in Frameworks */,
-				0CEB95A72780E163002E02C0 /* edgecases-indent-with-two-width-spaces in Frameworks */,
-				0CEB95AD2780E163002E02C0 /* edgecases-rename-properties in Frameworks */,
-				0CEB95CB2780E163002E02C0 /* petstore-some-entities-as-classes in Frameworks */,
-				0CEB95BB2780E163002E02C0 /* petstore-default in Frameworks */,
-				0CEB95C72780E163002E02C0 /* petstore-operation-id in Frameworks */,
-				0CEB95AF2780E163002E02C0 /* edgecases-tabs in Frameworks */,
-				0CEB95B72780E163002E02C0 /* petstore-change-filename in Frameworks */,
-				0CEB95C92780E163002E02C0 /* petstore-single-threaded in Frameworks */,
-				0CEB95C12780E163002E02C0 /* petstore-disable-inlining in Frameworks */,
-				0CEB95D12780E163002E02C0 /* test-query-parameters in Frameworks */,
-				0CEB95A12780E163002E02C0 /* edgecases-default in Frameworks */,
-				0CEB95C32780E163002E02C0 /* petstore-generate-classes in Frameworks */,
-				0CEB95B92780E163002E02C0 /* petstore-custom-imports in Frameworks */,
-				0CEB95A92780E163002E02C0 /* edgecases-int32-int64 in Frameworks */,
-				0CEB959D2780E163002E02C0 /* edgecases-change-access-control in Frameworks */,
-				0CEB95CD2780E163002E02C0 /* petstore-some-entities-as-structs in Frameworks */,
-				0CEB95BD2780E163002E02C0 /* petstore-disable-comments in Frameworks */,
-				0CEB959F2780E163002E02C0 /* edgecases-coding-keys in Frameworks */,
+				5353B59027FE1E260000D490 /* edgecases-default in Frameworks */,
+				5353B5B427FE1E260000D490 /* petstore-disable-init-with-coder in Frameworks */,
+				5353B58827FE1E260000D490 /* cookpad in Frameworks */,
+				5353B5A227FE1E260000D490 /* OctoKit in Frameworks */,
+				5353B59627FE1E260000D490 /* edgecases-indent-with-two-width-spaces in Frameworks */,
+				5353B59C27FE1E260000D490 /* edgecases-rename-properties in Frameworks */,
+				5353B5B227FE1E260000D490 /* petstore-disable-comments in Frameworks */,
+				5353B5C227FE1E270000D490 /* petstore-single-threaded in Frameworks */,
+				5353B5C027FE1E270000D490 /* petstore-operation-id in Frameworks */,
+				5353B5CE27FE1E270000D490 /* test-query-parameters in Frameworks */,
+				5353B59827FE1E260000D490 /* edgecases-int32-int64 in Frameworks */,
+				5353B5A027FE1E260000D490 /* edgecases-yaml-config in Frameworks */,
+				5353B5B827FE1E260000D490 /* petstore-disable-mutable-properties in Frameworks */,
+				5353B5CA27FE1E270000D490 /* strip-parent-name-nested-objects-default in Frameworks */,
+				5353B58A27FE1E260000D490 /* discriminator in Frameworks */,
+				5353B59427FE1E260000D490 /* edgecases-disable-enums in Frameworks */,
+				5353B58C27FE1E260000D490 /* edgecases-change-access-control in Frameworks */,
+				5353B5B027FE1E260000D490 /* petstore-default in Frameworks */,
+				5353B5C627FE1E270000D490 /* petstore-some-entities-as-structs in Frameworks */,
+				5353B5B627FE1E260000D490 /* petstore-disable-inlining in Frameworks */,
+				5353B5BA27FE1E260000D490 /* petstore-enable-mutable-properties in Frameworks */,
+				5353B5C427FE1E270000D490 /* petstore-some-entities-as-classes in Frameworks */,
+				5353B5BC27FE1E260000D490 /* petstore-generate-classes in Frameworks */,
+				5353B5AA27FE1E260000D490 /* petstore-change-namespace-when-operations-style in Frameworks */,
+				5353B5CC27FE1E270000D490 /* strip-parent-name-nested-objects-enabled in Frameworks */,
+				5353B5AC27FE1E260000D490 /* petstore-change-namespace-when-rest-style in Frameworks */,
+				5353B5BE27FE1E270000D490 /* petstore-only-schemas in Frameworks */,
+				5353B59227FE1E260000D490 /* edgecases-disable-acronyms in Frameworks */,
+				5353B5A827FE1E260000D490 /* petstore-change-filename in Frameworks */,
+				5353B5C827FE1E270000D490 /* petstore-split in Frameworks */,
+				5353B59E27FE1E260000D490 /* edgecases-tabs in Frameworks */,
+				5353B58E27FE1E260000D490 /* edgecases-coding-keys in Frameworks */,
+				5353B5AE27FE1E260000D490 /* petstore-custom-imports in Frameworks */,
+				5353B59A27FE1E260000D490 /* edgecases-rename in Frameworks */,
+				5353B5A627FE1E260000D490 /* petstore-change-entityname in Frameworks */,
+				5353B5A427FE1E260000D490 /* petstore-base-class in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,33 +171,42 @@
 		0C612D6D2777AFD5008D32A4 = {
 			isa = PBXGroup;
 			children = (
-				0CEB95692780E15C002E02C0 /* edgecases-change-access-control */,
-				0CEB957A2780E15C002E02C0 /* edgecases-coding-keys */,
-				0CEB956B2780E15C002E02C0 /* edgecases-default */,
-				0CEB95792780E15C002E02C0 /* edgecases-disable-acronyms */,
-				0CEB95672780E15B002E02C0 /* edgecases-disable-enums */,
-				0CEB957C2780E15C002E02C0 /* edgecases-indent-with-two-width-spaces */,
-				0CEB95752780E15C002E02C0 /* edgecases-int32-int64 */,
-				0CEB956E2780E15C002E02C0 /* edgecases-rename */,
-				0CEB957B2780E15C002E02C0 /* edgecases-rename-properties */,
-				0CEB95742780E15C002E02C0 /* edgecases-tabs */,
-				0CEB95782780E15C002E02C0 /* edgecases-yaml-config */,
-				0CEB95702780E15C002E02C0 /* OctoKit */,
-				0CEB957D2780E15C002E02C0 /* petstore-base-class */,
-				0CEB956F2780E15C002E02C0 /* petstore-change-filename */,
-				0CEB956D2780E15C002E02C0 /* petstore-custom-imports */,
-				0CEB95732780E15C002E02C0 /* petstore-default */,
-				0CEB95642780E15B002E02C0 /* petstore-disable-comments */,
-				0CEB95762780E15C002E02C0 /* petstore-disable-init-with-coder */,
-				0CEB95722780E15C002E02C0 /* petstore-disable-inlining */,
-				0CEB956C2780E15C002E02C0 /* petstore-generate-classes */,
-				0CEB95772780E15C002E02C0 /* petstore-only-schemas */,
-				0CEB95652780E15B002E02C0 /* petstore-operation-id */,
-				0CEB956A2780E15C002E02C0 /* petstore-single-threaded */,
-				0CEB957E2780E15C002E02C0 /* petstore-some-entities-as-classes */,
-				0CEB95712780E15C002E02C0 /* petstore-some-entities-as-structs */,
-				0CEB95662780E15B002E02C0 /* petstore-split */,
-				0CEB95682780E15B002E02C0 /* test-query-parameters */,
+				5353B54B27FE1DFC0000D490 /* cookpad */,
+				5353B55827FE1DFC0000D490 /* discriminator */,
+				5353B54A27FE1DFC0000D490 /* edgecases-change-access-control */,
+				5353B54627FE1DFC0000D490 /* edgecases-coding-keys */,
+				5353B54E27FE1DFC0000D490 /* edgecases-default */,
+				5353B53927FE1DFB0000D490 /* edgecases-disable-acronyms */,
+				5353B54127FE1DFC0000D490 /* edgecases-disable-enums */,
+				5353B55F27FE1DFC0000D490 /* edgecases-indent-with-two-width-spaces */,
+				5353B53A27FE1DFB0000D490 /* edgecases-int32-int64 */,
+				5353B55327FE1DFC0000D490 /* edgecases-rename */,
+				5353B53B27FE1DFB0000D490 /* edgecases-rename-properties */,
+				5353B55A27FE1DFC0000D490 /* edgecases-tabs */,
+				5353B53827FE1DFB0000D490 /* edgecases-yaml-config */,
+				5353B55E27FE1DFC0000D490 /* OctoKit */,
+				5353B53D27FE1DFB0000D490 /* petstore-base-class */,
+				5353B55527FE1DFC0000D490 /* petstore-change-entityname */,
+				5353B55727FE1DFC0000D490 /* petstore-change-filename */,
+				5353B53F27FE1DFB0000D490 /* petstore-change-namespace-when-operations-style */,
+				5353B54027FE1DFC0000D490 /* petstore-change-namespace-when-rest-style */,
+				5353B53E27FE1DFB0000D490 /* petstore-custom-imports */,
+				5353B55927FE1DFC0000D490 /* petstore-default */,
+				5353B55427FE1DFC0000D490 /* petstore-disable-comments */,
+				5353B54F27FE1DFC0000D490 /* petstore-disable-init-with-coder */,
+				5353B55C27FE1DFC0000D490 /* petstore-disable-inlining */,
+				5353B54527FE1DFC0000D490 /* petstore-disable-mutable-properties */,
+				5353B55627FE1DFC0000D490 /* petstore-enable-mutable-properties */,
+				5353B55227FE1DFC0000D490 /* petstore-generate-classes */,
+				5353B55D27FE1DFC0000D490 /* petstore-only-schemas */,
+				5353B55B27FE1DFC0000D490 /* petstore-operation-id */,
+				5353B54C27FE1DFC0000D490 /* petstore-single-threaded */,
+				5353B54D27FE1DFC0000D490 /* petstore-some-entities-as-classes */,
+				5353B55027FE1DFC0000D490 /* petstore-some-entities-as-structs */,
+				5353B54927FE1DFC0000D490 /* petstore-split */,
+				5353B55127FE1DFC0000D490 /* strip-parent-name-nested-objects-default */,
+				5353B53C27FE1DFB0000D490 /* strip-parent-name-nested-objects-enabled */,
+				5353B54727FE1DFC0000D490 /* test-query-parameters */,
 				0C612DB82777B098008D32A4 /* Products */,
 				0C612DEA2777B0AC008D32A4 /* Frameworks */,
 			);
@@ -210,33 +255,42 @@
 			);
 			name = GeneratedPackages;
 			packageProductDependencies = (
-				0CEB959C2780E163002E02C0 /* edgecases-change-access-control */,
-				0CEB959E2780E163002E02C0 /* edgecases-coding-keys */,
-				0CEB95A02780E163002E02C0 /* edgecases-default */,
-				0CEB95A22780E163002E02C0 /* edgecases-disable-acronyms */,
-				0CEB95A42780E163002E02C0 /* edgecases-disable-enums */,
-				0CEB95A62780E163002E02C0 /* edgecases-indent-with-two-width-spaces */,
-				0CEB95A82780E163002E02C0 /* edgecases-int32-int64 */,
-				0CEB95AA2780E163002E02C0 /* edgecases-rename */,
-				0CEB95AC2780E163002E02C0 /* edgecases-rename-properties */,
-				0CEB95AE2780E163002E02C0 /* edgecases-tabs */,
-				0CEB95B02780E163002E02C0 /* edgecases-yaml-config */,
-				0CEB95B22780E163002E02C0 /* OctoKit */,
-				0CEB95B42780E163002E02C0 /* petstore-base-class */,
-				0CEB95B62780E163002E02C0 /* petstore-change-filename */,
-				0CEB95B82780E163002E02C0 /* petstore-custom-imports */,
-				0CEB95BA2780E163002E02C0 /* petstore-default */,
-				0CEB95BC2780E163002E02C0 /* petstore-disable-comments */,
-				0CEB95BE2780E163002E02C0 /* petstore-disable-init-with-coder */,
-				0CEB95C02780E163002E02C0 /* petstore-disable-inlining */,
-				0CEB95C22780E163002E02C0 /* petstore-generate-classes */,
-				0CEB95C42780E163002E02C0 /* petstore-only-schemas */,
-				0CEB95C62780E163002E02C0 /* petstore-operation-id */,
-				0CEB95C82780E163002E02C0 /* petstore-single-threaded */,
-				0CEB95CA2780E163002E02C0 /* petstore-some-entities-as-classes */,
-				0CEB95CC2780E163002E02C0 /* petstore-some-entities-as-structs */,
-				0CEB95CE2780E163002E02C0 /* petstore-split */,
-				0CEB95D02780E163002E02C0 /* test-query-parameters */,
+				5353B58727FE1E260000D490 /* cookpad */,
+				5353B58927FE1E260000D490 /* discriminator */,
+				5353B58B27FE1E260000D490 /* edgecases-change-access-control */,
+				5353B58D27FE1E260000D490 /* edgecases-coding-keys */,
+				5353B58F27FE1E260000D490 /* edgecases-default */,
+				5353B59127FE1E260000D490 /* edgecases-disable-acronyms */,
+				5353B59327FE1E260000D490 /* edgecases-disable-enums */,
+				5353B59527FE1E260000D490 /* edgecases-indent-with-two-width-spaces */,
+				5353B59727FE1E260000D490 /* edgecases-int32-int64 */,
+				5353B59927FE1E260000D490 /* edgecases-rename */,
+				5353B59B27FE1E260000D490 /* edgecases-rename-properties */,
+				5353B59D27FE1E260000D490 /* edgecases-tabs */,
+				5353B59F27FE1E260000D490 /* edgecases-yaml-config */,
+				5353B5A127FE1E260000D490 /* OctoKit */,
+				5353B5A327FE1E260000D490 /* petstore-base-class */,
+				5353B5A527FE1E260000D490 /* petstore-change-entityname */,
+				5353B5A727FE1E260000D490 /* petstore-change-filename */,
+				5353B5A927FE1E260000D490 /* petstore-change-namespace-when-operations-style */,
+				5353B5AB27FE1E260000D490 /* petstore-change-namespace-when-rest-style */,
+				5353B5AD27FE1E260000D490 /* petstore-custom-imports */,
+				5353B5AF27FE1E260000D490 /* petstore-default */,
+				5353B5B127FE1E260000D490 /* petstore-disable-comments */,
+				5353B5B327FE1E260000D490 /* petstore-disable-init-with-coder */,
+				5353B5B527FE1E260000D490 /* petstore-disable-inlining */,
+				5353B5B727FE1E260000D490 /* petstore-disable-mutable-properties */,
+				5353B5B927FE1E260000D490 /* petstore-enable-mutable-properties */,
+				5353B5BB27FE1E260000D490 /* petstore-generate-classes */,
+				5353B5BD27FE1E270000D490 /* petstore-only-schemas */,
+				5353B5BF27FE1E270000D490 /* petstore-operation-id */,
+				5353B5C127FE1E270000D490 /* petstore-single-threaded */,
+				5353B5C327FE1E270000D490 /* petstore-some-entities-as-classes */,
+				5353B5C527FE1E270000D490 /* petstore-some-entities-as-structs */,
+				5353B5C727FE1E270000D490 /* petstore-split */,
+				5353B5C927FE1E270000D490 /* strip-parent-name-nested-objects-default */,
+				5353B5CB27FE1E270000D490 /* strip-parent-name-nested-objects-enabled */,
+				5353B5CD27FE1E270000D490 /* test-query-parameters */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -280,33 +334,42 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CEB95992780E15C002E02C0 /* edgecases-indent-with-two-width-spaces in Resources */,
-				0CEB95812780E15C002E02C0 /* petstore-disable-comments in Resources */,
-				0CEB95842780E15C002E02C0 /* edgecases-disable-enums in Resources */,
-				0CEB95952780E15C002E02C0 /* edgecases-yaml-config in Resources */,
-				0CEB95972780E15C002E02C0 /* edgecases-coding-keys in Resources */,
-				0CEB95852780E15C002E02C0 /* test-query-parameters in Resources */,
-				0CEB95872780E15C002E02C0 /* petstore-single-threaded in Resources */,
-				0CEB95822780E15C002E02C0 /* petstore-operation-id in Resources */,
-				0CEB958D2780E15C002E02C0 /* OctoKit in Resources */,
-				0CEB95912780E15C002E02C0 /* edgecases-tabs in Resources */,
-				0CEB95962780E15C002E02C0 /* edgecases-disable-acronyms in Resources */,
-				0CEB95942780E15C002E02C0 /* petstore-only-schemas in Resources */,
-				0CEB95832780E15C002E02C0 /* petstore-split in Resources */,
-				0CEB958B2780E15C002E02C0 /* edgecases-rename in Resources */,
-				0CEB959A2780E15C002E02C0 /* petstore-base-class in Resources */,
-				0CEB95902780E15C002E02C0 /* petstore-default in Resources */,
-				0CEB958E2780E15C002E02C0 /* petstore-some-entities-as-structs in Resources */,
-				0CEB958C2780E15C002E02C0 /* petstore-change-filename in Resources */,
-				0CEB95922780E15C002E02C0 /* edgecases-int32-int64 in Resources */,
-				0CEB958A2780E15C002E02C0 /* petstore-custom-imports in Resources */,
-				0CEB95862780E15C002E02C0 /* edgecases-change-access-control in Resources */,
-				0CEB95932780E15C002E02C0 /* petstore-disable-init-with-coder in Resources */,
-				0CEB95892780E15C002E02C0 /* petstore-generate-classes in Resources */,
-				0CEB958F2780E15C002E02C0 /* petstore-disable-inlining in Resources */,
-				0CEB95982780E15C002E02C0 /* edgecases-rename-properties in Resources */,
-				0CEB959B2780E15C002E02C0 /* petstore-some-entities-as-classes in Resources */,
-				0CEB95882780E15C002E02C0 /* edgecases-default in Resources */,
+				5353B56727FE1DFD0000D490 /* petstore-change-namespace-when-operations-style in Resources */,
+				5353B57D27FE1DFD0000D490 /* petstore-enable-mutable-properties in Resources */,
+				5353B56227FE1DFC0000D490 /* edgecases-int32-int64 in Resources */,
+				5353B56C27FE1DFD0000D490 /* petstore-disable-mutable-properties in Resources */,
+				5353B57127FE1DFD0000D490 /* edgecases-change-access-control in Resources */,
+				5353B57A27FE1DFD0000D490 /* edgecases-rename in Resources */,
+				5353B57427FE1DFD0000D490 /* petstore-some-entities-as-classes in Resources */,
+				5353B57E27FE1DFD0000D490 /* petstore-change-filename in Resources */,
+				5353B56E27FE1DFD0000D490 /* test-query-parameters in Resources */,
+				5353B58127FE1DFD0000D490 /* edgecases-tabs in Resources */,
+				5353B57B27FE1DFD0000D490 /* petstore-disable-comments in Resources */,
+				5353B58227FE1DFD0000D490 /* petstore-operation-id in Resources */,
+				5353B58427FE1DFD0000D490 /* petstore-only-schemas in Resources */,
+				5353B57227FE1DFD0000D490 /* cookpad in Resources */,
+				5353B57F27FE1DFD0000D490 /* discriminator in Resources */,
+				5353B57827FE1DFD0000D490 /* strip-parent-name-nested-objects-default in Resources */,
+				5353B56D27FE1DFD0000D490 /* edgecases-coding-keys in Resources */,
+				5353B56127FE1DFC0000D490 /* edgecases-disable-acronyms in Resources */,
+				5353B57927FE1DFD0000D490 /* petstore-generate-classes in Resources */,
+				5353B58627FE1DFD0000D490 /* edgecases-indent-with-two-width-spaces in Resources */,
+				5353B56527FE1DFD0000D490 /* petstore-base-class in Resources */,
+				5353B56627FE1DFD0000D490 /* petstore-custom-imports in Resources */,
+				5353B57027FE1DFD0000D490 /* petstore-split in Resources */,
+				5353B56927FE1DFD0000D490 /* edgecases-disable-enums in Resources */,
+				5353B58027FE1DFD0000D490 /* petstore-default in Resources */,
+				5353B58527FE1DFD0000D490 /* OctoKit in Resources */,
+				5353B56327FE1DFD0000D490 /* edgecases-rename-properties in Resources */,
+				5353B57C27FE1DFD0000D490 /* petstore-change-entityname in Resources */,
+				5353B57727FE1DFD0000D490 /* petstore-some-entities-as-structs in Resources */,
+				5353B57327FE1DFD0000D490 /* petstore-single-threaded in Resources */,
+				5353B58327FE1DFD0000D490 /* petstore-disable-inlining in Resources */,
+				5353B57527FE1DFD0000D490 /* edgecases-default in Resources */,
+				5353B56427FE1DFD0000D490 /* strip-parent-name-nested-objects-enabled in Resources */,
+				5353B56827FE1DFD0000D490 /* petstore-change-namespace-when-rest-style in Resources */,
+				5353B56027FE1DFC0000D490 /* edgecases-yaml-config in Resources */,
+				5353B57627FE1DFD0000D490 /* petstore-disable-init-with-coder in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,111 +586,147 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0CEB959C2780E163002E02C0 /* edgecases-change-access-control */ = {
+		5353B58727FE1E260000D490 /* cookpad */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = cookpad;
+		};
+		5353B58927FE1E260000D490 /* discriminator */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = discriminator;
+		};
+		5353B58B27FE1E260000D490 /* edgecases-change-access-control */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-change-access-control";
 		};
-		0CEB959E2780E163002E02C0 /* edgecases-coding-keys */ = {
+		5353B58D27FE1E260000D490 /* edgecases-coding-keys */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-coding-keys";
 		};
-		0CEB95A02780E163002E02C0 /* edgecases-default */ = {
+		5353B58F27FE1E260000D490 /* edgecases-default */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-default";
 		};
-		0CEB95A22780E163002E02C0 /* edgecases-disable-acronyms */ = {
+		5353B59127FE1E260000D490 /* edgecases-disable-acronyms */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-disable-acronyms";
 		};
-		0CEB95A42780E163002E02C0 /* edgecases-disable-enums */ = {
+		5353B59327FE1E260000D490 /* edgecases-disable-enums */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-disable-enums";
 		};
-		0CEB95A62780E163002E02C0 /* edgecases-indent-with-two-width-spaces */ = {
+		5353B59527FE1E260000D490 /* edgecases-indent-with-two-width-spaces */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-indent-with-two-width-spaces";
 		};
-		0CEB95A82780E163002E02C0 /* edgecases-int32-int64 */ = {
+		5353B59727FE1E260000D490 /* edgecases-int32-int64 */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-int32-int64";
 		};
-		0CEB95AA2780E163002E02C0 /* edgecases-rename */ = {
+		5353B59927FE1E260000D490 /* edgecases-rename */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-rename";
 		};
-		0CEB95AC2780E163002E02C0 /* edgecases-rename-properties */ = {
+		5353B59B27FE1E260000D490 /* edgecases-rename-properties */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-rename-properties";
 		};
-		0CEB95AE2780E163002E02C0 /* edgecases-tabs */ = {
+		5353B59D27FE1E260000D490 /* edgecases-tabs */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-tabs";
 		};
-		0CEB95B02780E163002E02C0 /* edgecases-yaml-config */ = {
+		5353B59F27FE1E260000D490 /* edgecases-yaml-config */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "edgecases-yaml-config";
 		};
-		0CEB95B22780E163002E02C0 /* OctoKit */ = {
+		5353B5A127FE1E260000D490 /* OctoKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OctoKit;
 		};
-		0CEB95B42780E163002E02C0 /* petstore-base-class */ = {
+		5353B5A327FE1E260000D490 /* petstore-base-class */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-base-class";
 		};
-		0CEB95B62780E163002E02C0 /* petstore-change-filename */ = {
+		5353B5A527FE1E260000D490 /* petstore-change-entityname */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "petstore-change-entityname";
+		};
+		5353B5A727FE1E260000D490 /* petstore-change-filename */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-change-filename";
 		};
-		0CEB95B82780E163002E02C0 /* petstore-custom-imports */ = {
+		5353B5A927FE1E260000D490 /* petstore-change-namespace-when-operations-style */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "petstore-change-namespace-when-operations-style";
+		};
+		5353B5AB27FE1E260000D490 /* petstore-change-namespace-when-rest-style */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "petstore-change-namespace-when-rest-style";
+		};
+		5353B5AD27FE1E260000D490 /* petstore-custom-imports */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-custom-imports";
 		};
-		0CEB95BA2780E163002E02C0 /* petstore-default */ = {
+		5353B5AF27FE1E260000D490 /* petstore-default */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-default";
 		};
-		0CEB95BC2780E163002E02C0 /* petstore-disable-comments */ = {
+		5353B5B127FE1E260000D490 /* petstore-disable-comments */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-disable-comments";
 		};
-		0CEB95BE2780E163002E02C0 /* petstore-disable-init-with-coder */ = {
+		5353B5B327FE1E260000D490 /* petstore-disable-init-with-coder */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-disable-init-with-coder";
 		};
-		0CEB95C02780E163002E02C0 /* petstore-disable-inlining */ = {
+		5353B5B527FE1E260000D490 /* petstore-disable-inlining */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-disable-inlining";
 		};
-		0CEB95C22780E163002E02C0 /* petstore-generate-classes */ = {
+		5353B5B727FE1E260000D490 /* petstore-disable-mutable-properties */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "petstore-disable-mutable-properties";
+		};
+		5353B5B927FE1E260000D490 /* petstore-enable-mutable-properties */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "petstore-enable-mutable-properties";
+		};
+		5353B5BB27FE1E260000D490 /* petstore-generate-classes */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-generate-classes";
 		};
-		0CEB95C42780E163002E02C0 /* petstore-only-schemas */ = {
+		5353B5BD27FE1E270000D490 /* petstore-only-schemas */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-only-schemas";
 		};
-		0CEB95C62780E163002E02C0 /* petstore-operation-id */ = {
+		5353B5BF27FE1E270000D490 /* petstore-operation-id */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-operation-id";
 		};
-		0CEB95C82780E163002E02C0 /* petstore-single-threaded */ = {
+		5353B5C127FE1E270000D490 /* petstore-single-threaded */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-single-threaded";
 		};
-		0CEB95CA2780E163002E02C0 /* petstore-some-entities-as-classes */ = {
+		5353B5C327FE1E270000D490 /* petstore-some-entities-as-classes */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-some-entities-as-classes";
 		};
-		0CEB95CC2780E163002E02C0 /* petstore-some-entities-as-structs */ = {
+		5353B5C527FE1E270000D490 /* petstore-some-entities-as-structs */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-some-entities-as-structs";
 		};
-		0CEB95CE2780E163002E02C0 /* petstore-split */ = {
+		5353B5C727FE1E270000D490 /* petstore-split */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "petstore-split";
 		};
-		0CEB95D02780E163002E02C0 /* test-query-parameters */ = {
+		5353B5C927FE1E270000D490 /* strip-parent-name-nested-objects-default */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "strip-parent-name-nested-objects-default";
+		};
+		5353B5CB27FE1E270000D490 /* strip-parent-name-nested-objects-enabled */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "strip-parent-name-nested-objects-enabled";
+		};
+		5353B5CD27FE1E270000D490 /* test-query-parameters */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "test-query-parameters";
 		};
