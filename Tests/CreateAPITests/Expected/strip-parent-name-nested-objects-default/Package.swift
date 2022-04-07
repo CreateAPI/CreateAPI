@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "strip-parent-name-nested-objects-default", targets: ["strip-parent-name-nested-objects-default"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "0.3.1")
+        .package(url: "https://github.com/CreateAPI/Get", from: "0.3.1")
     ],
     targets: [
         .target(name: "strip-parent-name-nested-objects-default", dependencies: [

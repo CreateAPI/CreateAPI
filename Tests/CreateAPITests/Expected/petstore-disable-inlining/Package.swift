@@ -10,9 +10,9 @@ let package = Package(
         .library(name: "petstore-disable-inlining", targets: ["petstore-disable-inlining"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
-        .package(url: "https://github.com/kean/HTTPHeaders", from: "0.1.0"), 
-        .package(url: "https://github.com/kean/URLQueryEncoder", from: "0.2.0")
+        .package(url: "https://github.com/CreateAPI/Get", from: "0.3.1"), 
+        .package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0"), 
+        .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
         .target(name: "petstore-disable-inlining", dependencies: [
