@@ -80,13 +80,8 @@ extension Generator {
             case .allOf:
                 var needsValues = false
                 let decoderContents = properties.map {
-                    if case .userDefined = $0.type {
-                        if $0.isInlined ?? false {
-                            needsValues = true
-                            return templates.decode(property: $0, isUsingCodingKeys: false)
-                        } else {
-                            return templates.decodeFromDecoder(property: $0)
-                        }
+                    if case .userDefined = $0.type, $0.isInlined != true {
+                        return templates.decodeFromDecoder(property: $0)
                     } else {
                         needsValues = true
                         return templates.decode(property: $0, isUsingCodingKeys: false)
