@@ -982,6 +982,10 @@ components:
           properties:
             breed:
               type: string
+              enum:
+                - "Large"
+                - "Medium"
+                - "Small"
             image:
               $ref: "#/components/schemas/Image"
     Cat:

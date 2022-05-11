@@ -229,10 +229,16 @@ public struct ClassModel: Codable {
 
 public struct Dog: Codable {
     public var animal: Animal
-    public var breed: String?
+    public var breed: Breed?
     public var image: Image?
 
-    public init(animal: Animal, breed: String? = nil, image: Image? = nil) {
+    public enum Breed: String, Codable, CaseIterable {
+        case large = "Large"
+        case medium = "Medium"
+        case small = "Small"
+    }
+
+    public init(animal: Animal, breed: Breed? = nil, image: Image? = nil) {
         self.animal = animal
         self.breed = breed
         self.image = image
@@ -241,7 +247,7 @@ public struct Dog: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
-        self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
+        self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }
 

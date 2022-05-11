@@ -208,10 +208,16 @@ import NaiveDate
 
  struct Dog: Codable {
     var animal: Animal
-    var breed: String?
+    var breed: Breed?
     var image: Image?
 
-    init(animal: Animal, breed: String? = nil, image: Image? = nil) {
+    enum Breed: String, Codable, CaseIterable {
+        case large = "Large"
+        case medium = "Medium"
+        case small = "Small"
+    }
+
+    init(animal: Animal, breed: Breed? = nil, image: Image? = nil) {
         self.animal = animal
         self.breed = breed
         self.image = image
@@ -220,7 +226,7 @@ import NaiveDate
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
-        self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
+        self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }
 
