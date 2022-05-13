@@ -311,11 +311,14 @@ final class Templates {
     func initFromDecoderOneOfWithDiscriminator(properties: [Property], discriminator: Discriminator) -> String {
         var statements = ""
         for property in properties {
-            if let correspondingMapping = discriminator.mapping.first(where: { $1 == property.type}) {
-                statements += """
-                case \"\(correspondingMapping.key)\": self = .\(property.name)(try container.decode(\(property.type).self))
+            let correspondingMappings = discriminator.mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
+            if !correspondingMappings.isEmpty {
+                for mapping in correspondingMappings {
+                    statements += """
+                    case \"\(mapping.key)\": self = .\(mapping.key)(try container.decode(\(property.type).self))
 
-                """
+                    """
+                }
             } else {
                 continue
             }
@@ -343,10 +346,23 @@ final class Templates {
         """
     }    
     
-    func encodeOneOf(properties: [Property]) -> String {
-        let statements = properties.map {
-            "case .\($0.name)(let value): try container.encode(value)"
+    func encodeOneOf(properties: [Property], discriminator: Discriminator?) -> String {
+        var statements: [String] = []
+        if let discriminator = discriminator {
+            for property in properties {
+                let correspondingMappings = discriminator.mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
+                if !correspondingMappings.isEmpty {
+                    for mapping in correspondingMappings {
+                        statements.append("case .\(mapping.key)(let value): try container.encode(value)")
+                    }
+                }
+            }
+        } else {
+            statements = properties.map {
+                "case .\($0.name)(let value): try container.encode(value)"
+            }
         }
+
         return """
         \(access)func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()

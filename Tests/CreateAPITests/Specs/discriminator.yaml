@@ -53,3 +53,4 @@ components:
               a: "#/components/schemas/A"
               b: "#/components/schemas/B"
               c: "#/components/schemas/C"
+              d: "#/components/schemas/A"

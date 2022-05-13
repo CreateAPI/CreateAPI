@@ -41,7 +41,20 @@ extension Generator {
                 contents.append(templates.initializer(properties: properties))
             }
         case .oneOf:
-            contents.append(properties.map(templates.case).joined(separator: "\n"))
+            if let discriminator = decl.discriminator {
+                var statements: [String] = []
+                for property in properties {
+                    let correspondingMappings = discriminator.mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
+                    if !correspondingMappings.isEmpty {
+                        for mapping in correspondingMappings {
+                            statements.append("case \(mapping.key)(\(property.type))")
+                        }
+                    }
+                }
+                contents.append(statements.joined(separator: "\n"))
+            } else {
+                contents.append(properties.map(templates.case).joined(separator: "\n"))
+            }
             contents += decl.nested.map(render)
         }
 
@@ -102,11 +115,11 @@ extension Generator {
                     }
                 }
                 if decl.protocols.isEncodable {
-                    contents.append(templates.encodeOneOf(properties: properties))
+                    contents.append(templates.encodeOneOf(properties: properties, discriminator: decl.discriminator))
                 }
             }
         }
-        
+
         // TODO: Refactor
         var protocols = decl.protocols
         if decl.isForm {
