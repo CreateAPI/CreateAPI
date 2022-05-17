@@ -44,7 +44,7 @@ extension Generator {
             if let discriminator = decl.discriminator {
                 var statements: [String] = []
                 for property in properties {
-                    let correspondingMappings = discriminator.mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
+                    let correspondingMappings = discriminator.correspondingMappings(for: property)
                     for mapping in correspondingMappings {
                         statements.append("case \(mapping.key)(\(property.type))")
                     }

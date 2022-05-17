@@ -246,6 +246,10 @@ struct TypealiasDeclaration: Declaration {
 struct Discriminator {
     let propertyName: String
     let mapping: [String: TypeIdentifier]
+
+    func correspondingMappings(for property: Property) -> Array<(key: String, value: TypeIdentifier)> {
+        mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
+    }
 }
 
 struct DeclarationMetadata {
