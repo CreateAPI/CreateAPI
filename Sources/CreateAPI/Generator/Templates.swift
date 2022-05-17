@@ -351,10 +351,8 @@ final class Templates {
         if let discriminator = discriminator {
             for property in properties {
                 let correspondingMappings = discriminator.mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
-                if !correspondingMappings.isEmpty {
-                    for mapping in correspondingMappings {
-                        statements.append("case .\(mapping.key)(let value): try container.encode(value)")
-                    }
+                for mapping in correspondingMappings {
+                    statements.append("case .\(mapping.key)(let value): try container.encode(value)")
                 }
             }
         } else {
