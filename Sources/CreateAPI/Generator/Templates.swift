@@ -314,7 +314,7 @@ final class Templates {
             let correspondingMappings = discriminator.correspondingMappings(for: property)
             for mapping in correspondingMappings {
                 statements += """
-                case \"\(mapping.key)\": self = .\(mapping.key)(try container.decode(\(property.type).self))
+                case \"\(mapping.key)\": self = .\(property.name)(try container.decode(\(property.type).self))
 
                 """
             }
@@ -342,19 +342,9 @@ final class Templates {
         """
     }    
     
-    func encodeOneOf(properties: [Property], discriminator: Discriminator?) -> String {
-        var statements: [String] = []
-        if let discriminator = discriminator {
-            for property in properties {
-                let correspondingMappings = discriminator.correspondingMappings(for: property)
-                for mapping in correspondingMappings {
-                    statements.append("case .\(mapping.key)(let value): try container.encode(value)")
-                }
-            }
-        } else {
-            statements = properties.map {
-                "case .\($0.name)(let value): try container.encode(value)"
-            }
+    func encodeOneOf(properties: [Property]) -> String {
+        let statements: [String] = properties.map {
+            "case .\($0.name)(let value): try container.encode(value)"
         }
 
         return """

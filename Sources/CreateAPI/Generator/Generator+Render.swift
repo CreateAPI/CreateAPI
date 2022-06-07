@@ -41,18 +41,7 @@ extension Generator {
                 contents.append(templates.initializer(properties: properties))
             }
         case .oneOf:
-            if let discriminator = decl.discriminator {
-                var statements: [String] = []
-                for property in properties {
-                    let correspondingMappings = discriminator.correspondingMappings(for: property)
-                    for mapping in correspondingMappings {
-                        statements.append("case \(mapping.key)(\(property.type))")
-                    }
-                }
-                contents.append(statements.joined(separator: "\n"))
-            } else {
-                contents.append(properties.map(templates.case).joined(separator: "\n"))
-            }
+            contents.append(properties.map(templates.case).joined(separator: "\n"))
             contents += decl.nested.map(render)
         }
 
@@ -113,7 +102,7 @@ extension Generator {
                     }
                 }
                 if decl.protocols.isEncodable {
-                    contents.append(templates.encodeOneOf(properties: properties, discriminator: decl.discriminator))
+                    contents.append(templates.encodeOneOf(properties: properties))
                 }
             }
         }

@@ -34,7 +34,6 @@ public struct Container: Codable {
 
     public enum Content: Codable {
         case a(A)
-        case d(A)
         case b(B)
         case c(C)
 
@@ -48,7 +47,7 @@ public struct Container: Codable {
 
             switch (try container.decode(Discriminator.self)).kind {
             case "a": self = .a(try container.decode(A.self))
-            case "d": self = .d(try container.decode(A.self))
+            case "d": self = .a(try container.decode(A.self))
             case "b": self = .b(try container.decode(B.self))
             case "c": self = .c(try container.decode(C.self))
 
@@ -61,7 +60,6 @@ public struct Container: Codable {
             var container = encoder.singleValueContainer()
             switch self {
             case .a(let value): try container.encode(value)
-            case .d(let value): try container.encode(value)
             case .b(let value): try container.encode(value)
             case .c(let value): try container.encode(value)
             }
