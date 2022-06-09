@@ -106,7 +106,7 @@ extension Generator {
                 }
             }
         }
-        
+
         // TODO: Refactor
         var protocols = decl.protocols
         if decl.isForm {

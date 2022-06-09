@@ -311,13 +311,12 @@ final class Templates {
     func initFromDecoderOneOfWithDiscriminator(properties: [Property], discriminator: Discriminator) -> String {
         var statements = ""
         for property in properties {
-            if let correspondingMapping = discriminator.mapping.first(where: { $1 == property.type}) {
+            let correspondingMappings = discriminator.correspondingMappings(for: property)
+            for mapping in correspondingMappings {
                 statements += """
-                case \"\(correspondingMapping.key)\": self = .\(property.name)(try container.decode(\(property.type).self))
+                case \"\(mapping.key)\": self = .\(property.name)(try container.decode(\(property.type).self))
 
                 """
-            } else {
-                continue
             }
         }
         
@@ -344,9 +343,10 @@ final class Templates {
     }    
     
     func encodeOneOf(properties: [Property]) -> String {
-        let statements = properties.map {
+        let statements: [String] = properties.map {
             "case .\($0.name)(let value): try container.encode(value)"
         }
+
         return """
         \(access)func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()

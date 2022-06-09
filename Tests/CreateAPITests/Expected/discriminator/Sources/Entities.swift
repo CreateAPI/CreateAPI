@@ -47,6 +47,7 @@ public struct Container: Codable {
 
             switch (try container.decode(Discriminator.self)).kind {
             case "a": self = .a(try container.decode(A.self))
+            case "d": self = .a(try container.decode(A.self))
             case "b": self = .b(try container.decode(B.self))
             case "c": self = .c(try container.decode(C.self))
 
