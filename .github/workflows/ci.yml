@@ -1,11 +1,11 @@
 name: "Create API CI"
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
-    branches: 
+    branches:
       - '*'
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       - name: Run Tests
         run: swift test
   macos-compile-generated-code:
-    name: Unit Tests (macOS, Xcode 13.2)
+    name: Compile Generated Code
     runs-on: macOS-11
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.app/Contents/Developer
