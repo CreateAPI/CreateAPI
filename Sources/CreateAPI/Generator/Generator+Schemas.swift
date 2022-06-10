@@ -193,7 +193,7 @@ extension Generator {
             return try makeObject(name: name, info: info, details: details, context: context)
         case .array(let info, let details):
             return try makeTypealiasArray(name: name, info: info, details: details, context: context)
-        case .all(let schemas, _) where schemas.count == 1,
+        case .all(let schemas, _) where schemas.count == 1, // unnest allOf/oneOf/anyOf when only a single schema is present
              .one(let schemas, _) where schemas.count == 1,
              .any(let schemas, _) where schemas.count == 1:
             return try _makeDeclaration(name: name, schema: schemas[0], context: context)
