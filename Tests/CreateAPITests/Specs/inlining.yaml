@@ -42,9 +42,14 @@ components:
         - type: object
           required:
             - address
+            - receivedBy
           properties:
             address:
               type: string
+            receivedBy:
+              nullable: true
+              allOf:
+                - $ref: "#/components/schemas/Person"
     Letter:
       allOf:
         - "$ref": "#/components/schemas/Item"
