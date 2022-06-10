@@ -242,8 +242,6 @@ extension Generator {
             return .builtin("URL")
         case .other(let other) where other == "uuid":
             return .builtin("UUID")
-        case .byte:
-          return .builtin("Data")
         default: break
         }
         return .builtin("String")
