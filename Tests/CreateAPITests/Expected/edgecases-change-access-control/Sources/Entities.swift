@@ -6,7 +6,7 @@
 import Foundation
 import NaiveDate
 
- struct Order: Codable {
+struct Order: Codable {
     var id: Int?
     var petID: Int?
     var quantity: Int?
@@ -51,7 +51,7 @@ import NaiveDate
     }
 }
 
- struct Category: Codable {
+struct Category: Codable {
     var id: Int?
     var name: String?
 
@@ -61,7 +61,7 @@ import NaiveDate
     }
 }
 
- struct User: Codable {
+struct User: Codable {
     var id: Int?
     var username: String?
     var firstName: String?
@@ -84,7 +84,7 @@ import NaiveDate
     }
 }
 
- struct Tag: Codable {
+struct Tag: Codable {
     var id: Int?
     var name: String?
 
@@ -94,7 +94,7 @@ import NaiveDate
     }
 }
 
- struct Pet: Codable {
+struct Pet: Codable {
     var id: Int?
     var category: Category?
     /// Example: "doggie"
@@ -130,7 +130,7 @@ import NaiveDate
     }
 }
 
- struct APIResponse: Codable {
+struct APIResponse: Codable {
     var code: Int?
     var type: String?
     var message: String?
@@ -143,7 +143,7 @@ import NaiveDate
 }
 
 /// Model for testing reserved words
- struct Return: Codable {
+struct Return: Codable {
     var `return`: Int?
 
     init(`return`: Int? = nil) {
@@ -156,7 +156,7 @@ import NaiveDate
 }
 
 /// Model for testing model name same as property name
- struct Name: Codable {
+struct Name: Codable {
     var name: Int
     var snakeCase: Int?
     var property: String?
@@ -178,7 +178,7 @@ import NaiveDate
 }
 
 /// Model for testing model name starting with number
- struct __200Response: Codable {
+struct __200Response: Codable {
     var name: Int?
     var `class`: String?
 
@@ -194,7 +194,7 @@ import NaiveDate
 }
 
 /// Model for testing model with "_class" property
- struct ClassModel: Codable {
+struct ClassModel: Codable {
     var `class`: String?
 
     init(`class`: String? = nil) {
@@ -206,7 +206,7 @@ import NaiveDate
     }
 }
 
- struct Dog: Codable {
+struct Dog: Codable {
     var animal: Animal
     var breed: Breed?
     var image: Image?
@@ -238,7 +238,7 @@ import NaiveDate
     }
 }
 
- struct Cat: Codable {
+struct Cat: Codable {
     var animal: Animal
     var isDeclawed: Bool?
 
@@ -260,7 +260,7 @@ import NaiveDate
     }
 }
 
- struct Animal: Codable {
+struct Animal: Codable {
     var className: String
     var color: String?
 
@@ -270,7 +270,7 @@ import NaiveDate
     }
 }
 
- struct Image: Codable {
+struct Image: Codable {
     var id: String
     var url: String
 
@@ -280,7 +280,7 @@ import NaiveDate
     }
 }
 
- struct FormatTest: Codable {
+struct FormatTest: Codable {
     var integer: Int?
     var int32: Int?
     var int64: Int?
@@ -318,7 +318,7 @@ enum EnumClass: String, Codable, CaseIterable {
     case xyz = "(xyz)"
 }
 
- struct EnumTest: Codable {
+struct EnumTest: Codable {
     var enumString: EnumString?
     var enumInteger: Int?
     var enumNumber: Double?
@@ -345,7 +345,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct AdditionalPropertiesClass: Codable {
+struct AdditionalPropertiesClass: Codable {
     var mapProperty: [String: String]?
     var mapOfMapProperty: [String: [String: String]]?
 
@@ -360,7 +360,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
+struct MixedPropertiesAndAdditionalPropertiesClass: Codable {
     var uuid: UUID?
     var dateTime: Date?
     var map: [String: Animal]?
@@ -372,7 +372,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct List: Codable {
+struct List: Codable {
     var _123List: String?
 
     init(_123List: String? = nil) {
@@ -384,7 +384,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct Client: Codable {
+struct Client: Codable {
     var client: String?
 
     init(client: String? = nil) {
@@ -392,7 +392,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct ReadOnlyFirst: Codable {
+struct ReadOnlyFirst: Codable {
     var bar: String?
     var baz: String?
 
@@ -402,7 +402,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct HasOnlyReadOnly: Codable {
+struct HasOnlyReadOnly: Codable {
     var bar: String?
     var foo: String?
 
@@ -412,7 +412,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct Capitalization: Codable {
+struct Capitalization: Codable {
     var smallCamel: String?
     var capitalCamel: String?
     var smallSnake: String?
@@ -440,7 +440,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct MapTest: Codable {
+struct MapTest: Codable {
     var mapMapOfString: [String: [String: String]]?
     var mapOfEnumString: [String: MapOfEnumStringItem]?
 
@@ -460,7 +460,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct ArrayTest: Codable {
+struct ArrayTest: Codable {
     var arrayOfString: [String]?
     var arrayArrayOfInteger: [[Int]]?
     var arrayArrayOfModel: [[ReadOnlyFirst]]?
@@ -478,7 +478,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct NumberOnly: Codable {
+struct NumberOnly: Codable {
     var justNumber: Double?
 
     init(justNumber: Double? = nil) {
@@ -490,7 +490,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct ArrayOfNumberOnly: Codable {
+struct ArrayOfNumberOnly: Codable {
     var arrayNumber: [Double]?
 
     init(arrayNumber: [Double]? = nil) {
@@ -502,7 +502,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct ArrayOfArrayOfNumberOnly: Codable {
+struct ArrayOfArrayOfNumberOnly: Codable {
     var arrayArrayNumber: [[Double]]?
 
     init(arrayArrayNumber: [[Double]]? = nil) {
@@ -514,7 +514,7 @@ enum EnumClass: String, Codable, CaseIterable {
     }
 }
 
- struct EnumArrays: Codable {
+struct EnumArrays: Codable {
     var justSymbol: JustSymbol?
     var arrayEnum: [ArrayEnumItem]?
 
@@ -545,11 +545,11 @@ enum OuterEnum: String, Codable, CaseIterable {
     case delivered
 }
 
- struct ContainerA: Codable {
+struct ContainerA: Codable {
     var child: Child?
     var refChild: AnyJSON
 
-     struct Child: Codable {
+    struct Child: Codable {
         var `enum`: Enum
         var renameMe: String
         var child: Child
@@ -559,7 +559,7 @@ enum OuterEnum: String, Codable, CaseIterable {
             case b
         }
 
-         struct Child: Codable {
+        struct Child: Codable {
             var `enum`: Enum
             var renameMe: String
 
@@ -598,10 +598,10 @@ enum OuterEnum: String, Codable, CaseIterable {
     }
 }
 
- struct ContainerB: Codable {
+struct ContainerB: Codable {
     var child: Child
 
-     struct Child: Codable {
+    struct Child: Codable {
         var `enum`: Enum
         var renameMe: String
         var child: Child
@@ -611,7 +611,7 @@ enum OuterEnum: String, Codable, CaseIterable {
             case b
         }
 
-         struct Child: Codable {
+        struct Child: Codable {
             var `enum`: Enum
             var renameMe: String
 
@@ -649,10 +649,10 @@ enum OuterEnum: String, Codable, CaseIterable {
     }
 }
 
- struct ContainerC: Codable {
+struct ContainerC: Codable {
     var child: Child
 
-     struct Child: Codable {
+    struct Child: Codable {
         var `enum`: Enum
         var renameMe: String
 

@@ -135,7 +135,7 @@ extension Paths.Pet {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-         struct PostRequest: Encodable {
+        struct PostRequest: Encodable {
             /// Updated name of the pet
             var name: String?
             /// Updated status of the pet
@@ -381,7 +381,7 @@ extension Paths {
             .get(path, query: parameters?.asQuery)
         }
 
-         struct GetParameters {
+        struct GetParameters {
             var enumQueryStringArray: [EnumQueryStringArray]?
             var enumQueryString: EnumQueryString?
             var enumQueryInteger: Int?
@@ -417,7 +417,7 @@ extension Paths {
             .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
-         struct PostRequest: Encodable {
+        struct PostRequest: Encodable {
             /// None
             var integer: Int?
             /// None
