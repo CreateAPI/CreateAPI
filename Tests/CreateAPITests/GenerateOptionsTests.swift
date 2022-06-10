@@ -10,7 +10,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreOnlySchemas() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-only-schemas",
             "--generate", "entities"
@@ -26,7 +26,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreChangeFilename() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-change-filename",
             "--filename-template", "%0.generated.swift"
@@ -42,7 +42,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetsStoreChangeEntityname() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-change-entityname",
             "--entityname-template", "%0Generated"
@@ -58,7 +58,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreSingleThreaded() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-single-threaded",
             "--single-threaded"
@@ -74,7 +74,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreDisablePackages() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path.appending("/petstore-no-package"),
             "--module", "Petstore"
         ])
@@ -89,7 +89,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreSplit() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-split",
             "--split"
@@ -105,7 +105,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreAddCustomImport() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-custom-imports",
             "--config", config("""
@@ -130,7 +130,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreAddOperationId() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-operation-id",
             "--config", config("""
@@ -152,7 +152,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreGenerateClasses() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-generate-classes",
             "--config", config("""
@@ -174,7 +174,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPestoreSomeEntitiesAsClasses() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-some-entities-as-classes",
             "--config", config("""
@@ -196,7 +196,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreOverrideGenerateAsStructs() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-some-entities-as-structs",
             "--config", config("""
@@ -219,7 +219,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreBaseClass() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-base-class",
             "--config", config("""
@@ -242,7 +242,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreDisableCommentsGeneration() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-disable-comments",
             "--config", config("""
@@ -264,7 +264,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreDisableInitWithCoder() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-disable-init-with-coder",
             "--config", config("""
@@ -286,7 +286,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreDisableInlining() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-disable-inlining",
             "--config", config("""
@@ -306,7 +306,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreDisableMutableProperties() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--generate", "entities",
             "--output", temp.url.path,
             "--package", "petstore-disable-mutable-properties",
@@ -331,7 +331,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreEnableMutableProperties() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--generate", "entities",
             "--output", temp.url.path,
             "--package", "petstore-enable-mutable-properties",
@@ -356,7 +356,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreChangeNamespaceWhenRestStyle() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-change-namespace-when-rest-style",
             "--config", config("""
@@ -379,7 +379,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreChangeNamespaceWhenOperationsStyle() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore"),
+            pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-change-namespace-when-operations-style",
             "--config", config("""
@@ -402,7 +402,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesRenamePrperties() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-rename-properties",
             "--config", config("""
@@ -440,7 +440,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesPassYAMLConfiguration() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-yaml-config",
             "--config", config("""
@@ -463,7 +463,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesChangeAccessControl() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-change-access-control",
             "--config", config("""
@@ -483,7 +483,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesDisableAcronyms() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-disable-acronyms",
             "--config", config("""
@@ -503,7 +503,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesDisableEnumGeneration() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-disable-enums",
             "--config", config("""
@@ -523,7 +523,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesRename() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-rename",
             "--config", config("""
@@ -552,7 +552,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesIndentWithTabs() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-tabs",
             "--config", config("""
@@ -572,7 +572,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesIndentWithTwoWidthSpaces() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-indent-with-two-width-spaces",
             "--config", config("""
@@ -592,7 +592,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesEnableIntegerCapacity() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-int32-int64",
             "--config", config("""
@@ -612,7 +612,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testEdgecasesGenerateCodingKeys() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "edgecases"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "edgecases-coding-keys",
             "--config", config("""
@@ -631,7 +631,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testStripNamePrefixNestedObjectsEnabled() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "strip-parent-name-nested-objects"),
+            pathForSpec(named: "strip-parent-name-nested-objects", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "strip-parent-name-nested-objects-enabled",
             "--config", config("""
@@ -650,7 +650,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testStripNamePrefixNestedObjects() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "strip-parent-name-nested-objects"),
+            pathForSpec(named: "strip-parent-name-nested-objects", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "strip-parent-name-nested-objects-default"
         ])

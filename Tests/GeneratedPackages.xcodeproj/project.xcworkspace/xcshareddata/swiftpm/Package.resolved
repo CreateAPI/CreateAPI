@@ -3,38 +3,38 @@
     "pins": [
       {
         "package": "Get",
-        "repositoryURL": "https://github.com/kean/Get",
+        "repositoryURL": "https://github.com/CreateAPI/Get",
         "state": {
-          "branch": "main",
-          "revision": "afe1abfb9954ba67554d71633bce9c21714f9c4e",
-          "version": null
+          "branch": null,
+          "revision": "be3879cb580c141b6d4cbb80fba18c7b5028c552",
+          "version": "0.6.0"
         }
       },
       {
         "package": "HTTPHeaders",
-        "repositoryURL": "https://github.com/kean/HTTPHeaders",
+        "repositoryURL": "https://github.com/CreateAPI/HTTPHeaders",
         "state": {
-          "branch": "main",
+          "branch": null,
           "revision": "edfbb55b30e0b925d5c31c7a6da39f9585007906",
-          "version": null
+          "version": "0.1.0"
         }
       },
       {
         "package": "NaiveDate",
-        "repositoryURL": "https://github.com/kean/NaiveDate",
+        "repositoryURL": "https://github.com/CreateAPI/NaiveDate",
         "state": {
-          "branch": "master",
-          "revision": "e0810b3364ad3ac040bcf3ac7e5a21fec6a9d615",
-          "version": null
+          "branch": null,
+          "revision": "08fad5d02e9117f6cea96096c5951e445aa710b1",
+          "version": "1.0.0"
         }
       },
       {
         "package": "URLQueryEncoder",
-        "repositoryURL": "https://github.com/kean/URLQueryEncoder",
+        "repositoryURL": "https://github.com/CreateAPI/URLQueryEncoder",
         "state": {
-          "branch": "main",
+          "branch": null,
           "revision": "4cc975d4d075d0e62699a796a08284e217d4ee93",
-          "version": null
+          "version": "0.2.0"
         }
       }
     ]

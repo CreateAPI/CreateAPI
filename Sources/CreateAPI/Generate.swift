@@ -13,6 +13,7 @@ import Yams
 // TODO: Add OpenAPI 3.1 support
 
 struct Generate: ParsableCommand {
+    private static let supportedFileFormats: [String] = ["yml", "yaml", "json"]
 
     @Argument(help: "The OpenAPI spec input file in either JSON or YAML format")
     var input: String
@@ -127,23 +128,22 @@ struct Generate: ParsableCommand {
     
     private func readOptions() throws -> GenerateOptions {
         let url = URL(filePath: config)
+
+        guard Self.supportedFileFormats.contains(url.pathExtension) else {
+            let extensions = Self.supportedFileFormats.map({ "`\($0)`" }).joined(separator: ", ")
+            throw GeneratorError("The file must have one of the following extensions: \(extensions).")
+        }
+
         guard let data = try? Data(contentsOf: url), !data.isEmpty else {
             return GenerateOptions() // Use default options
         }
-        let options: GenerateOptionsSchema
+
         do {
-            switch url.pathExtension {
-            case "yml", "yaml":
-                options = try YAMLDecoder().decode(GenerateOptionsSchema.self, from: data)
-            case "json":
-                options = try JSONDecoder().decode(GenerateOptionsSchema.self, from: data)
-            default:
-                throw GeneratorError("The file must have one of the following extensions: `json`, `yaml`.")
-            }
+            let options = try YAMLDecoder().decode(GenerateOptionsSchema.self, from: data)
+            return GenerateOptions(options)
         } catch {
             throw GeneratorError("Failed to read configuration. \(error)")
         }
-        return GenerateOptions(options)
     }
     
     private func applyTemplateToEntityIncludeAndExclude(options: GenerateOptions) {
@@ -155,26 +155,23 @@ struct Generate: ParsableCommand {
         VendorExtensionsConfiguration.isEnabled = false
         
         let inputURL = URL(filePath: input)
+
+        guard Self.supportedFileFormats.contains(inputURL.pathExtension) else {
+            let extensions = Self.supportedFileFormats.map({ "`\($0)`" }).joined(separator: ", ")
+            throw GeneratorError("The file must have one of the following extensions: \(extensions).")
+        }
         
         var bench = Benchmark(name: "Read spec data")
         let data = try Data(contentsOf: inputURL)
         bench.stop()
-    
+
         bench = Benchmark(name: "Parse spec")
         let spec: OpenAPI.Document
         do {
-            switch inputURL.pathExtension {
-            case "yml", "yaml":
-                if !singleThreaded {
-                    spec = try YAMLDecoder().decode(ParallelDocumentParser.self, from: data).document
-                } else {
-                    spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)
-                }
-            case "json":
-                // JSONDecoder doesn't appear to be thread-safe.
-                spec = try JSONDecoder().decode(OpenAPI.Document.self, from: data)
-            default:
-                throw GeneratorError("The file must have one of the following extensions: `json`, `yaml`.")
+            if !singleThreaded {
+                spec = try YAMLDecoder().decode(ParallelDocumentParser.self, from: data).document
+            } else {
+                spec = try YAMLDecoder().decode(OpenAPI.Document.self, from: data)
             }
         } catch {
             throw GeneratorError("ERROR! The spec is missing or invalid. \(OpenAPI.Error(from: error))")

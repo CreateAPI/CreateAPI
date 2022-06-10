@@ -41,8 +41,8 @@
         "package": "Yams",
         "repositoryURL": "https://github.com/CreateAPI/Yams",
         "state": {
-          "branch": "main",
-          "revision": "3357d51e5621e3ccfba1acbf9d7b5d0e1cfa59f8",
+          "branch": null,
+          "revision": "d2ebc53afeb2001474dacf81c4480fef114045a1",
           "version": null
         }
       }

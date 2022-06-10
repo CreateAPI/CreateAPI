@@ -12,7 +12,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
         .package(url: "https://github.com/CreateAPI/OpenAPIKit", branch: "create-api"),
-        .package(url: "https://github.com/CreateAPI/Yams", branch: "main"),
+        .package(url: "https://github.com/CreateAPI/Yams", revision: "d2ebc53afeb2001474dacf81c4480fef114045a1"),
         .package(url: "https://github.com/Cosmo/GrammaticalNumber", from: "0.0.3"),
         .package(url: "https://github.com/eonist/FileWatcher", from: "0.2.0")
     ],

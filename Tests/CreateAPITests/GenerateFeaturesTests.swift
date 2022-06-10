@@ -8,6 +8,6 @@ import OpenAPIKit30
 
 final class GenerateFeaturesTests: GenerateBaseTests {    
     func testQueryParameters() throws {
-        try testSpec(name: "test-query-parameters")
+        try testSpec(name: "test-query-parameters", ext: "yaml")
     }
 }

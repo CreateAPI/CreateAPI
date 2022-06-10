@@ -8,21 +8,21 @@ import OpenAPIKit30
 
 final class GenerateTests: GenerateBaseTests {
     func testPestore() throws {
-        try testSpec(name: "petstore", package: "petstore-default")
+        try testSpec(name: "petstore", ext: "yaml", package: "petstore-default")
     }
     
     func testEdgecases() throws {
-        try testSpec(name: "edgecases", package: "edgecases-default")
+        try testSpec(name: "edgecases", ext: "yaml", package: "edgecases-default")
     }
 
     func testDiscriminator() throws {
-        try testSpec(name: "discriminator", package: "discriminator")
+        try testSpec(name: "discriminator", ext: "yaml", package: "discriminator")
     }    
     
     func testGitHub() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "github"),
+            pathForSpec(named: "github", ext: "yaml"),
             "--output", temp.url.path,
             "--strict",
             "--package", "OctoKit",
@@ -45,5 +45,9 @@ final class GenerateTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "OctoKit")
+    }
+
+    func testCookpad() throws {
+        try testSpec(name: "cookpad", ext: "json")
     }
 }

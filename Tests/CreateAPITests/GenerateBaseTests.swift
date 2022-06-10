@@ -21,10 +21,10 @@ class GenerateBaseTests: XCTestCase {
         temp.remove()
     }
     
-    func testSpec(name: String, package: String? = nil, config: String = "") throws {
+    func testSpec(name: String, ext: String, package: String? = nil, config: String = "") throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: name),
+            pathForSpec(named: name, ext: ext),
             "--output", temp.url.path,
             "--package", package ?? name,
             "--config", self.config(config, ext: "yaml")
