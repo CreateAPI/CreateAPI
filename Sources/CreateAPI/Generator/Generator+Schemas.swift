@@ -193,6 +193,10 @@ extension Generator {
             return try makeObject(name: name, info: info, details: details, context: context)
         case .array(let info, let details):
             return try makeTypealiasArray(name: name, info: info, details: details, context: context)
+        case .all(let schemas, _) where schemas.count == 1,
+             .one(let schemas, _) where schemas.count == 1,
+             .any(let schemas, _) where schemas.count == 1:
+            return try _makeDeclaration(name: name, schema: schemas[0], context: context)
         case .all(let schemas, let info):
             return try makeAllOf(name: name, schemas: schemas, info: info, context: context)
         case .one(let schemas, let info):
