@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		533CE9BC285396420074A659 /* inlining-default in Frameworks */ = {isa = PBXBuildFile; productRef = 533CE9BB285396420074A659 /* inlining-default */; };
 		5353B56027FE1DFC0000D490 /* edgecases-yaml-config in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53827FE1DFB0000D490 /* edgecases-yaml-config */; };
 		5353B56127FE1DFC0000D490 /* edgecases-disable-acronyms in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53927FE1DFB0000D490 /* edgecases-disable-acronyms */; };
 		5353B56227FE1DFC0000D490 /* edgecases-int32-int64 in Resources */ = {isa = PBXBuildFile; fileRef = 5353B53A27FE1DFB0000D490 /* edgecases-int32-int64 */; };
@@ -83,6 +84,7 @@
 
 /* Begin PBXFileReference section */
 		0C612E602777B55A008D32A4 /* GeneratedPackages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeneratedPackages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		533CE9BA285396330074A659 /* inlining-default */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "inlining-default"; path = "CreateAPITests/Expected/inlining-default"; sourceTree = "<group>"; };
 		5353B53827FE1DFB0000D490 /* edgecases-yaml-config */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-yaml-config"; path = "CreateAPITests/Expected/edgecases-yaml-config"; sourceTree = "<group>"; };
 		5353B53927FE1DFB0000D490 /* edgecases-disable-acronyms */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-disable-acronyms"; path = "CreateAPITests/Expected/edgecases-disable-acronyms"; sourceTree = "<group>"; };
 		5353B53A27FE1DFB0000D490 /* edgecases-int32-int64 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "edgecases-int32-int64"; path = "CreateAPITests/Expected/edgecases-int32-int64"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				5353B5CC27FE1E270000D490 /* strip-parent-name-nested-objects-enabled in Frameworks */,
 				5353B5AC27FE1E260000D490 /* petstore-change-namespace-when-rest-style in Frameworks */,
 				5353B5BE27FE1E270000D490 /* petstore-only-schemas in Frameworks */,
+				533CE9BC285396420074A659 /* inlining-default in Frameworks */,
 				5353B59227FE1E260000D490 /* edgecases-disable-acronyms in Frameworks */,
 				5353B5A827FE1E260000D490 /* petstore-change-filename in Frameworks */,
 				5353B5C827FE1E270000D490 /* petstore-split in Frameworks */,
@@ -184,6 +187,7 @@
 				5353B53B27FE1DFB0000D490 /* edgecases-rename-properties */,
 				5353B55A27FE1DFC0000D490 /* edgecases-tabs */,
 				5353B53827FE1DFB0000D490 /* edgecases-yaml-config */,
+				533CE9BA285396330074A659 /* inlining-default */,
 				5353B55E27FE1DFC0000D490 /* OctoKit */,
 				5353B53D27FE1DFB0000D490 /* petstore-base-class */,
 				5353B55527FE1DFC0000D490 /* petstore-change-entityname */,
@@ -291,6 +295,7 @@
 				5353B5C927FE1E270000D490 /* strip-parent-name-nested-objects-default */,
 				5353B5CB27FE1E270000D490 /* strip-parent-name-nested-objects-enabled */,
 				5353B5CD27FE1E270000D490 /* test-query-parameters */,
+				533CE9BB285396420074A659 /* inlining-default */,
 			);
 			productName = GeneratedPackages;
 			productReference = 0C612E602777B55A008D32A4 /* GeneratedPackages.framework */;
@@ -586,6 +591,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		533CE9BB285396420074A659 /* inlining-default */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "inlining-default";
+		};
 		5353B58727FE1E260000D490 /* cookpad */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = cookpad;
