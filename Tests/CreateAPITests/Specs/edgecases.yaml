@@ -1012,10 +1012,11 @@ components:
       required:
         - id
         - url
-      id:
-        type: string
-      url:
-        type: string
+      properties:
+        id:
+          type: string
+        url:
+          type: string
     AnimalFarm:
       type: array
       items:

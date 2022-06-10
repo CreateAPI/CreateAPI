@@ -292,10 +292,10 @@ public struct Animal: Codable {
 }
 
 public struct Image: Codable {
-    public var identifier: AnyJSON
-    public var url: AnyJSON
+    public var identifier: String
+    public var url: String
 
-    public init(identifier: AnyJSON, url: AnyJSON) {
+    public init(identifier: String, url: String) {
         self.identifier = identifier
         self.url = url
     }

@@ -271,10 +271,10 @@ import NaiveDate
 }
 
  struct Image: Codable {
-    var id: AnyJSON
-    var url: AnyJSON
+    var id: String
+    var url: String
 
-    init(id: AnyJSON, url: AnyJSON) {
+    init(id: String, url: String) {
         self.id = id
         self.url = url
     }

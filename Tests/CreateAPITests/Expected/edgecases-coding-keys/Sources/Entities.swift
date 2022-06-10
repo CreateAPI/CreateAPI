@@ -385,18 +385,18 @@ public struct Animal: Codable {
 }
 
 public struct Image: Codable {
-    public var id: AnyJSON
-    public var url: AnyJSON
+    public var id: String
+    public var url: String
 
-    public init(id: AnyJSON, url: AnyJSON) {
+    public init(id: String, url: String) {
         self.id = id
         self.url = url
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decode(AnyJSON.self, forKey: "id")
-        self.url = try values.decode(AnyJSON.self, forKey: "url")
+        self.id = try values.decode(String.self, forKey: "id")
+        self.url = try values.decode(String.self, forKey: "url")
     }
 
     public func encode(to encoder: Encoder) throws {
