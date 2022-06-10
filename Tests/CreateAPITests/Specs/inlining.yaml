@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Inlining Test
+servers:
+  - url: https://example.com/api/v1
+paths:
+  "/packages":
+    get:
+      responses:
+        '200':
+          description: get example packages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Package"
+components:
+  schemas:
+    Person:
+      type: object
+      required:
+        - name
+        - address
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+          nullable: true
+    Item:
+      type: object
+      required:
+        - weight
+      properties:
+        weight:
+          type: integer
+    Package:
+      allOf:
+        - "$ref": "#/components/schemas/Item"
+        - type: object
+          required:
+            - address
+          properties:
+            address:
+              type: string
+    Letter:
+      allOf:
+        - "$ref": "#/components/schemas/Item"
+        - type: object
+          required:
+            - address
+            - size
+          properties:
+            address:
+              type: string
+            size:
+              type: string
+              enum:
+                - A4
+                - A5
+
+

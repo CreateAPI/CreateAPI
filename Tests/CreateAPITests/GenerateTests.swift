@@ -15,6 +15,15 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "edgecases", ext: "yaml", package: "edgecases-default")
     }
 
+    func testInlining() throws {
+        try testSpec(name: "inlining", ext: "yaml", package: "inlining-default", config: """
+        entities:
+          isInliningPropertiesFromReferencedSchemas: true
+          entitiesGeneratedAsClasses:
+            - Letter
+        """)
+    }
+
     func testDiscriminator() throws {
         try testSpec(name: "discriminator", ext: "yaml", package: "discriminator")
     }    
