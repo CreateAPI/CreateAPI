@@ -310,23 +310,33 @@ public struct ClassModel: Codable {
 
 public struct Dog: Codable {
     public var animal: Animal
-    public var breed: String?
+    public var breed: Breed?
+    public var image: Image?
 
-    public init(animal: Animal, breed: String? = nil) {
+    public enum Breed: String, Codable, CaseIterable {
+        case large = "Large"
+        case medium = "Medium"
+        case small = "Small"
+    }
+
+    public init(animal: Animal, breed: Breed? = nil, image: Image? = nil) {
         self.animal = animal
         self.breed = breed
+        self.image = image
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.animal = try Animal(from: decoder)
-        self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
+        self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
+        self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encode(animal, forKey: "animal")
         try values.encodeIfPresent(breed, forKey: "breed")
+        try values.encodeIfPresent(image, forKey: "image")
     }
 }
 
@@ -371,6 +381,28 @@ public struct Animal: Codable {
         var values = encoder.container(keyedBy: StringCodingKey.self)
         try values.encode(className, forKey: "className")
         try values.encodeIfPresent(color, forKey: "color")
+    }
+}
+
+public struct Image: Codable {
+    public var id: String
+    public var url: String
+
+    public init(id: String, url: String) {
+        self.id = id
+        self.url = url
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(String.self, forKey: "id")
+        self.url = try values.decode(String.self, forKey: "url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(url, forKey: "url")
     }
 }
 

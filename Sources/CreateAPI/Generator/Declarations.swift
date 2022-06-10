@@ -90,8 +90,7 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
         switch self {
         case .array(let element): return "[\(element)]"
         case .dictionary(let key, let value): return "[\(key): \(value)]"
-        case .userDefined(let name): return name.rawValue
-        case .builtin(let name): return name.rawValue
+        case .userDefined(let name), .builtin(let name): return name.rawValue
         }
     }
 }
@@ -159,6 +158,8 @@ struct Property {
     var metadata: DeclarationMetadata?
     // A nested declaration required used as a property type
     var nested: Declaration?
+    // If the schema is inlined by `allOf`. This is currently used only for the generation of decoders.
+    var isInlined: Bool?
 }
 
 protocol Declaration {
