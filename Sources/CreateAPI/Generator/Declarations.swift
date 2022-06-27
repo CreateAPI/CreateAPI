@@ -4,8 +4,6 @@
 
 import Foundation
 import OpenAPIKit30
-import Darwin
-import AppKit
 
 // - note: Currently doesn't contain namespaces or parents names. These are
 // mananged separately.
