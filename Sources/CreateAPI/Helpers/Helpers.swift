@@ -79,11 +79,11 @@ extension NSLock {
 
 struct Benchmark {
     let name: String
-    let startTime = CFAbsoluteTimeGetCurrent()
+    let startTime = Date().timeIntervalSinceReferenceDate
     static var isEnabled = false
     
     func stop() {
-        let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+        let timeElapsed = Date().timeIntervalSinceReferenceDate - startTime
         guard Benchmark.isEnabled else { return }
         print("\(name) completed (\(String(format: "%.3f", timeElapsed)) s)")
     }

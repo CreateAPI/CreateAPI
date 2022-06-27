@@ -27,8 +27,6 @@ final class Generator {
     var pathsContainingRequestType: [String] = []
     let lock = NSLock()
     
-    private var startTime: CFAbsoluteTime?
-    
     init(spec: OpenAPI.Document, options: GenerateOptions, arguments: GenerateArguments) {
         self.spec = spec
         self.options = options
