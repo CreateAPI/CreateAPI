@@ -39,8 +39,10 @@ struct Generate: ParsableCommand {
     @Flag(help: "Ignore any errors that happen during code generation")
     var allowErrors = false
     
+    #if os(macOS)
     @Flag(help: "Monitor changes to both the spec and the configuration file and automatically re-generated input")
     var watch = false
+    #endif
         
     @Option(help: "Generates a complete package with a given name")
     var package: String?
@@ -68,12 +70,15 @@ struct Generate: ParsableCommand {
 
     func run() throws {
         Benchmark.isEnabled = measure
+        #if os(macOS)
         if watch {
             _ = try Watcher(paths: [config, input], run: _run)
             RunLoop.main.run()
-        } else {
-            try _run()
+            return
         }
+        #endif
+
+        try _run()
     }
     
     private func _run() throws {

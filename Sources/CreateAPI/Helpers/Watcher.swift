@@ -2,6 +2,7 @@
 //
 // Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
 
+#if canImport(FileWatcher)
 import Foundation
 import FileWatcher
 import Combine
@@ -60,3 +61,4 @@ final class Watcher {
         }
     }
 }
+#endif
