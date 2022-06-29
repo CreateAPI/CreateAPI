@@ -31,9 +31,13 @@ jobs:
       - name: Compile Generated Code
         run: ./Scripts/test-generated.sh
   linux:
-    name: Linux
+    name: Linux (Swift ${{ matrix.swift }})
+    strategy:
+      fail-fast: false
+      matrix:
+        swift: ["5.5", "5.6"]
     runs-on: ubuntu-latest
-    container: swift:5.6
+    container: swift:${{ matrix.swift }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
