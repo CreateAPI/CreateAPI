@@ -202,13 +202,13 @@
           },
           "description": {
             "type": "string",
-            "description": "A longer description of the collection.",
+            "description": "A longer description of the collection.\nThis is also a comment, but on a new line using the \\n line break.",
             "nullable": false,
             "example": "The sun is shining? The BBQ is out? Check out this collection of recipes for the perfect summer BBQ."
           },
           "recipe_count": {
             "type": "integer",
-            "description": "The number of recipes in this collection.",
+            "description": "The number of recipes in this collection.\rThis is also a comment, but on a new line using the \\r line break.",
             "nullable": false,
             "example": 27
           },

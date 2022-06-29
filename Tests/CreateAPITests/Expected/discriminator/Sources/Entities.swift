@@ -14,6 +14,8 @@ public struct A: Codable {
 }
 
 public struct B: Codable {
+    /// This is a description
+    /// And it should be on multiple lines
     public var kind: String
 
     public init(kind: String) {
