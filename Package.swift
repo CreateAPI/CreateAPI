@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -7,7 +7,8 @@ let package = Package(
     name: "CreateAPI",
     platforms: [.macOS(.v10_15)],
     products: [
-        .executable(name: "create-api", targets: ["create-api"])
+        .executable(name: "create-api", targets: ["create-api"]),
+        .plugin(name: "CreateAPIPlugin", targets: ["CreateAPIPlugin"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
@@ -35,6 +36,11 @@ let package = Package(
             dependencies: ["create-api"],
             path: "Tests/CreateAPITests",
             resources: [.copy("Expected"), .copy("Specs")]
+        ),
+        .plugin(
+            name: "CreateAPIPlugin",
+            capability: .buildTool(),
+            dependencies: ["create-api"]
         )
     ]
 )
