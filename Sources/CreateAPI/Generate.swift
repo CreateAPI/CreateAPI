@@ -9,7 +9,6 @@ import Yams
 
 // TODO: Generate `README.md` for package (see `info`)
 // TODO: Disable sandbox
-// TODO: Add Linux support
 // TODO: Add OpenAPI 3.1 support
 
 struct Generate: ParsableCommand {
