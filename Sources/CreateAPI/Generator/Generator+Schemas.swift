@@ -5,7 +5,6 @@
 import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
-import AppKit
 
 // TODO: Add Read-Only and Write-Only Properties support
 // TODO: stirng with format "binary"?

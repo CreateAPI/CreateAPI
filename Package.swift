@@ -24,7 +24,7 @@ let package = Package(
                 .product(name: "OpenAPIKit30", package: "OpenAPIKit"),
                 .product(name: "Yams", package: "Yams"),
                 .product(name: "GrammaticalNumber", package: "GrammaticalNumber"),
-                .product(name: "FileWatcher", package: "FileWatcher")
+                .product(name: "FileWatcher", package: "FileWatcher", condition: .when(platforms: [.macOS])),
             ],
             path: "Sources/CreateAPI"
         ),
