@@ -1,0 +1,17 @@
+{% for type in types.all|annotated:"decodableWithDefault" %}
+extension {{ type.name }}: Decodable {
+    enum CodingKeys: String, CodingKey {
+        {% for variable in type.variables|stored %}
+        case {{ variable.name }}
+        {% endfor %}
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        {% for variable in type.variables|stored %}
+        {{ variable.name }} = try container.decodeIfPresent({{ variable.typeName|replace:"?","" }}.self, forKey: .{{ variable.name }}) ?? {{ variable.defaultValue }}
+        {% endfor %}
+    }
+}
+
+{% endfor %}

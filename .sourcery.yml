@@ -1,0 +1,12 @@
+configurations:
+- output: Docs/Options.md
+  parseDocumentation: true
+  templates:
+  - Docs/Options.stencil
+  sources:
+  - Sources/CreateOptions/GenerateOptions.swift
+- output: Sources/CreateOptions/GenerateOptions+DecodableWithDefault.swift
+  templates:
+  - Sources/CreateOptions/DecodableWithDefault.stencil
+  sources:
+  - Sources/CreateOptions/GenerateOptions.swift
