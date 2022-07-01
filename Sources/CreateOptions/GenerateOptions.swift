@@ -116,10 +116,7 @@ public struct GenerateOptions: Encodable {
         public var isGeneratingMutableClassProperties: Bool = false
 
         /// When generating `struct` types, generate the properties as `public var`
-        public var isGeneratingMutableStructProperties: Bool = false
-
-        /// Generate an initializer for each entity
-        public var isGeneratingInitializers: Bool = true
+        public var isGeneratingMutableStructProperties: Bool = true
 
         /// Base class used when generating `class` types
         public var baseClass: String? = nil
@@ -130,11 +127,14 @@ public struct GenerateOptions: Encodable {
         /// Automatically removes `Encodable` or `Decodable` conformance when it is not required
         public var isSkippingRedundantProtocols: Bool = true
 
+        /// Generate an initializer for each entity
+        public var isGeneratingInitializers: Bool = true // TODO: simplify this
+
         /// Generate the `init(from:)` initializer for `Decodable` conformance when required
-        public var isGeneratingInitWithDecoder: Bool = true
+        public var isGeneratingInitWithDecoder: Bool = true // TODO: simplify this
 
         /// Generate the `encode(to:)` method for `Encodable` conformance when required
-        public var isGeneratingEncodeWithEncoder: Bool = true
+        public var isGeneratingEncodeWithEncoder: Bool = true // TODO: simplify this
 
         /// Orders properties of an entity alphabetically instead of the order defined in the schema
         public var isSortingPropertiesAlphabetically: Bool = false
@@ -207,7 +207,7 @@ public struct GenerateOptions: Encodable {
         public var simpleQueryParametersThreshold: Int = 2
 
         /// TODO: Document or Remove
-        public var isMakingOptionalPatchParametersDoubleOptional: Bool = false
+        public var isMakingOptionalPatchParametersDoubleOptional: Bool = false // TODO: Replace this with a better solution for patch params
 
         /// Remove redundant paths if possible
         public var isRemovingRedundantPaths: Bool = true
