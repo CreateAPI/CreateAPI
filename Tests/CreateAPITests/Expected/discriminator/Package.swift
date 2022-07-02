@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "discriminator", targets: ["discriminator"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/CreateAPI/Get", from: "0.3.1")
+        .package(url: "https://github.com/kean/Get", from: "0.3.1")
     ],
     targets: [
         .target(name: "discriminator", dependencies: [

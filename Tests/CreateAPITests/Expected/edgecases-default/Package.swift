@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "edgecases-default", targets: ["edgecases-default"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/CreateAPI/Get", from: "0.3.1"), 
+        .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
         .package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0"), 
         .package(url: "https://github.com/CreateAPI/NaiveDate", from: "1.0.0"), 
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")

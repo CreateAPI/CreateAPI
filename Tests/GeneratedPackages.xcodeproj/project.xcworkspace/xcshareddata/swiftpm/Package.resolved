@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "Get",
-        "repositoryURL": "https://github.com/CreateAPI/Get",
+        "repositoryURL": "https://github.com/kean/Get",
         "state": {
           "branch": null,
           "revision": "be3879cb580c141b6d4cbb80fba18c7b5028c552",
