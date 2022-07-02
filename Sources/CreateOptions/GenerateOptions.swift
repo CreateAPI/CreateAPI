@@ -127,14 +127,19 @@ public struct GenerateOptions: Encodable {
         /// Automatically removes `Encodable` or `Decodable` conformance when it is not required
         public var isSkippingRedundantProtocols: Bool = true
 
+        // TODO: simplify these three options
         /// Generate an initializer for each entity
-        public var isGeneratingInitializers: Bool = true // TODO: simplify this
+        public var isGeneratingInitializers: Bool = true
 
+        // TODO: simplify this
+        // sourcery: skip
         /// Generate the `init(from:)` initializer for `Decodable` conformance when required
-        public var isGeneratingInitWithDecoder: Bool = true // TODO: simplify this
+        public var isGeneratingInitWithDecoder: Bool = true
 
+        // TODO: simplify this
+        // sourcery: skip
         /// Generate the `encode(to:)` method for `Encodable` conformance when required
-        public var isGeneratingEncodeWithEncoder: Bool = true // TODO: simplify this
+        public var isGeneratingEncodeWithEncoder: Bool = true
 
         /// Orders properties of an entity alphabetically instead of the order defined in the schema
         public var isSortingPropertiesAlphabetically: Bool = false
@@ -191,10 +196,26 @@ public struct GenerateOptions: Encodable {
         /// Modules to be imported within the source files for generated requests
         public var imports: Set<String> = ["Get"]
 
-        /// TODO: Document
+        /// Allows you to override mapping of specific response types to a custom (or generated) type instead.
+        ///
+        /// For example:
+        ///
+        /// ```yaml
+        /// paths:
+        ///   overridenResponses:
+        ///     MyApiResponseType: MyCustomDecodableType
+        /// ```
         public var overridenResponses: [String: String] = [:]
 
-        /// TODO: Document
+        /// Tell CreateAPI how to map an unknown request or response content types to a Swift type used in the path generation.
+        ///
+        /// For example:
+        ///
+        /// ```yaml
+        /// paths:
+        ///   overridenBodyTypes:
+        ///     application/octocat-stream: String
+        /// ```
         public var overridenBodyTypes: [String: String] = [:]
 
         /// Inline simple requests, like the ones with a single parameter
@@ -206,8 +227,9 @@ public struct GenerateOptions: Encodable {
         /// The threshold of query parameters to inline when using `isInliningSimpleQueryParameters`.
         public var simpleQueryParametersThreshold: Int = 2
 
-        /// TODO: Document or Remove
-        public var isMakingOptionalPatchParametersDoubleOptional: Bool = false // TODO: Replace this with a better solution for patch params
+        // TODO: Replace this with a better solution for patch params
+        // sourcery: skip
+        public var isMakingOptionalPatchParametersDoubleOptional: Bool = false
 
         /// Remove redundant paths if possible
         public var isRemovingRedundantPaths: Bool = true

@@ -79,10 +79,10 @@ extension GenerateOptions.Entities: Decodable {
         case isMakingClassesFinal
         case isGeneratingMutableClassProperties
         case isGeneratingMutableStructProperties
-        case isGeneratingInitializers
         case baseClass
         case protocols
         case isSkippingRedundantProtocols
+        case isGeneratingInitializers
         case isGeneratingInitWithDecoder
         case isGeneratingEncodeWithEncoder
         case isSortingPropertiesAlphabetically
@@ -103,11 +103,11 @@ extension GenerateOptions.Entities: Decodable {
         imports = try container.decodeIfPresent(Set<String>.self, forKey: .imports) ?? []
         isMakingClassesFinal = try container.decodeIfPresent(Bool.self, forKey: .isMakingClassesFinal) ?? true
         isGeneratingMutableClassProperties = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingMutableClassProperties) ?? false
-        isGeneratingMutableStructProperties = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingMutableStructProperties) ?? false
-        isGeneratingInitializers = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingInitializers) ?? true
+        isGeneratingMutableStructProperties = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingMutableStructProperties) ?? true
         baseClass = try container.decodeIfPresent(String.self, forKey: .baseClass) ?? nil
         protocols = try container.decodeIfPresent(Set<String>.self, forKey: .protocols) ?? ["Codable"]
         isSkippingRedundantProtocols = try container.decodeIfPresent(Bool.self, forKey: .isSkippingRedundantProtocols) ?? true
+        isGeneratingInitializers = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingInitializers) ?? true
         isGeneratingInitWithDecoder = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingInitWithDecoder) ?? true
         isGeneratingEncodeWithEncoder = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingEncodeWithEncoder) ?? true
         isSortingPropertiesAlphabetically = try container.decodeIfPresent(Bool.self, forKey: .isSortingPropertiesAlphabetically) ?? false

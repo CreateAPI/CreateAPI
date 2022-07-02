@@ -8,27 +8,6 @@ To take advantage of this, define a **create-api.yaml** (or json) file and use t
 
 Below you can find documentation for all of the valid options:
 
-- [`default`](#generateoptions)
-  - [`default`](#generateoptions`default`)
-  - [access](#generateoptionsaccess)
-  - [isAddingDeprecations](#generateoptionsisaddingdeprecations)
-  - [isGeneratingEnums](#generateoptionsisgeneratingenums)
-  - [isGeneratingSwiftyBooleanPropertyNames](#generateoptionsisgeneratingswiftybooleanpropertynames)
-  - [isInliningTypealiases](#generateoptionsisinliningtypealiases)
-  - [isReplacingCommonAcronyms](#generateoptionsisreplacingcommonacronyms)
-  - [addedAcronyms](#generateoptionsaddedacronyms)
-  - [ignoredAcronyms](#generateoptionsignoredacronyms)
-  - [indentation](#generateoptionsindentation)
-  - [spaceWidth](#generateoptionsspacewidth)
-  - [isPluralizationEnabled](#generateoptionsispluralizationenabled)
-  - [isNaiveDateEnabled](#generateoptionsisnaivedateenabled)
-  - [isUsingIntegersWithPredefinedCapacity](#generateoptionsisusingintegerswithpredefinedcapacity)
-  - [isSwiftLintDisabled](#generateoptionsisswiftlintdisabled)
-  - [fileHeaderComment](#generateoptionsfileheadercomment)
-  - [comments](#generateoptionscomments)
-  - [entities](#generateoptionsentities)
-  - [paths](#generateoptionspaths)
-  - [rename](#generateoptionsrename)
 - [access](#access)
 - [isAddingDeprecations](#isaddingdeprecations)
 - [isGeneratingEnums](#isgeneratingenums)
@@ -59,12 +38,10 @@ Below you can find documentation for all of the valid options:
   - [isMakingClassesFinal](#entitiesismakingclassesfinal)
   - [isGeneratingMutableClassProperties](#entitiesisgeneratingmutableclassproperties)
   - [isGeneratingMutableStructProperties](#entitiesisgeneratingmutablestructproperties)
-  - [isGeneratingInitializers](#entitiesisgeneratinginitializers)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
   - [isSkippingRedundantProtocols](#entitiesisskippingredundantprotocols)
-  - [isGeneratingInitWithDecoder](#entitiesisgeneratinginitwithdecoder)
-  - [isGeneratingEncodeWithEncoder](#entitiesisgeneratingencodewithencoder)
+  - [isGeneratingInitializers](#entitiesisgeneratinginitializers)
   - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
   - [isGeneratingCustomCodingKeys](#entitiesisgeneratingcustomcodingkeys)
   - [isAddingDefaultValues](#entitiesisaddingdefaultvalues)
@@ -84,7 +61,6 @@ Below you can find documentation for all of the valid options:
   - [isInliningSimpleRequests](#pathsisinliningsimplerequests)
   - [isInliningSimpleQueryParameters](#pathsisinliningsimplequeryparameters)
   - [simpleQueryParametersThreshold](#pathssimplequeryparametersthreshold)
-  - [isMakingOptionalPatchParametersDoubleOptional](#pathsismakingoptionalpatchparametersdoubleoptional)
   - [isRemovingRedundantPaths](#pathsisremovingredundantpaths)
   - [exclude](#pathsexclude)
   - [include](#pathsinclude)
@@ -335,17 +311,9 @@ When generating `class` types, generate the properties as `public var`
 ### entities.isGeneratingMutableStructProperties
 
 **Type:** Bool<br />
-**Default:** `false`
-
-When generating `struct` types, generate the properties as `public var`
-
-
-### entities.isGeneratingInitializers
-
-**Type:** Bool<br />
 **Default:** `true`
 
-Generate an initializer for each entity
+When generating `struct` types, generate the properties as `public var`
 
 
 ### entities.baseClass
@@ -372,20 +340,12 @@ Protocols to be adopted by each generated entity
 Automatically removes `Encodable` or `Decodable` conformance when it is not required
 
 
-### entities.isGeneratingInitWithDecoder
+### entities.isGeneratingInitializers
 
 **Type:** Bool<br />
 **Default:** `true`
 
-Generate the `init(from:)` initializer for `Decodable` conformance when required
-
-
-### entities.isGeneratingEncodeWithEncoder
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Generate the `encode(to:)` method for `Encodable` conformance when required
+Generate an initializer for each entity
 
 
 ### entities.isSortingPropertiesAlphabetically
@@ -508,7 +468,15 @@ Modules to be imported within the source files for generated requests
 **Type:** [String: String]<br />
 **Default:** `[:]`
 
-TODO: Document
+Allows you to override mapping of specific response types to a custom (or generated) type instead.
+
+For example:
+
+```yaml
+paths:
+  overridenResponses:
+    MyApiResponseType: MyCustomDecodableType
+```
 
 
 ### paths.overridenBodyTypes
@@ -516,7 +484,15 @@ TODO: Document
 **Type:** [String: String]<br />
 **Default:** `[:]`
 
-TODO: Document
+Tell CreateAPI how to map an unknown request or response content types to a Swift type used in the path generation.
+
+For example:
+
+```yaml
+paths:
+  overridenBodyTypes:
+    application/octocat-stream: String
+```
 
 
 ### paths.isInliningSimpleRequests
@@ -541,14 +517,6 @@ Inline query parameters for simple requests instead of generating a Parameter ty
 **Default:** `2`
 
 The threshold of query parameters to inline when using `isInliningSimpleQueryParameters`.
-
-
-### paths.isMakingOptionalPatchParametersDoubleOptional
-
-**Type:** Bool<br />
-**Default:** `false`
-
-TODO: Document or Remove
 
 
 ### paths.isRemovingRedundantPaths

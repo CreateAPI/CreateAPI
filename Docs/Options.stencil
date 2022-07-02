@@ -17,10 +17,10 @@
 {% call format_documentation type.documentation %}
 
 {% if type.annotations.root %}
-{% for variable in type.variables %}
+{% for variable in type.variables|stored where not variable.annotations.skip %}
 {% if variable.type.annotations.document %}
 - [{{ variable.name }}](#{{ variable.type.localName|lowercase }})
-{% for nestedVariable in variable.type.variables %}
+{% for nestedVariable in variable.type.variables|stored where not nestedVariable.annotations.skip %}
   - [{{ nestedVariable.name }}](#{{ variable.type.localName|lowercase }}{{ nestedVariable.name|lowercase }})
 {% endfor %}
 {% else %}
@@ -29,8 +29,8 @@
 {% endfor %}
 {% endif %}
 
-{% for variable in type.variables %}
-{% if not variable.type.annotations.document %}
+{% for variable in type.variables|stored %}
+{% if not variable.type.annotations.document and not variable.annotations.skip %}
 {% if type.annotations.root %}
 ### {{ variable.name }}
 {% else %}
