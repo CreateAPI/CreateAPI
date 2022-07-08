@@ -1,14 +1,15 @@
-export EXECUTABLE_NAME = CreateAPI
-PREFIX = /usr/local
-INSTALL_PATH = $(PREFIX)/bin/create-api
-CURRENT_PATH = $(PWD)
-REPO = https://github.com/CreateAPI/$(EXECUTABLE_NAME)
-SWIFT_BUILD_FLAGS = --disable-sandbox -c release # --arch arm64 # --arch x86_64
-EXECUTABLE_PATH = $(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/$(EXECUTABLE_NAME)
+SWIFT_BUILD_FLAGS = --disable-sandbox -c release
+BINARIES_PATH = /usr/local/bin
+EXECUTABLE_PATH = $(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/create-api
+
+.PHONY: build install uninstall
 
 build:
 	swift build $(SWIFT_BUILD_FLAGS)
 
 install: build
-	mkdir -p $(PREFIX)/bin
-	sudo cp -f $(EXECUTABLE_PATH) $(INSTALL_PATH)
+	sudo install -d "$(BINARIES_PATH)"
+	sudo install "$(EXECUTABLE_PATH)" "$(BINARIES_PATH)"
+
+uninstall:
+	sudo rm -f "$(BINARIES_PATH)/create-api"
