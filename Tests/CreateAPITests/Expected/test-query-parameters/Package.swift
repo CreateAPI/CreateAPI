@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "test-query-parameters", targets: ["test-query-parameters"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/CreateAPI/Get", from: "0.3.1"), 
+        .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [

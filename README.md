@@ -139,7 +139,7 @@ paths:
   isGeneratingResponseHeaders: true
   # Add operation id to each request
   isAddingOperationIds: false
-  # The types to import, by default uses "Get" (https://github.com/CreateAPI/Get)
+  # The types to import, by default uses "Get" (https://github.com/kean/Get)
   imports: ["Get"]
   # Example, "- empty: Void"
   overrideResponses: {}

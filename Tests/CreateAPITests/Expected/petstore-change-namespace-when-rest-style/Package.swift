@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "petstore-change-namespace-when-rest-style", targets: ["petstore-change-namespace-when-rest-style"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/CreateAPI/Get", from: "0.3.1"), 
+        .package(url: "https://github.com/kean/Get", from: "0.3.1"), 
         .package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0"), 
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
