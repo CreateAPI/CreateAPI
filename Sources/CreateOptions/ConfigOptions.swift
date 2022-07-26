@@ -1,5 +1,23 @@
 import Foundation
 
+// The `ConfigOptions` type defined in this source file serves multiple purposes:
+//
+// 1. A Decodable type that can deserialize the create-api.yaml options
+// 2. A reference for the default values of each option
+// 3. The documentation for all options
+//
+// We use Sourcery to generate the CreateOptions.md document from this type as
+// well as a custom Decodable initializer implementation that falls back to the
+// default values.
+//
+// If you modify the ConfigOptions type below, be sure to run `make documentation`
+// again from terminal and commit the changes. You will need sourcery installed.
+//
+// https://github.com/krzysztofzablocki/Sourcery
+//
+// To understand more about how sourcery works, check out the .sourcery.yml file
+// as well as the templates in the Sourcery directory.
+
 // sourcery: document, root, decodableWithDefault
 /// CreateAPI supports a massive number of customization options to generate the most appropriate source code.
 /// To take advantage of this, define a **create-api.yaml** (or json) file and use the `--config` option when running the generate command.
@@ -51,7 +69,7 @@ public struct ConfigOptions: Encodable {
     /// For example, `public var file: [File]` becomes `public var files: [File]`
     public var isPluralizationEnabled: Bool = true
 
-    /// Parses dates (e.g. `"2021-09-29"`) using [`NaiveDate`](https://github.com/CreateAPI/NaiveDate)
+    /// Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAPI/NaiveDate)
     public var isNaiveDateEnabled: Bool = true
 
     /// If enabled, uses `Int64` or `Int32` when specified.
@@ -144,7 +162,9 @@ public struct ConfigOptions: Encodable {
         /// Orders properties of an entity alphabetically instead of the order defined in the schema
         public var isSortingPropertiesAlphabetically: Bool = false
 
-        /// If disabled, will use strings as as `CodingKey` values
+        /// If disabled, will use strings as `CodingKey` values.
+        ///
+        /// For schemas with a large number of entities, disabling this option can help to reduce the binary size.
         public var isGeneratingCustomCodingKeys: Bool = true
 
         /// If defined, uses the `default` value from the schema for the generated property for booleans

@@ -168,7 +168,7 @@ For example, `public var file: [File]` becomes `public var files: [File]`
 **Type:** Bool<br />
 **Default:** `true`
 
-Parses dates (e.g. `"2021-09-29"`) using [`NaiveDate`](https://github.com/CreateAPI/NaiveDate)
+Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAPI/NaiveDate)
 
 
 ### isUsingIntegersWithPredefinedCapacity
@@ -361,7 +361,9 @@ Orders properties of an entity alphabetically instead of the order defined in th
 **Type:** Bool<br />
 **Default:** `true`
 
-If disabled, will use strings as as `CodingKey` values
+If disabled, will use strings as `CodingKey` values.
+
+For schemas with a large number of entities, disabling this option can help to reduce the binary size.
 
 
 ### entities.isAddingDefaultValues
@@ -607,5 +609,7 @@ Rename anynomous collection elements. By default, use a singularized form of the
 
 
 
+---
+
 > **Note**:
-> Want to contribute to the documentation? [Edit it here](../Sources/CreateOptions/GenerateOptions.swift).
+> Want to contribute to the documentation? [Edit it here](../Sources/CreateOptions/ConfigOptions.swift).

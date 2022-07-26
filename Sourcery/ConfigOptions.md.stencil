@@ -47,5 +47,7 @@
 {% endfor %}
 
 {% endfor %}
+---
+
 > **Note**:
-> Want to contribute to the documentation? [Edit it here](../Sources/CreateOptions/GenerateOptions.swift).
+> Want to contribute to the documentation? [Edit it here](../Sources/CreateOptions/ConfigOptions.swift).
