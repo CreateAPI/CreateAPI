@@ -29,12 +29,7 @@ let package = Package(
             ],
             path: "Sources/CreateAPI"
         ),
-        .target(
-            name: "CreateOptions",
-            exclude: [
-                "DecodableWithDefault.stencil"
-            ]
-        ),
+        .target(name: "CreateOptions"),
         .testTarget(
             name: "create-api-tests",
             dependencies: ["create-api"],
