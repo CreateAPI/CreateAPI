@@ -2,11 +2,11 @@ configurations:
 - output: Docs/Options.md
   parseDocumentation: true
   templates:
-  - Docs/Options.stencil
+  - Sourcery/Options.md.stencil
   sources:
   - Sources/CreateOptions/ConfigOptions.swift
 - output: Sources/CreateOptions/ConfigOptions+DecodableWithDefault.swift
   templates:
-  - Sources/CreateOptions/DecodableWithDefault.stencil
+  - Sourcery/DecodableWithDefault.swift.stencil
   sources:
   - Sources/CreateOptions/ConfigOptions.swift
