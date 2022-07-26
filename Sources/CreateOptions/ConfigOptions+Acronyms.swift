@@ -1,7 +1,7 @@
 import Foundation
 
 // TODO: This needs making thread safe.
-extension GenerateOptions {
+extension ConfigOptions {
     private static let defaultAcronyms: Set<String> = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]
     private static var cache: [Int: [String]] = [:]
 

@@ -139,7 +139,7 @@ Acronyms to remove from the default list
 
 ### indentation
 
-**Type:** GenerateOptions.Indentation<br />
+**Type:** ConfigOptions.Indentation<br />
 **Default:** `.spaces`
 
 Change the style of indentation. Supported values:
@@ -422,7 +422,7 @@ Options specifically related to generating paths
 
 ### paths.style
 
-**Type:** GenerateOptions.PathsStyle<br />
+**Type:** ConfigOptions.PathsStyle<br />
 **Default:** `.rest`
 
 The style used when generating path definitions

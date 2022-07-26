@@ -5,9 +5,9 @@ import Foundation
 /// To take advantage of this, define a **create-api.yaml** (or json) file and use the `--config` option when running the generate command.
 ///
 /// Below you can find documentation for all of the valid options:
-public struct GenerateOptions: Encodable {
+public struct ConfigOptions: Encodable {
     /// The default generator options
-    public static let `default` = GenerateOptions()
+    public static let `default` = ConfigOptions()
 
     /// Access level modifier for all generated declarations
     public var access: String = "public"
@@ -43,7 +43,7 @@ public struct GenerateOptions: Encodable {
     /// Change the style of indentation. Supported values:
     /// - `spaces`
     /// - `tabs`
-    public var indentation: GenerateOptions.Indentation = .spaces
+    public var indentation: ConfigOptions.Indentation = .spaces
 
     /// Number of spaces to use when `indentation` is set to `spaces`.
     public var spaceWidth: Int? = 4
@@ -182,7 +182,7 @@ public struct GenerateOptions: Encodable {
         ///
         /// - `rest` - Generates nest structs to represent path components
         /// - `operations` - Generates a plain list of request operations
-        public var style: GenerateOptions.PathsStyle = .rest
+        public var style: ConfigOptions.PathsStyle = .rest
 
         /// The namespace type for all generated paths
         public var namespace: String = "Paths"

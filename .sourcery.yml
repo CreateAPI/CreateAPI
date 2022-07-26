@@ -4,9 +4,9 @@ configurations:
   templates:
   - Docs/Options.stencil
   sources:
-  - Sources/CreateOptions/GenerateOptions.swift
-- output: Sources/CreateOptions/GenerateOptions+DecodableWithDefault.swift
+  - Sources/CreateOptions/ConfigOptions.swift
+- output: Sources/CreateOptions/ConfigOptions+DecodableWithDefault.swift
   templates:
   - Sources/CreateOptions/DecodableWithDefault.stencil
   sources:
-  - Sources/CreateOptions/GenerateOptions.swift
+  - Sources/CreateOptions/ConfigOptions.swift

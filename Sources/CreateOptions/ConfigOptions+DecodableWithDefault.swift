@@ -2,7 +2,7 @@
 // DO NOT EDIT
 
 
-extension GenerateOptions: Decodable {
+extension ConfigOptions: Decodable {
     enum CodingKeys: String, CodingKey {
         case access
         case isAddingDeprecations
@@ -35,7 +35,7 @@ extension GenerateOptions: Decodable {
         isReplacingCommonAcronyms = try container.decodeIfPresent(Bool.self, forKey: .isReplacingCommonAcronyms) ?? true
         addedAcronyms = try container.decodeIfPresent([String].self, forKey: .addedAcronyms) ?? []
         ignoredAcronyms = try container.decodeIfPresent([String].self, forKey: .ignoredAcronyms) ?? []
-        indentation = try container.decodeIfPresent(GenerateOptions.Indentation.self, forKey: .indentation) ?? .spaces
+        indentation = try container.decodeIfPresent(ConfigOptions.Indentation.self, forKey: .indentation) ?? .spaces
         spaceWidth = try container.decodeIfPresent(Int.self, forKey: .spaceWidth) ?? 4
         isPluralizationEnabled = try container.decodeIfPresent(Bool.self, forKey: .isPluralizationEnabled) ?? true
         isNaiveDateEnabled = try container.decodeIfPresent(Bool.self, forKey: .isNaiveDateEnabled) ?? true
@@ -49,7 +49,7 @@ extension GenerateOptions: Decodable {
     }
 }
 
-extension GenerateOptions.Comments: Decodable {
+extension ConfigOptions.Comments: Decodable {
     enum CodingKeys: String, CodingKey {
         case isEnabled
         case isAddingTitles
@@ -70,7 +70,7 @@ extension GenerateOptions.Comments: Decodable {
     }
 }
 
-extension GenerateOptions.Entities: Decodable {
+extension ConfigOptions.Entities: Decodable {
     enum CodingKeys: String, CodingKey {
         case isGeneratingStructs
         case entitiesGeneratedAsClasses
@@ -121,7 +121,7 @@ extension GenerateOptions.Entities: Decodable {
     }
 }
 
-extension GenerateOptions.Paths: Decodable {
+extension ConfigOptions.Paths: Decodable {
     enum CodingKeys: String, CodingKey {
         case style
         case namespace
@@ -141,7 +141,7 @@ extension GenerateOptions.Paths: Decodable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        style = try container.decodeIfPresent(GenerateOptions.PathsStyle.self, forKey: .style) ?? .rest
+        style = try container.decodeIfPresent(ConfigOptions.PathsStyle.self, forKey: .style) ?? .rest
         namespace = try container.decodeIfPresent(String.self, forKey: .namespace) ?? "Paths"
         isGeneratingResponseHeaders = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingResponseHeaders) ?? true
         isAddingOperationIds = try container.decodeIfPresent(Bool.self, forKey: .isAddingOperationIds) ?? false
@@ -158,7 +158,7 @@ extension GenerateOptions.Paths: Decodable {
     }
 }
 
-extension GenerateOptions.Rename: Decodable {
+extension ConfigOptions.Rename: Decodable {
     enum CodingKeys: String, CodingKey {
         case properties
         case parameters
