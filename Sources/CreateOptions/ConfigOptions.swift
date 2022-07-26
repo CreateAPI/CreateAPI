@@ -64,7 +64,7 @@ public struct ConfigOptions: Encodable {
     public var indentation: ConfigOptions.Indentation = .spaces
 
     /// Number of spaces to use when `indentation` is set to `spaces`.
-    public var spaceWidth: Int? = 4
+    public var spaceWidth: Int = 4
 
     /// For example, `public var file: [File]` becomes `public var files: [File]`
     public var isPluralizationEnabled: Bool = true
@@ -263,7 +263,7 @@ public struct ConfigOptions: Encodable {
         public var include: Set<String> = []
     }
 
-    public var rename: Rename? = .init()
+    public var rename: Rename = .init()
 
     // sourcery: document, decodableWithDefault
     /// Options used to configure detailed renaming rules for all aspects of the generated code.
