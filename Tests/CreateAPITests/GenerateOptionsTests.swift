@@ -660,5 +660,45 @@ final class GenerateOptionsTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "strip-parent-name-nested-objects-default")
-    }        
+    }
+    
+    func testPestoreIdentifiableDefault() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-only-schemas",
+            "--generate", "entities",
+            "--config", config("""
+            entities:
+                autogenerateIdentifiableConfomance: false
+            """, ext: "yaml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-only-schemas")
+    }
+    
+    func testPestoreIdentifiableEnabled() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-only-schemas",
+            "--generate", "entities",
+            "--config", config("""
+            entities:
+                autogenerateIdentifiableConfomance: true
+            """, ext: "yaml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-only-schemas")
+    }
 }
