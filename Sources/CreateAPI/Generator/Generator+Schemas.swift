@@ -325,7 +325,7 @@ extension Generator {
         entity.protocols = {
             var protocols = getProtocols(for: name, context: context)
             
-            if options.entities.autogenerateIdentifiableConfomance {
+            if options.entities.isGeneratingIdentifiableConformance {
                 let isIdentifiable = entity.properties.contains { $0.name.rawValue == "id" && $0.type.isBuiltin}
                 if isIdentifiable { protocols.insert("Identifiable") }
             }

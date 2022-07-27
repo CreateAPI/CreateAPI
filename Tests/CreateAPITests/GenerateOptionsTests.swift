@@ -667,11 +667,11 @@ final class GenerateOptionsTests: GenerateBaseTests {
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
-            "--package", "petstore-only-schemas",
+            "--package", "petstore-identifiable",
             "--generate", "entities",
             "--config", config("""
             entities:
-                autogenerateIdentifiableConfomance: true
+                isGeneratingIdentifiableConformance: true
             """, ext: "yaml")
         ])
         
@@ -679,6 +679,6 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try command.run()
         
         // THEN
-        try compare(package: "petstore-only-schemas")
+        try compare(package: "petstore-identifiable")
     }
 }

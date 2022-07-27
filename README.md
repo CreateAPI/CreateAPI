@@ -102,7 +102,7 @@ entities:
   # Protocols adopted by entities
   protocols: ["Codable"]
   # Autogenerate Identifiable conformance if available
-  autogenerateIdentifiableConfomance: false
+  isGeneratingIdentifiableConformance: false
   # Generate initializers for all entities
   isGeneratingInitializers: true
   # If disabled, will use let properties in struct entities
