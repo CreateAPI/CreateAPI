@@ -39,6 +39,37 @@ public final class Error: NSObject, Codable {
     }
 }
 
+public final class Dog: NSObject, Codable {
+    /// A pet title
+    ///
+    /// A pet description
+    public let pet: Pet
+    public let breed: Breed?
+
+    public enum Breed: String, Codable, CaseIterable {
+        case large = "Large"
+        case medium = "Medium"
+        case small = "Small"
+    }
+
+    public init(pet: Pet, breed: Breed? = nil) {
+        self.pet = pet
+        self.breed = breed
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.pet = try Pet(from: decoder)
+        self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(pet, forKey: "pet")
+        try values.encodeIfPresent(breed, forKey: "breed")
+    }
+}
+
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
     private var int: Int?
