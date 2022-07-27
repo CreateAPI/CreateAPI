@@ -45,6 +45,7 @@ final class GenerateOptions {
         var isMakingClassesFinal: Bool
         var baseClass: String?
         var protocols: Set<String>
+        var autogenerateIdentifiableConfomance: Bool
         var isSkippingRedundantProtocols: Bool
         var isGeneratingMutableClassProperties: Bool
         var isGeneratingMutableStructProperties: Bool
@@ -69,6 +70,7 @@ final class GenerateOptions {
             self.isMakingClassesFinal = options?.isMakingClassesFinal ?? true
             self.baseClass = options?.baseClass
             self.protocols = Set(options?.protocols ?? ["Codable"])
+            self.autogenerateIdentifiableConfomance = options?.autogenerateIdentifiableConfomance ?? false
             self.isSkippingRedundantProtocols = options?.isSkippingRedundantProtocols ?? true
             self.isGeneratingMutableClassProperties = options?.isGeneratingMutableClassProperties ?? false
             self.isGeneratingMutableStructProperties = options?.isGeneratingMutableStructProperties ?? true
@@ -218,6 +220,7 @@ final class GenerateOptionsSchema: Decodable {
         var isGeneratingMutableStructProperties: Bool?
         var isGeneratingInitializers: Bool?
         var baseClass: String?
+        var autogenerateIdentifiableConfomance: Bool?
         var protocols: [String]?
         var isSkippingRedundantProtocols: Bool?
         var isGeneratingInitWithDecoder: Bool?
