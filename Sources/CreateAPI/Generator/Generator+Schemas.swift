@@ -321,7 +321,14 @@ extension Generator {
         entity.properties = try makeInlineProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
-        entity.protocols = getProtocols(for: name, context: context)
+        
+        entity.protocols = {
+            var protocols = getProtocols(for: name, context: context)
+            let isIdentifiable = entity.properties.contains { $0.name.rawValue == "id" }
+            if isIdentifiable { protocols.insert("Identifiable") }
+            return protocols
+        }()
+        
         return entity
     }
     
