@@ -672,6 +672,9 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             entities:
                 isGeneratingIdentifiableConformance: true
+            rename:
+                properties:
+                    Error.code: id
             """, ext: "yaml")
         ])
         

@@ -29,13 +29,18 @@ public struct Store: Codable {
     }
 }
 
-public struct Error: Codable {
-    public var code: Int
+public struct Error: Codable, Identifiable {
+    public var id: Int
     public var message: String
 
-    public init(code: Int, message: String) {
-        self.code = code
+    public init(id: Int, message: String) {
+        self.id = id
         self.message = message
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "code"
+        case message
     }
 }
 
