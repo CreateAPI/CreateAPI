@@ -44,6 +44,43 @@ public struct Error: Codable, Identifiable {
     }
 }
 
+public struct Dog: Codable, Identifiable {
+    public var id: Int
+    /// Example: "Buddy"
+    public var name: String
+    public var tag: String?
+    public var breed: Breed?
+
+    public enum Breed: String, Codable, CaseIterable {
+        case large = "Large"
+        case medium = "Medium"
+        case small = "Small"
+    }
+
+    public init(id: Int, name: String, tag: String? = nil, breed: Breed? = nil) {
+        self.id = id
+        self.name = name
+        self.tag = tag
+        self.breed = breed
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.tag = try values.decodeIfPresent(String.self, forKey: "tag")
+        self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(tag, forKey: "tag")
+        try values.encodeIfPresent(breed, forKey: "breed")
+    }
+}
+
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
     private let string: String
     private var int: Int?

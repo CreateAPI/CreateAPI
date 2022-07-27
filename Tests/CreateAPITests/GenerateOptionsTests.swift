@@ -672,6 +672,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             entities:
                 isGeneratingIdentifiableConformance: true
+                isInliningPropertiesFromReferencedSchemas: true
             rename:
                 properties:
                     Error.code: id
