@@ -29,6 +29,9 @@ components:
       properties:
         kind:
           type: string
+          description: |
+            This is a description
+            And it should be on multiple lines
     C:
       type: object
       required:

@@ -697,17 +697,8 @@ extension String {
 }
 
 extension String {
-    // Unlike `components(separatedBy: "\n")`, it keeps empty lines.
     var lines: [String] {
-        var lines: [String] = []
-        var index = startIndex
-        let input = self.trimmingCharacters(in: .whitespacesAndNewlines)
-        while let newLineIndex = input[index...].firstIndex(of: "\n") {
-            lines.append(String(input[index..<newLineIndex]))
-            index = input.index(after: newLineIndex)
-        }
-        lines.append(String(input[index...]))
-        return lines
+        self.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: .newlines)
     }
 }
 

@@ -13,10 +13,12 @@ public struct Collection: Codable {
     /// Example: "BBQ Classics"
     public var title: String
     /// A longer description of the collection.
+    /// This is also a comment, but on a new line using the \n line break.
     ///
     /// Example: "The sun is shining? The BBQ is out? Check out this collection of recipes for the perfect summer BBQ."
     public var description: String
     /// The number of recipes in this collection.
+    /// This is also a comment, but on a new line using the \r line break.
     ///
     /// Example: 27
     public var recipeCount: Int
