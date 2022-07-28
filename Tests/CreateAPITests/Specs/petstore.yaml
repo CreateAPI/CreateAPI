@@ -120,14 +120,3 @@ components:
           format: int32
         message:
           type: string
-    Dog:
-      allOf:
-        - $ref: "#/components/schemas/Pet"
-        - type: object
-          properties:
-            breed:
-              type: string
-              enum:
-              - "Large"
-              - "Medium"
-              - "Small"
