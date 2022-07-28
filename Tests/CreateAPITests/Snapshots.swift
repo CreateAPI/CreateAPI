@@ -26,7 +26,7 @@ func compare(expected: String, actual: String, file: StaticString = #file, line:
     }
 }
 
-fileprivate func diff(expectedURL: URL, actualURL: URL, file: StaticString = #file) throws {
+private func diff(expectedURL: URL, actualURL: URL, file: StaticString = #file) throws {
     func contents(at url: URL) throws -> [URL] {
         try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])
     }
@@ -50,7 +50,7 @@ fileprivate func diff(expectedURL: URL, actualURL: URL, file: StaticString = #fi
 }
 
 @discardableResult
-fileprivate func shell(_ args: String...) -> Int32 {
+private func shell(_ args: String...) -> Int32 {
     let task = Process()
     task.launchPath = "/usr/bin/env"
     task.arguments = args
