@@ -5,8 +5,8 @@
 import Foundation
 import XCTest
 
-fileprivate let generateSnapshots = false
-fileprivate let openDiff = false
+private let generateSnapshots = false
+private let openDiff = false
 
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) throws {
     let expectedURL = Bundle.module.resourceURL!
