@@ -660,5 +660,28 @@ final class GenerateOptionsTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "strip-parent-name-nested-objects-default")
-    }        
+    }
+    
+    func testPestoreIdentifiableEnabled() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-identifiable",
+            "--generate", "entities",
+            "--config", config("""
+            entities:
+                isGeneratingIdentifiableConformance: true
+            rename:
+                properties:
+                    Error.code: id
+            """, ext: "yaml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-identifiable")
+    }
 }

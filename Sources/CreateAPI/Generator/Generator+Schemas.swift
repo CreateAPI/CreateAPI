@@ -321,16 +321,23 @@ extension Generator {
         entity.properties = try makeInlineProperties(for: name, object: details, context: context)
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
-        entity.protocols = getProtocols(for: name, context: context)
+        entity.protocols = getProtocols(for: entity, context: context)
+        
         return entity
     }
     
-    private func getProtocols(for type: TypeName, context: Context) -> Protocols {
+    private func getProtocols(for entity: EntityDeclaration, context: Context) -> Protocols {
         var protocols = Protocols(options.entities.protocols)
         let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
         let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
         if !isDecodable { protocols.removeDecodable() }
         if !isEncodable { protocols.removeEncodable() }
+        
+        if options.entities.isGeneratingIdentifiableConformance {
+            let isIdentifiable = entity.properties.contains { $0.name.rawValue == "id" && $0.type.isBuiltin }
+            if isIdentifiable { protocols.insert("Identifiable") }
+        }
+        
         return protocols
     }
     
@@ -479,7 +486,7 @@ extension Generator {
         }.removingDuplicates { $0.type }
         
         entity.protocols = {
-            var protocols = getProtocols(for: name, context: context)
+            var protocols = getProtocols(for: entity, context: context)
             let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
             let isHashable = entity.properties.allSatisfy { hashable.contains($0.type.builtinTypeName ?? "") }
             if isHashable { protocols.insert("Hashable") }
@@ -508,7 +515,7 @@ extension Generator {
             properties.remove(at: index)
         }
         entity.properties = properties
-        entity.protocols = getProtocols(for: name, context: context)
+        entity.protocols = getProtocols(for: entity, context: context)
         return entity
     }
     
@@ -548,7 +555,7 @@ extension Generator {
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
         
         entity.properties = properties
-        entity.protocols = getProtocols(for: name, context: context)
+        entity.protocols = getProtocols(for: entity, context: context)
         return entity
     }
     
