@@ -5,27 +5,28 @@
 import Foundation
 import XCTest
 
+fileprivate let generateSnapshots = false
+fileprivate let openDiff = false
+
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) throws {
-    let env = ProcessInfo.processInfo.environment
     let expectedURL = Bundle.module.resourceURL!
         .appendingPathComponent("Expected")
         .appendingPathComponent(expected)
     let actualURL = URL(fileURLWithPath: actual)
     
-    if env["GENERATE_SNAPSHOTS"] == "true" || !FileManager.default.fileExists(atPath: expectedURL.path) {
-        let testsFolderPath = #filePath
-            .split(separator: "/")
-            .dropLast()
-            .joined(separator: "/")
-        let destinationURL = URL(fileURLWithPath: "/" + testsFolderPath + "/Expected/\(actualURL.lastPathComponent)")
+    if generateSnapshots || !FileManager.default.fileExists(atPath: expectedURL.path) {
+        let destinationURL = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .appendingPathComponent("Expected")
+            .appendingPathComponent(actualURL.lastPathComponent)
         try? FileManager.default.removeItem(at: destinationURL)
         try FileManager.default.copyItem(at: actualURL, to: destinationURL)
     } else {
-        try diff(expectedURL: expectedURL, actualURL: actualURL, file: file, line: line)
+        try diff(expectedURL: expectedURL, actualURL: actualURL, file: file)
     }
 }
 
-fileprivate func diff(expectedURL: URL, actualURL: URL, file: StaticString = #file, line: UInt = #line) throws {
+fileprivate func diff(expectedURL: URL, actualURL: URL, file: StaticString = #file) throws {
     func contents(at url: URL) throws -> [URL] {
         try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])
     }
@@ -40,7 +41,7 @@ fileprivate func diff(expectedURL: URL, actualURL: URL, file: StaticString = #fi
         } else {
             if !FileManager.default.contentsEqual(atPath: lhs.path, andPath: rhs.path) {
                 XCTFail("Files didn't match: \(lhs.path) and \(rhs.path)")
-                if ProcessInfo.processInfo.environment["OPEN_DIFF"] == "true" {
+                if openDiff {
                     shell("opendiff", lhs.path, rhs.path)
                 }
             }
