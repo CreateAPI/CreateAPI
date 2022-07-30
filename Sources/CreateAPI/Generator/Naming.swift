@@ -2,6 +2,7 @@
 //
 // Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
 
+import CreateOptions
 import Foundation
 
 /// A valid declaration name.

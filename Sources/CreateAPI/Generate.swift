@@ -3,6 +3,7 @@
 // Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
 
 import ArgumentParser
+import CreateOptions
 import OpenAPIKit30
 import Foundation
 import Yams
@@ -20,8 +21,8 @@ struct Generate: ParsableCommand {
     @Option(help: "The output folder")
     var output = "./.create-api/"
     
-    @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
-    var config = "/.create-api.yaml"
+    @Option(help: "The path to generator configuration. If not present, the command will look for .create-api.yaml in the current directory.")
+    var config = "./.create-api.yaml"
     
     @Flag(name: .shortAndLong, help: "Split output into separate files")
     var split = false
@@ -90,7 +91,6 @@ struct Generate: ParsableCommand {
     private func actuallyRun() throws {
         let spec = try parseInputSpec()
         let options = try readOptions()
-        applyTemplateToEntityIncludeAndExclude(options: options)
         try validateOptions(options: options)
         
         let generator = Generator(spec: spec, options: options, arguments: arguments)
@@ -143,18 +143,14 @@ struct Generate: ParsableCommand {
         }
 
         do {
-            let options = try YAMLDecoder().decode(GenerateOptionsSchema.self, from: data)
-            return GenerateOptions(options)
+            var options = try YAMLDecoder().decode(ConfigOptions.self, from: data)
+            options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
+            options.entities.exclude = Set(options.entities.exclude.map { Template(arguments.entityNameTemplate).substitute($0) })
+            return GenerateOptions(configOptions: options)
         } catch {
             throw GeneratorError("Failed to read configuration. \(error)")
         }
     }
-    
-    private func applyTemplateToEntityIncludeAndExclude(options: GenerateOptions) {
-        options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
-        options.entities.exclude = Set(options.entities.exclude.map { Template(arguments.entityNameTemplate).substitute($0) })
-    }
-    
     private func parseInputSpec() throws -> OpenAPI.Document {
         VendorExtensionsConfiguration.isEnabled = false
         

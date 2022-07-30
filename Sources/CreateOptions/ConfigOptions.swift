@@ -2,7 +2,7 @@ import Foundation
 
 // The `ConfigOptions` type defined in this source file serves multiple purposes:
 //
-// 1. A Decodable type that can deserialize the create-api.yaml options
+// 1. A Decodable type that can deserialize the .create-api.yaml options
 // 2. A reference for the default values of each option
 // 3. The documentation for all options
 //
@@ -23,7 +23,7 @@ import Foundation
 ///
 /// To use these options, you must define a configuration file that includes these properties. This can be done using either YAML or JSON, for example:
 ///
-/// **create-api.yaml**:
+/// **.create-api.yaml**:
 ///
 /// ```yaml
 /// access: internal
@@ -37,7 +37,7 @@ import Foundation
 ///   style: operations
 /// ```
 ///
-/// **create-api.json**:
+/// **.create-api.json**:
 ///
 /// ```json
 /// {
