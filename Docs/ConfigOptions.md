@@ -40,6 +40,7 @@ Below you can find documentation for all of the valid options:
   - [isGeneratingMutableStructProperties](#entitiesisgeneratingmutablestructproperties)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
+  - [isGeneratingIdentifiableConformance](#entitiesisgeneratingidentifiableconformance)
   - [isSkippingRedundantProtocols](#entitiesisskippingredundantprotocols)
   - [isGeneratingInitializers](#entitiesisgeneratinginitializers)
   - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
@@ -330,6 +331,14 @@ Base class used when generating `class` types
 **Default:** `["Codable"]`
 
 Protocols to be adopted by each generated entity
+
+
+### entities.isGeneratingIdentifiableConformance
+
+**Type:** Bool<br />
+**Default:** `false`
+
+Automatically generate `Identifiable` conformance for entities that include an `id` property.
 
 
 ### entities.isSkippingRedundantProtocols

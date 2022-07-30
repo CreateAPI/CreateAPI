@@ -81,6 +81,7 @@ extension ConfigOptions.Entities: Decodable {
         case isGeneratingMutableStructProperties
         case baseClass
         case protocols
+        case isGeneratingIdentifiableConformance
         case isSkippingRedundantProtocols
         case isGeneratingInitializers
         case isGeneratingInitWithDecoder
@@ -106,6 +107,7 @@ extension ConfigOptions.Entities: Decodable {
         isGeneratingMutableStructProperties = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingMutableStructProperties) ?? true
         baseClass = try container.decodeIfPresent(String.self, forKey: .baseClass) ?? nil
         protocols = try container.decodeIfPresent(Set<String>.self, forKey: .protocols) ?? ["Codable"]
+        isGeneratingIdentifiableConformance = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingIdentifiableConformance) ?? false
         isSkippingRedundantProtocols = try container.decodeIfPresent(Bool.self, forKey: .isSkippingRedundantProtocols) ?? true
         isGeneratingInitializers = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingInitializers) ?? true
         isGeneratingInitWithDecoder = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingInitWithDecoder) ?? true
