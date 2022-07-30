@@ -541,17 +541,6 @@ extension Generator {
             }
         }.removingDuplicates(by: \.name)
         
-        // TODO: Improve this and adopt for other types (see Zoom spec)
-        if properties.count == 1 {
-            var property = properties[0]
-            if let nested = property.nested as? EntityDeclaration, nested.name.rawValue == "Object" {
-                nested.name = name
-                property.nested = nested
-                property.type = .userDefined(name: name)
-            }
-            return TypealiasDeclaration(name: name, type: property.type, nested: property.nested)
-        }
-        
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
         
         entity.properties = properties
