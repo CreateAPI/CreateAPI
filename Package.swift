@@ -25,9 +25,11 @@ let package = Package(
                 .product(name: "Yams", package: "Yams"),
                 .product(name: "GrammaticalNumber", package: "GrammaticalNumber"),
                 .product(name: "FileWatcher", package: "FileWatcher", condition: .when(platforms: [.macOS])),
+                .target(name: "CreateOptions")
             ],
             path: "Sources/CreateAPI"
         ),
+        .target(name: "CreateOptions"),
         .testTarget(
             name: "create-api-tests",
             dependencies: ["create-api"],

@@ -1,0 +1,55 @@
+{% macro format_documentation documentation_lines %}
+{% for line in documentation_lines %}
+{% if line == "" %} {# When the line is an empty string using '{{ line }}' will ignore the line, so instead we are adding our own line #}
+
+{% else %}
+{{ line }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+# Configuration
+
+{% for type in types.all|annotated:"document" %}
+{% if not type.annotations.root %}
+## {{ type.localName }}
+{% endif %}
+
+{% call format_documentation type.documentation %}
+
+{% if type.annotations.root %}
+# Available Options
+
+{% for variable in type.variables|stored where not variable.annotations.skip %}
+{% if variable.type.annotations.document %}
+- [{{ variable.name }}](#{{ variable.type.localName|lowercase }})
+{% for nestedVariable in variable.type.variables|stored where not nestedVariable.annotations.skip %}
+  - [{{ nestedVariable.name }}](#{{ variable.type.localName|lowercase }}{{ nestedVariable.name|lowercase }})
+{% endfor %}
+{% else %}
+- [{{ variable.name }}](#{{ variable.name|lowercase }})
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% for variable in type.variables|stored %}
+{% if not variable.type.annotations.document and not variable.annotations.skip %}
+{% if type.annotations.root %}
+### {{ variable.name }}
+{% else %}
+### {{ type.localName|lowercase }}.{{ variable.name }}
+{% endif %}
+
+**Type:** {{ variable.typeName|replace:"?","" }}<br />
+**Default:** `{{ variable.defaultValue }}`
+
+{% call format_documentation variable.documentation %}
+
+
+{% endif %}
+{% endfor %}
+
+{% endfor %}
+---
+
+> **Note**:
+> Want to contribute to the documentation? [Edit it here](../Sources/CreateOptions/ConfigOptions.swift).
