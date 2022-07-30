@@ -56,4 +56,7 @@ echo "Compressing..."
 rm -f "$bundle_name.zip"
 zip -r "$bundle_name.zip" "$bundle_name"
 rm -rf "$bundle_name"
-echo "Done"
+
+# Print the SHA
+checksum=$(shasum -a 256 "$bundle_name.zip" | awk '{ print $1 }')
+echo "Done ($checksum)"
