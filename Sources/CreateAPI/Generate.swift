@@ -21,8 +21,8 @@ struct Generate: ParsableCommand {
     @Option(help: "The output folder")
     var output = "./.create-api/"
     
-    @Option(help: "The path to generator configuration. If not present, the command will look for .createAPI file in the current folder.")
-    var config = "/.create-api.yaml"
+    @Option(help: "The path to generator configuration. If not present, the command will look for .create-api.yaml in the current directory.")
+    var config = "./.create-api.yaml"
     
     @Flag(name: .shortAndLong, help: "Split output into separate files")
     var split = false
