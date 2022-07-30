@@ -1,6 +1,6 @@
 
 
-# Options
+# Configuration
 
 
 CreateAPI supports a massive number of customization options to generate the most appropriate source code for your api.
@@ -39,7 +39,9 @@ paths:
 
 After creating your configuration, you can use the `--config` option when running `create-api` to use it.
 
-Below you can find the complete documentation for all available options:
+Below you can find the complete documentation for all available options.
+
+# Available Options
 
 - [access](#access)
 - [isAddingDeprecations](#isaddingdeprecations)

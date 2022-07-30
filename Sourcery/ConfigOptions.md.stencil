@@ -7,7 +7,7 @@
 {% endif %}
 {% endfor %}
 {% endmacro %}
-# Options
+# Configuration
 
 {% for type in types.all|annotated:"document" %}
 {% if not type.annotations.root %}
@@ -17,6 +17,8 @@
 {% call format_documentation type.documentation %}
 
 {% if type.annotations.root %}
+# Available Options
+
 {% for variable in type.variables|stored where not variable.annotations.skip %}
 {% if variable.type.annotations.document %}
 - [{{ variable.name }}](#{{ variable.type.localName|lowercase }})
