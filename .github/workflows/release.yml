@@ -1,0 +1,32 @@
+name: "Release CreateAPI"
+
+on:
+  release:
+    types:
+    - created
+
+jobs:
+  release:
+    name: Upload Artifact Bundle
+    runs-on: macos-12
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.4.1.app/Contents/Developer
+    steps:
+    # Clone the Repo
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    # Build the create-api.artifactbundle
+    - name: Build Artifact Bundle
+      run: make artifactbundle "version={{ github.event.release.tag_name }}"
+
+    # Upload it to the release
+    - name: Upload Artifact Bundle
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./create-api.artifactbundle.zip
+        asset_name: create-api.artifactbundle.zip
+        asset_content_type: application/zip

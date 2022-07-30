@@ -14,9 +14,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        xcode: ["13.4", "13.2.1"]
+        xcode: ["13.4.1", "13.2.1"]
         include:
-          - xcode: "13.4"
+          - xcode: "13.4.1"
             macos: macOS-12
           - xcode: "13.2.1"
             macos: macOS-11
