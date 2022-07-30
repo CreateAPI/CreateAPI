@@ -2,7 +2,7 @@ import Foundation
 
 @dynamicMemberLookup
 public final class GenerateOptions {
-    /// The options loaded from a **create-api.yaml** configuration file (or the default options)
+    /// The options loaded from a **.create-api.yaml** configuration file (or the default options)
     public let configOptions: ConfigOptions
 
     /// Acronyms used for replacement when `isReplacingCommonAcronyms` is `true`.

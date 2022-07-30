@@ -7,7 +7,7 @@ CreateAPI supports a massive number of customization options to generate the mos
 
 To use these options, you must define a configuration file that includes these properties. This can be done using either YAML or JSON, for example:
 
-**create-api.yaml**:
+**.create-api.yaml**:
 
 ```yaml
 access: internal
@@ -21,7 +21,7 @@ paths:
   style: operations
 ```
 
-**create-api.json**:
+**.create-api.json**:
 
 ```json
 {
