@@ -2,6 +2,7 @@
 //
 // Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
 
+import CreateOptions
 import OpenAPIKit30
 import Foundation
 
@@ -10,8 +11,8 @@ final class Templates {
     let options: GenerateOptions
     
     var access: String {
-        guard let access = options.access, !access.isEmpty else { return "" }
-        return access + " "
+        guard !options.access.isEmpty else { return "" }
+        return options.access + " "
     }
     
     init(options: GenerateOptions) {
@@ -31,14 +32,14 @@ final class Templates {
     }
 
     func `struct`(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let lhs = [options.access ?? "", "struct", name.rawValue].filter { !$0.isEmpty }
+        let lhs = [options.access, "struct", name.rawValue].filter { !$0.isEmpty }
         let rhs = protocols.sorted()
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
     
     func `class`(name: TypeName, contents: [String], protocols: Protocols) -> String {
         let type = options.entities.isMakingClassesFinal ? "final class" : "class"
-        let lhs = [options.access ?? "", type, name.rawValue].filter { !$0.isEmpty }
+        let lhs = [options.access, type, name.rawValue].filter { !$0.isEmpty }
         let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }

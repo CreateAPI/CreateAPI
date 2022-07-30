@@ -2,6 +2,7 @@
 //
 // Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
 
+@testable import CreateOptions
 import XCTest
 import class Foundation.Bundle
 @testable import create_api
@@ -48,8 +49,7 @@ final class HelpersTests: XCTestCase {
         
         // Additional acronyms
         do {
-            let options = GenerateOptions()
-            options.addedAcronyms = ["nft"]
+            let options = GenerateOptions(configOptions: ConfigOptions(addedAcronyms: ["nft"]))
             XCTAssertEqual(TypeName(processing: "myNft", options: options).rawValue, "MyNFT")
         }
         
