@@ -4,23 +4,23 @@
 import Foundation
 
 public struct Three: Codable {
-    public var kind: String
+    public var someKind: String
     public var foo: String
 
-    public init(kind: String, foo: String) {
-        self.kind = kind
+    public init(someKind: String, foo: String) {
+        self.someKind = someKind
         self.foo = foo
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.kind = try values.decode(String.self, forKey: "kind")
+        self.someKind = try values.decode(String.self, forKey: "some_kind")
         self.foo = try values.decode(String.self, forKey: "foo")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(kind, forKey: "kind")
+        try values.encode(someKind, forKey: "some_kind")
         try values.encode(foo, forKey: "foo")
     }
 }

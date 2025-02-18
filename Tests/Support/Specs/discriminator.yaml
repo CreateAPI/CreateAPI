@@ -18,16 +18,16 @@ components:
     A:
       type: object
       required:
-        - kind
+        - some_kind
       properties:
-        kind:
+        some_kind:
           type: string
     B:
       type: object
       required:
-        - kind
+        - some_kind
       properties:
-        kind:
+        some_kind:
           type: string
           description: |
             This is a description
@@ -35,9 +35,9 @@ components:
     C:
       type: object
       required:
-        - kind
+        - some_kind
       properties:
-        kind:
+        some_kind:
           type: string
     One:
       allOf:
@@ -48,10 +48,10 @@ components:
     Three:
       type: object
       required:
-        - kind
+        - some_kind
         - foo
       properties:
-        kind:
+        some_kind:
           type: string
         foo:
           type: string
@@ -71,7 +71,7 @@ components:
             - $ref: "#/components/schemas/B"
             - $ref: "#/components/schemas/C"
           discriminator:
-            propertyName: kind
+            propertyName: some_kind
             mapping:
               a: "#/components/schemas/A"
               b: "#/components/schemas/B"
@@ -90,7 +90,7 @@ components:
             - $ref: "#/components/schemas/Three"
             - $ref: "#/components/schemas/Four"
           discriminator:
-            propertyName: kind
+            propertyName: some_kind
             mapping:
               one: "#/components/schemas/One"
               two: "#/components/schemas/Two"

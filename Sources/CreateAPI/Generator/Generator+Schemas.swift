@@ -402,7 +402,7 @@ extension Generator {
     private func makeDiscriminator(info: JSONSchemaContext, context: Context) throws -> Discriminator? {
         try info.discriminator.flatMap { discriminator in
             Discriminator(
-                propertyName: discriminator.propertyName,
+                propertyName: PropertyName(processing: discriminator.propertyName, options: options),
                 mapping: try discriminator.schemaMapping?.mapValues({ try getReferenceType($0, context: context) }) ?? [:]
             )
         }

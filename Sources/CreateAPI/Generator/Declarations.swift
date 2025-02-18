@@ -239,7 +239,7 @@ struct TypealiasDeclaration: Declaration {
 }
 
 struct Discriminator {
-    let propertyName: String
+    let propertyName: PropertyName
     let mapping: [String: TypeIdentifier]
 
     func correspondingMappings(for property: Property) -> [(key: String, value: TypeIdentifier)] {

@@ -4,19 +4,19 @@
 import Foundation
 
 public struct Four: Codable {
-    public var kind: String
+    public var someKind: String
 
-    public init(kind: String) {
-        self.kind = kind
+    public init(someKind: String) {
+        self.someKind = someKind
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.kind = try values.decode(String.self, forKey: "kind")
+        self.someKind = try values.decode(String.self, forKey: "some_kind")
     }
 
     public func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(kind, forKey: "kind")
+        try values.encode(someKind, forKey: "some_kind")
     }
 }

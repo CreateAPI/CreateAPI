@@ -14,11 +14,11 @@ public struct Container: Codable {
         public init(from decoder: Decoder) throws {
 
             struct Discriminator: Decodable {
-                let kind: String
+                let someKind: String
             }
 
             let container = try decoder.singleValueContainer()
-            let discriminatorValue = try container.decode(Discriminator.self).kind
+            let discriminatorValue = try container.decode(Discriminator.self).someKind
 
             switch discriminatorValue {
             case "a": self = .a(try container.decode(A.self))
