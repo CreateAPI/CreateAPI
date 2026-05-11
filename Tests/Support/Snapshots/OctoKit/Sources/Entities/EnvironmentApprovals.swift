@@ -81,7 +81,7 @@ public struct EnvironmentApprovals: Codable {
     /// Whether deployment to the environment(s) was approved or rejected
     ///
     /// Example: "approved"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case approved
         case rejected
     }

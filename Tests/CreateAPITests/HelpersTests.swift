@@ -143,4 +143,11 @@ final class HelpersTests: XCTestCase {
         // Uppercasing
         XCTAssertEqual(asBoolean("httpsEnforced"), "isHTTPSEnforced")
     }
+
+    func testAnyJSONFollowsEntityProtocols() {
+        var config = ConfigOptions.default
+        config.entities.protocols = ["Codable", "Sendable"]
+        let templates = Templates(options: GenerateOptions(configOptions: config))
+        XCTAssertTrue(templates.anyJSON.contains("AnyJSON: Codable, Equatable, Sendable"))
+    }
 }

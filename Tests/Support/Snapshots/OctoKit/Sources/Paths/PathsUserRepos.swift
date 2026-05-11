@@ -37,13 +37,13 @@ extension Paths.User {
             public var since: Date?
             public var before: Date?
 
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case all
                 case `public`
                 case `private`
             }
 
-            public enum `Type`: String, Codable, CaseIterable {
+            public enum `Type`: String, CaseIterable, Codable {
                 case all
                 case owner
                 case `public`
@@ -51,14 +51,14 @@ extension Paths.User {
                 case member
             }
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
                 case pushed
                 case fullName = "full_name"
             }
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }

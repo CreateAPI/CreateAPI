@@ -33,7 +33,7 @@ extension Paths.Orgs.WithOrg {
             public var perPage: Int?
             public var page: Int?
 
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
                 case all

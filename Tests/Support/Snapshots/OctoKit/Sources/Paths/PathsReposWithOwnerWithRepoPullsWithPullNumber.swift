@@ -62,7 +62,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
             public var maintainerCanModify: Bool?
 
             /// State of this Pull Request. Either `open` or `closed`.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
             }

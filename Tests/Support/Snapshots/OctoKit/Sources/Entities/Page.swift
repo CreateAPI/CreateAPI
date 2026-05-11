@@ -50,7 +50,7 @@ public struct Page: Codable {
     /// The status of the most recent build of the Page.
     ///
     /// Example: "built"
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case built
         case building
         case errored
@@ -59,7 +59,7 @@ public struct Page: Codable {
     /// The state if the domain is verified
     ///
     /// Example: "pending"
-    public enum ProtectedDomainState: String, Codable, CaseIterable {
+    public enum ProtectedDomainState: String, CaseIterable, Codable {
         case pending
         case verified
         case unverified

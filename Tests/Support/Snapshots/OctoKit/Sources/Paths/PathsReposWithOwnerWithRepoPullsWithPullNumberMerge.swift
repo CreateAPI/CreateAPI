@@ -42,7 +42,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             public var mergeMethod: MergeMethod?
 
             /// Merge method to use. Possible values are `merge`, `squash` or `rebase`. Default is `merge`.
-            public enum MergeMethod: String, Codable, CaseIterable {
+            public enum MergeMethod: String, CaseIterable, Codable {
                 case merge
                 case squash
                 case rebase

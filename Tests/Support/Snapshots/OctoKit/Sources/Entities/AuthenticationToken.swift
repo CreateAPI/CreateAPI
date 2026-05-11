@@ -28,7 +28,7 @@ public struct AuthenticationToken: Codable {
     public var repositorySelection: RepositorySelection?
 
     /// Describe whether all repositories have been selected or there's a selection involved
-    public enum RepositorySelection: String, Codable, CaseIterable {
+    public enum RepositorySelection: String, CaseIterable, Codable {
         case all
         case selected
     }

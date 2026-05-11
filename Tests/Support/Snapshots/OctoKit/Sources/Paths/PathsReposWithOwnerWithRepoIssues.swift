@@ -46,19 +46,19 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var perPage: Int?
             public var page: Int?
 
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
                 case all
             }
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
                 case comments
             }
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }

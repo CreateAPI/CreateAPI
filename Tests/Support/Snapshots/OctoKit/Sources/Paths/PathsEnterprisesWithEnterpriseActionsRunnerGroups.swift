@@ -73,7 +73,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             public var allowsPublicRepositories: Bool
 
             /// Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case selected
                 case all
             }

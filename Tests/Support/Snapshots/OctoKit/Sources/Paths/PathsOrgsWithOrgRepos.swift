@@ -35,7 +35,7 @@ extension Paths.Orgs.WithOrg {
             public var perPage: Int?
             public var page: Int?
 
-            public enum `Type`: String, Codable, CaseIterable {
+            public enum `Type`: String, CaseIterable, Codable {
                 case all
                 case `public`
                 case `private`
@@ -45,14 +45,14 @@ extension Paths.Orgs.WithOrg {
                 case `internal`
             }
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
                 case pushed
                 case fullName = "full_name"
             }
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }
@@ -135,7 +135,7 @@ extension Paths.Orgs.WithOrg {
             public var deleteBranchOnMerge: Bool
 
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see "[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)" in the GitHub Help documentation.
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case `public`
                 case `private`
                 case `internal`

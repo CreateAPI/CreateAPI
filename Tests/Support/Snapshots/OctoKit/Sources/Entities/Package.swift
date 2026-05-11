@@ -30,7 +30,7 @@ public struct Package: Codable {
     public var updatedAt: Date
 
     /// Example: "docker"
-    public enum PackageType: String, Codable, CaseIterable {
+    public enum PackageType: String, CaseIterable, Codable {
         case npm
         case maven
         case rubygems
@@ -40,7 +40,7 @@ public struct Package: Codable {
     }
 
     /// Example: "private"
-    public enum Visibility: String, Codable, CaseIterable {
+    public enum Visibility: String, CaseIterable, Codable {
         case `private`
         case `public`
     }

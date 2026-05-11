@@ -70,7 +70,7 @@ public struct Job: Codable {
     /// The phase of the lifecycle that the job is currently in.
     ///
     /// Example: "queued"
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case queued
         case inProgress = "in_progress"
         case completed
@@ -102,7 +102,7 @@ public struct Job: Codable {
         /// The phase of the lifecycle that the job is currently in.
         ///
         /// Example: "queued"
-        public enum Status: String, Codable, CaseIterable {
+        public enum Status: String, CaseIterable, Codable {
             case queued
             case inProgress = "in_progress"
             case completed

@@ -23,7 +23,7 @@ public struct CodeScanningAlertRule: Codable {
     public var help: String?
 
     /// The severity of the alert.
-    public enum Severity: String, Codable, CaseIterable {
+    public enum Severity: String, CaseIterable, Codable {
         case `none`
         case note
         case warning
@@ -31,7 +31,7 @@ public struct CodeScanningAlertRule: Codable {
     }
 
     /// The security severity of the alert.
-    public enum SecuritySeverityLevel: String, Codable, CaseIterable {
+    public enum SecuritySeverityLevel: String, CaseIterable, Codable {
         case low
         case medium
         case high

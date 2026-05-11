@@ -70,7 +70,7 @@ extension Paths.User {
             /// Allowed values that can be passed to the exclude param.
             ///
             /// Example: "repositories"
-            public enum ExcludeItem: String, Codable, CaseIterable {
+            public enum ExcludeItem: String, CaseIterable, Codable {
                 case repositories
             }
 

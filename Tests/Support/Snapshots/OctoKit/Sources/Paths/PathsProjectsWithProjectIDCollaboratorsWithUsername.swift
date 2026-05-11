@@ -33,7 +33,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
             /// The permission to grant the collaborator.
             ///
             /// Example: "write"
-            public enum Permission: String, Codable, CaseIterable {
+            public enum Permission: String, CaseIterable, Codable {
                 case read
                 case write
                 case admin

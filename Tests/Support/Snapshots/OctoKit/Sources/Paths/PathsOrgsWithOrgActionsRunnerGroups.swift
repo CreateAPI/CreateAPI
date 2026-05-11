@@ -77,7 +77,7 @@ extension Paths.Orgs.WithOrg.Actions {
             public var allowsPublicRepositories: Bool
 
             /// Visibility of a runner group. You can select all repositories, select individual repositories, or limit access to private repositories. Can be one of: `all`, `selected`, or `private`.
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case selected
                 case all
                 case `private`

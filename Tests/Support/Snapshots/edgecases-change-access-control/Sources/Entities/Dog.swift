@@ -10,7 +10,7 @@ struct Dog: Codable {
     var breed: Breed?
     var image: Image?
 
-    enum Breed: String, Codable, CaseIterable {
+    enum Breed: String, CaseIterable, Codable {
         case large = "Large"
         case medium = "Medium"
         case small = "Small"

@@ -33,13 +33,13 @@ extension Paths.Enterprises.WithEnterprise {
             public var page: Int?
             public var perPage: Int?
 
-            public enum Include: String, Codable, CaseIterable {
+            public enum Include: String, CaseIterable, Codable {
                 case web
                 case git
                 case all
             }
 
-            public enum Order: String, Codable, CaseIterable {
+            public enum Order: String, CaseIterable, Codable {
                 case desc
                 case asc
             }

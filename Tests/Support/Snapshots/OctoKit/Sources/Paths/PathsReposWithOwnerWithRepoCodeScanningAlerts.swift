@@ -48,19 +48,19 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
             /// State of a code scanning alert.
             public var state: State?
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
                 case number
             }
 
             /// State of a code scanning alert.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
                 case dismissed

@@ -63,7 +63,7 @@ extension Paths.Orgs.WithOrg {
             /// \* `admin` - Organization owners with full administrative rights to the organization and complete access to all repositories and teams.  
             /// \* `direct_member` - Non-owner organization members with ability to see other members and join teams by invitation.  
             /// \* `billing_manager` - Non-owner organization members with ability to manage the billing settings of your organization.
-            public enum Role: String, Codable, CaseIterable {
+            public enum Role: String, CaseIterable, Codable {
                 case admin
                 case directMember = "direct_member"
                 case billingManager = "billing_manager"

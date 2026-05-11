@@ -28,7 +28,7 @@ public struct CommitComparison: Codable {
     public var files: [DiffEntry]?
 
     /// Example: "ahead"
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case diverged
         case ahead
         case behind

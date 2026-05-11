@@ -36,7 +36,7 @@ extension Paths.Teams.WithTeamID {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Role: String, Codable, CaseIterable {
+            public enum Role: String, CaseIterable, Codable {
                 case member
                 case maintainer
                 case all

@@ -4,7 +4,7 @@
 import Foundation
 import NaiveDate
 
-enum EnumClass: String, Codable, CaseIterable {
+enum EnumClass: String, CaseIterable, Codable {
     case abc = "_abc"
     case minusefg = "-efg"
     case xyz = "(xyz)"

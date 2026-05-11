@@ -18,7 +18,7 @@ extension Generator {
         let cases = decl.cases.map {
             templates.case(name: $0.name, value: $0.key)
         }.joined(separator: "\n")
-        return comments + templates.enumOfStrings(name: decl.name, contents: cases)
+        return comments + templates.enumOfStrings(name: decl.name, contents: cases, protocols: decl.protocols)
     }
 
     private func render(_ decl: EntityDeclaration) throws -> String {

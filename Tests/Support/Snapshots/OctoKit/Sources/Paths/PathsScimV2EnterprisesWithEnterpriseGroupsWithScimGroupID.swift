@@ -99,7 +99,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                 /// Can be any value - string, number, array or object.
                 public var value: AnyJSON?
 
-                public enum Op: String, Codable, CaseIterable {
+                public enum Op: String, CaseIterable, Codable {
                     case add
                     case add2 = "Add"
                     case remove

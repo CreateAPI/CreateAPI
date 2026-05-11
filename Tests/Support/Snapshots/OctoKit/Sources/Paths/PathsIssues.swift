@@ -50,7 +50,7 @@ extension Paths {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Filter: String, Codable, CaseIterable {
+            public enum Filter: String, CaseIterable, Codable {
                 case assigned
                 case created
                 case mentioned
@@ -59,19 +59,19 @@ extension Paths {
                 case all
             }
 
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
                 case all
             }
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
                 case comments
             }
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }

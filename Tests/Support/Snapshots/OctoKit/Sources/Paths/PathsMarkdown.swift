@@ -41,7 +41,7 @@ extension Paths {
             /// The rendering mode. Can be either `markdown` or `gfm`.
             ///
             /// Example: "markdown"
-            public enum Mode: String, Codable, CaseIterable {
+            public enum Mode: String, CaseIterable, Codable {
                 case markdown
                 case gfm
             }

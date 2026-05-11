@@ -54,7 +54,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             /// Whether to approve or reject deployment to the specified environments. Must be one of: `approved` or `rejected`
             ///
             /// Example: "approved"
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case approved
                 case rejected
             }

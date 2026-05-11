@@ -73,7 +73,7 @@ extension Paths.Repos.WithOwner {
             public var allowForking: Bool
 
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case `public`
                 case `private`
                 case `internal`

@@ -56,7 +56,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
             public var created: Date?
             public var excludePullRequests: Bool?
 
-            public enum Status: String, Codable, CaseIterable {
+            public enum Status: String, CaseIterable, Codable {
                 case completed
                 case actionRequired = "action_required"
                 case cancelled

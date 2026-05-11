@@ -68,7 +68,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
             /// \* `maintain` - Recommended for project managers who need to manage the repository without access to sensitive or destructive actions.  
             /// \* `triage` - Recommended for contributors who need to proactively manage issues and pull requests without write access.  
             /// \* custom repository role name - A custom repository role, if the owning organization has defined any.
-            public enum Permission: String, Codable, CaseIterable {
+            public enum Permission: String, CaseIterable, Codable {
                 case pull
                 case push
                 case admin

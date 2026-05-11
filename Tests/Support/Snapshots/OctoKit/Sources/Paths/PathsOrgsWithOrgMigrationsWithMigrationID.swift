@@ -40,7 +40,7 @@ extension Paths.Orgs.WithOrg.Migrations {
         /// Allowed values that can be passed to the exclude param.
         ///
         /// Example: "repositories"
-        public enum Exclude: String, Codable, CaseIterable {
+        public enum Exclude: String, CaseIterable, Codable {
             case repositories
         }
     }

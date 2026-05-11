@@ -16,7 +16,7 @@ public struct PagesHTTPSCertificate: Codable {
     public var expiresAt: NaiveDate?
 
     /// Example: "approved"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case new
         case authorizationCreated = "authorization_created"
         case authorizationPending = "authorization_pending"

@@ -325,6 +325,20 @@ final class GenerateOptionsTests: GenerateTestCase {
             """
         )
     }
+
+    func testEdgecasesEnumProtocols() throws {
+        try snapshot(
+            spec: .edgecases,
+            name: "edgecases-enum-protocols",
+            configuration: """
+            {
+                "enums": {
+                    "protocols": ["Codable", "Hashable", "Sendable"]
+                }
+            }
+            """
+        )
+    }
     
     func testEdgecasesRename() throws {
         try snapshot(

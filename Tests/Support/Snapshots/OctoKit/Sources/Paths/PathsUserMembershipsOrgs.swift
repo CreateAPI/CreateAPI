@@ -31,7 +31,7 @@ extension Paths.User.Memberships {
             public var perPage: Int?
             public var page: Int?
 
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case active
                 case pending
             }

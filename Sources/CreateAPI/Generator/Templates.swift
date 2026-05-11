@@ -94,9 +94,10 @@ final class Templates {
         }
     }
 
-    func enumOfStrings(name: TypeName, contents: String) -> String {
+    func enumOfStrings(name: TypeName, contents: String, protocols: Protocols) -> String {
+        let conformances = (["String"] + protocols.sorted()).joined(separator: ", ")
         return """
-        \(access)enum \(name): String, Codable, CaseIterable {
+        \(access)enum \(name): \(conformances) {
         \(contents.indented)
         }
         """
@@ -636,8 +637,11 @@ final class Templates {
     }
 
     var anyJSON: String {
-        """
-        \(access)enum AnyJSON: Equatable, Codable {
+        var protocols = Protocols(options.entities.protocols)
+        protocols.insert("Equatable")
+        let conformances = protocols.sorted().joined(separator: ", ")
+        return """
+        \(access)enum AnyJSON: \(conformances) {
             case string(String)
             case number(Double)
             case object([String: AnyJSON])

@@ -14,14 +14,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        xcode: ["14.0", "13.4.1", "13.2.1"]
+        xcode: ["26.0"]
         include:
-          - xcode: "14.0"
-            macos: macOS-12
-          - xcode: "13.4.1"
-            macos: macOS-12
-          - xcode: "13.2.1"
-            macos: macOS-11
+          - xcode: "26.0"
+            macos: macOS-15
     runs-on: ${{ matrix.macos }}
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
@@ -37,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        swift: ["5.7", "5.6"]
+        swift: ["5.7"]
     runs-on: ubuntu-latest
     container: swift:${{ matrix.swift }}
     steps:

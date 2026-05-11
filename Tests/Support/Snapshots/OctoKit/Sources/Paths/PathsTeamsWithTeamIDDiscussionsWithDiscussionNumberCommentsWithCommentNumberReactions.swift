@@ -36,7 +36,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
             public var perPage: Int?
             public var page: Int?
 
-            public enum Content: String, Codable, CaseIterable {
+            public enum Content: String, CaseIterable, Codable {
                 case plus1 = "+1"
                 case minus1 = "-1"
                 case laugh
@@ -79,7 +79,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
             public var content: Content
 
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the team discussion comment.
-            public enum Content: String, Codable, CaseIterable {
+            public enum Content: String, CaseIterable, Codable {
                 case plus1 = "+1"
                 case minus1 = "-1"
                 case laugh

@@ -37,7 +37,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Affiliation: String, Codable, CaseIterable {
+            public enum Affiliation: String, CaseIterable, Codable {
                 case outside
                 case direct
                 case all

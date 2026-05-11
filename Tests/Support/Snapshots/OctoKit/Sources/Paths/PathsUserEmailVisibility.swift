@@ -29,7 +29,7 @@ extension Paths.User.Email {
             public var visibility: Visibility
 
             /// Denotes whether an email is publicly visible.
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case `public`
                 case `private`
             }

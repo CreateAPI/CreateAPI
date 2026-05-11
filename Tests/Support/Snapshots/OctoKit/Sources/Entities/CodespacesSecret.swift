@@ -18,7 +18,7 @@ public struct CodespacesSecret: Codable {
     public var selectedRepositoriesURL: URL
 
     /// Visibility of a secret
-    public enum Visibility: String, Codable, CaseIterable {
+    public enum Visibility: String, CaseIterable, Codable {
         case all
         case `private`
         case selected

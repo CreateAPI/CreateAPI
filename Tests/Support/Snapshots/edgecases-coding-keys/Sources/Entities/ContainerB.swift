@@ -12,7 +12,7 @@ public struct ContainerB: Codable {
         public var renameMe: String
         public var child: Child
 
-        public enum Enum: String, Codable, CaseIterable {
+        public enum Enum: String, CaseIterable, Codable {
             case a
             case b
         }
@@ -21,7 +21,7 @@ public struct ContainerB: Codable {
             public var `enum`: Enum
             public var renameMe: String
 
-            public enum Enum: String, Codable, CaseIterable {
+            public enum Enum: String, CaseIterable, Codable {
                 case a
                 case b
             }

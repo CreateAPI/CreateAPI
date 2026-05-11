@@ -97,13 +97,13 @@ public struct ReviewComment: Codable {
     }
 
     /// The side of the first line of the range for a multi-line comment.
-    public enum Side: String, Codable, CaseIterable {
+    public enum Side: String, CaseIterable, Codable {
         case left = "LEFT"
         case right = "RIGHT"
     }
 
     /// The side of the first line of the range for a multi-line comment.
-    public enum StartSide: String, Codable, CaseIterable {
+    public enum StartSide: String, CaseIterable, Codable {
         case left = "LEFT"
         case right = "RIGHT"
     }

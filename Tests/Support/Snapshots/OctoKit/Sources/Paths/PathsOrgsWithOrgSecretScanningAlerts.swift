@@ -38,7 +38,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
             public var page: Int?
             public var perPage: Int?
 
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case resolved
             }

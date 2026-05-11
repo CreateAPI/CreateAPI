@@ -124,7 +124,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
             /// \- `all` - All repositories in an organization can access the secret.  
             /// \- `private` - Private repositories in an organization can access the secret.  
             /// \- `selected` - Only specific repositories can access the secret.
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case all
                 case `private`
                 case selected

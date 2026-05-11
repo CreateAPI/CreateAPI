@@ -29,7 +29,7 @@ public struct DiffEntry: Codable {
     public var previousFilename: String?
 
     /// Example: "added"
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case added
         case removed
         case modified

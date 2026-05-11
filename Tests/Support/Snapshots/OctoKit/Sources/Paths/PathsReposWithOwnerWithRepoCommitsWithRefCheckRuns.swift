@@ -54,13 +54,13 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
             public var page: Int?
             public var appID: Int?
 
-            public enum Status: String, Codable, CaseIterable {
+            public enum Status: String, CaseIterable, Codable {
                 case queued
                 case inProgress = "in_progress"
                 case completed
             }
 
-            public enum Filter: String, Codable, CaseIterable {
+            public enum Filter: String, CaseIterable, Codable {
                 case latest
                 case all
             }

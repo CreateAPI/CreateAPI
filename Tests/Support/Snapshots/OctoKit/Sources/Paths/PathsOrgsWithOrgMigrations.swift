@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg {
             /// Allowed values that can be passed to the exclude param.
             ///
             /// Example: "repositories"
-            public enum Exclude: String, Codable, CaseIterable {
+            public enum Exclude: String, CaseIterable, Codable {
                 case repositories
             }
 
@@ -85,7 +85,7 @@ extension Paths.Orgs.WithOrg {
             public var excludeOwnerProjects: Bool
             public var exclude: [ExcludeItem]?
 
-            public enum ExcludeItem: String, Codable, CaseIterable {
+            public enum ExcludeItem: String, CaseIterable, Codable {
                 case repositories
             }
 

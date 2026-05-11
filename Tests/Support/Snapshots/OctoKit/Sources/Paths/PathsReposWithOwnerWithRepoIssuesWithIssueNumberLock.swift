@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
             /// \* `too heated`  
             /// \* `resolved`  
             /// \* `spam`
-            public enum LockReason: String, Codable, CaseIterable {
+            public enum LockReason: String, CaseIterable, Codable {
                 case offTopic = "off-topic"
                 case tooHeated = "too heated"
                 case resolved

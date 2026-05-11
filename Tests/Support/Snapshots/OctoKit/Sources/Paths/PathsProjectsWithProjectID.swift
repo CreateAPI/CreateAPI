@@ -52,7 +52,7 @@ extension Paths.Projects {
             public var isPrivate: Bool?
 
             /// The baseline permission that all organization members have on this project
-            public enum OrganizationPermission: String, Codable, CaseIterable {
+            public enum OrganizationPermission: String, CaseIterable, Codable {
                 case read
                 case write
                 case admin

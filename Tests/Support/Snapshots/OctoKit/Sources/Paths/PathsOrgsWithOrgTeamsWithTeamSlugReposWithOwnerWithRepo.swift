@@ -64,7 +64,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
             /// \* custom repository role name - A custom repository role if the owning organization has defined any.  
             ///   
             /// If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
-            public enum Permission: String, Codable, CaseIterable {
+            public enum Permission: String, CaseIterable, Codable {
                 case pull
                 case push
                 case admin

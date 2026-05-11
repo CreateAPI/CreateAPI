@@ -31,7 +31,7 @@ extension Paths.Projects.Columns.WithColumnID {
             public var perPage: Int?
             public var page: Int?
 
-            public enum ArchivedState: String, Codable, CaseIterable {
+            public enum ArchivedState: String, CaseIterable, Codable {
                 case all
                 case archived
                 case notArchived = "not_archived"

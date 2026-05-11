@@ -4,7 +4,7 @@
 import Foundation
 import NaiveDate
 
-enum AnyJSON: Equatable, Codable {
+enum AnyJSON: Codable, Equatable {
     case string(String)
     case number(Double)
     case object([String: AnyJSON])

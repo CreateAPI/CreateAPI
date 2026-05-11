@@ -58,7 +58,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
             /// \* `admin` - team members can pull, push and administer this repository.  
             ///   
             /// If no permission is specified, the team's `permission` attribute will be used to determine what permission to grant the team on this repository.
-            public enum Permission: String, Codable, CaseIterable {
+            public enum Permission: String, CaseIterable, Codable {
                 case pull
                 case push
                 case admin

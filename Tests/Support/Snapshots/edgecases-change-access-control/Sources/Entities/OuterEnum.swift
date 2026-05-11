@@ -4,7 +4,7 @@
 import Foundation
 import NaiveDate
 
-enum OuterEnum: String, Codable, CaseIterable {
+enum OuterEnum: String, CaseIterable, Codable {
     case placed
     case approved
     case delivered

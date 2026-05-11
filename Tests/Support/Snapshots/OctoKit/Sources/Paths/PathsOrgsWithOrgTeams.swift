@@ -80,7 +80,7 @@ extension Paths.Orgs.WithOrg {
             /// **For a parent or child team:**  
             /// \* `closed` - visible to all members of this organization.  
             /// Default for child team: `closed`
-            public enum Privacy: String, Codable, CaseIterable {
+            public enum Privacy: String, CaseIterable, Codable {
                 case secret
                 case closed
             }
@@ -89,7 +89,7 @@ extension Paths.Orgs.WithOrg {
             /// \* `pull` - team members can pull, but not push to or administer newly-added repositories.  
             /// \* `push` - team members can pull and push, but not administer newly-added repositories.  
             /// \* `admin` - team members can pull, push and administer newly-added repositories.
-            public enum Permission: String, Codable, CaseIterable {
+            public enum Permission: String, CaseIterable, Codable {
                 case pull
                 case push
                 case admin

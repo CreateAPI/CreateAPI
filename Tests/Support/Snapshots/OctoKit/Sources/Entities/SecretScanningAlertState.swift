@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 /// Sets the state of the secret scanning alert. Can be either `open` or `resolved`. You must provide `resolution` when you set the state to `resolved`.
-public enum SecretScanningAlertState: String, Codable, CaseIterable {
+public enum SecretScanningAlertState: String, CaseIterable, Codable {
     case `open`
     case resolved
 }

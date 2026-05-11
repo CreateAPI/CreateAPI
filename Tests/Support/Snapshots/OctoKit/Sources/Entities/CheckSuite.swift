@@ -42,14 +42,14 @@ public struct CheckSuite: Codable {
     public var isRunsRerequestable: Bool?
 
     /// Example: "completed"
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case queued
         case inProgress = "in_progress"
         case completed
     }
 
     /// Example: "neutral"
-    public enum Conclusion: String, Codable, CaseIterable {
+    public enum Conclusion: String, CaseIterable, Codable {
         case success
         case failure
         case neutral

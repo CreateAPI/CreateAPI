@@ -54,7 +54,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 public var content: String?
 
                 /// The file mode; one of `100644` for file (blob), `100755` for executable (blob), `040000` for subdirectory (tree), `160000` for submodule (commit), or `120000` for a blob that specifies the path of a symlink.
-                public enum Mode: String, Codable, CaseIterable {
+                public enum Mode: String, CaseIterable, Codable {
                     case _100644 = "100644"
                     case _100755 = "100755"
                     case _040000 = "040000"
@@ -63,7 +63,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 }
 
                 /// Either `blob`, `tree`, or `commit`.
-                public enum `Type`: String, Codable, CaseIterable {
+                public enum `Type`: String, CaseIterable, Codable {
                     case blob
                     case tree
                     case commit

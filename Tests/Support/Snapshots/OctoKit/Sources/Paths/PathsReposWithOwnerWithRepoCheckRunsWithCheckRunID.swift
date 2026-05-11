@@ -59,7 +59,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
             public var actions: [Action]?
 
             /// The current status. Can be one of `queued`, `in_progress`, or `completed`.
-            public enum Status: String, Codable, CaseIterable {
+            public enum Status: String, CaseIterable, Codable {
                 case queued
                 case inProgress = "in_progress"
                 case completed
@@ -67,7 +67,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
 
             /// **Required if you provide `completed_at` or a `status` of `completed`**. The final conclusion of the check. Can be one of `action_required`, `cancelled`, `failure`, `neutral`, `success`, `skipped`, `stale`, or `timed_out`.  
             /// **Note:** Providing `conclusion` will automatically set the `status` parameter to `completed`. You cannot change a check run conclusion to `stale`, only GitHub can set this.
-            public enum Conclusion: String, Codable, CaseIterable {
+            public enum Conclusion: String, CaseIterable, Codable {
                 case actionRequired = "action_required"
                 case cancelled
                 case failure
@@ -112,7 +112,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     public var rawDetails: String?
 
                     /// The level of the annotation. Can be one of `notice`, `warning`, or `failure`.
-                    public enum AnnotationLevel: String, Codable, CaseIterable {
+                    public enum AnnotationLevel: String, CaseIterable, Codable {
                         case notice
                         case warning
                         case failure

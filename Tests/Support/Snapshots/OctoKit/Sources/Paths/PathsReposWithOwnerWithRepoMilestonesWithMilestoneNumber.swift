@@ -40,7 +40,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
             public var dueOn: Date?
 
             /// The state of the milestone. Either `open` or `closed`.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
             }

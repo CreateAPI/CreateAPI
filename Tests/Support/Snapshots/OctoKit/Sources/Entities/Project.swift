@@ -43,7 +43,7 @@ public struct Project: Codable {
     public var isPrivate: Bool?
 
     /// The baseline permission that all organization members have on this project. Only present if owner is an organization.
-    public enum OrganizationPermission: String, Codable, CaseIterable {
+    public enum OrganizationPermission: String, CaseIterable, Codable {
         case read
         case write
         case admin

@@ -107,7 +107,7 @@ public struct PullRequest: Codable {
     /// State of this Pull Request. Either `open` or `closed`.
     ///
     /// Example: "open"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case `open`
         case closed
     }

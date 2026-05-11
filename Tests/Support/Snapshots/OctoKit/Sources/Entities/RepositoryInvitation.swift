@@ -35,7 +35,7 @@ public struct RepositoryInvitation: Codable {
     /// The permission associated with the invitation.
     ///
     /// Example: "read"
-    public enum Permissions: String, Codable, CaseIterable {
+    public enum Permissions: String, CaseIterable, Codable {
         case read
         case write
         case admin

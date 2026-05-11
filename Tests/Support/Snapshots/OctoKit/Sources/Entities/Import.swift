@@ -31,7 +31,7 @@ public struct Import: Codable {
     public var repositoryURL: URL
     public var svnRoot: String?
 
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case auth
         case error
         case `none`

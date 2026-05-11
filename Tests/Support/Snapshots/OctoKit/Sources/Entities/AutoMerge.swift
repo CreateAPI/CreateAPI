@@ -16,7 +16,7 @@ public struct AutoMerge: Codable {
     public var commitMessage: String
 
     /// The merge method to use.
-    public enum MergeMethod: String, Codable, CaseIterable {
+    public enum MergeMethod: String, CaseIterable, Codable {
         case merge
         case squash
         case rebase

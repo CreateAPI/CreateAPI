@@ -164,7 +164,7 @@ public struct ScimUser: Codable {
         public var path: String?
         public var value: Value?
 
-        public enum Op: String, Codable, CaseIterable {
+        public enum Op: String, CaseIterable, Codable {
             case add
             case remove
             case replace

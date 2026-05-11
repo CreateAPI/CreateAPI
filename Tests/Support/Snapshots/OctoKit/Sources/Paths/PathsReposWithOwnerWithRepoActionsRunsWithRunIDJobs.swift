@@ -49,7 +49,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Filter: String, Codable, CaseIterable {
+            public enum Filter: String, CaseIterable, Codable {
                 case latest
                 case all
             }

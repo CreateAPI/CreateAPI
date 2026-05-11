@@ -26,7 +26,7 @@ public struct OrgMembership: Codable {
     /// The state of the member in the organization. The `pending` state indicates the user has not yet accepted an invitation.
     ///
     /// Example: "active"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case active
         case pending
     }
@@ -34,7 +34,7 @@ public struct OrgMembership: Codable {
     /// The user's membership type in the organization.
     ///
     /// Example: "admin"
-    public enum Role: String, Codable, CaseIterable {
+    public enum Role: String, CaseIterable, Codable {
         case admin
         case member
         case billingManager = "billing_manager"

@@ -25,12 +25,12 @@ extension Paths {
             public var enumQueryString: EnumQueryString?
             public var enumQueryInteger: Double?
 
-            public enum EnumQueryStringArray: String, Codable, CaseIterable {
+            public enum EnumQueryStringArray: String, CaseIterable, Codable {
                 case greaterThan = ">"
                 case dollar = "$"
             }
 
-            public enum EnumQueryString: String, Codable, CaseIterable {
+            public enum EnumQueryString: String, CaseIterable, Codable {
                 case abc = "_abc"
                 case minusefg = "-efg"
                 case xyz = "(xyz)"

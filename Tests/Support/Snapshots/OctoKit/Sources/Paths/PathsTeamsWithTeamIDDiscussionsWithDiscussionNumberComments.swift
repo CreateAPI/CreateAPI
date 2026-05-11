@@ -36,7 +36,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }

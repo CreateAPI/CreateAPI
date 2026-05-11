@@ -40,7 +40,7 @@ public struct PackageVersion: Codable {
         public var docker: Docker?
 
         /// Example: "docker"
-        public enum PackageType: String, Codable, CaseIterable {
+        public enum PackageType: String, CaseIterable, Codable {
             case npm
             case maven
             case rubygems

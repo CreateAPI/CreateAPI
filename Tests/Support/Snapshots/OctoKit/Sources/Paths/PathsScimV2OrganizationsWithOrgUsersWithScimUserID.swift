@@ -184,7 +184,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                 public var path: String?
                 public var value: Value?
 
-                public enum Op: String, Codable, CaseIterable {
+                public enum Op: String, CaseIterable, Codable {
                     case add
                     case remove
                     case replace

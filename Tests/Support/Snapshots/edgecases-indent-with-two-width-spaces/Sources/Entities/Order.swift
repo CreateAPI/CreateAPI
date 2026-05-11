@@ -14,7 +14,7 @@ public struct Order: Codable {
   public var isComplete: Bool
 
   /// Order Status
-  public enum Status: String, Codable, CaseIterable {
+  public enum Status: String, CaseIterable, Codable {
     case placed
     case approved
     case delivered

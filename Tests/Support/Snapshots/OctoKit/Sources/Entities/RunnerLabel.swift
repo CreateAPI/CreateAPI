@@ -16,7 +16,7 @@ public struct RunnerLabel: Codable {
     public var type: `Type`?
 
     /// The type of label. Read-only labels are applied automatically when the runner is configured.
-    public enum `Type`: String, Codable, CaseIterable {
+    public enum `Type`: String, CaseIterable, Codable {
         case readOnly = "read-only"
         case custom
     }

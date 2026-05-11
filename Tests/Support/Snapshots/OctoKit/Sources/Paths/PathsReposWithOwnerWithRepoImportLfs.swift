@@ -29,7 +29,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
             public var useLfs: UseLfs
 
             /// Can be one of `opt_in` (large files will be stored using Git LFS) or `opt_out` (large files will be removed during the import).
-            public enum UseLfs: String, Codable, CaseIterable {
+            public enum UseLfs: String, CaseIterable, Codable {
                 case optIn = "opt_in"
                 case optOut = "opt_out"
             }

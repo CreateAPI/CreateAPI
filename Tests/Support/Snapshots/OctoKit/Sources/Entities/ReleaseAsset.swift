@@ -26,7 +26,7 @@ public struct ReleaseAsset: Codable {
     public var uploader: SimpleUser?
 
     /// State of the release asset.
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case uploaded
         case `open`
     }

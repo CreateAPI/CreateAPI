@@ -8,7 +8,7 @@ public struct MapTest: Codable {
   public var mapMapOfString: [String: [String: String]]?
   public var mapOfEnumString: [String: MapOfEnumStringItem]?
 
-  public enum MapOfEnumStringItem: String, Codable, CaseIterable {
+  public enum MapOfEnumStringItem: String, CaseIterable, Codable {
     case upper = "UPPER"
     case lower
   }

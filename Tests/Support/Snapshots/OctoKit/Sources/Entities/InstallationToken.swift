@@ -30,7 +30,7 @@ public struct InstallationToken: Codable {
     /// Example: ["config.yml", ".github/issue_TEMPLATE.md"]
     public var singleFilePaths: [String]?
 
-    public enum RepositorySelection: String, Codable, CaseIterable {
+    public enum RepositorySelection: String, CaseIterable, Codable {
         case all
         case selected
     }

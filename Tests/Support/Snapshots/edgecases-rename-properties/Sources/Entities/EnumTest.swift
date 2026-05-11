@@ -10,7 +10,7 @@ public struct EnumTest: Codable {
     public var enumNumber: Double?
     public var outerEnum: OuterEnum?
 
-    public enum EnumString: String, Codable, CaseIterable {
+    public enum EnumString: String, CaseIterable, Codable {
         case upper = "UPPER"
         case lower
         case empty = ""

@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 /// A classification of the file. For example to identify it as generated.
-public enum CodeScanningAlertClassification: String, Codable, CaseIterable {
+public enum CodeScanningAlertClassification: String, CaseIterable, Codable {
     case source
     case generated
     case test

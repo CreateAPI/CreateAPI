@@ -14,7 +14,7 @@ struct Order: Codable {
     var isComplete: Bool
 
     /// Order Status
-    enum Status: String, Codable, CaseIterable {
+    enum Status: String, CaseIterable, Codable {
         case placed
         case approved
         case delivered

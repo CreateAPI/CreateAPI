@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 /// State of a code scanning alert.
-public enum CodeScanningAlertState: String, Codable, CaseIterable {
+public enum CodeScanningAlertState: String, CaseIterable, Codable {
     case `open`
     case closed
     case dismissed

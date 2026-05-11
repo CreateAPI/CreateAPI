@@ -34,7 +34,7 @@ extension Paths.User.Memberships.Orgs {
             public var state: State
 
             /// The state that the membership should be in. Only `"active"` will be accepted.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case active
             }
 

@@ -34,7 +34,7 @@ extension Paths.Users.WithUsername {
             return encoder.items
         }
 
-        public enum PackageType: String, Codable, CaseIterable {
+        public enum PackageType: String, CaseIterable, Codable {
             case npm
             case maven
             case rubygems
@@ -43,7 +43,7 @@ extension Paths.Users.WithUsername {
             case container
         }
 
-        public enum Visibility: String, Codable, CaseIterable {
+        public enum Visibility: String, CaseIterable, Codable {
             case `public`
             case `private`
             case `internal`

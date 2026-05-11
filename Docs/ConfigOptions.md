@@ -790,6 +790,21 @@ package:
 <br/>
 
 
+# Enums
+
+Options specifically related to generating enums
+
+
+## enums.protocols
+
+**Type:** Set<String><br />
+**Default:** `["Codable", "CaseIterable"]`
+
+Protocols to be adopted by each generated string enum
+
+<br/>
+
+
 # Paths
 
 Options specifically related to generating paths

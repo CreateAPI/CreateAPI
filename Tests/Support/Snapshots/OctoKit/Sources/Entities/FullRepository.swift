@@ -230,7 +230,7 @@ public struct FullRepository: Codable {
         public struct AdvancedSecurity: Codable {
             public var status: Status?
 
-            public enum Status: String, Codable, CaseIterable {
+            public enum Status: String, CaseIterable, Codable {
                 case enabled
                 case disabled
             }
@@ -253,7 +253,7 @@ public struct FullRepository: Codable {
         public struct SecretScanning: Codable {
             public var status: Status?
 
-            public enum Status: String, Codable, CaseIterable {
+            public enum Status: String, CaseIterable, Codable {
                 case enabled
                 case disabled
             }

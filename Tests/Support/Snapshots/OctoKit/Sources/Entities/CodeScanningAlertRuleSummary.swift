@@ -15,7 +15,7 @@ public struct CodeScanningAlertRuleSummary: Codable {
     public var description: String?
 
     /// The severity of the alert.
-    public enum Severity: String, Codable, CaseIterable {
+    public enum Severity: String, CaseIterable, Codable {
         case `none`
         case note
         case warning

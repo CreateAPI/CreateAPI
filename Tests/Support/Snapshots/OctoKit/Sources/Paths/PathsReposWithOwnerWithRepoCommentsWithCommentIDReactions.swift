@@ -33,7 +33,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Content: String, Codable, CaseIterable {
+            public enum Content: String, CaseIterable, Codable {
                 case plus1 = "+1"
                 case minus1 = "-1"
                 case laugh
@@ -73,7 +73,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
             public var content: Content
 
             /// The [reaction type](https://docs.github.com/rest/reference/reactions#reaction-types) to add to the commit comment.
-            public enum Content: String, Codable, CaseIterable {
+            public enum Content: String, CaseIterable, Codable {
                 case plus1 = "+1"
                 case minus1 = "-1"
                 case laugh

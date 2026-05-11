@@ -32,7 +32,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
             public var perPage: Int?
             public var state: State?
 
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case active
                 case deleted
             }

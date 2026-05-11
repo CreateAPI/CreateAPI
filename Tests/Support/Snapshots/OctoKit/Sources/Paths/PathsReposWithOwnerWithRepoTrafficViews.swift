@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
             return encoder.items
         }
 
-        public enum Per: String, Codable, CaseIterable {
+        public enum Per: String, CaseIterable, Codable {
             case empty = ""
             case day
             case week

@@ -53,7 +53,7 @@ public struct DeploymentStatus: Codable {
     /// The state of the status.
     ///
     /// Example: "success"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case error
         case failure
         case inactive

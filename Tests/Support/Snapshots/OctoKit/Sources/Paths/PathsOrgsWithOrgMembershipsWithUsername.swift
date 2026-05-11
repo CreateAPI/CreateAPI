@@ -50,7 +50,7 @@ extension Paths.Orgs.WithOrg.Memberships {
             /// The role to give the user in the organization. Can be one of:  
             /// \* `admin` - The user will become an owner of the organization.  
             /// \* `member` - The user will become a non-owner member of the organization.
-            public enum Role: String, Codable, CaseIterable {
+            public enum Role: String, CaseIterable, Codable {
                 case admin
                 case member
             }

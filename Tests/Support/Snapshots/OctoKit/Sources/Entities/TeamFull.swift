@@ -61,7 +61,7 @@ public struct TeamFull: Codable {
     /// The level of privacy this team should have
     ///
     /// Example: "closed"
-    public enum Privacy: String, Codable, CaseIterable {
+    public enum Privacy: String, CaseIterable, Codable {
         case closed
         case secret
     }

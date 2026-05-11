@@ -13,7 +13,7 @@ public struct CodeScanningSarifsStatus: Codable {
     public var errors: [String]?
 
     /// `pending` files have not yet been processed, while `complete` means results from the SARIF have been stored. `failed` files have either not been processed at all, or could only be partially processed.
-    public enum ProcessingStatus: String, Codable, CaseIterable {
+    public enum ProcessingStatus: String, CaseIterable, Codable {
         case pending
         case complete
         case failed

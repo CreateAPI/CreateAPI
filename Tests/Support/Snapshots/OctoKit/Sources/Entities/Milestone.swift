@@ -46,7 +46,7 @@ public struct Milestone: Codable {
     /// The state of the milestone.
     ///
     /// Example: "open"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case `open`
         case closed
     }

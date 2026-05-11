@@ -10,7 +10,7 @@ public struct MergedUpstream: Codable {
     public var mergeType: MergeType?
     public var baseBranch: String?
 
-    public enum MergeType: String, Codable, CaseIterable {
+    public enum MergeType: String, CaseIterable, Codable {
         case merge
         case fastForward = "fast-forward"
         case `none`

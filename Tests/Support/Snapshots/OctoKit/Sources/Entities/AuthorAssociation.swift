@@ -9,7 +9,7 @@ import NaiveDate
 /// How the author is associated with the repository.
 ///
 /// Example: "OWNER"
-public enum AuthorAssociation: String, Codable, CaseIterable {
+public enum AuthorAssociation: String, CaseIterable, Codable {
     case collaborator = "COLLABORATOR"
     case contributor = "CONTRIBUTOR"
     case firstTimer = "FIRST_TIMER"

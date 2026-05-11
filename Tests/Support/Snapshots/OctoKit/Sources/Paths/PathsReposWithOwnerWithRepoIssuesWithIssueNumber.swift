@@ -73,7 +73,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
             }
 
             /// State of the issue. Either `open` or `closed`.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case `open`
                 case closed
             }

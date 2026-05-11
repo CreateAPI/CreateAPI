@@ -70,7 +70,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             public var tagger: Tagger?
 
             /// The type of the object we're tagging. Normally this is a `commit` but it can also be a `tree` or a `blob`.
-            public enum `Type`: String, Codable, CaseIterable {
+            public enum `Type`: String, CaseIterable, Codable {
                 case commit
                 case tree
                 case blob

@@ -34,12 +34,12 @@ extension Paths.Orgs.WithOrg {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Filter: String, Codable, CaseIterable {
+            public enum Filter: String, CaseIterable, Codable {
                 case _2faDisabled = "2fa_disabled"
                 case all
             }
 
-            public enum Role: String, Codable, CaseIterable {
+            public enum Role: String, CaseIterable, Codable {
                 case all
                 case admin
                 case member

@@ -27,7 +27,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
             public var permissions: Permissions?
 
             /// The permissions that the associated user will have on the repository. Valid values are `read`, `write`, `maintain`, `triage`, and `admin`.
-            public enum Permissions: String, Codable, CaseIterable {
+            public enum Permissions: String, CaseIterable, Codable {
                 case read
                 case write
                 case maintain

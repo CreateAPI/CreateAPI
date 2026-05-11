@@ -99,7 +99,7 @@ extension Paths {
                 case object(Object)
 
                 /// Example: true
-                public enum Object: String, Codable, CaseIterable {
+                public enum Object: String, CaseIterable, Codable {
                     case `true`
                     case `false`
                 }

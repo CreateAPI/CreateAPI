@@ -59,12 +59,12 @@ extension Paths.Search {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
             }
 
-            public enum Order: String, Codable, CaseIterable {
+            public enum Order: String, CaseIterable, Codable {
                 case desc
                 case asc
             }

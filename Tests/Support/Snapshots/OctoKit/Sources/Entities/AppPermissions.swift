@@ -77,181 +77,181 @@ public struct AppPermissions: Codable {
     public var teamDiscussions: TeamDiscussions?
 
     /// The level of permission to grant the access token for GitHub Actions workflows, workflow runs, and artifacts. Can be one of: `read` or `write`.
-    public enum Actions: String, Codable, CaseIterable {
+    public enum Actions: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for repository creation, deletion, settings, teams, and collaborators creation. Can be one of: `read` or `write`.
-    public enum Administration: String, Codable, CaseIterable {
+    public enum Administration: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for checks on code. Can be one of: `read` or `write`.
-    public enum Checks: String, Codable, CaseIterable {
+    public enum Checks: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for repository contents, commits, branches, downloads, releases, and merges. Can be one of: `read` or `write`.
-    public enum Contents: String, Codable, CaseIterable {
+    public enum Contents: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for deployments and deployment statuses. Can be one of: `read` or `write`.
-    public enum Deployments: String, Codable, CaseIterable {
+    public enum Deployments: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for managing repository environments. Can be one of: `read` or `write`.
-    public enum Environments: String, Codable, CaseIterable {
+    public enum Environments: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for issues and related comments, assignees, labels, and milestones. Can be one of: `read` or `write`.
-    public enum Issues: String, Codable, CaseIterable {
+    public enum Issues: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to search repositories, list collaborators, and access repository metadata. Can be one of: `read` or `write`.
-    public enum Metadata: String, Codable, CaseIterable {
+    public enum Metadata: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for packages published to GitHub Packages. Can be one of: `read` or `write`.
-    public enum Packages: String, Codable, CaseIterable {
+    public enum Packages: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to retrieve Pages statuses, configuration, and builds, as well as create new builds. Can be one of: `read` or `write`.
-    public enum Pages: String, Codable, CaseIterable {
+    public enum Pages: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for pull requests and related comments, assignees, labels, milestones, and merges. Can be one of: `read` or `write`.
-    public enum PullRequests: String, Codable, CaseIterable {
+    public enum PullRequests: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage the post-receive hooks for a repository. Can be one of: `read` or `write`.
-    public enum RepositoryHooks: String, Codable, CaseIterable {
+    public enum RepositoryHooks: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage repository projects, columns, and cards. Can be one of: `read`, `write`, or `admin`.
-    public enum RepositoryProjects: String, Codable, CaseIterable {
+    public enum RepositoryProjects: String, CaseIterable, Codable {
         case read
         case write
         case admin
     }
 
     /// The level of permission to grant the access token to view and manage secret scanning alerts. Can be one of: `read` or `write`.
-    public enum SecretScanningAlerts: String, Codable, CaseIterable {
+    public enum SecretScanningAlerts: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage repository secrets. Can be one of: `read` or `write`.
-    public enum Secrets: String, Codable, CaseIterable {
+    public enum Secrets: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to view and manage security events like code scanning alerts. Can be one of: `read` or `write`.
-    public enum SecurityEvents: String, Codable, CaseIterable {
+    public enum SecurityEvents: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage just a single file. Can be one of: `read` or `write`.
-    public enum SingleFile: String, Codable, CaseIterable {
+    public enum SingleFile: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for commit statuses. Can be one of: `read` or `write`.
-    public enum Statuses: String, Codable, CaseIterable {
+    public enum Statuses: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage Dependabot alerts. Can be one of: `read` or `write`.
-    public enum VulnerabilityAlerts: String, Codable, CaseIterable {
+    public enum VulnerabilityAlerts: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to update GitHub Actions workflow files. Can be one of: `write`.
-    public enum Workflows: String, Codable, CaseIterable {
+    public enum Workflows: String, CaseIterable, Codable {
         case write
     }
 
     /// The level of permission to grant the access token for organization teams and members. Can be one of: `read` or `write`.
-    public enum Members: String, Codable, CaseIterable {
+    public enum Members: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage access to an organization. Can be one of: `read` or `write`.
-    public enum OrganizationAdministration: String, Codable, CaseIterable {
+    public enum OrganizationAdministration: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage the post-receive hooks for an organization. Can be one of: `read` or `write`.
-    public enum OrganizationHooks: String, Codable, CaseIterable {
+    public enum OrganizationHooks: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token for viewing an organization's plan. Can be one of: `read`.
-    public enum OrganizationPlan: String, Codable, CaseIterable {
+    public enum OrganizationPlan: String, CaseIterable, Codable {
         case read
     }
 
     /// The level of permission to grant the access token to manage organization projects and projects beta (where available). Can be one of: `read`, `write`, or `admin`.
-    public enum OrganizationProjects: String, Codable, CaseIterable {
+    public enum OrganizationProjects: String, CaseIterable, Codable {
         case read
         case write
         case admin
     }
 
     /// The level of permission to grant the access token for organization packages published to GitHub Packages. Can be one of: `read` or `write`.
-    public enum OrganizationPackages: String, Codable, CaseIterable {
+    public enum OrganizationPackages: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage organization secrets. Can be one of: `read` or `write`.
-    public enum OrganizationSecrets: String, Codable, CaseIterable {
+    public enum OrganizationSecrets: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to view and manage GitHub Actions self-hosted runners available to an organization. Can be one of: `read` or `write`.
-    public enum OrganizationSelfHostedRunners: String, Codable, CaseIterable {
+    public enum OrganizationSelfHostedRunners: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to view and manage users blocked by the organization. Can be one of: `read` or `write`.
-    public enum OrganizationUserBlocking: String, Codable, CaseIterable {
+    public enum OrganizationUserBlocking: String, CaseIterable, Codable {
         case read
         case write
     }
 
     /// The level of permission to grant the access token to manage team discussions and related comments. Can be one of: `read` or `write`.
-    public enum TeamDiscussions: String, Codable, CaseIterable {
+    public enum TeamDiscussions: String, CaseIterable, Codable {
         case read
         case write
     }

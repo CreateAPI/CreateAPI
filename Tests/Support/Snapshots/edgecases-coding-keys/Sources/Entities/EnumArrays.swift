@@ -8,12 +8,12 @@ public struct EnumArrays: Codable {
     public var justSymbol: JustSymbol?
     public var arrayEnum: [ArrayEnumItem]?
 
-    public enum JustSymbol: String, Codable, CaseIterable {
+    public enum JustSymbol: String, CaseIterable, Codable {
         case greaterThanOrEqualTo = ">="
         case dollar = "$"
     }
 
-    public enum ArrayEnumItem: String, Codable, CaseIterable {
+    public enum ArrayEnumItem: String, CaseIterable, Codable {
         case fish
         case crab
     }

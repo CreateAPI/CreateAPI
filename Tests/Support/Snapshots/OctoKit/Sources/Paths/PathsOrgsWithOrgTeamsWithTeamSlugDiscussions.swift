@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             public var page: Int?
             public var pinned: String?
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }

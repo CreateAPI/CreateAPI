@@ -38,7 +38,7 @@ extension Paths.Users.WithUsername {
             return encoder.items
         }
 
-        public enum SubjectType: String, Codable, CaseIterable {
+        public enum SubjectType: String, CaseIterable, Codable {
             case organization
             case repository
             case issue

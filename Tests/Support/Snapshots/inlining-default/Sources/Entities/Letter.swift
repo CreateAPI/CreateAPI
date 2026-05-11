@@ -8,7 +8,7 @@ public final class Letter: Codable {
     public let address: String
     public let size: Size
 
-    public enum Size: String, Codable, CaseIterable {
+    public enum Size: String, CaseIterable, Codable {
         case a4 = "A4"
         case a5 = "A5"
     }

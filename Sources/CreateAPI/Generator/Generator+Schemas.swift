@@ -601,7 +601,7 @@ extension Generator {
             let caseName = deduplicator.add(name: name.rawValue)
             return EnumOfStringsDeclaration.Case(name: caseName, key: value)
         }
-        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
+        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info), protocols: Protocols(options.enums.protocols))
     }
 
     private func isEnum(_ info: JSONSchemaContext) -> Bool {

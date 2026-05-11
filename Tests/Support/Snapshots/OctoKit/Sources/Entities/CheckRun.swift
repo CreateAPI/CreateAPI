@@ -51,14 +51,14 @@ public struct CheckRun: Codable {
     /// The phase of the lifecycle that the check is currently in.
     ///
     /// Example: "queued"
-    public enum Status: String, Codable, CaseIterable {
+    public enum Status: String, CaseIterable, Codable {
         case queued
         case inProgress = "in_progress"
         case completed
     }
 
     /// Example: "neutral"
-    public enum Conclusion: String, Codable, CaseIterable {
+    public enum Conclusion: String, CaseIterable, Codable {
         case success
         case failure
         case neutral

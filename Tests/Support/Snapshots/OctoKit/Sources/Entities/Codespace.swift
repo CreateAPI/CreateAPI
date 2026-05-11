@@ -69,7 +69,7 @@ public struct Codespace: Codable {
     /// State of this codespace.
     ///
     /// Example: "Available"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case `none` = "None"
         case created = "Created"
         case queued = "Queued"
@@ -134,7 +134,7 @@ public struct Codespace: Codable {
     /// The Azure region where this codespace is located.
     ///
     /// Example: "WestUs2"
-    public enum Location: String, Codable, CaseIterable {
+    public enum Location: String, CaseIterable, Codable {
         case eastUs = "EastUs"
         case southEastAsia = "SouthEastAsia"
         case westEurope = "WestEurope"

@@ -33,7 +33,7 @@ extension Paths.Orgs.WithOrg {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Filter: String, Codable, CaseIterable {
+            public enum Filter: String, CaseIterable, Codable {
                 case _2faDisabled = "2fa_disabled"
                 case all
             }

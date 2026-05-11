@@ -21,7 +21,7 @@ public struct Reaction: Codable {
     /// The reaction to use
     ///
     /// Example: "heart"
-    public enum Content: String, Codable, CaseIterable {
+    public enum Content: String, CaseIterable, Codable {
         case plus1 = "+1"
         case minus1 = "-1"
         case laugh

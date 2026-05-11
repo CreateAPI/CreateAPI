@@ -113,7 +113,7 @@ extension Paths.Orgs {
             /// \* `write` - can pull and push, but not administer this repository.  
             /// \* `admin` - can pull, push, and administer this repository.  
             /// \* `none` - no permissions granted by default.
-            public enum DefaultRepositoryPermission: String, Codable, CaseIterable {
+            public enum DefaultRepositoryPermission: String, CaseIterable, Codable {
                 case read
                 case write
                 case admin
@@ -125,7 +125,7 @@ extension Paths.Orgs {
             /// \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.  
             /// \* `none` - only admin members can create repositories.  
             /// **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in the operation description for details.
-            public enum MembersAllowedRepositoryCreationType: String, Codable, CaseIterable {
+            public enum MembersAllowedRepositoryCreationType: String, CaseIterable, Codable {
                 case all
                 case `private`
                 case `none`

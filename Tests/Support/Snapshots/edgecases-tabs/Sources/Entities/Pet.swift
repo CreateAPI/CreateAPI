@@ -15,7 +15,7 @@ public struct Pet: Codable {
 	public var status: Status?
 
 	/// Pet status in the store
-	public enum Status: String, Codable, CaseIterable {
+	public enum Status: String, CaseIterable, Codable {
 		case available
 		case pending
 		case sold

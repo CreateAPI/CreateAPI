@@ -29,7 +29,7 @@ extension Paths.Pet {
             return encoder.items
         }
 
-        enum Status: String, Codable, CaseIterable {
+        enum Status: String, CaseIterable, Codable {
             case available
             case pending
             case sold

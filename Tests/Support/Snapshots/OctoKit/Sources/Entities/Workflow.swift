@@ -29,7 +29,7 @@ public struct Workflow: Codable {
     public var deletedAt: Date?
 
     /// Example: "active"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case active
         case deleted
         case disabledFork = "disabled_fork"

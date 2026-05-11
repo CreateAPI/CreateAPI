@@ -53,13 +53,13 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
             public var perPage: Int?
             public var page: Int?
 
-            public enum Status: String, Codable, CaseIterable {
+            public enum Status: String, CaseIterable, Codable {
                 case queued
                 case inProgress = "in_progress"
                 case completed
             }
 
-            public enum Filter: String, Codable, CaseIterable {
+            public enum Filter: String, CaseIterable, Codable {
                 case latest
                 case all
             }
