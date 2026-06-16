@@ -15,10 +15,7 @@ extension Generator {
 
     private func render(_ decl: EnumOfStringsDeclaration) -> String {
         let comments = templates.comments(for: decl.metadata, name: decl.name.rawValue)
-        let cases = decl.cases.map {
-            templates.case(name: $0.name, value: $0.key)
-        }.joined(separator: "\n")
-        return comments + templates.enumOfStrings(name: decl.name, contents: cases)
+        return comments + templates.enumOfStrings(name: decl.name, cases: decl.cases, includeUnknownCase: decl.includeUnknownCase)
     }
 
     private func render(_ decl: EntityDeclaration) throws -> String {
