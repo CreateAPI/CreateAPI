@@ -3,6 +3,19 @@ import Foundation
 import XCTest
 
 final class GenerateOptionsTests: XCTestCase {
+    func testIncludeUnknownCaseInStringEnums() throws {
+        // Given a configuration that enables unknown string enum cases
+        let data = Data("""
+        includeUnknownCaseInStringEnums: true
+        """.utf8)
+
+        // When the options are loaded
+        let options = try GenerateOptions(data: data)
+
+        // Then the option should be enabled
+        XCTAssertTrue(options.includeUnknownCaseInStringEnums)
+    }
+
     func testWarningDetection() throws {
         // Given a configuration containing unexpected properties
         let data = Data("""

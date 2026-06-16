@@ -94,9 +94,99 @@ final class Templates {
         }
     }
 
-    func enumOfStrings(name: TypeName, contents: String) -> String {
+    func enumOfStrings(name: TypeName, cases: [EnumOfStringsDeclaration.Case], includeUnknownCase: Bool) -> String {
+        guard options.includeUnknownCaseInStringEnums, includeUnknownCase else {
+            let contents = cases.map {
+                self.case(name: $0.name, value: $0.key)
+            }.joined(separator: "\n")
+            return """
+            \(access)enum \(name): String, Codable, CaseIterable {
+            \(contents.indented)
+            }
+            """
+        }
+
+        func swiftStringLiteral(_ value: String) -> String {
+            value.isEscapingNeeded ? "#\"\(value)\"#" : "\"\(value)\""
+        }
+
+        let knownCaseNames = Set(
+            cases.map {
+                $0.name.trimmingCharacters(in: CharacterSet.ticks)
+            }
+        )
+
+        var unknownCaseName = "unknown"
+        while knownCaseNames.contains(unknownCaseName) {
+            unknownCaseName += "Value"
+        }
+
+        let caseDeclarations = cases
+            .map { "case \($0.name)" }
+            .joined(separator: "\n")
+
+        let allCases = cases
+            .map { "        .\($0.name)," }
+            .joined(separator: "\n")
+
+        let rawValueCases = cases
+            .map {
+                """
+                case .\($0.name):
+                    return \(swiftStringLiteral($0.key))
+                """
+            }
+            .joined(separator: "\n")
+
+        let rawValueInitializerCases = cases
+            .map {
+                """
+                case \(swiftStringLiteral($0.key)):
+                    self = .\($0.name)
+                """
+            }
+            .joined(separator: "\n")
+
+        let contents = """
+        \(caseDeclarations)
+        case \(unknownCaseName)(String)
+
+        \(access)static var allCases: [Self] {
+            [
+        \(allCases)
+            ]
+        }
+
+        \(access)var rawValue: String {
+            switch self {
+        \(rawValueCases.indented)
+            case .\(unknownCaseName)(let rawValue):
+                return rawValue
+            }
+        }
+
+        \(access)init?(rawValue: String) {
+            switch rawValue {
+        \(rawValueInitializerCases.indented)
+            default:
+                self = .\(unknownCaseName)(rawValue)
+            }
+        }
+
+        \(access)init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            let rawValue = try container.decode(String.self)
+            self = Self(rawValue: rawValue) ?? .\(unknownCaseName)(rawValue)
+        }
+
+        \(access)func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(rawValue)
+        }
+        """
+
         return """
-        \(access)enum \(name): String, Codable, CaseIterable {
+        \(access)enum \(name): Codable, Hashable, CaseIterable, RawRepresentable {
         \(contents.indented)
         }
         """

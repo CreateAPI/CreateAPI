@@ -537,7 +537,7 @@ extension Generator {
             case .string(let info, _):
                 if info.allowedValues != nil {
                     let enumTypeName = makeTypeName(parameter.name)
-                    let nested = try makeStringEnum(name: enumTypeName, info: info)
+                    let nested = try makeStringEnum(name: enumTypeName, info: info, context: context)
                     return QueryItemType(type: .userDefined(name: enumTypeName), nested: nested)
                 }
                 

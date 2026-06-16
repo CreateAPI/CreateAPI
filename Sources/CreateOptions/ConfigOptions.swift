@@ -106,6 +106,9 @@ public struct ConfigOptions: ParsableConfiguration {
     /// For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
     @Option public var inlineTypealiases: Bool = true
 
+    /// Adds an associated `unknown(String)` case to generated string enums and uses manual raw-value encoding/decoding.
+    @Option public var includeUnknownCaseInStringEnums: Bool = false
+
     /// A list of acronyms that should be uppercased when present in property names.
     ///
     /// To disable uppercasing of acronyms, set this property to an empty array.

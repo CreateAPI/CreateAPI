@@ -413,6 +413,16 @@ final class GenerateOptionsTests: GenerateTestCase {
         )
     }
 
+    func testIncludeUnknownCaseInStringEnums() throws {
+        try snapshot(
+            spec: .stringEnums,
+            name: "string-enums-include-unknown-case",
+            configuration: """
+            includeUnknownCaseInStringEnums: true
+            """
+        )
+    }
+
     func testStripNamePrefixNestedObjectsEnabled() throws {
         try snapshot(
             spec: .stripParentNameNestedObjects,

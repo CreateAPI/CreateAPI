@@ -20,6 +20,7 @@ final class Generator {
     var needsEncodable = Set<TypeName>()
     var topLevelTypes = Set<TypeName>()
     var generatedSchemas: [TypeName: EntityDeclaration] = [:]
+    var responseDecodedSchemas = Set<OpenAPI.ComponentKey>()
     var pathsContainingRequestType: [String] = []
     let lock = NSLock()
 
@@ -136,6 +137,7 @@ struct Context {
     var isEncodableNeeded = true
     var isPatch = false
     var isFormEncoding = false
+    var includeUnknownCaseInStringEnums = false
     /// A special mode where declaration need to exit early if they detect
     /// that that are not resolvable to primitive type identifiers.
     var isInlinableTypeCheck = false

@@ -23,6 +23,7 @@ extension Generator {
     }
 
     private func _schemas() throws -> GeneratorOutput {
+        responseDecodedSchemas = makeResponseDecodedSchemas()
         let jobs = try makeJobs()
         var declarations = [Result<Declaration, Error>?](repeating: nil, count: jobs.count)
         topLevelTypes = Set(jobs.map(\.name))
@@ -83,7 +84,7 @@ extension Generator {
                 continue
             }
 
-            let job = Job(name: name, schema: schema)
+            let job = Job(key: key, name: name, schema: schema)
             if encountered.contains(job.name) {
                 try handle(warning: "Duplicated type name: \(job.name), skipping")
             } else {
@@ -104,7 +105,83 @@ extension Generator {
         return true
     }
 
+    private func makeResponseDecodedSchemas() -> Set<OpenAPI.ComponentKey> {
+        var responseDecodedSchemas = Set<OpenAPI.ComponentKey>()
+        for item in spec.paths.values {
+            for (_, operation) in item.allOperations {
+                guard let response = operation.firstSuccessfulResponse else {
+                    continue
+                }
+                collectResponseDecodedSchemas(from: response, into: &responseDecodedSchemas)
+            }
+        }
+        return responseDecodedSchemas
+    }
+
+    private func collectResponseDecodedSchemas(from response: Either<JSONReference<OpenAPI.Response>, OpenAPI.Response>, into responseDecodedSchemas: inout Set<OpenAPI.ComponentKey>) {
+        let resolvedResponse: OpenAPI.Response
+        switch response {
+        case .a(.internal(let reference)):
+            guard let name = reference.name,
+                  let key = OpenAPI.ComponentKey(rawValue: name),
+                  let componentResponse = spec.components.responses[key] else {
+                return
+            }
+            resolvedResponse = componentResponse
+        case .a(.external):
+            return
+        case .b(let value):
+            resolvedResponse = value
+        }
+
+        for content in resolvedResponse.content.values {
+            switch content.schema {
+            case .a(let reference):
+                collectResponseDecodedSchemas(from: reference, into: &responseDecodedSchemas)
+            case .b(let schema):
+                collectResponseDecodedSchemas(from: schema, into: &responseDecodedSchemas)
+            default:
+                continue
+            }
+        }
+    }
+
+    private func collectResponseDecodedSchemas(from reference: JSONReference<JSONSchema>, into responseDecodedSchemas: inout Set<OpenAPI.ComponentKey>) {
+        guard let name = reference.name,
+              let key = OpenAPI.ComponentKey(rawValue: name),
+              responseDecodedSchemas.insert(key).inserted,
+              let schema = spec.components.schemas[key] else {
+            return
+        }
+        collectResponseDecodedSchemas(from: schema, into: &responseDecodedSchemas)
+    }
+
+    private func collectResponseDecodedSchemas(from schema: JSONSchema, into responseDecodedSchemas: inout Set<OpenAPI.ComponentKey>) {
+        switch schema.value {
+        case .object(_, let details):
+            for property in details.properties.values {
+                collectResponseDecodedSchemas(from: property, into: &responseDecodedSchemas)
+            }
+            if case .b(let additionalPropertiesSchema) = details.additionalProperties {
+                collectResponseDecodedSchemas(from: additionalPropertiesSchema, into: &responseDecodedSchemas)
+            }
+        case .array(_, let details):
+            if let item = details.items {
+                collectResponseDecodedSchemas(from: item, into: &responseDecodedSchemas)
+            }
+        case .all(let schemas, _), .one(let schemas, _), .any(let schemas, _):
+            for schema in schemas {
+                collectResponseDecodedSchemas(from: schema, into: &responseDecodedSchemas)
+            }
+        case .reference(let reference, _):
+            collectResponseDecodedSchemas(from: reference, into: &responseDecodedSchemas)
+        default:
+            return
+        }
+    }
+
     private struct Job {
+        let key: OpenAPI.ComponentKey
         let name: TypeName
         let schema: JSONSchema
     }
@@ -156,7 +233,10 @@ extension Generator {
     // MARK: - Declarations
 
     private func makeDeclaration(job: Job) throws -> Declaration? {
-        let context = Context(parents: [])
+        let context = Context(
+            parents: [],
+            includeUnknownCaseInStringEnums: options.includeUnknownCaseInStringEnums && responseDecodedSchemas.contains(job.key)
+        )
         return try makeDeclaration(name: job.name, schema: job.schema, context: context)
     }
 
@@ -179,7 +259,7 @@ extension Generator {
             return TypealiasDeclaration(name: name, type: integerType(for: info.format))
         case .string(let info, _):
             if isEnum(info) {
-                return try makeStringEnum(name: name, info: info)
+                return try makeStringEnum(name: name, info: info, context: context)
             } else {
                 return TypealiasDeclaration(name: name, type: stringType(for: info.format))
             }
@@ -576,7 +656,7 @@ extension Generator {
 
     // MARK: - Enums
 
-    func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
+    func makeStringEnum(name: TypeName, info: JSONSchemaContext, context: Context) throws -> Declaration {
         let values = (info.allowedValues ?? []).map(\.value).compactMap { $0 as? String }
         guard !values.isEmpty else {
             throw GeneratorError("Enum \"\(name)\" has no values")
@@ -601,7 +681,7 @@ extension Generator {
             let caseName = deduplicator.add(name: name.rawValue)
             return EnumOfStringsDeclaration.Case(name: caseName, key: value)
         }
-        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
+        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info), includeUnknownCase: context.includeUnknownCaseInStringEnums)
     }
 
     private func isEnum(_ info: JSONSchemaContext) -> Bool {

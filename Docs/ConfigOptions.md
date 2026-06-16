@@ -51,6 +51,7 @@ Below you can find the complete documentation for all available options.
 - [annotateDeprecations](#annotatedeprecations)
 - [useSwiftyPropertyNames](#useswiftypropertynames)
 - [inlineTypealiases](#inlinetypealiases)
+- [includeUnknownCaseInStringEnums](#includeunknowncaseinstringenums)
 - [acronyms](#acronyms)
 - [indentation](#indentation)
 - [spaceWidth](#spacewidth)
@@ -186,6 +187,15 @@ Prefixes booleans with `is` ("enabled" -> "isEnabled")
 
 Any schema that can be converted to a type identifier.
 For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
+
+<br/>
+
+## includeUnknownCaseInStringEnums
+
+**Type:** Bool<br />
+**Default:** `false`
+
+Adds an associated `unknown(String)` case to generated string enums and uses manual raw-value encoding/decoding.
 
 <br/>
 
